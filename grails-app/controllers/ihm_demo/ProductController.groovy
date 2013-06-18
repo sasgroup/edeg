@@ -30,7 +30,7 @@ class ProductController {
         redirect(action: "show", id: productInstance.id)
     }
 
-    def show(Long id) {
+   /* def show(Long id) {
         def productInstance = Product.get(id)
         if (!productInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'product.label', default: 'Product'), id])
@@ -39,7 +39,36 @@ class ProductController {
         }
 
         [productInstance: productInstance]
-    }
+    }*/
+	
+	def show() {
+		println "show"
+		if (params.id && Product.exists(params.id)) {
+			def  result = Product.get(params.id)
+			render(contentType: "text/json") {
+			/*	products = array {
+					for (b in result) {
+						product code: b.code, name: b.name, notes: b.notes
+					}
+				}*/
+				code =result.code
+				name =result.name
+				notes=result.notes
+				id   =result.id
+			}
+		}
+		else {
+			def results = Product.list()
+			
+			render(contentType: "text/json") {
+				products = array {
+					for (p in results) {
+						product code: p.code, name: p.name, notes: p.notes, id: p.id
+					}
+				}
+			}
+		}
+	}
 
     def edit(Long id) {
         def productInstance = Product.get(id)
