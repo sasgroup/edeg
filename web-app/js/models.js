@@ -7,7 +7,10 @@ App.Models.Measure = Backbone.Model.extend({
 });
 
 
-App.Models.Contact = Backbone.Model.extend({
-	urlRoot: '/ihm/api/contact'	
+App.Models.DataElement = Backbone.Model.extend({
+	urlRoot: '/ihm/api/element'	
 });
 
+App.Models.Hospital = Backbone.Model.extend({
+	urlRoot: '/ihm/api/hospital'	
+});

@@ -3,6 +3,8 @@ App.Router = Backbone.Router.extend({
 		''                : 'products',
 		'product'         : 'products',
 		'measure'         : 'measures',
+		'element'         : 'dataElements',
+		'hospital'        : 'hospitals',
 		'measure/:new'    : 'newMeasure',
 		'product/:new'    : 'newProduct',
 		'product/:id/edit': 'editProduct'	
@@ -10,24 +12,17 @@ App.Router = Backbone.Router.extend({
 
 	
 	// list of products
-	products : function() {		
-		console.log("run products");
+	products : function() {	
 		App.products = new App.Collections.Products();			
 		App.products.fetch().then(function(){
 			App.viewProducts = new App.Views.Products({collection:App.products});
 			console.log(App.viewProducts.render().el);
 			$('#app').html(App.viewProducts.render().el);
-		});
-		
-		
-		//var view = new App.Views.ProductsList();
-		//$('#app').html(view.render().el);
+		});		
 	},
 	
 	// list of measures
 	measures : function() {		
-		//var view = new App.Views.Measures();
-		//$('#app').html(view.render().el);
 		App.measures = new App.Collections.Measures();			
 		App.measures.fetch().then(function(){
 			App.viewMeasures = new App.Views.Measures({collection:App.measures});
@@ -35,6 +30,26 @@ App.Router = Backbone.Router.extend({
 			$('#app').html(App.viewMeasures.render().el);
 		});
 	},	
+	
+	// list of elements
+	dataElements : function() {		
+		App.dataElements = new App.Collections.DataElements();			
+		App.dataElements.fetch().then(function(){
+			App.viewDataElements = new App.Views.DataElements({collection:App.dataElements});			
+			$('#app').html(App.viewDataElements.render().el);
+		});
+	},	
+	
+	// list of hospitals
+	hospitals : function() {		
+		App.hospitals = new App.Collections.Hospitals();			
+		App.hospitals.fetch().then(function(){
+			App.viewHospitals = new App.Views.Hospitals({collection:App.hospitals});			
+			$('#app').html(App.viewHospitals.render().el);
+		});
+	},	
+	
+	
 	
     // new product
 	newProduct : function() {		

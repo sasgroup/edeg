@@ -11,10 +11,11 @@ window.App = {
 };
 
 
-$(function() {
-	console.log("started");
+$(function() {	
 	new App.Router();
 	Backbone.history.start();	
+	
+	//Backbone.history.navigate("product", true);
 		
 	$('.nav a').click(function(){
 		$('li.active').removeClass("active");

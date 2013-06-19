@@ -44,9 +44,7 @@ App.Views.Measures = Backbone.View.extend({
 		'click #create_measure' : 'createMeasure'
 	},
 
-	render : function() {
-		//this.$el.html(this.template());
-		//return this;
+	render : function() {		
 		this.$el.html(this.template({
 			measures : this.collection
 		}));
@@ -66,6 +64,68 @@ App.Views.Measures = Backbone.View.extend({
 		Backbone.history.navigate("measure/new", true)
 	}
 });
+
+
+//View for List of DataElements
+App.Views.DataElements = Backbone.View.extend({
+	template : _.template($('#element-list-template').html()),
+
+	events : {
+		'click #create_dataElement' : 'createDataElement'
+	},
+
+	render : function() {		
+		this.$el.html(this.template({
+			measures : this.collection
+		}));
+		this.collection.each(this.appendDataElement, this);
+		return this;
+	},
+
+	appendDataElement : function(dataElement) {
+		var view = new App.Views.SingleDataElement({
+			model : dataElement
+		});
+		this.$el.find('#table_items tbody').append(view.render().el);
+	},
+
+	createDataElement : function() {
+		console.log("createDataElement");
+		Backbone.history.navigate("element/new", true)
+	}
+});
+
+
+//View for List of Hospitals
+App.Views.Hospitals = Backbone.View.extend({
+	template : _.template($('#hospital-list-template').html()),
+
+	events : {
+		'click #create_hospital' : 'createHospital'
+	},
+
+	render : function() {		
+		this.$el.html(this.template({
+			hospitals : this.collection
+		}));
+		this.collection.each(this.appendHospital, this);
+		return this;
+	},
+
+	appendHospital : function(hospital) {
+		var view = new App.Views.SingleHospital({
+			model : hospital
+		});
+		this.$el.find('#table_items tbody').append(view.render().el);
+	},
+
+	createHospital : function() {
+		console.log("createHospital");
+		Backbone.history.navigate("hospital/new", true)
+	}
+});
+
+
 
 //View for a new Product
 App.Views.NewProduct = Backbone.View.extend({
@@ -203,7 +263,7 @@ App.Views.SingleProduct = Backbone.View
 			tagName : 'tr',
 			template: _.template($('#single-product').html()),		
 			events : {
-				'click #edit' : 'goToEdit',
+				'click #edit'    : 'goToEdit',
 				'click #destroy' : 'destroy'
 			},
 
@@ -220,6 +280,8 @@ App.Views.SingleProduct = Backbone.View
 			
 			destroy : function(){
 				console.log("destroy");
+				this.model.destroy();				  
+				this.$el.remove();  
 			}
 		});
 
@@ -228,6 +290,54 @@ App.Views.SingleMeasure = Backbone.View
 		.extend({
 			tagName : 'tr',
 			template: _.template($('#single-measure').html()),			
+			events : {
+				'click #edit' : 'goToEdit',
+				'click #destroy' : 'destroy'
+			},
+
+			render : function() {
+				this.$el.html(this.template(this.model.toJSON()));
+				return this;
+			},
+
+			goToEdit : function() {
+				console.log("goToEdit");
+			},
+			
+			destroy : function(){
+				console.log("destroy");
+			}
+		});
+
+//Single DataElement
+App.Views.SingleDataElement = Backbone.View
+		.extend({
+			tagName : 'tr',
+			template: _.template($('#single-element').html()),			
+			events : {
+				'click #edit' : 'goToEdit',
+				'click #destroy' : 'destroy'
+			},
+
+			render : function() {
+				this.$el.html(this.template(this.model.toJSON()));
+				return this;
+			},
+
+			goToEdit : function() {
+				console.log("goToEdit");
+			},
+			
+			destroy : function(){
+				console.log("destroy");
+			}
+		});
+
+//Single Hospital
+App.Views.SingleHospital = Backbone.View
+		.extend({
+			tagName : 'tr',
+			template: _.template($('#single-hospital').html()),			
 			events : {
 				'click #edit' : 'goToEdit',
 				'click #destroy' : 'destroy'
