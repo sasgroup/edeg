@@ -39,3 +39,14 @@ App.Collections.Hospitals = Backbone.Collection.extend({
 		   return resp["hospitals"];
 	}	
 });
+
+
+App.Collections.Ehrs = Backbone.Collection.extend({
+	model:App.Models.Ehr,
+	
+	url: '/ihm/api/ehr',
+	
+	parse: function(resp) {
+		   return resp["ehrs"];
+	}	
+});

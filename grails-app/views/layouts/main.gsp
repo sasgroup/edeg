@@ -7,6 +7,10 @@
 	</head>
 	<body>
 		<g:render template="/layouts/header" />
+		<g:render template="/layouts/template/ehr" />
+		<g:render template="/layouts/template/element" />
+		<g:render template="/layouts/template/hospital" />
+		<g:render template="/layouts/template/measure" />
 		<g:render template="/layouts/template/product" />
 		<g:layoutBody/>
 		<r:layoutResources />
