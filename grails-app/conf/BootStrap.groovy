@@ -2,7 +2,7 @@ import ihm_demo.*
 
 class BootStrap {
 
-    def init = { servletContext ->
+	def init = { servletContext ->
 		//-----------EHRs-----------
 		def ehr
 		ehr = new Ehr(code:"mv5",
@@ -13,7 +13,7 @@ class BootStrap {
 				println "An error occured with event1: ${error}"
 			}
 		}
-		
+
 		ehr = new Ehr(code:"mv6",
 					  name:"Meditech Version 6",
 					  notes:"")
@@ -22,7 +22,7 @@ class BootStrap {
 				println "An error occured with event1: ${error}"
 			}
 		}
-		
+
 		ehr = new Ehr(code:"ecw",
 					  name:"eClinicalWorks",
 					  notes:"")
@@ -31,7 +31,7 @@ class BootStrap {
 				println "An error occured with event1: ${error}"
 			}
 		}
-		
+
 		ehr = new Ehr(code:"cerner",
 					  name:"Cerner",
 					  notes:"")
@@ -50,7 +50,7 @@ class BootStrap {
 				println "An error occured with event1: ${error}"
 			}
 		}
-		
+
 		product = new Product(code:"MU2",
 							  name:"Meaningful Use Solution 2014 Stage 2",
 							  notes:"")
@@ -59,7 +59,7 @@ class BootStrap {
 				println "An error occured with event1: ${error}"
 			}
 		}
-		
+
 		product = new Product(code:"IA",
 							  name:"Infection Alert",
 							  notes:"")
@@ -68,7 +68,7 @@ class BootStrap {
 				println "An error occured with event1: ${error}"
 			}
 		}
-		
+
 		product = new Product(code:"QA",
 							  name:"Quality Alert ",
 							  notes:"")
@@ -77,7 +77,7 @@ class BootStrap {
 				println "An error occured with event1: ${error}"
 			}
 		}
-		
+
 		//-----------HOSPITALs-----------
 		def hospital
 		hospital = new Hospital(name:"Massachusetts General Hospital",
@@ -89,7 +89,7 @@ class BootStrap {
 				println "An error occured with event1: ${error}"
 			}
 		}
-		
+
 		hospital = new Hospital(name:"Lindemann Mental Health Center",
 								notes:"",
 								ehr:Ehr.findByCode("mv6"),
@@ -166,7 +166,7 @@ class BootStrap {
 				println "An error occured with event1: ${error}"
 			}
 		}
-		
+
 		def user2 = new Users(username:"hosUser",
 							  password:"password2",
 							  role:"HospitalUser",
@@ -178,7 +178,7 @@ class BootStrap {
 		}
 		//-----------MEASURE_CATEGORYs-----------
 		def measureCategory =new MeasureCategory(name:"core",
-								 				 description:"core",
+												  description:"core",
 												 categoryType:"Core")
 		if (!measureCategory.save()){
 			measureCategory.errors.allErrors.each{error ->
@@ -187,7 +187,7 @@ class BootStrap {
 		}
 		//-----------CQM_DOMAINs-----------
 		def cqmDomain =new CqmDomain(name:"domain",
-					   			     notes:"!")
+										notes:"!")
 		if (!cqmDomain.save()){
 			cqmDomain.errors.allErrors.each{error ->
 				println "An error occured with event1: ${error}"
@@ -205,7 +205,7 @@ class BootStrap {
 				println "An error occured with event1: ${error}"
 			}
 		}
-		
+
 		measure = new Measure(code:"CPOE - meds",
 							  name:"CPOE - meds",
 							  notes:"",
@@ -227,7 +227,7 @@ class BootStrap {
 				println "An error occured with event1: ${error}"
 			}
 		}
-		
+
 		measure = new Measure(code:"Family Hx",
 							  name:"Family Hx",
 							  notes:"",
@@ -239,7 +239,7 @@ class BootStrap {
 				println "An error occured with event1: ${error}"
 			}
 		}
-		
+
 		measure = new Measure(code:"VTE 4",
 							  name:"VTE 4",
 							  notes:"",
@@ -252,7 +252,7 @@ class BootStrap {
 				println "An error occured with event1: ${error}"
 			}
 		}
-		
+
 		measure = new Measure(code:"CAC 3",
 							  name:"CAC 3",
 							  notes:"",
@@ -264,7 +264,7 @@ class BootStrap {
 				println "An error occured with event1: ${error}"
 			}
 		}
-		
+
 		measure = new Measure(code:"STK 10",
 							  name:"STK 10",
 							  notes:"",
@@ -276,7 +276,7 @@ class BootStrap {
 				println "An error occured with event1: ${error}"
 			}
 		}
-		
+
 		measure = new Measure(code:"PN 6",
 							  name:"PN 6",
 							  notes:"",
@@ -288,7 +288,7 @@ class BootStrap {
 				println "An error occured with event1: ${error}"
 			}
 		}
-		
+
 		measure = new Measure(code:"CPOE - rad",
 							  name:"CPOE - rad",
 							  notes:"",
@@ -300,9 +300,9 @@ class BootStrap {
 			}
 		}
 		//-----------DATA_ELEMENTs-----------
-		def dataElement 
+		def dataElement
 		dataElement = new DataElement(code:"ad",
-							   		   name:"Admission Date",
+										  name:"Admission Date",
 									   notes:"")
 		dataElement.addToMeasures(Measure.findByCode("Family Hx"))
 		dataElement.addToMeasures(Measure.findByCode("VTE 4"))
@@ -314,7 +314,7 @@ class BootStrap {
 				println "An error occured with event1: ${error}"
 			}
 		}
-		
+
 		dataElement = new DataElement(code:"pmrb",
 									   name:"Patient Medical Record Number",
 									   notes:"")
@@ -326,7 +326,7 @@ class BootStrap {
 				println "An error occured with event1: ${error}"
 			}
 		}
-		
+
 		dataElement = new DataElement(code:"vte",
 									   name:"VTE Diagnostic Test",
 									   notes:"")
@@ -336,7 +336,7 @@ class BootStrap {
 				println "An error occured with event1: ${error}"
 			}
 		}
-		
+
 		dataElement = new DataElement(code:"e",
 									   name:"Emphysema",
 									   notes:"")
@@ -349,8 +349,8 @@ class BootStrap {
 		//-----------DATA_ELEMENT_DEFAULTSs-----------
 		def dataElementDefaults
 		dataElementDefaults = new DataElementDefaults(isIMO:false,
-							   						  location:"ADM.PAT.admit.date",
-												      queryMnemonic:"",
+														 location:"ADM.PAT.admit.date",
+													  queryMnemonic:"",
 													  valueSet:"",
 													  valueSetRequired:false,
 													  locationtype:"Internal",
@@ -361,7 +361,7 @@ class BootStrap {
 				println "An error occured with event1: ${error}"
 			}
 		}
-		
+
 		dataElementDefaults = new DataElementDefaults(isIMO:false,
 													  location:"AD.PT.admDate",
 													  queryMnemonic:"",
@@ -404,9 +404,9 @@ class BootStrap {
 		}
 		//-----------HOSPITAL_ELEMENTs-----------
 		def hospitalElement =new HospitalElement(answer:"answer",
-											       question:"question",
-											       isIMO : true,
-							   					   location:"location",
+												   question:"question",
+												   isIMO : true,
+													  location:"location",
 												   queryMnemonic:"queryMnemonic",
 												   valueSet:"valueSet",
 												   valueSetRequired:true,
@@ -419,9 +419,9 @@ class BootStrap {
 				println "An error occured with event1: ${error}"
 			}
 		}
-	//end !	
-    }
-	
-    def destroy = {
-    }
+	//end !
+	}
+
+	def destroy = {
+	}
 }

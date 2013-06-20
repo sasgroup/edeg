@@ -14,3 +14,7 @@ App.Models.DataElement = Backbone.Model.extend({
 App.Models.Hospital = Backbone.Model.extend({
 	urlRoot: '/ihm/api/hospital'	
 });
+
+App.Models.Ehr = Backbone.Model.extend({
+	urlRoot: '/ihm/api/ehr'	
+});

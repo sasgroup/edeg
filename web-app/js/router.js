@@ -5,6 +5,7 @@ App.Router = Backbone.Router.extend({
 		'measure'         : 'measures',
 		'element'         : 'dataElements',
 		'hospital'        : 'hospitals',
+		'ehr'        	  : 'ehrs',
 		'measure/:new'    : 'newMeasure',
 		'product/:new'    : 'newProduct',
 		'product/:id/edit': 'editProduct'	
@@ -49,6 +50,14 @@ App.Router = Backbone.Router.extend({
 		});
 	},	
 	
+	// list of ehrs
+	ehrs : function() {		
+		App.ehrs = new App.Collections.Ehrs();			
+		App.ehrs.fetch().then(function(){
+			App.viewEhrs = new App.Views.Ehrs({collection:App.ehrs});			
+			$('#app').html(App.viewEhrs.render().el);
+		});
+	},	
 	
 	
     // new product
