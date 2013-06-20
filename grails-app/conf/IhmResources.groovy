@@ -1,7 +1,7 @@
 modules = {
 	ihm {
 		dependsOn 'jquery, underscore, backbone, bootstrap'
-		resource url: 'css/ihm.css'
+		resource url: 'css/ihm.css'		
 		resource url: 'js/ihm.js'
 		resource url: 'js/models.js'
 		resource url: 'js/collections.js'
@@ -22,8 +22,6 @@ modules = {
 		resource url: 'css/bootstrap.css'
 		resource url: 'js/bootstrap.js'
 	}
-	
-	
 	
 }
 

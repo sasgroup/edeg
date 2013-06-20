@@ -7,6 +7,7 @@
 	</head>
 	<body>
 		<g:render template="/layouts/header" />
+		<g:render template="/layouts/template/product" />
 		<g:layoutBody/>
 		<r:layoutResources />
 	</body>
