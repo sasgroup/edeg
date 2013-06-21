@@ -9,9 +9,9 @@ App.Views.Products = Backbone.View.extend({
 	initialize : function() {
 		//console.log(this.collection.toJSON());
 		//this.collection.on('reset', this.render(), this);
-		//this.collection.on('add', this.appendProduct, this);
-		//this.collection.on('destroy', this.render(), this);
-		//this.collection.on('change', this.render(), this);
+		this.collection.on('add', this.appendProduct, this);		
+		//this.collection.on('destroy', this.render, this);
+		this.collection.on('change', this.render, this);
 	},
 
 	render : function() {
@@ -77,12 +77,21 @@ App.Views.NewProduct = Backbone.View.extend({
 			code : this.$('#code').val(),
 			name : this.$('#name').val(),
 			notes : this.$('#notes').val()
-		}, {
-			wait : true
+		},
+		
+		{
+		    success: function() {
+		        console.log("repsonse from Collection create");
+		        Backbone.history.navigate("product", true);
+		    }
+		
 		});
-
+		
+		
+		
+		
+		
 		console.log(this.collection.toJSON());
-
 	}
 
 });
@@ -109,7 +118,18 @@ App.Views.EditProduct = Backbone.View.extend({
 			code  : this.$('#code').val(),
 			name  : this.$('#name').val(),
 			notes : this.$('#notes').val()
-		},{error: function(){ console.log("error by editing") }});
+		},
+		
+		{
+	        success: function (model, response) {
+	            console.log("success");
+	            Backbone.history.navigate("product", true);
+	        },
+	        error: function (model, response) {
+	            console.log("error");
+	            Backbone.history.navigate("product", true);
+	        }
+	    });
 	}
 });
 
@@ -134,10 +154,25 @@ App.Views.SingleProduct = Backbone.View
 				Backbone.history.navigate("product/"+this.model.get('id')+'/edit', true);
 			},
 			
-			destroy : function(){
+			destroy : function(e){
 				console.log("destroy");
-				this.model.destroy();				  
-				this.$el.remove();  
+				e.preventDefault();
+				
+				var el = this.$el;
+				
+				this.model.destroy({
+				      success: function(model, response){
+				      
+				    	if (response.resp=="error")  				    	
+				    	  alert(response.message)
+				    	else el.remove();				    					        
+				        
+				      }
+				});
+				
+				
+				//this.model.destroy();				  
+				//this.$el.remove();  
 			}
 		});
 

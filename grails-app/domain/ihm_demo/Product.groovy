@@ -8,6 +8,11 @@ class Product {
 	static hasMany = [measures : Measure, hospitals : Hospital]
 	static belongsTo = Measure
 	
+	/*static mapping = {
+		measures cascade: 'all-delete-orphan'
+		hospitals cascade: 'all-delete-orphan'
+	}*/
+	
 	 static constraints = {
 		code()
 		name()
