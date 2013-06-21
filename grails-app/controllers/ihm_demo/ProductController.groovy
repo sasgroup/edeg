@@ -51,18 +51,46 @@ class ProductController {
 		        
         productInstance.properties = params
 
-		productInstance.save(flush: true)                             
+		productInstance.save(flush: true)  
+				
+		render(productInstance as JSON )	
+		                        
     }
 	
 
     def delete(Long id) {
-        def productInstance = Product.get(id)
+      /*  def productInstance = Product.get(id)
        
         try {
             productInstance.delete(flush: true)           
         }
         catch (DataIntegrityViolationException e) {
            
-        }
-    }
+        }*/
+		
+		def product = Product.findById(params.id)		
+		
+		println ("product.measures:" + product.measures)
+			
+		def measuresDep = product.measures ? true : false
+		
+		def hospitalsDep = product.hospitals ? true : false		
+		
+		if (measuresDep || hospitalsDep) {
+			render(contentType: "text/json") {
+				resp = "error"
+				message = "Entity cannot be deleted because of existing dependencies"
+				//This item cannot be deleted because a dependency (on smth.)  is present.
+			}
+		} else {			
+			product?.delete(flush: true)
+			render(contentType: "text/json") {
+				resp = "success"
+				message = "successfully deleted"
+			}
+		}		
+		
+		
+    }	
+	
 }
