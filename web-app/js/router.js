@@ -76,10 +76,8 @@ App.Router = Backbone.Router.extend({
 	 // edit product
 	editProduct : function(id) {		
 		console.log("router editProduct");
-		 var product = App.products.get(id);
-		 view = new App.Views.EditProduct({model: product});
-		 
-		//var view = new App.Views.EditProduct({collection:App.products});
+		var product = App.products.get(id);		 
+		view = new App.Views.EditProduct({model: product});		
 		console.log(view.render().el);
 		$('#app').html(view.render().el);  
 	},

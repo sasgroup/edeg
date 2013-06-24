@@ -190,7 +190,7 @@
                 </label>
 
                 <div class="controls">
-                    <input name="code" type="text" value={{ code }} id="code">
+                    <input name="code" type="text" value="{{ code }}" id="code">
                 </div>
             </div>
             <div class="control-group">
@@ -199,7 +199,7 @@
                 </label>
 
                 <div class="controls">
-                    <input name="name" type="text" value={{ name }} id="name">
+                    <input name="name" type="text" value="{{ name }}" id="name">
                 </div>
             </div>
 
@@ -225,7 +225,7 @@
 
 
             <div class="control-group">
-                <div class="controls checkboxlist">
+                <div class="controls checkboxlist">					
                 </div>
             </div>
 
@@ -250,6 +250,13 @@
  <td>{{ notes }}</td> 
  <td><div id="edit" class= "btn"><i class="icon-edit"></i></div></td>
  <td><div id="destroy" class= "btn"><i class="icon-trash"></i></div></td> 
+</script>
+
+
+<script type="text/template" class="template" id="single-product-measure">
+	<label class="checkbox">
+    	<input type="checkbox" name="measure" value="option1" id="inlineCheckbox1"> {{name}}
+    </label>
 </script>
 
 
