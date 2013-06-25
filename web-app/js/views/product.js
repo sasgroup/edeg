@@ -39,16 +39,31 @@ App.Views.NewProduct = Backbone.View.extend({
 	template : _.template($('#product-template').html()),
 
 	events : {
-		'click #assignMeasure' : 'assignMeasure',		
+		//'click #assignMeasure' : 'assignMeasure',		
 		'submit' : 'addProduct'
 	},
 
 	render : function() {
 		this.$el.html(this.template());
+		App.measures.forEach(this.appendProductMeasure,this);		//new
+		App.hospitals.forEach(this.appendProductHospital,this);		//new
 		return this;
 	},
 
-	assignMeasure : function() {
+	appendProductMeasure : function(product_measure){
+		var temp = _.template($('#single-product-measure').html());		
+		console.log(product_measure.get('name'));
+		this.$el.find('div#measures').append(temp({name:product_measure.get('name')}));		
+	},
+	
+	appendProductHospital : function(product_hospital){
+		var temp = _.template($('#single-product-hospital').html());		
+		console.log(product_hospital.get('name'));
+		this.$el.find('div#hospitals').append(temp({name:product_hospital.get('name')}));		
+	},
+	
+	
+	/*assignMeasure : function() {
 		console.log('assignMeasure');
 		this.$el.find("#modalMeasures input[type='checkbox']:checked").each(
 				function(index) {
@@ -64,7 +79,7 @@ App.Views.NewProduct = Backbone.View.extend({
 								}
 							});
 				});
-	},
+	},*/
 
 	addProduct : function(e) {
 		e.preventDefault();

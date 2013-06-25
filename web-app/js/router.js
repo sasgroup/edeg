@@ -62,9 +62,23 @@ App.Router = Backbone.Router.extend({
 	
     // new product
 	newProduct : function() {		
-		console.log(App.products);
-		var view = new App.Views.NewProduct({collection:App.products});
-		$('#app').html(view.render().el);  
+				
+		App.measures = new App.Collections.Measures();			
+		App.measures.fetch().then(function(){			
+			console.log(App.measures);
+			
+			App.hospitals = new App.Collections.Hospitals();			
+			App.hospitals.fetch().then(function(){
+				console.log(App.hospitals);
+				var view = new App.Views.NewProduct({collection:App.products});
+				$('#app').html(view.render().el);
+			});			
+			  
+		});
+		
+		
+		
+		
 	},
 	
 	// new measure
