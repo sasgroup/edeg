@@ -181,21 +181,21 @@
                 </div>
             </div>
 
-            <div class="control-group">
-                <label for="notes" class="control-label">
-                    Measures
-                </label>
-
-                <div class="controls">
-                    <a href="#modalMeasures" role="button" class="btn" data-toggle="modal">Assign</a>
-                </div>
-            </div>
-
-
-            <div class="control-group">
-                <div class="controls checkboxlist">					
-                </div>
-            </div>
+            <ul id="myTab" class="nav nav-tabs">
+              <li class="active">
+                <a data-toggle="tab" href="#measures">Measures</a>
+              </li>
+             <li class="">
+                <a data-toggle="tab" href="#hospitals">Hospitals</a>
+             </li>
+            </ul>
+     
+			<div id="myTabContent" class="tab-content">
+        		<div id="measures" class="tab-pane fade active in">                
+        		</div>
+        		<div id="hospitals" class="tab-pane fade">              
+        		</div>
+    		</div>
 
             <div class="form-actions">
                 <button type="submit" class="btn btn-primary">Save Product</button>

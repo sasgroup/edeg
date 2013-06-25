@@ -61,8 +61,7 @@ App.Router = Backbone.Router.extend({
 	
 	
     // new product
-	newProduct : function() {		
-				
+	newProduct : function() {			
 		App.measures = new App.Collections.Measures();			
 		App.measures.fetch().then(function(){			
 			console.log(App.measures);
@@ -74,11 +73,7 @@ App.Router = Backbone.Router.extend({
 				$('#app').html(view.render().el);
 			});			
 			  
-		});
-		
-		
-		
-		
+		});		
 	},
 	
 	// new measure
@@ -88,12 +83,21 @@ App.Router = Backbone.Router.extend({
 	},
 	
 	 // edit product
-	editProduct : function(id) {		
-		console.log("router editProduct");
-		var product = App.products.get(id);		 
-		view = new App.Views.EditProduct({model: product});		
-		console.log(view.render().el);
-		$('#app').html(view.render().el);  
+	editProduct : function(id) {
+		App.measures = new App.Collections.Measures();			
+		App.measures.fetch().then(function(){			
+			console.log(App.measures);
+			
+			App.hospitals = new App.Collections.Hospitals();			
+			App.hospitals.fetch().then(function(){
+				console.log(App.hospitals);
+				var product = App.products.get(id);		 
+				view = new App.Views.EditProduct({model: product});		
+				console.log(view.render().el);
+				$('#app').html(view.render().el); 
+			});			
+			  
+		});		
 	},
 
 });

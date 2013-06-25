@@ -114,21 +114,32 @@ App.Views.EditProduct = Backbone.View.extend({
 	},
 	
 	render : function() {				
-		console.log(this.model.toJSON());
-			
-		this.$el.html(this.template(this.model.toJSON()));		
-		this.model.get('measures').forEach(this.appendProductMeasure,this);		
+		//console.log(this.model.toJSON());		
+		this.$el.html(this.template(this.model.toJSON()));
+		App.measures.forEach(this.appendProductMeasure,this);		//new
+		App.hospitals.forEach(this.appendProductHospital,this);		//new	
+		this.model.get('measures').forEach(this.setProductMeasure,this);		
 		return this;
 	},
 
+	setProductMeasure : function(product_measure){
+		console.log("product_measure.mname:" + product_measure.mname);
+		//$('.myCheckbox').prop('checked', true);
+		
+		//var temp = _.template($('#single-product-measure').html());		
+		//this.$el.find('.checkboxlist').append(temp({name:product_measure.mname}));		
+	},
+	
 	appendProductMeasure : function(product_measure){
 		var temp = _.template($('#single-product-measure').html());		
-		this.$el.find('.checkboxlist').append(temp({name:product_measure.mname}));
-					
-		/*var view = new App.Views.ProductMeasure({
-			name : product_measure.mname
-		});		
-		this.$el.find('.checkboxlist').append(view.render().el);*/
+		console.log(product_measure.get('name'));
+		this.$el.find('div#measures').append(temp({name:product_measure.get('name')}));		
+	},
+	
+	appendProductHospital : function(product_hospital){
+		var temp = _.template($('#single-product-hospital').html());		
+		console.log(product_hospital.get('name'));
+		this.$el.find('div#hospitals').append(temp({name:product_hospital.get('name')}));		
 	},
 	
 	editProduct : function(e) {
