@@ -61,10 +61,19 @@ App.Router = Backbone.Router.extend({
 	
 	
     // new product
-	newProduct : function() {		
-		console.log(App.products);
-		var view = new App.Views.NewProduct({collection:App.products});
-		$('#app').html(view.render().el);  
+	newProduct : function() {			
+		App.measures = new App.Collections.Measures();			
+		App.measures.fetch().then(function(){			
+			console.log(App.measures);
+			
+			App.hospitals = new App.Collections.Hospitals();			
+			App.hospitals.fetch().then(function(){
+				console.log(App.hospitals);
+				var view = new App.Views.NewProduct({collection:App.products});
+				$('#app').html(view.render().el);
+			});			
+			  
+		});		
 	},
 	
 	// new measure
@@ -74,14 +83,21 @@ App.Router = Backbone.Router.extend({
 	},
 	
 	 // edit product
-	editProduct : function(id) {		
-		console.log("router editProduct");
-		 var product = App.products.get(id);
-		 view = new App.Views.EditProduct({model: product});
-		 
-		//var view = new App.Views.EditProduct({collection:App.products});
-		console.log(view.render().el);
-		$('#app').html(view.render().el);  
+	editProduct : function(id) {
+		App.measures = new App.Collections.Measures();			
+		App.measures.fetch().then(function(){			
+			console.log(App.measures);
+			
+			App.hospitals = new App.Collections.Hospitals();			
+			App.hospitals.fetch().then(function(){
+				console.log(App.hospitals);
+				var product = App.products.get(id);		 
+				view = new App.Views.EditProduct({model: product});		
+				console.log(view.render().el);
+				$('#app').html(view.render().el); 
+			});			
+			  
+		});		
 	},
 
 });

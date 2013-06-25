@@ -6,11 +6,8 @@ App.Views.Products = Backbone.View.extend({
 		'click #create_product' : 'createProduct'
 	},
 
-	initialize : function() {
-		//console.log(this.collection.toJSON());
-		//this.collection.on('reset', this.render(), this);
-		this.collection.on('add', this.appendProduct, this);		
-		//this.collection.on('destroy', this.render, this);
+	initialize : function() {		
+		this.collection.on('add', this.appendProduct, this);
 		this.collection.on('change', this.render, this);
 	},
 
@@ -42,16 +39,31 @@ App.Views.NewProduct = Backbone.View.extend({
 	template : _.template($('#product-template').html()),
 
 	events : {
-		'click #assignMeasure' : 'assignMeasure',		
+		//'click #assignMeasure' : 'assignMeasure',		
 		'submit' : 'addProduct'
 	},
 
 	render : function() {
 		this.$el.html(this.template());
+		App.measures.forEach(this.appendProductMeasure,this);		//new
+		App.hospitals.forEach(this.appendProductHospital,this);		//new
 		return this;
 	},
 
-	assignMeasure : function() {
+	appendProductMeasure : function(product_measure){
+		var temp = _.template($('#single-product-measure').html());		
+		console.log(product_measure.get('name'));
+		this.$el.find('div#measures').append(temp({name:product_measure.get('name')}));		
+	},
+	
+	appendProductHospital : function(product_hospital){
+		var temp = _.template($('#single-product-hospital').html());		
+		console.log(product_hospital.get('name'));
+		this.$el.find('div#hospitals').append(temp({name:product_hospital.get('name')}));		
+	},
+	
+	
+	/*assignMeasure : function() {
 		console.log('assignMeasure');
 		this.$el.find("#modalMeasures input[type='checkbox']:checked").each(
 				function(index) {
@@ -67,7 +79,7 @@ App.Views.NewProduct = Backbone.View.extend({
 								}
 							});
 				});
-	},
+	},*/
 
 	addProduct : function(e) {
 		e.preventDefault();
@@ -85,13 +97,8 @@ App.Views.NewProduct = Backbone.View.extend({
 		        Backbone.history.navigate("product", true);
 		    }
 		
-		});
+		});			
 		
-		
-		
-		
-		
-		console.log(this.collection.toJSON());
 	}
 
 });
@@ -102,15 +109,39 @@ App.Views.EditProduct = Backbone.View.extend({
 	template : _.template($('#product-edit').html()),
 
 	events : {
-		'submit' : 'editProduct'
+		'submit' : 'editProduct',
+		'click #assignMeasure' : 'assignMeasure',
 	},
 	
 	render : function() {				
+		//console.log(this.model.toJSON());		
 		this.$el.html(this.template(this.model.toJSON()));
-		//this.$el.html(this.template({name: "test"});
+		App.measures.forEach(this.appendProductMeasure,this);		//new
+		App.hospitals.forEach(this.appendProductHospital,this);		//new	
+		this.model.get('measures').forEach(this.setProductMeasure,this);		
 		return this;
 	},
 
+	setProductMeasure : function(product_measure){
+		console.log("product_measure.mname:" + product_measure.mname);
+		//$('.myCheckbox').prop('checked', true);
+		
+		//var temp = _.template($('#single-product-measure').html());		
+		//this.$el.find('.checkboxlist').append(temp({name:product_measure.mname}));		
+	},
+	
+	appendProductMeasure : function(product_measure){
+		var temp = _.template($('#single-product-measure').html());		
+		console.log(product_measure.get('name'));
+		this.$el.find('div#measures').append(temp({name:product_measure.get('name')}));		
+	},
+	
+	appendProductHospital : function(product_hospital){
+		var temp = _.template($('#single-product-hospital').html());		
+		console.log(product_hospital.get('name'));
+		this.$el.find('div#hospitals').append(temp({name:product_hospital.get('name')}));		
+	},
+	
 	editProduct : function(e) {
 		e.preventDefault();		
 		console.log("Product edited");
@@ -130,6 +161,24 @@ App.Views.EditProduct = Backbone.View.extend({
 	            Backbone.history.navigate("product", true);
 	        }
 	    });
+	},
+	
+	assignMeasure : function() {
+		console.log('assignMeasure');
+		this.$el.find("#modalMeasures input[type='checkbox']:checked").each(
+				function(index) {
+					$('.checkboxlist').append($(this).closest('label'));
+					$(".checkboxlist input[type='checkbox']").bind(
+							'click',
+							function() {
+								var checked = $(this).prop("checked");
+
+								if (!checked) {
+									$('.checkboxlistModal').append(
+											$(this).closest('label'));
+								}
+							});
+				});
 	}
 });
 
@@ -176,4 +225,19 @@ App.Views.SingleProduct = Backbone.View
 			}
 		});
 
+
+//Single ProductMeasure (assigned Measures)
+App.Views.ProductMeasure = Backbone.View
+		.extend({			
+			tagName : 'label',
+			className: 'checkbox',
+			template: _.template($('#single-product-measure').html()),		
+			
+			render : function() {
+				console.log("name:" + this.name);
+				this.$el.html(this.template());
+				return this;
+			}			
+			
+		});
 
