@@ -112,7 +112,7 @@
 
     <div class="row">
         <div class="span8">
-            <h3>Measure#1</h3>
+            <h3>Measure: New</h3>
             <hr>
             <div class="clearfix"></div>
             <form action="billing" method="post" class="form-horizontal" id="billingform" accept-charset="utf-8">

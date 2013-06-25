@@ -79,7 +79,7 @@
 
 <div class="row">
     <div class="span8">
-        <h3>Product#1</h3>
+        <h3>Product: New</h3>
         <hr>
         <div class="clearfix"></div>
         <form action="billing" method="post" class="form-horizontal" id="product-form" accept-charset="utf-8">
