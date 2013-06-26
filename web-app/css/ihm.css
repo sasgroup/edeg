@@ -1,3 +1,131 @@
-p {
-	color : red;
+body {
+    color: #575c7a;
+    line-height: 1.5em;
+    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande","Lucida Sans", Arial, sans-serif;
+    font-size: 14px;
+    background-color:rgb(209, 223, 201);
+    margin:0;
+    padding:0;
+    height:100%;       
+}
+
+/* container */
+.page-container {
+   min-height:100%;
+   position:relative;
+}
+
+
+/* header */
+.page-header{
+    height: 140px;
+    background: url('http://healthmetrics.web13.hubspot.com/Portals/215627/assets/images/blue-sliver.png') repeat-x;   
+    margin: 0;
+    border-bottom: none;    
+}
+
+header {
+    max-width: 980px;
+    height: 140px;
+    background: url("http://healthmetrics.web13.hubspot.com/Portals/215627/assets/images/head-bg.png") no-repeat scroll -13px 0;
+    margin: 0px auto 0px auto;
+    position: relative;
+}
+
+header a.logo {
+    display: block;
+    position: absolute;
+    background-position: 0px 0px;
+    background-repeat: no-repeat;
+    width:150px;
+    height: 85px;
+    top: 18px ;
+    left: 22px;
+    background-image: url("http://ihm-services.com/Portals/215627/assets/images/ihm-logo-TRANS-sm.png");
+}
+
+nav.header-nav {
+    max-width: 980px;
+    display: block;
+    position: absolute;
+    top: 102px;
+}
+
+nav.header-nav a {
+    color: #fff;
+    background-color: #58727F;
+    text-transform: uppercase;
+    text-decoration: none;
+    display: inline-block;
+    float: left;
+    font-weight: bold;
+    font-size: .9em;
+    line-height: 38px;
+    margin-right: 3px;
+    padding: 0 64px;
+}
+
+nav.header-nav a:hover {
+    background-color:#0A99B2;
+}
+
+
+/* content */
+.page-content {
+    max-width: 980px;
+    margin: 0px auto 0px auto;
+    position: relative;
+    background-color: #fff;    
+    min-height: 676px;
+    padding-bottom:85px; /* Height of the footer */ 
+    overflow: auto;    
+}
+
+.app {
+    padding: 60px 20px 10px 20px;
+    margin: 12px;
+}
+
+
+/* footer */
+footer {
+    width:100%;
+    position:absolute;
+    bottom:0;
+    font-size: 0.85em;
+    background-color: #58727F;
+    color: #fff;
+    margin-top: 12px;
+    /*padding: 20px 0px 0px 0px;*/    
+    height:85px;   /* Height of the footer */
+    
+}
+
+nav.footer-nav {
+    width: 100%;
+    display: block;
+    position: absolute;
+    text-align: center;
+    background-color: #58727F;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+nav.footer-nav a {
+    color: #fff;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1.1em;
+    margin: 10px 0px 10px 20px ;
+}
+
+nav.footer-nav a:hover {
+    color: #EEE;
+    text-decoration: underline;
+}
+
+nav.footer-nav a.logo {
+    display: inline-block;    
+    position: relative;
+    bottom: 8px;
+   /*height: 85px;*/
 }
