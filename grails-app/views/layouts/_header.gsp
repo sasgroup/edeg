@@ -1,14 +1,13 @@
-<div id="header" class="container">
-	<div class="navbar">
-        <div class="navbar-inner">
-            <a class="brand" href="#"><img border="0" src="images/ihm-logo.png"></img></a>
-            <ul class="nav">
-                <li class="active"><a href="#product">Products</a></li>                
-                <li><a href="#measure">Measures</a></li>
-                <li><a href="#element">DataElements</a></li>                
-                <li><a href="#hospital">Hospitals</a></li>
-                <li><a href="#ehr">EHR</a></li>
-            </ul>
-        </div>
-    </div>
-</div>
+<div class="page-container">
+	<div class="page-header">
+	    <header>
+	        <a class="logo" href="#"></a>
+	        <nav class="header-nav">
+	            <a href="#product">Products</a>
+	            <a href="#measure">Measures</a>
+	            <a href="#element">DataElements</a>
+	            <a href="#hospital">Hospitals</a>
+	            <a href="#ehr">EHR</a>
+	        </nav>
+	    </header>
+	</div>
