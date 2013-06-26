@@ -224,14 +224,14 @@
 
 <script type="text/template" class="template" id="single-product-measure">
 	<label class="checkbox">
-    	<input type="checkbox" name="measure" value="option1" id="inlineCheckbox1"> {{name}}
+    	<input type="checkbox" name="measure" value="{{name}}" id="{{id}}" {{ch}}> {{name}}
     </label>
 </script>
 
 
 <script type="text/template" class="template" id="single-product-hospital">
 	<label class="checkbox">
-    	<input type="checkbox" name="hospital" value="option1" id="inlineCheckbox1"> {{name}}
+    	<input type="checkbox" name="hospital" value="{{name}}" id="{{id}}" {{ch}}> {{name}}
     </label>
 </script>
 

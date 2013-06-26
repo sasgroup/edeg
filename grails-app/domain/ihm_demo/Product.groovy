@@ -6,7 +6,7 @@ class Product {
 	String name
 	String notes
 	static hasMany = [measures : Measure, hospitals : Hospital]
-	static belongsTo = Measure
+	//static belongsTo = Measure
 	
 	/*static mapping = {
 		measures cascade: 'all-delete-orphan'

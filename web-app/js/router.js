@@ -1,23 +1,21 @@
 App.Router = Backbone.Router.extend({
 	routes : {
 		''                : 'products',
-		'product'         : 'products',
+		'product'		  : 'products',
 		'measure'         : 'measures',
 		'element'         : 'dataElements',
 		'hospital'        : 'hospitals',
 		'ehr'        	  : 'ehrs',
 		'measure/:new'    : 'newMeasure',
 		'product/:new'    : 'newProduct',
-		'product/:id/edit': 'editProduct'	
+		'product/:id/edit': 'editProduct',
 	},
 
-	
 	// list of products
-	products : function() {	
+	products : function() {
 		App.products = new App.Collections.Products();			
 		App.products.fetch().then(function(){
 			App.viewProducts = new App.Views.Products({collection:App.products});
-			console.log(App.viewProducts.render().el);
 			$('#app').html(App.viewProducts.render().el);
 		});		
 	},
@@ -61,18 +59,16 @@ App.Router = Backbone.Router.extend({
 	
 	
     // new product
-	newProduct : function() {			
+	newProduct : function() {	
+		console.log("Product create");
 		App.measures = new App.Collections.Measures();			
 		App.measures.fetch().then(function(){			
-			console.log(App.measures);
-			
 			App.hospitals = new App.Collections.Hospitals();			
 			App.hospitals.fetch().then(function(){
-				console.log(App.hospitals);
-				var view = new App.Views.NewProduct({collection:App.products});
+				App.product = new App.Models.Product();
+				var view = new App.Views.NewProduct({model:App.product});
 				$('#app').html(view.render().el);
 			});			
-			  
 		});		
 	},
 	
@@ -84,16 +80,13 @@ App.Router = Backbone.Router.extend({
 	
 	 // edit product
 	editProduct : function(id) {
+		console.log('productEdit id:'+id)
 		App.measures = new App.Collections.Measures();			
 		App.measures.fetch().then(function(){			
-			console.log(App.measures);
-			
 			App.hospitals = new App.Collections.Hospitals();			
 			App.hospitals.fetch().then(function(){
-				console.log(App.hospitals);
-				var product = App.products.get(id);		 
+				var product = App.products.get(id);	
 				view = new App.Views.EditProduct({model: product});		
-				console.log(view.render().el);
 				$('#app').html(view.render().el); 
 			});			
 			  

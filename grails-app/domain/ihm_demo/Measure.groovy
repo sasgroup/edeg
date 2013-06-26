@@ -11,7 +11,7 @@ class Measure {
 	static hasMany = [products : Product,
 					  dataElements : DataElement]
 	
-	static belongsTo = DataElement
+	static belongsTo = [DataElement, Product]
 	
     static constraints = {
 		code()

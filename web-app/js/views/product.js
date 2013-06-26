@@ -28,8 +28,7 @@ App.Views.Products = Backbone.View.extend({
 	},
 
 	createProduct : function() {
-		console.log("createProduct");
-		Backbone.history.navigate("product/new", true)
+		Backbone.history.navigate("product/new", true);
 	}
 });
 
@@ -40,52 +39,86 @@ App.Views.NewProduct = Backbone.View.extend({
 
 	events : {
 		//'click #assignMeasure' : 'assignMeasure',		
-		'submit' : 'addProduct'
+		'submit' : 'addProduct',
+		'change #code, #name, #notes' : 'changeVal',
+		'change .checkbox' : 'changeCh'
 	},
 
 	render : function() {
+		console.log(App);
 		this.$el.html(this.template());
 		App.measures.forEach(this.appendProductMeasure,this);		//new
 		App.hospitals.forEach(this.appendProductHospital,this);		//new
 		return this;
 	},
-
+	
 	appendProductMeasure : function(product_measure){
 		var temp = _.template($('#single-product-measure').html());		
-		console.log(product_measure.get('name'));
-		this.$el.find('div#measures').append(temp({name:product_measure.get('name')}));		
+		var chd = '';
+		this.model.get('measures').forEach(function( hospital ) {
+			if (hospital.mid == product_measure.get('id')) {chd = 'checked';}
+		});
+		this.$el.find('div#measures').append(temp({name:product_measure.get('name'),id:product_measure.get('id'),ch:chd}));		
 	},
-	
 	appendProductHospital : function(product_hospital){
-		var temp = _.template($('#single-product-hospital').html());		
-		console.log(product_hospital.get('name'));
-		this.$el.find('div#hospitals').append(temp({name:product_hospital.get('name')}));		
+		var temp = _.template($('#single-product-hospital').html());
+		var chd = '';
+		this.model.get('hospitals').forEach(function( hospital ) {
+			if (hospital.hid == product_hospital.get('id')) {chd = 'checked';}
+		});
+		this.$el.find('div#hospitals').append(temp({name:product_hospital.get('name'),id:product_hospital.get('id'),ch:chd}));
 	},
 	
+	changeCh : function(e) {
+		console.log(e.target.value + ' ' + e.target.id + ' ' + e.target.checked+ ' '+e.target.name);
+		if (e.target.name == 'hospital' ) {
+			if ( e.target.checked ) {
+				console.log("Push hospitals");
+				var hospitals = this.model.get("hospitals");
+				hospitals.push({"hid" : e.target.id, "hname" : e.target.value});
+				this.model.set("hospitals" , hospitals);
+			} else {
+				console.log("Remove hospitals");
+				var hospitals = this.model.get("hospitals");
+				var removeIndex; 
+				for (var i = 0; i < hospitals.length; i++) {
+					if (hospitals[i].hid = e.target.id) {
+						removeIndex = i;
+					}
+				}
+				hospitals.splice(removeIndex,1);
+			}
+		};
+		if (e.target.name == 'measure' ) {
+			if ( e.target.checked ) {
+				console.log("Push measure");
+				var measures = this.model.get("measures");
+				measures.push({"mid" : e.target.id, "mname" : e.target.value});
+				this.model.set("measures" , measures);
+			} else {
+				console.log("Remove measures");
+				var measures = this.model.get("measures");
+				var removeIndex; 
+				for (var i = 0; i < measures.length; i++) {
+					if (measures[i].hid = e.target.id) {
+						removeIndex = i;
+					}
+				}
+				measures.splice(removeIndex,1);
+			};
+		};	
+	},
 	
-	/*assignMeasure : function() {
-		console.log('assignMeasure');
-		this.$el.find("#modalMeasures input[type='checkbox']:checked").each(
-				function(index) {
-					$('.checkboxlist').append($(this).closest('label'));
-					$(".checkboxlist input[type='checkbox']").bind(
-							'click',
-							function() {
-								var checked = $(this).prop("checked");
-
-								if (!checked) {
-									$('.checkboxlistModal').append(
-											$(this).closest('label'));
-								}
-							});
-				});
-	},*/
-
+	changeVal : function(e) {
+		console.log(e.target.name);
+		this.model.attributes[e.target.name] = $(e.target).val();
+		console.log(this.model.attributes);
+	},
 	addProduct : function(e) {
 		e.preventDefault();
 		console.log("Product added");
 
-		this.collection.create({
+		this.model.save({
 			code : this.$('#code').val(),
 			name : this.$('#name').val(),
 			notes : this.$('#notes').val()
@@ -110,51 +143,91 @@ App.Views.EditProduct = Backbone.View.extend({
 
 	events : {
 		'submit' : 'editProduct',
-		'click #assignMeasure' : 'assignMeasure',
+		'change #code, #name, #notes' : 'changeVal',
+		'change .checkbox' : 'changeCh'
 	},
 	
 	render : function() {				
-		//console.log(this.model.toJSON());		
+		console.log(this.model.toJSON());	
 		this.$el.html(this.template(this.model.toJSON()));
 		App.measures.forEach(this.appendProductMeasure,this);		//new
 		App.hospitals.forEach(this.appendProductHospital,this);		//new	
-		this.model.get('measures').forEach(this.setProductMeasure,this);		
 		return this;
 	},
 
-	setProductMeasure : function(product_measure){
-		console.log("product_measure.mname:" + product_measure.mname);
-		//$('.myCheckbox').prop('checked', true);
-		
-		//var temp = _.template($('#single-product-measure').html());		
-		//this.$el.find('.checkboxlist').append(temp({name:product_measure.mname}));		
-	},
-	
 	appendProductMeasure : function(product_measure){
 		var temp = _.template($('#single-product-measure').html());		
-		console.log(product_measure.get('name'));
-		this.$el.find('div#measures').append(temp({name:product_measure.get('name')}));		
+		var chd = '';
+		this.model.get('measures').forEach(function( hospital ) {
+			if (hospital.mid == product_measure.get('id')) {chd = 'checked';}
+		});
+		this.$el.find('div#measures').append(temp({name:product_measure.get('name'),id:product_measure.get('id'),ch:chd}));		
 	},
 	
 	appendProductHospital : function(product_hospital){
-		var temp = _.template($('#single-product-hospital').html());		
-		console.log(product_hospital.get('name'));
-		this.$el.find('div#hospitals').append(temp({name:product_hospital.get('name')}));		
+		var temp = _.template($('#single-product-hospital').html());
+		var chd = '';
+		this.model.get('hospitals').forEach(function( hospital ) {
+			if (hospital.hid == product_hospital.get('id')) {chd = 'checked';}
+		});
+		this.$el.find('div#hospitals').append(temp({name:product_hospital.get('name'),id:product_hospital.get('id'),ch:chd}));
+	},
+	
+	changeCh : function(e) {
+		console.log(e.target.value + ' ' + e.target.id + ' ' + e.target.checked+ ' '+e.target.name);
+		if (e.target.name == 'hospital' ) {
+			if ( e.target.checked ) {
+				console.log("Push hospitals");
+				var hospitals = this.model.get("hospitals");
+				hospitals.push({"hid" : e.target.id, "hname" : e.target.value});
+				this.model.set("hospitals" , hospitals);
+			} else {
+				console.log("Remove hospitals");
+				var hospitals = this.model.get("hospitals");
+				var removeIndex; 
+				for (var i = 0; i < hospitals.length; i++) {
+					if (hospitals[i].hid = e.target.id) {
+						removeIndex = i;
+					}
+				}
+				hospitals.splice(removeIndex,1);
+			}
+		};
+		if (e.target.name == 'measure' ) {
+			if ( e.target.checked ) {
+				console.log("Push measure");
+				var measures = this.model.get("measures");
+				measures.push({"mid" : e.target.id, "mname" : e.target.value});
+				this.model.set("measures" , measures);
+			} else {
+				console.log("Remove measures");
+				var measures = this.model.get("measures");
+				var removeIndex; 
+				for (var i = 0; i < measures.length; i++) {
+					if (measures[i].hid = e.target.id) {
+						removeIndex = i;
+					}
+				}
+				measures.splice(removeIndex,1);
+			};
+		};	
+	},
+	
+	changeVal : function(e) {
+		console.log(e.target.name);
+		this.model.attributes[e.target.name] = $(e.target).val();
+		console.log(this.model.attributes);
 	},
 	
 	editProduct : function(e) {
 		e.preventDefault();		
-		console.log("Product edited");
-		this.model.save({
-			code  : this.$('#code').val(),
-			name  : this.$('#name').val(),
-			notes : this.$('#notes').val()
-		},
-		
-		{
+
+		this.model.save(this.attributes,{
 	        success: function (model, response) {
-	            console.log("success");
-	            Backbone.history.navigate("product", true);
+	           console.log(response);
+ 	           App.mesageDialog = new App.Models.MesageDialog({resp:"ok"});			
+	           console.log(App.mesageDialog.resp);
+               Backbone.history.navigate("product", true);
 	        },
 	        error: function (model, response) {
 	            console.log("error");
@@ -163,23 +236,6 @@ App.Views.EditProduct = Backbone.View.extend({
 	    });
 	},
 	
-	assignMeasure : function() {
-		console.log('assignMeasure');
-		this.$el.find("#modalMeasures input[type='checkbox']:checked").each(
-				function(index) {
-					$('.checkboxlist').append($(this).closest('label'));
-					$(".checkboxlist input[type='checkbox']").bind(
-							'click',
-							function() {
-								var checked = $(this).prop("checked");
-
-								if (!checked) {
-									$('.checkboxlistModal').append(
-											$(this).closest('label'));
-								}
-							});
-				});
-	}
 });
 
 //Single Product
@@ -212,10 +268,11 @@ App.Views.SingleProduct = Backbone.View
 				this.model.destroy({
 				      success: function(model, response){
 				      
-				    	if (response.resp=="error")  				    	
-				    	  alert(response.message)
-				    	else el.remove();				    					        
-				        
+				    	if (response.resp=="error")  {				    	
+				    	  Backbone.history.navigate("product", true);
+				    	} else {el.remove();				    					        
+				    		Backbone.history.navigate("product", true);
+				    	}
 				      }
 				});
 				

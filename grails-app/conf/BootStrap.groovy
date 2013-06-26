@@ -156,6 +156,11 @@ class BootStrap {
 				println "An error occured with event1: ${error}"
 			}
 		}
+		
+		hospital.addToProducts(product)
+		hospital.save()
+		
+		
 		//-----------USERs-----------
 		def user1 = new Users(username:"sysUser",
 							  password:"password1",
@@ -406,7 +411,7 @@ class BootStrap {
 		def hospitalElement =new HospitalElement(answer:"answer",
 												   question:"question",
 												   isIMO : true,
-													  location:"location",
+												   location:"location",
 												   queryMnemonic:"queryMnemonic",
 												   valueSet:"valueSet",
 												   valueSetRequired:true,

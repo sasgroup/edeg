@@ -7,6 +7,7 @@
 	</head>
 	<body>
 		<g:render template="/layouts/header" />
+		<g:render template="/layouts/template/message" />
 		<g:render template="/layouts/template/ehr" />
 		<g:render template="/layouts/template/element" />
 		<g:render template="/layouts/template/hospital" />
