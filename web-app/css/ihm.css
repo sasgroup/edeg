@@ -76,8 +76,8 @@ nav.header-nav a:hover {
     margin: 0px auto 0px auto;
     position: relative;
     background-color: #fff;    
-    min-height: 676px;
-    padding-bottom:85px; /* Height of the footer */ 
+    min-height: 720px;    
+    padding-bottom:115px; /* Height of the footer */ 
     overflow: auto;    
 }
 
@@ -96,8 +96,8 @@ footer {
     background-color: #58727F;
     color: #fff;
     margin-top: 12px;
-    /*padding: 20px 0px 0px 0px;*/    
-    height:85px;   /* Height of the footer */
+    padding: 10px 0px 0px 0px;    
+    height:115px;   /* Height of the footer */
     
 }
 
@@ -126,6 +126,6 @@ nav.footer-nav a:hover {
 nav.footer-nav a.logo {
     display: inline-block;    
     position: relative;
-    bottom: 8px;
+    bottom: 10px;
    /*height: 85px;*/
 }
