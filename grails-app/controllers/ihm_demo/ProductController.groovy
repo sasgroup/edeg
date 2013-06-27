@@ -24,11 +24,12 @@ class ProductController {
 		productInstance.save(flush :true)
 		render(contentType: "text/json") {
 					resp = "ok"
-					message = "updated"
+					message = "Product ${productInstance.name} successfully created"
 		}
 	}
 
 	def show() {
+		println "Show"
 		def results = Product.list()
 
 		render(contentType: "text/json") {
@@ -55,6 +56,7 @@ class ProductController {
 	}
 
 	def update(Long id, Long version) {
+		println "Update"
 		def productInstance = Product.get(id)
 
 		if  (!productInstance) {
@@ -71,7 +73,7 @@ class ProductController {
 				println 'inside'
 				return render(contentType: "text/json") {
 					resp = "error"
-					message = "Another user has updated this Users while you were editing"
+					message = "Another User has updated product(${productInstance.name}) while you were editing"
 				}
 			} 
 		 }	
@@ -95,13 +97,14 @@ class ProductController {
 		productInstance.save(flush :true)
 		render(contentType: "text/json") {
 					resp = "ok"
-					message = "updated"
+					message = "Product ${productInstance.name} successfully updated"
 		}
 	}
 	
 
 
 	def delete(Long id) {
+		println "Delete"
 		/*  def productInstance = Product.get(id)
 		 try {
 		 productInstance.delete(flush: true)           
@@ -110,7 +113,7 @@ class ProductController {
 		 }*/
 
 		def product = Product.findById(params.id)
-
+		String name = product.name
 		println ("product.measures:" + product.measures)
 
 		def measuresDep = product.measures ? true : false
@@ -118,16 +121,17 @@ class ProductController {
 		def hospitalsDep = product.hospitals ? true : false
 
 		if (measuresDep || hospitalsDep) {
-			render(contentType: "text/json") {
-				resp = "error"
-				message = "Entity cannot be deleted because of existing dependencies"
+			//render(contentType: "text/json") {
+				//resp = "error"
+				//message = "Entity cannot be deleted because of existing dependencies"
 				//This item cannot be deleted because a dependency (on smth.)  is present.
-			}
+			//}
+			render(status: 420, text: "Product ${name} cannot be deleted because of existing dependencie")
 		} else {
 			product?.delete(flush: true)
 			render(contentType: "text/json") {
 				resp = "success"
-				message = "successfully deleted"
+				message = "Product ${name} successfully deleted"
 			}
 		}
 	}

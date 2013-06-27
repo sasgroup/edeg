@@ -125,8 +125,8 @@ App.Views.NewProduct = Backbone.View.extend({
 		},
 		
 		{
-		    success: function() {
-		        console.log("repsonse from Collection create");
+		    success: function(model, response) {
+		    	$('div#message-box').text("").append(response.message).fadeIn(500).delay(1500).fadeOut(500);
 		        Backbone.history.navigate("product", true);
 		    }
 		
@@ -225,15 +225,11 @@ App.Views.EditProduct = Backbone.View.extend({
 		this.model.save(this.attributes,{
 	        success: function (model, response) {
 	           console.log(response);
-	           
-	           $('div#message-box').append("Successfully edit").fadeIn(500).delay(1500).fadeOut(500);	                
-	           
- 	           App.mesageDialog = new App.Models.MesageDialog({resp:"ok"});			
-	           console.log(App.mesageDialog.resp);
+	           $('div#message-box').text("").append(response.message).fadeIn(500).delay(1500).fadeOut(500);
                Backbone.history.navigate("product", true);
 	        },
 	        error: function (model, response) {
-	            console.log("error");
+	        	$('div#message-box').text("").append(response.message).fadeIn(500).delay(1500).fadeOut(500);
 	            Backbone.history.navigate("product", true);
 	        }
 	    });
@@ -264,19 +260,22 @@ App.Views.SingleProduct = Backbone.View
 			
 			destroy : function(e){
 				console.log("destroy");
-				e.preventDefault();
+				//e.preventDefault();
 				
 				var el = this.$el;
 				
 				this.model.destroy({
-				      success: function(model, response){
-				      
-				    	if (response.resp=="error")  {				    	
-				    	  Backbone.history.navigate("product", true);
-				    	} else {el.remove();				    					        
-				    		Backbone.history.navigate("product", true);
-				    	}
-				      }
+					wait: true,
+				    success: function(model, response){
+				    	$('div#message-box').text("").append(response.message).fadeIn(500).delay(1500).fadeOut(500);
+			    		el.remove();
+				    	Backbone.history.navigate("product", true);
+				     },
+				     error: function (model, response) {
+				    	 console.log(response);
+				    	 $('div#message-box').text("").append(response.responseText).fadeIn(500).delay(1500).fadeOut(500);
+				            Backbone.history.navigate("product", true);
+				     }
 				});
 				
 				
