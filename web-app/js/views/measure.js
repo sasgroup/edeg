@@ -29,7 +29,7 @@ App.Views.Measures = Backbone.View.extend({
 
 // New Measure
 App.Views.Measure = Backbone.View.extend({
-	template : _.template($('#measure-template').html()),
+	template : _.template($('#measure-new-template').html()),
 
 	events : {
 		'click #assignProduct' : 'assignProduct',
@@ -83,7 +83,7 @@ App.Views.Measure = Backbone.View.extend({
 
 // Edit Measure
 App.Views.EditMeasure = Backbone.View.extend({
-	template : _.template($('#measure-edit').html()),
+	template : _.template($('#measure-edit-template').html()),
 
 	events : {
 		'submit' : 'editMeasure'

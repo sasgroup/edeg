@@ -37,7 +37,7 @@
 
 
 <!-- NEW -->
-<script type="text/template" class="template" id="measure-template">
+<script type="text/template" class="template" id="measure-new-template">
 <div class="container">  
     <div class="row">
         <div class="span8">
@@ -96,7 +96,7 @@
 </script>
 
 <!-- EDIT -->
-<script type="text/template" class="template" id="measure-edit">
+<script type="text/template" class="template" id="measure-edit-template">
 <div class="container">
     <div class="row">
         <div class="span8">

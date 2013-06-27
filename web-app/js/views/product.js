@@ -35,10 +35,9 @@ App.Views.Products = Backbone.View.extend({
 
 // New Product
 App.Views.NewProduct = Backbone.View.extend({
-	template : _.template($('#product-template').html()),
+	template : _.template($('#product-new-template').html()),
 
-	events : {
-		//'click #assignMeasure' : 'assignMeasure',		
+	events : {		
 		'submit' : 'addProduct',
 		'change #code, #name, #notes' : 'changeVal',
 		'change .checkbox' : 'changeCh'
@@ -47,8 +46,8 @@ App.Views.NewProduct = Backbone.View.extend({
 	render : function() {
 		console.log(App);
 		this.$el.html(this.template());
-		App.measures.forEach(this.appendProductMeasure,this);		//new
-		App.hospitals.forEach(this.appendProductHospital,this);		//new
+		App.measures.forEach(this.appendProductMeasure,this);		
+		App.hospitals.forEach(this.appendProductHospital,this);		
 		return this;
 	},
 	
@@ -139,7 +138,7 @@ App.Views.NewProduct = Backbone.View.extend({
 
 // Edit Product
 App.Views.EditProduct = Backbone.View.extend({
-	template : _.template($('#product-edit').html()),
+	template : _.template($('#product-edit-template').html()),
 
 	events : {
 		'submit' : 'editProduct',

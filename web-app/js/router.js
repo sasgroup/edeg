@@ -7,13 +7,17 @@ App.Router = Backbone.Router.extend({
 		'hospital'        : 'hospitals',
 		'ehr'        	  : 'ehrs',
 		
-		'measure/:new'    : 'newMeasure',
 		'product/:new'    : 'newProduct',
+		'measure/:new'    : 'newMeasure',
+		'element/:new'    : 'newDataElement',
 		
 		'product/:id/edit': 'editProduct',
-		'measure/:id/edit': 'editMeasure'
+		'measure/:id/edit': 'editMeasure',
+		'element/:id/edit': 'editDataElement'
 	},
 
+	
+	// ------- LIST ------------
 	// list of products
 	products : function() {
 		App.products = new App.Collections.Products();			
@@ -61,9 +65,10 @@ App.Router = Backbone.Router.extend({
 	},	
 	
 	
+    
+	// ------- NEW ------------
     // new product
-	newProduct : function() {	
-		console.log("Product create");
+	newProduct : function() {			
 		App.measures = new App.Collections.Measures();			
 		App.measures.fetch().then(function(){			
 			App.hospitals = new App.Collections.Hospitals();			
@@ -80,8 +85,23 @@ App.Router = Backbone.Router.extend({
 		var view = new App.Views.Measure();
 		$('#app').html(view.render().el);  
 	},
+
+	// new dataElement
+	newDataElement : function() {				
+		App.measures = new App.Collections.Measures();			
+		App.measures.fetch().then(function(){			
+			App.ehrs = new App.Collections.Ehrs();			
+			App.ehrs.fetch().then(function(){
+				App.dataElement = new App.Models.DataElement();
+				var view = new App.Views.NewDataElement({model:App.dataElement});
+				$('#app').html(view.render().el);
+			});			
+		});		
+	},
+
 	
-	 // edit product
+	// ------- EDIT ------------
+	// edit product
 	editProduct : function(id) {
 		console.log('productEdit id:'+id)
 		App.measures = new App.Collections.Measures();			
@@ -109,6 +129,20 @@ App.Router = Backbone.Router.extend({
 			});			
 			  
 		});		
+	},
+
+	// edit dataElement
+	editDataElement : function(id) {
+		console.log('dataElementEdit id:'+id)
+		App.measures = new App.Collections.Measures();			
+		App.measures.fetch().then(function(){			
+			App.ehrs = new App.Collections.Ehrs();			
+			App.ehrs.fetch().then(function(){
+				var dataElement = App.dataElements.get(id);	
+				var view = new App.Views.EditDataElement({model:dataElement});
+				$('#app').html(view.render().el);
+			});			
+		});				
 	}
 
 });
