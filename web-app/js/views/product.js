@@ -225,6 +225,9 @@ App.Views.EditProduct = Backbone.View.extend({
 		this.model.save(this.attributes,{
 	        success: function (model, response) {
 	           console.log(response);
+	           
+	           $('div#message-box').append("Successfully edit").fadeIn(500).delay(1500).fadeOut(500);	                
+	           
  	           App.mesageDialog = new App.Models.MesageDialog({resp:"ok"});			
 	           console.log(App.mesageDialog.resp);
                Backbone.history.navigate("product", true);

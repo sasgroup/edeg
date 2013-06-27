@@ -133,3 +133,8 @@ nav.footer-nav a.logo {
     bottom: 10px;
    /*height: 85px;*/
 }
+
+div#message-box {
+	display: none;
+	position:absolute;
+}
