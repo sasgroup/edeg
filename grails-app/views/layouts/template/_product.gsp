@@ -97,7 +97,7 @@
 
 
             <div class="form-actions">
-                <button type="submit" class="btn btn-primary">Save Product</button>
+                <button type="submit" class="btn btn-info">Save Product</button>
 
             </div>
         </form>
@@ -142,7 +142,7 @@
     </div>
     <div class="modal-footer">
         <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-        <button class="btn btn-primary" id="assignMeasure"  data-dismiss="modal" aria-hidden="true">Save</button>
+        <button class="btn btn-info" id="assignMeasure"  data-dismiss="modal" aria-hidden="true">Save</button>
     </div>
 </div>
 
@@ -199,7 +199,7 @@
     		</div>
 
             <div class="form-actions">
-                <button type="submit" class="btn btn-primary">Save Product</button>
+                <button type="submit" class="btn btn-info">Save Product</button>
 
             </div>
         </form>

@@ -69,6 +69,10 @@ nav.header-nav a:hover {
     background-color:#0A99B2;
 }
 
+.btn-primary {
+	background-color:#0A99B2;
+}
+
 
 /* content */
 .page-content {
@@ -97,9 +101,9 @@ footer {
     color: #fff;
     margin-top: 12px;
     padding: 10px 0px 0px 0px;    
-    height:115px;   /* Height of the footer */
-    
+    height:115px;   /* Height of the footer */    
 }
+
 
 nav.footer-nav {
     width: 100%;
@@ -115,7 +119,7 @@ nav.footer-nav a {
     text-decoration: none;
     display: inline-block;
     font-size: 1.1em;
-    margin: 10px 0px 10px 20px ;
+    margin: 10px 0px 10px 50px ;
 }
 
 nav.footer-nav a:hover {
