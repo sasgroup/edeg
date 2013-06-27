@@ -6,9 +6,12 @@ App.Router = Backbone.Router.extend({
 		'element'         : 'dataElements',
 		'hospital'        : 'hospitals',
 		'ehr'        	  : 'ehrs',
+		
 		'measure/:new'    : 'newMeasure',
 		'product/:new'    : 'newProduct',
+		
 		'product/:id/edit': 'editProduct',
+		'measure/:id/edit': 'editMeasure'
 	},
 
 	// list of products
@@ -92,6 +95,21 @@ App.Router = Backbone.Router.extend({
 			  
 		});		
 	},
+
+	 // edit measure
+	editMeasure : function(id) {
+		console.log('measuretEdit id:'+id)
+		App.products = new App.Collections.Products();			
+		App.products.fetch().then(function(){			
+			App.dataElements = new App.Collections.DataElements();			
+			App.dataElements.fetch().then(function(){
+				var measure = App.measures.get(id);	
+				view = new App.Views.EditMeasure({model: measure});		
+				$('#app').html(view.render().el); 
+			});			
+			  
+		});		
+	}
 
 });
 

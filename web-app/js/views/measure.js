@@ -81,6 +81,60 @@ App.Views.Measure = Backbone.View.extend({
 
 });
 
+// Edit Measure
+App.Views.EditMeasure = Backbone.View.extend({
+	template : _.template($('#measure-edit').html()),
+
+	events : {
+		'submit' : 'editMeasure'
+		/*'change #code, #name, #notes' : 'changeVal',
+		'change .checkbox' : 'changeCh'*/
+	},
+	
+	render : function() {				
+		console.log(this.model.toJSON());	
+		this.$el.html(this.template(this.model.toJSON()));
+		//App.products.forEach(this.appendMeasureProduct,this);		
+		//App.dataElements.forEach(this.appendMeasureElement,this);			
+		return this;
+	},
+
+	appendMeasureProduct : function(measure_product){
+		var temp = _.template($('#single-measure-product').html());		
+		var chd = '';
+		this.model.get('products').forEach(function( product ) {
+			if (product.mid == measure_product.get('id')) {chd = 'checked';}
+		});
+		this.$el.find('div#product').append(temp({name:measure_product.get('name'),id:measure_product.get('id'),ch:chd}));		
+	},
+	
+	appendMeasureElement : function(measure_element){
+		var temp = _.template($('#single-measure-element').html());
+		var chd = '';
+		this.model.get('elements').forEach(function( element ) {
+			if (element.hid == measure_element.get('id')) {chd = 'checked';}
+		});
+		this.$el.find('div#data-element').append(temp({name:measure_element.get('name'),id:measure_element.get('id'),ch:chd}));
+	},
+
+	editMeasure : function(e) {
+		e.preventDefault();		
+
+		this.model.save(this.attributes,{
+	        success: function (model, response) {
+	           console.log(response);
+ 	           App.mesageDialog = new App.Models.MesageDialog({resp:"ok"});			
+	           console.log(App.mesageDialog.resp);
+               Backbone.history.navigate("product", true);
+	        },
+	        error: function (model, response) {
+	            console.log("error");
+	            Backbone.history.navigate("product", true);
+	        }
+	    });
+	}
+});	
+
 // Single Measure
 App.Views.SingleMeasure = Backbone.View
 		.extend({
@@ -96,8 +150,10 @@ App.Views.SingleMeasure = Backbone.View
 				return this;
 			},
 
-			goToEdit : function() {
-				console.log("goToEdit");
+			goToEdit : function() {				
+				console.log(this.model);
+				console.log("goToEdit",this.model.get('id'));							
+				Backbone.history.navigate("measure/"+this.model.get('id')+'/edit', true);
 			},
 			
 			destroy : function(){
