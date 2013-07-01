@@ -60,7 +60,14 @@ App.Views.Ehr = Backbone.View.extend({
 	appendDataElement : function(dem_element){
 		var temp = _.template($('#single-data-elements-def-element').html());
 		//this.$el.find('div#elements').append(temp({name:dem_element.description}));
-		this.$el.find('#dataElementsTable tbody').append(temp({name:dem_element.description}));
+		console.log(dem_element);
+		this.$el.find('#dataElementsTable tbody').append(temp({is_imo:dem_element.isIMO, 
+															   loc:dem_element.location,
+															   query_mnemonic:dem_element.queryMnemonic,
+															   value_set:dem_element.valueSet,
+															   value_set_req:dem_element.valueSetRequired,
+															   location_type:dem_element.locationtype.name}));
+		//this.$el.find('#dataElementsTable tbody').append(temp({name:"Kate"}));
 	},
 		
 	editEhr : function(e) {

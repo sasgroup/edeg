@@ -91,9 +91,9 @@
 							<td>valueSet</td>
 							<td>valueSetRequired</td>
 							<td>locationtype</td>
-            				<td class="e-btn">Edit</td>
-            				<td class="s-btn">Save</td>
-            				<td class="d-btn">Del</td>
+            				<td class="e-btn"></td>
+            				<td class="s-btn"></td>
+            				<td class="d-btn"></td>
         				</tr>
         			</thead>
         			<tbody>	
@@ -130,12 +130,12 @@
 
 <script type="text/template" class="template" id="single-data-elements-def-element">
    <tr>
-            <td>{{name}}</td>
-			<td>{{}}</td>
-			<td>{{}}</td>			
-            <td>{{}}</td>
-			<td>{{}}</td>
-			<td>{{}}</td>
+            <td>{{is_imo}}</td>
+			<td>{{loc}}</td>
+			<td>{{query_mnemonic}}</td>			
+            <td>{{value_set}}</td>
+			<td>{{value_set_req}}</td>
+			<td>{{location_type}}</td>
             <td class="edit-btn">
                 <button>E</button>
             </td>
