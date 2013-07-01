@@ -53,7 +53,7 @@ class BootStrap {
 
 		product = new Product(code:"MU2",
 							  name:"Meaningful Use Solution 2014 Stage 2",
-							  notes:"<script>alert('FY');</script>"//notes:""
+							  notes:""//"<script>alert('FY');</script>"//notes:""
 							  )
 		if (!product.save()){
 			product.errors.allErrors.each{error ->

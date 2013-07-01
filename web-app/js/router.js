@@ -19,13 +19,16 @@ App.Router = Backbone.Router.extend({
 	},
 
 	initialize: function(options){
+		App.route = this;
 		App.products = new App.Collections.Products();			
-		App.products.fetch();
+		App.measures = new App.Collections.Measures();
+		App.dataElements = new App.Collections.DataElements();
+		App.hospitals = new App.Collections.Hospitals();
+		App.ehrs = new App.Collections.Ehrs();	
 	},
 	// ------- LIST ------------
 	// list of products
 	products : function() {
-		//App.products = new App.Collections.Products();			
 		App.products.fetch().then(function(){
 			App.viewProducts = new App.Views.Products({collection:App.products});
 			$('#app').html(App.viewProducts.render().el);
@@ -34,7 +37,6 @@ App.Router = Backbone.Router.extend({
 	
 	// list of measures
 	measures : function() {		
-		App.measures = new App.Collections.Measures();			
 		App.measures.fetch().then(function(){
 			App.viewMeasures = new App.Views.Measures({collection:App.measures});
 			console.log(App.viewMeasures.render().el);
@@ -44,7 +46,6 @@ App.Router = Backbone.Router.extend({
 	
 	// list of elements
 	dataElements : function() {		
-		App.dataElements = new App.Collections.DataElements();			
 		App.dataElements.fetch().then(function(){
 			App.viewDataElements = new App.Views.DataElements({collection:App.dataElements});			
 			$('#app').html(App.viewDataElements.render().el);
@@ -53,7 +54,6 @@ App.Router = Backbone.Router.extend({
 	
 	// list of hospitals
 	hospitals : function() {		
-		App.hospitals = new App.Collections.Hospitals();			
 		App.hospitals.fetch().then(function(){
 			App.viewHospitals = new App.Views.Hospitals({collection:App.hospitals});			
 			$('#app').html(App.viewHospitals.render().el);
@@ -62,7 +62,6 @@ App.Router = Backbone.Router.extend({
 	
 	// list of ehrs
 	ehrs : function() {		
-		App.ehrs = new App.Collections.Ehrs();			
 		App.ehrs.fetch().then(function(){
 			console.log ();
 			App.viewEhrs = new App.Views.Ehrs({collection:App.ehrs});			
@@ -70,20 +69,31 @@ App.Router = Backbone.Router.extend({
 		});
 	},	
 	
-	
-    
-	// ------- NEW ------------
-    // new product
-	newProduct : function() {			
-		App.measures = new App.Collections.Measures();			
+	// ----- display Edit/New 
+    product : function (productModel) {
+    	App.measures = new App.Collections.Measures();			
 		App.measures.fetch().then(function(){			
 			App.hospitals = new App.Collections.Hospitals();			
 			App.hospitals.fetch().then(function(){
-				App.product = new App.Models.Product();
-				var view = new App.Views.Product({model:App.product});
+				var view = new App.Views.Product({model:productModel});
 				$('#app').html(view.render().el);
 			});			
 		});		
+    },
+    ehr : function (ehrModel) {
+    	App.hospitals = new App.Collections.Hospitals();			
+		App.hospitals.fetch().then(function(){			
+			App.dataElements = new App.Collections.DataElements();			
+			App.dataElements.fetch().then(function(){
+				var view = new App.Views.Ehr({model:ehrModel});
+				$('#app').html(view.render().el);
+			});			
+		});		
+    },
+	// ------- NEW ------------
+    // new product
+	newProduct : function() {			
+		this.product(new App.Models.Product());
 	},
 	
 	// new measure
@@ -113,41 +123,19 @@ App.Router = Backbone.Router.extend({
 		});		
 	},
 
-
 	// new EHR
 	newEhr : function() {	
-		console.log("new Ehr");
-		App.hospitals = new App.Collections.Hospitals();			
-		App.hospitals.fetch().then(function(){			
-			App.dataElements = new App.Collections.DataElements();			
-			App.dataElements.fetch().then(function(){
-				console.log("new model Ehr");
-				App.ehr = new App.Models.Ehr();
-				var view = new App.Views.Ehr({model:App.ehr});
-				console.log("new view Ehr");
-				$('#app').html(view.render().el);
-			});			
-		});		
+		this.ehr(new App.Models.Ehr());
 	},	
-
 	
 	// ------- EDIT ------------
 	// edit product
 	editProduct : function(id) {
-		console.log('productEdit id:'+id)
-		App.measures = new App.Collections.Measures();			
-		App.measures.fetch().then(function(){			
-			App.hospitals = new App.Collections.Hospitals();			
-			App.hospitals.fetch().then(function(){
-				App.pr = new App.Models.Product();
-				App.pr.fetch({data:{id: id}}).then(function(){
-					view = new App.Views.Product({model: App.pr});		
-					$('#app').html(view.render().el);
-				})
-			});			
-		});		
+		App.pr = new App.Models.Product();
+		App.pr.fetch({data:{id: id}}).then(function(){
+			App.route.product(App.pr);
+		})
 	},
-
 
 	 // edit measure
 	editMeasure : function(id) {
@@ -180,18 +168,10 @@ App.Router = Backbone.Router.extend({
 
 	// edit ehr
 	editEhr : function(id) {
-		console.log('EHR Edit id:'+id);
-		App.hospitals = new App.Collections.Hospitals();			
-		App.hospitals.fetch().then(function(){			
-			App.dataElements = new App.Collections.DataElements();			
-			App.dataElements.fetch().then(function(){
-				App.ehr = new App.Models.Ehr();
-				App.ehr.fetch({data:{id: id}}).then(function(){
-					var view = new App.Views.Ehr({model:App.ehr});
-					$('#app').html(view.render().el);
-				});	
-			});			
-		});				
+		App.ehr = new App.Models.Ehr();
+		App.ehr.fetch({data:{id: id}}).then(function(){
+			App.route.ehr(App.ehr);
+		})
 	}
 
 });
