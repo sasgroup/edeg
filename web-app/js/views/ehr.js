@@ -59,7 +59,8 @@ App.Views.Ehr = Backbone.View.extend({
 	
 	appendDataElement : function(dem_element){
 		var temp = _.template($('#single-data-elements-def-element').html());
-		this.$el.find('div#elements').append(temp({name:dem_element.description}));
+		//this.$el.find('div#elements').append(temp({name:dem_element.description}));
+		this.$el.find('#dataElementsTable tbody').append(temp({name:dem_element.description}));
 	},
 		
 	editEhr : function(e) {
