@@ -40,26 +40,26 @@ App.Views.NewEhr = Backbone.View.extend({
 	render : function() {
 		console.log(App);
 		this.$el.html(this.template());
-		//App.hospitals.forEach(this.appendHospital,this);		
-		//App.dataElements.forEach(this.appendDataElement,this);		
+		App.hospitals.forEach(this.appendHospital,this);		
+		App.dataElements.forEach(this.appendDataElement,this);		
 		return this;
 	},
 	
 	appendHospital : function(ehr_hospital){
 		var temp = _.template($('#single-ehr-hospital').html());		
 		var chd = '';
-		this.model.get('hospitals').forEach(function( hospital ) {
+		/*this.model.get('hospitals').forEach(function( hospital ) {
 			if (hospital.mid == ehr_hospital.get('id')) {chd = 'checked';}
-		});
+		});*/
 		this.$el.find('div#hospitals').append(temp({name:ehr_hospital.get('name'),id:ehr_hospital.get('id'),ch:chd}));		
 	},
 	
 	appendDataElement : function(ehr_element){
 		var temp = _.template($('#single-ehr-element').html());
 		var chd = '';
-		this.model.get('elemets').forEach(function( elemet ) {
+		/*this.model.get('elemets').forEach(function( elemet ) {
 			if (elemet.hid == ehr_element.get('id')) {chd = 'checked';}
-		});
+		});*/
 		this.$el.find('div#elements').append(temp({name:ehr_element.get('name'),id:ehr_element.get('id'),ch:chd}));
 	},
 	
@@ -79,10 +79,8 @@ App.Views.NewEhr = Backbone.View.extend({
 		        Backbone.history.navigate("ehr", true);
 		    }
 		
-		});			
-		
+		});				
 	}
-
 });
 
 
@@ -99,26 +97,26 @@ App.Views.EditEhr = Backbone.View.extend({
 	render : function() {				
 		console.log(this.model.toJSON());	
 		this.$el.html(this.template(this.model.toJSON()));
-		//App.hospitals.forEach(this.appendHospital,this);		
-		//App.dataElements.forEach(this.appendEhr,this);		
+		App.hospitals.forEach(this.appendHospital,this);		
+		App.dataElements.forEach(this.appendDataElement,this);		
 		return this;
 	},
 
 	appendHospital : function(ehr_hospital){
 		var temp = _.template($('#single-ehr-hospital').html());		
 		var chd = '';
-		this.model.get('hospitals').forEach(function( hospital ) {
+		/*this.model.get('hospitals').forEach(function( hospital ) {
 			if (hospital.mid == ehr_hospital.get('id')) {chd = 'checked';}
-		});
+		});*/
 		this.$el.find('div#hospitals').append(temp({name:ehr_hospital.get('name'),id:ehr_hospital.get('id'),ch:chd}));		
 	},
 	
 	appendDataElement : function(ehr_element){
 		var temp = _.template($('#single-ehr-element').html());
 		var chd = '';
-		this.model.get('elemets').forEach(function( elemet ) {
+		/*this.model.get('elemets').forEach(function( elemet ) {
 			if (elemet.hid == ehr_element.get('id')) {chd = 'checked';}
-		});
+		});*/
 		this.$el.find('div#elements').append(temp({name:ehr_element.get('name'),id:ehr_element.get('id'),ch:chd}));
 	},
 		

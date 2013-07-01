@@ -72,17 +72,17 @@
                 
                 <ul id="myTab" class="nav nav-tabs">
                   <li class="active">
-                    <a data-toggle="tab" href="#measure">Measure</a>
+                    <a data-toggle="tab" href="#measures">Measure</a>
                   </li>
                   <li class="">
-                    <a data-toggle="tab" href="#ehr">EHR</a>
+                    <a data-toggle="tab" href="#ehrs">EHR</a>
                   </li>
                 </ul>
      
                 <div id="myTabContent" class="tab-content">
-                   <div id="measure" class="tab-pane fade active in">    
+                   <div id="measures" class="tab-pane fade active in">    
                    </div>
-                   <div id="ehr" class="tab-pane fade">              
+                   <div id="ehrs" class="tab-pane fade">              
                    </div>
                 </div>
 
@@ -132,17 +132,17 @@
 
                 <ul id="myTab" class="nav nav-tabs">
                   <li class="active">
-                    <a data-toggle="tab" href="#measure">Measure</a>
+                    <a data-toggle="tab" href="#measures">Measure</a>
                   </li>
                   <li class="">
-                    <a data-toggle="tab" href="#ehr">EHR</a>
+                    <a data-toggle="tab" href="#ehrs">EHR</a>
                   </li>
                 </ul>
      
                 <div id="myTabContent" class="tab-content">
-                   <div id="measure" class="tab-pane fade active in">    
+                   <div id="measures" class="tab-pane fade active in">    
                    </div>
-                   <div id="ehr" class="tab-pane fade">              
+                   <div id="ehrs" class="tab-pane fade">              
                    </div>
                 </div>
 
@@ -163,4 +163,17 @@
  <td>{{ notes }}</td>
  <td><div id="edit" class= "btn"><i class="icon-edit"></i></div></td>
  <td><div id="destroy" class= "btn"><i class="icon-trash"></i></div></td> 
+</script>
+
+<script type="text/template" class="template" id="single-element-measure">
+    <label class="checkbox">
+        <input type="checkbox" name="measure" value="{{name}}" id="{{id}}" {{ch}}> {{name}}
+    </label>
+</script>
+
+
+<script type="text/template" class="template" id="single-element-ehr">
+    <label class="checkbox">
+        <input type="checkbox" name="ehr" value="{{name}}" id="{{id}}" {{ch}}> {{name}}
+    </label>
 </script>

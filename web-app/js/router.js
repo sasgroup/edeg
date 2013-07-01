@@ -84,8 +84,16 @@ App.Router = Backbone.Router.extend({
 	
 	// new measure
 	newMeasure : function() {		
-		var view = new App.Views.Measure();
-		$('#app').html(view.render().el);  
+		App.products = new App.Collections.Products();			
+		App.products.fetch().then(function(){			
+			App.dataElements = new App.Collections.DataElements();			
+			App.dataElements.fetch().then(function(){
+				App.measure = new App.Models.Measure();
+				view = new App.Views.NewMeasure({model: App.measure});		
+				$('#app').html(view.render().el); 
+			});			
+			  
+		});		
 	},
 
 	// new dataElement

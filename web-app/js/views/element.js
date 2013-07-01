@@ -46,27 +46,27 @@ App.Views.NewDataElement = Backbone.View.extend({
 	render : function() {
 		console.log(App);
 		this.$el.html(this.template());
-		//App.measures.forEach(this.appendMeasure,this);		
-		//App.ehrs.forEach(this.appendEhr,this);		
+		App.measures.forEach(this.appendMeasure,this);		
+		App.ehrs.forEach(this.appendEhr,this);		
 		return this;
 	},
 	
 	appendMeasure : function(element_measure){
 		var temp = _.template($('#single-element-measure').html());		
 		var chd = '';
-		this.model.get('measures').forEach(function( measure ) {
+		/*this.model.get('measures').forEach(function( measure ) {
 			if (measure.mid == element_measure.get('id')) {chd = 'checked';}
-		});
+		});*/
 		this.$el.find('div#measures').append(temp({name:element_measure.get('name'),id:element_measure.get('id'),ch:chd}));		
 	},
 	
 	appendEhr : function(element_ehr){
 		var temp = _.template($('#single-element-ehr').html());
 		var chd = '';
-		this.model.get('ehrs').forEach(function( ehr ) {
+		/*this.model.get('ehrs').forEach(function( ehr ) {
 			if (ehr.hid == element_ehr.get('id')) {chd = 'checked';}
-		});
-		this.$el.find('div#hospitals').append(temp({name:element_ehr.get('name'),id:element_ehr.get('id'),ch:chd}));
+		});*/
+		this.$el.find('div#ehrs').append(temp({name:element_ehr.get('name'),id:element_ehr.get('id'),ch:chd}));
 	},
 	
 	addDataElement : function(e) {
@@ -104,27 +104,27 @@ App.Views.EditDataElement = Backbone.View.extend({
 	render : function() {				
 		console.log(this.model.toJSON());	
 		this.$el.html(this.template(this.model.toJSON()));
-		//App.measures.forEach(this.appendMeasure,this);		
-		//App.ehrs.forEach(this.appendEhr,this);		
+		App.measures.forEach(this.appendMeasure,this);		
+		App.ehrs.forEach(this.appendEhr,this);		
 		return this;
 	},
 
 	appendMeasure : function(element_measure){
 		var temp = _.template($('#single-element-measure').html());		
 		var chd = '';
-		this.model.get('measures').forEach(function( measure ) {
+		/*this.model.get('measures').forEach(function( measure ) {
 			if (measure.mid == element_measure.get('id')) {chd = 'checked';}
-		});
+		});*/
 		this.$el.find('div#measures').append(temp({name:element_measure.get('name'),id:element_measure.get('id'),ch:chd}));		
 	},
 	
 	appendEhr : function(element_ehr){
 		var temp = _.template($('#single-element-ehr').html());
 		var chd = '';
-		this.model.get('ehrs').forEach(function( ehr ) {
+		/*this.model.get('ehrs').forEach(function( ehr ) {
 			if (ehr.hid == element_ehr.get('id')) {chd = 'checked';}
-		});
-		this.$el.find('div#hospitals').append(temp({name:element_ehr.get('name'),id:element_ehr.get('id'),ch:chd}));
+		});*/
+		this.$el.find('div#ehrs').append(temp({name:element_ehr.get('name'),id:element_ehr.get('id'),ch:chd}));
 	},	
 		
 	editDataElement : function(e) {
@@ -144,7 +144,6 @@ App.Views.EditDataElement = Backbone.View.extend({
 	},
 	
 });
-
 
 
 //Single DataElement

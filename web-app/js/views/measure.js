@@ -28,57 +28,59 @@ App.Views.Measures = Backbone.View.extend({
 });
 
 // New Measure
-App.Views.Measure = Backbone.View.extend({
+App.Views.NewMeasure = Backbone.View.extend({
 	template : _.template($('#measure-new-template').html()),
 
-	events : {
-		'click #assignProduct' : 'assignProduct',
-		'click #assignElement' : 'assignElement'
+	events : {		
+		'submit' : 'addMeasure'/*,
+		'change #code, #name, #notes' : 'changeVal',
+		'change .checkbox' : 'changeCh'*/
 	},
 
 	render : function() {
+		console.log(App);
 		this.$el.html(this.template());
+		App.products.forEach(this.appendProduct,this);		
+		App.dataElements.forEach(this.appendDataElement,this);		
 		return this;
 	},
-
-	assignProduct : function() {
-		this.$el.find("#modalProducts input[type='checkbox']:checked").each(
-				function(index) {
-					$('.checkboxlist').append($(this).closest('label'));
-					$(".checkboxlist input[type='checkbox']").bind(
-							'click',
-							function() {
-								var checked = $(this).prop("checked");
-
-								if (!checked) {
-									$('.checkboxlistModal').append(
-											$(this).closest('label'));
-								}
-							});
-				});
+	
+	appendProduct : function(ehr_hospital){
+		var temp = _.template($('#single-measure-product').html());		
+		var chd = '';
+		/*this.model.get('hospitals').forEach(function( hospital ) {
+			if (hospital.mid == ehr_hospital.get('id')) {chd = 'checked';}
+		});*/
+		this.$el.find('div#products').append(temp({name:ehr_hospital.get('name'),id:ehr_hospital.get('id'),ch:chd}));		
 	},
+	
+	appendDataElement : function(ehr_element){
+		var temp = _.template($('#single-measure-element').html());
+		var chd = '';
+		/*this.model.get('elemets').forEach(function( elemet ) {
+			if (elemet.hid == ehr_element.get('id')) {chd = 'checked';}
+		});*/
+		this.$el.find('div#elements').append(temp({name:ehr_element.get('name'),id:ehr_element.get('id'),ch:chd}));
+	},
+	
+	addMeasure : function(e) {
+		e.preventDefault();
+		console.log("Measure added");
 
-	assignElement : function() {
-		this.$el.find("#modalElements input[type='checkbox']:checked").each(
-				function(index) {
-					console.log($(this).closest('label'));
-					$('.checkboxlist-elements')
-							.append($(this).closest('label'));
-
-					$(".checkboxlist-elements input[type='checkbox']").bind(
-							'click',
-							function() {
-								var checked = $(this).prop("checked");
-								console.log($(this).closest('div'));
-
-								if (!checked) {
-									$('.checkboxlistModalElement').append(
-											$(this).closest('label'));
-								}
-							});
-				});
+		this.model.save({
+			code : this.$('#code').val(),
+			name : this.$('#name').val(),
+			notes : this.$('#notes').val()
+		},
+		
+		{
+		    success: function(model, response) {
+		    	$('div#message-box').text("").append(response.message).fadeIn(500).delay(1500).fadeOut(500);
+		        Backbone.history.navigate("measure", true);
+		    }
+		
+		});				
 	}
-
 });
 
 // Edit Measure
@@ -94,27 +96,27 @@ App.Views.EditMeasure = Backbone.View.extend({
 	render : function() {				
 		console.log(this.model.toJSON());	
 		this.$el.html(this.template(this.model.toJSON()));
-		//App.products.forEach(this.appendMeasureProduct,this);		
-		//App.dataElements.forEach(this.appendMeasureElement,this);			
+		App.products.forEach(this.appendProduct,this);		
+		App.dataElements.forEach(this.appendDataElement,this);		
 		return this;
 	},
 
-	appendMeasureProduct : function(measure_product){
+	appendProduct : function(measure_product){
 		var temp = _.template($('#single-measure-product').html());		
 		var chd = '';
-		this.model.get('products').forEach(function( product ) {
+		/*this.model.get('products').forEach(function( product ) {
 			if (product.mid == measure_product.get('id')) {chd = 'checked';}
-		});
-		this.$el.find('div#product').append(temp({name:measure_product.get('name'),id:measure_product.get('id'),ch:chd}));		
+		});*/
+		this.$el.find('div#products').append(temp({name:measure_product.get('name'),id:measure_product.get('id'),ch:chd}));		
 	},
 	
-	appendMeasureElement : function(measure_element){
+	appendDataElement : function(measure_element){
 		var temp = _.template($('#single-measure-element').html());
 		var chd = '';
-		this.model.get('elements').forEach(function( element ) {
+		/*this.model.get('elements').forEach(function( element ) {
 			if (element.hid == measure_element.get('id')) {chd = 'checked';}
-		});
-		this.$el.find('div#data-element').append(temp({name:measure_element.get('name'),id:measure_element.get('id'),ch:chd}));
+		});*/
+		this.$el.find('div#elements').append(temp({name:measure_element.get('name'),id:measure_element.get('id'),ch:chd}));
 	},
 
 	editMeasure : function(e) {

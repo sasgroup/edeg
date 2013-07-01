@@ -72,17 +72,17 @@
                 
                 <ul id="myTab" class="nav nav-tabs">
                   <li class="active">
-                    <a data-toggle="tab" href="#product">Products</a>
+                    <a data-toggle="tab" href="#products">Products</a>
                   </li>
                   <li class="">
-                    <a data-toggle="tab" href="#data-element">DataElements</a>
+                    <a data-toggle="tab" href="#elements">DataElements</a>
                   </li>
                 </ul>
      
     			<div id="myTabContent" class="tab-content">
-            	   <div id="product" class="tab-pane fade active in">    
+            	   <div id="products" class="tab-pane fade active in">    
             	   </div>
-            	   <div id="data-element" class="tab-pane fade">              
+            	   <div id="elements" class="tab-pane fade">              
             	   </div>
         		</div>
 
@@ -131,17 +131,17 @@
 
                 <ul id="myTab" class="nav nav-tabs">
                   <li class="active">
-                    <a data-toggle="tab" href="#product">Products</a>
+                    <a data-toggle="tab" href="#products">Products</a>
                   </li>
                   <li class="">
-                    <a data-toggle="tab" href="#data-element">DataElements</a>
+                    <a data-toggle="tab" href="#elements">DataElements</a>
                   </li>
                 </ul>
      
                 <div id="myTabContent" class="tab-content">
-                   <div id="product" class="tab-pane fade active in">    
+                   <div id="products" class="tab-pane fade active in">    
                    </div>
-                   <div id="data-element" class="tab-pane fade">              
+                   <div id="elements" class="tab-pane fade">              
                    </div>
                 </div>
 
