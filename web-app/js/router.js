@@ -10,10 +10,12 @@ App.Router = Backbone.Router.extend({
 		'product/:new'    : 'newProduct',
 		'measure/:new'    : 'newMeasure',
 		'element/:new'    : 'newDataElement',
+		'ehr/:new'        : 'newEhr',
 		
 		'product/:id/edit': 'editProduct',
 		'measure/:id/edit': 'editMeasure',
-		'element/:id/edit': 'editDataElement'
+		'element/:id/edit': 'editDataElement',
+		'ehr/:id/edit'    : 'editEhr'
 	},
 
 	
@@ -99,6 +101,20 @@ App.Router = Backbone.Router.extend({
 		});		
 	},
 
+
+	// new EHR
+	newEhr : function() {				
+		App.hospitals = new App.Collections.Hospitals();			
+		App.hospitals.fetch().then(function(){			
+			App.dataElements = new App.Collections.DataElements();			
+			App.dataElements.fetch().then(function(){
+				App.ehr = new App.Models.Ehr();
+				var view = new App.Views.NewEhr({model:App.ehr});
+				$('#app').html(view.render().el);
+			});			
+		});		
+	},	
+
 	
 	// ------- EDIT ------------
 	// edit product
@@ -140,6 +156,20 @@ App.Router = Backbone.Router.extend({
 			App.ehrs.fetch().then(function(){
 				var dataElement = App.dataElements.get(id);	
 				var view = new App.Views.EditDataElement({model:dataElement});
+				$('#app').html(view.render().el);
+			});			
+		});				
+	},
+
+	// edit ehr
+	editEhr : function(id) {
+		console.log('EHR Edit id:'+id)
+		App.hospitals = new App.Collections.Hospitals();			
+		App.hospitals.fetch().then(function(){			
+			App.dataElements = new App.Collections.DataElements();			
+			App.dataElements.fetch().then(function(){
+				var ehr = App.ehrs.get(id);	
+				var view = new App.Views.EditEhr({model:ehr});
 				$('#app').html(view.render().el);
 			});			
 		});				
