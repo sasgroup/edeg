@@ -27,97 +27,39 @@ App.Views.Ehrs = Backbone.View.extend({
 	}
 });
 
-// New Ehr
-App.Views.NewEhr = Backbone.View.extend({
-	template : _.template($('#ehr-new-template').html()),
 
-	events : {		
-		'submit' : 'addEhr'/*,
-		'change #code, #name, #notes' : 'changeVal',
-		'change .checkbox' : 'changeCh'*/
-	},
-
-	render : function() {
-		console.log(App);
-		this.$el.html(this.template());
-		App.hospitals.forEach(this.appendHospital,this);		
-		App.dataElements.forEach(this.appendDataElement,this);		
-		return this;
-	},
-	
-	appendHospital : function(ehr_hospital){
-		var temp = _.template($('#single-ehr-hospital').html());		
-		var chd = '';
-		/*this.model.get('hospitals').forEach(function( hospital ) {
-			if (hospital.mid == ehr_hospital.get('id')) {chd = 'checked';}
-		});*/
-		this.$el.find('div#hospitals').append(temp({name:ehr_hospital.get('name'),id:ehr_hospital.get('id'),ch:chd}));		
-	},
-	
-	appendDataElement : function(ehr_element){
-		var temp = _.template($('#single-ehr-element').html());
-		var chd = '';
-		/*this.model.get('elemets').forEach(function( elemet ) {
-			if (elemet.hid == ehr_element.get('id')) {chd = 'checked';}
-		});*/
-		this.$el.find('div#elements').append(temp({name:ehr_element.get('name'),id:ehr_element.get('id'),ch:chd}));
-	},
-	
-	addEhr : function(e) {
-		e.preventDefault();
-		console.log("EHR added");
-
-		this.model.save({
-			code : this.$('#code').val(),
-			name : this.$('#name').val(),
-			notes : this.$('#notes').val()
-		},
-		
-		{
-		    success: function(model, response) {
-		    	$('div#message-box').text("").append(response.message).fadeIn(500).delay(1500).fadeOut(500);
-		        Backbone.history.navigate("ehr", true);
-		    }
-		
-		});				
-	}
-});
-
-
-// Edit Ehr
-App.Views.EditEhr = Backbone.View.extend({
-	template : _.template($('#ehr-edit-template').html()),
+// New/Edit Ehr
+App.Views.Ehr = Backbone.View.extend({
+	template : _.template($('#ehr-template').html()),
 
 	events : {
-		'submit' : 'editEhr'/*,
-		'change #code, #name, #notes' : 'changeVal',
-		'change .checkbox' : 'changeCh'*/
+		'submit' : 'editEhr',
+		'change #code, #name, #notes' : 'changeVal'
 	},
 	
 	render : function() {				
-		console.log(this.model.toJSON());	
+
+		console.log(this.model.get('dataElementDefaults'));
 		this.$el.html(this.template(this.model.toJSON()));
-		App.hospitals.forEach(this.appendHospital,this);		
-		App.dataElements.forEach(this.appendDataElement,this);		
+		this.model.get('hospitals').forEach(this.appendHospital,this);		
+		this.model.get('dataElementDefaults').forEach(this.appendDataElement,this);		
 		return this;
 	},
-
-	appendHospital : function(ehr_hospital){
-		var temp = _.template($('#single-ehr-hospital').html());		
-		var chd = '';
-		/*this.model.get('hospitals').forEach(function( hospital ) {
-			if (hospital.mid == ehr_hospital.get('id')) {chd = 'checked';}
-		});*/
-		this.$el.find('div#hospitals').append(temp({name:ehr_hospital.get('name'),id:ehr_hospital.get('id'),ch:chd}));		
+	
+	changeVal : function(e) {
+		console.log(e.target.name);
+		this.model.attributes[e.target.name] = $(e.target).val();
+		console.log(this.model.attributes);
 	},
 	
-	appendDataElement : function(ehr_element){
-		var temp = _.template($('#single-ehr-element').html());
-		var chd = '';
-		/*this.model.get('elemets').forEach(function( elemet ) {
-			if (elemet.hid == ehr_element.get('id')) {chd = 'checked';}
-		});*/
-		this.$el.find('div#elements').append(temp({name:ehr_element.get('name'),id:ehr_element.get('id'),ch:chd}));
+	appendHospital : function(ehr_hospital){
+		var temp = _.template($('#single-ehr-hospital').html());
+		this.$el.find('div#hospitals').append(temp({name:ehr_hospital.hname}));		
+	},
+	
+	appendDataElement : function(dem_element){
+		var temp = _.template($('#single-data-elements-def-element').html());
+		this.$el.find('div#elements').append(temp({name:dem_element.description}));
 	},
 		
 	editEhr : function(e) {
@@ -160,7 +102,28 @@ App.Views.SingleEhr = Backbone.View
 				Backbone.history.navigate("ehr/"+this.model.get('id')+'/edit', true);
 			},
 			
-			destroy : function(){
+			destroy : function(e){
 				console.log("destroy");
+				e.preventDefault();
+				
+				var el = this.$el;
+				
+				this.model.destroy({
+					wait: true,
+				    success: function(model, response){
+				    	$('div#message-box').text("").append(response.message).fadeIn(500).delay(1500).fadeOut(500);
+			    		el.remove();
+				    	Backbone.history.navigate("ehr", true);
+				     },
+				     error: function (model, response) {
+				    	 console.log(response);
+				    	 $('div#message-box').text("").append(response.responseText).fadeIn(500).delay(1500).fadeOut(500);
+				            Backbone.history.navigate("ehr", true);
+				     }
+				});
+				
+				
+				//this.model.destroy();				  
+				//this.$el.remove();  
 			}
 		});

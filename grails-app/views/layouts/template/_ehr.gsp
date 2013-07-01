@@ -35,68 +35,8 @@
 </div>
 </script>
 
-<!-- NEW -->
-<script type="text/template" class="template" id="ehr-new-template">
-<div class="container">  
-    <div class="row">
-        <div class="span8">
-            <h3>EHR: New</h3>
-            <hr>
-            <div class="clearfix"></div>
-            <form method="post" class="form-horizontal" id="ehr-new" accept-charset="utf-8">
-                <div class="control-group">
-                    <label for="code" class="control-label">
-                        Code
-                    </label>
-                    <div class="controls">
-                        <input name="code" type="text" value="" id="code">
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label for="name" class="control-label">
-                        Name
-                    </label>
-                    <div class="controls">
-                        <input name="name" type="text" value="" id="name">
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label for="notes" class="control-label">
-                        Notes
-                    </label>
-                    <div class="controls">
-                        <textarea rows="3"></textarea>
-                    </div>
-                </div>
-                
-                <ul id="myTab" class="nav nav-tabs">
-                  <li class="active">
-                    <a data-toggle="tab" href="#hospitals">Hospital</a>
-                  </li>
-                  <li class="">
-                    <a data-toggle="tab" href="#elements">DataElement</a>
-                  </li>
-                </ul>
-     
-                <div id="myTabContent" class="tab-content">
-                   <div id="hospitals" class="tab-pane fade active in">    
-                   </div>
-                   <div id="elements" class="tab-pane fade">              
-                   </div>
-                </div>
-
-                <div class="form-actions">
-                    <button type="submit" class="btn btn-info">Save EHR</button>
-                </div>
-            </form>
-        </div>        
-    </div>
-</div>
-</script>
-
-
-<!-- EDIT -->
-<script type="text/template" class="template" id="ehr-edit-template">
+<!-- NEW/EDIT -->
+<script type="text/template" class="template" id="ehr-template">
 <div class="container">
     <div class="row">
         <div class="span8">
@@ -165,14 +105,14 @@
 </script>
 
 <script type="text/template" class="template" id="single-ehr-hospital">
-    <label class="checkbox">
-        <input type="checkbox" name="hospital" value="{{name}}" id="{{id}}" {{ch}}> {{name}}
+    <label class="Hospitals">
+         {{name}}
     </label>
 </script>
 
 
-<script type="text/template" class="template" id="single-ehr-element">
-    <label class="checkbox">
-        <input type="checkbox" name="element" value="{{name}}" id="{{id}}" {{ch}}> {{name}}
+<script type="text/template" class="template" id="single-data-elements-def-element">
+    <label class="DataElementsDef">
+        {{name}}
     </label>
 </script>

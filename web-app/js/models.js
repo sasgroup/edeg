@@ -7,7 +7,6 @@ App.Models.Product = Backbone.Model.extend({
 	    "notes": "",
 	    "measures" : [],
 	    "hospitals" :[]
-	    
 	  }
 });
 
@@ -25,7 +24,15 @@ App.Models.Hospital = Backbone.Model.extend({
 });
 
 App.Models.Ehr = Backbone.Model.extend({
-	urlRoot: '/ihm/api/ehr'	
+	urlRoot: '/ihm/api/ehr'	,
+	defaults: {
+	    "version":  1,
+	    "code":     "",
+	    "name":    "",
+	    "notes": "",
+	    "dataElementDefaults" : [],
+	    "hospitals" :[]
+	  }
 });
 
 App.Models.MesageDialog = Backbone.Model.extend({

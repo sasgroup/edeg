@@ -53,7 +53,8 @@ class BootStrap {
 
 		product = new Product(code:"MU2",
 							  name:"Meaningful Use Solution 2014 Stage 2",
-							  notes:"")
+							  notes:"<script>alert('FY');</script>"//notes:""
+							  )
 		if (!product.save()){
 			product.errors.allErrors.each{error ->
 				println "An error occured with event1: ${error}"
@@ -359,8 +360,8 @@ class BootStrap {
 													  valueSet:"",
 													  valueSetRequired:false,
 													  locationtype:"Internal",
-													  dataElement : DataElement.findByCode("ad"),
-													  ehr : Ehr.findByCode("mv5"))
+													  dataElement : DataElement.findByCode("ad") )
+		
 		if (!dataElementDefaults.save()){
 			dataElementDefaults.errors.allErrors.each{error ->
 				println "An error occured with event1: ${error}"
@@ -373,22 +374,26 @@ class BootStrap {
 													  valueSet:"",
 													  valueSetRequired:false,
 													  locationtype:"Internal",
-													  dataElement : DataElement.findByCode("ad"),
-													  ehr : Ehr.findByCode("mv6"))
+													  dataElement : DataElement.findByCode("ad"))
+		dataElementDefaults.addToEhrs(Ehr.findByCode("mv5"))
+		dataElementDefaults.addToEhrs(Ehr.findByCode("mv6"))
+		
 		if (!dataElementDefaults.save()){
 			dataElementDefaults.errors.allErrors.each{error ->
 				println "An error occured with event1: ${error}"
 			}
 		}
-
+		
 		dataElementDefaults = new DataElementDefaults(isIMO:false,
 													  location:"",
 													  queryMnemonic:"",
 													  valueSet:"2.16.840.1.113883.3.117.1.7.1.276",
 													  valueSetRequired:false,
 													  locationtype:"Internal",
-													  dataElement : DataElement.findByCode("vte"),
-													  ehr : Ehr.findByCode("mv6"))
+													  dataElement : DataElement.findByCode("vte"))
+		
+		dataElementDefaults.addToEhrs(Ehr.findByCode("mv5"))
+		dataElementDefaults.addToEhrs(Ehr.findByCode("mv6"))
 		if (!dataElementDefaults.save()){
 			dataElementDefaults.errors.allErrors.each{error ->
 				println "An error occured with event1: ${error}"
