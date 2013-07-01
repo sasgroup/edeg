@@ -39,7 +39,7 @@
 <script type="text/template" class="template" id="ehr-template">
 <div class="container">
     <div class="row">
-        <div class="span8">
+        <div class="span11">
             <h3>DataElement: Edit</h3>
             <hr>
             <div class="clearfix"></div>
@@ -81,7 +81,24 @@
                 <div id="myTabContent" class="tab-content">
                    <div id="hospitals" class="tab-pane fade active in">    
                    </div>
-                   <div id="elements" class="tab-pane fade">              
+                   <div id="elements" class="tab-pane fade">
+              		<table id="dataElementsTable" class="table table-bordered table-hover table-condensed dataTable">
+       				 <thead>        				
+						<tr>
+            				<td>isIMO</td>
+							<td>location</td>
+							<td>queryMnemonic</td>
+							<td>valueSet</td>
+							<td>valueSetRequired</td>
+							<td>locationtype</td>
+            				<td class="e-btn">Edit</td>
+            				<td class="s-btn">Save</td>
+            				<td class="d-btn">Del</td>
+        				</tr>
+        			</thead>
+        			<tbody>	
+					</tbody>     
+				   </table>		
                    </div>
                 </div>
 
@@ -112,7 +129,21 @@
 
 
 <script type="text/template" class="template" id="single-data-elements-def-element">
-    <label class="DataElementsDef">
-        {{name}}
-    </label>
+   <tr>
+            <td>{{name}}</td>
+			<td>{{}}</td>
+			<td>{{}}</td>			
+            <td>{{}}</td>
+			<td>{{}}</td>
+			<td>{{}}</td>
+            <td class="edit-btn">
+                <button>E</button>
+            </td>
+            <td class="save-btn">
+                <button>S</button>
+            </td>
+            <td class="del-btn">
+                <button>D</button>
+            </td>
+   </tr>
 </script>
