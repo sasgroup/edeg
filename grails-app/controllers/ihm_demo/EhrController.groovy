@@ -40,7 +40,12 @@ class EhrController {
 				}
 				dataElementDefaults = array {
 					for (d in dataElementDefaultsList) {
-						dataElementDefault  description: "$d.isIMO,  $d.location, $d.queryMnemonic, $d.valueSet, $d.valueSetRequired, $d.locationtype"
+						dataElementDefault  isIMO: d.isIMO,  
+											location : d.location, 
+											queryMnemonic : d.queryMnemonic, 
+											valueSet : d.valueSet, 
+											valueSetRequired : d.valueSetRequired, 
+											locationtype : d.locationtype
 					}
 				}
 				
