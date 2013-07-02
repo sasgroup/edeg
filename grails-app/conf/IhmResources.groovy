@@ -1,6 +1,6 @@
 modules = {
 	ihm {
-		dependsOn 'jquery, underscore, backbone, bootstrap'
+		dependsOn 'jquery, underscore, backbone, bootstrap, jqueryui, jqgrid'
 		resource url: 'css/ihm.css'		
 		resource url: 'js/ihm.js'
 		resource url: 'js/models.js'
@@ -32,6 +32,16 @@ modules = {
 		resource url: 'js/bootstrap.js'
 	}
 	
+	jqueryui {
+		resource url: 'js/jquery-ui.min.js'	
+		resource url: 'css/jquery-ui-1.8.1.custom.css'		
+	}
+	
+	jqgrid {
+		resource url: 'js/grid.locale-en.js'
+		resource url: 'js/jquery.jqGrid.js'
+		resource url: 'css/ui.jqgrid.css'
+	}
 }
 
 

@@ -97,6 +97,9 @@
                   <li class="">
                     <a data-toggle="tab" href="#elements">DataElements</a>
                   </li>
+				  <li class="">
+                    <a data-toggle="tab" href="#hospital_measures">HospitalMeasures</a>
+                  </li>	
                 </ul>
      
     			<div id="myTabContent" class="tab-content">
@@ -104,6 +107,8 @@
             	   </div>
             	   <div id="elements" class="tab-pane fade">              
             	   </div>
+				   <div id="hospital_measures" class="tab-pane fade">              
+            	   </div>	
         		</div>
 
                 <div class="form-actions">
@@ -176,14 +181,19 @@
                   <li class="">
                     <a data-toggle="tab" href="#elements">DataElements</a>
                   </li>
+				  <li class="">
+                    <a data-toggle="tab" href="#hospital_measures">HospitalMeasures</a>
+                  </li>	
                 </ul>
      
-                <div id="myTabContent" class="tab-content">
-                   <div id="products" class="tab-pane fade active in">    
-                   </div>
-                   <div id="elements" class="tab-pane fade">              
-                   </div>
-                </div>
+    			<div id="myTabContent" class="tab-content">
+            	   <div id="products" class="tab-pane fade active in">    
+            	   </div>
+            	   <div id="elements" class="tab-pane fade">              
+            	   </div>
+				   <div id="hospital_measures" class="tab-pane fade">              
+            	   </div>	
+        		</div>
 
                 <div class="form-actions">
                     <button type="submit" class="btn btn-info">Save Measure</button>
