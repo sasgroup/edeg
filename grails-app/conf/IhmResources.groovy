@@ -1,6 +1,6 @@
 modules = {
 	ihm {
-		dependsOn 'jquery, underscore, backbone, bootstrap, jqueryui, jqgrid'
+		dependsOn 'jquery, underscore, backbone, bootstrap, jqgrid'
 		resource url: 'css/ihm.css'		
 		resource url: 'js/ihm.js'
 		resource url: 'js/models.js'
@@ -32,15 +32,20 @@ modules = {
 		resource url: 'js/bootstrap.js'
 	}
 	
-	jqueryui {
-		resource url: 'js/jquery-ui.min.js'	
-		resource url: 'css/jquery-ui-1.8.1.custom.css'		
-	}
-	
+		
 	jqgrid {
 		resource url: 'js/grid.locale-en.js'
+		resource url: 'js/jquery-ui-custom.min.js'
+		resource url: 'js/jquery.contextmenu.js'
 		resource url: 'js/jquery.jqGrid.js'
+		resource url: 'js/jquery.layout.js'
+		resource url: 'js/jquery.tablednd.js'
+		resource url: 'js/ui.multiselect.js'
+		
+		
+		resource url: 'css/jquery-ui-custom.css'
 		resource url: 'css/ui.jqgrid.css'
+		resource url: 'css/ui.multiselect.css'
 	}
 }
 
