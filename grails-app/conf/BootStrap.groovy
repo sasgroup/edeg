@@ -191,9 +191,26 @@ class BootStrap {
 				println "An error occured with event1: ${error}"
 			}
 		}
+		
+		measureCategory =new MeasureCategory(name:"core2",
+												 description:"core2",
+												 categoryType:"Core")
+			if (!measureCategory.save()){
+				measureCategory.errors.allErrors.each{error ->
+					println "An error occured with event1: ${error}"
+				}
+			}
 		//-----------CQM_DOMAINs-----------
 		def cqmDomain =new CqmDomain(name:"domain",
 										notes:"!")
+		if (!cqmDomain.save()){
+			cqmDomain.errors.allErrors.each{error ->
+				println "An error occured with event1: ${error}"
+			}
+		}
+		
+		cqmDomain =new CqmDomain(name:"domain1",
+									 notes:"!")
 		if (!cqmDomain.save()){
 			cqmDomain.errors.allErrors.each{error ->
 				println "An error occured with event1: ${error}"

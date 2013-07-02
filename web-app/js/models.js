@@ -1,6 +1,7 @@
 App.Models.Product = Backbone.Model.extend({
 	urlRoot: '/ihm/api/product'	,
 	defaults: {
+		"state" : "Edit",
 	    "version":  1,
 	    "code":     "",
 	    "name":    "",
@@ -11,7 +12,21 @@ App.Models.Product = Backbone.Model.extend({
 });
 
 App.Models.Measure = Backbone.Model.extend({
-	urlRoot: '/ihm/api/measure'	
+	urlRoot: '/ihm/api/measure',
+	defaults: {
+		"state" : "Edit",
+		"version":  1,
+	    "code":     "",
+	    "name":    "",
+	    "notes": "",
+	    "measureCategory" : "",
+	    "cqmDomain" : "",
+	    "products" : [],
+	    "dataElements" :[]
+	  },
+	  parse: function (response) {
+	      return this.model = response;
+	   }
 });
 
 
@@ -26,6 +41,7 @@ App.Models.Hospital = Backbone.Model.extend({
 App.Models.Ehr = Backbone.Model.extend({
 	urlRoot: '/ihm/api/ehr'	,
 	defaults: {
+		"state" : "Edit",
 	    "version":  1,
 	    "code":     "",
 	    "name":    "",

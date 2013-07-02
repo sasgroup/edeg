@@ -38,8 +38,9 @@ App.Views.Ehr = Backbone.View.extend({
 	},
 	
 	render : function() {				
-
-		console.log(this.model.get('dataElementDefaults'));
+		if (!this.model.toJSON().id) {
+			this.model.set("state" , "New");
+		};
 		this.$el.html(this.template(this.model.toJSON()));
 		this.model.get('hospitals').forEach(this.appendHospital,this);		
 		this.model.get('dataElementDefaults').forEach(this.appendDataElement,this);		

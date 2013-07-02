@@ -28,11 +28,9 @@ App.Router = Backbone.Router.extend({
 		
 		App.measureCategories  = new App.Collections.MeasureCategories();
 		App.measureCategories.fetch();
-		//console.log(App.measureCategories);
 		
 		App.cqmDomains         = new App.Collections.CqmDomains();
 		App.cqmDomains.fetch();
-		//console.log(App.cqmDomains);
 	},
 	
 	// ------- LIST ------------
@@ -48,7 +46,6 @@ App.Router = Backbone.Router.extend({
 	measures : function() {		
 		App.measures.fetch().then(function(){
 			App.viewMeasures = new App.Views.Measures({collection:App.measures});
-			console.log(App.viewMeasures.render().el);
 			$('#app').html(App.viewMeasures.render().el);
 		});
 	},	
@@ -99,6 +96,17 @@ App.Router = Backbone.Router.extend({
 			});			
 		});		
     },
+    measure : function (measureModel) {
+    	App.products = new App.Collections.Products();			
+		App.products.fetch().then(function(){			
+			App.dataElements = new App.Collections.DataElements();			
+			App.dataElements.fetch().then(function(){
+				var view = new App.Views.Measure({model: measureModel});		
+				$('#app').html(view.render().el); 
+			});			
+			  
+		});		
+    },
 	// ------- NEW ------------
     // new product
 	newProduct : function() {			
@@ -107,16 +115,7 @@ App.Router = Backbone.Router.extend({
 	
 	// new measure
 	newMeasure : function() {		
-		App.products = new App.Collections.Products();			
-		App.products.fetch().then(function(){			
-			App.dataElements = new App.Collections.DataElements();			
-			App.dataElements.fetch().then(function(){
-				App.measure = new App.Models.Measure();
-				view = new App.Views.NewMeasure({model: App.measure});		
-				$('#app').html(view.render().el); 
-			});			
-			  
-		});		
+		this.measure(new App.Models.Measure());	
 	},
 
 	// new dataElement
@@ -148,17 +147,10 @@ App.Router = Backbone.Router.extend({
 
 	 // edit measure
 	editMeasure : function(id) {
-		console.log('measuretEdit id:'+id)
-		App.products = new App.Collections.Products();			
-		App.products.fetch().then(function(){			
-			App.dataElements = new App.Collections.DataElements();			
-			App.dataElements.fetch().then(function(){
-				var measure = App.measures.get(id);	
-				view = new App.Views.EditMeasure({model: measure});		
-				$('#app').html(view.render().el); 
-			});			
-			  
-		});		
+		App.me = new App.Models.Measure();
+		App.me.fetch({data:{id: id}}).then(function(){
+			App.route.measure(App.me);
+		})
 	},
 
 	// edit dataElement

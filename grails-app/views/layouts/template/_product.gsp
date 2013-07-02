@@ -40,7 +40,7 @@
 <div class="container">
     <div class="row">
         <div class="span8">
-            <h3>Product: Edit</h3>
+            <h3>Product: {{state}}</h3>
             <hr>
             <div class="clearfix"></div>
             <form method="post" class="form-horizontal" id="product-edit" accept-charset="utf-8">

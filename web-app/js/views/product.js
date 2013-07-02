@@ -42,8 +42,10 @@ App.Views.Product = Backbone.View.extend({
 		'change .checkbox' : 'changeCh'
 	},
 	
-	render : function() {				
-		console.log(this.model.toJSON());	
+	render : function() {	
+		if (!this.model.toJSON().id) {
+			this.model.set("state" , "New");
+		};
 		this.$el.html(this.template(this.model.toJSON()));
 		App.measures.forEach(this.appendProductMeasure,this);		//new
 		App.hospitals.forEach(this.appendProductHospital,this);		//new	

@@ -36,91 +36,12 @@
 </script>
 
 
-<!-- NEW -->
-<script type="text/template" class="template" id="measure-new-template">
-<div class="container">  
-    <div class="row">
-        <div class="span8">
-            <h3>Measure: New</h3>
-            <hr>
-            <div class="clearfix"></div>
-            <form method="post" class="form-horizontal" id="measure-new" accept-charset="utf-8">
-                <div class="control-group">
-                    <label for="code" class="control-label">
-                        Code
-                    </label>
-                    <div class="controls">
-                        <input name="code" type="text" value="" id="code">
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label for="name" class="control-label">
-                        Name
-                    </label>
-                    <div class="controls">
-                        <input name="name" type="text" value="" id="name">
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label for="notes" class="control-label">
-                        Notes
-                    </label>
-                    <div class="controls">
-                        <textarea rows="3"></textarea>
-                    </div>
-                </div>
-				
-				<div class="control-group">
-					<label for="category" class="control-label">
-						Category
-					</label>
-					<div class="controls">
-					  <select id="category">								
-					  </select>
-					</div>
-				</div>
-
-				<div class="control-group">
-					<label for="cqm_domain" class="control-label">
-						CQMDomain
-					</label>
-					<div class="controls">
-					  <select id="cqm_domain">								
-					  </select>
-					</div>
-				</div>
-                
-                <ul id="myTab" class="nav nav-tabs">
-                  <li class="active">
-                    <a data-toggle="tab" href="#products">Products</a>
-                  </li>
-                  <li class="">
-                    <a data-toggle="tab" href="#elements">DataElements</a>
-                  </li>
-                </ul>
-     
-    			<div id="myTabContent" class="tab-content">
-            	   <div id="products" class="tab-pane fade active in">    
-            	   </div>
-            	   <div id="elements" class="tab-pane fade">              
-            	   </div>
-        		</div>
-
-                <div class="form-actions">
-                    <button type="submit" class="btn btn-info">Save Measure</button>
-                </div>
-            </form>
-        </div>        
-    </div>
-</div>
-</script>
-
-<!-- EDIT -->
-<script type="text/template" class="template" id="measure-edit-template">
+<!-- EDIT/NEW -->
+<script type="text/template" class="template" id="measure-template">
 <div class="container">
     <div class="row">
         <div class="span8">
-            <h3>Product: Edit</h3>
+            <h3>Measure: {{state}}</h3>
             <hr>
             <div class="clearfix"></div>
             <form method="post" class="form-horizontal" id="measure-edit" accept-charset="utf-8">
@@ -154,17 +75,19 @@
 						Category
 					</label>
 					<div class="controls">
-					  <select id="category">								
+					  <select id="measureCategory">
+						<option></option>								
 					  </select>
 					</div>
 				</div>
 
 				<div class="control-group">
-					<label for="cqm_domain" class="control-label">
+					<label for="cqmDomain" class="control-label">
 						CQMDomain
 					</label>
 					<div class="controls">
-					  <select id="cqm_domain">								
+					  <select id="cqmDomain">	
+						<option></option>								
 					  </select>
 					</div>
 				</div>
@@ -218,9 +141,9 @@
 </script>
 
 <script type="text/template" class="template" id="single-measure-category">
-    <option>{{name}}</option>
+    <option {{selected}} value={{id}}>{{name}}</option>
 </script>
 
 <script type="text/template" class="template" id="single-measure-domain">
-    <option>{{name}}</option>
+    <option {{selected}} value={{id}}>{{name}}</option>
 </script>

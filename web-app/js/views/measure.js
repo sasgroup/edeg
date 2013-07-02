@@ -27,136 +27,121 @@ App.Views.Measures = Backbone.View.extend({
 	}
 });
 
-// New Measure
-App.Views.NewMeasure = Backbone.View.extend({
-	template : _.template($('#measure-new-template').html()),
 
-	events : {		
-		'submit' : 'addMeasure'/*,
-		'change #code, #name, #notes' : 'changeVal',
-		'change .checkbox' : 'changeCh'*/
-	},
-
-	render : function() {
-		console.log(App.measureCategories);
-		this.$el.html(this.template());
-		App.products.forEach(this.appendProduct,this);		
-		App.dataElements.forEach(this.appendDataElement,this);		
-		
-		App.measureCategories.forEach(this.appendMeasureCategory,this);	
-		App.cqmDomains.forEach(this.appendCqmDomain,this);
-		return this;
-	},
-	
-	appendProduct : function(ehr_hospital){
-		var temp = _.template($('#single-measure-product').html());		
-		var chd = '';		
-		this.$el.find('div#products').append(temp({name:ehr_hospital.get('name'),id:ehr_hospital.get('id'),ch:chd}));		
-	},
-	
-	appendDataElement : function(ehr_element){
-		var temp = _.template($('#single-measure-element').html());
-		var chd = '';		
-		this.$el.find('div#elements').append(temp({name:ehr_element.get('name'),id:ehr_element.get('id'),ch:chd}));
-	},
-	
-	appendMeasureCategory : function(measure_category){
-		var temp = _.template($('#single-measure-category').html());
-		console.log("measure_category: "+ measure_category.get('name'));
-		this.$el.find('#category').append(temp({name:measure_category.get('name')}));
-	},
-	
-	appendCqmDomain : function(cqm_domain){
-		var temp = _.template($('#single-measure-domain').html());
-		console.log("cqm_domain: "+ cqm_domain.get('name'));
-		this.$el.find('#cqm_domain').append(temp({name:cqm_domain.get('name')}));
-	},
-	
-	addMeasure : function(e) {
-		e.preventDefault();
-		console.log("Measure added");
-
-		this.model.save({
-			code : this.$('#code').val(),
-			name : this.$('#name').val(),
-			notes : this.$('#notes').val()
-		},
-		
-		{
-		    success: function(model, response) {
-		    	$('div#message-box').text("").append(response.message).fadeIn(500).delay(1500).fadeOut(500);
-		        Backbone.history.navigate("measure", true);
-		    }
-		
-		});				
-	}
-});
-
-// Edit Measure
-App.Views.EditMeasure = Backbone.View.extend({
-	template : _.template($('#measure-edit-template').html()),
+// Edit/New Measure
+App.Views.Measure = Backbone.View.extend({
+	template : _.template($('#measure-template').html()),
 
 	events : {
-		'submit' : 'editMeasure'
-		/*'change #code, #name, #notes' : 'changeVal',
-		'change .checkbox' : 'changeCh'*/
+		'submit' : 'editMeasure',
+		'change #code, #name, #notes' : 'changeVal',
+		'change #measureCategory, #cqmDomain' : 'changeDr',
+		'change .checkbox' : 'changeCh'
 	},
 	
-	render : function() {				
-		console.log(this.model.toJSON());	
+	render : function() {		
+		if (!this.model.toJSON().id) {
+			this.model.set("state" , "New");
+		};
 		this.$el.html(this.template(this.model.toJSON()));
 		App.products.forEach(this.appendProduct,this);		
 		App.dataElements.forEach(this.appendDataElement,this);		
-		
 		App.measureCategories.forEach(this.appendMeasureCategory,this);	
 		App.cqmDomains.forEach(this.appendCqmDomain,this);
 		
 		return this;
 	},
-
+	changeDr : function(e) {
+		this.model.attributes[e.target.id] = {id : e.target.value};
+	},
+	changeVal : function(e) {
+		this.model.attributes[e.target.name] = $(e.target).val();
+	},
 	appendProduct : function(measure_product){
 		var temp = _.template($('#single-measure-product').html());		
 		var chd = '';
-		/*this.model.get('products').forEach(function( product ) {
-			if (product.mid == measure_product.get('id')) {chd = 'checked';}
-		});*/
+		this.model.get('products').forEach(function( product ) {
+			if (product.pid == measure_product.get('id')) {chd = 'checked';}
+		});
 		this.$el.find('div#products').append(temp({name:measure_product.get('name'),id:measure_product.get('id'),ch:chd}));		
 	},
-	
+	changeCh : function(e) {
+		console.log(e.target.value + ' ' + e.target.id + ' ' + e.target.checked+ ' '+e.target.name);
+		if (e.target.name == 'product' ) {
+			if ( e.target.checked ) {
+				console.log("Push products");
+				var products = this.model.get("products");
+				products.push({"pid" : e.target.id, "pname" : e.target.value});
+				this.model.set("products" , products);
+			} else {
+				console.log("Remove products");
+				var products = this.model.get("products");
+				var removeIndex; 
+				for (var i = 0; i < products.length; i++) {
+					if (products[i].pid = e.target.id) {
+						removeIndex = i;
+					}
+				}
+				products.splice(removeIndex,1);
+			}
+		};
+		if (e.target.name == 'element' ) {
+			if ( e.target.checked ) {
+				console.log("Push dataElements");
+				var dataElements = this.model.get("dataElements");
+				dataElements.push({"did" : e.target.id, "dname" : e.target.value});
+				this.model.set("dataElements" , dataElements);
+			} else {
+				console.log("Remove dataElements");
+				var dataElements = this.model.get("dataElements");
+				var removeIndex; 
+				for (var i = 0; i < dataElements.length; i++) {
+					if (dataElements[i].did = e.target.id) {
+						removeIndex = i;
+					}
+				}
+				dataElements.splice(removeIndex,1);
+			};
+		};	
+	},
 	appendDataElement : function(measure_element){
 		var temp = _.template($('#single-measure-element').html());
 		var chd = '';
-		/*this.model.get('elements').forEach(function( element ) {
-			if (element.hid == measure_element.get('id')) {chd = 'checked';}
-		});*/
+		this.model.get('dataElements').forEach(function( element ) {
+			if (element.did == measure_element.get('id')) {chd = 'checked';}
+		});
 		this.$el.find('div#elements').append(temp({name:measure_element.get('name'),id:measure_element.get('id'),ch:chd}));
 	},
 	
 	appendMeasureCategory : function(measure_category){
 		var temp = _.template($('#single-measure-category').html());
-		console.log("measure_category: "+ measure_category.get('name'));
-		this.$el.find('#category').append(temp({name:measure_category.get('name')}));
+		var sel = "";
+		if (this.model.get('measureCategory').id == measure_category.get("id"))
+			sel="selected";
+		this.$el.find('#measureCategory').append(temp({selected:sel, id:measure_category.get("id"),name:measure_category.get('name')}));
 	},
 	
-	appendCqmDomain : function(cqm_domain){
+	appendCqmDomain : function(cqmComain){
 		var temp = _.template($('#single-measure-domain').html());
-		console.log("cqm_domain: "+ cqm_domain.get('name'));
-		this.$el.find('#cqm_domain').append(temp({name:cqm_domain.get('name')}));
+		var sel = "";
+		if (this.model.get('cqmDomain').id == cqmComain.get("id"))
+			sel="selected";
+		this.$el.find('#cqmDomain').append(temp({selected:sel, id:cqmComain.get("id"),name:cqmComain.get('name')}));
 	},
 
 	editMeasure : function(e) {
-		e.preventDefault();		
-
+		e.preventDefault();
+		console.log("!");
+		console.log(this.model.toJSON());
 		this.model.save(this.attributes,{
 	        success: function (model, response) {
 	           console.log(response);
- 	           App.mesageDialog = new App.Models.MesageDialog({resp:"ok"});			
-	           console.log(App.mesageDialog.resp);
-               Backbone.history.navigate("product", true);
+	           $('div#message-box').text("").append(response.message).fadeIn(500).delay(1500).fadeOut(500);
+               Backbone.history.navigate("measure", true);
 	        },
 	        error: function (model, response) {
-	            console.log("error");
-	            Backbone.history.navigate("product", true);
+	        	$('div#message-box').text("").append(response.responseText).fadeIn(500).delay(1500).fadeOut(500);
+	            Backbone.history.navigate("measure", true);
 	        }
 	    });
 	}
@@ -178,12 +163,27 @@ App.Views.SingleMeasure = Backbone.View
 			},
 
 			goToEdit : function() {				
-				console.log(this.model);
-				console.log("goToEdit",this.model.get('id'));							
 				Backbone.history.navigate("measure/"+this.model.get('id')+'/edit', true);
 			},
 			
-			destroy : function(){
+			destroy : function(e){
 				console.log("destroy");
+				e.preventDefault();
+				
+				var el = this.$el;
+				
+				this.model.destroy({
+					wait: true,
+				    success: function(model, response){
+				    	$('div#message-box').text("").append(response.message).fadeIn(500).delay(1500).fadeOut(500);
+			    		el.remove();
+				    	Backbone.history.navigate("measure", true);
+				     },
+				     error: function (model, response) {
+				    	 console.log(response);
+				    	 $('div#message-box').text("").append(response.responseText).fadeIn(500).delay(1500).fadeOut(500);
+				            Backbone.history.navigate("measure", true);
+				     }
+				});
 			}
 		});
