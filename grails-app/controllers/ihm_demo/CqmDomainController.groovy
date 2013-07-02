@@ -4,7 +4,30 @@ import org.springframework.dao.DataIntegrityViolationException
 
 class CqmDomainController {
 
-    static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
+	def show() {
+		println "show"
+		if (params.id && CqmDomain.exists(params.id)) {
+			def  result = CqmDomain.get(params.id)
+									
+			render(contentType: "text/json") {
+				name         = result.name	
+				notes        = result.notes
+				id           = result.id
+			}
+		}
+		else {
+			def results = CqmDomain.list()
+			render(contentType: "text/json") {
+				cqmDomains = array {
+					for (p in results) {
+						cqmDomain name: p.name, notes: p.notes, id: p.id
+					}
+				}
+			}
+		}
+	}
+	
+	/*static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def index() {
         redirect(action: "list", params: params)
@@ -98,5 +121,5 @@ class CqmDomainController {
             flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'cqmDomain.label', default: 'CqmDomain'), id])
             redirect(action: "show", id: id)
         }
-    }
+    }*/
 }

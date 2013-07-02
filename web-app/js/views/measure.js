@@ -38,29 +38,38 @@ App.Views.NewMeasure = Backbone.View.extend({
 	},
 
 	render : function() {
-		console.log(App);
+		console.log(App.measureCategories);
 		this.$el.html(this.template());
 		App.products.forEach(this.appendProduct,this);		
 		App.dataElements.forEach(this.appendDataElement,this);		
+		
+		App.measureCategories.forEach(this.appendMeasureCategory,this);	
+		App.cqmDomains.forEach(this.appendCqmDomain,this);
 		return this;
 	},
 	
 	appendProduct : function(ehr_hospital){
 		var temp = _.template($('#single-measure-product').html());		
-		var chd = '';
-		/*this.model.get('hospitals').forEach(function( hospital ) {
-			if (hospital.mid == ehr_hospital.get('id')) {chd = 'checked';}
-		});*/
+		var chd = '';		
 		this.$el.find('div#products').append(temp({name:ehr_hospital.get('name'),id:ehr_hospital.get('id'),ch:chd}));		
 	},
 	
 	appendDataElement : function(ehr_element){
 		var temp = _.template($('#single-measure-element').html());
-		var chd = '';
-		/*this.model.get('elemets').forEach(function( elemet ) {
-			if (elemet.hid == ehr_element.get('id')) {chd = 'checked';}
-		});*/
+		var chd = '';		
 		this.$el.find('div#elements').append(temp({name:ehr_element.get('name'),id:ehr_element.get('id'),ch:chd}));
+	},
+	
+	appendMeasureCategory : function(measure_category){
+		var temp = _.template($('#single-measure-category').html());
+		console.log("measure_category: "+ measure_category.get('name'));
+		this.$el.find('#category').append(temp({name:measure_category.get('name')}));
+	},
+	
+	appendCqmDomain : function(cqm_domain){
+		var temp = _.template($('#single-measure-domain').html());
+		console.log("cqm_domain: "+ cqm_domain.get('name'));
+		this.$el.find('#cqm_domain').append(temp({name:cqm_domain.get('name')}));
 	},
 	
 	addMeasure : function(e) {
@@ -98,6 +107,10 @@ App.Views.EditMeasure = Backbone.View.extend({
 		this.$el.html(this.template(this.model.toJSON()));
 		App.products.forEach(this.appendProduct,this);		
 		App.dataElements.forEach(this.appendDataElement,this);		
+		
+		App.measureCategories.forEach(this.appendMeasureCategory,this);	
+		App.cqmDomains.forEach(this.appendCqmDomain,this);
+		
 		return this;
 	},
 
@@ -117,6 +130,18 @@ App.Views.EditMeasure = Backbone.View.extend({
 			if (element.hid == measure_element.get('id')) {chd = 'checked';}
 		});*/
 		this.$el.find('div#elements').append(temp({name:measure_element.get('name'),id:measure_element.get('id'),ch:chd}));
+	},
+	
+	appendMeasureCategory : function(measure_category){
+		var temp = _.template($('#single-measure-category').html());
+		console.log("measure_category: "+ measure_category.get('name'));
+		this.$el.find('#category').append(temp({name:measure_category.get('name')}));
+	},
+	
+	appendCqmDomain : function(cqm_domain){
+		var temp = _.template($('#single-measure-domain').html());
+		console.log("cqm_domain: "+ cqm_domain.get('name'));
+		this.$el.find('#cqm_domain').append(temp({name:cqm_domain.get('name')}));
 	},
 
 	editMeasure : function(e) {

@@ -69,6 +69,26 @@
                         <textarea rows="3"></textarea>
                     </div>
                 </div>
+				
+				<div class="control-group">
+					<label for="category" class="control-label">
+						Category
+					</label>
+					<div class="controls">
+					  <select id="category">								
+					  </select>
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label for="cqm_domain" class="control-label">
+						CQMDomain
+					</label>
+					<div class="controls">
+					  <select id="cqm_domain">								
+					  </select>
+					</div>
+				</div>
                 
                 <ul id="myTab" class="nav nav-tabs">
                   <li class="active">
@@ -129,6 +149,26 @@
                     </div>
                 </div>
 
+				<div class="control-group">
+					<label for="category" class="control-label">
+						Category
+					</label>
+					<div class="controls">
+					  <select id="category">								
+					  </select>
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label for="cqm_domain" class="control-label">
+						CQMDomain
+					</label>
+					<div class="controls">
+					  <select id="cqm_domain">								
+					  </select>
+					</div>
+				</div>
+
                 <ul id="myTab" class="nav nav-tabs">
                   <li class="active">
                     <a data-toggle="tab" href="#products">Products</a>
@@ -175,4 +215,12 @@
     <label class="checkbox">
         <input type="checkbox" name="element" value="{{name}}" id="{{id}}" {{ch}}> {{name}}
     </label>
+</script>
+
+<script type="text/template" class="template" id="single-measure-category">
+    <option>{{name}}</option>
+</script>
+
+<script type="text/template" class="template" id="single-measure-domain">
+    <option>{{name}}</option>
 </script>

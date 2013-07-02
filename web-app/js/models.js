@@ -35,6 +35,10 @@ App.Models.Ehr = Backbone.Model.extend({
 	  }
 });
 
-App.Models.MesageDialog = Backbone.Model.extend({
-	
+App.Models.MeasureCategory = Backbone.Model.extend({
+	urlRoot: '/ihm/api/measure_category'	
+});
+
+App.Models.CqmDomain = Backbone.Model.extend({
+	urlRoot: '/ihm/api/cqm_domain'	
 });

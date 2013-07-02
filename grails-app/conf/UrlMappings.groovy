@@ -26,6 +26,15 @@ class UrlMappings {
 		"/api/ehr/$id?"(resource: "ehr") {
 			action = [GET: "show", PUT: "update", DELETE: "delete", POST: "save"]
 		}
+		
+		
+		"/api/measure_category/$id?"(resource: "measureCategory") {
+			action = [GET: "show"]
+		}
+		
+		"/api/cqm_domain/$id?"(resource: "cqmDomain") {
+			action = [GET: "show"]
+		}
 
 		"/"(view:"/index")
 		"500"(view:'/error')

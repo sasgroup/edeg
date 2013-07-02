@@ -25,7 +25,16 @@ App.Router = Backbone.Router.extend({
 		App.dataElements = new App.Collections.DataElements();
 		App.hospitals = new App.Collections.Hospitals();
 		App.ehrs = new App.Collections.Ehrs();	
+		
+		App.measureCategories  = new App.Collections.MeasureCategories();
+		App.measureCategories.fetch();
+		//console.log(App.measureCategories);
+		
+		App.cqmDomains         = new App.Collections.CqmDomains();
+		App.cqmDomains.fetch();
+		//console.log(App.cqmDomains);
 	},
+	
 	// ------- LIST ------------
 	// list of products
 	products : function() {

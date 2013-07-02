@@ -50,3 +50,25 @@ App.Collections.Ehrs = Backbone.Collection.extend({
 		   return resp["ehrs"];
 	}	
 });
+
+
+App.Collections.MeasureCategories = Backbone.Collection.extend({
+	model:App.Models.MeasureCategory,
+	
+	url: '/ihm/api/measure_category',
+	
+	parse: function(resp) {
+		   return resp["measureCategories"];
+	}	
+});
+
+
+App.Collections.CqmDomains = Backbone.Collection.extend({
+	model:App.Models.CqmDomain,
+	
+	url: '/ihm/api/cqm_domain',
+	
+	parse: function(resp) {
+		   return resp["cqmDomains"];
+	}	
+});

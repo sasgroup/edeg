@@ -90,10 +90,7 @@
 							<td>queryMnemonic</td>
 							<td>valueSet</td>
 							<td>valueSetRequired</td>
-							<td>locationtype</td>
-            				<td class="e-btn"></td>
-            				<td class="s-btn"></td>
-            				<td class="d-btn"></td>
+							<td>locationtype</td>            				
         				</tr>
         			</thead>
         			<tbody>	
@@ -135,15 +132,6 @@
 			<td>{{query_mnemonic}}</td>			
             <td>{{value_set}}</td>
 			<td>{{value_set_req}}</td>
-			<td>{{location_type}}</td>
-            <td class="edit-btn">
-                <button>E</button>
-            </td>
-            <td class="save-btn">
-                <button>S</button>
-            </td>
-            <td class="del-btn">
-                <button>D</button>
-            </td>
+			<td>{{location_type}}</td>            
    </tr>
 </script>
