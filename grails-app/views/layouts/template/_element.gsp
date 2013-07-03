@@ -36,72 +36,12 @@
 </script>
 
 
-<!-- NEW -->
-<script type="text/template" class="template" id="element-new-template">
-<div class="container">  
-    <div class="row">
-        <div class="span8">
-            <h3>DataElement: New</h3>
-            <hr>
-            <div class="clearfix"></div>
-            <form method="post" class="form-horizontal" id="element-new" accept-charset="utf-8">
-                <div class="control-group">
-                    <label for="code" class="control-label">
-                        Code
-                    </label>
-                    <div class="controls">
-                        <input name="code" type="text" value="" id="code">
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label for="name" class="control-label">
-                        Name
-                    </label>
-                    <div class="controls">
-                        <input name="name" type="text" value="" id="name">
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label for="notes" class="control-label">
-                        Notes
-                    </label>
-                    <div class="controls">
-                        <textarea rows="3"></textarea>
-                    </div>
-                </div>
-                
-                <ul id="myTab" class="nav nav-tabs">
-                  <li class="active">
-                    <a data-toggle="tab" href="#measures">Measure</a>
-                  </li>
-                  <li class="">
-                    <a data-toggle="tab" href="#ehrs">EHR</a>
-                  </li>
-                </ul>
-     
-                <div id="myTabContent" class="tab-content">
-                   <div id="measures" class="tab-pane fade active in">    
-                   </div>
-                   <div id="ehrs" class="tab-pane fade">              
-                   </div>
-                </div>
-
-                <div class="form-actions">
-                    <button type="submit" class="btn btn-info">Save DataElement</button>
-                </div>
-            </form>
-        </div>        
-    </div>
-</div>
-</script>
-
-
-<!-- EDIT -->
-<script type="text/template" class="template" id="element-edit-template">
+<!-- EDIT / NEW-->
+<script type="text/template" class="template" id="element-template">
 <div class="container">
     <div class="row">
         <div class="span8">
-            <h3>DataElement: Edit</h3>
+            <h3>DataElement:  {{state}}</h3>
             <hr>
             <div class="clearfix"></div>
             <form method="post" class="form-horizontal" id="element-edit" accept-charset="utf-8">
@@ -142,7 +82,9 @@
                 <div id="myTabContent" class="tab-content">
                    <div id="measures" class="tab-pane fade active in">    
                    </div>
-                   <div id="ehrs" class="tab-pane fade">              
+                   <div id="ehrs" class="tab-pane fade"> 
+						<table id="dataElementsTable">   				 
+        				</table>             
                    </div>
                 </div>
 

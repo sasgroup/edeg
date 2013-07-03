@@ -32,7 +32,35 @@ App.Router = Backbone.Router.extend({
 		App.cqmDomains         = new App.Collections.CqmDomains();
 		App.cqmDomains.fetch();
 	},
-	
+	jqGrid : function(){
+		// jqGrid                
+		App.dataElementsTable = jQuery("#dataElementsTable").jqGrid({ 
+		    datatype: 'local',		   
+		    width:'100%',
+		    colNames:['isIMO', 'location', 'queryMnemonic', 'valueSet', 'valueSetRequired', 'locationtype'], 
+		    colModel:[  {name:'isIMO', index:'isIMO'},
+		                {name:'location', index:'location'},
+		                {name:'queryMnemonic', index:'queryMnemonic'},
+		                {name:'valueSet', index:'valueSet'},
+		                {name:'valueSetRequired',index:'valueSetRequired'},
+		                {name:'locationtype', index:'locationtype'}],				                
+		                
+		    rowNum:10, 
+		    rowList:[10,20,30], 
+		    pager: '#pager5', 
+		    sortname: 'location', 
+		    viewrecords: true, 
+		    sortorder: "desc", 
+		    				             
+		    loadComplete : function(data) {
+		        //alert('grid loading completed ' + data);
+		    },
+		    loadError : function(xhr, status, error) {
+		        alert('grid loading error' + error);
+		    }
+		});
+	   // jqGrid		
+	},
 	// ------- LIST ------------
 	// list of products
 	products : function() {
@@ -77,9 +105,7 @@ App.Router = Backbone.Router.extend({
 	
 	// ----- display Edit/New 
     product : function (productModel) {
-    	App.measures = new App.Collections.Measures();			
 		App.measures.fetch().then(function(){			
-			App.hospitals = new App.Collections.Hospitals();			
 			App.hospitals.fetch().then(function(){
 				var view = new App.Views.Product({model:productModel});
 				$('#app').html(view.render().el);
@@ -88,56 +114,29 @@ App.Router = Backbone.Router.extend({
     },
     
     ehr : function (ehrModel) {
-    	App.hospitals = new App.Collections.Hospitals();			
 		App.hospitals.fetch().then(function(){			
-			App.dataElements = new App.Collections.DataElements();			
-			App.dataElements.fetch().then(function(){
-				var view = new App.Views.Ehr({model:ehrModel});
-				$('#app').html(view.render().el);
-				
-				// jqGrid                
-				App.dataElementsTable = jQuery("#dataElementsTable").jqGrid({ 
-				    datatype: 'local',		   
-				    width:'100%',
-				    colNames:['isIMO', 'location', 'queryMnemonic', 'valueSet', 'valueSetRequired', 'locationtype'], 
-				    colModel:[  {name:'isIMO', index:'isIMO'},
-				                {name:'location', index:'location'},
-				                {name:'queryMnemonic', index:'queryMnemonic'},
-				                {name:'valueSet', index:'valueSet'},
-				                {name:'valueSetRequired',index:'valueSetRequired'},
-				                {name:'locationtype', index:'locationtype'}],				                
-				                
-				    rowNum:10, 
-				    rowList:[10,20,30], 
-				    pager: '#pager5', 
-				    sortname: 'location', 
-				    viewrecords: true, 
-				    sortorder: "desc", 
-				    				             
-				    loadComplete : function(data) {
-				        //alert('grid loading completed ' + data);
-				    },
-				    loadError : function(xhr, status, error) {
-				        alert('grid loading error' + error);
-				    }
-				});
-			   // jqGrid								
-			  view.appendDataElements();
-				
-				
-			});			
+			var view = new App.Views.Ehr({model:ehrModel});
+			$('#app').html(view.render().el);
+			App.route.jqGrid();					
+			view.appendDataElements();
 		});		
     },
     measure : function (measureModel) {
-    	App.products = new App.Collections.Products();			
 		App.products.fetch().then(function(){			
-			App.dataElements = new App.Collections.DataElements();			
 			App.dataElements.fetch().then(function(){
 				var view = new App.Views.Measure({model: measureModel});		
 				$('#app').html(view.render().el); 
 			});			
 			  
 		});		
+    },
+    dataElement  : function (dataElement) {
+		App.measures.fetch().then(function(){	
+			var view = new App.Views.DataElement({model: dataElement});		
+			$('#app').html(view.render().el);
+			App.route.jqGrid();					
+			view.appendDataElements();
+		});	
     },
 	// ------- NEW ------------
     // new product
@@ -152,15 +151,7 @@ App.Router = Backbone.Router.extend({
 
 	// new dataElement
 	newDataElement : function() {				
-		App.measures = new App.Collections.Measures();			
-		App.measures.fetch().then(function(){			
-			App.ehrs = new App.Collections.Ehrs();			
-			App.ehrs.fetch().then(function(){
-				App.dataElement = new App.Models.DataElement();
-				var view = new App.Views.NewDataElement({model:App.dataElement});
-				$('#app').html(view.render().el);
-			});			
-		});		
+		this.dataElement(new App.Models.DataElement());		
 	},
 
 	// new EHR
@@ -187,16 +178,10 @@ App.Router = Backbone.Router.extend({
 
 	// edit dataElement
 	editDataElement : function(id) {
-		console.log('dataElementEdit id:'+id)
-		App.measures = new App.Collections.Measures();			
-		App.measures.fetch().then(function(){			
-			App.ehrs = new App.Collections.Ehrs();			
-			App.ehrs.fetch().then(function(){
-				var dataElement = App.dataElements.get(id);	
-				var view = new App.Views.EditDataElement({model:dataElement});
-				$('#app').html(view.render().el);
-			});			
-		});				
+		App.de = new App.Models.DataElement();
+		App.de.fetch({data:{id: id}}).then(function(){
+			App.route.dataElement(App.de);
+		})			
 	},
 
 	// edit ehr

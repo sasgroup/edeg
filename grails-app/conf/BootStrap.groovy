@@ -394,6 +394,8 @@ class BootStrap {
 													  dataElement : DataElement.findByCode("ad"))
 		dataElementDefaults.addToEhrs(Ehr.findByCode("mv5"))
 		dataElementDefaults.addToEhrs(Ehr.findByCode("mv6"))
+		dataElementDefaults.addToDataElements(DataElement.findByCode("e"))
+		dataElementDefaults.addToDataElements(DataElement.findByCode("ad"))
 		
 		if (!dataElementDefaults.save()){
 			dataElementDefaults.errors.allErrors.each{error ->

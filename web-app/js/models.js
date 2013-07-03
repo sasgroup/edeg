@@ -31,7 +31,20 @@ App.Models.Measure = Backbone.Model.extend({
 
 
 App.Models.DataElement = Backbone.Model.extend({
-	urlRoot: '/ihm/api/element'	
+	urlRoot: '/ihm/api/element',
+	defaults: {
+		"state" : "Edit",
+	    "version":  1,
+	    "code":     "",
+	    "name":    "",
+	    "notes": "",
+	    "measures" : []//,
+	    //"hospitals" :[]
+	  },
+	  parse: function (response) {
+		  console.log(response);
+	      return this.model = response;
+	   }
 });
 
 App.Models.Hospital = Backbone.Model.extend({
