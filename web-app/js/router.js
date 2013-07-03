@@ -72,7 +72,7 @@ App.Router = Backbone.Router.extend({
 			console.log ();
 			App.viewEhrs = new App.Views.Ehrs({collection:App.ehrs});			
 			$('#app').html(App.viewEhrs.render().el);
-		});
+		});		
 	},	
 	
 	// ----- display Edit/New 
@@ -86,6 +86,7 @@ App.Router = Backbone.Router.extend({
 			});			
 		});		
     },
+    
     ehr : function (ehrModel) {
     	App.hospitals = new App.Collections.Hospitals();			
 		App.hospitals.fetch().then(function(){			
@@ -93,6 +94,37 @@ App.Router = Backbone.Router.extend({
 			App.dataElements.fetch().then(function(){
 				var view = new App.Views.Ehr({model:ehrModel});
 				$('#app').html(view.render().el);
+				
+				// jqGrid                
+				App.dataElementsTable = jQuery("#dataElementsTable").jqGrid({ 
+				    datatype: 'local',		   
+				    width:'100%',
+				    colNames:['isIMO', 'location', 'queryMnemonic', 'valueSet', 'valueSetRequired', 'locationtype'], 
+				    colModel:[  {name:'isIMO', index:'isIMO'},
+				                {name:'location', index:'location'},
+				                {name:'queryMnemonic', index:'queryMnemonic'},
+				                {name:'valueSet', index:'valueSet'},
+				                {name:'valueSetRequired',index:'valueSetRequired'},
+				                {name:'locationtype', index:'locationtype'}],				                
+				                
+				    rowNum:10, 
+				    rowList:[10,20,30], 
+				    pager: '#pager5', 
+				    sortname: 'location', 
+				    viewrecords: true, 
+				    sortorder: "desc", 
+				    				             
+				    loadComplete : function(data) {
+				        //alert('grid loading completed ' + data);
+				    },
+				    loadError : function(xhr, status, error) {
+				        alert('grid loading error' + error);
+				    }
+				});
+			   // jqGrid								
+			  view.appendDataElements();
+				
+				
 			});			
 		});		
     },

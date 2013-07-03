@@ -37,14 +37,30 @@ App.Views.Ehr = Backbone.View.extend({
 		'change #code, #name, #notes' : 'changeVal'
 	},
 	
+	
 	render : function() {				
 		if (!this.model.toJSON().id) {
 			this.model.set("state" , "New");
 		};
 		this.$el.html(this.template(this.model.toJSON()));
 		this.model.get('hospitals').forEach(this.appendHospital,this);		
-		this.model.get('dataElementDefaults').forEach(this.appendDataElement,this);		
+		//this.model.get('dataElementDefaults').forEach(this.appendDataElement,this);		
 		return this;
+	},
+	
+	
+	appendDataElements: function(){
+		this.model.get('dataElementDefaults').forEach(function (dataElement, i) {
+		var json_data = JSON.stringify(dataElement);
+		console.log(json_data);
+		App.dataElementsTable.jqGrid('addRowData', (i + 1), {isIMO:dataElement.isIMO, 
+			   location:dataElement.location,
+			   queryMnemonic:dataElement.queryMnemonic,
+			   valueSet:dataElement.valueSet,
+			   valueSetRequired:dataElement.valueSetRequired,
+			   locationtype:dataElement.locationtype.name});
+		
+		});
 	},
 	
 	changeVal : function(e) {
@@ -58,6 +74,7 @@ App.Views.Ehr = Backbone.View.extend({
 		this.$el.find('div#hospitals').append(temp({name:ehr_hospital.hname}));		
 	},
 	
+		
 	appendDataElement : function(dem_element){
 		var temp = _.template($('#single-data-elements-def-element').html());
 		//this.$el.find('div#elements').append(temp({name:dem_element.description}));
@@ -68,9 +85,9 @@ App.Views.Ehr = Backbone.View.extend({
 															   value_set:dem_element.valueSet,
 															   value_set_req:dem_element.valueSetRequired,
 															   location_type:dem_element.locationtype.name}));
-		//this.$el.find('#dataElementsTable tbody').append(temp({name:"Kate"}));
-	},
 		
+	},
+	
 	editEhr : function(e) {
 		e.preventDefault();		
 

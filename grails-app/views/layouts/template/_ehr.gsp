@@ -39,7 +39,7 @@
 <script type="text/template" class="template" id="ehr-template">
 <div class="container">
     <div class="row">
-        <div class="span11">
+        <div>
             <h3>EHR: {{state}}</h3>
             <hr>
             <div class="clearfix"></div>
@@ -82,20 +82,9 @@
                    <div id="hospitals" class="tab-pane fade active in">    
                    </div>
                    <div id="elements" class="tab-pane fade">
-              		<table id="dataElementsTable" class="table table-bordered table-hover table-condensed dataTable">
-       				 <thead>        				
-						<tr>
-            				<td>isIMO</td>
-							<td>location</td>
-							<td>queryMnemonic</td>
-							<td>valueSet</td>
-							<td>valueSetRequired</td>
-							<td>locationtype</td>            				
-        				</tr>
-        			</thead>
-        			<tbody>	
-					</tbody>     
-				   </table>		
+              		<table id="dataElementsTable">   				 
+        			</table>		
+					<div id="pager5"></div>
                    </div>
                 </div>
 
