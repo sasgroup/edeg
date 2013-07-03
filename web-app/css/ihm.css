@@ -138,3 +138,7 @@ div#message-box {
 	display: none;
 	position:absolute;
 }
+
+select.ui-pg-selbox{
+	padding:0 !important;	
+}

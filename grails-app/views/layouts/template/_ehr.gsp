@@ -82,7 +82,7 @@
                    <div id="hospitals" class="tab-pane fade active in">    
                    </div>
                    <div id="elements" class="tab-pane fade">
-              		<table id="dataElementsTable" class="table table-bordered table-hover table-condensed dataTable">   				 
+              		<table id="dataElementsTable">   				 
         			</table>		
 					<div id="pager5"></div>
                    </div>
