@@ -75,9 +75,8 @@ App.Views.Ehr = Backbone.View.extend({
 	},
 	
 		
-	appendDataElement : function(dem_element){
-		var temp = _.template($('#single-data-elements-def-element').html());
-		//this.$el.find('div#elements').append(temp({name:dem_element.description}));
+	/*appendDataElement : function(dem_element){
+		var temp = _.template($('#single-data-elements-def-element').html());		
 		console.log(dem_element);
 		this.$el.find('#dataElementsTable tbody').append(temp({is_imo:dem_element.isIMO, 
 															   loc:dem_element.location,
@@ -86,7 +85,7 @@ App.Views.Ehr = Backbone.View.extend({
 															   value_set_req:dem_element.valueSetRequired,
 															   location_type:dem_element.locationtype.name}));
 		
-	},
+	},*/
 	
 	editEhr : function(e) {
 		e.preventDefault();		
