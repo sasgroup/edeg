@@ -1,6 +1,6 @@
 modules = {
 	ihm {
-		dependsOn 'jquery, underscore, backbone, bootstrap, jqgrid'
+		dependsOn 'jquery, underscore, backbone, bootstrap, jqgrid, jqmultiselect'
 		resource url: 'css/ihm.css'		
 		resource url: 'js/ihm.js'
 		resource url: 'js/models.js'
@@ -34,18 +34,29 @@ modules = {
 	
 		
 	jqgrid {
-		resource url: 'js/grid.locale-en.js'
-		resource url: 'js/jquery-ui-custom.min.js'
-		resource url: 'js/jquery.contextmenu.js'
-		resource url: 'js/jquery.jqGrid.js'
-		resource url: 'js/jquery.layout.js'
-		resource url: 'js/jquery.tablednd.js'
-		resource url: 'js/ui.multiselect.js'
+		resource url: 'js/jqgrid/grid.locale-en.js'
+		resource url: 'js/jqgrid/jquery-ui-custom.min.js'
+		resource url: 'js/jqgrid/jquery.contextmenu.js'
+		resource url: 'js/jqgrid/jquery.jqGrid.js'
+		resource url: 'js/jqgrid/jquery.layout.js'
+		resource url: 'js/jqgrid/jquery.tablednd.js'
+		resource url: 'js/jqgrid/ui.multiselect.js'
 		
 		
-		resource url: 'css/jquery-ui-custom.css'
-		resource url: 'css/ui.jqgrid.css'
-		resource url: 'css/ui.multiselect.css'
+		resource url: 'css/jqgrid/jquery-ui-custom.css'
+		resource url: 'css/jqgrid/ui.jqgrid.css'
+		resource url: 'css/jqgrid/ui.multiselect.css'
+	}
+	
+	
+	jqmultiselect {
+		resource url: 'js/multiselect/jquery.multiselect.js'
+		resource url: 'css/multiselect/jquery.multiselect.css'
+		resource url: 'css/multiselect/multiselect.style.css'
+		resource url: 'css/multiselect/prettify.css'
+		
+		
+		
 	}
 }
 

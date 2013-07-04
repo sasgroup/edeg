@@ -142,3 +142,16 @@ div#message-box {
 select.ui-pg-selbox{
 	padding:0 !important;	
 }
+
+.ui-widget {
+ 	font-family: Lucida Grande, Lucida Sans, Arial, sans-serif;
+    font-size: .9em;
+}
+
+.ui-multiselect-checkboxes input {
+	margin: 5px;
+}
+
+.ui-multiselect-checkboxes label {
+	font-size: 1.1em;
+}
