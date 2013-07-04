@@ -40,7 +40,7 @@
 <script type="text/template" class="template" id="element-template">
 <div class="container">
     <div class="row">
-        <div class="span8">
+        <div>
             <h3>DataElement:  {{state}}</h3>
             <hr>
             <div class="clearfix"></div>
