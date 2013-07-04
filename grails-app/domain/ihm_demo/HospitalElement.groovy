@@ -2,28 +2,25 @@ package ihm_demo
 
 class HospitalElement {
 	
-	String answer
-	String question
-	Boolean isIMO
+	String internalNotes
 	String location
-	String queryMnemonic
+	String notes
+	String source
+	Boolean sourceEHR
 	String valueSet
-	Boolean valueSetRequired
-	LocationType locationtype
+	String valueSetFile
+	ValueType valueType
+	CodeType codeType
+	
 	
 	static hasMany = [dataElements : DataElement,
 					  dataElementDefaults : DataElementDefaults,
 					  hospitalMeasure : HospitalMeasure]
 		
     static constraints = {
-		answer()
-		question()
-		isIMO()
+		internalNotes()
 		location()
-		queryMnemonic()
 		valueSet()
-		valueSetRequired()
-		locationtype()
     }
 	
 	String toString() {

@@ -50,12 +50,11 @@ class DataElementController {
 						}
 						dataElementDefaults = array {
 							for (d in dataElementDefaultsList) {
-								dataElementDefault  isIMO: d.isIMO,
-													location : d.location,
-													queryMnemonic : d.queryMnemonic,
-													valueSet : d.valueSet,
-													valueSetRequired : d.valueSetRequired,
-													locationtype : d.locationtype
+								dataElementDefault	location : d.location,
+													source : d.source,
+													sourceEHR : d.sourceEHR,
+													valueType : d.valueType,
+													codeType : d.codeType
 							}
 						}
 			}

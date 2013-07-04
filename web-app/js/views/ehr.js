@@ -53,13 +53,12 @@ App.Views.Ehr = Backbone.View.extend({
 		this.model.get('dataElementDefaults').forEach(function (dataElement, i) {
 		var json_data = JSON.stringify(dataElement);
 		console.log(json_data);
-		App.dataElementsTable.jqGrid('addRowData', (i + 1), {isIMO:dataElement.isIMO, 
+		App.dataElementsTable.jqGrid('addRowData', (i + 1), {
 			   location:dataElement.location,
-			   queryMnemonic:dataElement.queryMnemonic,
-			   valueSet:dataElement.valueSet,
-			   valueSetRequired:dataElement.valueSetRequired,
-			   locationtype:dataElement.locationtype.name});
-		
+			   source:dataElement.source,
+			   sourceEHR:dataElement.sourceEHR,
+			   valueType:dataElement.valueType.name,
+			   codeType:dataElement.codeType.name});
 		});
 	},
 	

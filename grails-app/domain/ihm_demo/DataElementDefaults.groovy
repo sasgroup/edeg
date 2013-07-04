@@ -1,26 +1,24 @@
 package ihm_demo
 
 class DataElementDefaults {
-	Boolean isIMO
 	String location
-	String queryMnemonic
-	String valueSet
-	Boolean valueSetRequired
-	LocationType locationtype
+	String source
+	String sourceEHR
+	ValueType valueType
+	CodeType codeType
 	
 	static hasMany = [dataElements : DataElement,
 					  ehrs : Ehr]
 	
     static constraints = {
-		isIMO()
 		location()
-		queryMnemonic()
-		valueSet()
-		valueSetRequired()
-		locationtype()
+		source()
+		sourceEHR()
+		valueType()
+		codeType()
     }
 	
 	String toString() {
-		"$isIMO, $location, $queryMnemonic, $valueSet, $valueSetRequired, $locationtype"
+		"$location"
 	}
 }

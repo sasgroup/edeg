@@ -371,12 +371,11 @@ class BootStrap {
 		}
 		//-----------DATA_ELEMENT_DEFAULTSs-----------
 		def dataElementDefaults
-		dataElementDefaults = new DataElementDefaults(isIMO:false,
-														 location:"ADM.PAT.admit.date",
-													  queryMnemonic:"",
-													  valueSet:"",
-													  valueSetRequired:false,
-													  locationtype:"Internal",
+		dataElementDefaults = new DataElementDefaults(location:"ADM.PAT.admit.date",
+													  source:"",
+													  sourceEHR:"",
+													  valueType:"ValueSet",
+													  codeType:"CPT",
 													  dataElement : DataElement.findByCode("ad") )
 		
 		if (!dataElementDefaults.save()){
@@ -385,12 +384,11 @@ class BootStrap {
 			}
 		}
 
-		dataElementDefaults = new DataElementDefaults(isIMO:false,
-													  location:"AD.PT.admDate",
-													  queryMnemonic:"",
-													  valueSet:"",
-													  valueSetRequired:false,
-													  locationtype:"Internal",
+		dataElementDefaults = new DataElementDefaults(location:"AD.PT.admDate",
+													  source:"",
+													  sourceEHR:"",
+													  valueType:"ValueSet",
+													   codeType:"CPT",
 													  dataElement : DataElement.findByCode("ad"))
 		dataElementDefaults.addToEhrs(Ehr.findByCode("mv5"))
 		dataElementDefaults.addToEhrs(Ehr.findByCode("mv6"))
@@ -403,12 +401,12 @@ class BootStrap {
 			}
 		}
 		
-		dataElementDefaults = new DataElementDefaults(isIMO:false,
-													  location:"",
-													  queryMnemonic:"",
-													  valueSet:"2.16.840.1.113883.3.117.1.7.1.276",
+		dataElementDefaults = new DataElementDefaults(location:"test",
+													  source:"",
+													  sourceEHR:"2.16.840.1.113883.3.117.1.7.1.276",
 													  valueSetRequired:false,
-													  locationtype:"Internal",
+													  valueType:"ValueSet",
+													  codeType:"CPT",
 													  dataElement : DataElement.findByCode("vte"))
 		
 		dataElementDefaults.addToEhrs(Ehr.findByCode("mv5"))
@@ -420,10 +418,11 @@ class BootStrap {
 		}
 
 		//-----------HOSPITAL_MEASUREs-----------
-		def hospitalMeasure =new HospitalMeasure(approved:true,
+		def hospitalMeasure =new HospitalMeasure(accepted:true,
 												 completed:false,
 												 confirmed:false,
 												 included:false,
+												 verified:false,
 												 hospital : hospital,
 												 measure : measure)
 		if (!hospitalMeasure.save()){
@@ -432,19 +431,43 @@ class BootStrap {
 			}
 		}
 		//-----------HOSPITAL_ELEMENTs-----------
-		def hospitalElement =new HospitalElement(answer:"answer",
-												   question:"question",
-												   isIMO : true,
-												   location:"location",
-												   queryMnemonic:"queryMnemonic",
-												   valueSet:"valueSet",
-												   valueSetRequired:true,
-												   locationtype:"Internal",
-												   dataElementDefault : dataElementDefaults,
-												   dataElement : dataElement)
+		def hospitalElement =new HospitalElement(internalNotes:"internalNotes",
+												 location:"location",
+												 notes: "notes",
+												 source:"source",
+												 sourceEHR : true,
+												 valueSet:"valueSet",
+												 valueSetFile:"valueSetFile",
+												 valueType : "StandartCode",
+												 codeType : "CDT",
+												 dataElementDefault : dataElementDefaults,
+												 dataElement : dataElement)
 		hospitalElement.addToHospitalMeasure(hospitalMeasure)
 		if (!hospitalElement.save()){
 			hospitalElement.errors.allErrors.each{error ->
+				println "An error occured with event1: ${error}"
+			}
+		}
+		//HOSPITAL_VALUE_SETs
+		def hospitalValueSet = new HospitalValueSet(code:"code",
+													mnemonic:"mnemonic",
+													codeType:"LOINC",
+													hospitalElement:hospitalElement)
+		if (!hospitalValueSet.save()){
+			hospitalValueSet.errors.allErrors.each{error ->
+				println "An error occured with event1: ${error}"
+			}
+		}
+		//ELEMENT_EXTRA_LOCATIONs
+		
+		def elementExtraLocation = new ElementExtraLocation(location:"loc",
+															source:"source",
+															sourceEHR:"true",
+															codeType:"LOINC",
+															hospitalElement:hospitalElement,
+															valueType:"StandartCode")
+		if (!elementExtraLocation.save()){
+			elementExtraLocation.errors.allErrors.each{error ->
 				println "An error occured with event1: ${error}"
 			}
 		}

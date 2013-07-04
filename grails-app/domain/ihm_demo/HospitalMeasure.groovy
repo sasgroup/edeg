@@ -2,10 +2,11 @@ package ihm_demo
 
 class HospitalMeasure {
 	
-	Boolean approved
+	Boolean accepted
 	Boolean completed
 	Boolean confirmed
 	Boolean included
+	Boolean verified
 	
 	static hasMany = [hospitals : Hospital,
 					  measures : Measure,
@@ -14,7 +15,7 @@ class HospitalMeasure {
 	static belongsTo = HospitalElement
 	
     static constraints = {
-		approved()
+		accepted()
 		completed()
 		confirmed()
 		included()
