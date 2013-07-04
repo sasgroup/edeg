@@ -31,7 +31,7 @@ class ProductController {
 						notes = pr.notes
 				measures =  array {
 					for (m in pr?.measures) {
-						measure  mname: m.name, mid: m.id
+						measure  mname: m.name, mid: m.id, mcode: m.code
 					}
 				}
 				hospitals = array {
@@ -54,7 +54,7 @@ class ProductController {
 								id: p.id,
 								measures :  array {
 									for (m in p?.measures) {
-										measure  mname: m.name, mid: m.id
+										measure  mname: m.name, mid: m.id, mcode: m.code
 									}
 								},
 								hospitals : array {

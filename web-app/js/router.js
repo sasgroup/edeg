@@ -245,7 +245,8 @@ App.Router = Backbone.Router.extend({
 				$('ul#myTab li').first().addClass('active');
 
 				//load values
-				var path = '/ihm/api/measure';
+				//var path = '/ihm/api/measure';
+				var path = '/ihm/api/product/2'; //hardcode
 
 		
 			    $.getJSON(path, function(data){
@@ -255,9 +256,9 @@ App.Router = Backbone.Router.extend({
 			    		//$('#myTabContent div# #MU1 #dataElementsTable').jqGrid('addRowData',i+1,mydata2[i]);
 			    		var json_data = JSON.stringify(measure);
 						console.log(json_data);
-						$('#myTabContent div#MU1 #dataElementsTable').jqGrid('addRowData', (i + 1), {id:measure.id, 
-							   code:measure.code,
-							   name:measure.name});
+						$('#myTabContent div#MU1 #dataElementsTable').jqGrid('addRowData', (i + 1), {id:measure.mid, 
+							   code:measure.mcode,
+							   name:measure.mname});
 						
 						});	
 
