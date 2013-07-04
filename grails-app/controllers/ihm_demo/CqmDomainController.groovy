@@ -8,7 +8,7 @@ class CqmDomainController {
 		println "show"
 		if (params.id && CqmDomain.exists(params.id)) {
 			def  result = CqmDomain.get(params.id)
-									
+
 			render(contentType: "text/json") {
 				name         = result.name	
 				notes        = result.notes

@@ -11,6 +11,7 @@ App.Router = Backbone.Router.extend({
 		'measure/:new'    : 'newMeasure',
 		'element/:new'    : 'newDataElement',
 		'ehr/:new'        : 'newEhr',
+		'hospital/:new'   : 'newHospital',
 		
 		'product/:id/edit': 'editProduct',
 		'measure/:id/edit': 'editMeasure',
@@ -158,6 +159,24 @@ App.Router = Backbone.Router.extend({
 	newEhr : function() {	
 		this.ehr(new App.Models.Ehr());
 	},	
+	
+	// new hospital
+	newHospital : function() {		
+		App.hospital = new App.Models.Hospital();
+		var view = new App.Views.Hospital({model:App.hospital});
+		$('#app').html(view.render().el);		
+		$(document).ready(function(){
+			   $("#example").multiselect({				
+				   selectedList: 3			   
+			   });
+			
+			   $('input[name=multiselect_example]').bind('click', function() {
+				view.chooseProduct(this);				
+			   });
+			   
+		});
+	},
+	
 	
 	// ------- EDIT ------------
 	// edit product
