@@ -162,6 +162,10 @@ App.Router = Backbone.Router.extend({
 	// new hospital
 	newHospital : function() {		
 		App.hospital = new App.Models.Hospital();
+
+		//get list of products
+		App.products.fetch().then(function(){			
+		
 		var view = new App.Views.Hospital({model:App.hospital});
 		$('#app').html(view.render().el);		
 		$(document).ready(function(){
@@ -191,9 +195,11 @@ App.Router = Backbone.Router.extend({
 
 		    	$( "#slcProducts").multiselect('getChecked').each(function( index ) {  					
   					var tabName = $(this).val();
+  					var tabNameText = $(this).closest('label').text();
+  					console.log('tabNameText '+tabNameText);
 
   					$('div#myTabContent').append('<div id="'+tabName+'" class="tab-pane fade"><table id="dataElementsTable"></table></div>');
-					$('ul#myTab').append('<li class=""><a data-toggle="tab" href="#' + tabName + '">'+ tabName + '</a></li>'); 
+					$('ul#myTab').append('<li class=""><a data-toggle="tab" href="#' + tabName + '">'+ tabNameText + '</a></li>'); 
 
 					var slcTab = '#myTabContent div#' + tabName + ' #dataElementsTable';
 					console.log(slcTab);
@@ -244,9 +250,9 @@ App.Router = Backbone.Router.extend({
 				$('div#myTabContent div').first().addClass('active in');
 				$('ul#myTab li').first().addClass('active');
 
-				//load values
-				//var path = '/ihm/api/measure';
-				var path = '/ihm/api/product/2'; //hardcode
+				//load values				
+				var product_id = $('#myTab li:first a').attr('href').replace('#','');
+				var path = '/ihm/api/product/'+product_id; //hardcode
 
 		
 			    $.getJSON(path, function(data){
@@ -256,7 +262,7 @@ App.Router = Backbone.Router.extend({
 			    		//$('#myTabContent div# #MU1 #dataElementsTable').jqGrid('addRowData',i+1,mydata2[i]);
 			    		var json_data = JSON.stringify(measure);
 						console.log(json_data);
-						$('#myTabContent div#MU1 #dataElementsTable').jqGrid('addRowData', (i + 1), {id:measure.mid, 
+						$('#myTabContent div#' + product_id+ ' #dataElementsTable').jqGrid('addRowData', (i + 1), {id:measure.mid, 
 							   code:measure.mcode,
 							   name:measure.mname});
 						
@@ -356,6 +362,7 @@ App.Router = Backbone.Router.extend({
                     $(e).jqGrid('addRowData',i+1,mydata[i]);
             }
         )*/
+		});
 	},
 	
 	

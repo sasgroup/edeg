@@ -44,15 +44,25 @@ App.Views.Hospital = Backbone.View.extend({
 		if (!this.model.toJSON().id) {
 			this.model.set("state" , "New");
 		};
-		this.$el.html(this.template(this.model.toJSON()));			
+		this.$el.html(this.template(this.model.toJSON()));
+			
+		console.log(App.products);
+		App.products.forEach(this.appendProductOption,this);		
+		
 		return this;
 	},
 
-	chooseProduct : function (ch) {
+	/*chooseProduct : function (ch) {
 		var isSelected = $(ch).prop('aria-selected');
 		console.log("You clicked on " + ch.value + " " + isSelected);
 		this.$el.find('div#myTabContent').append('<div id="product111" class="tab-pane fade"></div>');
 		this.$el.find('ul#myTab').append('<li class=""><a data-toggle="tab" href="#product111">Product1</a></li>');         
+	},*/
+	
+	appendProductOption: function(product) {
+		console.log("product " + product.toJSON());
+		var temp = _.template($('#product-option').html());
+		this.$el.find('#slcProducts').append(temp({id:product.get('id'),code:product.get('code')}));		
 	},
 	
 	submHospital : function(e) {

@@ -54,31 +54,18 @@
                 <td>Products</td>
                 <td>
                 <select id="slcProducts" style="width:250px;">
-                    <option value="MU1">MU1 - Meaningful Use Stage 1</option>
-                    <option value="MU2">MU2 - Meaningful Use Stage 2</option>
-                    <option value="MU3">MU3 - Meaningful Use Stage 3</option>
-                    <option value="IA">IA - Information Alert</option>
+                  
                 </select>
                 </td>
                 <td><button id="btnApplyHospitalOptions">Apply</button></td>
             </tr>
         </tbody>
     </table>
-
-
-        
-    <ul id="myTab" class="nav nav-tabs">
-               
-    </ul>
-     
-    <div id="myTabContent" class="tab-content">
-               
-    </div>
        
-
-    
-
-    
+    <ul id="myTab" class="nav nav-tabs">               
+    </ul>     
+    <div id="myTabContent" class="tab-content">               
+    </div>    
 </div>
 </script>
 
@@ -90,3 +77,10 @@
  <td><div id="edit" class= "btn"><i class="icon-edit"></i></div></td>
  <td><div id="destroy" class= "btn"><i class="icon-trash"></i></div></td> 
 </script>
+
+<!-- Product Option -->
+<script type="text/template" class="template" id="product-option">
+ <option value={{id}}>{{code}}</option>
+</script>
+
+
