@@ -53,8 +53,7 @@
                 </td>
                 <td>Products</td>
                 <td>
-                <select id="slcProducts" style="width:250px;">
-                  
+                <select id="slcProducts" style="width:250px;">                  
                 </select>
                 </td>
                 <td><button id="btnApplyHospitalOptions">Apply</button></td>

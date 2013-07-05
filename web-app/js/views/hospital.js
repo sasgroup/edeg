@@ -33,11 +33,9 @@ App.Views.Hospital = Backbone.View.extend({
 	template : _.template($('#hospital-template').html()),
 
 	events : {
-		'submit' : 'submHospital'//,
-		/*'change #code, #name, #notes' : 'changeVal',
-		'change .checkbox' : 'changeCh'*/
-		//'click input[name=multiselect_example]' : 'chooseProduct'	
-			
+		'submit' 						 : 'submHospital',		
+		'click #btnApplyHospitalOptions' : 'applyHospitalOptions',
+		'click a[data-toggle="tab"]'	 : 'changeTab'			
 	},
 	
 	render : function() {	
@@ -52,17 +50,102 @@ App.Views.Hospital = Backbone.View.extend({
 		return this;
 	},
 
-	/*chooseProduct : function (ch) {
-		var isSelected = $(ch).prop('aria-selected');
-		console.log("You clicked on " + ch.value + " " + isSelected);
-		this.$el.find('div#myTabContent').append('<div id="product111" class="tab-pane fade"></div>');
-		this.$el.find('ul#myTab').append('<li class=""><a data-toggle="tab" href="#product111">Product1</a></li>');         
-	},*/
-	
 	appendProductOption: function(product) {
 		console.log("product " + product.toJSON());
 		var temp = _.template($('#product-option').html());
 		this.$el.find('#slcProducts').append(temp({id:product.get('id'),code:product.get('code')}));		
+	},
+	
+	changeTab: function (e){
+		//e.preventDefault();		
+		console.log("selected tab " + $(e.target).attr('href'));		
+		var product_id = $(e.target).attr('href').replace('#','');
+		console.log("product_id " + product_id);
+		//remove content
+		$('#myTabContent div#' + product_id+ ' .hospitalMeasureTable').empty();
+		
+		var path = '/ihm/api/product/'+product_id;		
+		//load values
+	    $.getJSON(path, function(data){
+	    	$.each( data.measures, function( i, measure ) {
+	    		var json_data = JSON.stringify(measure);
+				console.log(json_data);
+				$('#myTabContent div#' + product_id+ ' .hospitalMeasureTable').jqGrid('addRowData', (i + 1), {id:measure.mid, 
+					   code:measure.mcode,
+					   name:measure.mname});				
+			});	    	
+	    });		
+	},
+	
+	applyHospitalOptions : function(){	
+		// remove tabs
+    	$("div#myTabContent").empty();
+    	$("ul#myTab").empty();
+
+    	//create tabs with checked products
+    	$( "#slcProducts").multiselect('getChecked').each(function( index ) {  					
+			var tabName = $(this).val();
+			var tabNameText = $(this).closest('label').text();
+			
+			$('div#myTabContent').append('<div id="'+tabName+'" class="tab-pane fade"><table class="hospitalMeasureTable"></table></div>');
+			$('ul#myTab').append('<li class=""><a data-toggle="tab" href="#' + tabName + '">'+ tabNameText + '</a></li>'); 
+
+			var slcTab = '#myTabContent div#' + tabName + ' .hospitalMeasureTable';			
+
+			$(slcTab).jqGrid({ 
+			    datatype: 'local',		   
+			    width:'100%',		
+			    height: 250,			    
+			    colNames:['ID','CODE', 'TITLE', 'NOTES','Use','Completed','Confirmed','Accepted','Verified'],
+			    colModel:[
+                    {name:'id',index:'id', width:60, sorttype:"int"},
+                    {name:'code',index:'code', width:100, sorttype:"date"},
+                    {name:'name',index:'name', width:200},
+                    {name:'note',index:'note', width:150},
+                    {name:'included',index:'included', width:70, edittype:"checkbox",editoptions: {value:"Yes:No"}},
+                    {name:'completed',index:'completed', width:70, edittype:"checkbox",editoptions: {value:"Yes:No"}},
+                    {name:'confirmed',index:'confirmed', width:70, edittype:"checkbox",editoptions: {value:"Yes:No"}},
+                    {name:'accepted',index:'accepted', width:70, edittype:"checkbox",editoptions: {value:"Yes:No"}},
+                    {name:'verified',index:'verified', width:70, edittype:"checkbox",editoptions: {value:"Yes:No"}}
+            	],	            	           
+			                
+			    rowNum:10, 
+			    rowList:[10,20,30], 					   
+			    sortname: 'location', 
+			    viewrecords: true, 
+			    sortorder: "desc", 
+			    				             
+			    loadComplete : function(data) {
+			        //alert('grid loading completed ' + data);
+			    },
+			    loadError : function(xhr, status, error) {
+			        alert('grid loading error' + error);
+			    },
+			    onSelectRow: function(id){
+        			//$( "#dialog" ).dialog();
+        			console.log('Select row');
+   				},   			
+    			multiselect: false            			
+			});
+		});	
+
+    	// set active tab
+		$('div#myTabContent div').first().addClass('active in');
+		$('ul#myTab li').first().addClass('active');
+
+		//load values				
+		var product_id = $('#myTab li:first a').attr('href').replace('#','');
+		var path = '/ihm/api/product/'+product_id;
+
+	    $.getJSON(path, function(data){
+	    	$.each( data.measures, function( i, measure ) {
+	    		var json_data = JSON.stringify(measure);
+				console.log(json_data);
+				$('#myTabContent div#' + product_id+ ' .hospitalMeasureTable').jqGrid('addRowData', (i + 1), {id:measure.mid, 
+					   code:measure.mcode,
+					   name:measure.mname});				
+			});	
+	    });		
 	},
 	
 	submHospital : function(e) {
