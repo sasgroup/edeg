@@ -33,6 +33,7 @@ App.Router = Backbone.Router.extend({
 		App.cqmDomains         = new App.Collections.CqmDomains();
 		App.cqmDomains.fetch();
 	},
+	
 	jqGrid : function(){
 		// jqGrid                
 		App.dataElementsTable = jQuery("#dataElementsTable").jqGrid({ 
