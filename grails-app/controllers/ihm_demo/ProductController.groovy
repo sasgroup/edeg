@@ -34,11 +34,11 @@ class ProductController {
 						measure  mname: m.name, mid: m.id, mcode: m.code
 					}
 				}
-				hospitals = array {
+				/*hospitals = array {
 					for (h in pr?.hospitals) {
 						hospital  hname: h.name, hid: h.id
 					}
-				}
+				}*/
 			}
 		} else {
 			println "NExt"
@@ -51,17 +51,7 @@ class ProductController {
 								code: p.code, 
 								name: p.name, 
 								notes: p.notes, 
-								id: p.id,
-								measures :  array {
-									for (m in p?.measures) {
-										measure  mname: m.name, mid: m.id, mcode: m.code
-									}
-								},
-								hospitals : array {
-									for (h in p?.hospitals) {
-										hospital  hname: h.name, hid: h.id
-									}
-								}
+								id: p.id
 					}
 				}
 			}
@@ -128,13 +118,13 @@ class ProductController {
 		instance.notes = param.notes
 		
 		if (instance.id) {
-			instance.hospitals.clear()
+			//instance.hospitals.clear()
 			instance.measures.clear()
 		}	
 		
-		for (hospital in param.hospitals) {
+		/*for (hospital in param.hospitals) {
 			instance.addToHospitals(Hospital.get(hospital.hid))
-		}
+		}*/
 		
 		for (measure in param.measures) {
 			instance.addToMeasures(Measure.get(measure.mid))

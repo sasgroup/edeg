@@ -4,8 +4,8 @@ import grails.converters.JSON
 import org.springframework.dao.DataIntegrityViolationException
 
 class HospitalController {
-
-	def save() {
+	//apply need JSON: Hospital(id)  with Prodcuts(checked id) and Ehr (selected id)
+	def apply() {
 		println "save"
 		def hospital = new Hospital(request.JSON)
 		render( hospital.save() as JSON )
@@ -36,7 +36,7 @@ class HospitalController {
 		}
 	}
 
-	
+	//update current Hospital need JSON: Hospital(id) with Prodcuts(checked id) and Ehr (selected id)
 	def update(Long id, Long version) {
 		println "update"
 		

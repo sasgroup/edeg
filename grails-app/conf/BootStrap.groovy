@@ -158,9 +158,6 @@ class BootStrap {
 			}
 		}
 		
-		hospital.addToProducts(product)
-		hospital.save()
-		
 		
 		//-----------USERs-----------
 		def user1 = new Users(username:"sysUser",
@@ -418,7 +415,7 @@ class BootStrap {
 		}
 
 		//-----------HOSPITAL_MEASUREs-----------
-		def hospitalMeasure =new HospitalMeasure(accepted:true,
+		/*def hospitalMeasure =new HospitalMeasure(accepted:true,
 												 completed:false,
 												 confirmed:false,
 												 included:false,
@@ -429,9 +426,9 @@ class BootStrap {
 			hospitalMeasure.errors.allErrors.each{error ->
 				println "An error occured with event1: ${error}"
 			}
-		}
+		}*/
 		//-----------HOSPITAL_ELEMENTs-----------
-		def hospitalElement =new HospitalElement(internalNotes:"internalNotes",
+		/*def hospitalElement =new HospitalElement(internalNotes:"internalNotes",
 												 location:"location",
 												 notes: "notes",
 												 source:"source",
@@ -447,9 +444,9 @@ class BootStrap {
 			hospitalElement.errors.allErrors.each{error ->
 				println "An error occured with event1: ${error}"
 			}
-		}
+		}*/
 		//HOSPITAL_VALUE_SETs
-		def hospitalValueSet = new HospitalValueSet(code:"code",
+		/*def hospitalValueSet = new HospitalValueSet(code:"code",
 													mnemonic:"mnemonic",
 													codeType:"LOINC",
 													hospitalElement:hospitalElement)
@@ -457,10 +454,10 @@ class BootStrap {
 			hospitalValueSet.errors.allErrors.each{error ->
 				println "An error occured with event1: ${error}"
 			}
-		}
+		}*/
 		//ELEMENT_EXTRA_LOCATIONs
 		
-		def elementExtraLocation = new ElementExtraLocation(location:"loc",
+		/*def elementExtraLocation = new ElementExtraLocation(location:"loc",
 															source:"source",
 															sourceEHR:"true",
 															codeType:"LOINC",
@@ -470,7 +467,7 @@ class BootStrap {
 			elementExtraLocation.errors.allErrors.each{error ->
 				println "An error occured with event1: ${error}"
 			}
-		}
+		}*/
 	//end !
 	}
 

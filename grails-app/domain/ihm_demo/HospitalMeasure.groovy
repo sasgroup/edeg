@@ -8,7 +8,7 @@ class HospitalMeasure {
 	Boolean included
 	Boolean verified
 	
-	static hasMany = [hospitals : Hospital,
+	static hasMany = [hospitalProduct : HospitalProduct,
 					  measures : Measure,
 					  hospitalElement : HospitalElement]
 	

@@ -5,7 +5,7 @@ class Product {
 	String code
 	String name
 	String notes
-	static hasMany = [measures : Measure, hospitals : Hospital]
+	static hasMany = [measures : Measure]
 	//static belongsTo = Measure
 	
 	/*static mapping = {
