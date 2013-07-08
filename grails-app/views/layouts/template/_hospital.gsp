@@ -82,4 +82,27 @@
  <option value={{id}}>{{code}}</option>
 </script>
 
-
+<!-- hospital_measure -->
+<script type="text/template" class="template" id="single-hospital_measure">
+ <td>{{ id }}</td>
+ <td>{{ code }}</td>
+ <td>{{ name }}</td> 
+ <td><span class="view">{{ included }}</span>
+     <span class="edit"><input type="checkbox"></span>
+ </td>
+ <td><span class="view">{{ completed }}</span>
+     <span class="edit"><input type="checkbox"></span>
+ </td>
+ <td><span class="view">{{ confirmed }}</span>
+     <span class="edit"><input type="checkbox"></span>
+ </td>
+ <td><span class="view">{{ accepted }}</span>
+     <span class="edit"><input type="checkbox"></span>
+ </td>
+ <td><span class="view">{{ verified }}</span>
+     <span class="edit"><input type="checkbox"></span>
+ </td>
+ <td class="edit-btn"><button>E</button></td>
+ <td class="save-btn"><button>S</button></td>
+ <td class="cancel-btn"><button>C</button></td>
+</script>

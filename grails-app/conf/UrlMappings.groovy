@@ -35,6 +35,10 @@ class UrlMappings {
 		"/api/cqm_domain/$id?"(resource: "cqmDomain") {
 			action = [GET: "show"]
 		}
+		
+		"/api/product_measure/$id?"(resource: "productMeasure") {
+			action = [GET: "show"]
+		}
 
 		"/"(view:"/index")
 		"500"(view:'/error')

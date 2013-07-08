@@ -32,6 +32,10 @@ App.Router = Backbone.Router.extend({
 		
 		App.cqmDomains         = new App.Collections.CqmDomains();
 		App.cqmDomains.fetch();
+		
+		
+		App.productMeasures = new App.Collections.ProductMeasures();	
+		
 	},
 	
 	jqGrid : function(){

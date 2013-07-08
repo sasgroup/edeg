@@ -71,3 +71,8 @@ App.Models.MeasureCategory = Backbone.Model.extend({
 App.Models.CqmDomain = Backbone.Model.extend({
 	urlRoot: '/ihm/api/cqm_domain'	
 });
+
+
+App.Models.ProductMeasure = Backbone.Model.extend({
+	urlRoot: '/ihm/api/product_measure'	
+});

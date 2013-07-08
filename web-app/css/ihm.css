@@ -155,3 +155,28 @@ select.ui-pg-selbox{
 .ui-multiselect-checkboxes label {
 	font-size: 1.1em;
 }
+
+
+table.dataTable tr.even td.sorting_1, table.dataTable tr.odd td.sorting_1 {
+background-color: #fff;
+}
+
+
+
+span.edit {
+    display: none;
+}
+
+.e-btn, .s-btn, .c-btn {
+    width: 1%;
+}
+
+table input, table select  {
+  margin: 0 !important;
+  width: 96%;
+}
+
+table.dataTable td {
+    padding: 0px 2px;
+}
+
