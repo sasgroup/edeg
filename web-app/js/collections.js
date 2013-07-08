@@ -72,3 +72,11 @@ App.Collections.CqmDomains = Backbone.Collection.extend({
 		   return resp["cqmDomains"];
 	}	
 });
+
+
+App.Collections.ProductMeasures = Backbone.Collection.extend({
+	model:App.Models.CqmDomain,
+	
+	url: '/ihm/api/product_measure'	
+	
+});

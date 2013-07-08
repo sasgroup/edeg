@@ -1,6 +1,6 @@
 modules = {
 	ihm {
-		dependsOn 'jquery, underscore, backbone, bootstrap, jqgrid, jqmultiselect'
+		dependsOn 'jquery, underscore, backbone, bootstrap, jqgrid, jqmultiselect, datatable'
 		resource url: 'css/ihm.css'		
 		resource url: 'js/ihm.js'
 		resource url: 'js/models.js'
@@ -53,10 +53,12 @@ modules = {
 		resource url: 'js/multiselect/jquery.multiselect.js'
 		resource url: 'css/multiselect/jquery.multiselect.css'
 		resource url: 'css/multiselect/multiselect.style.css'
-		resource url: 'css/multiselect/prettify.css'
-		
-		
-		
+		resource url: 'css/multiselect/prettify.css'		
+	}
+	
+	datatable {
+		resource url: 'js/datatable/jquery.dataTables.min.js'
+		resource url: 'css/datatable/jquery.dataTables.css'
 	}
 }
 
