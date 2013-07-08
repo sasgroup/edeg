@@ -66,25 +66,13 @@ App.Views.Hospital = Backbone.View.extend({
 
 
 	// append HospitalMeasureTable to Tab
-	appendHospitalMeasureTable : function(slcTab, product_id){					
+	appendHospitalMeasureTable : function(slcTab, product_id){	
 		
-	  if ($(slcTab).has("table").length==0) {		  
+	  var table_template = _.template($('#hospital-measure_table').html());       	
 		
-		$(slcTab).append('<table class="hospitalMeasureTable table table-striped ">'+
-				'<thead><tr>'+
-				  '<th>ID</th>'+           
-				  '<th>CODE</th>'+
-				  '<th>TITLE</th>'+
-				  '<th>Use</th>'+				  
-				  '<th>Completed</th>'+
-				  '<th>Confirmed</th>'+
-				  '<th>Cccepted</th>'+
-				  '<th>Cerified</th>'+
-				  '<th class="e-btn"></th>'+
-		          '<th class="s-btn"></th>'+
-		          '<th class="c-btn"></th>'+
-				  '</tr></thead>'+				
-				  '<tbody></tbody></table>');		
+	  if ($(slcTab).has("table").length==0) {
+		  
+		$(slcTab).append(table_template());  		
 		
 		var path = '/ihm/api/product_measure/'+product_id;
 
@@ -105,10 +93,7 @@ App.Views.Hospital = Backbone.View.extend({
 		    	        "bInfo": false,
 		    	        "bAutoWidth": false
 				    });	
-		    });
-		   
-		  
-		   
+		    });		   
 	  }	   
 	},
 
@@ -195,6 +180,7 @@ App.Views.SingleHospitalMeasure = Backbone.View
 			},
 
 			render : function() {	
+				var chd = '';
 				
 				this.$el.html(this.template({id:this.model.id,
 											 code:this.model.code,
@@ -203,7 +189,8 @@ App.Views.SingleHospitalMeasure = Backbone.View
 											 completed:this.model.completed,
 											 confirmed:this.model.confirmed,
 											 accepted:this.model.accepted,
-											 verified:this.model.verified		
+											 verified:this.model.verified,
+											 ch: chd
 											}));			
 				
 				return this;
@@ -216,14 +203,29 @@ App.Views.SingleHospitalMeasure = Backbone.View
 			},
 			
 			goToSave : function (e){
-				console.log("goToSave " + e.target);		
+				console.log("goToSave ");
 				
+				this.saveCheckboxState(e,'included');
+				this.saveCheckboxState(e,'completed');
+				this.saveCheckboxState(e,'confirmed');
+				this.saveCheckboxState(e,'accepted');
+				this.saveCheckboxState(e,'verified');
+								
+				
+				$(e.target).closest('tr').find('td span.edit').hide();
+				$(e.target).closest('tr').find('td span.view').show();				
+			},
+			
+			saveCheckboxState : function(e, checkbox_name) {
+				var chb = $(e.target).closest('tr').find('input[name='+ checkbox_name + ']');
+				var checked = $(chb).attr('checked') == 'checked'? 'true' : 'false';				
+				$(chb).closest('span').prev().html(checked);				
 			},
 			
 			goToCancel : function (e){
 				console.log("goToCancel " + e.target);				
 				$(e.target).closest('tr').find('td span.edit').hide();
-				$(e.target).closest('tr').find('td span.view').show();
+				$(e.target).closest('tr').find('td span.view').show();			
 			},
 
 			destroy : function(){
