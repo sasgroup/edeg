@@ -23,9 +23,10 @@ class HospitalController {
 			
 								
 			render(contentType: "text/json") {			
-				name =result.name
-				notes=result.notes
-				id   =result.id	
+				name = result.name
+				notes= result.notes
+				id   = result.id	
+				ehr = result.ehr
 				products = array {
 					for (p in productList) {
 						product id : p.id, 
