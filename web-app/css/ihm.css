@@ -180,3 +180,7 @@ table.dataTable td {
     padding: 0px 2px;
 }
 
+input[type="checkbox"] {
+	width: 40px;
+}
+

@@ -92,11 +92,8 @@
 		    <th>Use</th>				  
 		    <th>Completed</th>
 		    <th>Confirmed</th>
-		    <th>Cccepted</th>
-		    <th>Cerified</th>
-		    <th class="e-btn"></th>
-		    <th class="s-btn"></th>
-		    <th class="c-btn"></th>
+		    <th>Accepted</th>
+		    <th>Cerified</th>		    
 		   </tr>
     </thead>				
     <tbody></tbody>
@@ -108,22 +105,19 @@
  <td>{{ id }}</td>
  <td>{{ code }}</td>
  <td>{{ name }}</td> 
- <td><span class="view">{{ included }}</span>
-     <span class="edit"><input type="checkbox" name="included" id="{{id}}" {{ch}} ></span>
+ <td>
+	<input type="checkbox" name="included" id="{{id}}" {{ch}} >
  </td>
- <td><span class="view">{{ completed }}</span>
-     <span class="edit"><input type="checkbox" name="completed" id="{{id}}" {{ch}}></span>
+ <td>
+    <input type="checkbox" name="completed" id="{{id}}" {{ch}}>
  </td>
- <td><span class="view">{{ confirmed }}</span>
-     <span class="edit"><input type="checkbox" name="confirmed" id="{{id}}" {{ch}}></span>
+ <td>
+     <input type="checkbox" name="confirmed" id="{{id}}" {{ch}}>
  </td>
- <td><span class="view">{{ accepted }}</span>
-     <span class="edit"><input type="checkbox" name="accepted" id="{{id}}" {{ch}}></span>
+ <td>
+     <input type="checkbox" name="accepted" id="{{id}}" {{ch}}>
  </td>
- <td><span class="view">{{ verified }}</span>
-     <span class="edit"><input type="checkbox" name="verified" id="{{id}}" {{ch}}></span>
- </td>
- <td class="edit-btn"><button>E</button></td>
- <td class="save-btn"><button>S</button></td>
- <td class="cancel-btn"><button>C</button></td>
+ <td>
+     <input type="checkbox" name="verified" id="{{id}}" {{ch}}>
+ </td> 
 </script>
