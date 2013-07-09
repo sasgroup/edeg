@@ -38,7 +38,7 @@
 <!-- NEW/EDIT -->
 <script type="text/template" class="template" id="hospital-template">
 <div class="container">
-   <h3>Hospital: {{state}}</h3> 
+   <h3>Hospital: Edit</h3> 
     <table class="table">
         <tbody>
             <tr>

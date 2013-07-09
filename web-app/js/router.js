@@ -144,6 +144,13 @@ App.Router = Backbone.Router.extend({
 			view.appendDataElements();
 		});	
     },
+    
+    hospital  : function (hospital) {
+		App.hospitals.fetch().then(function(){	
+			var view = new App.Views.Hospital({model: hospital});		
+			$('#app').html(view.render().el);			
+		});	
+    },
 	// ------- NEW ------------
     // new product
 	newProduct : function() {			
@@ -204,7 +211,9 @@ App.Router = Backbone.Router.extend({
 	edithospital : function(id) {
 		App.ho = new App.Models.Hospital();
 		
-		App.ho.fetch({data:{id: id}}).then(function(){console.log(App.ho);
+		App.ho.fetch({data:{id: id}}).then(function(){
+			console.log(App.ho);
+			App.route.hospital(App.ho);
 		})
 	},
 	// edit product
