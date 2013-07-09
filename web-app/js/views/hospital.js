@@ -34,7 +34,7 @@ App.Views.Hospital = Backbone.View.extend({
 	template : _.template($('#hospital-template').html()),
 
 	events : {
-		'submit' 						 : 'submHospital',		
+		//'submit' 						 : 'submHospital',		
 		'click #btnApplyHospitalOptions' : 'applyHospitalOptions',
 		'click a[data-toggle="tab"]'	 : 'changeTab'			
 	},
