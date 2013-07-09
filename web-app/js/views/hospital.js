@@ -18,6 +18,7 @@ App.Views.Hospitals = Backbone.View.extend({
 		var view = new App.Views.SingleHospital({
 			model : hospital
 		});
+
 		this.$el.find('#table_items tbody').append(view.render().el);
 	},
 
@@ -197,7 +198,7 @@ App.Views.SingleHospital = Backbone.View
 			},
 
 			goToEdit : function() {
-				console.log("goToEdit");
+				Backbone.history.navigate("hospital/"+this.model.get('id')+'/edit', true);
 			},
 			
 			destroy : function(){

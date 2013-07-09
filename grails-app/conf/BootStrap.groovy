@@ -413,20 +413,100 @@ class BootStrap {
 				println "An error occured with event1: ${error}"
 			}
 		}
-
+		//HospitalProduct
+		def hospitalProduct =new HospitalProduct(hospital:Hospital.get(1),//Massachusetts General Hospital
+												 product:Product.get(2))//Meaningful Use Solution 2014 Stage 2
+		if (!hospitalProduct.save()){
+			hospitalProduct.errors.allErrors.each{error ->
+				println "An error occured with event1: ${error}"
+			}
+		}
+		
+		hospitalProduct =new HospitalProduct(hospital:Hospital.get(1),//Massachusetts General Hospital
+											 product:Product.get(1))//Meaningful Use Solution 2014 Stage 1
+		if (!hospitalProduct.save()){
+			hospitalProduct.errors.allErrors.each{error ->
+				println "An error occured with event1: ${error}"
+			}
+		}
+		
+		hospitalProduct =new HospitalProduct(hospital:Hospital.get(2),//Lindemann Mental Health Center
+										    	product:Product.get(2))//Meaningful Use Solution 2014 Stage 2
+		if (!hospitalProduct.save()){
+			hospitalProduct.errors.allErrors.each{error ->
+				println "An error occured with event1: ${error}"
+			}
+		}
+								
+		hospitalProduct =new HospitalProduct(hospital:Hospital.get(2),//Lindemann Mental Health Center
+											 product:Product.get(1))//Meaningful Use Solution 2014 Stage 1
+		if (!hospitalProduct.save()){
+			hospitalProduct.errors.allErrors.each{error ->
+				println "An error occured with event1: ${error}"
+			}
+		}
+		hospitalProduct =new HospitalProduct(hospital:Hospital.get(2),//Lindemann Mental Health Center
+											 product:Product.get(3))//Infection Alert
+		if (!hospitalProduct.save()){
+			hospitalProduct.errors.allErrors.each{error ->
+				println "An error occured with event1: ${error}"
+			}
+		}
 		//-----------HOSPITAL_MEASUREs-----------
-		/*def hospitalMeasure =new HospitalMeasure(accepted:true,
+		def hospitalMeasure =new HospitalMeasure(accepted:true,
 												 completed:false,
 												 confirmed:false,
 												 included:false,
 												 verified:false,
-												 hospital : hospital,
-												 measure : measure)
+												 measure : Measure.get(1))//CPOE - rad
+		hospitalMeasure.addToHospitalProducts(HospitalProduct.get(1))//Massachusetts General Hospital|Meaningful Use Solution 2014 Stage 2
 		if (!hospitalMeasure.save()){
 			hospitalMeasure.errors.allErrors.each{error ->
 				println "An error occured with event1: ${error}"
 			}
-		}*/
+		}
+		
+		hospitalMeasure =new HospitalMeasure(accepted:true,
+												 completed:false,
+												 confirmed:false,
+												 included:false,
+												 verified:false,
+												 measure : Measure.get(1))//CPOE - rad
+		hospitalMeasure.addToHospitalProducts(HospitalProduct.get(3))//Lindemann Mental Health Center|Meaningful Use Solution 2014 Stage 2
+		if (!hospitalMeasure.save()){
+			hospitalMeasure.errors.allErrors.each{error ->
+				println "An error occured with event1: ${error}"
+			}
+		}
+		hospitalMeasure =new HospitalMeasure(accepted:true,
+												 completed:false,
+												 confirmed:false,
+												 included:false,
+												 verified:false,
+												 measure : Measure.get(1))//CPOE - rad
+		hospitalMeasure.addToHospitalProducts(HospitalProduct.get(2))//Lindemann Mental Health Center|Meaningful Use Solution 2014 Stage 1
+		if (!hospitalMeasure.save()){
+			hospitalMeasure.errors.allErrors.each{error ->
+				println "An error occured with event1: ${error}"
+			}
+		}
+		
+		hospitalMeasure =new HospitalMeasure(accepted:true,
+												 completed:false,
+												 confirmed:false,
+												 included:false,
+												 verified:false,
+												 hospitalProducts : HospitalProduct.get(1),//Massachusetts General Hospital|Meaningful Use Solution 2014 Stage 2
+												 measure : Measure.get(2))//CPOE - meds
+		hospitalMeasure.addToHospitalProducts(HospitalProduct.get(1))///Massachusetts General Hospital|Meaningful Use Solution 2014 Stage 2
+		if (!hospitalMeasure.save()){
+			hospitalMeasure.errors.allErrors.each{error ->
+				println "An error occured with event1: ${error}"
+			}
+		}
+		
+		
+		
 		//-----------HOSPITAL_ELEMENTs-----------
 		/*def hospitalElement =new HospitalElement(internalNotes:"internalNotes",
 												 location:"location",

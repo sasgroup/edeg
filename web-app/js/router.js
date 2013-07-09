@@ -13,6 +13,7 @@ App.Router = Backbone.Router.extend({
 		'ehr/:new'        : 'newEhr',
 		'hospital/:new'   : 'newHospital',
 		
+		'hospital/:id/edit': 'edithospital',
 		'product/:id/edit': 'editProduct',
 		'measure/:id/edit': 'editMeasure',
 		'element/:id/edit': 'editDataElement',
@@ -195,10 +196,19 @@ App.Router = Backbone.Router.extend({
 	
 	
 	// ------- EDIT ------------
+	// edit hospital
+	edithospital : function(id) {
+		App.ho = new App.Models.Hospital();
+		
+		App.ho.fetch({data:{id: id}}).then(function(){console.log(App.ho);
+		})
+	},
 	// edit product
 	editProduct : function(id) {
 		App.pr = new App.Models.Product();
+		
 		App.pr.fetch({data:{id: id}}).then(function(){
+			console.log(this);
 			App.route.product(App.pr);
 		})
 	},
@@ -207,6 +217,7 @@ App.Router = Backbone.Router.extend({
 	editMeasure : function(id) {
 		App.me = new App.Models.Measure();
 		App.me.fetch({data:{id: id}}).then(function(){
+			
 			App.route.measure(App.me);
 		})
 	},

@@ -8,18 +8,43 @@ class HospitalController {
 	def apply() {
 		println "save"
 		def hospital = new Hospital(request.JSON)
-		render( hospital.save() as JSON )
+		render( hospital as JSON )
 	}
    
 	def show() {
 		println "show"
+		println params.id
 		if (params.id && Hospital.exists(params.id)) {
 			def  result = Hospital.get(params.id)
-									
+			println params.id
+
+			def hospitalProdcuts = HospitalProduct.findAllByHospital(result)
+			def productList	=  hospitalProdcuts.collect{it.product}
+			
+								
 			render(contentType: "text/json") {			
 				name =result.name
 				notes=result.notes
-				id   =result.id			
+				id   =result.id	
+				products = array {
+					for (p in productList) {
+						product id : p.id, 
+								name : p.name,
+								code : p.code, 
+								measures : array {
+									for (h in HospitalMeasure.list().findAll{it?.hospitalProducts.findAll{it.product == p}.size() >= 1}){
+										measrue id : h.id, 
+												code : h.measure.code,
+												name : h.measure.name,
+												accepted : h.accepted,
+												completed : h.completed,
+												confirmed : h.confirmed,
+												included : h.included,
+												verified : h.verified
+									}
+								}
+					}
+				}		
 				
 			}
 		}
