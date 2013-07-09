@@ -9,7 +9,6 @@ class Hospital {
     static constraints = {
 		name()
 		notes(maxSize:5000)
-		ehr()
     }
 	
 	String toString(){
