@@ -20,21 +20,21 @@ class HospitalController {
 
 			def hospitalProdcuts = HospitalProduct.findAllByHospital(result)
 			def productList	=  hospitalProdcuts.collect{it.product}
-			
-								
-			render(contentType: "text/json") {			
-				name =result.name
-				notes=result.notes
-				id   =result.id	
+
+
+			render(contentType: "text/json") {
+				name = result.name
+				notes= result.notes
+				id   = result.id
 				ehr = result.ehr
 				products = array {
 					for (p in productList) {
-						product id : p.id, 
+						product id : p.id,
 								name : p.name,
-								code : p.code, 
+								code : p.code,
 								measures : array {
 									for (h in HospitalMeasure.list().findAll{it?.hospitalProducts.findAll{it.product == p}.size() >= 1}){
-										measrue id : h.id, 
+										measrue id : h.id,
 												code : h.measure.code,
 												name : h.measure.name,
 												accepted : h.accepted,
@@ -45,13 +45,13 @@ class HospitalController {
 									}
 								}
 					}
-				}		
-				
+				}
+
 			}
 		}
 		else {
 			def results = Hospital.list()
-			
+
 			render(contentType: "text/json") {
 				hospitals = array {
 					for (p in results) {
@@ -65,23 +65,23 @@ class HospitalController {
 	//update current Hospital need JSON: Hospital(id) with Prodcuts(checked id) and Ehr (selected id)
 	def update(Long id, Long version) {
 		println "update"
-		
+
 		def hospitalInstance = Hospital.get(id)
-				
+
 		hospitalInstance.properties = params
 
 		hospitalInstance.save(flush: true)
 	}
-	
+
 
 	def delete(Long id) {
 		def hospitalInstance = Hospital.get(id)
-	   
+
 		try {
 			hospitalInstance.delete(flush: true)
 		}
 		catch (DataIntegrityViolationException e) {
-		   
+
 		}
 	}
 }
