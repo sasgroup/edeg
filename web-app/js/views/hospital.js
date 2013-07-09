@@ -57,52 +57,69 @@ App.Views.Hospital = Backbone.View.extend({
 		var temp = _.template($('#product-option').html());
 		this.$el.find('#slcProducts').append(temp({id:'t'+product.get('id'),code:product.get('code')}));		
 	},
+	
+	createTabs : function (){
+		// set first option false
+		$("#slcProducts").multiselect("widget").find(":checkbox").eq(0).click();				   
+
+		//get assigned products
+		var products = App.ho.get('products');
+		$.each( products, function( i, product ) { 	
+			// set checkboxes for assigned products
+			$("#slcProducts").multiselect("widget").find('input[value=t'+ product.id  +']').click();			
+		});
+					
+		//create tabs for all checked products
+		$( "#slcProducts").multiselect('getChecked').each(function( index ) {  					
+			var tabName = $(this).val();
+			var tabNameText = $(this).closest('label').text();			
+
+			$('div#myTabContent').append('<div id="'+tabName+'" class="tab-pane fade"></div>');			
+			$('ul#myTab').append('<li class=""><a data-toggle="tab" href="#' + tabName + '">'+ tabNameText + '</a></li>');			
+		});
+		
+		// set active tab
+		$('div#myTabContent div').first().addClass('active in');
+		$('ul#myTab li').first().addClass('active');
+				
+		// create and fill in HospitalMeasures for all checked products 
+		this.appendHospitalMeasureTable();						
+	},
 
 	changeTab: function (e){		
+		
 		var product_id = $(e.target).attr('href').replace('#t','');				
-		var slcTab = '#myTabContent div#t' + product_id;
+		var slcTab = '#myTabContent div#t' + product_id;	
 				
-		this.appendHospitalMeasureTable(slcTab,product_id);		
+		//this.appendHospitalMeasureTable(slcTab,product_id);		
 	},
 
 
 	// append HospitalMeasureTable to Tab
-	appendHospitalMeasureTable : function(slcTab, product_id){	
+	appendHospitalMeasureTable : function(){		
+	    var table_template = _.template($('#hospital-measure_table').html());						
+		var products = App.ho.get('products');
 		
-	  var table_template = _.template($('#hospital-measure_table').html());       	
-		
-	  if ($(slcTab).has("table").length==0) {
-		  
-		$(slcTab).append(table_template());  		
-		
-		var path = '/ihm/api/product_measure/'+product_id;
-
-		   $.getJSON(path, function(data){
-		    	$.each( data, function( i, measure ) {   	
-		    		    		
-		    		var view = new App.Views.SingleHospitalMeasure({
-		    			model : measure
-		    		});
-		    		$(slcTab + ' .hospitalMeasureTable tbody').append(view.render().el);
-				});	
-		    	
-		    	 $(slcTab + ' .hospitalMeasureTable').dataTable({
-		    		 "bPaginate": false,
-		    	        "bLengthChange": false,
-		    	        "bFilter": false,
-		    	        "bSort": false,
-		    	        "bInfo": false,
-		    	        "bAutoWidth": false
-				    });	
-		    });		   
-	  }	   
+		// for all products
+		$.each( products , function( i, product ) {		
+			
+			var slcTab = '#myTabContent div#t' + product.id;
+			$(slcTab).append(table_template());	
+			
+			// get assigned measures
+			var measures = product.measures;
+			$.each( measures, function( i, measure ) {   
+				var view = new App.Views.SingleHospitalMeasure({ model : measure });
+				$(slcTab + ' .hospitalMeasureTable tbody').append(view.render().el);				
+			});		
+		});	  	   
 	},
 
 	
 	// apply
 	applyHospitalOptions : function(){	
 		// remove tabs
-    	$("div#myTabContent").empty();
+    	/*$("div#myTabContent").empty();
     	$("ul#myTab").empty();
 
     	//create tabs with checked products
@@ -124,7 +141,21 @@ App.Views.Hospital = Backbone.View.extend({
 
 		var product_id = $('#myTab li:first a').attr('href').replace('#t','');
 
-		this.appendHospitalMeasureTable(slcTab,product_id);			
+		this.appendHospitalMeasureTable(slcTab,product_id);		*/
+		//$.ajax("/ihm/api/hospital");
+
+		$.ajax({
+		url: "/ihm/api/hospital",
+		type: 'POST',
+		data: {ehr_id: 3, product_ids: [1,2,3], hospital_id: 55},
+		error: function(request, error) {
+		},
+		success: function(_data){
+		console.log(_data);
+		},
+		dataType: 'JSON'
+		}); 
+
 	},
 
 	submHospital : function(e) {

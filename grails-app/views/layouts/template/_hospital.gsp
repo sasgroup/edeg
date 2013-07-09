@@ -79,7 +79,7 @@
 
 <!-- Product Option -->
 <script type="text/template" class="template" id="product-option">
- <option value={{id}}>{{code}}</option>
+ <option value={{id}} name={{id}}>{{code}} </option>
 </script>
 
 <!-- hospital-measure_table -->

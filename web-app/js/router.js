@@ -146,9 +146,32 @@ App.Router = Backbone.Router.extend({
     },
     
     hospital  : function (hospital) {
-		App.hospitals.fetch().then(function(){	
+		App.products.fetch().then(function(){	
 			var view = new App.Views.Hospital({model: hospital});		
-			$('#app').html(view.render().el);			
+			$('#app').html(view.render().el);	
+			
+			$(document).ready(function(){
+				$( "#slcEHRs").multiselect({
+			        multiple : false,
+			        header : false,
+			        noneSelectedText : "Select",
+			        selectedList : 1,
+			        height: "auto",
+			        minWidth: "300px"
+			    });	
+	
+				$( "#slcProducts").multiselect({
+			        multiple : true,
+			        header : true,
+			        noneSelectedText : "Select",
+			        selectedList : 1,
+			        height: "auto",
+			        minWidth: "300px"
+			    });
+																
+				view.createTabs();
+								
+			});		
 		});	
     },
 	// ------- NEW ------------
