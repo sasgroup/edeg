@@ -8,6 +8,7 @@ class HospitalController {
 	def apply() {
 		println "save"
 		def hospital = new Hospital(request.JSON)
+		
 		render( hospital as JSON )
 	}
    

@@ -39,7 +39,7 @@ App.Router = Backbone.Router.extend({
 		
 	},
 	
-	jqGrid : function(){
+	/*jqGrid : function(){
 		// jqGrid                
 		App.dataElementsTable = jQuery("#dataElementsTable").jqGrid({ 
 		    datatype: 'local',		   
@@ -66,7 +66,7 @@ App.Router = Backbone.Router.extend({
 		    }
 		});
 	   // jqGrid		
-	},
+	},*/
 	// ------- LIST ------------
 	// list of products
 	products : function() {
@@ -123,8 +123,8 @@ App.Router = Backbone.Router.extend({
 		App.hospitals.fetch().then(function(){			
 			var view = new App.Views.Ehr({model:ehrModel});
 			$('#app').html(view.render().el);
-			App.route.jqGrid();					
-			view.appendDataElements();
+			//App.route.jqGrid();					
+			//view.appendDataElements();
 		});		
     },
     measure : function (measureModel) {
@@ -138,10 +138,12 @@ App.Router = Backbone.Router.extend({
     },
     dataElement  : function (dataElement) {
 		App.measures.fetch().then(function(){	
-			var view = new App.Views.DataElement({model: dataElement});		
-			$('#app').html(view.render().el);
-			App.route.jqGrid();					
-			view.appendDataElements();
+			App.ehrs.fetch().then(function(){
+				var view = new App.Views.DataElement({model: dataElement});		
+				$('#app').html(view.render().el);
+				//App.route.jqGrid();					
+				//view.appendDataElements();
+			});
 		});	
     },
     
