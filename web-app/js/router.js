@@ -120,11 +120,13 @@ App.Router = Backbone.Router.extend({
     },
     
     ehr : function (ehrModel) {
-		App.hospitals.fetch().then(function(){			
-			var view = new App.Views.Ehr({model:ehrModel});
-			$('#app').html(view.render().el);
-			//App.route.jqGrid();					
-			//view.appendDataElements();
+		App.hospitals.fetch().then(function(){	
+			App.dataElements.fetch().then(function(){
+				var view = new App.Views.Ehr({model:ehrModel});
+				$('#app').html(view.render().el);
+				//App.route.jqGrid();					
+				//view.appendDataElements();
+			});	
 		});		
     },
     measure : function (measureModel) {
@@ -136,6 +138,7 @@ App.Router = Backbone.Router.extend({
 			  
 		});		
     },
+    
     dataElement  : function (dataElement) {
 		App.measures.fetch().then(function(){	
 			App.ehrs.fetch().then(function(){

@@ -74,18 +74,15 @@
                     <a data-toggle="tab" href="#hospitals">Hospital</a>
                   </li>
                   <li class="">
-                    <a data-toggle="tab" href="#elements">DataElement</a>
+                    <a data-toggle="tab" href="#elements">DataElementsDefault</a>
                   </li>
                 </ul>
      
                 <div id="myTabContent" class="tab-content">
                    <div id="hospitals" class="tab-pane fade active in">    
-                   </div>
-                   <div id="elements" class="tab-pane fade">
-              		<table id="dataElementsTable">   				 
-        			</table>		
-					<div id="pager5"></div>
-                   </div>
+                   </div>					
+				   <div id="elements" class="tab-pane fade">						        
+                   </div>				
                 </div>
 
                 <div class="form-actions">
@@ -113,14 +110,3 @@
     </label>
 </script>
 
-
-<script type="text/template" class="template" id="single-data-elements-def-element">
-   <tr>
-            <td>{{is_imo}}</td>
-			<td>{{loc}}</td>
-			<td>{{query_mnemonic}}</td>			
-            <td>{{value_set}}</td>
-			<td>{{value_set_req}}</td>
-			<td>{{location_type}}</td>            
-   </tr>
-</script>

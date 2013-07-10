@@ -28,7 +28,7 @@ App.Views.Ehrs = Backbone.View.extend({
 });
 
 
-// New/Edit Ehr
+// Edit/New Ehr
 App.Views.Ehr = Backbone.View.extend({
 	template : _.template($('#ehr-template').html()),
 
@@ -44,23 +44,49 @@ App.Views.Ehr = Backbone.View.extend({
 		};
 		this.$el.html(this.template(this.model.toJSON()));
 		this.model.get('hospitals').forEach(this.appendHospital,this);		
-		//this.model.get('dataElementDefaults').forEach(this.appendDataElement,this);		
+				
+		this.appendDataElementsDefault();		
+		this.$el.find('.slcEHR').append(this.elementOptions());	
+		
 		return this;
 	},
 	
-	
-	appendDataElements: function(){
-		this.model.get('dataElementDefaults').forEach(function (dataElement, i) {
-		var json_data = JSON.stringify(dataElement);
-		console.log(json_data);
-		App.dataElementsTable.jqGrid('addRowData', (i + 1), {
-			   location:dataElement.location,
-			   source:dataElement.source,
-			   sourceEHR:dataElement.sourceEHR,
-			   valueType:dataElement.valueType.name,
-			   codeType:dataElement.codeType.name});
-		});
+	elementOptions: function() {
+		var temp = _.template($('#default-element-option').html());
+		var html= '';		
+		App.dataElements.each(function(element) {
+			html = html + temp({id:'e'+element.get('id'), name:element.get('name')});
+		});			
+		return html;
 	},
+	
+	appendDataElementsDefault: function(){
+		var table_template = _.template($('#data-elements-default-table').html());		
+		this.$el.find('div#elements').append(table_template({ehr_element:"DataElement"}));			
+		
+		var dataElementDefaults = this.model.get('dataElementDefaults');
+		var ehrtbody = this.$el.find('div#elements .ehrTable tbody');
+		console.log("dataElementDefaults " + dataElementDefaults);
+				
+		if (dataElementDefaults !== undefined) {
+		  $.each( dataElementDefaults, function( i, dataElementDefault ) {				
+			console.log(JSON.stringify(dataElementDefault));
+			var view = new App.Views.DataElementsDefault({ model : dataElementDefault, default_element: "element"});		
+			var dataElementDefaultRow = view.render().el;
+			$(ehrtbody).append(dataElementDefaultRow);	
+			$(dataElementDefaultRow).find(".slcCodeType").val(dataElementDefault.codeType.name);
+			$(dataElementDefaultRow).find(".slcValueType").val(dataElementDefault.valueType.name);
+		  });	
+		}
+				
+		if ((dataElementDefaults == undefined)||(dataElementDefaults.length == 0)) { 	
+			var emptyDataElementDefault = {"location":"","sourceEHR":"","valueType":{"enumType":"","name":""},"codeType":{"enumType":"","name":""}};		
+			var view = new App.Views.DataElementsDefault({ model : emptyDataElementDefault, default_element: "element"});	
+			var dataElementDefaultRow = view.render().el;
+			$(ehrtbody).append(dataElementDefaultRow);			
+		}		
+	},
+	
 	
 	changeVal : function(e) {
 		console.log(e.target.name);

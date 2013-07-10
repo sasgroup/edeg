@@ -45,42 +45,60 @@ App.Views.DataElement = Backbone.View.extend({
 	render : function() {	
 		if (!this.model.toJSON().id) {
 			this.model.set("state" , "New");
-		};
-		console.log(this.model.toJSON());	
+		};				
 		this.$el.html(this.template(this.model.toJSON()));
-		App.measures.forEach(this.appendMeasure,this);	
-		this.appendDataElements();
+		App.measures.forEach(this.appendMeasure,this);
 		
-		console.log("App.ehrs " + App.ehrs);
-		App.ehrs.forEach(this.appendEhrOption,this);		
+		this.appendDataElementsDefault();		
+		this.$el.find('.slcEHR').append(this.ehrOptions());		
 		
 		return this;
 	},
-	
-	appendEhrOption: function(ehr) {
-		console.log("ehr " + JSON.stringify(ehr));
-		var temp = _.template($('#ehr-option').html());
-		this.$el.find('#slcEHR').append(temp({id:'e'+ehr.get('id'), name:ehr.get('name')}));		
+			
+	ehrOptions: function() {
+		var temp = _.template($('#default-element-option').html());
+		var html= '';		
+		App.ehrs.each(function(ehr) {
+			html = html + temp({id:'e'+ehr.get('id'), name:ehr.get('name')});
+		});			
+		return html;
+	},
+		
+	appendMeasure : function(element_measure){
+		var temp = _.template($('#single-element-measure').html());		
+		var chd = '';
+		this.model.get('measures').forEach(function( measure ) {
+			if (measure.mid == element_measure.get('id')) {chd = 'checked';}
+		});
+		this.$el.find('div#measures').append(temp({name:element_measure.get('name'),id:element_measure.get('id'),ch:chd}));		
 	},
 	
-	
-	appendDataElements: function(){
+	appendDataElementsDefault: function(){
 		var table_template = _.template($('#data-elements-default-table').html());		
-		this.$el.find('div#ehrs').append(table_template());			
+		this.$el.find('div#ehrs').append(table_template({ehr_element:"EHR"}));			
 		
 		var dataElementDefaults = this.model.get('dataElementDefaults');
 		var ehrtbody = this.$el.find('div#ehrs .ehrTable tbody');
+		console.log("dataElementDefaults " + dataElementDefaults);
 				
-		$.each( dataElementDefaults, function( i, dataElementDefault ) {				
+		if (dataElementDefaults !== undefined) {
+		  $.each( dataElementDefaults, function( i, dataElementDefault ) {				
 			console.log(JSON.stringify(dataElementDefault));
-			var view = new App.Views.DataElementsDefault({ model : dataElementDefault});			
-			$(ehrtbody).append(view.render().el);	
-		});	
+			
+			var view = new App.Views.DataElementsDefault({ model : dataElementDefault, default_element: "ehr"});		
+			var dataElementDefaultRow = view.render().el;
+			$(ehrtbody).append(dataElementDefaultRow);	
+			$(dataElementDefaultRow).find(".slcCodeType").val(dataElementDefault.codeType.name);
+			$(dataElementDefaultRow).find(".slcValueType").val(dataElementDefault.valueType.name);
+		  });	
+		}
 				
-		if (dataElementDefaults.length == 0) { 	
+		if ((dataElementDefaults == undefined)||(dataElementDefaults.length == 0)) { 	
 			var emptyDataElementDefault = {"location":"","sourceEHR":"","valueType":{"enumType":"","name":""},"codeType":{"enumType":"","name":""}};		
-			var view = new App.Views.DataElementsDefault({ model : emptyDataElementDefault});		
-			$(ehrtbody).append(view.render().el);
+			
+			var view = new App.Views.DataElementsDefault({ model : emptyDataElementDefault, default_element: "ehr"});	
+			var dataElementDefaultRow = view.render().el;
+			$(ehrtbody).append(dataElementDefaultRow);			
 		}		
 	},
 	
@@ -108,16 +126,7 @@ App.Views.DataElement = Backbone.View.extend({
 			};
 		};	
 	},
-	appendMeasure : function(element_measure){
-		var temp = _.template($('#single-element-measure').html());		
-		var chd = '';
-		this.model.get('measures').forEach(function( measure ) {
-			if (measure.mid == element_measure.get('id')) {chd = 'checked';}
-		});
-		this.$el.find('div#measures').append(temp({name:element_measure.get('name'),id:element_measure.get('id'),ch:chd}));		
-	},
 	
-		
 	editDataElement : function(e) {
 		e.preventDefault();		
 
@@ -178,28 +187,4 @@ App.Views.SingleDataElement = Backbone.View
 				     }
 				});
 			}
-		});
-
-//Single DataElementsDefault
-App.Views.DataElementsDefault = Backbone.View
-		.extend({
-			tagName : 'tr',
-			template: _.template($('#single-data-elements-default').html()),			
-			
-			events : {
-				'click #plus-btn' : 'addRow'				
-			},
-						
-			render : function() {								
-				this.$el.html(this.template({loc:this.model.location, code_type: this.model.codeType.name, value_type: this.model.valueType.name, ehr: this.model.sourceEHR}));				
-				return this;
-			},
-			
-			addRow : function (){
-				var emptyDataElementDefault = {"location":"","sourceEHR":"","valueType":{"enumType":"","name":""},"codeType":{"enumType":"","name":""}}; 
-				var view = new App.Views.DataElementsDefault({ model : emptyDataElementDefault});
-				var ehrtbody = this.$el.closest('tbody');
-				$(ehrtbody).append(view.render().el);				
-			}
-			
 		});

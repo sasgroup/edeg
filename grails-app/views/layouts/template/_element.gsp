@@ -82,9 +82,7 @@
                 <div id="myTabContent" class="tab-content">
                    <div id="measures" class="tab-pane fade active in">    
                    </div>
-                   <div id="ehrs" class="tab-pane fade"> 
-						<table id="dataElementsTable">   				 
-        				</table>             
+                   <div id="ehrs" class="tab-pane fade">						     
                    </div>
                 </div>
 
@@ -111,69 +109,4 @@
     <label class="checkbox">
         <input type="checkbox" name="measure" value="{{name}}" id="{{id}}" {{ch}}> {{name}}
     </label>
-</script>
-
-
-<script type="text/template" class="template" id="single-element-ehr">
-    <label class="checkbox">
-        <input type="checkbox" name="ehr" value="{{name}}" id="{{id}}" {{ch}}> {{name}}
-    </label>
-</script>
-
-<!-- data-elements-default-table -->
-<script type="text/template" class="template" id="data-elements-default-table">
-<table class="ehrTable table table-striped ">
-	<thead><tr>
-		    <th>Location</th>           
-			<th>CodeType</th>
-		    <th>ValueType</th>		    
-		    <th>EHR</th>
-			<th></th>
-		    </tr>
-    </thead>				
-    <tbody></tbody>
-</table>
-</script>
-
-<!-- data-elements-default -->
-<script type="text/template" class="template" id="single-data-elements-default">
- <td><input type="text" name="location" value="{{loc}}"></td>
- <td><select id="slcCodeType">
-                 <option value="1">{{code_type}}</option>
-				 <option value="1">AdministrativeSex</option>                 
-				 <option value="1">CDREC</option>
-				 <option value="1">CDT</option>
-				 <option value="1">CPT</option>
-				 <option value="1">CVX</option>
-				 <option value="1">DischargeDisposition</option>
-				 <option value="1">HCPCS</option>
-				 <option value="1">HSLOC</option>
-				<option value="1">ICD10CM</option>
-				<option value="1">ICD10PCS</option>
-				<option value="1">ICD9CM</option>
-				<option value="1">LOINC</option>
-				<option value="1">RXNORM</option>
-				<option value="1">SNOMEDCT</option>
-				<option value="1">SOP</option>
-    </select>
- </td>
- <td><select id="slcValueType">
-				 <option value="1">{{value_type}}</option>    
-                 <option value="1">IMO_Code</option>                
-				 <option value="1">Query/Mnemonic</option>
-				 <option value="1">HospitalSpecific</option>
-				 <option value="1">StandardCode</option>
-				 <option value="1">ValueSet</option>
-     </select>
- </td>
- <td><select id="slcEHR">
-				 <option value="1">{{ehr}}</option>                            
-     </select>
- </td>
- <td><div id="plus-btn" class="btn"><i class="icon-plus"></i></div></td>
-</script>
-
-<!-- EHR Option -->
-<script type="text/template" class="template" id="ehr-option">
- <option value={{id}}>{{name}}</option>
 </script>
