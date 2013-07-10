@@ -5,16 +5,48 @@ import org.springframework.dao.DataIntegrityViolationException
 
 class HospitalController {
 	//apply need JSON: Hospital(id)  with Prodcuts(checked id) and Ehr (selected id)
-	def apply() {
-		println "save"
-		def hospital = new Hospital(request.JSON)
+	
+	
+	def save() {
+		if (params.id && params.ehr_id) {// update Hospital set EHR
+			def hospital = Hospital.get(params.id)
+			println hospital
+			hospital.ehr = Ehr.get(params.ehr_id)
+			hospital.save()
+			for (prId in params.product_ids) {//update HospitalProduct
+				def product = Product.get(prId)
+				def hospitalproduct = HospitalProduct.findByHospitalAndProduct(hospital,product)
+
+				if (!HospitalProduct.exists(hospitalproduct?.id)) //create HospitalProduct if new product added to this hospital   
+					hospitalproduct = new HospitalProduct(hospital:hospital,product:product).save()
+			
+				println "-------------$hospitalproduct--------"
+				
+				for (measure in product?.measures) {
+					def hospitalMeasureList = HospitalMeasure.findAllByHospitalProductsAndMeasure(hospitalproduct,measure)
+					if (!hospitalMeasureList) {	//if null so need add to hospitalMeasure
+						def hospitalMeasure =new HospitalMeasure(accepted:false,
+																 completed:false,
+																 confirmed:false,
+																 included:false,
+																 verified:false,
+																 measure : measure)
+						    hospitalMeasure.addToHospitalProducts(hospitalproduct)
+							hospitalMeasure.save()
+					}
+				}
+			}
+			render(contentType: "text/json") {
+				resp = "ok"
+				message = "Hospital ${hospital.name} "
+			}
+		} else {
+			render(status: 420, text: "SomeError")
+		}
 		
-		render( hospital as JSON )
 	}
    
 	def show() {
-		println "show"
-		println params.id
 		if (params.id && Hospital.exists(params.id)) {
 			def  result = Hospital.get(params.id)
 			println params.id
@@ -62,27 +94,5 @@ class HospitalController {
 			}
 		}
 	}
-
-	//update current Hospital need JSON: Hospital(id) with Prodcuts(checked id) and Ehr (selected id)
-	def update(Long id, Long version) {
-		println "update"
-
-		def hospitalInstance = Hospital.get(id)
-
-		hospitalInstance.properties = params
-
-		hospitalInstance.save(flush: true)
-	}
-
-
-	def delete(Long id) {
-		def hospitalInstance = Hospital.get(id)
-
-		try {
-			hospitalInstance.delete(flush: true)
-		}
-		catch (DataIntegrityViolationException e) {
-
-		}
-	}
+	
 }

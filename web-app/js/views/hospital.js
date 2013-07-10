@@ -145,16 +145,19 @@ App.Views.Hospital = Backbone.View.extend({
 		//$.ajax("/ihm/api/hospital");
 
 		$.ajax({
-		url: "/ihm/api/hospital",
-		type: 'POST',
-		data: {ehr_id: 3, product_ids: [1,2,3], hospital_id: 55},
-		error: function(request, error) {
-		},
-		success: function(_data){
-		console.log(_data);
-		},
-		dataType: 'JSON'
-		}); 
+			url: "api/hospital",
+			type: 'POST',
+			data: {ehr_id: 1, product_ids : [1,2,3], id: 1},
+			error: function(request, error) {
+				console.log(request);
+			},
+			success: function(_data){
+				console.log(_data);
+			},
+			traditional: true,
+			dataType: 'JSON'
+		});
+		console.log("end");
 
 	},
 

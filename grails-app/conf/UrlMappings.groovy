@@ -20,10 +20,10 @@ class UrlMappings {
 		}
 		
 		"/api/hospital/$id?"(resource: "hospital") {
-			action = [GET: "show", PUT: "update", DELETE: "delete", POST: "apply"]
+			action = [GET: "show", POST: "save"]
 		}
 		"/api/hospital_measure/$id?"(resource: "hospitalMeasure") {
-			action = [GET: "show", PUT: "update", DELETE: "delete", POST: "apply"]
+			action = [GET: "show", PUT: "update", DELETE: "delete", POST: "save"]
 		}
 		
 		"/api/ehr/$id?"(resource: "ehr") {

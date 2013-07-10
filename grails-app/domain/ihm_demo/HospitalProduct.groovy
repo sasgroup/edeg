@@ -6,6 +6,6 @@ class HospitalProduct {
    Product product
 	
 	String toString(){
-		"$product.name, $hospital.name"
+		"$hospital.name, $product.name"
 	}
 }

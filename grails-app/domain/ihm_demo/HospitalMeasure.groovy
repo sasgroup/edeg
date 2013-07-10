@@ -20,4 +20,18 @@ class HospitalMeasure {
 		confirmed()
 		included()
     }
+	
+	static HospitalMeasure[] findAllByHospitalProductsAndMeasure(HospitalProduct hospitalProduct, Measure m) {
+		def c = HospitalMeasure.createCriteria()
+		def result = c.list{
+			and {
+				eq("measure" , m)
+				hospitalProducts {
+					idEq(hospitalProduct.id)
+				}
+			}	
+			
+		}
+		return result
+	}
 }
