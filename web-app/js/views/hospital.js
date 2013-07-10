@@ -144,15 +144,28 @@ App.Views.Hospital = Backbone.View.extend({
 		this.appendHospitalMeasureTable(slcTab,product_id);		*/
 		//$.ajax("/ihm/api/hospital");
 
+		//parameters
+		var h_id = this.model.get('id');		
+		var pr_ids = new Array();
+				
+		$( "#slcProducts").multiselect('getChecked').each(function( index ) {  					
+			var product_id = $(this).val();
+			product_id = product_id.replace('t','');			
+			pr_ids[index] = product_id;			
+		});	
+				
+		
 		$.ajax({
 			url: "api/hospital",
 			type: 'POST',
-			data: {ehr_id: 1, product_ids : [1,2,3], id: 1},
+			
+			data: {ehr_id: 1, product_ids : pr_ids, id: h_id},
 			error: function(request, error) {
 				console.log(request);
 			},
 			success: function(_data){
 				console.log(_data);
+				Backbone.history.loadUrl(Backbone.history.fragment);
 			},
 			traditional: true,
 			dataType: 'JSON'
