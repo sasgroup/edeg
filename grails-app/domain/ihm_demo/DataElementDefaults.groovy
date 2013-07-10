@@ -6,9 +6,9 @@ class DataElementDefaults {
 	String sourceEHR
 	ValueType valueType
 	CodeType codeType
-	
-	static hasMany = [dataElements : DataElement,
-					  ehrs : Ehr]
+	DataElement dataElement
+	Ehr ehr
+
 	
     static constraints = {
 		location()

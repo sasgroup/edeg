@@ -278,7 +278,7 @@ class BootStrap {
 							  notes:"",
 							  measureCategory:measureCategory,
 							  cqmDomain:cqmDomain)
-		measure.addToProducts(Product.findByCode("MU2"))
+		measure.addToProducts(Product.findByCode("IA"))
 		if (!measure.save()){
 			measure.errors.allErrors.each{error ->
 				println "An error occured with event1: ${error}"
@@ -324,11 +324,7 @@ class BootStrap {
 		dataElement = new DataElement(code:"ad",
 										  name:"Admission Date",
 									   notes:"")
-		dataElement.addToMeasures(Measure.findByCode("Family Hx"))
-		dataElement.addToMeasures(Measure.findByCode("VTE 4"))
 		dataElement.addToMeasures(Measure.findByCode("CAC 3"))
-		dataElement.addToMeasures(Measure.findByCode("STK 10"))
-		dataElement.addToMeasures(Measure.findByCode("PN 6"))
 		if (!dataElement.save()){
 			dataElement.errors.allErrors.each{error ->
 				println "An error occured with event1: ${error}"
@@ -339,7 +335,7 @@ class BootStrap {
 									   name:"Patient Medical Record Number",
 									   notes:"")
 		dataElement.addToMeasures(Measure.findByCode("Family Hx"))
-		dataElement.addToMeasures(Measure.findByCode("VTE 4"))
+		dataElement.addToMeasures(Measure.findByCode("CAC 3"))
 		dataElement.addToMeasures(Measure.findByCode("PN 6"))
 		if (!dataElement.save()){
 			dataElement.errors.allErrors.each{error ->
@@ -350,7 +346,7 @@ class BootStrap {
 		dataElement = new DataElement(code:"vte",
 									   name:"VTE Diagnostic Test",
 									   notes:"")
-		dataElement.addToMeasures(Measure.findByCode("VTE 4"))
+		dataElement.addToMeasures(Measure.findByCode("CAC 3"))
 		if (!dataElement.save()){
 			dataElement.errors.allErrors.each{error ->
 				println "An error occured with event1: ${error}"
@@ -360,7 +356,7 @@ class BootStrap {
 		dataElement = new DataElement(code:"e",
 									   name:"Emphysema",
 									   notes:"")
-		dataElement.addToMeasures(Measure.findByCode("PN 6"))
+		dataElement.addToMeasures(Measure.findByCode("CAC 3"))
 		if (!dataElement.save()){
 			dataElement.errors.allErrors.each{error ->
 				println "An error occured with event1: ${error}"
@@ -373,7 +369,8 @@ class BootStrap {
 													  sourceEHR:"",
 													  valueType:"ValueSet",
 													  codeType:"CPT",
-													  dataElement : DataElement.findByCode("ad") )
+													  dataElement : DataElement.findByCode("ad") ,
+													  ehr : Ehr.get(1))
 		
 		if (!dataElementDefaults.save()){
 			dataElementDefaults.errors.allErrors.each{error ->
@@ -386,11 +383,9 @@ class BootStrap {
 													  sourceEHR:"",
 													  valueType:"ValueSet",
 													   codeType:"CPT",
-													  dataElement : DataElement.findByCode("ad"))
-		dataElementDefaults.addToEhrs(Ehr.findByCode("mv5"))
-		dataElementDefaults.addToEhrs(Ehr.findByCode("mv6"))
-		dataElementDefaults.addToDataElements(DataElement.findByCode("e"))
-		dataElementDefaults.addToDataElements(DataElement.findByCode("ad"))
+													  dataElement : DataElement.findByCode("e") ,
+													  ehr : Ehr.get(1))
+
 		
 		if (!dataElementDefaults.save()){
 			dataElementDefaults.errors.allErrors.each{error ->
@@ -404,10 +399,23 @@ class BootStrap {
 													  valueSetRequired:false,
 													  valueType:"ValueSet",
 													  codeType:"CPT",
-													  dataElement : DataElement.findByCode("vte"))
-		
-		dataElementDefaults.addToEhrs(Ehr.findByCode("mv5"))
-		dataElementDefaults.addToEhrs(Ehr.findByCode("mv6"))
+													  dataElement : DataElement.findByCode("vte"),
+													  ehr : Ehr.get(1))
+
+		if (!dataElementDefaults.save()){
+			dataElementDefaults.errors.allErrors.each{error ->
+				println "An error occured with event1: ${error}"
+			}
+		}
+		dataElementDefaults = new DataElementDefaults(location:"test1",
+													  source:"1111",
+													  sourceEHR:"2.16.840.1.113883.3.117.1.7.1.276",
+													  valueSetRequired:false,
+													  valueType:"ValueSet",
+													  codeType:"CPT",
+													  dataElement : DataElement.findByCode("pmrb"),
+													  ehr : Ehr.get(2))
+
 		if (!dataElementDefaults.save()){
 			dataElementDefaults.errors.allErrors.each{error ->
 				println "An error occured with event1: ${error}"

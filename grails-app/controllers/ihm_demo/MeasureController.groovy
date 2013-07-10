@@ -32,7 +32,6 @@ class MeasureController {
 	}
 	
     def save() {
-		println params.name
 		def measureInstance  = saveInstance(new Measure(), params)
 		render(contentType: "text/json") {
 					resp = "ok"
@@ -41,7 +40,6 @@ class MeasureController {
 	}
    
 	def show() {
-
 		if (params.id && Measure.exists(params.id)) {
 			def  result = Measure.get(params.id)
 					
@@ -80,7 +78,6 @@ class MeasureController {
 
     
     def update(Long id, Long version) {
-		println "Update"
 		def measrueInstance = Measure.get(id)
 
 		if  (!measrueInstance) {
@@ -91,9 +88,7 @@ class MeasureController {
 		}
 
 		 if (params.version != null) {
-			 println measrueInstance.version > params.version
             if (measrueInstance.version > params.version) {
-				println 'inside'
 				return render(contentType: "text/json") {
 					resp = "error"
 					message = "Another User has updated meausure(${measrueInstance.name}) while you were editing"
@@ -110,8 +105,6 @@ class MeasureController {
 	
 
     def delete(Long id) {
-        println "Delete"
-
 		def measure = Measure.findById(params.id)
 		String name = measure.name
 

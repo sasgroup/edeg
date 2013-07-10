@@ -8,7 +8,6 @@ class ProductController {
 	
 	
 	def save() {
-		println "save"
 		def productInstance  = saveInstance(new Product(), params)
 		render(contentType: "text/json") {
 					resp = "ok"
@@ -17,10 +16,7 @@ class ProductController {
 	}
 
 	def show() {
-		println "Show"
-		println params.id
 		if (params.id && Product.exists(params.id)) {
-			println "One"
 			def  pr = Product.get(params.id)
 
 			render(contentType: "text/json") {
@@ -41,7 +37,6 @@ class ProductController {
 				}*/
 			}
 		} else {
-			println "NExt"
 			def results = Product.list()
 	
 			render(contentType: "text/json") {
@@ -59,7 +54,6 @@ class ProductController {
 	}
 
 	def update(Long id, Long version) {
-		println "Update"
 		def productInstance = Product.get(id)
 
 		if  (!productInstance) {
@@ -70,9 +64,7 @@ class ProductController {
 		}
 
 		 if (params.version != null) {
-			 println productInstance.version > params.version
             if (productInstance.version > params.version) {
-				println 'inside'
 				return render(contentType: "text/json") {
 					resp = "error"
 					message = "Another User has updated product(${productInstance.name}) while you were editing"
@@ -90,12 +82,8 @@ class ProductController {
 
 
 	def delete(Long id) {
-		println "Delete"
-
 		def product = Product.findById(params.id)
 		String name = product.name
-		println ("product.measures:" + product.measures)
-
 		def measuresDep = product.measures ? true : false
 
 		def hospitalsDep = product.hospitals ? true : false
@@ -118,13 +106,8 @@ class ProductController {
 		instance.notes = param.notes
 		
 		if (instance.id) {
-			//instance.hospitals.clear()
 			instance.measures.clear()
 		}	
-		
-		/*for (hospital in param.hospitals) {
-			instance.addToHospitals(Hospital.get(hospital.hid))
-		}*/
 		
 		for (measure in param.measures) {
 			instance.addToMeasures(Measure.get(measure.mid))

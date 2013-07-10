@@ -10,7 +10,6 @@ class EhrController {
 	}
 	
     def save() {
-		println "save"
 		def ehr = saveInstance (new Ehr(), params)
 
 		render(contentType: "text/json") {
@@ -20,12 +19,11 @@ class EhrController {
 	}
    
 	def show() {
-		println "show"
 		if (params.id && Ehr.exists(params.id)) {
 			def  result = Ehr.get(params.id)
 
 			def hospitalList = Hospital.list().findAll { it.ehr.id == result.id } 
-			def dataElementDefaultsList = DataElementDefaults.list().findAll{it.ehrs.id.findAll{it == result.id}.size() >= 1}
+			def dataElementDefaultsList = DataElementDefaults.list().findAll{it.ehr.id.findAll{it == result.id}.size() >= 1}
 			
 			render(contentType: "text/json") {
 				version = result.version
@@ -65,7 +63,6 @@ class EhrController {
 
 	
 	def update(Long id, Long version) {
-		println "Update"
 		def ehr = Ehr.get(id)
 
 		if  (!ehr) {
@@ -76,7 +73,6 @@ class EhrController {
 		}
 
 		 if (params.version != null) {
-			 println ehr.version > params.version
             if (ehr.version > params.version) {
 				println 'inside'
 				return render(contentType: "text/json") {

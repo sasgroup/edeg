@@ -21,7 +21,6 @@ class DataElementController {
 		return instance.save(flush :true)
 	}
     def save() {
-		println "save"
 		def dataElementtInstance  = saveInstance(new DataElement(), params)
 		render(contentType: "text/json") {
 					resp = "ok"
@@ -30,13 +29,9 @@ class DataElementController {
 	}
    
 	def show() {
-		println "show"
 		if (params.id && DataElement.exists(params.id)) {
-			println "One"
 			def  de = DataElement.get(params.id)
-			def dataElementDefaultsList = DataElementDefaults.list().findAll{it.dataElements.id.findAll{it == de.id}.size() >= 1}
-			println dataElementDefaultsList
-			
+			def dataElementDefaultsList = DataElementDefaults.list().findAll{it.dataElement.id.findAll{it == de.id}.size() >= 1}
 			render(contentType: "text/json") {
 						version = de.version
 						id   = de.id

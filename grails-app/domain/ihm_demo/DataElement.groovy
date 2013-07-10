@@ -8,6 +8,8 @@ class DataElement {
 	
 	static hasMany = [measures : Measure]
 	
+	static belongsTo = [Measure]
+	
     static constraints = {
 		code()
 		name()

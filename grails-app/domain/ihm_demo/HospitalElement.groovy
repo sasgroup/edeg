@@ -11,11 +11,11 @@ class HospitalElement {
 	String valueSetFile
 	ValueType valueType
 	CodeType codeType
+	DataElement dataElement
 	
 	
-	static hasMany = [dataElements : DataElement,
-					  dataElementDefaults : DataElementDefaults,
-					  hospitalMeasure : HospitalMeasure]
+	
+	static hasMany = [hospitalMeasure : HospitalMeasure]
 		
     static constraints = {
 		internalNotes()

@@ -21,9 +21,9 @@ class HospitalMeasure {
 		included()
     }
 	
-	static HospitalMeasure[] findAllByHospitalProductsAndMeasure(HospitalProduct hospitalProduct, Measure m) {
+	static HospitalMeasure findAllByHospitalProductsAndMeasure(HospitalProduct hospitalProduct, Measure m) {
 		def c = HospitalMeasure.createCriteria()
-		def result = c.list{
+		def result = c.get{
 			and {
 				eq("measure" , m)
 				hospitalProducts {
