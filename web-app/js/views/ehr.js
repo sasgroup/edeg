@@ -83,7 +83,7 @@ App.Views.Ehr = Backbone.View.extend({
 		}
 				
 		if ((dataElementDefaults == undefined)||(dataElementDefaults.length == 0)) { 	
-			var emptyDataElementDefault = {"id":"-1","location":"","sourceEHR":"","valueType":{"enumType":"","name":""},"codeType":{"enumType":"","name":""}};		
+			var emptyDataElementDefault = {"id":"-1","linkId":"1","location":"","sourceEHR":"","valueType":{"enumType":"","name":""},"codeType":{"enumType":"","name":""}};		
 			emptyDataElementDefault.parent = "ehr";
 			this.model.timeId = -2;
 			var dataElementDefaults = this.model.get('dataElementDefaults');
