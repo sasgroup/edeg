@@ -7,6 +7,7 @@
 		    <th>ValueType</th>		    
 		    <th>{{ehr_element}}</th>
 			<th></th>
+			<th></th>
 		    </tr>
     </thead>				
     <tbody></tbody>
@@ -49,6 +50,7 @@
 	</select>
  </td>
  <td><div id="plus-btn" class="btn"><i class="icon-plus"></i></div></td>
+ <td><div id="minus-btn" class="btn"><i class="icon-minus"></i></div></td>
 </script>
 
 <!-- default-element Option -->
