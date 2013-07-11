@@ -5,8 +5,9 @@ import org.springframework.dao.DataIntegrityViolationException
 
 class EhrController {
 	private Ehr saveInstance (Ehr instance, def param) {
+		println param
 		instance.properties = param
-		return instance.save(flush :true)
+		return instance//.save(flush :true)
 	}
 	
     def save() {
@@ -38,11 +39,13 @@ class EhrController {
 				}
 				dataElementDefaults = array {
 					for (d in dataElementDefaultsList) {
-						dataElementDefault  location : d.location,
+						dataElementDefault  id : d.id,
+											location : d.location,
 											source : d.source,
 											sourceEHR : d.sourceEHR,
 											valueType : d.valueType,
-											codeType : d.codeType
+											codeType : d.codeType,
+											dE : d.dataElement.id
 					}
 				}
 				
