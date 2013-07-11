@@ -25,7 +25,7 @@ App.Views.Hospital = Backbone.View.extend({
 	template : _.template($('#hospital-template').html()),
 
 	events : {
-		//'submit' 						 : 'submHospital',		
+		'submit' 						 : 'submHospital',		
 		'click #btnApplyHospitalOptions' : 'applyHospitalOptions',
 		'click a[data-toggle="tab"]'	 : 'changeTab'			
 	},
@@ -34,6 +34,8 @@ App.Views.Hospital = Backbone.View.extend({
 		if (!this.model.toJSON().id) {
 			this.model.set("state" , "New");
 		};
+		
+		console.log(this.model.toJSON());
 		this.$el.html(this.template(this.model.toJSON()));
 		
 		App.products.forEach(this.appendProductOption,this);

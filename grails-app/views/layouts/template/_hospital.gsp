@@ -36,48 +36,33 @@
 <div class="container">
    <div class="row">   
    <h3>Hospital: Edit</h3>
-   <form method="post" class="form-horizontal" id="ehr-edit" accept-charset="utf-8">    
-    			<div class="control-group">
-                    <label for="code" class="control-label">
-                        Code
-                    </label>
-                    <div class="controls">
-                        <input name="code" type="text" value="" id="code">
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label for="name" class="control-label">
-                        Name
-                    </label>
-                    <div class="controls">
-                        <input name="name" type="text" value="" id="name">
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label for="notes" class="control-label">
-                        Notes
-                    </label>
-                    <div class="controls">
-                        <textarea rows="3" name="notes" id="notes"></textarea>
-                    </div>
-                </div>
-
-		
-
+   <form method="post" class="form-horizontal" id="hospital-edit" accept-charset="utf-8">    
 	<table class="table">
         <tbody>
 			  <tr>
+                <td>Name</td>
+                <td>
+                    <input name="name" type="text" value="{{ name }}" id="name">
+                </td>
+                <td>Notes</td>
+                <td>
+                <input name="notes" type="text" value="{{ notes }}" id="notes"> 
+                </td>
+                <td></td>
+             </tr>					
+
+			  <tr>
                 <td>Primary EHR</td>
                 <td>
-                    <select id="slcEHRs" style="width:200px;">                      
+                    <select id="slcEHRs" style="width:250px;">                      
                     </select>
                 </td>
                 <td>Products</td>
                 <td>
-                <select id="slcProducts" style="width:350px;">                  
-                </select>
+                    <select id="slcProducts" style="width:370px;">                  
+                    </select>
                 </td>
-                <td><button id="btnApplyHospitalOptions">Apply</button></td>
+                <td><button id="btnApplyHospitalOptions" class="btn btn-info">Apply</button></td>
             </tr>
         </tbody>
     </table>   
@@ -87,6 +72,11 @@
     </ul>     
     <div id="myTabContent" class="tab-content">               
     </div>
+
+	<div class="form-actions">
+                    <button type="submit" class="btn btn-info">Save Hospital</button>
+    </div>
+	
 	 </form>  
   </div>
 </div>
