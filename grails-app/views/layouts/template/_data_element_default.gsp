@@ -16,7 +16,7 @@
 
 <!-- data-elements-default -->
 <script type="text/template" class="template" id="single-data-elements-default">
- <td><input type="text" name="location" value="{{loc}}"></td>
+ <td><input type="text" class="location" id="location" value="{{loc}}"></td>
  <td><select class="slcCodeType">                
 				 <option value=""></option>
 				 <option value="AdministrativeSex">AdministrativeSex</option>                 
@@ -45,7 +45,7 @@
 				<option value="ValueSet">ValueSet</option>
      </select>
  </td>
- <td><select class="slcEHR">				
+ <td><select class="slcParent">				
 	</select>
  </td>
  <td><div id="plus-btn" class="btn"><i class="icon-plus"></i></div></td>

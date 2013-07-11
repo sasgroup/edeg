@@ -42,7 +42,6 @@ App.Models.DataElement = Backbone.Model.extend({
 	    //"hospitals" :[]
 	  },
 	  parse: function (response) {
-		  console.log(response);
 	      return this.model = response;
 	   }
 });
