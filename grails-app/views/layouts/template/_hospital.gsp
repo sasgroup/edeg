@@ -33,6 +33,31 @@
 
 <!-- NEW/EDIT -->
 <script type="text/template" class="template" id="hospital-template">
+
+<!-- Modal -->
+<div id="modalDataElements" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+	<h4 id="myModalLabel">DataElements</h4>
+  </div>
+  <div class="modal-body">
+  	<table class="table">
+	<thead><tr>
+		    <th>Location</th>           
+			<th>CodeType</th>
+		    <th>ValueType</th>		    
+		    <th>DataElement</th>
+			</tr>
+    </thead>				
+    <tbody></tbody>
+	</table>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+   </div>
+</div>
+
+
 <div class="container">
    <div class="row">   
    <h3>Hospital: Edit</h3>
@@ -74,7 +99,7 @@
     </div>
 
 	<div class="form-actions">
-                    <button type="submit" class="btn btn-info">Save Hospital</button>
+                    <button type="submit" class="btn btn-info pull-right">Save Hospital</button>
     </div>
 	
 	 </form>  
@@ -100,14 +125,14 @@
 <script type="text/template" class="template" id="hospital-measure_table">
 <table class="hospitalMeasureTable table table-striped ">
 	<thead><tr>
-		    <th>ID</th>           
+		    <th>Use</th>
+			<th>ID</th>           
 			<th>CODE</th>
-		    <th>TITLE</th>
-		    <th>Use</th>				  
+		    <th>TITLE</th>		    				  
 		    <th>Completed</th>
 		    <th>Confirmed</th>
 		    <th>Accepted</th>
-		    <th>Cerified</th>		    
+		    <th>Verified</th>		    
 		   </tr>
     </thead>				
     <tbody></tbody>
@@ -116,12 +141,13 @@
 
 <!-- hospital_measure -->
 <script type="text/template" class="template" id="single-hospital_measure">
- <td>{{ id }}</td>
- <td>{{ code }}</td>
- <td>{{ name }}</td> 
  <td>
 	<input type="checkbox" name="included" id="{{id}}" {{included}} >
  </td>
+ <td>{{ id }}</td>
+ <td>{{ code }}</td>
+ <td><a href="#modalDataElements" role="button" data-toggle="modal">{{ name }}</a></td> 
+
  <td>
     <input type="checkbox" name="completed" id="{{id}}" {{completed}}>
  </td>

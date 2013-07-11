@@ -9,6 +9,21 @@ body {
     height:100%;       
 }
 
+form#hospital-edit div#myTabContent  {
+	display:block;
+	height: 262px;
+	width:100%;
+	overflow: auto;   
+}
+
+form#product-edit div#myTabContent  {
+	display:block;
+	height: 160px;
+	width:100%;
+	overflow: auto;   
+}
+
+
 /* container */
 .page-container {
    min-height:100%;
@@ -182,5 +197,9 @@ table.dataTable td {
 
 input[type="checkbox"] {
 	width: 40px;
+}
+
+button#btnApplyHospitalOptions {
+	width: 112px;
 }
 
