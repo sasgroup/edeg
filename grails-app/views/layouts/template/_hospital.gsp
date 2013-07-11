@@ -44,16 +44,12 @@
             <tr>
                 <td>Primary EHR</td>
                 <td>
-                    <select id="slcEHRs" style="width:150px;">
-                        <option value="1">Meditech V5</option>
-                        <option value="2">Meditech V6</option>
-                        <option value="3">eClinicalWorks</option>
-                        <option value="4">Cerner</option>
+                    <select id="slcEHRs" style="width:200px;">                      
                     </select>
                 </td>
                 <td>Products</td>
                 <td>
-                <select id="slcProducts" style="width:250px;">                  
+                <select id="slcProducts" style="width:350px;">                  
                 </select>
                 </td>
                 <td><button id="btnApplyHospitalOptions">Apply</button></td>
@@ -68,6 +64,11 @@
 </div>
 </script>
 
+<!-- Product/EHR Option -->
+<script type="text/template" class="template" id="product-option">
+ <option value={{id}} name={{id}}>{{code}} </option>
+</script>
+
 
 <!-- SINGLE -->
 <script type="text/template" class="template" id="single-hospital">
@@ -75,11 +76,6 @@
  <td>{{ notes }}</td>
  <td><div id="edit" class= "btn"><i class="icon-edit"></i></div></td>
  <td><div id="destroy" class= "btn"><i class="icon-trash"></i></div></td> 
-</script>
-
-<!-- Product Option -->
-<script type="text/template" class="template" id="product-option">
- <option value={{id}} name={{id}}>{{code}} </option>
 </script>
 
 <!-- hospital-measure_table -->

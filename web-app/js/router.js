@@ -152,6 +152,7 @@ App.Router = Backbone.Router.extend({
     
     hospital  : function (hospital) {
 		App.products.fetch().then(function(){	
+		 App.ehrs.fetch().then(function(){		
 			var view = new App.Views.Hospital({model: hospital});		
 			$('#app').html(view.render().el);	
 			
@@ -178,6 +179,7 @@ App.Router = Backbone.Router.extend({
 								
 			});		
 		});	
+	  });	 
     },
 	// ------- NEW ------------
     // new product

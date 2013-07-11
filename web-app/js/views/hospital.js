@@ -44,20 +44,24 @@ App.Views.Hospital = Backbone.View.extend({
 			this.model.set("state" , "New");
 		};
 		this.$el.html(this.template(this.model.toJSON()));
-
-		console.log(App.products);
-		App.products.forEach(this.appendProductOption,this);		
+		
+		App.products.forEach(this.appendProductOption,this);
+		App.ehrs.forEach(this.appendEhrOption,this);
 
 		return this;
 	},
 		
-
-	appendProductOption: function(product) {
-		console.log("product " + product.toJSON());
+	appendProductOption: function(product) {		
 		var temp = _.template($('#product-option').html());
-		this.$el.find('#slcProducts').append(temp({id:'t'+product.get('id'),code:product.get('code')}));		
+		this.$el.find('#slcProducts').append(temp({id:'t'+product.get('id'),code:product.get('code')+"-"+product.get('name')}));		
 	},
 	
+	appendEhrOption: function(ehr) {	
+		console.log(ehr.code);
+		var temp = _.template($('#product-option').html());
+		this.$el.find('#slcEHRs').append(temp({id:'e'+ehr.get('id'),code:ehr.get('name')}));		
+	},
+		
 	createTabs : function (){
 		// set first option false
 		$("#slcProducts").multiselect("widget").find(":checkbox").eq(0).click();				   
@@ -72,7 +76,9 @@ App.Views.Hospital = Backbone.View.extend({
 		//create tabs for all checked products
 		$( "#slcProducts").multiselect('getChecked').each(function( index ) {  					
 			var tabName = $(this).val();
-			var tabNameText = $(this).closest('label').text();			
+			var tabNameText = $(this).closest('label').text();
+						
+			tabNameText = tabNameText.substring(0,tabNameText.indexOf("-"));
 
 			$('div#myTabContent').append('<div id="'+tabName+'" class="tab-pane fade"></div>');			
 			$('ul#myTab').append('<li class=""><a data-toggle="tab" href="#' + tabName + '">'+ tabNameText + '</a></li>');			
@@ -117,41 +123,21 @@ App.Views.Hospital = Backbone.View.extend({
 
 	
 	// apply
-	applyHospitalOptions : function(){	
-		// remove tabs
-    	/*$("div#myTabContent").empty();
-    	$("ul#myTab").empty();
-
-    	//create tabs with checked products
-    	$( "#slcProducts").multiselect('getChecked').each(function( index ) {  					
-			var tabName = $(this).val();
-			var tabNameText = $(this).closest('label').text();			
-
-			$('div#myTabContent').append('<div id="'+tabName+'" class="tab-pane fade"></div>');			
-			$('ul#myTab').append('<li class=""><a data-toggle="tab" href="#' + tabName + '">'+ tabNameText + '</a></li>');			
-		});	
-
-    	// set active tab
-		$('div#myTabContent div').first().addClass('active in');
-		$('ul#myTab li').first().addClass('active');
-
-		var tabName = $('div#myTabContent div').first().prop('id');		
-
-		var slcTab = '#myTabContent div#' + tabName;
-
-		var product_id = $('#myTab li:first a').attr('href').replace('#t','');
-
-		this.appendHospitalMeasureTable(slcTab,product_id);		*/
-		//$.ajax("/ihm/api/hospital");
-
-		//parameters
+	applyHospitalOptions : function(){		
+    	//parameters
 		var h_id = this.model.get('id');		
 		var pr_ids = new Array();
+		var e_id;
 				
 		$( "#slcProducts").multiselect('getChecked').each(function( index ) {  					
 			var product_id = $(this).val();
 			product_id = product_id.replace('t','');			
 			pr_ids[index] = product_id;			
+		});	
+		
+		$( "#slcEHRs").multiselect('getChecked').each(function( index ) {  					
+			e_id = $(this).val();		
+			e_id = e_id.replace('e','');			
 		});	
 				
 		
@@ -159,7 +145,7 @@ App.Views.Hospital = Backbone.View.extend({
 			url: "api/hospital",
 			type: 'POST',
 			
-			data: {ehr_id: 1, product_ids : pr_ids, id: h_id},
+			data: {ehr_id: e_id, product_ids : pr_ids, id: h_id},
 			error: function(request, error) {
 				console.log(request);
 			},
