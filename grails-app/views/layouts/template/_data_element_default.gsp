@@ -46,7 +46,7 @@
      </select>
  </td>
  <td><select class="slcEHR">     
-				<option value=""></option>
+				<option value="">{{ehr}}</option>
 	</select>
  </td>
  <td><div id="plus-btn" class="btn"><i class="icon-plus"></i></div></td>

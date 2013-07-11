@@ -4,7 +4,8 @@ App.Views.DataElementsDefault = Backbone.View
 			template: _.template($('#single-data-elements-default').html()),			
 			
 			events : {
-				'click #plus-btn' : 'addRow'				
+				'click #plus-btn' : 'addRow',
+				'click #minus-btn': 'removeRow'
 			},
 						
 			render : function() {								
@@ -39,6 +40,10 @@ App.Views.DataElementsDefault = Backbone.View
 				var ehrtbody = this.$el.closest('tbody');
 				$(ehrtbody).append(view.render().el);					
 				$(view.render().el).find('.slcEHR').append(this.defaultElementOptions());	
+			},
+			
+			removeRow : function (){				
+				this.$el.remove();					
 			}
 			
 		});
