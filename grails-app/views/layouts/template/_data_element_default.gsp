@@ -45,8 +45,7 @@
 				<option value="ValueSet">ValueSet</option>
      </select>
  </td>
- <td><select class="slcEHR">     
-				<option value="">{{ehr}}</option>
+ <td><select class="slcEHR">				
 	</select>
  </td>
  <td><div id="plus-btn" class="btn"><i class="icon-plus"></i></div></td>

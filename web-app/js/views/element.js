@@ -35,7 +35,7 @@ App.Views.DataElements = Backbone.View.extend({
 // Edit/New DataElement
 App.Views.DataElement = Backbone.View.extend({
 	template : _.template($('#element-template').html()),
-
+	
 	events : {
 		'submit' : 'editDataElement',
 		'change #code, #name, #notes' : 'changeVal',
@@ -80,6 +80,8 @@ App.Views.DataElement = Backbone.View.extend({
 		var dataElementDefaults = this.model.get('dataElementDefaults');
 		var ehrtbody = this.$el.find('div#ehrs .ehrTable tbody');
 		console.log("dataElementDefaults " + dataElementDefaults);
+		
+		var optionsList = this.ehrOptions();
 				
 		if (dataElementDefaults !== undefined) {
 		  $.each( dataElementDefaults, function( i, dataElementDefault ) {				
@@ -90,6 +92,9 @@ App.Views.DataElement = Backbone.View.extend({
 			$(ehrtbody).append(dataElementDefaultRow);	
 			$(dataElementDefaultRow).find(".slcCodeType").val(dataElementDefault.codeType.name);
 			$(dataElementDefaultRow).find(".slcValueType").val(dataElementDefault.valueType.name);
+			
+			$(dataElementDefaultRow).find('.slcEHR').append(optionsList);			
+			$(dataElementDefaultRow).find(".slcEHR").val("e"+dataElementDefault.linkId);			
 		  });	
 		}
 				

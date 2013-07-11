@@ -31,7 +31,7 @@ App.Views.Ehrs = Backbone.View.extend({
 // Edit/New Ehr
 App.Views.Ehr = Backbone.View.extend({
 	template : _.template($('#ehr-template').html()),
-
+	
 	events : {
 		'submit' : 'editEhr',
 		'change #code, #name, #notes' : 'changeVal'
@@ -44,9 +44,8 @@ App.Views.Ehr = Backbone.View.extend({
 		};
 		this.$el.html(this.template(this.model.toJSON()));
 		this.model.get('hospitals').forEach(this.appendHospital,this);		
-				
-		this.appendDataElementsDefault();		
-		this.$el.find('.slcEHR').append(this.elementOptions());	
+		
+		this.appendDataElementsDefault();	
 		
 		return this;
 	},
@@ -67,6 +66,8 @@ App.Views.Ehr = Backbone.View.extend({
 		var dataElementDefaults = this.model.get('dataElementDefaults');
 		var ehrtbody = this.$el.find('div#elements .ehrTable tbody');
 		console.log("dataElementDefaults " + dataElementDefaults);
+		
+		var optionsList = this.elementOptions();
 				
 		if (dataElementDefaults !== undefined) {
 		  $.each( dataElementDefaults, function( i, dataElementDefault ) {				
@@ -76,6 +77,9 @@ App.Views.Ehr = Backbone.View.extend({
 			$(ehrtbody).append(dataElementDefaultRow);	
 			$(dataElementDefaultRow).find(".slcCodeType").val(dataElementDefault.codeType.name);
 			$(dataElementDefaultRow).find(".slcValueType").val(dataElementDefault.valueType.name);
+						
+			$(dataElementDefaultRow).find('.slcEHR').append(optionsList);			
+			$(dataElementDefaultRow).find(".slcEHR").val("e"+dataElementDefault.linkId);			
 		  });	
 		}
 				
