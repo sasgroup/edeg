@@ -5,8 +5,25 @@ import org.springframework.dao.DataIntegrityViolationException
 
 class EhrController {
 	private Ehr saveInstance (Ehr instance, def param) {
-		println param
+		println param?.dataElementDefaults
 		instance.properties = param
+		//clear
+		def dataElementsDefaults = DataElementDefaults.findAllByEhr(instance)//param?.dataElementDefaults
+		for (dataElementsDefault in dataElementsDefaults) {
+			DataElementDefaults.get(dataElementsDefault.id).delete(flush: true)
+		}
+		//create new
+		dataElementsDefaults = param?.dataElementDefaults
+		for (dataElementsDefault in dataElementsDefaults) {
+			 new DataElementDefaults(location:dataElementsDefault.location,
+				source:"",
+				sourceEHR:"",
+				valueSetRequired:false,
+				valueType:dataElementsDefault.valueType.name,
+				codeType:dataElementsDefault.codeType.name,
+				dataElement : DataElement.get(dataElementsDefault.linkId),
+				ehr : instance).save(flush:true)
+		}
 		return instance.save(flush :true)
 	}
 	
@@ -100,7 +117,7 @@ class EhrController {
 		String name = ehr.name
 
 		def hasHospitals = Hospital.list().findAll { it.ehr.id == ehr.id } ? true : false
-		def hasDataElementDefaultsList = DataElementDefaults.list().findAll{it.ehrs.id.findAll{it == ehr.id}.size() >= 1} ? true : false
+		def hasDataElementDefaultsList = DataElementDefaults.list().findAll{it.ehr.id.findAll{it == ehr.id}.size() >= 1} ? true : false
 		
 		if (hasHospitals || hasDataElementDefaultsList) {
 			render(status: 420, text: "Ehr ${name} cannot be deleted because of existing dependencie")
