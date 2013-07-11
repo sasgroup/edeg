@@ -88,6 +88,7 @@ App.Views.Product = Backbone.View.extend({
 					}
 				}
 				hospitals.splice(removeIndex,1);
+				this.model.set("hospitals" , hospitals);
 			}
 		};
 		if (e.target.name == 'measure' ) {
@@ -106,6 +107,7 @@ App.Views.Product = Backbone.View.extend({
 					}
 				}
 				measures.splice(removeIndex,1);
+				this.model.set("measures" , measures);
 			};
 		};	
 	},

@@ -199,7 +199,8 @@ App.Router = Backbone.Router.extend({
 
 	// new EHR
 	newEhr : function() {	
-		this.ehr(new App.Models.Ehr());
+		App.ehr = new App.Models.Ehr();
+		this.ehr(App.ehr);
 	},	
 	
 	// new hospital
