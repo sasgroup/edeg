@@ -7,7 +7,7 @@ class EhrController {
 	private Ehr saveInstance (Ehr instance, def param) {
 		println param
 		instance.properties = param
-		return instance//.save(flush :true)
+		return instance.save(flush :true)
 	}
 	
     def save() {
@@ -45,7 +45,7 @@ class EhrController {
 											sourceEHR : d.sourceEHR,
 											valueType : d.valueType,
 											codeType : d.codeType,
-											dE : d.dataElement.id
+											linkId : d.dataElement.id
 					}
 				}
 				

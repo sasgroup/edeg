@@ -45,11 +45,13 @@ class DataElementController {
 						}
 						dataElementDefaults = array {
 							for (d in dataElementDefaultsList) {
-								dataElementDefault	location : d.location,
+								dataElementDefault	id : d.id,
+													location : d.location,
 													source : d.source,
 													sourceEHR : d.sourceEHR,
 													valueType : d.valueType,
-													codeType : d.codeType
+													codeType : d.codeType,
+													linkId : d.ehr.id
 							}
 						}
 			}
