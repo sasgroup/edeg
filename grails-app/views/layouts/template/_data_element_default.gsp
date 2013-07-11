@@ -45,7 +45,8 @@
 				<option value="ValueSet">ValueSet</option>
      </select>
  </td>
- <td><select class="slcEHR">				
+ <td><select class="slcEHR">	
+				<option value=""></option>			
 	</select>
  </td>
  <td><div id="plus-btn" class="btn"><i class="icon-plus"></i></div></td>

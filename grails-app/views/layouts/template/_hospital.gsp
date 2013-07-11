@@ -3,11 +3,7 @@
 <div class="container" >
 <div class="row">
     <div class="span8">
-        <h3>List of Hospitals</h3>
-		<section class="row-fluid">
-  			<a id="create_hospital">Create New</a>
-		</section>
-        <hr>
+        <h3>List of Hospitals</h3>        
         <div class="clearfix"></div>
         <form method="post" class="form-horizontal" accept-charset="utf-8">
 
@@ -38,10 +34,39 @@
 <!-- NEW/EDIT -->
 <script type="text/template" class="template" id="hospital-template">
 <div class="container">
-   <h3>Hospital: Edit</h3> 
-    <table class="table">
+   <div class="row">   
+   <h3>Hospital: Edit</h3>
+   <form method="post" class="form-horizontal" id="ehr-edit" accept-charset="utf-8">    
+    			<div class="control-group">
+                    <label for="code" class="control-label">
+                        Code
+                    </label>
+                    <div class="controls">
+                        <input name="code" type="text" value="" id="code">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="name" class="control-label">
+                        Name
+                    </label>
+                    <div class="controls">
+                        <input name="name" type="text" value="" id="name">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="notes" class="control-label">
+                        Notes
+                    </label>
+                    <div class="controls">
+                        <textarea rows="3" name="notes" id="notes"></textarea>
+                    </div>
+                </div>
+
+		
+
+	<table class="table">
         <tbody>
-            <tr>
+			  <tr>
                 <td>Primary EHR</td>
                 <td>
                     <select id="slcEHRs" style="width:200px;">                      
@@ -55,12 +80,15 @@
                 <td><button id="btnApplyHospitalOptions">Apply</button></td>
             </tr>
         </tbody>
-    </table>
+    </table>   
+    <hr>
        
     <ul id="myTab" class="nav nav-tabs">               
     </ul>     
     <div id="myTabContent" class="tab-content">               
-    </div>    
+    </div>
+	 </form>  
+  </div>
 </div>
 </script>
 
@@ -102,18 +130,18 @@
  <td>{{ code }}</td>
  <td>{{ name }}</td> 
  <td>
-	<input type="checkbox" name="included" id="{{id}}" {{ch}} >
+	<input type="checkbox" name="included" id="{{id}}" {{included}} >
  </td>
  <td>
-    <input type="checkbox" name="completed" id="{{id}}" {{ch}}>
+    <input type="checkbox" name="completed" id="{{id}}" {{completed}}>
  </td>
  <td>
-     <input type="checkbox" name="confirmed" id="{{id}}" {{ch}}>
+     <input type="checkbox" name="confirmed" id="{{id}}" {{confirmed}}>
  </td>
  <td>
-     <input type="checkbox" name="accepted" id="{{id}}" {{ch}}>
+     <input type="checkbox" name="accepted" id="{{id}}" {{accepted}}>
  </td>
  <td>
-     <input type="checkbox" name="verified" id="{{id}}" {{ch}}>
+     <input type="checkbox" name="verified" id="{{id}}" {{verified}}>
  </td> 
 </script>

@@ -2,10 +2,6 @@
 App.Views.Hospitals = Backbone.View.extend({
 	template : _.template($('#hospital-list-template').html()),
 
-	events : {
-		'click #create_hospital' : 'createHospital'
-	},
-
 	render : function() {		
 		this.$el.html(this.template({
 			hospitals : this.collection
@@ -20,12 +16,7 @@ App.Views.Hospitals = Backbone.View.extend({
 		});
 
 		this.$el.find('#table_items tbody').append(view.render().el);
-	},
-
-	createHospital : function() {
-		console.log("createHospital");
-		Backbone.history.navigate("hospital/new", true)
-	}
+	}	
 });
 
 
@@ -114,8 +105,9 @@ App.Views.Hospital = Backbone.View.extend({
 			
 			// get assigned measures
 			var measures = product.measures;
-			$.each( measures, function( i, measure ) {   
-				var view = new App.Views.SingleHospitalMeasure({ model : measure });
+			$.each( measures, function( i, measure ) {
+				console.log(JSON.stringify(measure));
+				var view = new App.Views.SingleHospitalMeasure({ model : measure });				
 				$(slcTab + ' .hospitalMeasureTable tbody').append(view.render().el);				
 			});		
 		});	  	   
@@ -213,18 +205,21 @@ App.Views.SingleHospitalMeasure = Backbone.View
 				'click .cancel-btn' : 'goToCancel'
 			},
 
-			render : function() {	
-				var chd = '';
-				
+			render : function() {						
+				var ch_included  = (this.model.included)  ? "checked" : "";
+				var ch_completed = (this.model.completed) ? "checked" : "";
+				var ch_confirmed = (this.model.confirmed) ? "checked" : "";				
+				var ch_accepted  = (this.model.accepted)  ? "checked" : "";
+				var ch_verified  = (this.model.verified)  ? "checked" : "";
+								
 				this.$el.html(this.template({id:this.model.id,
 											 code:this.model.code,
 											 name:this.model.name,
-											 included:this.model.included,
-											 completed:this.model.completed,
-											 confirmed:this.model.confirmed,
-											 accepted:this.model.accepted,
-											 verified:this.model.verified,
-											 ch: chd
+											 included:ch_included,
+											 completed:ch_completed,
+											 confirmed:ch_confirmed,
+											 accepted:ch_accepted,
+											 verified:ch_verified
 											}));			
 				
 				return this;
