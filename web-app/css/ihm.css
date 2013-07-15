@@ -16,6 +16,10 @@ form#hospital-edit div#myTabContent  {
 	overflow: auto;   
 }
 
+div#modalDataElements {
+	width: 800px;
+}
+
 form#product-edit div#myTabContent  {
 	display:block;
 	height: 254px;
