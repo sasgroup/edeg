@@ -39,36 +39,32 @@
 <script type="text/template" class="template" id="product-template">
 <div class="container">
     <div class="row">
-        <div class="span8">
+        <div>
             <h3>Product: {{state}}</h3>
             <hr>
             <div class="clearfix"></div>
             <form method="post" class="form-horizontal" id="product-edit" accept-charset="utf-8">
-                <div class="control-group">
-                    <label for="code" class="control-label">
-                        Code
-                    </label>
-                    <div class="controls">
-                        <input name="code" type="text" value="{{ code }}" id="code">
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label for="name" class="control-label">
-                        Name
-                    </label>
-                    <div class="controls">
-                        <input name="name" type="text" value="{{ name }}" id="name">
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label for="notes" class="control-label">
-                        Notes
-                    </label>
-                    <div class="controls">
-                        <textarea rows="3" name="notes" id="notes">{{ notes }}</textarea>
-                    </div>
-                </div>
-
+              	<div class="container">
+  				    <div class="row">
+    				  <div class="span5">      				  
+                        <div class="row-fluid">
+                          <label for="code" class="span3">Code</label>    
+					      <input name="code" type="text" class="span9" value="{{ code }}" id="code">
+					    </div>					  
+					    <div class="row-fluid">	
+                          <label for="name" class="span3">Name</label>                                         
+                          <input name="name" type="text" class="span9" value="{{ name }}" id="name">
+					   </div> 					
+					  </div>    				  
+					  <div class="span7">
+					    <div class="row-fluid">	
+      				      <label for="notes" class="span2">Notes</label>                    
+                          <textarea rows="3" class="span10" name="notes" id="notes">{{ notes }}</textarea>
+    				    </div>
+					  </div>
+  				    </div>
+				</div>
+				<hr>
                 <ul id="myTab" class="nav nav-tabs">
                   <li class="active">
                     <a data-toggle="tab" href="#measures">Measures</a>
