@@ -34,7 +34,8 @@ class HospitalMeasureController {
 												completed : h.completed,
 												confirmed : h.confirmed,
 												included : h.included,
-												verified : h.verified
+												verified : h.verified,
+												product : p
 									}
 								}
 				}	
