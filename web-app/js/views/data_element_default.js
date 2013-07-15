@@ -54,7 +54,7 @@ App.Views.DataElementsDefault = Backbone.View
 			
 			addRow : function (){
 				var timeId = App[this.model.parent].timeId;
-				var emptyDataElementDefault = {"id":timeId,"parent":"ehr","location":"","linkId":"","valueType":{"enumType":"","name":""},"codeType":{"enumType":"","name":""}};
+				var emptyDataElementDefault = {"id":timeId,"parent":this.options.parent,"location":"","linkId":"","valueType":{"enumType":"","name":""},"codeType":{"enumType":"","name":""}};
 				var dataElementDefaults = App[this.model.parent].get('dataElementDefaults');
 				dataElementDefaults.push(emptyDataElementDefault);
 				App[this.model.parent].set("dataElementDefaults" , dataElementDefaults);
@@ -67,6 +67,8 @@ App.Views.DataElementsDefault = Backbone.View
 			},
 			
 			removeRow : function (e){
+				if (App[this.model.parent].get('dataElementDefaults').length == 1)
+					this.addRow();
 				var dataElementDefaults = App[this.model.parent].get('dataElementDefaults');
 				for (var i = 0; i < dataElementDefaults.length; i++) {
 					if (dataElementDefaults[i].id = this.model.id) {
@@ -76,7 +78,6 @@ App.Views.DataElementsDefault = Backbone.View
 				dataElementDefaults.splice(removeIndex,1);
 				App[this.model.parent].set("dataElementDefaults" , dataElementDefaults);
 				this.$el.remove();
-				console.log(App[this.model.parent].get('dataElementDefaults'));
 			}
 			
 		});

@@ -5,20 +5,42 @@ import org.springframework.dao.DataIntegrityViolationException
 
 class DataElementController {
 	private DataElement saveInstance (DataElement instance, def param) {
-		
+		println param?.dataElementDefaults
 		instance.name = param.name
 		instance.code = param.code
 		instance.notes = param.notes
-		
-		if (instance.id) {
+		//need reLook this One for clear from dataElement
+		/*if (instance.id) {
 			instance.measures.clear()
 		}
 		
 		for (measure in param.measures) {
 			instance.addToMeasures(Measure.get(measure.mid))
+		}*/
+		
+		instance.save(flush :true)
+		//clear
+		def dataElementsDefaults = DataElementDefaults.findAllByDataElement(instance)//param?.dataElementDefaults
+		for (dataElementsDefault in dataElementsDefaults) {
+			DataElementDefaults.get(dataElementsDefault.id).delete(flush: true)
 		}
+		
+		//create new
+		dataElementsDefaults = param?.dataElementDefaults
+		for (dataElementsDefault in dataElementsDefaults) {
+			println  Ehr.get(dataElementsDefault.linkId)
+			 new DataElementDefaults(location:dataElementsDefault.location,
+				source:"",
+				sourceEHR:"",
+				valueSetRequired:false,
+				valueType:dataElementsDefault.valueType.name,
+				codeType:dataElementsDefault.codeType.name,
+				dataElement : instance,
+				ehr : Ehr.get(dataElementsDefault.linkId)).save(flush:true)
+		}
+		
 	
-		return instance.save(flush :true)
+		return instance
 	}
     def save() {
 		def dataElementtInstance  = saveInstance(new DataElement(), params)
@@ -108,8 +130,9 @@ class DataElementController {
 		println ("product.measures:" + de.measures)
 
 		def measuresDep = de.measures ? true : false
-
-		if (measuresDep ) {
+		def hasDataElementDefaultsList = DataElementDefaults.list().findAll{it.ehr.id.findAll{it == de.id}.size() >= 1} ? true : false
+		
+		if (measuresDep|| hasDataElementDefaultsList ) {
 			render(status: 420, text: "DataElement ${name} cannot be deleted because of existing dependencie")
 		} else {
 			de?.delete(flush: true)

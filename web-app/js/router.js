@@ -39,34 +39,6 @@ App.Router = Backbone.Router.extend({
 		
 	},
 	
-	/*jqGrid : function(){
-		// jqGrid                
-		App.dataElementsTable = jQuery("#dataElementsTable").jqGrid({ 
-		    datatype: 'local',		   
-		    width:'100%',
-		    colNames:['location', 'source', 'sourceEHR', 'valueType', 'codeType'], 
-		    colModel:[  {name:'location', index:'location'},
-		                {name:'source', index:'source'},
-		                {name:'sourceEHR', index:'sourceEHR'},
-		                {name:'valueType',index:'valueType'},
-		                {name:'codeType', index:'codeType'}],				                
-		                
-		    rowNum:10, 
-		    rowList:[10,20,30], 
-		    pager: '#pager5', 
-		    sortname: 'location', 
-		    viewrecords: true, 
-		    sortorder: "desc", 
-		    				             
-		    loadComplete : function(data) {
-		        //alert('grid loading completed ' + data);
-		    },
-		    loadError : function(xhr, status, error) {
-		        alert('grid loading error' + error);
-		    }
-		});
-	   // jqGrid		
-	},*/
 	// ------- LIST ------------
 	// list of products
 	products : function() {
@@ -124,8 +96,6 @@ App.Router = Backbone.Router.extend({
 			App.dataElements.fetch().then(function(){
 				var view = new App.Views.Ehr({model:ehrModel});
 				$('#app').html(view.render().el);
-				//App.route.jqGrid();					
-				//view.appendDataElements();
 			});	
 		});		
     },
@@ -144,8 +114,6 @@ App.Router = Backbone.Router.extend({
 			App.ehrs.fetch().then(function(){
 				var view = new App.Views.DataElement({model: dataElement});		
 				$('#app').html(view.render().el);
-				//App.route.jqGrid();					
-				//view.appendDataElements();
 			});
 		});	
     },
@@ -193,8 +161,9 @@ App.Router = Backbone.Router.extend({
 	},
 
 	// new dataElement
-	newDataElement : function() {				
-		this.dataElement(new App.Models.DataElement());		
+	newDataElement : function() {	
+		App.element = new App.Models.DataElement();
+		this.dataElement(App.element);		
 	},
 
 	// new EHR
@@ -206,14 +175,10 @@ App.Router = Backbone.Router.extend({
 	// new hospital
 	newHospital : function() {		
 		App.hospital = new App.Models.Hospital();
-
 		//get list of products
 		App.products.fetch().then(function(){			
-		
 			var view = new App.Views.Hospital({model:App.hospital});
-			
 			$('#app').html(view.render().el);		
-		
 			$(document).ready(function(){
 				$( "#slcEHRs").multiselect({
 			        multiple : false,
@@ -268,9 +233,9 @@ App.Router = Backbone.Router.extend({
 
 	// edit dataElement
 	editDataElement : function(id) {
-		App.de = new App.Models.DataElement();
-		App.de.fetch({data:{id: id}}).then(function(){
-			App.route.dataElement(App.de);
+		App.element = new App.Models.DataElement();
+		App.element.fetch({data:{id: id}}).then(function(){
+			App.route.dataElement(App.element);
 		})			
 	},
 

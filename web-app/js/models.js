@@ -38,6 +38,7 @@ App.Models.DataElement = Backbone.Model.extend({
 	    "code":     "",
 	    "name":    "",
 	    "notes": "",
+	    "dataElementDefaults" : [],
 	    "measures" : []//,
 	    //"hospitals" :[]
 	  },
