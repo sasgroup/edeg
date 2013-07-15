@@ -42,13 +42,15 @@
   </div>
   <div class="modal-body">
   	<table class="table">
-	<thead><tr>
-		    <th>Location</th>           
-			<th>CodeType</th>
-		    <th>ValueType</th>		    
-		    <th>DataElement</th>
-			</tr>
-    </thead>				
+	  <thead><tr>
+ 				<th>Code</th>    
+		    	<th>Location</th>           
+				<th>SourceEHR</th>
+				<th>Source</th>
+				<th>CodeType</th>
+		    	<th>ValueType</th>		    
+			 </tr>
+      </thead>				
     <tbody></tbody>
 	</table>
   </div>
@@ -133,6 +135,8 @@
 		    <th>Confirmed</th>
 		    <th>Accepted</th>
 		    <th>Verified</th>		    
+			<th>Save</th>
+ 			<th>Delete</th>	
 		   </tr>
     </thead>				
     <tbody></tbody>
@@ -146,7 +150,7 @@
  </td>
  <td>{{ id }}</td>
  <td>{{ code }}</td>
- <td><a href="#modalDataElements" role="button" data-toggle="modal">{{ name }}</a></td> 
+ <td><a id="customLink" href="#modalDataElements" role="button" data-toggle="modal">{{ name }}</a></td> 
 
  <td>
     <input type="checkbox" name="completed" id="{{id}}" {{completed}}>
@@ -160,4 +164,43 @@
  <td>
      <input type="checkbox" name="verified" id="{{id}}" {{verified}}>
  </td> 
+ <td><div id="save"    class= "btn"><i class="icon-edit"></i></div></td>
+ <td><div id="destroy" class= "btn"><i class="icon-trash"></i></div></td> 
+</script>
+
+
+<!-- modal-data-elements -->
+<script type="text/template" class="template" id="modal-data-elements">
+ <td><input type="text" class="code" id="code" value="{{code}}"></td>
+ <td><input type="text" class="location" id="location" value="{{loc}}"></td>
+ <td><input type="checkbox" class="sourceEhr" id="sourceEhr" value="{{source_ehr}}"></td>
+ <td><input type="text" class="source" id="source" value="{{source}}"></td>
+ <td><select class="slcCodeType">                
+				 <option value=""></option>
+				 <option value="AdministrativeSex">AdministrativeSex</option>                 
+				 <option value="CDREC">CDREC</option>
+				 <option value="CDT">CDT</option>
+				 <option value="CPT">CPT</option>
+				 <option value="CVX">CVX</option>
+				 <option value="DischargeDisposition">DischargeDisposition</option>
+				 <option value="HCPCS">HCPCS</option>
+				 <option value="HSLOC">HSLOC</option>
+				 <option value="ICD10CM">ICD10CM</option>
+				 <option value="ICD10PCS">ICD10PCS</option>
+				 <option value="ICD9CM">ICD9CM</option>
+				 <option value="LOINC">LOINC</option>
+				 <option value="RXNORM">RXNORM</option>
+				 <option value="SNOMEDCT">SNOMEDCT</option>
+				 <option value="SOP">SOP</option>
+    </select>
+ </td>
+ <td><select class="slcValueType">			
+				<option value=""></option>		     
+                <option value="IMO_Code">IMO_Code</option>                
+				<option value="Query/Mnemonic">Query/Mnemonic</option>
+				<option value="HospitalSpecific">HospitalSpecific</option>
+				<option value="StandardCode">StandardCode</option>
+				<option value="ValueSet">ValueSet</option>
+     </select>
+ </td>
 </script>

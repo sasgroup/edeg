@@ -202,9 +202,10 @@ App.Views.SingleHospitalMeasure = Backbone.View
 			tagName : 'tr',
 			template: _.template($('#single-hospital_measure').html()),			
 			events : {
-				'click .edit-btn'   : 'goToEdit',
-				'click .save-btn'   : 'goToSave',
-				'click .cancel-btn' : 'goToCancel'
+				'click .edit-btn'          : 'goToEdit',
+				'click .save-btn'          : 'goToSave',
+				'click .cancel-btn'        : 'goToCancel',
+				'click a#customLink'       : 'goToDataElements'
 			},
 
 			render : function() {						
@@ -245,6 +246,11 @@ App.Views.SingleHospitalMeasure = Backbone.View
 				
 				$(e.target).closest('tr').find('td span.edit').hide();
 				$(e.target).closest('tr').find('td span.view').show();				
+			},
+			
+			goToDataElements : function(e) {
+				e.preventDefault();
+				console.log("goToDataElements");
 			},
 			
 			saveCheckboxState : function(e, checkbox_name) {
