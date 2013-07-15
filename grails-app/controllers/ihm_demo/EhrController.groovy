@@ -7,6 +7,8 @@ class EhrController {
 	private Ehr saveInstance (Ehr instance, def param) {
 		println param?.dataElementDefaults
 		instance.properties = param
+		instance.save(flush :true)
+	
 		//clear
 		def dataElementsDefaults = DataElementDefaults.findAllByEhr(instance)//param?.dataElementDefaults
 		for (dataElementsDefault in dataElementsDefaults) {
@@ -24,10 +26,9 @@ class EhrController {
 				dataElement : DataElement.get(dataElementsDefault.linkId),
 				ehr : instance).save(flush:true)
 		}
-		return instance.save(flush :true)
+		return instance
 	}
-	
-    def save() {
+	def save() {
 		def ehr = saveInstance (new Ehr(), params)
 
 		render(contentType: "text/json") {

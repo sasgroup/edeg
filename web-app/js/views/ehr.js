@@ -70,8 +70,8 @@ App.Views.Ehr = Backbone.View.extend({
 		if (dataElementDefaults !== undefined) {
 		  $.each( dataElementDefaults, function( i, dataElementDefault ) {
 			dataElementDefault.parent = "ehr";
-			//console.log(JSON.stringify(dataElementDefault));
-			var view = new App.Views.DataElementsDefault({ model : dataElementDefault, default_element: "element"});		
+			console.log(JSON.stringify(dataElementDefault));
+			var view = new App.Views.DataElementsDefault({ model : dataElementDefault, default_element: "element", parent:"ehr"});		
 			var dataElementDefaultRow = view.render().el;
 			$(ehrtbody).append(dataElementDefaultRow);	
 			$(dataElementDefaultRow).find(".slcCodeType").val(dataElementDefault.codeType.name);
@@ -90,7 +90,7 @@ App.Views.Ehr = Backbone.View.extend({
 			dataElementDefaults.push(emptyDataElementDefault);
 			this.model.set("dataElementDefaults" , dataElementDefaults);
 			
-			var view = new App.Views.DataElementsDefault({ model : emptyDataElementDefault, default_element: "element"});	
+			var view = new App.Views.DataElementsDefault({ model : emptyDataElementDefault, default_element: "element", parent:"ehr"});	
 			var dataElementDefaultRow = view.render().el;
 			
 			$(ehrtbody).append(dataElementDefaultRow);

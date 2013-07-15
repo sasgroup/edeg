@@ -85,25 +85,33 @@ App.Views.DataElement = Backbone.View.extend({
 				
 		if (dataElementDefaults !== undefined) {
 		  $.each( dataElementDefaults, function( i, dataElementDefault ) {				
-			console.log(JSON.stringify(dataElementDefault));
+			  dataElementDefault.parent = "element";
 			
-			var view = new App.Views.DataElementsDefault({ model : dataElementDefault, default_element: "ehr"});		
+			var view = new App.Views.DataElementsDefault({ model : dataElementDefault, default_element: "ehr", parent:"element"});		
 			var dataElementDefaultRow = view.render().el;
 			$(ehrtbody).append(dataElementDefaultRow);	
 			$(dataElementDefaultRow).find(".slcCodeType").val(dataElementDefault.codeType.name);
 			$(dataElementDefaultRow).find(".slcValueType").val(dataElementDefault.valueType.name);
 			
-			$(dataElementDefaultRow).find('.slcEHR').append(optionsList);			
-			$(dataElementDefaultRow).find(".slcEHR").val("e"+dataElementDefault.linkId);			
+			$(dataElementDefaultRow).find('.slcParent').append(optionsList);			
+			$(dataElementDefaultRow).find(".slcParent").val("e"+dataElementDefault.linkId);			
 		  });	
 		}
 				
 		if ((dataElementDefaults == undefined)||(dataElementDefaults.length == 0)) { 	
-			var emptyDataElementDefault = {"location":"","sourceEHR":"","valueType":{"enumType":"","name":""},"codeType":{"enumType":"","name":""}};		
+			var emptyDataElementDefault = {"id":"-1","linkId":"1","location":"","sourceEHR":"","valueType":{"enumType":"","name":""},"codeType":{"enumType":"","name":""}};
+			emptyDataElementDefault.parent = "element";
+			this.model.timeId = -2;
+			var dataElementDefaults = this.model.get('dataElementDefaults');
+			dataElementDefaults.push(emptyDataElementDefault);
+			this.model.set("dataElementDefaults" , dataElementDefaults);
 			
-			var view = new App.Views.DataElementsDefault({ model : emptyDataElementDefault, default_element: "ehr"});	
+			var view = new App.Views.DataElementsDefault({ model : emptyDataElementDefault, default_element: "ehr", parent:"element"});	
 			var dataElementDefaultRow = view.render().el;
-			$(ehrtbody).append(dataElementDefaultRow);			
+			
+			$(ehrtbody).append(dataElementDefaultRow);	
+			$(dataElementDefaultRow).find('.slcParent').append(optionsList);			
+			$(dataElementDefaultRow).find(".slcParent").val("e"+emptyDataElementDefault.linkId);	
 		}		
 	},
 	
@@ -134,7 +142,7 @@ App.Views.DataElement = Backbone.View.extend({
 	
 	editDataElement : function(e) {
 		e.preventDefault();		
-
+		console.log(this.model.toJSON());
 		this.model.save(this.attributes,{
 	        success: function (model, response) {
 	           console.log(response);
