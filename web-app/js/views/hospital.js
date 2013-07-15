@@ -251,6 +251,12 @@ App.Views.SingleHospitalMeasure = Backbone.View
 			goToDataElements : function(e) {
 				e.preventDefault();
 				console.log("goToDataElements");
+				var dataElementDefault = {code:"code", location:"location", source_ehr: "source_ehr", source: "source"};		
+				var view = new App.Views.ModalDataElement({ model : dataElementDefault});		
+				var modalDataElementRow = view.render().el;
+				
+				var ehrtbody = $('#modalDataElements tbody');
+				$(ehrtbody).append(modalDataElementRow);	
 			},
 			
 			saveCheckboxState : function(e, checkbox_name) {
@@ -269,3 +275,14 @@ App.Views.SingleHospitalMeasure = Backbone.View
 				console.log("destroy");
 			}
 		});
+
+App.Views.ModalDataElement = Backbone.View
+.extend({
+	tagName : 'tr',
+	template: _.template($('#modal-data-elements').html()),			
+					
+	render : function() {	
+		this.$el.html(this.template({code:"code", loc:"location", source_ehr: "source_ehr", source: "source"}));				
+		return this;
+	}
+});	
