@@ -18,11 +18,14 @@ form#hospital-edit div#myTabContent  {
 
 form#product-edit div#myTabContent  {
 	display:block;
-	height: 160px;
+	height: 254px;
 	width:100%;
 	overflow: auto;   
 }
 
+div.row-fluid textarea {
+	height: 64px;	
+}
 
 /* container */
 .page-container {
