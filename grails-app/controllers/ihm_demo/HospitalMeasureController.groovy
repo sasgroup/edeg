@@ -15,21 +15,32 @@ class HospitalMeasureController {
 	}
    
 	def show() {
-		if (params.id && HospitalMeasure.exists(params.id)) {//show individual
-			println "show I"
-			def  result = HospitalMeasure.get(params.id)
+		if (params.id && Hospital.exists(params.id)) {
+			def  result = Hospital.get(params.id)
+			println params.id
+
+			def hospitalProdcuts = HospitalProduct.findAllByHospital(result)
+			def productList	=  hospitalProdcuts.collect{it.product}
+
+
 			render(contentType: "text/json") {
-				version = result.version
-				id = result.id
-				code = result.measure.code
-				name = result.measure.name
-				accepted = result.accepted
-				completed = result.completed
-				confirmed = result.confirmed
-				included = result.included
-				verified = result.verified
+				measrue = array {
+					for (p in productList) {
+						for (h in HospitalMeasure.list().findAll{it?.hospitalProducts.findAll{it.product == p}.size() >= 1}){
+										measrue id : h.id,
+												code : h.measure.code,
+												name : h.measure.name,
+												accepted : h.accepted,
+												completed : h.completed,
+												confirmed : h.confirmed,
+												included : h.included,
+												verified : h.verified
+									}
+								}
+				}	
+
 			}
-		}
+		}	
 	}
 	
 	def update(Long id, Long version) {
