@@ -10,7 +10,12 @@ class HospitalMeasureController {
 	}
 	
 	def save() {
-		println "save"
+		println "save me"
+		def hospitalMeasureInstance  = saveInstance(new HospitalMeasure(), params)
+		render(contentType: "text/json") {
+					resp = "ok"
+					message = "HospitalMeasure ${hospitalMeasureInstance.name} successfully created"
+		}
 		
 	}
    
@@ -24,7 +29,7 @@ class HospitalMeasureController {
 
 
 			render(contentType: "text/json") {
-				measrue = array {
+				measures = array {
 					for (p in productList) {
 						for (h in HospitalMeasure.list().findAll{it?.hospitalProducts.findAll{it.product == p}.size() >= 1}){
 										measrue id : h.id,
@@ -35,7 +40,7 @@ class HospitalMeasureController {
 												confirmed : h.confirmed,
 												included : h.included,
 												verified : h.verified,
-												product : p
+												productId: p.id
 									}
 								}
 				}	
@@ -46,6 +51,29 @@ class HospitalMeasureController {
 	
 	def update(Long id, Long version) {
 		println "Update"
+		def hospitalMeasureInstance = HospitalMeasure.get(id)
+		
+				if  (!hospitalMeasureInstance) {
+					render(contentType: "text/json") {
+						resp = "error"
+						message = "Id exceptions"
+					}
+				}
+		
+				 if (params.version != null) {
+					if (hospitalMeasureInstance.version > params.version) {
+						return render(contentType: "text/json") {
+							resp = "error"
+							message = "Another User has updated hospitalMeasureInstance while you were editing"
+						}
+					}
+				 }
+				
+				hospitalMeasureInstance  = saveInstance(hospitalMeasureInstance, params)
+				render(contentType: "text/json") {
+					resp = "ok"
+					message = "hospitalMeasureInstance successfully updated"
+				}
 	}
 
 	def delete(Long id) {

@@ -80,3 +80,15 @@ App.Collections.ProductMeasures = Backbone.Collection.extend({
 	url: '/ihm/api/product_measure'	
 	
 });
+
+
+App.Collections.HospitalMeasures = Backbone.Collection.extend({
+	model:App.Models.HospitalMeasure,
+	
+	url: '/ihm/api/hospital_measure'	
+		
+	/*parse: function(resp) {
+	   return resp["measures"];
+	}		*/
+	
+});
