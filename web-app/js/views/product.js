@@ -47,8 +47,8 @@ App.Views.Product = Backbone.View.extend({
 			this.model.set("state" , "New");
 		};
 		this.$el.html(this.template(this.model.toJSON()));
-		App.measures.forEach(this.appendProductMeasure,this);		//new
-		//App.hospitals.forEach(this.appendProductHospital,this);		//new	
+		App.measures.forEach(this.appendProductMeasure,this);		
+		App.hospitals.forEach(this.appendProductHospital,this);			
 		return this;
 	},
 
