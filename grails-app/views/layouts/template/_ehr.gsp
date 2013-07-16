@@ -83,7 +83,7 @@
                 </div>
 
                 <div class="form-actions">
-                    <button type="submit" class="btn btn-info">Save EHR</button>
+                    <button type="submit" class="btn btn-info pull-right">Save EHR</button>
                 </div>
             </form>
         </div>

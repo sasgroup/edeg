@@ -44,54 +44,7 @@
             <h3>Measure: {{state}}</h3>
             <hr>
             <div class="clearfix"></div>
-            <form method="post" class="form-horizontal" id="measure-edit" accept-charset="utf-8">
-                <!--<div class="control-group">
-                    <label for="code" class="control-label">
-                        Code
-                    </label>
-                    <div class="controls">
-                        <input name="code" type="text" value="{{ code }}" id="code">
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label for="name" class="control-label">
-                        Name
-                    </label>
-                    <div class="controls">
-                        <input name="name" type="text" value="{{ name }}" id="name">
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label for="notes" class="control-label">
-                        Notes
-                    </label>
-                    <div class="controls">
-                        <textarea rows="3" name="notes" id="notes">{{ notes }}</textarea>
-                    </div>
-                </div>
-
-				<div class="control-group">
-					<label for="category" class="control-label">
-						Category
-					</label>
-					<div class="controls">
-					  <select id="measureCategory">
-						<option></option>								
-					  </select>
-					</div>
-				</div>
-
-				<div class="control-group">
-					<label for="cqmDomain" class="control-label">
-						CQMDomain
-					</label>
-					<div class="controls">
-					  <select id="cqmDomain">	
-						<option></option>								
-					  </select>
-					</div>
-				</div> -->
-
+            <form method="post" class="form-horizontal" id="measure-edit" accept-charset="utf-8">               
 				<div class="container">
   				    <div class="row">
     				  <div class="span5">      				  
@@ -146,7 +99,7 @@
                 </div>
 
                 <div class="form-actions">
-                    <button type="submit" class="btn btn-info">Save Measure</button>
+                    <button type="submit" class="btn btn-info pull-right">Save Measure</button>
                 </div>
             </form>
         </div>
