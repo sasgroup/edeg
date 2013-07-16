@@ -292,6 +292,7 @@ App.Views.SingleHospitalMeasure = Backbone.View
 			    });				
 			},
 			
+						
 			goToDataElements : function(e) {
 				e.preventDefault();
 				console.log("goToDataElements");
@@ -302,6 +303,24 @@ App.Views.SingleHospitalMeasure = Backbone.View
 				$(ehrtbody).empty();		
 
 				var hospitalElements = new App.Collections.HospitalElements();
+				var hm_id = this.model.get('id');
+								
+				hospitalElements.fetch({data:{id: hm_id}}).then(function(){
+					console.log(hospitalElements);
+					
+					_.each (hospitalElements.models, function(hospitalElement) {
+						console.log(hospitalElement);
+						var view = new App.Views.ModalDataElement({ model : hospitalElement});		
+						var modalDataElementRow = view.render().el;
+						$(ehrtbody).append(modalDataElementRow);						
+						$(modalDataElementRow).find(".slcCodeType").val(hospitalElement.get('codeType').name);
+						$(modalDataElementRow).find(".slcValueType").val(hospitalElement.get('valueType').name);
+				    });
+					
+				});
+				
+				
+				
 				
 				//circle
 				/*if (dataElementDefaults !== undefined) {
@@ -317,11 +336,11 @@ App.Views.SingleHospitalMeasure = Backbone.View
 					  });	
 			    }*/				
 				
-				var view = new App.Views.ModalDataElement({ model : dataElementDefault});		
+				/*var view = new App.Views.ModalDataElement({ model : dataElementDefault});		
 				var modalDataElementRow = view.render().el;
 				
 						
-				$(ehrtbody).append(modalDataElementRow);				
+				$(ehrtbody).append(modalDataElementRow);	*/			
 			},
 			
 			
@@ -339,8 +358,11 @@ App.Views.ModalDataElement = Backbone.View
 	tagName : 'tr',
 	template: _.template($('#modal-data-elements').html()),			
 					
-	render : function() {	
-		this.$el.html(this.template({code:"code", loc:"location", source_ehr: "source_ehr", source: "source"}));				
+	render : function() {			
+		var ch  = (this.model.get('sourceEHR'))  ? "checked" : "";		
+		this.model.set({chd:ch});
+		console.log(this.model.toJSON());
+		this.$el.html(this.template(this.model.toJSON()));				
 		return this;
 	}
 });	

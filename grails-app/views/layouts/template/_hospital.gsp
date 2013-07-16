@@ -43,7 +43,7 @@
   <div class="modal-body">
   	<table class="table">
 	  <thead><tr>
- 				<th>Code</th>    
+ 				<th>DataElement</th>    
 		    	<th>Location</th>           
 				<th>SourceEHR</th>
 				<th>Source</th>
@@ -171,9 +171,9 @@
 
 <!-- modal-data-elements -->
 <script type="text/template" class="template" id="modal-data-elements">
- <td><input type="text" class="code" id="code" value="{{code}}"></td>
- <td><input type="text" class="location" id="location" value="{{loc}}"></td>
- <td><input type="checkbox" class="sourceEhr" id="sourceEhr" value="{{source_ehr}}"></td>
+ <td>{{dataElement}}</td>
+ <td><input type="text" class="location" id="location" value="{{location}}"></td>
+ <td><input type="checkbox" class="sourceEhr" id="sourceEhr" value="{{sourceEHR}}" {{chd}}></td>
  <td><input type="text" class="source" id="source" value="{{source}}"></td>
  <td><select class="slcCodeType">                
 				 <option value=""></option>
