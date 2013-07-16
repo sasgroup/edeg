@@ -48,7 +48,7 @@ App.Views.DataElement = Backbone.View.extend({
 		};				
 		this.$el.html(this.template(this.model.toJSON()));
 		App.measures.forEach(this.appendMeasure,this);
-		
+		this.model.timeId = -1;
 		this.appendDataElementsDefault();		
 		this.$el.find('.slcEHR').append(this.ehrOptions());		
 		
