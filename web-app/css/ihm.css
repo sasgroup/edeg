@@ -17,11 +17,7 @@ form#hospital-edit div#myTabContent  {
 }
 
 
-div#modalDataElements {
-	width: 800px;
-}
-
-form#product-edit div#myTabContent  {
+form#product-edit div#myTabContent, form#element-edit div#myTabContent, form#ehr-edit div#myTabContent   {
 	display:block;
 	height: 254px;
 	width:100%;
@@ -35,6 +31,10 @@ form#measure-edit div#myTabContent  {
 	overflow: auto;   
 }
 
+
+div#modalDataElements {
+	width: 800px;
+}
 
 div.row-fluid textarea {
 	height: 64px;	
