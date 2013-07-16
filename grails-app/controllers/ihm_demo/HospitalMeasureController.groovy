@@ -72,7 +72,7 @@ class HospitalMeasureController {
 				hospitalMeasureInstance  = saveInstance(hospitalMeasureInstance, params)
 				render(contentType: "text/json") {
 					resp = "ok"
-					message = "hospitalMeasureInstance successfully updated"
+					message = "The Measure is updated successfully"
 				}
 	}
 
