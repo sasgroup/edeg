@@ -2,8 +2,7 @@
 <script type="text/template" class="template" id="product-list-template">
 <div class="container" >
     <div class="row">
-        <div class="span8">
-            <h3>List of Products</h3>
+         <h3>List of Products</h3>
     		<section class="row-fluid">
       			<a id="create_product">Create New</a>
     		</section>
@@ -22,24 +21,22 @@
                             <th>
                                 Notes
                             </th>            
-                			<th>Edit</th>
-                			<th>Delete</th>
+                			<th class="f-btn">Edit</th>
+                			<th class="f-btn">Delete</th>
                         </tr>
                     </thead>
                     <tbody>
                     </tbody>
                 </table>
             </form>
-        </div>
-    </div>
+    </div>    
 </div>
 </script>
 
 <!-- View -->
 <script type="text/template" class="template" id="product-template">
 <div class="container">
-    <div class="row">
-        <div>
+    <div class="row">      
             <h3>Product: {{state}}</h3>
             <hr>
             <div class="clearfix"></div>
@@ -86,7 +83,6 @@
                 </div>
             </form>
         </div>
-    </div>
 </div>
 </script>
 
@@ -96,8 +92,8 @@
  <td>{{ code }}</td>
  <td>{{ name }}</td>
  <td>{{ notes }}</td> 
- <td><div id="edit" class= "btn"><i class="icon-edit"></i></div></td>
- <td><div id="destroy" class= "btn"><i class="icon-trash"></i></div></td> 
+ <td class="f-btn"><div id="edit" class= "btn"><i class="icon-edit"></i></div></td>
+ <td class="f-btn"><div id="destroy" class= "btn"><i class="icon-trash"></i></div></td> 
 </script>
 
 

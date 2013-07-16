@@ -1,8 +1,7 @@
 <!-- LIST -->
 <script type="text/template" class="template" id="ehr-list-template">
 <div class="container" >
-    <div class="row">
-        <div class="span8">
+    <div class="row">       
             <h3>List of EHR</h3>
     		<section class="row-fluid">
       			<a id="create_ehr">Create New</a>
@@ -22,15 +21,14 @@
                         <th>
                             Notes
                         </th>
-                        <th>Edit</th>
-            			<th>Delete</th>
+                        <th class="f-btn">Edit</th>
+            			<th class="f-btn">Delete</th>
                     </tr>
                 </thead>
                 <tbody>    
                 </tbody>
             </table>
-            </form>
-        </div> 
+            </form>       
     </div>
 </div>
 </script>
@@ -38,8 +36,7 @@
 <!-- NEW/EDIT -->
 <script type="text/template" class="template" id="ehr-template">
 <div class="container">
-    <div class="row">
-        <div>
+    <div class="row">       
             <h3>EHR: {{state}}</h3>
             <hr>
             <div class="clearfix"></div>
@@ -86,7 +83,6 @@
                     <button type="submit" class="btn btn-info pull-right">Save EHR</button>
                 </div>
             </form>
-        </div>
     </div>
 </div>
 </script>
@@ -97,8 +93,8 @@
  <td>{{ code }}</td>
  <td>{{ name }}</td>
  <td>{{ notes }}</td> 
- <td><div id="edit" class= "btn"><i class="icon-edit"></i></div></td>
- <td><div id="destroy" class= "btn"><i class="icon-trash"></i></div></td>
+ <td class="f-btn"><div id="edit" class= "btn"><i class="icon-edit"></i></div></td>
+ <td class="f-btn"><div id="destroy" class= "btn"><i class="icon-trash"></i></div></td>
 </script>
 
 <script type="text/template" class="template" id="single-ehr-hospital">

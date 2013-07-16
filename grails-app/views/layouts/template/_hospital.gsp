@@ -1,8 +1,7 @@
 <!-- LIST -->
 <script type="text/template" class="template" id="hospital-list-template">
 <div class="container" >
-<div class="row">
-    <div class="span8">
+<div class="row">    
         <h3>List of Hospitals</h3>        
         <div class="clearfix"></div>
         <form method="post" class="form-horizontal" accept-charset="utf-8">
@@ -16,8 +15,8 @@
             <th>
                 Notes
             </th>
-           <th>Edit</th>
-			<th>Delete</th>
+            <th class="f-btn">Edit</th>
+			<th class="f-btn">Delete</th>
         </tr>
     </thead>
 
@@ -26,7 +25,6 @@
 </table>
 
         </form>
-    </div> 
 </div>
 </div>
 </script>
@@ -119,8 +117,8 @@
 <script type="text/template" class="template" id="single-hospital">
  <td>{{ name }}</td>
  <td>{{ notes }}</td>
- <td><div id="edit" class= "btn"><i class="icon-edit"></i></div></td>
- <td><div id="destroy" class= "btn"><i class="icon-trash"></i></div></td> 
+ <td class="f-btn"><div id="edit" class= "btn"><i class="icon-edit"></i></div></td>
+ <td class="f-btn"><div id="destroy" class= "btn"><i class="icon-trash"></i></div></td> 
 </script>
 
 <!-- hospital-measure_table -->
@@ -164,7 +162,7 @@
  <td>
      <input type="checkbox" name="verified" id="{{id}}" {{verified}}>
  </td> 
- <td><div id="save"    class= "btn save-btn"><i class="icon-edit"></i></div></td>
+ <td><div id="save"    class= "btn save-btn"><i class="icon-ok-circle"></i></div></td>
  <td><div id="destroy" class= "btn"><i class="icon-trash"></i></div></td> 
 </script>
 

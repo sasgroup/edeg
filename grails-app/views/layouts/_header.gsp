@@ -8,6 +8,7 @@
 	            <a href="#element">Data Elements</a>
 	            <a href="#hospital">Hospitals</a>
 	            <a href="#ehr">EHR</a>
+	            <a href="#reports">Reports</a>
 	        </nav>
 	    </header>
 	</div>

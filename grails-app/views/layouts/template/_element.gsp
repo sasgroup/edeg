@@ -1,8 +1,7 @@
 <!-- LIST -->
 <script type="text/template" class="template" id="element-list-template">
 <div class="container" >
-    <div class="row">
-        <div class="span8">
+    <div class="row">    
             <h3>List of DataElements</h3>
     		<section class="row-fluid">
       			<a id="create_dataElement">Create New</a>
@@ -22,15 +21,14 @@
                             <th>
                                 Notes
                             </th>            
-                			<th>Edit</th>
-                			<th>Delete</th>
+                			<th class="f-btn">Edit</th>
+                			<th class="f-btn">Delete</th>
                         </tr>
                     </thead>
                     <tbody>
                     </tbody>
                 </table>
             </form>
-        </div>
     </div>
 </div>
 </script>
@@ -39,8 +37,7 @@
 <!-- EDIT / NEW-->
 <script type="text/template" class="template" id="element-template">
 <div class="container">
-    <div class="row">
-        <div>
+    <div class="row">       
             <h3>DataElement:  {{state}}</h3>
             <hr>
             <div class="clearfix"></div>
@@ -87,7 +84,6 @@
                     <button type="submit" class="btn btn-info pull-right">Save DataElement</button>
                 </div>
             </form>
-        </div>
     </div>
 </div>
 </script>
@@ -98,8 +94,8 @@
  <td>{{ code }}</td>
  <td>{{ name }}</td>
  <td>{{ notes }}</td>
- <td><div id="edit" class= "btn"><i class="icon-edit"></i></div></td>
- <td><div id="destroy" class= "btn"><i class="icon-trash"></i></div></td> 
+ <td class="f-btn"><div id="edit" class= "btn"><i class="icon-edit"></i></div></td>
+ <td class="f-btn"><div id="destroy" class= "btn"><i class="icon-trash"></i></div></td> 
 </script>
 
 <script type="text/template" class="template" id="single-element-measure">

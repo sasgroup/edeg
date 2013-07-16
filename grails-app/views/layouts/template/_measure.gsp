@@ -1,8 +1,7 @@
 <!-- LIST -->
 <script type="text/template" class="template" id="measure-list-template">
 <div class="container" >
-    <div class="row">
-        <div class="span8">
+    <div class="row">       
             <h3>List of Measures</h3>
     		<section class="row-fluid">
       			<a id="create_measure">Create New</a>
@@ -22,15 +21,14 @@
                             <th>
                                 Notes
                             </th>
-                            <th>Edit</th>
-                			<th>Delete</th>
+                            <th class="f-btn">Edit</th>
+                			<th class="f-btn">Delete</th>
                         </tr>
                     </thead>
                     <tbody>    
                     </tbody>
                 </table>
-            </form>
-        </div>
+            </form>      
     </div>
 </div>
 </script>
@@ -39,8 +37,7 @@
 <!-- EDIT/NEW -->
 <script type="text/template" class="template" id="measure-template">
 <div class="container">
-    <div class="row">
-        <div>
+    <div class="row">       
             <h3>Measure: {{state}}</h3>
             <hr>
             <div class="clearfix"></div>
@@ -101,8 +98,7 @@
                 <div class="form-actions">
                     <button type="submit" class="btn btn-info pull-right">Save Measure</button>
                 </div>
-            </form>
-        </div>
+            </form>       
     </div>
 </div>
 </script>
@@ -113,8 +109,8 @@
  <td>{{ code }}</td>
  <td>{{ name }}</td>
  <td>{{ notes }}</td> 
- <td><div id="edit" class= "btn"><i class="icon-edit"></i></div></td>
- <td><div id="destroy" class= "btn"><i class="icon-trash"></i></div></td>
+ <td class="f-btn"><div id="edit" class= "btn"><i class="icon-edit"></i></div></td>
+ <td class="f-btn"><div id="destroy" class= "btn"><i class="icon-trash"></i></div></td>
 </script>
 
 <script type="text/template" class="template" id="single-measure-product">

@@ -148,7 +148,6 @@ App.Views.Hospital = Backbone.View.extend({
 	},
 			
 	
-	
 	// apply
 	applyHospitalOptions : function(){		
     	//parameters

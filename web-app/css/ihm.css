@@ -32,6 +32,10 @@ form#measure-edit div#myTabContent  {
 }
 
 
+th.f-btn, td.f-btn {
+	width: 20px;
+}
+
 div#modalDataElements {
 	width: 800px;
 }
@@ -99,7 +103,7 @@ nav.header-nav a {
     font-size: .9em;
     line-height: 38px;
     margin-right: 3px;
-    padding: 0 64px;
+    padding: 0 48px;
 }
 
 nav.header-nav a:hover {

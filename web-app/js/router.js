@@ -6,6 +6,7 @@ App.Router = Backbone.Router.extend({
 		'element'         : 'dataElements',
 		'hospital'        : 'hospitals',
 		'ehr'        	  : 'ehrs',
+		'reports'         : 'reports',
 		
 		'product/:new'    : 'newProduct',
 		'measure/:new'    : 'newMeasure',
@@ -82,6 +83,11 @@ App.Router = Backbone.Router.extend({
 			App.viewEhrs = new App.Views.Ehrs({collection:App.ehrs});			
 			$('#app').html(App.viewEhrs.render().el);
 		});		
+	},	
+	
+	// reports
+	reports : function() {		
+		$('#app').html("Here should be reports");				
 	},	
 	
 	// ----- display Edit/New 
