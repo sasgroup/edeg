@@ -53,13 +53,14 @@ App.Views.DataElementsDefault = Backbone.View
 			},
 			
 			addRow : function (){
-				var timeId = App[this.model.parent].timeId;
-				var emptyDataElementDefault = {"id":timeId,"parent":this.options.parent,"location":"","linkId":"","valueType":{"enumType":"","name":""},"codeType":{"enumType":"","name":""}};
+				console.log(App[this.model.parent].get('dataElementDefaults'));
+				var timeId = parseInt(App[this.model.parent].timeId);
+				var emptyDataElementDefault = {"id":timeId,"linkId":"1","parent":this.options.parent,"location":"","linkId":"1","valueType":{"enumType":"","name":""},"codeType":{"enumType":"","name":""}};
 				var dataElementDefaults = App[this.model.parent].get('dataElementDefaults');
 				dataElementDefaults.push(emptyDataElementDefault);
 				App[this.model.parent].set("dataElementDefaults" , dataElementDefaults);
 				App[this.model.parent].timeId = parseInt(timeId-1);
-				var view = new App.Views.DataElementsDefault({ model : emptyDataElementDefault, default_element: this.options.default_element});
+				var view = new App.Views.DataElementsDefault({ model : emptyDataElementDefault, default_element: this.options.default_element, parent:this.options.parent});
 				var ehrtbody = this.$el.closest('tbody');
 				$(ehrtbody).append(view.render().el);					
 				$(view.render().el).find('.slcParent').append(this.defaultElementOptions());
@@ -67,8 +68,7 @@ App.Views.DataElementsDefault = Backbone.View
 			},
 			
 			removeRow : function (e){
-				if (App[this.model.parent].get('dataElementDefaults').length == 1)
-					this.addRow();
+
 				var dataElementDefaults = App[this.model.parent].get('dataElementDefaults');
 				for (var i = 0; i < dataElementDefaults.length; i++) {
 					if (dataElementDefaults[i].id = this.model.id) {
@@ -76,8 +76,12 @@ App.Views.DataElementsDefault = Backbone.View
 					}
 				}
 				dataElementDefaults.splice(removeIndex,1);
+				
 				App[this.model.parent].set("dataElementDefaults" , dataElementDefaults);
+				if (App[this.model.parent].get('dataElementDefaults').length == 0)
+					this.addRow();				
 				this.$el.remove();
+
 			}
 			
 		});

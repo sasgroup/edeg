@@ -20,7 +20,7 @@
  <td><select class="slcCodeType">                
 				 <option value=""></option>
 				 <option value="AdministrativeSex">AdministrativeSex</option>                 
-				 <option value="CDREC">CDREC</option>
+				 <option value="CDCREC">CDREC</option>
 				 <option value="CDT">CDT</option>
 				 <option value="CPT">CPT</option>
 				 <option value="CVX">CVX</option>
@@ -39,9 +39,9 @@
  <td><select class="slcValueType">			
 				<option value=""></option>		     
                 <option value="IMO_Code">IMO_Code</option>                
-				<option value="Query/Mnemonic">Query/Mnemonic</option>
+				<option value="Query_Mnemonic">Query/Mnemonic</option>
 				<option value="HospitalSpecific">HospitalSpecific</option>
-				<option value="StandardCode">StandardCode</option>
+				<option value="StandartCode">StandardCode</option>
 				<option value="ValueSet">ValueSet</option>
      </select>
  </td>

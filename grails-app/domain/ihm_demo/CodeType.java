@@ -14,6 +14,6 @@ public enum CodeType {
 	ICD9CM,
 	LOINC,
 	RXNORM,
-	SNOMEDCTm,
+	SNOMEDCT,
 	SOP
 }
