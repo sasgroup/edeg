@@ -295,12 +295,33 @@ App.Views.SingleHospitalMeasure = Backbone.View
 			goToDataElements : function(e) {
 				e.preventDefault();
 				console.log("goToDataElements");
-				var dataElementDefault = {code:"code", location:"location", source_ehr: "source_ehr", source: "source"};		
+				var dataElementDefault = {code:"code", location:"location", source_ehr: "source_ehr", source: "source"};
+				
+				var ehrtbody = $('#modalDataElements tbody');
+				//remove child elements
+				$(ehrtbody).empty();		
+
+				var hospitalElements = new App.Collections.HospitalElements();
+				
+				//circle
+				/*if (dataElementDefaults !== undefined) {
+					  $.each( dataElementDefaults, function( i, dataElementDefault ) {												
+						var view = new App.Views.ModalDataElement({ model : dataElementDefault});				
+						var dataElementDefaultRow = view.render().el;
+						$(ehrtbody).append(dataElementDefaultRow);	
+						$(dataElementDefaultRow).find(".slcCodeType").val(dataElementDefault.codeType.name);
+						$(dataElementDefaultRow).find(".slcValueType").val(dataElementDefault.valueType.name);
+						
+						$(dataElementDefaultRow).find('.slcParent').append(optionsList);			
+						$(dataElementDefaultRow).find(".slcParent").val("e"+dataElementDefault.linkId);			
+					  });	
+			    }*/				
+				
 				var view = new App.Views.ModalDataElement({ model : dataElementDefault});		
 				var modalDataElementRow = view.render().el;
 				
-				var ehrtbody = $('#modalDataElements tbody');
-				$(ehrtbody).append(modalDataElementRow);	
+						
+				$(ehrtbody).append(modalDataElementRow);				
 			},
 			
 			

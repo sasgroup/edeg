@@ -81,3 +81,8 @@ App.Models.ProductMeasure = Backbone.Model.extend({
 App.Models.HospitalMeasure = Backbone.Model.extend({
 	urlRoot: '/ihm/api/hospital_measure'	
 });
+
+
+App.Models.HospitalElement = Backbone.Model.extend({
+	//urlRoot: '/ihm/api/hospital_element'	
+});
