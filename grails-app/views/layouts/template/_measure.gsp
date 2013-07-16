@@ -40,12 +40,12 @@
 <script type="text/template" class="template" id="measure-template">
 <div class="container">
     <div class="row">
-        <div class="span8">
+        <div>
             <h3>Measure: {{state}}</h3>
             <hr>
             <div class="clearfix"></div>
             <form method="post" class="form-horizontal" id="measure-edit" accept-charset="utf-8">
-                <div class="control-group">
+                <!--<div class="control-group">
                     <label for="code" class="control-label">
                         Code
                     </label>
@@ -90,8 +90,45 @@
 						<option></option>								
 					  </select>
 					</div>
-				</div>
+				</div> -->
 
+				<div class="container">
+  				    <div class="row">
+    				  <div class="span5">      				  
+                        <div class="row-fluid">
+                          <label for="code" class="span3">Code</label>    
+					      <input name="code" type="text" class="span9" value="{{ code }}" id="code">
+					    </div>					  
+					    <div class="row-fluid">	
+                          <label for="name" class="span3">Name</label>                                         
+                          <input name="name" type="text" class="span9" value="{{ name }}" id="name">
+					   </div>
+						
+					   <div class="row-fluid">	
+                          <label for="category" class="span3">Category</label>                                         
+                          <select id="measureCategory" class="span9">
+							<option></option>								
+					  	  </select>
+					   </div> 
+	 					
+					  </div>    				  
+					  <div class="span7">
+					    <div class="row-fluid">	
+      				      <label for="notes" class="span2">Notes</label>                    
+                          <textarea rows="3" class="span10" name="notes" id="notes">{{ notes }}</textarea>
+    				    </div>
+						
+						<div class="row-fluid">	
+                          <label for="cqmDomain" class="span2 cqmDomain">CQMDomain</label>                                         
+                          <select id="cqmDomain" class="span10 cqmDomain">
+							<option></option>								
+					  	  </select>
+					   </div> 
+
+					  </div>
+  				    </div>
+				</div>
+				<hr>
                 <ul id="myTab" class="nav nav-tabs">
                   <li class="active">
                     <a data-toggle="tab" href="#products">Products</a>

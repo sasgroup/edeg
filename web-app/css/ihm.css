@@ -16,6 +16,7 @@ form#hospital-edit div#myTabContent  {
 	overflow: auto;   
 }
 
+
 div#modalDataElements {
 	width: 800px;
 }
@@ -27,9 +28,23 @@ form#product-edit div#myTabContent  {
 	overflow: auto;   
 }
 
+form#measure-edit div#myTabContent  {
+	display:block;
+	height: 219px;
+	width:100%;
+	overflow: auto;   
+}
+
+
 div.row-fluid textarea {
 	height: 64px;	
 }
+
+
+.cqmDomain {
+	margin-top: 5px;
+}
+
 
 /* container */
 .page-container {
