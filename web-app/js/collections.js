@@ -92,6 +92,6 @@ App.Collections.HospitalMeasures = Backbone.Collection.extend({
 App.Collections.HospitalElements = Backbone.Collection.extend({
 	model:App.Models.HospitalElement,
 	
-	url: '/ihm/api/hospital_element'	
+	url: '/ihm/api/element'
 	
 });
