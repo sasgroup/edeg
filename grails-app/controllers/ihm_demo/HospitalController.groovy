@@ -4,15 +4,42 @@ import grails.converters.JSON
 import org.springframework.dao.DataIntegrityViolationException
 
 class HospitalController {
-	//apply need JSON: Hospital(id)  with Prodcuts(checked id) and Ehr (selected id)
 	
+	def update (Long id, Long version){
+		def hospitalInstance = Hospital.get(id)
+		
+				if  (!hospitalInstance) {
+					render(contentType: "text/json") {
+						resp = "error"
+						message = "Id exceptions"
+					}
+				}
+		
+				 if (params.version != null) {
+					if (hospitalInstance.version > params.version) {
+						return render(contentType: "text/json") {
+							resp = "error"
+							message = "Another User has updated hospital(${hospitalInstance.name}) while you were editing"
+						}
+					}
+				 }
+				
+				hospitalInstance.name = params?.name
+				hospitalInstance.notes = params?.notes
+				hospitalInstance.ehr = Ehr.get(params?.ehr_id)
+				hospitalInstance.save(flush:true)
+				render(contentType: "text/json") {
+					resp = "ok"
+					message = "Hospital ${hospitalInstance.name} successfully updated"
+				}
+	}
 	
 	def save() {
 		if (params.id && params.ehr_id) {// update Hospital set EHR
 			def hospital = Hospital.get(params.id)
 			println hospital
 			hospital.ehr = Ehr.get(params.ehr_id)
-			hospital.save()
+			hospital.save(flush : true)
 			for (prId in params.product_ids) {//update HospitalProduct
 				def product = Product.get(prId)
 				def hospitalproduct = HospitalProduct.findByHospitalAndProduct(hospital,product)
