@@ -10,13 +10,15 @@ class DataElementController {
 		instance.code = param.code
 		instance.notes = param.notes
 		//need reLook this One for clear from dataElement
-		/*if (instance.id) {
-			instance.measures.clear()
+		
+		Measure.list().each {
+			it.removeFromDataElements(instance)
 		}
+		
 		
 		for (measure in param.measures) {
 			instance.addToMeasures(Measure.get(measure.mid))
-		}*/
+		}
 		
 		instance.save(flush :true)
 		//clear

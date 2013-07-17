@@ -6,16 +6,16 @@ import org.springframework.dao.DataIntegrityViolationException
 class MeasureController {
 	
 	private Measure saveInstance (Measure instance, def param) {
-		
+		println "$param.products"
 		instance.name = param.name
 		instance.code = param.code
 		instance.notes = param.notes
 		instance.measureCategory = MeasureCategory.get (param.measureCategory.id)
 		instance.cqmDomain = CqmDomain.get (param.cqmDomain.id)
-
 		Product.list().each {
 			it.removeFromMeasures(instance)
-		}
+		}	
+		
 		DataElement.list().each {
 			it.removeFromMeasures(instance)
 		}

@@ -83,7 +83,7 @@ App.Views.Product = Backbone.View.extend({
 				var hospitals = this.model.get("hospitals");
 				var removeIndex; 
 				for (var i = 0; i < hospitals.length; i++) {
-					if (hospitals[i].hid = e.target.id) {
+					if (hospitals[i].hid == e.target.id) {
 						removeIndex = i;
 					}
 				}
@@ -102,7 +102,7 @@ App.Views.Product = Backbone.View.extend({
 				var measures = this.model.get("measures");
 				var removeIndex; 
 				for (var i = 0; i < measures.length; i++) {
-					if (measures[i].hid = e.target.id) {
+					if (measures[i].hid == e.target.id) {
 						removeIndex = i;
 					}
 				}
