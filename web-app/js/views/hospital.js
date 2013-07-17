@@ -173,11 +173,12 @@ App.Views.Hospital = Backbone.View.extend({
 			
 			data: {ehr_id: e_id, product_ids : pr_ids, id: h_id},
 			error: function(request, error) {
-				console.log(request);
+				console.log("error " + error);
 			},
 			success: function(_data){
+				console.log("success");
 				console.log(_data);
-				Backbone.history.loadUrl(Backbone.history.fragment);
+				Backbone.history.loadUrl(Backbone.history.fragment);				
 			},
 			traditional: true,
 			dataType: 'JSON'
