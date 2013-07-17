@@ -71,7 +71,7 @@ App.Views.DataElementsDefault = Backbone.View
 
 				var dataElementDefaults = App[this.model.parent].get('dataElementDefaults');
 				for (var i = 0; i < dataElementDefaults.length; i++) {
-					if (dataElementDefaults[i].id = this.model.id) {
+					if (dataElementDefaults[i].id == this.model.id) {
 						removeIndex = i;
 					}
 				}

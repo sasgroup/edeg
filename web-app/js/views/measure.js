@@ -78,7 +78,7 @@ App.Views.Measure = Backbone.View.extend({
 				var products = this.model.get("products");
 				var removeIndex; 
 				for (var i = 0; i < products.length; i++) {
-					if (products[i].pid = e.target.id) {
+					if (products[i].pid == e.target.id) {
 						removeIndex = i;
 					}
 				}
@@ -96,13 +96,14 @@ App.Views.Measure = Backbone.View.extend({
 				var dataElements = this.model.get("dataElements");
 				var removeIndex; 
 				for (var i = 0; i < dataElements.length; i++) {
-					if (dataElements[i].did = e.target.id) {
+					if (dataElements[i].did == e.target.id) {
 						removeIndex = i;
 					}
 				}
 				dataElements.splice(removeIndex,1);
 			};
 		};	
+		console.log(this.model);
 	},
 	appendDataElement : function(measure_element){
 		var temp = _.template($('#single-measure-element').html());
