@@ -25,7 +25,7 @@ App.Views.Hospital = Backbone.View.extend({
 	template : _.template($('#hospital-template').html()),
 
 	events : {
-		'submit' 						 : 'submHospital',		
+		//'#submit-btn' 					 : 'submHospital',		
 		'click #btnApplyHospitalOptions' : 'applyHospitalOptions',
 		'click a[data-toggle="tab"]'	 : 'changeTab',
 		'change #notes' 				 : 'changeVal'
@@ -40,8 +40,8 @@ App.Views.Hospital = Backbone.View.extend({
 		this.$el.html(this.template(this.model.toJSON()));
 		
 		App.products.forEach(this.appendProductOption,this);
-		App.ehrs.forEach(this.appendEhrOption,this);
-
+		App.ehrs.forEach(this.appendEhrOption,this);		
+		
 		return this;
 	},
 		
@@ -55,10 +55,16 @@ App.Views.Hospital = Backbone.View.extend({
 		var temp = _.template($('#product-option').html());
 		this.$el.find('#slcEHRs').append(temp({id:'e'+ehr.get('id'),code:ehr.get('name')}));		
 	},
-		
-	createTabs : function (){
+	
+			
+	setPrimaryEhr : function(){		
+		var ehr_id = this.model.get('ehr').id;		
+		$("#slcEHRs").multiselect("widget").find('input[value=e'+ehr_id+']').click();		
+	},
+	
+	createTabs : function(){
 		// set first option false
-		$("#slcProducts").multiselect("widget").find(":checkbox").eq(0).click();				   
+		$("#slcProducts").multiselect("widget").find(":checkbox").eq(0).click();		
 
 		//get assigned products
 		var products = App.ho.get('products');

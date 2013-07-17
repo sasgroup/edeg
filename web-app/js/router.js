@@ -153,6 +153,7 @@ App.Router = Backbone.Router.extend({
 			    });
 																
 				view.createTabs();
+				view.setPrimaryEhr();
 								
 			});		   
 		});	
@@ -196,7 +197,9 @@ App.Router = Backbone.Router.extend({
 			        selectedList : 1,
 			        height: "auto",
 			        minWidth: "300px"
-			    });	
+			    });
+				
+				view.setPrimaryEhr();
 	
 				$( "#slcProducts").multiselect({
 			        multiple : true,
