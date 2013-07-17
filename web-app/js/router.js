@@ -11,8 +11,7 @@ App.Router = Backbone.Router.extend({
 		'product/:new'    : 'newProduct',
 		'measure/:new'    : 'newMeasure',
 		'element/:new'    : 'newDataElement',
-		'ehr/:new'        : 'newEhr',
-		'hospital/:new'   : 'newHospital',
+		'ehr/:new'        : 'newEhr',		
 		
 		'hospital/:id/edit': 'edithospital',
 		'product/:id/edit': 'editProduct',
@@ -181,38 +180,7 @@ App.Router = Backbone.Router.extend({
 		App.ehr = new App.Models.Ehr();
 		this.ehr(App.ehr);
 	},	
-	
-	// new hospital
-	newHospital : function() {		
-		App.hospital = new App.Models.Hospital();
-		//get list of products
-		App.products.fetch().then(function(){			
-			var view = new App.Views.Hospital({model:App.hospital});
-			$('#app').html(view.render().el);		
-			$(document).ready(function(){
-				$( "#slcEHRs").multiselect({
-			        multiple : false,
-			        header : false,
-			        noneSelectedText : "Select",
-			        selectedList : 1,
-			        height: "auto",
-			        minWidth: "300px"
-			    });
-				
-				view.setPrimaryEhr();
-	
-				$( "#slcProducts").multiselect({
-			        multiple : true,
-			        header : true,
-			        noneSelectedText : "Select",
-			        selectedList : 1,
-			        height: "auto",
-			        minWidth: "300px"
-			    });	  			   
-			});		
-		});
-	},
-	
+		
 	
 	// ------- EDIT ------------
 	// edit hospital

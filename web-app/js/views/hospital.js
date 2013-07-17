@@ -24,6 +24,11 @@ App.Views.Hospitals = Backbone.View.extend({
 App.Views.Hospital = Backbone.View.extend({
 	template : _.template($('#hospital-template').html()),
 
+	/*initialize : function() {		
+		 _.bindAll(this, "render");
+		 this.model.bind('change', this.render);
+	},*/
+	
 	events : {
 		//'#submit-btn' 					 : 'submHospital',		
 		'click #btnApplyHospitalOptions' : 'applyHospitalOptions',
@@ -97,28 +102,6 @@ App.Views.Hospital = Backbone.View.extend({
 		var product_id = $(e.target).attr('href').replace('#t','');				
 		var slcTab = '#myTabContent div#t' + product_id;	
 	},
-
-
-	// append HospitalMeasureTableOld to Tab
-	/*appendHospitalMeasureTable : function(){		
-	    var table_template = _.template($('#hospital-measure_table').html());						
-		var products = App.ho.get('products');	
-		
-		// for all products
-		$.each( products , function( i, product ) {					
-			var slcTab = '#myTabContent div#t' + product.id;
-			$(slcTab).append(table_template());	
-			
-			// get assigned measures
-			var measures = product.measures;
-			$.each( measures, function( i, measure ) {
-				console.log(JSON.stringify(measure));
-				var view = new App.Views.SingleHospitalMeasure({ model : measure });				
-				$(slcTab + ' .hospitalMeasureTable tbody').append(view.render().el);				
-			});		
-		});	  	   
-	},*/
-
 	
 	// append HospitalMeasureTable to Tab
 	appendHospitalMeasureTable : function(){		
@@ -186,7 +169,8 @@ App.Views.Hospital = Backbone.View.extend({
 			success: function(_data){
 				console.log("success");
 				console.log(_data);
-				Backbone.history.loadUrl(Backbone.history.fragment);				
+				console.log(Backbone.history.fragment);
+				Backbone.history.loadUrl(Backbone.history.fragment);
 			},
 			traditional: true,
 			dataType: 'JSON'
