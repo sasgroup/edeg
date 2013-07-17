@@ -105,8 +105,8 @@
 
 
 <script type="text/template" class="template" id="single-product-hospital">
-	<label class="checkbox">
-    	<input type="checkbox" name="hospital" value="{{name}}" id="{{id}}" {{ch}}> {{name}}
+	<label class="Hospitals">
+         {{name}}
     </label>
 </script>
 
