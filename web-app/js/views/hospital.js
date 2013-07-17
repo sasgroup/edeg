@@ -155,6 +155,7 @@ App.Views.Hospital = Backbone.View.extend({
 		var pr_ids = new Array();
 		var e_id;
 				
+				
 		$( "#slcProducts").multiselect('getChecked').each(function( index ) {  					
 			var product_id = $(this).val();
 			product_id = product_id.replace('t','');			
