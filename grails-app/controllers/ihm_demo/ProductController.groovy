@@ -31,7 +31,7 @@ class ProductController {
 					}
 				}
 				hospitals = array {
-					for (h in HospitalProduct.findByProduct(pr)) {
+					for (h in HospitalProduct.findAllByProduct(pr)) {
 						hospital  hname: h.hospital.name, hid: h.hospital.id
 					}
 				}
