@@ -24,6 +24,6 @@ class HospitalElement {
     }
 	
 	String toString() {
-		"$isIMO, $location, $queryMnemonic, $valueSet, $valueSetRequired, $locationtype"
+		"$location, $valueSet"
 	}
 }
