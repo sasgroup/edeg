@@ -30,11 +30,11 @@ class ProductController {
 						measure  mname: m.name, mid: m.id, mcode: m.code
 					}
 				}
-				/*hospitals = array {
-					for (h in pr?.hospitals) {
-						hospital  hname: h.name, hid: h.id
+				hospitals = array {
+					for (h in HospitalProduct.findByProduct(pr)) {
+						hospital  hname: h.hospital.name, hid: h.hospital.id
 					}
-				}*/
+				}
 			}
 		} else {
 			def results = Product.list()
@@ -85,8 +85,8 @@ class ProductController {
 		def product = Product.findById(params.id)
 		String name = product.name
 		def measuresDep = product.measures ? true : false
-
-		def hospitalsDep = product.hospitals ? true : false
+		
+		def hospitalsDep = HospitalProduct.findByProduct(product) ? true : false
 
 		if (measuresDep || hospitalsDep) {
 			render(status: 420, text: "Product ${name} cannot be deleted because of existing dependencie")
@@ -104,6 +104,7 @@ class ProductController {
 		instance.name = param.name
 		instance.code = param.code
 		instance.notes = param.notes
+		
 		
 		if (instance.id) {
 			instance.measures.clear()
