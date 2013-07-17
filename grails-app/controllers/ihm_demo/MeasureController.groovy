@@ -111,8 +111,10 @@ class MeasureController {
 		def dataElementsDep = measure.dataElements ? true : false
 
 		def productsDep = measure.products ? true : false
+		
+		def hospuitalmeasureDep = HospitalMeasure.findByMeasure(measure) ? true : false
 
-		if (dataElementsDep || productsDep) {
+		if (dataElementsDep || productsDep || hospuitalmeasureDep) {
 			render(status: 420, text: "Measrue ${name} cannot be deleted because of existing dependencie")
 		} else {
 			measure?.delete(flush: true)
