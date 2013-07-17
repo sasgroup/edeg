@@ -33,24 +33,31 @@ class HospitalController {
 						hospitalMeasure.save()
 					}
 					
-					for (dataElement in measure?.dataElements) {//need find dataLement for this Measure and add to Hospital element
-						def defaultSetting = DataElementDefaults.findByDataElementAndEhr(dataElement, hospital.ehr)
-						if (defaultSetting) {//if not null so need add to HospitalElement
-							println "p-->$product.name  m-->$measure.name  d-->$dataElement.name"
-							def hospitalElement = new HospitalElement(internalNotes : "",
-																	  location : defaultSetting.location,
-																	  notes : "",
-																	  source : "",
-																	  sourceEHR : true,
-																	  valueSet : "",
-																	  valueSetFile : "",
-																	  valueType : defaultSetting.valueType,
-																	  codeType : defaultSetting.codeType,
-																	  dataElement : dataElement
-																	  )
-							hospitalElement.addToHospitalMeasure(hospitalMeasure)
-							hospitalElement.save()
+					for (de in measure?.dataElements) {//need find dataLement for this Measure and add to Hospital element
+						def hasElement
+						for (he in hospitalMeasure?.hospitalElement) {
+							if (he.dataElement.id	== de.id)
+								hasElement = true
 						}
+						if (!hasElement) {
+							def defaultSetting = DataElementDefaults.findByDataElementAndEhr(de, hospital.ehr)
+							if (defaultSetting) {//if not null so need add to HospitalElement
+								println "p-->$product.name  m-->$measure.name  d-->$de.name"
+								def hospitalElement = new HospitalElement(internalNotes : "",
+																		  location : defaultSetting.location,
+																		  notes : "",
+																		  source : "",
+																		  sourceEHR : true,
+																		  valueSet : "",
+																		  valueSetFile : "",
+																		  valueType : defaultSetting.valueType,
+																		  codeType : defaultSetting.codeType,
+																		  dataElement : de
+																		  )
+								hospitalElement.addToHospitalMeasure(hospitalMeasure)
+								hospitalElement.save()
+							}
+						}	
 					}
 				}
 			}
