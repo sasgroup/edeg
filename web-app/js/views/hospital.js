@@ -25,9 +25,10 @@ App.Views.Hospital = Backbone.View.extend({
 	template : _.template($('#hospital-template').html()),
 
 	events : {
-		//'submit' 						 : 'submHospital',		
+		'submit' 						 : 'submHospital',		
 		'click #btnApplyHospitalOptions' : 'applyHospitalOptions',
-		'click a[data-toggle="tab"]'	 : 'changeTab'			
+		'click a[data-toggle="tab"]'	 : 'changeTab',
+		'change #notes' 				 : 'changeVal'
 	},
 
 	render : function() {	
@@ -188,9 +189,15 @@ App.Views.Hospital = Backbone.View.extend({
 
 	},
 
+	changeVal : function(e) {
+		console.log(e.target.name);
+		this.model.attributes[e.target.name] = $(e.target).val();
+		console.log(this.model.attributes);
+	},
+	
 	submHospital : function(e) {
 		e.preventDefault();		
-
+        console.log('submHospital');
 		this.model.save(this.attributes,{
 	        success: function (model, response) {
 	           console.log(response);

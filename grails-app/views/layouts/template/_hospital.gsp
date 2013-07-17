@@ -66,7 +66,7 @@
 			  <tr>
                 <td>Name</td>
                 <td>
-                    <input name="name" type="text" value="{{ name }}" id="name">
+                    <input name="name" type="text" value="{{ name }}" id="name" disabled>
                 </td>
                 <td>Notes</td>
                 <td>
