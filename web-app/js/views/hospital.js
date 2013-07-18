@@ -210,11 +210,11 @@ App.Views.Hospital = Backbone.View.extend({
 	        success: function (model, response) {
 	           console.log(response);
 	           $('div#message-box').text("").append(response.message).fadeIn(500).delay(1500).fadeOut(500);
-               Backbone.history.navigate("hospital", true);
+              // Backbone.history.navigate("hospital", true);
 	        },
 	        error: function (model, response) {
 	        	$('div#message-box').text("").append(response.message).fadeIn(500).delay(1500).fadeOut(500);
-	            Backbone.history.navigate("hospital", true);
+	           // Backbone.history.navigate("hospital", true);
 	        }
 	    });
 	},

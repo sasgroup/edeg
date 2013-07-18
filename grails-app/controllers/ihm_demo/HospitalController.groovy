@@ -5,37 +5,36 @@ import org.springframework.dao.DataIntegrityViolationException
 
 class HospitalController {
 	
-	def update (Long id, Long version){
-		def hospitalInstance = Hospital.get(id)
-		
-				if  (!hospitalInstance) {
-					render(contentType: "text/json") {
-						resp = "error"
-						message = "Id exceptions"
-					}
-				}
-		
-				 if (params.version != null) {
-					if (hospitalInstance.version > params.version) {
-						return render(contentType: "text/json") {
-							resp = "error"
-							message = "Another User has updated hospital(${hospitalInstance.name}) while you were editing"
-						}
-					}
-				 }
-				
-				hospitalInstance.name = params?.name
-				hospitalInstance.notes = params?.notes
-				hospitalInstance.ehr = Ehr.get(params?.ehr_id)
-				hospitalInstance.save(flush:true)
+	def update(Long id, Long version) {
+		println params.apply
+		if (!params.apply) {
+			println "just"
+			if  (!hospitalInstance) {
 				render(contentType: "text/json") {
-					resp = "ok"
-					message = "Hospital ${hospitalInstance.name} successfully updated"
+					resp = "error"
+					message = "Id exceptions"
 				}
-	}
+			}
 	
-	def save() {
-		if (params.id && params.ehr_id) {// update Hospital set EHR
+			 if (params.version != null) {
+				if (hospitalInstance.version > params.version) {
+					return render(contentType: "text/json") {
+						resp = "error"
+						message = "Another User has updated hospital(${hospitalInstance.name}) while you were editing"
+					}
+				}
+			 }
+			
+			hospitalInstance.name = params?.name
+			hospitalInstance.notes = params?.notes
+			hospitalInstance.ehr = Ehr.get(params?.ehr_id)
+			hospitalInstance.save(flush:true)
+			render(contentType: "text/json") {
+				resp = "ok"
+				message = "Hospital ${hospitalInstance.name} successfully updated"
+			}
+		} else 	if (params.ehr_id) {// update Hospital set EHR
+			println "another"
 			def hospital = Hospital.get(params.id)
 			println hospital
 			hospital.ehr = Ehr.get(params.ehr_id)
