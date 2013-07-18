@@ -11,7 +11,7 @@ body {
 
 form#hospital-edit div#myTabContent  {
 	display:block;
-	height: 262px;
+	height: 312px;
 	width:100%;
 	overflow: auto;   
 }
@@ -19,14 +19,14 @@ form#hospital-edit div#myTabContent  {
 
 form#product-edit div#myTabContent, form#element-edit div#myTabContent, form#ehr-edit div#myTabContent   {
 	display:block;
-	height: 254px;
+	height: 304px;
 	width:100%;
 	overflow: auto;   
 }
 
 form#measure-edit div#myTabContent  {
 	display:block;
-	height: 219px;
+	height: 269px;
 	width:100%;
 	overflow: auto;   
 }
@@ -47,6 +47,10 @@ div.row-fluid textarea {
 
 .cqmDomain {
 	margin-top: 5px;
+}
+
+.required {
+	color: #ff0000;
 }
 
 
@@ -127,7 +131,7 @@ nav.header-nav a:hover {
 }
 
 .app {
-    padding: 60px 20px 10px 20px;
+    padding: 10px 20px 10px 20px;
     margin: 12px;
 }
 

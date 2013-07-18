@@ -132,7 +132,7 @@ App.Views.Hospital = Backbone.View.extend({
 			
 						
 		   $(slcTab + ' .hospitalMeasureTable').dataTable({
-	    		 			"bPaginate": false,
+	    		 			"bPaginate": true,
 	    		 			"bLengthChange": false,
 	    		 			"bFilter": false,
 	    		 			"bSort": true,
