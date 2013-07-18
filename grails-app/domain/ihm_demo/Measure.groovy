@@ -16,8 +16,9 @@ class Measure {
     static constraints = {
 		code()
 		name()
-		notes()
-
+		notes(nullable: true)
+		measureCategory(nullable: true)
+		cqmDomain(nullable: true)
     }
 	
 	String toString() {
