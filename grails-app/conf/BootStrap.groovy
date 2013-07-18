@@ -85,6 +85,81 @@ class BootStrap {
 				println "An error occured with event1: ${error}"
 			}
 		}
+		//-----------HOSPITALs-----------
+		def hospital
+		hospital = new Hospital(name:"Massachusetts General Hospital",
+								 notes:"",
+								 ehr:Ehr.findByCode("MEDITECH 6"))
+		if (!hospital.save()){
+			hospital.errors.allErrors.each{error ->
+				println "An error occured with event1: ${error}"
+			}
+		}
+		hospital = new Hospital(name:"Lindemann Mental Health Center",
+								notes:"",
+								ehr:Ehr.findByCode("MEDITECH 6"))
+		if (!hospital.save()){
+			hospital.errors.allErrors.each{error ->
+				println "An error occured with event1: ${error}"
+			}
+		}
+
+		hospital = new Hospital(name:"Hebrew Rehabilitation Center for the Aged",
+								notes:"",
+								ehr:Ehr.findByCode("MEDITECH 6"))
+		if (!hospital.save()){
+			hospital.errors.allErrors.each{error ->
+				println "An error occured with event1: ${error}"
+			}
+		}
+
+		hospital = new Hospital(name:"Faulkner Hospital",
+								notes:"",
+								ehr:Ehr.findByCode("MEDITECH 6"))
+		if (!hospital.save()){
+			hospital.errors.allErrors.each{error ->
+				println "An error occured with event1: ${error}"
+			}
+		}
+
+		hospital = new Hospital(name:"Carney Hospital",
+								notes:"",
+								ehr:Ehr.findByCode("MEDITECH 6"))
+		if (!hospital.save()){
+			hospital.errors.allErrors.each{error ->
+				println "An error occured with event1: ${error}"
+			}
+		}
+
+		hospital = new Hospital(name:"Franciscan Children's Hospital and Rehabilitation Center",
+								notes:"",
+								ehr:Ehr.findByCode("MEDITECH 6"))
+		if (!hospital.save()){
+			hospital.errors.allErrors.each{error ->
+				println "An error occured with event1: ${error}"
+			}
+		}
+
+		hospital = new Hospital(name:"Tufts Medical Center",
+								notes:"",
+								ehr:Ehr.findByCode("MEDITECH 6"))
+		if (!hospital.save()){
+			hospital.errors.allErrors.each{error ->
+				println "An error occured with event1: ${error}"
+			}
+		}
+
+		hospital = new Hospital(name:"Lowell General Hospital",
+								notes:"",
+								ehr:Ehr.findByCode("MEDITECH 6"))
+		if (!hospital.save()){
+			hospital.errors.allErrors.each{error ->
+				println "An error occured with event1: ${error}"
+			}
+		}
+
+		
+		
 		//-----------PRODUCTs-----------
 		def product
 		product = new Product(code:"MU1",
@@ -3077,7 +3152,7 @@ class BootStrap {
 		} 
 		
 		//---
-		dataElement = new DataElement(code:"RadOrdCPOEflg",
+		/*dataElement = new DataElement(code:"RadOrdCPOEflg",
 									  name:"Radiology Ordered in CPOE Flag",
 									  notes:"")
 		if (!dataElement.save()){
@@ -3159,7 +3234,7 @@ class BootStrap {
 		} 
 		
 		//---
-		/*dataElement = new DataElement(code:"LangCodes",
+		dataElement = new DataElement(code:"LangCodes",
 									  name:"Language (632-9 Codes)",
 									  notes:"")
 		if (!dataElement.save()){

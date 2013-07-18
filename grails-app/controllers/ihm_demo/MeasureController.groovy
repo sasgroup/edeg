@@ -6,12 +6,19 @@ import org.springframework.dao.DataIntegrityViolationException
 class MeasureController {
 	
 	private Measure saveInstance (Measure instance, def param) {
-		println "$param.products"
+		println "1"
 		instance.name = param.name
 		instance.code = param.code
-		instance.notes = param.notes
-		instance.measureCategory = MeasureCategory.get (param.measureCategory.id)
-		instance.cqmDomain = CqmDomain.get (param.cqmDomain.id)
+		println "2"
+		if (param.notes)
+			instance.notes = param.notes
+			
+		if (param.measureCategory)
+			instance.measureCategory = MeasureCategory.get (param.measureCategory.id)
+			
+		if (param.cqmDomain)
+			instance.cqmDomain = CqmDomain.get (param.cqmDomain.id)
+			println "3"
 		Product.list().each {
 			it.removeFromMeasures(instance)
 		}	
@@ -27,16 +34,19 @@ class MeasureController {
 		for (product in param.products) {
 			instance.addToProducts(Product.get(product.pid))
 		}
-		 
+		println "4"
 		return instance.save(flush :true)
 	}
 	
     def save() {
+		println "!"
 		def measureInstance  = saveInstance(new Measure(), params)
+		println "!!"
 		render(contentType: "text/json") {
 					resp = "ok"
-					message = "Measure ${measureInstance.name} successfully created"
+					message = "Measure ${measureInstance?.name} successfully created"
 		}
+		println "!!!"
 	}
    
 	def show() {
@@ -95,7 +105,7 @@ class MeasureController {
 				}
 			} 
 		 }	
-		
+	
 		measrueInstance  = saveInstance(measrueInstance, params)
 		render(contentType: "text/json") {
 			resp = "ok"
