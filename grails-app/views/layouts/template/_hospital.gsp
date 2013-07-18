@@ -131,8 +131,8 @@
 		    <th>Confirmed</th>
 		    <th>Accepted</th>
 		    <th>Verified</th>		    
-			<th>Save</th>
- 			<th>Delete</th>	
+		<!--	<th>Save</th>
+ 			<th>Delete</th>-->	
 		   </tr>
     </thead>				
     <tbody></tbody>
@@ -160,8 +160,8 @@
  <td>
      <input type="checkbox" name="verified" id="{{id}}" {{verified}}>
  </td> 
- <td><div id="save"    class= "btn save-btn"><i class="icon-ok-circle"></i></div></td>
- <td><div id="destroy" class= "btn"><i class="icon-trash"></i></div></td> 
+ <!--<td><div id="save"    class= "btn save-btn"><i class="icon-ok-circle"></i></div></td>
+ <td><div id="destroy" class= "btn"><i class="icon-trash"></i></div></td> -->
 </script>
 
 

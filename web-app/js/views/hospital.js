@@ -111,6 +111,30 @@ App.Views.Hospital = Backbone.View.extend({
 		$.each( products , function( i, product ) {					
 			var slcTab = '#myTabContent div#t' + product.id;
 			$(slcTab).append(table_template());	
+						
+			tableToGrid(slcTab + ' .hospitalMeasureTable', {
+				   //autowidth:true,					
+				   height: 285,
+				   width: 950,
+				   	 			
+				   colNames:['Use','ID', 'CODE', 'TITLE','Completed','Confirmed','Accepted', 'Verified'],
+				   colModel:[ {name:'included',index:'included', width:40}, 
+				              {name:'id',index:'id', width:40 }, 
+				              {name:'code',index:'code', width:100}, 
+				              {name:'title',index:'title', width:325}, 
+				              {name:'accepted',index:'accepted', width:60, align:"right"},				              
+				              {name:'completed',index:'completed', width:60, align:"right"},
+				              {name:'confirmed',index:'confirmed', width:60, align:"right"},
+				              {name:'verified',index:'verified', width:60, align:"right"}
+				               ],
+				   pager: '#pager',
+				   rowNum: 20,
+				   viewrecords: true,
+				   loadui: true,
+				   rowList: [10,20,50]
+				  });
+			
+			
 			
 			// get assigned measures
 			var measures = product.measures;
@@ -131,7 +155,7 @@ App.Views.Hospital = Backbone.View.extend({
 			
 			
 						
-		   $(slcTab + ' .hospitalMeasureTable').dataTable({
+		  /* $(slcTab + ' .hospitalMeasureTable').dataTable({
 	    		 			"bPaginate": true,
 	    		 			"bLengthChange": false,
 	    		 			"bFilter": false,
@@ -141,7 +165,10 @@ App.Views.Hospital = Backbone.View.extend({
 	    		 			"aoColumnDefs": [
           						{ 'bSortable': false, 'aTargets': [ 4,5,6,7,8,9 ] }
        						 ]
-			});		    
+			});		*/
+		   
+		   //var sel = $(slcTab + ' .hospitalMeasureTable');
+		   
 		    
 			
 		});	  
