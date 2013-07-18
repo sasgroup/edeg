@@ -185,10 +185,9 @@ App.Router = Backbone.Router.extend({
 	// ------- EDIT ------------
 	// edit hospital
 	edithospital : function(id) {
-		App.ho = new App.Models.Hospital();
-		
+		App.ho = new App.Models.Hospital();		
 		App.ho.fetch({data:{id: id}}).then(function(){
-			console.log(App.ho);
+			//console.log(App.ho);
 			App.route.hospital(App.ho);
 		})
 	},
