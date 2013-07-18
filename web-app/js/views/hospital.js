@@ -30,7 +30,7 @@ App.Views.Hospital = Backbone.View.extend({
 	},*/
 	
 	events : {
-		//'#submit-btn' 					 : 'submHospital',		
+		'click #submit-btn' 					 : 'submHospital',		
 		'click #btnApplyHospitalOptions' : 'applyHospitalOptions',
 		'click a[data-toggle="tab"]'	 : 'changeTab',
 		'change #notes' 				 : 'changeVal'
@@ -158,25 +158,6 @@ App.Views.Hospital = Backbone.View.extend({
 		});	
 				
 		
-		/*$.ajax({
-			url: "api/hospital",
-			type: 'POST',
-			
-			data: {ehr_id: e_id, product_ids : pr_ids, id: h_id},
-			error: function(request, error) {
-				console.log("error " + error);
-			},
-			success: function(_data){
-				console.log("success");
-				console.log(_data);
-				console.log(Backbone.history.fragment);
-				Backbone.history.loadUrl(Backbone.history.fragment);
-			},
-			traditional: true,
-			dataType: 'JSON'
-		});
-		console.log("end");*/
-				
 		this.model.set({apply: true});
 		
 		this.model.attributes.ehr_id = e_id;
@@ -210,11 +191,11 @@ App.Views.Hospital = Backbone.View.extend({
 	        success: function (model, response) {
 	           console.log(response);
 	           $('div#message-box').text("").append(response.message).fadeIn(500).delay(1500).fadeOut(500);
-              // Backbone.history.navigate("hospital", true);
+               Backbone.history.navigate("hospital", true);
 	        },
 	        error: function (model, response) {
 	        	$('div#message-box').text("").append(response.message).fadeIn(500).delay(1500).fadeOut(500);
-	           // Backbone.history.navigate("hospital", true);
+	            Backbone.history.navigate("hospital", true);
 	        }
 	    });
 	},

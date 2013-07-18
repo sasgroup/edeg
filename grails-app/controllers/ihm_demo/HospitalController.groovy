@@ -6,9 +6,8 @@ import org.springframework.dao.DataIntegrityViolationException
 class HospitalController {
 	
 	def update(Long id, Long version) {
-		println params.apply
 		if (!params.apply) {
-			println "just"
+			def hospitalInstance = Hospital.get(id)
 			if  (!hospitalInstance) {
 				render(contentType: "text/json") {
 					resp = "error"
@@ -24,10 +23,7 @@ class HospitalController {
 					}
 				}
 			 }
-			
-			hospitalInstance.name = params?.name
 			hospitalInstance.notes = params?.notes
-			hospitalInstance.ehr = Ehr.get(params?.ehr_id)
 			hospitalInstance.save(flush:true)
 			render(contentType: "text/json") {
 				resp = "ok"
