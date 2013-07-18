@@ -149,7 +149,8 @@ App.Router = Backbone.Router.extend({
 			        selectedList : 1,
 			        height: "auto",
 			        minWidth: "300px"
-			    });
+			    });	
+				
 																
 				view.createTabs();
 				view.setPrimaryEhr();

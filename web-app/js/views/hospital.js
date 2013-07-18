@@ -128,6 +128,9 @@ App.Views.Hospital = Backbone.View.extend({
 				var view = new App.Views.SingleHospitalMeasure({ model : hospitalMeasure });				
 				$(slcTab + ' .hospitalMeasureTable tbody').append(view.render().el);				
 			});		
+			
+			//$('.hospitalMeasureTable').dataTable();
+			
 		});	  
 				
 		/*_.each (hospitalMeasures.models, function(model) {
