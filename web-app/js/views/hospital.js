@@ -158,7 +158,7 @@ App.Views.Hospital = Backbone.View.extend({
 		});	
 				
 		
-		$.ajax({
+		/*$.ajax({
 			url: "api/hospital",
 			type: 'POST',
 			
@@ -175,7 +175,25 @@ App.Views.Hospital = Backbone.View.extend({
 			traditional: true,
 			dataType: 'JSON'
 		});
-		console.log("end");
+		console.log("end");*/
+				
+		this.model.set({apply: true});
+		
+		this.model.attributes.ehr_id = e_id;
+		this.model.attributes.product_ids = pr_ids;
+		this.model.attributes.id = h_id;
+				
+		this.model.save(this.attributes,{
+	        success: function (model, response) {
+	           console.log(response);
+	           $('div#message-box').text("").append(response.message).fadeIn(500).delay(1500).fadeOut(500);
+               Backbone.history.navigate("hospital", true);
+	        },
+	        error: function (model, response) {
+	        	$('div#message-box').text("").append(response.message).fadeIn(500).delay(1500).fadeOut(500);
+	            Backbone.history.navigate("hospital", true);
+	        }
+	    });
 
 	},
 
