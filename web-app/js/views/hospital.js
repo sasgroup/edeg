@@ -129,7 +129,17 @@ App.Views.Hospital = Backbone.View.extend({
 				$(slcTab + ' .hospitalMeasureTable tbody').append(view.render().el);				
 			});		
 			
-			//$('.hospitalMeasureTable').dataTable();
+			
+						
+		  /* $(slcTab + ' .hospitalMeasureTable').dataTable({
+	    		 			"bPaginate": false,
+	    		 			"bLengthChange": false,
+	    		 			"bFilter": false,
+	    		 			"bSort": true,
+	    		 			"bInfo": false,
+	    		 			"bAutoWidth": false
+			});*/		    
+		    
 			
 		});	  
 				
