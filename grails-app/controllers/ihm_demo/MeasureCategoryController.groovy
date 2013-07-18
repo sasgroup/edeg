@@ -11,7 +11,7 @@ class MeasureCategoryController {
 			render(contentType: "text/json") {
 				name         = result.name
 				description  = result.description
-				categoryType = result.categoryType
+				
 				id           = result.id			
 			}
 		}
@@ -20,7 +20,7 @@ class MeasureCategoryController {
 			render(contentType: "text/json") {
 				measureCategories = array {
 					for (p in results) {
-						measureCategory name: p.name, description: p.description, categoryType: p.categoryType, id: p.id
+						measureCategory name: p.name, description: p.description,  id: p.id
 					}
 				}
 			}

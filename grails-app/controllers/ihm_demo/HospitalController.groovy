@@ -25,9 +25,36 @@ class HospitalController {
 			 }
 			hospitalInstance.notes = params?.notes
 			hospitalInstance.save(flush:true)
+			def  result = hospitalInstance
+			println params.id
+
+			def hospitalProdcuts = HospitalProduct.findAllByHospital(result)
+			def productList	=  hospitalProdcuts.collect{it.product}
 			render(contentType: "text/json") {
-				resp = "ok"
-				message = "Hospital ${hospitalInstance.name} successfully updated"
+				name = result.name
+				notes= result.notes
+				id   = result.id
+				ehr = result.ehr
+				products = array {
+					for (p in productList) {
+						product id : p.id,
+								name : p.name,
+								code : p.code,
+								measures : array {
+									for (h in HospitalMeasure.list().findAll{it?.hospitalProducts.findAll{it.product == p}.size() >= 1}){
+										measrue id : h.id,
+												code : h.measure.code,
+												name : h.measure.name,
+												accepted : h.accepted,
+												completed : h.completed,
+												confirmed : h.confirmed,
+												included : h.included,
+												verified : h.verified
+									}
+								}
+					}
+				}
+
 			}
 		} else 	if (params.ehr_id) {// update Hospital set EHR
 			println "another"
