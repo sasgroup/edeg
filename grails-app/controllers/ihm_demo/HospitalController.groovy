@@ -25,6 +25,11 @@ class HospitalController {
 			 }
 			hospitalInstance.notes = params?.notes
 			hospitalInstance.save(flush:true)
+			def  result = hospitalInstance
+			println params.id
+
+			def hospitalProdcuts = HospitalProduct.findAllByHospital(result)
+			def productList	=  hospitalProdcuts.collect{it.product}
 			render(contentType: "text/json") {
 				name = result.name
 				notes= result.notes
