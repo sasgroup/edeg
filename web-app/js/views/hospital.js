@@ -137,7 +137,10 @@ App.Views.Hospital = Backbone.View.extend({
 	    		 			"bFilter": false,
 	    		 			"bSort": true,
 	    		 			"bInfo": false,
-	    		 			"bAutoWidth": false
+	    		 			"bAutoWidth": false,
+	    		 			"aoColumnDefs": [
+          						{ 'bSortable': false, 'aTargets': [ 1,2,3 ] }
+       						 ]
 			});*/		    
 		    
 			
