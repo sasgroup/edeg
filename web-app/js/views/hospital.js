@@ -131,7 +131,7 @@ App.Views.Hospital = Backbone.View.extend({
 			
 			
 						
-		  /* $(slcTab + ' .hospitalMeasureTable').dataTable({
+		   $(slcTab + ' .hospitalMeasureTable').dataTable({
 	    		 			"bPaginate": false,
 	    		 			"bLengthChange": false,
 	    		 			"bFilter": false,
@@ -139,9 +139,9 @@ App.Views.Hospital = Backbone.View.extend({
 	    		 			"bInfo": false,
 	    		 			"bAutoWidth": false,
 	    		 			"aoColumnDefs": [
-          						{ 'bSortable': false, 'aTargets': [ 1,2,3 ] }
+          						{ 'bSortable': false, 'aTargets': [ 4,5,6,7,8,9 ] }
        						 ]
-			});*/		    
+			});		    
 		    
 			
 		});	  

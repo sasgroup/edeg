@@ -45,11 +45,11 @@
   				    <div class="row">
     				  <div class="span5">      				  
                         <div class="row-fluid">
-                          <label for="code" class="span3">Code</label>    
+                          <label for="code" class="span3">Code*</label>    
 					      <input name="code" type="text" class="span9" value="{{ code }}" id="code">
 					    </div>					  
 					    <div class="row-fluid">	
-                          <label for="name" class="span3">Name</label>                                         
+                          <label for="name" class="span3">Name*</label>                                         
                           <input name="name" type="text" class="span9" value="{{ name }}" id="name">
 					   </div> 					
 					  </div>    				  
