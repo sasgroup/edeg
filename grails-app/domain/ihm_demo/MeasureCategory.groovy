@@ -4,12 +4,10 @@ class MeasureCategory {
 	
 	String name
 	String description
-	CategoryType categoryType
 	
     static constraints = {
 		name()
 		description()
-		categoryType()
     }
 	
 	String toString(){

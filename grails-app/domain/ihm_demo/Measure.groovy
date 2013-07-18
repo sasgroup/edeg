@@ -17,8 +17,7 @@ class Measure {
 		code()
 		name()
 		notes()
-		measureCategory()
-		cqmDomain()
+
     }
 	
 	String toString() {
