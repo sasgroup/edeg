@@ -117,10 +117,10 @@ App.Views.Hospital = Backbone.View.extend({
 				   //autowidth:true,					
 				   height: 285,
 				   width: 950,
-				   	 			
+				   datatype:'local',	 			
 				   colNames:['Use','ID', 'CODE', 'TITLE','Completed','Confirmed','Accepted', 'Verified'],
-				   colModel:[ {name:'included',index:'included', width:40}, 
-				              {name:'id',index:'id', width:40 }, 
+				   colModel:[ {name:'included',index:'included',  width:40}, 
+				              {name:'id',index:'id', sortable: true, width:40, sorttype:"int" }, 
 				              {name:'code',index:'code', width:100}, 
 				              {name:'title',index:'title', width:325}, 
 				              {name:'accepted',index:'accepted', width:60, align:"right"},				              
@@ -128,11 +128,17 @@ App.Views.Hospital = Backbone.View.extend({
 				              {name:'confirmed',index:'confirmed', width:60, align:"right"},
 				              {name:'verified',index:'verified', width:60, align:"right"}
 				               ],
-				   pager: '#pager',
-				   rowNum: 20,
-				   viewrecords: true,
+				loadonce: true,		
+				sortable: true,	
+				shrinkToFit:true,
+			   
+			    scroll: true,
+				   rowNum: 10000,
+				   viewrecords: true
+				   
+				   /*
 				   loadui: true,
-				   rowList: [10,20,50]
+				   rowList: [10,20,50]*/
 				  });
 			
 			
@@ -197,17 +203,57 @@ App.Views.Hospital = Backbone.View.extend({
 		this.model.attributes.ehr_id = e_id;
 		this.model.attributes.product_ids = pr_ids;
 		this.model.attributes.id = h_id;
+		
+		var view = this;
 								
 		this.model.save(this.attributes,{
 	        success: function (model, response) {
 	           	           	           
 	           //$('div#message-box').text("").append(response.message).fadeIn(500).delay(1500).fadeOut(500);
-               // Backbone.history.navigate("hospital", true);
-	           App.ho.fetch({data:{id: h_id}}).then(function(){	   			
-	   			App.route.hospital(App.ho);
-	   		   });
+               //Backbone.history.navigate("hospital", true);
+	           //console.log("response");	
+	           //console.log(response);	
+	           	           
+	           //App.ho = new App.Models.Hospital(response);	
+	          
+	            /*App.ho.fetch({data:{id: h_id}}).then(function(){	   			
+	        	var view = new App.Views.Hospital({model: hospital});		
+	   			$('#app').html(view.render().el);	
+	   			
+	   			//$(document).ready(function(){
+	   				$( "#slcEHRs").multiselect({
+	   			        multiple : false,
+	   			        header : false,
+	   			        noneSelectedText : "Select",
+	   			        selectedList : 1,
+	   			        height: "auto",
+	   			        minWidth: "300px"
+	   			    });	
+	   	
+	   				$( "#slcProducts").multiselect({
+	   			        multiple : true,
+	   			        header : true,
+	   			        noneSelectedText : "Select",
+	   			        selectedList : 1,
+	   			        height: "auto",
+	   			        minWidth: "300px"
+	   			    });	
+	   																				
+	   				view.createTabs();
+	   				view.setPrimaryEhr();
+	   		   });*/
+	        	
+	        	 App.ho.fetch({data:{id: h_id}}).then(function(){	   			
+	 	   			App.route.hospital(App.ho);
+	 	   		   });	
+	           
+	           //view.createTabs();
+	           
+	          // App.route.hospital(App.ho);
+	           //$('#loading').hide();
 	        },
 	        error: function (model, response) {
+	        	
 	         //	$('div#message-box').text("").append(response.message).fadeIn(500).delay(1500).fadeOut(500);
 	          //  Backbone.history.navigate("hospital", true);
 	        }

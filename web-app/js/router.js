@@ -132,7 +132,7 @@ App.Router = Backbone.Router.extend({
 			var view = new App.Views.Hospital({model: hospital});		
 			$('#app').html(view.render().el);	
 			
-			$(document).ready(function(){
+			//$(document).ready(function(){
 				$( "#slcEHRs").multiselect({
 			        multiple : false,
 			        header : false,
@@ -150,12 +150,11 @@ App.Router = Backbone.Router.extend({
 			        height: "auto",
 			        minWidth: "300px"
 			    });	
-				
-																
+																				
 				view.createTabs();
 				view.setPrimaryEhr();
 								
-			});		   
+		//	});		   
 		});	
 	  });	 
     },
