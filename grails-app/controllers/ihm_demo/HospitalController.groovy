@@ -54,6 +54,7 @@ class HospitalController {
 								}
 					}
 				}
+							
 
 			}
 		} else 	if (params.ehr_id) {// update Hospital set EHR

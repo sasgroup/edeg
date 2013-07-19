@@ -107,6 +107,7 @@
 <div id="loading">
   <img id="loading-image" src="http://www.kuka-systems.com/res/icn/ajax_loader.gif" alt="Loading..." />
 </div>
+
 </script>
 
 <!-- Product/EHR Option -->

@@ -17,7 +17,8 @@ App.Router = Backbone.Router.extend({
 		'product/:id/edit': 'editProduct',
 		'measure/:id/edit': 'editMeasure',
 		'element/:id/edit': 'editDataElement',
-		'ehr/:id/edit'    : 'editEhr'
+		'ehr/:id/edit'    : 'editEhr',
+		'reload/:id'      :	'reopenHospital' 		
 	},
 
 	initialize: function(options){
@@ -40,6 +41,10 @@ App.Router = Backbone.Router.extend({
 		App.hospitalMeasures = new App.Collections.HospitalMeasures();	
 
 		
+	},
+	
+	reopenHospital : function(id) {		
+		Backbone.history.navigate("hospital/"+id+'/edit', true);		
 	},
 	
 	// ------- LIST ------------
