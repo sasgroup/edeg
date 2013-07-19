@@ -12,3 +12,8 @@
 	  </nav>
   </footer>  	
 </div>
+<!-- <script language="javascript" type="text/javascript">
+  $(window).load(function() {
+    $('#loading').hide();
+  });
+</script> -->

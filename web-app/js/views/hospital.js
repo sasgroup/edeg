@@ -45,7 +45,7 @@ App.Views.Hospital = Backbone.View.extend({
 		
 		App.products.forEach(this.appendProductOption,this);
 		App.ehrs.forEach(this.appendEhrOption,this);	
-		
+				
 		return this;
 	},
 		
@@ -94,6 +94,7 @@ App.Views.Hospital = Backbone.View.extend({
 				
 		// create and fill in HospitalMeasures for all checked products 
 		this.appendHospitalMeasureTable();	
+		$('#loading').hide();
 	
 	},
 
@@ -176,7 +177,8 @@ App.Views.Hospital = Backbone.View.extend({
 		/*_.each (hospitalMeasures.models, function(model) {
 			model.set({verified:true})
 			model.save();
-		});*/
+		});*/		
+		
 	},
 			
 	
