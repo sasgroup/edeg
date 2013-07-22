@@ -167,8 +167,6 @@ App.Views.SingleProduct = Backbone.View
 				console.log("destroy");
 				e.preventDefault();
 				
-				if (confirm('Are you sure you want to delete this Product?')) {
-								
 				var el = this.$el;
 				
 				this.model.destroy({
@@ -183,10 +181,11 @@ App.Views.SingleProduct = Backbone.View
 				    	 $('div#message-box').text("").append(response.responseText).fadeIn(500).delay(1500).fadeOut(500);
 				            Backbone.history.navigate("product", true);
 				     }
-				});				
+				});
 				
-				}
 				
+				//this.model.destroy();				  
+				//this.$el.remove();  
 			}
 		});
 

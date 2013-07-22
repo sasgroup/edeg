@@ -184,9 +184,6 @@ App.Views.SingleDataElement = Backbone.View
 			destroy : function(e){
 				console.log("destroy");
 				e.preventDefault();
-				
-				if (confirm('Are you sure you want to delete this DataElement?')) {
-					
 				var el = this.$el;
 				
 				this.model.destroy({
@@ -202,7 +199,5 @@ App.Views.SingleDataElement = Backbone.View
 				            Backbone.history.navigate("element", true);
 				     }
 				});
-				
-			}
 			}
 		});
