@@ -167,6 +167,8 @@ App.Views.SingleEhr = Backbone.View
 				console.log("destroy");
 				e.preventDefault();
 				
+				if (confirm('Are you sure you want to delete this EHR?')) {
+				
 				var el = this.$el;
 				
 				this.model.destroy({
@@ -183,8 +185,7 @@ App.Views.SingleEhr = Backbone.View
 				     }
 				});
 				
-				
-				//this.model.destroy();				  
-				//this.$el.remove();  
+				}
+				  
 			}
 		});
