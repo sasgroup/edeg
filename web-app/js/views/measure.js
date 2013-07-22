@@ -171,6 +171,7 @@ App.Views.SingleMeasure = Backbone.View
 				console.log("destroy");
 				e.preventDefault();
 				
+				if (confirm('Are you sure you want to delete this Measure?')) {
 				var el = this.$el;
 				
 				this.model.destroy({
@@ -186,5 +187,6 @@ App.Views.SingleMeasure = Backbone.View
 				            Backbone.history.navigate("measure", true);
 				     }
 				});
+				}
 			}
 		});
