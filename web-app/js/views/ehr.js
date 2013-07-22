@@ -32,7 +32,8 @@ App.Views.Ehrs = Backbone.View.extend({
 App.Views.Ehr = Backbone.View.extend({
 	template : _.template($('#ehr-template').html()),
 	events : {
-		'submit' : 'editEhr',
+		'click button#submit' : 'editEhr',
+		'click button#cancel' : 'returnOnMain', 
 		'change #code, #name, #notes' : 'changeVal'
 	},
 	
@@ -138,6 +139,10 @@ App.Views.Ehr = Backbone.View.extend({
 	        }
 	    });
 	},
+	
+	returnOnMain: function () {		
+		Backbone.history.navigate("/ehr", true);				
+	}
 	
 });
 

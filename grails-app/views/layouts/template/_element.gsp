@@ -81,7 +81,8 @@
                 </div>
 
                 <div class="form-actions">
-                    <button type="submit" class="btn btn-info pull-right">Save DataElement</button>
+                    <button id="submit" class="btn btn-info pull-right">Save DataElement</button>
+					<button id="cancel" class="btn btn-info pull-right">Cancel</button>
                 </div>
             </form>
     </div>

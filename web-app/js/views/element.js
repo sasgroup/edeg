@@ -37,7 +37,8 @@ App.Views.DataElement = Backbone.View.extend({
 	template : _.template($('#element-template').html()),
 	
 	events : {
-		'submit' : 'editDataElement',
+		'click button#submit' : 'editDataElement',
+		'click button#cancel' : 'returnOnMain', 
 		'change #code, #name, #notes' : 'changeVal',
 		'change .checkbox' : 'changeCh'
 	},
@@ -155,6 +156,10 @@ App.Views.DataElement = Backbone.View.extend({
 	        }
 	    });
 	},
+	
+	returnOnMain: function () {		
+		Backbone.history.navigate("/element", true);				
+	}
 	
 });
 

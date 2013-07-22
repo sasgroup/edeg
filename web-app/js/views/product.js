@@ -37,7 +37,8 @@ App.Views.Product = Backbone.View.extend({
 	template : _.template($('#product-template').html()),
 
 	events : {
-		'submit' : 'submProduct',
+		'click button#submit' : 'submProduct',
+		'click button#cancel' : 'returnOnMain',       
 		'change #code, #name, #notes' : 'changeVal',
 		'change .checkbox' : 'changeCh'
 	},
@@ -134,11 +135,15 @@ App.Views.Product = Backbone.View.extend({
                Backbone.history.navigate("product", true);
 	        },
 	        error: function (model, response) {
-	        	$('div#message-box').text("").append(response.message).fadeIn(500).delay(1500).fadeOut(500);
+	        	//$('div#message-box').text("").append(response.message).fadeIn(500).delay(1500).fadeOut(500);
 	            //Backbone.history.navigate("product", true);
 	        }
 	    });
 	},
+	
+	returnOnMain: function () {		
+		Backbone.history.navigate("/product", true);				
+	}
 	
 });
 

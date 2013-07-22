@@ -9,6 +9,10 @@ body {
     height:100%;       
 }
 
+button.btn, input.btn[type="submit"] {
+    margin-left: 4px;
+}
+
 td div.notes {
 	display: block;
     height: 20px;

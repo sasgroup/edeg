@@ -33,7 +33,8 @@ App.Views.Measure = Backbone.View.extend({
 	template : _.template($('#measure-template').html()),
 
 	events : {
-		'submit' : 'editMeasure',
+		'click button#submit' : 'editMeasure',
+		'click button#cancel' : 'returnOnMain', 
 		'change #code, #name, #notes' : 'changeVal',
 		'change #measureCategory, #cqmDomain' : 'changeDr',
 		'change .checkbox' : 'changeCh'
@@ -145,6 +146,10 @@ App.Views.Measure = Backbone.View.extend({
 	            Backbone.history.navigate("measure", true);
 	        }
 	    });
+	},
+	
+	returnOnMain: function () {		
+		Backbone.history.navigate("/measure", true);				
 	}
 });	
 
