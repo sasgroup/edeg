@@ -11,9 +11,9 @@ class DataElement {
 	static belongsTo = [Measure]
 	
     static constraints = {
-		code()
-		name()
-		notes()
+		code(blank:false)
+		name(blank:false)
+		notes(maxSize:5000)
     }
 	
 	String toString() {

@@ -6,8 +6,7 @@ modules = {
 		resource url: 'js/models.js'
 		resource url: 'js/collections.js'
 		
-		//resource url: 'js/validation/validation.js'
-		
+			
 		resource url: 'js/views/data_element_default.js'
 		resource url: 'js/views/ehr.js'
 		resource url: 'js/views/element.js'
@@ -15,8 +14,7 @@ modules = {
 		resource url: 'js/views/measure.js'
 		resource url: 'js/views/product.js'
 		
-		
-		
+				
 		resource url: 'js/router.js'		
 	}
 	
@@ -63,9 +61,7 @@ modules = {
 		resource url: 'css/datatable/jquery.dataTables.css'
 	}
 	
-	validation {
-		resource url: 'js/validation/validation.js'
-	}
+	
 }
 
 

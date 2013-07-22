@@ -14,9 +14,9 @@ class Measure {
 	static belongsTo = [Product]
 	
     static constraints = {
-		code()
-		name()
-		notes(nullable: true)
+		code(blank:false)
+		name(blank:false)
+		notes(nullable: true,maxSize:5000)		
 		measureCategory(nullable: true)
 		cqmDomain(nullable: true)
     }

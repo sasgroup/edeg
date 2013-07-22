@@ -125,7 +125,7 @@ App.Views.Product = Backbone.View.extend({
 	},
 	
 	submProduct : function(e) {
-		e.preventDefault();		
+		e.preventDefault();
 
 		this.model.save(this.attributes,{
 	        success: function (model, response) {
@@ -135,7 +135,7 @@ App.Views.Product = Backbone.View.extend({
 	        },
 	        error: function (model, response) {
 	        	$('div#message-box').text("").append(response.message).fadeIn(500).delay(1500).fadeOut(500);
-	            Backbone.history.navigate("product", true);
+	            //Backbone.history.navigate("product", true);
 	        }
 	    });
 	},

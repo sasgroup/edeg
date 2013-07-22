@@ -14,8 +14,8 @@ class Product {
 	}*/
 	
 	 static constraints = {
-		code()
-		name()
+		code(blank:false)
+		name(blank:false)
 		notes(maxSize:5000)
 	}
 	 

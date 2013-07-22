@@ -3,6 +3,7 @@
 	<head>
 		<title>IHM Demo</title>
 		<r:require module="ihm" />
+		<r:require modules="jquery-validation-ui" />
 		<meta name="layout" content="main">
 	</head>
 	<body>	    

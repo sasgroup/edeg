@@ -91,7 +91,7 @@
 <script type="text/template" class="template" id="single-product">
  <td>{{ code }}</td>
  <td>{{ name }}</td>
- <td>{{ notes }}</td> 
+ <td><div class='notes' title="{{notes}}">{{ notes }}</div></td> 
  <td class="f-btn"><div id="edit" class= "btn"><i class="icon-edit"></i></div></td>
  <td class="f-btn"><div id="destroy" class= "btn"><i class="icon-trash"></i></div></td> 
 </script>

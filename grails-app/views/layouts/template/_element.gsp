@@ -46,11 +46,11 @@
   				    <div class="row">
     				  <div class="span5">      				  
                         <div class="row-fluid">
-                          <label for="code" class="span3">Code</label>    
+                          <label for="code" class="span3">Code<span class="required">*</span></label>    
 					      <input name="code" type="text" class="span9" value="{{ code }}" id="code">
 					    </div>					  
 					    <div class="row-fluid">	
-                          <label for="name" class="span3">Name</label>                                         
+                          <label for="name" class="span3">Name<span class="required">*</span></label>                                         
                           <input name="name" type="text" class="span9" value="{{ name }}" id="name">
 					   </div> 					
 					  </div>    				  
@@ -93,7 +93,7 @@
 <script type="text/template" class="template" id="single-element">
  <td>{{ code }}</td>
  <td>{{ name }}</td>
- <td>{{ notes }}</td>
+  <td><div class='notes' title="{{notes}}">{{ notes }}</div></td> 
  <td class="f-btn"><div id="edit" class= "btn"><i class="icon-edit"></i></div></td>
  <td class="f-btn"><div id="destroy" class= "btn"><i class="icon-trash"></i></div></td> 
 </script>

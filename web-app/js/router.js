@@ -52,7 +52,7 @@ App.Router = Backbone.Router.extend({
 	products : function() {
 		App.products.fetch().then(function(){
 			App.viewProducts = new App.Views.Products({collection:App.products});
-			$('#app').html(App.viewProducts.render().el);
+			$('#app').html(App.viewProducts.render().el);		
 		});		
 	},
 	
@@ -100,6 +100,17 @@ App.Router = Backbone.Router.extend({
 			App.hospitals.fetch().then(function(){
 				var view = new App.Views.Product({model:productModel});
 				$('#app').html(view.render().el);
+				
+				$('form#product-edit').validate({
+				     rules: {
+				   	 code: { required: true },
+				         name: { required: true },	               
+				         },
+				    messages: {
+				       	code: "Code cannot be blank", 
+				            name: "Name cannot be blank"
+				         }
+				});
 			});			
 		});		
     },
@@ -109,6 +120,17 @@ App.Router = Backbone.Router.extend({
 			App.dataElements.fetch().then(function(){
 				var view = new App.Views.Ehr({model:ehrModel});
 				$('#app').html(view.render().el);
+				
+				$('form#ehr-edit').validate({
+				     rules: {
+				   	 code: { required: true },
+				         name: { required: true },	               
+				         },
+				    messages: {
+				       	code: "Code cannot be blank", 
+				            name: "Name cannot be blank"
+				         }
+				});
 			});	
 		});		
     },
@@ -117,6 +139,17 @@ App.Router = Backbone.Router.extend({
 			App.dataElements.fetch().then(function(){
 				var view = new App.Views.Measure({model: measureModel});		
 				$('#app').html(view.render().el); 
+				
+				$('form#measure-edit').validate({
+				     rules: {
+				   	 code: { required: true },
+				         name: { required: true },	               
+				         },
+				    messages: {
+				       	code: "Code cannot be blank", 
+				            name: "Name cannot be blank"
+				         }
+				});
 			});			
 			  
 		});		
@@ -127,6 +160,17 @@ App.Router = Backbone.Router.extend({
 			App.ehrs.fetch().then(function(){
 				var view = new App.Views.DataElement({model: dataElement});		
 				$('#app').html(view.render().el);
+				
+				$('form#element-edit').validate({
+				     rules: {
+				   	 code: { required: true },
+				         name: { required: true },	               
+				         },
+				    messages: {
+				       	code: "Code cannot be blank", 
+				            name: "Name cannot be blank"
+				         }
+				});
 			});
 		});	
     },
