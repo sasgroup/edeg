@@ -169,6 +169,7 @@ App.Views.SingleProduct = Backbone.View
 				
 				var el = this.$el;
 				
+				if (confirm('Are you sure you want to delete this Product?')) {
 				this.model.destroy({
 					wait: true,
 				    success: function(model, response){
@@ -183,9 +184,7 @@ App.Views.SingleProduct = Backbone.View
 				     }
 				});
 				
-				
-				//this.model.destroy();				  
-				//this.$el.remove();  
+				}
 			}
 		});
 
