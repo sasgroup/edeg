@@ -11,6 +11,7 @@ App.Views.Measures = Backbone.View.extend({
 			measures : this.collection
 		}));
 		this.collection.each(this.appendMeasure, this);
+				
 		return this;
 	},
 

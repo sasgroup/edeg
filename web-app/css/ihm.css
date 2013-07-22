@@ -9,6 +9,10 @@ body {
     height:100%;       
 }
 
+table.dataTable thead th {
+    border-bottom: none;
+}    
+
 button.btn, input.btn[type="submit"] {
     margin-left: 4px;
 }
@@ -21,6 +25,28 @@ td div.notes {
     padding: 0;
     text-overflow: ellipsis;
     width: 450px;
+    white-space: nowrap;
+}
+
+form#measure-list div.notes {
+	display: block;
+    height: 20px;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    text-overflow: ellipsis;
+    width: 400px;
+    white-space: nowrap;
+}
+
+td div.name {
+	display: block;
+    height: 20px;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    text-overflow: ellipsis;
+    width: 350px;
     white-space: nowrap;
 }
 

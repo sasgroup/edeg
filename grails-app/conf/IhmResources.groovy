@@ -58,6 +58,8 @@ modules = {
 	
 	datatable {
 		resource url: 'js/datatable/jquery.dataTables.min.js'
+		resource url: 'js/datatable/fixed_columns.js'
+		resource url: 'js/datatable/fixed_header.min.js'
 		resource url: 'css/datatable/jquery.dataTables.css'
 	}
 	

@@ -61,6 +61,39 @@ App.Router = Backbone.Router.extend({
 		App.measures.fetch().then(function(){
 			App.viewMeasures = new App.Views.Measures({collection:App.measures});
 			$('#app').html(App.viewMeasures.render().el);
+			
+			/*var oTable = $('#table_items').dataTable({
+	 			"bPaginate": false,
+	 			"bLengthChange": false,
+	 			"bFilter": false,
+	 			"bSort": true,
+	 			"bInfo": false,
+	 			"bAutoWidth": false,
+	 			"aoColumnDefs": [
+					{ 'bSortable': false, 'aTargets': [ 2,3,4 ] }
+				 ]
+			});		
+			
+			new FixedHeader( oTable );*/
+			
+			var oTable = $('#table_items').dataTable( 
+					{
+						"bPaginate": false,
+						"bFilter": false,
+						"sScrollY": "500px",
+						"bSort": true,
+			 			"bInfo": false,
+			 			"bAutoWidth": false,
+			 			"aoColumnDefs": [
+			 							{ 'bSortable': false, 'aTargets': [ 2,3,4 ] }
+			 						 ],
+						"bScrollCollapse": true,
+						"bPaginate": false
+					} );
+		   new FixedColumns( oTable,
+					{ "sHeightMatch": "none"} );
+			
+			
 		});
 	},	
 	
