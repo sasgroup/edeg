@@ -87,7 +87,13 @@ th.f-btn, td.f-btn {
 }
 
 div#modalDataElements {
-	width: 800px;
+	height: 500px;
+    left: auto;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    /*right: auto;*/
+    width: 900px;
 }
 
 div.row-fluid textarea {
