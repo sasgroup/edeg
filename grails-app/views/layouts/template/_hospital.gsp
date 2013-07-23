@@ -92,8 +92,7 @@
             </tr>
         </tbody>
     </table>   
-    <hr>
-       
+   
     <ul id="myTab" class="nav nav-tabs">               
     </ul>     
     <div id="myTabContent" class="tab-content">               
@@ -141,7 +140,8 @@
  			<th>Delete</th>-->	
 		   </tr>
     </thead>				
-    <tbody></tbody>
+    <tbody>		
+    </tbody>
 </table>
 </script>
 

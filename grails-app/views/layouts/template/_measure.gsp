@@ -73,8 +73,7 @@
 
 					  </div>
   				    </div>
-				</div>
-				<hr>
+				</div>				
                 <ul id="myTab" class="nav nav-tabs">
                   <li class="active">
                     <a data-toggle="tab" href="#products">Products</a>

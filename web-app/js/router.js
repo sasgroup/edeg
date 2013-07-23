@@ -217,6 +217,17 @@ App.Router = Backbone.Router.extend({
 				            name: "Name cannot be blank"
 				         }
 				});
+				
+				$('.ehrTable').dataTable({
+					"bPaginate": false,
+					"bFilter": false,					
+					"bSort": false,
+					"bInfo": false,
+					"bAutoWidth": false,
+		 		    "aoColumnDefs": [
+							{ 'bSortable': false, 'aTargets': [ 4,5,6,7,8,9 ] }
+						 ]
+				});		
 			});	
 		});		
     },
@@ -257,6 +268,18 @@ App.Router = Backbone.Router.extend({
 				            name: "Name cannot be blank"
 				         }
 				});
+				
+				$('.ehrTable').dataTable({
+					"bPaginate": false,
+					"bFilter": false,					
+					"bSort": false,
+					"bInfo": false,
+					"bAutoWidth": false,
+		 		"aoColumnDefs": [
+							{ 'bSortable': false, 'aTargets': [ 4,5,6,7,8,9 ] }
+						 ]
+				 });			
+				
 			});
 		});	
     },
@@ -288,6 +311,35 @@ App.Router = Backbone.Router.extend({
 																				
 				view.createTabs();
 				view.setPrimaryEhr();
+				
+				var oTable = $('.hospitalMeasureTable').dataTable({
+						"bRetrieve": true,
+						"bDestroy": true, 
+					    "bPaginate": false,
+						"bFilter": true,
+						"sScrollY": "180px",
+						"bSort": true,
+						"bInfo": false,
+						"bAutoWidth": false,
+			 		"aoColumnDefs": [
+								{ 'bSortable': false, 'aTargets': [ 4,5,6,7,8,9 ] }
+							 ]
+					 });	
+				
+				 new FixedColumns( oTable, 	{ "sHeightMatch": "none"} );		
+				/*$('#t1 .hospitalMeasureTable').dataTable({
+					"bPaginate": false,
+					"bFilter": true,
+					"sScrollY": "200px",
+					"bSort": true,
+					"bInfo": false,
+					"bAutoWidth": false,
+		 		"aoColumnDefs": [
+							{ 'bSortable': false, 'aTargets': [ 4,5,6,7,8,9 ] }
+						 ]
+				 });	*/
+
+					
 								
 		//	});		   
 		});	

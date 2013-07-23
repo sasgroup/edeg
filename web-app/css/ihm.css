@@ -100,7 +100,7 @@ form input.error {
 
 form#hospital-edit div#myTabContent  {
 	display:block;
-	height: 312px;
+	height: 300px;
 	width:100%;
 	overflow: auto;   
 }
@@ -317,6 +317,18 @@ table input, table select  {
   margin: 0 !important;
   width: 96%;
 }
+
+table input  {
+  margin: 0 !important;
+  width: 90%;
+}
+
+
+.btn-mini {
+	margin: 0;
+    height: 28px;
+}
+
 
 table.dataTable td {
     padding: 0px 2px;

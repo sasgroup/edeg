@@ -101,6 +101,23 @@ App.Views.Hospital = Backbone.View.extend({
 	changeTab: function (e){		
 		var product_id = $(e.target).attr('href').replace('#t','');				
 		var slcTab = '#myTabContent div#t' + product_id;	
+		
+		var oTable = $('.hospitalMeasureTable').dataTable({
+			"bRetrieve": true, 
+			"bDestroy": true, 
+			"bPaginate": false,
+			"bFilter": true,
+			"sScrollY": "180px",
+			"bSort": true,
+			"bInfo": false,
+			"bAutoWidth": false,
+ 		     "aoColumnDefs": [
+					{ 'bSortable': false, 'aTargets': [ 4,5,6,7,8,9 ] }
+				 ]
+		 });	
+	
+	    new FixedColumns( oTable, 	{ "sHeightMatch": "none"} );		
+		
 	},
 	
 	// append HospitalMeasureTable to Tab
@@ -112,8 +129,8 @@ App.Views.Hospital = Backbone.View.extend({
 		$.each( products , function( i, product ) {					
 			var slcTab = '#myTabContent div#t' + product.id;
 			$(slcTab).append(table_template());	
-						
-			tableToGrid(slcTab + ' .hospitalMeasureTable', {
+						 						
+			/*tableToGrid(slcTab + ' .hospitalMeasureTable', {
 				   //autowidth:true,					
 				   height: 285,
 				   width: 950,
@@ -132,7 +149,7 @@ App.Views.Hospital = Backbone.View.extend({
 				sortable: true,	
 				rowNum: 10000,
 				viewrecords: true
-		   });
+		   });*/
 						
 			// get assigned measures
 			var measures = product.measures;
@@ -150,19 +167,22 @@ App.Views.Hospital = Backbone.View.extend({
 				var view = new App.Views.SingleHospitalMeasure({ model : hospitalMeasure });				
 				$(slcTab + ' .hospitalMeasureTable tbody').append(view.render().el);				
 			});		
-						
-						
-		  /* $(slcTab + ' .hospitalMeasureTable').dataTable({
-	    		 			"bPaginate": true,
-	    		 			"bLengthChange": false,
-	    		 			"bFilter": false,
-	    		 			"bSort": true,
-	    		 			"bInfo": false,
-	    		 			"bAutoWidth": false,
-	    		 			"aoColumnDefs": [
+					
+		 						
+		  /*var oTable = $(slcTab + ' .hospitalMeasureTable').dataTable({
+			  			"bPaginate": false,
+			  			"bFilter": true,
+			  			"sScrollY": "200px",
+			  			"bSort": true,
+			  			"bInfo": false,
+			  			"bAutoWidth": false,
+	    		 		"aoColumnDefs": [
           						{ 'bSortable': false, 'aTargets': [ 4,5,6,7,8,9 ] }
        						 ]
-			});		*/
+			});		
+		   
+		   new FixedColumns( oTable,
+					{ "sHeightMatch": "none"} );		*/
 		   
 		   //var sel = $(slcTab + ' .hospitalMeasureTable');			
 		});	  
