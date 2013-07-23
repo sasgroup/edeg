@@ -37,7 +37,7 @@ App.Views.DataElement = Backbone.View.extend({
 	template : _.template($('#element-template').html()),
 	
 	events : {
-		'click button#submit' : 'editDataElement',
+		'submit' : 'editDataElement',
 		'click button#cancel' : 'returnOnMain', 
 		'change #code, #name, #notes' : 'changeVal',
 		'change .checkbox' : 'changeCh'

@@ -96,7 +96,7 @@
                 </div>
 
                 <div class="form-actions">
-                    <button id="submit" class="btn btn-info pull-right">Save Measure</button>
+                    <button type="submit" class="btn btn-info pull-right">Save Measure</button>
 					<button id="cancel" class="btn btn-info pull-right">Cancel</button>
                 </div>
             </form>       

@@ -34,7 +34,7 @@ App.Views.Measure = Backbone.View.extend({
 	template : _.template($('#measure-template').html()),
 
 	events : {
-		'click button#submit' : 'editMeasure',
+		'submit' : 'editMeasure',
 		'click button#cancel' : 'returnOnMain', 
 		'change #code, #name, #notes' : 'changeVal',
 		'change #measureCategory, #cqmDomain' : 'changeDr',

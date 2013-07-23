@@ -32,7 +32,7 @@ App.Views.Ehrs = Backbone.View.extend({
 App.Views.Ehr = Backbone.View.extend({
 	template : _.template($('#ehr-template').html()),
 	events : {
-		'click button#submit' : 'editEhr',
+		'submit' : 'editEhr',
 		'click button#cancel' : 'returnOnMain', 
 		'change #code, #name, #notes' : 'changeVal'
 	},
