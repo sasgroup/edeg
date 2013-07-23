@@ -5,8 +5,7 @@
          <h3>List of Products</h3>
     		<section class="row-fluid">
       			<a id="create_product">Create New</a>
-    		</section>
-            <hr>		
+    		</section>            
             <div class="clearfix"></div>
             <form method="post" class="form-horizontal" id="product-list" accept-charset="utf-8">
                 <table id="table_items" class="table table-striped" >

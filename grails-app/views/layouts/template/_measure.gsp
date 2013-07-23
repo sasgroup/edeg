@@ -3,11 +3,7 @@
 <div class="container" >
     <div class="row">       
             <h3>List of Measures</h3>
-    		<section class="row-fluid">
-      			<a id="create_measure">Create New</a>
-    		</section>
-            <hr>
-            <div class="clearfix"></div>
+			<a id="create_measure" class="create_new">Create New</a>    		
             <form method="post" class="form-horizontal" id="measure-list" accept-charset="utf-8">
                 <table id="table_items" class="table table-striped" >
                     <thead>

@@ -5,8 +5,7 @@
             <h3>List of EHR</h3>
     		<section class="row-fluid">
       			<a id="create_ehr">Create New</a>
-    		</section>
-            <hr>
+    		</section>           
             <div class="clearfix"></div>
             <form action="billing" method="post" class="form-horizontal" id="billingform" accept-charset="utf-8">
             <table id="table_items" class="table table-striped" >

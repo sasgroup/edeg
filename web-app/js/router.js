@@ -53,34 +53,12 @@ App.Router = Backbone.Router.extend({
 		App.products.fetch().then(function(){
 			App.viewProducts = new App.Views.Products({collection:App.products});
 			$('#app').html(App.viewProducts.render().el);		
-		});		
-	},
-	
-	// list of measures
-	measures : function() {		
-		App.measures.fetch().then(function(){
-			App.viewMeasures = new App.Views.Measures({collection:App.measures});
-			$('#app').html(App.viewMeasures.render().el);
-			
-			/*var oTable = $('#table_items').dataTable({
-	 			"bPaginate": false,
-	 			"bLengthChange": false,
-	 			"bFilter": false,
-	 			"bSort": true,
-	 			"bInfo": false,
-	 			"bAutoWidth": false,
-	 			"aoColumnDefs": [
-					{ 'bSortable': false, 'aTargets': [ 2,3,4 ] }
-				 ]
-			});		
-			
-			new FixedHeader( oTable );*/
 			
 			var oTable = $('#table_items').dataTable( 
 					{
 						"bPaginate": false,
-						"bFilter": false,
-						"sScrollY": "500px",
+						"bFilter": true,
+						"sScrollY": "470px",
 						"bSort": true,
 			 			"bInfo": false,
 			 			"bAutoWidth": false,
@@ -91,8 +69,32 @@ App.Router = Backbone.Router.extend({
 						"bPaginate": false
 					} );
 		   new FixedColumns( oTable,
-					{ "sHeightMatch": "none"} );
+					{ "sHeightMatch": "none"} );						
+		});		
+	},
+	
+	// list of measures
+	measures : function() {		
+		App.measures.fetch().then(function(){
+			App.viewMeasures = new App.Views.Measures({collection:App.measures});
+			$('#app').html(App.viewMeasures.render().el);
 			
+			var oTable = $('#table_items').dataTable( 
+					{
+						"bPaginate": false,
+						"bFilter": true,
+						"sScrollY": "470px",
+						"bSort": true,
+			 			"bInfo": false,
+			 			"bAutoWidth": false,
+			 			"aoColumnDefs": [
+			 							{ 'bSortable': false, 'aTargets': [ 2,3,4 ] }
+			 						 ],
+						"bScrollCollapse": true,
+						"bPaginate": false
+					} );
+		   new FixedColumns( oTable,
+					{ "sHeightMatch": "none"} );	
 			
 		});
 	},	
@@ -102,6 +104,23 @@ App.Router = Backbone.Router.extend({
 		App.dataElements.fetch().then(function(){
 			App.viewDataElements = new App.Views.DataElements({collection:App.dataElements});			
 			$('#app').html(App.viewDataElements.render().el);
+			
+			var oTable = $('#table_items').dataTable( 
+					{
+						"bPaginate": false,
+						"bFilter": true,
+						"sScrollY": "470px",
+						"bSort": true,
+			 			"bInfo": false,
+			 			"bAutoWidth": false,
+			 			"aoColumnDefs": [
+			 							{ 'bSortable': false, 'aTargets': [ 2,3,4 ] }
+			 						 ],
+						"bScrollCollapse": true,
+						"bPaginate": false
+					} );
+		   new FixedColumns( oTable,
+					{ "sHeightMatch": "none"} );						
 		});
 	},	
 	
@@ -110,6 +129,23 @@ App.Router = Backbone.Router.extend({
 		App.hospitals.fetch().then(function(){
 			App.viewHospitals = new App.Views.Hospitals({collection:App.hospitals});			
 			$('#app').html(App.viewHospitals.render().el);
+			
+			var oTable = $('#table_items').dataTable( 
+					{
+						"bPaginate": false,
+						"bFilter": true,
+						"sScrollY": "470px",
+						"bSort": true,
+			 			"bInfo": false,
+			 			"bAutoWidth": false,
+			 			"aoColumnDefs": [
+			 							{ 'bSortable': false, 'aTargets': [ -1 ] }
+			 						 ],
+						"bScrollCollapse": true,
+						"bPaginate": false
+					} );
+		   new FixedColumns( oTable,
+					{ "sHeightMatch": "none"} );		
 		});
 	},	
 	
@@ -119,6 +155,23 @@ App.Router = Backbone.Router.extend({
 			console.log ();
 			App.viewEhrs = new App.Views.Ehrs({collection:App.ehrs});			
 			$('#app').html(App.viewEhrs.render().el);
+			
+			var oTable = $('#table_items').dataTable( 
+					{
+						"bPaginate": false,
+						"bFilter": true,
+						"sScrollY": "470px",
+						"bSort": true,
+			 			"bInfo": false,
+			 			"bAutoWidth": false,
+			 			"aoColumnDefs": [
+			 							{ 'bSortable': false, 'aTargets': [ 2,3,4 ] }
+			 						 ],
+						"bScrollCollapse": true,
+						"bPaginate": false
+					} );
+		   new FixedColumns( oTable,
+					{ "sHeightMatch": "none"} );		
 		});		
 	},	
 	
