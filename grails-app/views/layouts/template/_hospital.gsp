@@ -126,7 +126,7 @@
 
 <!-- hospital-measure_table -->
 <script type="text/template" class="template" id="hospital-measure_table">
-<table class="hospitalMeasureTable table table-striped ">
+<table class="hospitalMeasureTable table table-striped " style="width: 943px;">
 	<thead><tr>
 		    <th>Use</th>
 			<th>ID</th>           

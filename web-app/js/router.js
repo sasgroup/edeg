@@ -144,7 +144,7 @@ App.Router = Backbone.Router.extend({
 						"bScrollCollapse": true,
 						"bPaginate": false
 					} );
-		   new FixedColumns( oTable,
+		    new FixedColumns( oTable,
 					{ "sHeightMatch": "none"} );		
 		});
 	},	
@@ -313,20 +313,27 @@ App.Router = Backbone.Router.extend({
 				view.setPrimaryEhr();
 				
 				var oTable = $('.hospitalMeasureTable').dataTable({
-						"bRetrieve": true,
+						//"bRetrieve": true,
 						"bDestroy": true, 
 					    "bPaginate": false,
-						"bFilter": true,
-						"sScrollY": "180px",
+						"bFilter": false,
+						"sScrollY": "272px",
 						"bSort": true,
 						"bInfo": false,
-						"bAutoWidth": false,
-			 		"aoColumnDefs": [
-								{ 'bSortable': false, 'aTargets': [ 4,5,6,7,8,9 ] }
-							 ]
+						"aoColumns" : [
+						               { sWidth: '40px' },
+						               { sWidth: '40px' },
+						               { sWidth: '100px' },
+						               { sWidth: '325px' },
+						               { sWidth: '60px' },
+						               { sWidth: '60px' },
+						               { sWidth: '60px' },
+						               { sWidth: '60px' }
+						           ]  	 		
 					 });	
 				
-				 new FixedColumns( oTable, 	{ "sHeightMatch": "none"} );		
+				 new FixedColumns( oTable, 	{ "sHeightMatch": "none"} );	
+				 //oTable.fnAdjustColumnSizing();
 				/*$('#t1 .hospitalMeasureTable').dataTable({
 					"bPaginate": false,
 					"bFilter": true,

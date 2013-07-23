@@ -159,7 +159,7 @@ div.row-fluid textarea {
 /* header */
 .page-header{
     height: 140px;
-    background: url('http://healthmetrics.web13.hubspot.com/Portals/215627/assets/images/blue-sliver.png') repeat-x;   
+    background: url("images/blue-sliver.png") repeat-x;   
     margin: 0;
     border-bottom: none;    
 }
@@ -167,7 +167,7 @@ div.row-fluid textarea {
 header {
     max-width: 980px;
     height: 140px;
-    background: url("http://healthmetrics.web13.hubspot.com/Portals/215627/assets/images/head-bg.png") no-repeat scroll -13px 0;
+    background: url("images/head-bg.png") no-repeat scroll -13px 0;
     margin: 0px auto 0px auto;
     position: relative;
 }
@@ -181,7 +181,7 @@ header a.logo {
     height: 85px;
     top: 18px ;
     left: 22px;
-    background-image: url("http://ihm-services.com/Portals/215627/assets/images/ihm-logo-TRANS-sm.png");
+    background-image: url("images/ihm-logo-TRANS-sm.png");
 }
 
 nav.header-nav {
@@ -334,9 +334,9 @@ table.dataTable td {
     padding: 0px 2px;
 }
 
-input[type="checkbox"] {
+/*input[type="checkbox"] {
 	width: 40px;
-}
+}*/
 
 button#btnApplyHospitalOptions {
 	width: 112px;
