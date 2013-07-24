@@ -57,20 +57,28 @@ App.Views.Product = Backbone.View.extend({
 	},
 
 	uniqueCodeCheck: function () {
-		$('input[name=code]').next('label.error').remove();		
-		var notUniqueCode = false;
+		var cur_code = '';
 		var new_code = $('input[name=code]').val();
+		var codes = [];
+		 		
+		if (this.model.toJSON().id) {
+			cur_code = this.model.get('code');
+		};
 		
-		App.products.forEach(function(product){
-			console.log(product.get('code'));
-			if (new_code==product.get('code')) {
-				notUniqueCode = true;				
-			}
-		});	
+		$('input[name=code]').next('label.error').remove();		
 		
-		if (notUniqueCode) { 
-			$('input[name=code]').after('<label class="error">Should be unique</label>');
+		App.products.forEach(function(product){			
+			codes.push(product.get('code'));
+		});
+				
+		var index = codes.indexOf(cur_code);
+		if (index!=-1) {
+			codes.splice(index, 1);
 		}	
+				
+		if (codes.indexOf(new_code)!=-1) {
+			$('input[name=code]').after('<label class="error">Should be unique</label>');
+		}				
 	},
 	
 	appendProductMeasure : function(product_measure){

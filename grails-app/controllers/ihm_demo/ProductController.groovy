@@ -73,7 +73,7 @@ class ProductController {
 		productInstance  = saveInstance(productInstance, params)
 		render(contentType: "text/json") {
 			resp = "ok"
-			message = "Product ${productInstance.name} successfully updated"
+			message = "Product ${productInstance.code} successfully updated"
 		}
 	}
 	

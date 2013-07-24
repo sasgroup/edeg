@@ -14,7 +14,7 @@ class Measure {
 	static belongsTo = [Product]
 	
     static constraints = {
-		code(blank:false)
+		code(blank:false,unique:true)
 		name(blank:false)
 		notes(nullable: true,maxSize:5000)		
 		measureCategory(nullable: true)

@@ -6,7 +6,7 @@ class Ehr {
 	String notes
    
 	 static constraints = {
-		code(blank:false)
+		code(blank:false,unique:true)
 		name(blank:false)
 		notes(maxSize:5000)
     }

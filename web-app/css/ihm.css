@@ -11,6 +11,12 @@ body {
 }
 
 
+div#message-box {
+	margin-left: 12px;
+    margin-top: -3px;
+    color: #0088CC;
+}
+
 h3 {
     font-size: 19.5px;
 }
