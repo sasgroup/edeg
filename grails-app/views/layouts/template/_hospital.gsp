@@ -4,25 +4,22 @@
 <div class="row">    
         <h3>List of Hospitals</h3>        
         <div class="clearfix"></div>
-        <form method="post" class="form-horizontal" accept-charset="utf-8">
-
-<table id="table_items" class="table table-striped" >
-    <thead>
-        <tr>
-            <th>
-                Name
-            </th>
-            <th>
-                Notes
-            </th>
-            <th class="f-btn">Edit</th>			
-        </tr>
-    </thead>
-
-    <tbody>    
-    </tbody>
-</table>
-
+        <form method="post" class="form-horizontal" id="hospital-list" accept-charset="utf-8">
+			<table id="table_items" class="table table-striped" >
+    			<thead>
+        			<tr>
+            			<th>
+                			Name
+            			</th>
+            			<th>
+                			Notes
+            			</th>
+            			<th class="f-btn">Edit</th>			
+        			</tr>
+    			</thead>
+    			<tbody>    
+    			</tbody>
+			</table>
         </form>
 </div>
 </div>
@@ -120,8 +117,8 @@
 
 <!-- SINGLE -->
 <script type="text/template" class="template" id="single-hospital">
- <td>{{ name }}</td>
- <td><div class='notes'>{{ notes }}</div></td>
+ <td><div class='name' title="{{name}}">{{ name }}</div></td>
+ <td><div class='notes' title="{{notes}}">{{ notes }}</div></td>
  <td class="f-btn"><div id="edit" class= "btn"><i class="icon-edit"></i></div></td> 
 </script>
 

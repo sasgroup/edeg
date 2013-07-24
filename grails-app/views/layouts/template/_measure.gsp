@@ -104,7 +104,7 @@
 <script type="text/template" class="template" id="single-measure">
  <td>{{ code }}</td>
  <td><div class='name' title="{{name}}">{{ name }}</div></td>
-  <td><div class='notes' title="{{notes}}">{{ notes }}</div></td> 
+ <td><div class='notes' title="{{notes}}">{{ notes }}</div></td> 
  <td class="f-btn"><div id="edit" class= "btn"><i class="icon-edit"></i></div></td>
  <td class="f-btn"><div id="destroy" class= "btn"><i class="icon-trash"></i></div></td>
 </script>

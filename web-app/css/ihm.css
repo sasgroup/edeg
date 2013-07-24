@@ -36,6 +36,17 @@ button.btn, input.btn[type="submit"] {
     margin-left: 4px;
 }
 
+td div.name {
+	display: block;
+    height: 20px;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    text-overflow: ellipsis;
+    width: 300px;
+    white-space: nowrap;
+}
+
 td div.notes {
 	display: block;
     height: 20px;
@@ -47,26 +58,13 @@ td div.notes {
     white-space: nowrap;
 }
 
-form#measure-list div.notes {
-	display: block;
-    height: 20px;
-    margin: 0;
-    overflow: hidden;
-    padding: 0;
-    text-overflow: ellipsis;
-    width: 350px;
-    white-space: nowrap;
+
+form#hospital-list td div.name {
+	 width: 400px;	
 }
 
-td div.name {
-	display: block;
-    height: 20px;
-    margin: 0;
-    overflow: hidden;
-    padding: 0;
-    text-overflow: ellipsis;
-    width: 350px;
-    white-space: nowrap;
+form#hospital-list td div.notes {
+	 width: 450px;	
 }
 
 form label.error {
