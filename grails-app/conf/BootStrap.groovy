@@ -413,20 +413,6 @@ class BootStrap {
 		measure.addToProducts(Product.findByCode("MU2"))
 		measure.save() 
 		
-		measure = new Measure(code:"CPOE-Rad",
-							  name:"CPOE - Radiology Orders",
-							  notes:"",
-							  measureCategory : MeasureCategory.findByName("CORE"),
-							  cqmDomain:cqmDomain)
-		
-		if (!measure.save()){
-			measure.errors.allErrors.each{error ->
-				println "An error occured with event1: ${error}"
-			}
-		}
-		measure.addToProducts(Product.findByCode("MU2"))
-		measure.save() 
-		
 		measure = new Measure(code:"SumOfCare",
 							  name:"Summary of Care",
 							  notes:"",
@@ -825,21 +811,6 @@ class BootStrap {
 		
 		measure = new Measure(code:"AMI-8a",
 							  name:"AMI-8a:  Primary PCI Within 90 Minutes of Arrival",
-							  notes:"",
-							  measureCategory : MeasureCategory.findByName("CQM"),
-							  cqmDomain:CqmDomain.findByName("Clinical Process / Effectiveness"))
-		
-		if (!measure.save()){
-			measure.errors.allErrors.each{error ->
-				println "An error occured with event1: ${error}"
-			}
-		}
-		measure.addToProducts(Product.findByCode("MU2"))
-		measure.addToProducts(Product.findByCode("MU1"))
-		measure.save() 
-		
-		measure = new Measure(code:"AMI-8a",
-							  name:"AMI-10: Statin Prescribed at Discharge",
 							  notes:"",
 							  measureCategory : MeasureCategory.findByName("CQM"),
 							  cqmDomain:CqmDomain.findByName("Clinical Process / Effectiveness"))
