@@ -29,7 +29,8 @@ App.Views.Hospital = Backbone.View.extend({
 	},
 	
 	events : {
-		'click #submit-btn' 					 : 'submHospital',		
+		'click #submit-btn' 					 : 'submHospital',	
+		'click button#cancel' 					 : 'returnOnMain', 
 		'click #btnApplyHospitalOptions' : 'applyHospitalOptions',
 		'click a[data-toggle="tab"]'	 : 'changeTab',
 		'change #notes' 				 : 'changeVal'
@@ -252,6 +253,10 @@ App.Views.Hospital = Backbone.View.extend({
 	        }
 	    });
 	},
+	
+	returnOnMain: function () {		
+		Backbone.history.navigate("/hospital", true);				
+	}
 
 });
 

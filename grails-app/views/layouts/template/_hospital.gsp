@@ -100,6 +100,7 @@
 
 	<div class="form-actions">
                     <button id="submit-btn" class="btn btn-info pull-right">Save Hospital</button>
+					<button id="cancel" class="btn btn-info pull-right">Cancel</button>
     </div>
 	
 	 </form>  
