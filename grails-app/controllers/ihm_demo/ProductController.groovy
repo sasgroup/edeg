@@ -4,9 +4,7 @@ import grails.converters.JSON
 import org.springframework.dao.DataIntegrityViolationException
 
 class ProductController {
-	
-	
-	
+		
 	def save() {
 		def productInstance  = saveInstance(new Product(), params)
 		render(contentType: "text/json") {

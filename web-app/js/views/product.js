@@ -40,7 +40,9 @@ App.Views.Product = Backbone.View.extend({
 		'submit' : 'submProduct',
 		'click button#cancel' : 'returnOnMain',       
 		'change #code, #name, #notes' : 'changeVal',
-		'change .checkbox' : 'changeCh'
+		'change .checkbox' : 'changeCh',
+		'focusout input[name=code]': 'uniqueCodeCheck'
+
 	},
 	
 	render : function() {	
@@ -54,6 +56,23 @@ App.Views.Product = Backbone.View.extend({
 		return this;
 	},
 
+	uniqueCodeCheck: function () {
+		$('input[name=code]').next('label.error').remove();		
+		var notUniqueCode = false;
+		var new_code = $('input[name=code]').val();
+		
+		App.products.forEach(function(product){
+			console.log(product.get('code'));
+			if (new_code==product.get('code')) {
+				notUniqueCode = true;				
+			}
+		});	
+		
+		if (notUniqueCode) { 
+			$('input[name=code]').after('<label class="error">Should be unique</label>');
+		}	
+	},
+	
 	appendProductMeasure : function(product_measure){
 		var temp = _.template($('#single-product-measure').html());		
 		var chd = '';
@@ -126,8 +145,10 @@ App.Views.Product = Backbone.View.extend({
 	},
 	
 	submProduct : function(e) {
-		e.preventDefault();
-
+		e.preventDefault();				
+		
+		this.uniqueCodeCheck();
+		
 		this.model.save(this.attributes,{
 	        success: function (model, response) {
 	           console.log(response);
@@ -136,7 +157,7 @@ App.Views.Product = Backbone.View.extend({
 	        },
 	        error: function (model, response) {
 	        	$('div#message-box').text("").append(response.message).fadeIn(500).delay(1500).fadeOut(500);
-	            Backbone.history.navigate("product", true);
+	            //Backbone.history.navigate("product", true);
 	        }
 	    });
 	},

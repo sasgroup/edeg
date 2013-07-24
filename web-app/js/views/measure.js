@@ -38,7 +38,8 @@ App.Views.Measure = Backbone.View.extend({
 		'click button#cancel' : 'returnOnMain', 
 		'change #code, #name, #notes' : 'changeVal',
 		'change #measureCategory, #cqmDomain' : 'changeDr',
-		'change .checkbox' : 'changeCh'
+		'change .checkbox' : 'changeCh',
+		'focusout input[name=code]': 'uniqueCodeCheck'
 	},
 	
 	render : function() {		
@@ -53,6 +54,24 @@ App.Views.Measure = Backbone.View.extend({
 		
 		return this;
 	},
+	
+	uniqueCodeCheck: function () {
+		$('input[name=code]').next('label.error').remove();		
+		var notUniqueCode = false;
+		var new_code = $('input[name=code]').val();
+		
+		App.measures.forEach(function(measure){
+			console.log(measure.get('code'));
+			if (new_code==measure.get('code')) {
+				notUniqueCode = true;				
+			}
+		});	
+		
+		if (notUniqueCode) { 
+			$('input[name=code]').after('<label class="error">Should be unique</label>');
+		}	
+	},
+	
 	changeDr : function(e) {
 		this.model.attributes[e.target.id] = {id : e.target.value};
 	},
@@ -134,8 +153,9 @@ App.Views.Measure = Backbone.View.extend({
 
 	editMeasure : function(e) {
 		e.preventDefault();
-		console.log("!");
-		console.log(this.model.toJSON());
+		
+		this.uniqueCodeCheck();
+		
 		this.model.save(this.attributes,{
 	        success: function (model, response) {
 	           console.log(response);
