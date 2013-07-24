@@ -67,6 +67,10 @@ form#hospital-list td div.notes {
 	 width: 450px;	
 }
 
+form#measure-list td div.notes {
+	 width: 300px;	
+}
+
 form label.error {
 	color:red;
 	padding: 0;

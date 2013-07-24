@@ -1,7 +1,7 @@
   <footer>
 	  <nav class="footer-nav">
 	       <a href="#" class="logo">	               
-	                <img src="/ihm/static/css/images/ihm-gray-logo.png" border="0">
+	              <img src="/ihm/static/css/images/ihm-gray-logo.png" border="0">	                  
 	       </a>
 	       <a href="#product">Products</a>
 	       <a href="#measure">Measures</a>
@@ -12,8 +12,3 @@
 	  </nav>
   </footer>  	
 </div>
-<!-- <script language="javascript" type="text/javascript">
-  $(window).load(function() {
-    $('#loading').hide();
-  });
-</script> -->

@@ -9,14 +9,17 @@
                     <thead>
                         <tr>
                             <th>
+								Category
+                            </th> 
+							<th>
                                 Code
                             </th>
                             <th>
                                 Name
-                            </th>
-                            <th>
+                            </th>                            
+							<th>
                                 Notes
-                            </th>
+                            </th>	
                             <th class="f-btn">Edit</th>
                 			<th class="f-btn">Delete</th>
                         </tr>
@@ -92,7 +95,7 @@
 
                 <div class="form-actions">
                     <button type="submit" class="btn btn-info pull-right">Save Measure</button>
-					<button id="cancel" class="btn btn-info pull-right">Cancel</button>
+					<button type="reset" id="cancel" class="btn btn-info pull-right">Cancel</button>
                 </div>
             </form>       
     </div>
@@ -102,6 +105,7 @@
 
 <!-- SINGLE -->
 <script type="text/template" class="template" id="single-measure">
+ <td>{{ category }}</td>
  <td>{{ code }}</td>
  <td><div class='name' title="{{name}}">{{ name }}</div></td>
  <td><div class='notes' title="{{notes}}">{{ notes }}</div></td> 

@@ -88,11 +88,11 @@ App.Router = Backbone.Router.extend({
 			 			"bInfo": false,
 			 			"bAutoWidth": false,
 			 			"aoColumnDefs": [
-			 							{ 'bSortable': false, 'aTargets': [ 2,3,4 ] }
+			 							{'bSortable': false, 'aTargets': [ 2,3,4 ] }
 			 						 ],
-						"bScrollCollapse": true,
-						"bPaginate": false
-					} );
+			 			"aaSorting": [[0, 'asc']],			 
+						"bScrollCollapse": true						
+					});
 		   new FixedColumns( oTable,
 					{ "sHeightMatch": "none"} );	
 			
