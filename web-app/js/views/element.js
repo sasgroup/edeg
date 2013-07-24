@@ -40,7 +40,8 @@ App.Views.DataElement = Backbone.View.extend({
 		'submit' : 'editDataElement',
 		'click button#cancel' : 'returnOnMain', 
 		'change #code, #name, #notes' : 'changeVal',
-		'change .checkbox' : 'changeCh'
+		'change .checkbox' : 'changeCh',
+		'focusout input[name=code]': 'uniqueCodeCheck'
 	},
 	
 	render : function() {	
@@ -56,6 +57,31 @@ App.Views.DataElement = Backbone.View.extend({
 		return this;
 	},
 			
+	uniqueCodeCheck: function () {		
+		var cur_code = '';
+		var new_code = $('input[name=code]').val();
+		var codes = [];
+		 		
+		if (this.model.toJSON().id) {
+			cur_code = this.model.get('code');
+		};
+		
+		$('input[name=code]').next('label.error').remove();		
+		
+		App.dataElements.forEach(function(dataElement){			
+			codes.push(dataElement.get('code'));
+		});
+				
+		var index = codes.indexOf(cur_code);
+		if (index!=-1) {
+			codes.splice(index, 1);
+		}	
+				
+		if (codes.indexOf(new_code)!=-1) {
+			$('input[name=code]').after('<label class="error">Should be unique</label>');
+		}					
+	},
+	
 	ehrOptions: function() {
 		var temp = _.template($('#default-element-option').html());
 		var html= '';		
@@ -143,7 +169,7 @@ App.Views.DataElement = Backbone.View.extend({
 	
 	editDataElement : function(e) {
 		e.preventDefault();		
-		console.log(this.model.toJSON());
+		this.uniqueCodeCheck();
 		this.model.save(this.attributes,{
 	        success: function (model, response) {
 	           console.log(response);

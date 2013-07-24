@@ -223,10 +223,7 @@ App.Router = Backbone.Router.extend({
 					"bFilter": false,					
 					"bSort": false,
 					"bInfo": false,
-					"bAutoWidth": false,
-		 		    "aoColumnDefs": [
-							{ 'bSortable': false, 'aTargets': [ 4,5,6,7,8,9 ] }
-						 ]
+					"bAutoWidth": false
 				});		
 			});	
 		});		

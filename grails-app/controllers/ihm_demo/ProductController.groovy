@@ -4,9 +4,7 @@ import grails.converters.JSON
 import org.springframework.dao.DataIntegrityViolationException
 
 class ProductController {
-	
-	
-	
+		
 	def save() {
 		def productInstance  = saveInstance(new Product(), params)
 		render(contentType: "text/json") {
@@ -75,7 +73,7 @@ class ProductController {
 		productInstance  = saveInstance(productInstance, params)
 		render(contentType: "text/json") {
 			resp = "ok"
-			message = "Product ${productInstance.name} successfully updated"
+			message = "Product ${productInstance.code} successfully updated"
 		}
 	}
 	
