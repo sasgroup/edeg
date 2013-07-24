@@ -1,6 +1,7 @@
 package ihm_demo;
 
 public enum CodeType {
+	NotApplicable,
 	AdministrativeSex,
 	CDCREC,
 	CDT,
