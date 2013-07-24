@@ -1,7 +1,7 @@
   <footer>
 	  <nav class="footer-nav">
-	       <a href="#" class="logo">
-	                <img src="http://healthmetrics.web13.hubspot.com/Portals/215627/assets/images/ihm-gray-logo.png" border="0">
+	       <a href="#" class="logo">	               
+	                <img src="/ihm/static/css/images/ihm-gray-logo.png" border="0">
 	       </a>
 	       <a href="#product">Products</a>
 	       <a href="#measure">Measures</a>

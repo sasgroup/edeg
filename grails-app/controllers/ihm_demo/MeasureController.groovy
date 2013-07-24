@@ -79,7 +79,7 @@ class MeasureController {
 			render(contentType: "text/json") {
 				measures = array {
 					for (p in results) {
-						measure code: p.code, name: p.name, notes: p.notes, id: p.id
+						measure code: p.code, name: p.name, notes: p.notes, id: p.id, dmcategory: p.measureCategory.name
 					}
 				}
 			}
