@@ -369,7 +369,7 @@ App.Views.SingleHospitalMeasure = Backbone.View
 							{	"bDestroy": true, 
 								"bPaginate": false,
 								"bFilter": false,
-								"sScrollY": "470px",
+								"sScrollY": "225px",
 								"bSort": true,
 					 			"bInfo": false,
 					 			"bAutoWidth": false,
@@ -382,15 +382,19 @@ App.Views.SingleHospitalMeasure = Backbone.View
 					
 					$("#hospital-elements").click(function(event) {
 						$(oTable.fnSettings().aoData).each(function (){
-							$('.row_selected').css( "background-color", "#FFFFFF" );
+							$('.row_selected').css( "background-color", "#FFFFFF" );							
+							$('tr.row_selected td:first').css( "background-color", "#FFFFFF" );
 							$(this.nTr).removeClass('row_selected');							
 						});
 						$(event.target.parentNode).addClass('row_selected');
-						$(event.target.parentNode).css( "background-color", "#0088CC" );
+						$(event.target.parentNode).css( "background-color", "rgb(0, 136, 204, 0.5)" );
+						$('tr.row_selected td:first').css( "background-color", "rgb(0, 136, 204, 0)" );	
 					});
 					
 				   new FixedColumns( oTable,
-							{ "sHeightMatch": "none"} );	
+							{ "sHeightMatch": "none"} );
+				   
+				   setTimeout(this.refeshTableHeader, 300);    
 				});
 				
 											

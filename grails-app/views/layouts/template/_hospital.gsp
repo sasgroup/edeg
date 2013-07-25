@@ -54,18 +54,28 @@
          
     	<div id="detailsTabContent" class="tab-content">
           <div id="qa2" class="tab-pane fade active in">
-				<textarea cols="50" rows="3"></textarea>
+				<form id="tab-qa2">
+					<textarea rows="3" class="input-xlarge">
+					</textarea>					
+					<textarea rows="1" class="input-xlarge">
+					</textarea>	
+					<div>
+						<button class="btn btn-info">Send</button>
+					</div>
+				</form>
           </div>
           <div id="qa3" class="tab-pane fade">
-		  		<textarea cols="50" rows="3"></textarea>
-          </div>
-		  <div id="hospital-specific" class="tab-pane fade">
-		 	<!--<label for="txtValueSets">1. Value Set</label>
-			<input id="txtValueSets" type="text">
-			<label for="fileValueSets">2. File Upload</label>
-			<input id="fileValueSets" type="file">
-			<label for="tblCustomValueSet">3. Custom Table (CODE | CODE TYPE | MNEMONIC)</label>-->
-             
+		  		<form id="tab-qa3">
+					<textarea rows="3" class="input-xlarge">
+					</textarea>					
+					<textarea rows="1" class="input-xlarge">
+					</textarea>	
+					<div>
+						<button class="btn btn-info">Send</button>
+					</div>
+				</form>
+          </div>		  
+		  <div id="hospital-specific" class="tab-pane fade">             
 		   <table class="table">
            <tbody>
 			  <tr>
@@ -76,7 +86,6 @@
              </tr>			 
            </tbody>
            </table>
-
           </div>
 		  <div id="extra-location" class="tab-pane fade">
 		  	TYPE | LOCATION SYSTEM | LOCATION | VALUE TYPE | CODE TYPE 

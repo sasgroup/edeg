@@ -14,6 +14,9 @@ div#hospital-specific, div#hospital-specific input[type="file"] {
 	font-size: 12px;	
 }
 
+table.dataTable tr.odd {
+    background-color: #FFFFFF;
+}
 
 div#message-box {
 	margin-left: 12px;
@@ -153,7 +156,7 @@ th.f-btn, td.f-btn {
 }
 
 div#modalDataElements {
-	height: 500px;
+	height: 600px;
     left: auto;
     margin-left: auto;
     margin-right: auto;
@@ -161,6 +164,25 @@ div#modalDataElements {
     /*right: auto;*/
     width: 900px;
 }
+
+.modal-body {
+    max-height: 500px;
+}
+
+.modal-body textarea {
+	width: 95%;
+}
+
+
+.modal-body button.btn {
+    margin-left: 0;
+}
+
+#detailsTabContent {
+    height: 190px;
+    overflow: auto;
+}
+
 
 div.row-fluid textarea {
 	height: 64px;	
