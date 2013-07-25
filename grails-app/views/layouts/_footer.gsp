@@ -9,6 +9,9 @@
 	       <a href="#hospital">Hospitals</a>
 	       <a href="#ehr">EHR</a>
 	       <a href="#"> &copy; 2013 IHM Services</a>
+	       <a href="" title="Version: ${grailsApplication.metadata['app.version']} (#${grailsApplication.metadata['app.buildNumber']}, ${grailsApplication.metadata['app.buildDate']}, ${grailsApplication.metadata['app.buildProfile']})">
+				V${grailsApplication.metadata['app.version']} (#${grailsApplication.metadata['app.buildNumber']})
+		   </a>
 	  </nav>
   </footer>  	
 </div>
