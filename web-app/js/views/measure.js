@@ -151,16 +151,20 @@ App.Views.Measure = Backbone.View.extend({
 	appendMeasureCategory : function(measure_category){
 		var temp = _.template($('#single-measure-category').html());
 		var sel = "";
-		if (this.model.get('measureCategory').id == measure_category.get("id"))
-			sel="selected";
+		if (this.model.get('measureCategory')){
+			if (this.model.get('measureCategory').id == measure_category.get("id"))
+				sel="selected";
+		}
 		this.$el.find('#measureCategory').append(temp({selected:sel, id:measure_category.get("id"),name:measure_category.get('name')}));
 	},
 	
 	appendCqmDomain : function(cqmComain){
 		var temp = _.template($('#single-measure-domain').html());
 		var sel = "";
-		if (this.model.get('cqmDomain').id == cqmComain.get("id"))
-			sel="selected";
+		if (this.model.get('cqmDomain')){
+			if (this.model.get('cqmDomain').id == cqmComain.get("id"))
+				sel="selected";
+		}
 		this.$el.find('#cqmDomain').append(temp({selected:sel, id:cqmComain.get("id"),name:cqmComain.get('name')}));
 	},
 
