@@ -6,10 +6,9 @@ import org.springframework.dao.DataIntegrityViolationException
 class MeasureController {
 	
 	private Measure saveInstance (Measure instance, def param) {
-		println "1"
 		instance.name = param.name
 		instance.code = param.code
-		println "2"
+		
 		if (param.notes)
 			instance.notes = param.notes
 			
@@ -18,7 +17,6 @@ class MeasureController {
 			
 		if (param.cqmDomain)
 			instance.cqmDomain = CqmDomain.get (param.cqmDomain.id)
-			println "3"
 		Product.list().each {
 			it.removeFromMeasures(instance)
 		}	
@@ -34,19 +32,15 @@ class MeasureController {
 		for (product in param.products) {
 			instance.addToProducts(Product.get(product.pid))
 		}
-		println "4"
 		return instance.save(flush :true)
 	}
 	
     def save() {
-		println "!"
 		def measureInstance  = saveInstance(new Measure(), params)
-		println "!!"
 		render(contentType: "text/json") {
 					resp = "ok"
 					message = "Measure ${measureInstance?.name} successfully created"
 		}
-		println "!!!"
 	}
    
 	def show() {
@@ -79,7 +73,7 @@ class MeasureController {
 			render(contentType: "text/json") {
 				measures = array {
 					for (p in results) {
-						measure code: p.code, name: p.name, notes: p.notes, id: p.id, category: p.measureCategory.name
+						measure code: p.code, name: p.name, notes: p.notes, id: p.id, category: p?.measureCategory?.name, cqm:p?.cqmDomain?.name
 					}
 				}
 			}
@@ -88,9 +82,9 @@ class MeasureController {
 
     
     def update(Long id, Long version) {
-		def measrueInstance = Measure.get(id)
+		def measureInstance = Measure.get(id)
 
-		if  (!measrueInstance) {
+		if  (!measureInstance) {
 			render(contentType: "text/json") {
 				resp = "error"
 				message = "Id exceptions"
@@ -98,18 +92,18 @@ class MeasureController {
 		}
 
 		 if (params.version != null) {
-            if (measrueInstance.version > params.version) {
+            if (measureInstance.version > params.version) {
 				return render(contentType: "text/json") {
 					resp = "error"
-					message = "Another User has updated meausure(${measrueInstance.name}) while you were editing"
+					message = "Another User has updated measure (${measureInstance.name}) while you were editing"
 				}
 			} 
 		 }	
 	
-		measrueInstance  = saveInstance(measrueInstance, params)
+		measureInstance  = saveInstance(measureInstance, params)
 		render(contentType: "text/json") {
 			resp = "ok"
-			message = "Measure ${measrueInstance.name} successfully updated"
+			message = "Measure ${measureInstance.name} successfully updated"
 		}                          
     }
 	
@@ -122,10 +116,10 @@ class MeasureController {
 
 		def productsDep = measure.products ? true : false
 		
-		def hospuitalmeasureDep = HospitalMeasure.findByMeasure(measure) ? true : false
+		def hospitalmeasureDep = HospitalMeasure.findByMeasure(measure) ? true : false
 
-		if (dataElementsDep || productsDep || hospuitalmeasureDep) {
-			render(status: 420, text: "Measrue ${name} cannot be deleted because of existing dependencie")
+		if (dataElementsDep || productsDep || hospitalmeasureDep) {
+			render(status: 420, text: "Measure ${name} cannot be deleted because of existing dependencies")
 		} else {
 			measure?.delete(flush: true)
 			render(contentType: "text/json") {
