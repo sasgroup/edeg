@@ -124,12 +124,12 @@
 
 <!-- hospital-measure_table -->
 <script type="text/template" class="template" id="hospital-measure_table">
-<table class="hospitalMeasureTable table table-striped " style="width: 943px;">
+<table class="hospitalMeasureTable table table-striped ">
 	<thead><tr>
 		    <th>Use</th>
 			<th>ID</th>           
 			<th>CODE</th>
-		    <th>TITLE</th>		    				  
+		    <th>TITLE</th>				    				  
 		    <th>Completed</th>
 		    <th>Confirmed</th>
 		    <th>Accepted</th>
@@ -150,8 +150,8 @@
  </td>
  <td>{{ id }}</td>
  <td>{{ code }}</td>
- <td><a id="customLink" href="#modalDataElements" role="button" data-toggle="modal">{{ name }}</a></td> 
-
+ <!--<td><a id="customLink" href="#modalDataElements" role="button" data-toggle="modal">{{ name }}</a></td>--> 
+ <td><div class='title' title="{{name}}"><a id="customLink" href="#modalDataElements" role="button" data-toggle="modal">{{ name }}</a></div></td>
  <td>
     <input type="checkbox" name="completed" id="{{id}}" {{completed}}>
  </td>

@@ -54,21 +54,32 @@ td div.notes {
     overflow: hidden;
     padding: 0;
     text-overflow: ellipsis;
-    width: 350px;
+    width: 300px;
     white-space: nowrap;
 }
 
+
+td div.title {
+	display: block;
+    height: 20px;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    text-overflow: ellipsis;
+    width: 350px;
+    white-space: nowrap;
+}
 
 form#hospital-list td div.name {
 	 width: 400px;	
 }
 
 form#hospital-list td div.notes {
-	 width: 450px;	
+	 width: 400px;	
 }
 
 form#measure-list td div.notes {
-	 width: 300px;	
+	 width: 250px;	
 }
 
 form label.error {
@@ -313,35 +324,20 @@ background-color: #fff;
 }
 
 
-
-span.edit {
-    display: none;
-}
-
-.e-btn, .s-btn, .c-btn {
-    width: 1%;
-}
-
 table input, table select  {
   margin: 0 !important;
   width: 96%;
 }
 
 table input  {
-  margin: 0 !important;
   width: 90%;
 }
-
 
 .btn-mini {
 	margin: 0;
     height: 28px;
 }
 
-
-table.dataTable td {
-    padding: 0px 2px;
-}
 
 /*input[type="checkbox"] {
 	width: 40px;

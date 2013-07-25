@@ -102,31 +102,38 @@ App.Views.Hospital = Backbone.View.extend({
 	changeTab: function (e){		
 		var product_id = $(e.target).attr('href').replace('#t','');				
 		var slcTab = '#myTabContent div#t' + product_id;	
-				
+			
+		
 		var oTable = $('.hospitalMeasureTable').dataTable({
 			//"bRetrieve": true, 
 			"bDestroy": true, 
 			"bPaginate": false,
 			"bFilter": false,
-			"sScrollY": "272px",
+			"sScrollY": "272px",			
 			"bSort": true,
 			"bInfo": false,
-			"aoColumns" : [
-			               { sWidth: '40px' },
-			               { sWidth: '40px' },
-			               { sWidth: '100px' },
-			               { sWidth: '325px' },
-			               { sWidth: '60px' },
-			               { sWidth: '60px' },
-			               { sWidth: '60px' },
-			               { sWidth: '60px' }
-			           ]  	 		
+			"aaSorting": [[0, 'asc']],
+			"aoColumnDefs": [{'bSortable': false, 'aTargets': [ 4,5,6,7 ] }]
+			/*"fnDrawCallback": function( oSettings ) {
+			      //alert( 'DataTables has redrawn the table' );
+				this.refeshTableHeader();
+			 }*/	 
+		
 		 });	
 	
-	    new FixedColumns( oTable, 	{ "sHeightMatch": "none"} );
-	   // oTable.fnAdjustColumnSizing();
+	    new FixedColumns( oTable, {"sHeightMatch": "none"} );        	    
+	    setTimeout(this.refeshTableHeader, 300);    
 		
 	},
+	
+	refeshTableHeader:  function() {
+		if ($('th.sorting_asc').length >0) {
+    		$('th.sorting_asc').click();	
+    	} else {
+    		$('th.sorting_desc').click();
+    	}	
+	},
+
 	
 	// append HospitalMeasureTable to Tab
 	appendHospitalMeasureTable : function(){		

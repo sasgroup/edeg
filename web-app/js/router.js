@@ -283,8 +283,7 @@ App.Router = Backbone.Router.extend({
 		 App.ehrs.fetch().then(function(){		 
 			var view = new App.Views.Hospital({model: hospital});		
 			$('#app').html(view.render().el);	
-			
-			//$(document).ready(function(){
+		
 				$( "#slcEHRs").multiselect({
 			        multiple : false,
 			        header : false,
@@ -309,40 +308,18 @@ App.Router = Backbone.Router.extend({
 				var oTable = $('.hospitalMeasureTable').dataTable({
 						//"bRetrieve": true,
 						"bDestroy": true, 
-					    "bPaginate": false,
+						"bPaginate": false,
 						"bFilter": false,
-						"sScrollY": "272px",
+						"sScrollY": "272px",			
 						"bSort": true,
 						"bInfo": false,
-						"aoColumns" : [
-						               { sWidth: '40px' },
-						               { sWidth: '40px' },
-						               { sWidth: '100px' },
-						               { sWidth: '325px' },
-						               { sWidth: '60px' },
-						               { sWidth: '60px' },
-						               { sWidth: '60px' },
-						               { sWidth: '60px' }
-						           ]  	 		
-					 });	
+						"aaSorting": [[0, 'asc']],
+						"aoColumnDefs": [{'bSortable': false, 'aTargets': [ 4,5,6,7 ] }]					
+						 
+					 });				
 				
-				 new FixedColumns( oTable, 	{ "sHeightMatch": "none"} );	
-				 //oTable.fnAdjustColumnSizing();
-				/*$('#t1 .hospitalMeasureTable').dataTable({
-					"bPaginate": false,
-					"bFilter": true,
-					"sScrollY": "200px",
-					"bSort": true,
-					"bInfo": false,
-					"bAutoWidth": false,
-		 		"aoColumnDefs": [
-							{ 'bSortable': false, 'aTargets': [ 4,5,6,7,8,9 ] }
-						 ]
-				 });	*/
-
-					
-								
-		//	});		   
+				new FixedColumns( oTable, {"sHeightMatch": "none"} );	
+				
 		});	
 	  });	 
     },
