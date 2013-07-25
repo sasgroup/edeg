@@ -10,11 +10,19 @@ body {
     background: url("images/bg.png") repeat-y center;       
 }
 
+div#hospital-specific, div#hospital-specific input[type="file"] {
+	font-size: 12px;	
+}
+
 
 div#message-box {
 	margin-left: 12px;
     margin-top: -3px;
     color: #0088CC;
+}
+
+.row_selected {
+	background-color: #FF0000;
 }
 
 h3 {

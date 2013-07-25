@@ -182,31 +182,13 @@ App.Views.Hospital = Backbone.View.extend({
 				var view = new App.Views.SingleHospitalMeasure({ model : hospitalMeasure });				
 				$(slcTab + ' .hospitalMeasureTable tbody').append(view.render().el);				
 			});		
-					
-		 						
-		  /*var oTable = $(slcTab + ' .hospitalMeasureTable').dataTable({
-			  			"bPaginate": false,
-			  			"bFilter": true,
-			  			"sScrollY": "200px",
-			  			"bSort": true,
-			  			"bInfo": false,
-			  			"bAutoWidth": false,
-	    		 		"aoColumnDefs": [
-          						{ 'bSortable': false, 'aTargets': [ 4,5,6,7,8,9 ] }
-       						 ]
-			});		
-		   
-		   new FixedColumns( oTable,
-					{ "sHeightMatch": "none"} );		*/
-		   
-		   //var sel = $(slcTab + ' .hospitalMeasureTable');			
+		
 		});	  
 				
 		/*_.each (hospitalMeasures.models, function(model) {
 			model.set({verified:true})
 			model.save();
-		});*/		
-		
+		});*/				
 	},
 			
 	
@@ -357,12 +339,16 @@ App.Views.SingleHospitalMeasure = Backbone.View
 						
 			goToDataElements : function(e) {
 				e.preventDefault();
-				console.log("goToDataElements");
+				console.log("goToDataElements");				
+				
+				$('#main_table').empty();
+				var table_template = _.template($('#hospital-elements_table').html());	
+				//append TableHeader
+				$('#main_table').append(table_template());	
+				
 				var dataElementDefault = {code:"code", location:"location", source_ehr: "source_ehr", source: "source"};
 				
-				var ehrtbody = $('#modalDataElements tbody');
-				//remove child elements
-				$(ehrtbody).empty();		
+				var ehrtbody = $('#hospital-elements tbody');				
 
 				var hospitalElements = new App.Collections.HospitalElements();
 				var hm_id = this.model.get('id');
@@ -370,19 +356,44 @@ App.Views.SingleHospitalMeasure = Backbone.View
 				hospitalElements.fetch({data:{id: hm_id}}).then(function(){
 					console.log(hospitalElements);
 					
-					_.each (hospitalElements.models, function(hospitalElement) {
+					hospitalElements.forEach(function(hospitalElement){			
 						console.log(hospitalElement);
 						var view = new App.Views.ModalDataElement({ model : hospitalElement});		
 						var modalDataElementRow = view.render().el;
 						$(ehrtbody).append(modalDataElementRow);						
 						$(modalDataElementRow).find(".slcCodeType").val(hospitalElement.get('codeType').name);
 						$(modalDataElementRow).find(".slcValueType").val(hospitalElement.get('valueType').name);
-				    });
+					});	
+										
+					var oTable = $('#hospital-elements').dataTable( 
+							{	"bDestroy": true, 
+								"bPaginate": false,
+								"bFilter": false,
+								"sScrollY": "470px",
+								"bSort": true,
+					 			"bInfo": false,
+					 			"bAutoWidth": false,
+					 			"aoColumnDefs": [
+					 							{ 'bSortable': false, 'aTargets': [ 1,2,3,4,5 ] }
+					 						 ],
+								"bScrollCollapse": true,
+								"bPaginate": false
+							} );
 					
+					$("#hospital-elements").click(function(event) {
+						$(oTable.fnSettings().aoData).each(function (){
+							$('.row_selected').css( "background-color", "#FFFFFF" );
+							$(this.nTr).removeClass('row_selected');							
+						});
+						$(event.target.parentNode).addClass('row_selected');
+						$(event.target.parentNode).css( "background-color", "#0088CC" );
+					});
+					
+				   new FixedColumns( oTable,
+							{ "sHeightMatch": "none"} );	
 				});
 				
-				
-				
+											
 				
 				//circle
 				/*if (dataElementDefaults !== undefined) {

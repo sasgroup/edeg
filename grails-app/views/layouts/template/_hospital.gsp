@@ -34,20 +34,56 @@
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
 	<h4 id="myModalLabel">HospitalElements</h4>
   </div>
-  <div class="modal-body">
-  	<table class="table">
-	  <thead><tr>
- 				<th>DataElement</th>    
-		    	<th>Location</th>           
-				<th>SourceEHR</th>
-				<th>Source</th>
-				<th>CodeType</th>
-		    	<th>ValueType</th>		    
-			 </tr>
-      </thead>				
-    <tbody></tbody>
-	</table>
-  </div>
+  <div class="modal-body">  	
+  	<div id="main_table"></div>
+  	<div id="deatails">	
+		<ul id="detailsTab" class="nav nav-tabs">
+          <li class="active">
+            <a data-toggle="tab" href="#qa2">Q&A Level 2</a>
+          </li>
+          <li class="">
+            <a data-toggle="tab" href="#qa3">Q&A Level 3</a>
+          </li>
+		  <li class="">
+            <a data-toggle="tab" href="#hospital-specific">Hospital Specific Settings</a>
+          </li>	
+		   <li class="">
+            <a data-toggle="tab" href="#extra-location">Extra Locations</a>
+          </li>
+        </ul>
+         
+    	<div id="detailsTabContent" class="tab-content">
+          <div id="qa2" class="tab-pane fade active in">
+				<textarea cols="50" rows="3"></textarea>
+          </div>
+          <div id="qa3" class="tab-pane fade">
+		  		<textarea cols="50" rows="3"></textarea>
+          </div>
+		  <div id="hospital-specific" class="tab-pane fade">
+		 	<!--<label for="txtValueSets">1. Value Set</label>
+			<input id="txtValueSets" type="text">
+			<label for="fileValueSets">2. File Upload</label>
+			<input id="fileValueSets" type="file">
+			<label for="tblCustomValueSet">3. Custom Table (CODE | CODE TYPE | MNEMONIC)</label>-->
+             
+		   <table class="table">
+           <tbody>
+			  <tr>
+                <td>1. Value Set</td>
+                <td><input id="txtValueSets" type="text"></td>
+                <td>2. File Upload <input id="fileValueSets" type="file"></td>
+                <td>3. Custom Table (CODE | CODE TYPE | MNEMONIC)</td>
+             </tr>			 
+           </tbody>
+           </table>
+
+          </div>
+		  <div id="extra-location" class="tab-pane fade">
+		  	TYPE | LOCATION SYSTEM | LOCATION | VALUE TYPE | CODE TYPE 
+          </div>
+       </div>
+	</div>
+  </div>  
   <div class="modal-footer">
 	<button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
 	<button class="btn">Save&Mark</button>
@@ -166,6 +202,23 @@
  </td> 
  <!--<td><div id="save"    class= "btn save-btn"><i class="icon-ok-circle"></i></div></td>
  <td><div id="destroy" class= "btn"><i class="icon-trash"></i></div></td> -->
+</script>
+
+
+<!-- modal-data-elements-table -->
+<script type="text/template" class="template" id="hospital-elements_table">
+<table class="table" id="hospital-elements">
+	  <thead><tr>
+ 				<th>DataElement</th>    
+		    	<th>Location</th>           
+				<th title="SourceEHR">EHR</th>
+				<th>Source</th>
+				<th>CodeType</th>
+		    	<th>ValueType</th>		    
+			 </tr>
+      </thead>				
+    <tbody></tbody>
+</table>
 </script>
 
 
