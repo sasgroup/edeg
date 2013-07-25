@@ -105,15 +105,15 @@ App.Views.Product = Backbone.View.extend({
 	},
 	
 	changeCh : function(e) {
-		console.log(e.target.value + ' ' + e.target.id + ' ' + e.target.checked+ ' '+e.target.name);
+		//console.log(e.target.value + ' ' + e.target.id + ' ' + e.target.checked+ ' '+e.target.name);
 		if (e.target.name == 'hospital' ) {
 			if ( e.target.checked ) {
-				console.log("Push hospitals");
+				//console.log("Push hospitals");
 				var hospitals = this.model.get("hospitals");
 				hospitals.push({"hid" : e.target.id, "hname" : e.target.value});
 				this.model.set("hospitals" , hospitals);
 			} else {
-				console.log("Remove hospitals");
+				//console.log("Remove hospitals");
 				var hospitals = this.model.get("hospitals");
 				var removeIndex; 
 				for (var i = 0; i < hospitals.length; i++) {
@@ -127,12 +127,12 @@ App.Views.Product = Backbone.View.extend({
 		};
 		if (e.target.name == 'measure' ) {
 			if ( e.target.checked ) {
-				console.log("Push measure");
+				//console.log("Push measure");
 				var measures = this.model.get("measures");
 				measures.push({"mid" : e.target.id, "mname" : e.target.value});
 				this.model.set("measures" , measures);
 			} else {
-				console.log("Remove measures");
+				//console.log("Remove measures");
 				var measures = this.model.get("measures");
 				var removeIndex; 
 				for (var i = 0; i < measures.length; i++) {
@@ -147,9 +147,9 @@ App.Views.Product = Backbone.View.extend({
 	},
 	
 	changeVal : function(e) {
-		console.log(e.target.name);
+		//console.log(e.target.name);
 		this.model.attributes[e.target.name] = $(e.target).val();
-		console.log(this.model.attributes);
+		//console.log(this.model.attributes);
 	},
 	
 	submProduct : function(e) {
@@ -159,7 +159,7 @@ App.Views.Product = Backbone.View.extend({
 		
 		this.model.save(this.attributes,{
 	        success: function (model, response) {
-	           console.log(response);
+	           //console.log(response);
 	           $('div#message-box').text("").append(response.message).fadeIn(500).delay(1500).fadeOut(500);
                Backbone.history.navigate("product", true);
 	        },
@@ -192,13 +192,13 @@ App.Views.SingleProduct = Backbone.View
 			},
 			
 			goToEdit : function() {
-				console.log(this.model);
-				console.log("goToEdit",this.model.get('id'));							
+				//console.log(this.model);
+				//console.log("goToEdit",this.model.get('id'));							
 				Backbone.history.navigate("product/"+this.model.get('id')+'/edit', true);
 			},
 			
 			destroy : function(e){
-				console.log("destroy");
+				//console.log("destroy");
 				e.preventDefault();
 				
 				var el = this.$el;
@@ -212,7 +212,7 @@ App.Views.SingleProduct = Backbone.View
 				    	Backbone.history.navigate("product", true);
 				     },
 				     error: function (model, response) {
-				    	 console.log(response);
+				    	 //console.log(response);
 				    	 $('div#message-box').text("").append(response.responseText).fadeIn(500).delay(1500).fadeOut(500);
 				            Backbone.history.navigate("product", true);
 				     }
@@ -231,7 +231,7 @@ App.Views.ProductMeasure = Backbone.View
 			template: _.template($('#single-product-measure').html()),		
 			
 			render : function() {
-				console.log("name:" + this.name);
+				//console.log("name:" + this.name);
 				this.$el.html(this.template());
 				return this;
 			}			
