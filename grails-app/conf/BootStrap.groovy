@@ -204,7 +204,7 @@ class BootStrap {
 							  name:"CPOE",
 							  notes:"",
 							  measureCategory : MeasureCategory.findByName("CORE"),
-							  cqmDomain:cqmDomain)
+							  cqmDomain:null)
 		
 		if (!measure.save()){
 			measure.errors.allErrors.each{error ->
@@ -218,7 +218,7 @@ class BootStrap {
 							  name:"Demographics",
 							  notes:"",
 							  measureCategory : MeasureCategory.findByName("CORE"),
-							  cqmDomain:cqmDomain)
+							  cqmDomain:null)
 		
 		if (!measure.save()){
 			measure.errors.allErrors.each{error ->
@@ -233,7 +233,7 @@ class BootStrap {
 							  name:"Problem List",
 							  notes:"",
 							  measureCategory : MeasureCategory.findByName("CORE"),
-							  cqmDomain:cqmDomain)
+							  cqmDomain:null)
 		
 		if (!measure.save()){
 			measure.errors.allErrors.each{error ->
@@ -247,7 +247,7 @@ class BootStrap {
 							  name:"Medication List",
 							  notes:"",
 							  measureCategory : MeasureCategory.findByName("CORE"),
-							  cqmDomain:cqmDomain)
+							  cqmDomain:null)
 		
 		if (!measure.save()){
 			measure.errors.allErrors.each{error ->
@@ -261,7 +261,7 @@ class BootStrap {
 							  name:"Medication Allergy",
 							  notes:"",
 							  measureCategory : MeasureCategory.findByName("CORE"),
-							  cqmDomain:cqmDomain)
+							  cqmDomain:null)
 		
 		if (!measure.save()){
 			measure.errors.allErrors.each{error ->
@@ -275,7 +275,7 @@ class BootStrap {
 							  name:"Vitals",
 							  notes:"",
 							  measureCategory : MeasureCategory.findByName("CORE"),
-							  cqmDomain:cqmDomain)
+							  cqmDomain:null)
 		
 		if (!measure.save()){
 			measure.errors.allErrors.each{error ->
@@ -290,7 +290,7 @@ class BootStrap {
 							  name:"Smoking",
 							  notes:"",
 							  measureCategory : MeasureCategory.findByName("CORE"),
-							  cqmDomain:cqmDomain)
+							  cqmDomain:null)
 		
 		if (!measure.save()){
 			measure.errors.allErrors.each{error ->
@@ -305,7 +305,7 @@ class BootStrap {
 							  name:"Advance Directive",
 							  notes:"",
 							  measureCategory : MeasureCategory.findByName("MENU"),
-							  cqmDomain:cqmDomain)
+							  cqmDomain:null)
 		
 		if (!measure.save()){
 			measure.errors.allErrors.each{error ->
@@ -319,7 +319,7 @@ class BootStrap {
 							  name:"Laboratory Test Results",
 							  notes:"",
 							  measureCategory : MeasureCategory.findByName("MENU"),
-							  cqmDomain:cqmDomain)
+							  cqmDomain:null)
 		
 		if (!measure.save()){
 			measure.errors.allErrors.each{error ->
@@ -333,7 +333,7 @@ class BootStrap {
 							  name:"Education Resources",
 							  notes:"",
 							  measureCategory : MeasureCategory.findByName("MENU"),
-							  cqmDomain:cqmDomain)
+							  cqmDomain:null)
 		
 		if (!measure.save()){
 			measure.errors.allErrors.each{error ->
@@ -347,7 +347,7 @@ class BootStrap {
 							  name:"Medication Reconciliation",
 							  notes:"",
 							  measureCategory : MeasureCategory.findByName("MENU"),
-							  cqmDomain:cqmDomain)
+							  cqmDomain:null)
 		
 		if (!measure.save()){
 			measure.errors.allErrors.each{error ->
@@ -361,7 +361,7 @@ class BootStrap {
 							  name:"Transition Summary",
 							  notes:"",
 							  measureCategory : MeasureCategory.findByName("MENU"),
-							  cqmDomain:cqmDomain)
+							  cqmDomain:null)
 		
 		if (!measure.save()){
 			measure.errors.allErrors.each{error ->
@@ -375,7 +375,7 @@ class BootStrap {
 							  name:"CPOE - Medication Orders",
 							  notes:"",
 							  measureCategory : MeasureCategory.findByName("CORE"),
-							  cqmDomain:cqmDomain)
+							  cqmDomain:null)
 		
 		if (!measure.save()){
 			measure.errors.allErrors.each{error ->
@@ -389,7 +389,7 @@ class BootStrap {
 							  name:"CPOE - Laboratory Orders",
 							  notes:"",
 							  measureCategory : MeasureCategory.findByName("CORE"),
-							  cqmDomain:cqmDomain)
+							  cqmDomain:null)
 		
 		if (!measure.save()){
 			measure.errors.allErrors.each{error ->
@@ -403,7 +403,7 @@ class BootStrap {
 							  name:"CPOE - Radiology Orders",
 							  notes:"",
 							  measureCategory : MeasureCategory.findByName("CORE"),
-							  cqmDomain:cqmDomain)
+							  cqmDomain:null)
 		
 		if (!measure.save()){
 			measure.errors.allErrors.each{error ->
@@ -417,7 +417,7 @@ class BootStrap {
 							  name:"Summary of Care",
 							  notes:"",
 							  measureCategory : MeasureCategory.findByName("CORE"),
-							  cqmDomain:cqmDomain)
+							  cqmDomain:null)
 		
 		if (!measure.save()){
 			measure.errors.allErrors.each{error ->
@@ -431,7 +431,7 @@ class BootStrap {
 							  name:"Summary of Care: Electronic Transmission",
 							  notes:"",
 							  measureCategory : MeasureCategory.findByName("CORE"),
-							  cqmDomain:cqmDomain)
+							  cqmDomain:null)
 		
 		if (!measure.save()){
 			measure.errors.allErrors.each{error ->
@@ -445,7 +445,7 @@ class BootStrap {
 							  name:"eMAR",
 							  notes:"",
 							  measureCategory : MeasureCategory.findByName("CORE"),
-							  cqmDomain:cqmDomain)
+							  cqmDomain:null)
 		
 		if (!measure.save()){
 			measure.errors.allErrors.each{error ->
@@ -459,7 +459,7 @@ class BootStrap {
 							  name:"Electronic Note",
 							  notes:"",
 							  measureCategory : MeasureCategory.findByName("MENU"),
-							  cqmDomain:cqmDomain)
+							  cqmDomain:null)
 		
 		if (!measure.save()){
 			measure.errors.allErrors.each{error ->
@@ -473,7 +473,7 @@ class BootStrap {
 							  name:"Imaging Results",
 							  notes:"",
 							  measureCategory : MeasureCategory.findByName("MENU"),
-							  cqmDomain:cqmDomain)
+							  cqmDomain:null)
 		
 		if (!measure.save()){
 			measure.errors.allErrors.each{error ->
@@ -487,7 +487,7 @@ class BootStrap {
 							  name:"Family Health History",
 							  notes:"",
 							  measureCategory : MeasureCategory.findByName("MENU"),
-							  cqmDomain:cqmDomain)
+							  cqmDomain:null)
 		
 		if (!measure.save()){
 			measure.errors.allErrors.each{error ->
@@ -501,7 +501,7 @@ class BootStrap {
 							  name:"Electronic Prescriptions",
 							  notes:"",
 							  measureCategory : MeasureCategory.findByName("MENU"),
-							  cqmDomain:cqmDomain)
+							  cqmDomain:null)
 		
 		if (!measure.save()){
 			measure.errors.allErrors.each{error ->
@@ -515,7 +515,7 @@ class BootStrap {
 							  name:"Lab Test Results to Ambulatory Providers",
 							  notes:"",
 							  measureCategory : MeasureCategory.findByName("MENU"),
-							  cqmDomain:cqmDomain)
+							  cqmDomain:null)
 		
 		if (!measure.save()){
 			measure.errors.allErrors.each{error ->
@@ -529,7 +529,7 @@ class BootStrap {
 							  name:"Lab Test Results to Ambulatory Providers (Alternative)",
 							  notes:"",
 							  measureCategory : MeasureCategory.findByName("MENU"),
-							  cqmDomain:cqmDomain)
+							  cqmDomain:null)
 		
 		if (!measure.save()){
 			measure.errors.allErrors.each{error ->
