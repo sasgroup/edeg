@@ -52,11 +52,13 @@ App.Views.Product = Backbone.View.extend({
 		this.$el.html(this.template(this.model.toJSON()));
 		App.measures.forEach(this.appendProductMeasure,this);	
 		
-		var data = this.model.get('hospitals');		
+		/*var data = this.model.get('hospitals');	
+		var curProduct = this;
+		
 		$.each(data, function ( hospital ) {
-			this.appendHospitla(product_hospital);
-		});
-		//this.model.get('hospitals').forEach(this.appendHospital,this);	
+			curProduct.appendHospital(hospital);
+		});*/
+		this.model.get('hospitals').forEach(this.appendHospital,this);	
 			
 		return this;
 	},
