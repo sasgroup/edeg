@@ -136,7 +136,7 @@ App.Views.Product = Backbone.View.extend({
 				var measures = this.model.get("measures");
 				var removeIndex; 
 				for (var i = 0; i < measures.length; i++) {
-					if (measures[i].hid == e.target.id) {
+					if (measures[i].mid == e.target.id) {
 						removeIndex = i;
 					}
 				}
