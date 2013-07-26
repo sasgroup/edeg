@@ -2,8 +2,8 @@ package ihm_demo
 
 class DataElementDefaults {
 	String location
-	String source
-	String sourceEHR
+	//String source
+	//String sourceEHR
 	ValueType valueType
 	CodeType codeType
 	DataElement dataElement
@@ -12,8 +12,8 @@ class DataElementDefaults {
 	
     static constraints = {
 		location()
-		source()
-		sourceEHR()
+		//source()
+		//sourceEHR()
 		valueType()
 		codeType()
     }
