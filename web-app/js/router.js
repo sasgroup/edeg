@@ -190,8 +190,8 @@ App.Router = Backbone.Router.extend({
 				$('form#product-edit').validate({
 				     rules: {
 				   	 code: { required: true },
-				         name: { required: true },	               
-				         },
+				         	name: { required: true }	               
+				           },
 				    messages: {
 				       	code: "Code cannot be blank", 
 				            name: "Name cannot be blank"
@@ -210,7 +210,7 @@ App.Router = Backbone.Router.extend({
 				$('form#ehr-edit').validate({
 				     rules: {
 				   	 code: { required: true },
-				         name: { required: true },	               
+				         name: { required: true }	               
 				         },
 				    messages: {
 				       	code: "Code cannot be blank", 
@@ -237,7 +237,7 @@ App.Router = Backbone.Router.extend({
 				$('form#measure-edit').validate({
 				     rules: {
 				   	 code: { required: true },
-				         name: { required: true },	               
+				         name: { required: true }	               
 				         },
 				    messages: {
 				       	code: "Code cannot be blank", 
@@ -258,7 +258,7 @@ App.Router = Backbone.Router.extend({
 				$('form#element-edit').validate({
 				     rules: {
 				   	 code: { required: true },
-				         name: { required: true },	               
+				         name: { required: true }	               
 				         },
 				    messages: {
 				       	code: "Code cannot be blank", 

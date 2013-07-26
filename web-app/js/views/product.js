@@ -51,8 +51,13 @@ App.Views.Product = Backbone.View.extend({
 		};
 		this.$el.html(this.template(this.model.toJSON()));
 		App.measures.forEach(this.appendProductMeasure,this);	
-		this.model.get('hospitals').forEach(this.appendHospital,this);	
-		//App.hospitals.forEach(this.appendProductHospital,this);			
+		
+		var data = this.model.get('hospitals');		
+		$.each(data, function ( hospital ) {
+			this.appendHospitla(product_hospital);
+		});
+		//this.model.get('hospitals').forEach(this.appendHospital,this);	
+			
 		return this;
 	},
 
@@ -84,7 +89,10 @@ App.Views.Product = Backbone.View.extend({
 	appendProductMeasure : function(product_measure){
 		var temp = _.template($('#single-product-measure').html());		
 		var chd = '';
-		this.model.get('measures').forEach(function( hospital ) {
+				
+		var data = this.model.get('measures');
+			
+		$.each(data, function ( hospital ) {
 			if (hospital.mid == product_measure.get('id')) {chd = 'checked';}
 		});
 		this.$el.find('div#measures').append(temp({name:product_measure.get('name'),id:product_measure.get('id'),ch:chd}));		
