@@ -2,10 +2,14 @@
 <script type="text/template" class="template" id="element-list-template">
 <div class="container" >
     <div class="row">    
-            <h3>List of DataElements</h3>
-    		<section class="row-fluid">
-      			<a id="create_dataElement">Create New</a>
-    		</section>           
+            <div class="row">
+				<div class="span10">
+					<h3>List of DataElements</h3>
+				</div>				
+				<div class="span2">
+					<a id="create_dataElement"  href="javascript:;">Create New</a>
+				</div>
+			</div>           
             <div class="clearfix"></div>
             <form method="post" class="form-horizontal" id="element-list" accept-charset="utf-8">
                 <table id="table_items" class="table table-striped" >

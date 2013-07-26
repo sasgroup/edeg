@@ -11,6 +11,5 @@
 	    		<div id ='message-box'></div>
 				<div id ='app' class='app'></div>
 			</div>
-		
 	</body>
 </html>
