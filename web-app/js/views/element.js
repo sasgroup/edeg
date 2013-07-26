@@ -126,7 +126,7 @@ App.Views.DataElement = Backbone.View.extend({
 		}
 				
 		if ((dataElementDefaults == undefined)||(dataElementDefaults.length == 0)) { 	
-			var emptyDataElementDefault = {"id":"-1","linkId":"1","location":"","sourceEHR":"","valueType":{"enumType":"","name":""},"codeType":{"enumType":"","name":""}};
+			var emptyDataElementDefault = {"id":"-1","linkId":"1","location":"","valueType":{"enumType":"","name":""},"codeType":{"enumType":"","name":""}};
 			emptyDataElementDefault.parent = "element";
 			this.model.timeId = -2;
 			var dataElementDefaults = this.model.get('dataElementDefaults');
@@ -158,7 +158,7 @@ App.Views.DataElement = Backbone.View.extend({
 				var measures = this.model.get("measures");
 				var removeIndex; 
 				for (var i = 0; i < measures.length; i++) {
-					if (measures[i].hid == e.target.id) {
+					if (measures[i].mid == e.target.id) {
 						removeIndex = i;
 					}
 				}

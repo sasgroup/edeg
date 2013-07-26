@@ -140,7 +140,7 @@ App.Views.Product = Backbone.View.extend({
 						removeIndex = i;
 					}
 				}
-				measures.splice(removeIndex,1);
+				measures.splice(removeIndex, 1);
 				this.model.set("measures" , measures);
 			};
 		};	
