@@ -388,7 +388,34 @@ App.Views.SingleHospitalMeasure = Backbone.View
 						});
 						$(event.target.parentNode).addClass('row_selected');
 						$(event.target.parentNode).css( "background-color", "rgb(0, 136, 204, 0.5)" );
-						$('tr.row_selected td:first').css( "background-color", "rgb(0, 136, 204, 0)" );	
+						$('tr.row_selected td:first').css( "background-color", "rgb(0, 136, 204, 0)" );
+						// show relevant information			
+						var he_id = $('tr.row_selected td:first').prop("id");
+						// get hospital element by id 
+						var slc_hospital_element = hospitalElements.get(he_id);
+						//g&a level1
+						var notes = slc_hospital_element.get("notes");
+						//g&a level2
+						var internalNotes = slc_hospital_element.get("internalNotes");
+						//hospital specific
+						var hospitalValueSet = slc_hospital_element.get("hospitalValueSet");
+						//extra locations
+						var elementExtraLocation = slc_hospital_element.get("elementExtraLocation");
+						
+						//load relevant values
+						$("#txt-qa2").val("some notes for " + slc_hospital_element.get("dataElement") );
+						$("#txt-qa3").val("some internalNotes for " + slc_hospital_element.get("dataElement") );
+						
+						var extra_tbody = $('#modal-extra-table tbody');
+						$(extra_tbody).empty();
+						
+						var extra_view = new App.Views.ModalExtraDataElement({ model : slc_hospital_element});		
+						var extra_row = extra_view.render().el;
+						$(extra_tbody).append(extra_row);		
+						$(extra_row).find(".slcCodeType").val(slc_hospital_element.get('codeType').name);
+						$(extra_row).find(".slcValueType").val(slc_hospital_element.get('valueType').name);
+						
+						console.log(event.target.parentNode);
 					});
 					
 				   new FixedColumns( oTable,
@@ -443,3 +470,35 @@ App.Views.ModalDataElement = Backbone.View
 		return this;
 	}
 });	
+
+// EXTRA
+App.Views.ModalExtraDataElement = Backbone.View
+.extend({
+	tagName : 'tr',
+	template: _.template($('#modal-extra-elements').html()),		
+	
+	events : {
+		'click #plus-btn' : 'addRow',
+		'click #minus-btn': 'removeRow'		
+	},
+					
+	render : function() {			
+		var ch  = (this.model.get('sourceEHR'))  ? "checked" : "";		
+		this.model.set({chd:ch});
+		console.log(this.model.toJSON());
+		this.$el.html(this.template(this.model.toJSON()));				
+		return this;
+	},
+	
+	addRow : function (event){		
+		console.log("add extra row");
+		cur_row = $(event.target).closest('tr').html();
+		cur_tbody = $(event.target).closest('tbody');
+		$(cur_tbody).append(cur_row);
+	},
+	
+	removeRow : function (event){
+		console.log("remove extra row");
+		$(event.target).closest('tr').remove();
+	}
+});
