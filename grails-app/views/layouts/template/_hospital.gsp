@@ -76,17 +76,8 @@
 				</form>
           </div>		  
 		  <div id="hospital-specific" class="tab-pane fade">             
-		   <table class="table">
-           <tbody>
-			  <tr>
-                <td>1. Value Set</td>
-                <td><input id="txtValueSets" type="text"></td>
-                <td>2. File Upload <input id="fileValueSets" type="file"></td>
-                <td>3. Custom Table (CODE | CODE TYPE | MNEMONIC)</td>
-             </tr>			 
-           </tbody>
-           </table>
-          </div>
+		   
+		  </div>
 		  <div id="extra-location" class="tab-pane fade">
 		  	TYPE | LOCATION SYSTEM | LOCATION | VALUE TYPE | CODE TYPE 
           </div>

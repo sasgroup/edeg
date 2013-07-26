@@ -14,9 +14,8 @@ window.App = {
 $(function() {	
 	new App.Router();
 	Backbone.history.start();	
-	
-	//Backbone.history.navigate("product", true);
-		
+	//Backbone.history.start({pushState: true});
+			
 	$('.nav a').click(function(){
 		$('li.active').removeClass("active");
 		$(this).closest('li').addClass("active");	
