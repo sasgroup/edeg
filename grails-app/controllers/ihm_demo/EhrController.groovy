@@ -18,9 +18,9 @@ class EhrController {
 		dataElementsDefaults = param?.dataElementDefaults
 		for (dataElementsDefault in dataElementsDefaults) {
 			 new DataElementDefaults(location:dataElementsDefault.location,
-				source:"",
-				sourceEHR:"",
-				valueSetRequired:false,
+				//source:"",
+				//sourceEHR:"",
+				//valueSetRequired:false,
 				valueType:dataElementsDefault.valueType.name,
 				codeType:dataElementsDefault.codeType.name,
 				dataElement : DataElement.get(dataElementsDefault.linkId),
@@ -59,8 +59,8 @@ class EhrController {
 					for (d in dataElementDefaultsList) {
 						dataElementDefault  id : d.id,
 											location : d.location,
-											source : d.source,
-											sourceEHR : d.sourceEHR,
+											//source : d.source,
+											//sourceEHR : d.sourceEHR,
 											valueType : d.valueType,
 											codeType : d.codeType,
 											linkId : d.dataElement.id
