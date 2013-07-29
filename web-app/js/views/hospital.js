@@ -406,15 +406,32 @@ App.Views.SingleHospitalMeasure = Backbone.View
 						$("#txt-qa2").val("some notes for " + slc_hospital_element.get("dataElement") );
 						$("#txt-qa3").val("some internalNotes for " + slc_hospital_element.get("dataElement") );
 						
+						//extra location
 						var extra_tbody = $('#modal-extra-table tbody');
-						$(extra_tbody).empty();
-						
+						$(extra_tbody).empty();						
 						var extra_view = new App.Views.ModalExtraDataElement({ model : slc_hospital_element});		
 						console.log(slc_hospital_element);
 						var extra_row = extra_view.render().el;
 						$(extra_tbody).append(extra_row);		
 						$(extra_row).find(".slcCodeType").val(slc_hospital_element.get('codeType').name);
 						$(extra_row).find(".slcValueType").val(slc_hospital_element.get('valueType').name);
+						
+						//hospital specific
+						var hospital_specific_tbody = $('#modal-hospital-specific-table tbody');
+						$(hospital_specific_tbody).empty();		
+												
+						var hospitalSpecific =	{
+								  code:      '',
+								  codeType:  slc_hospital_element.get('codeType'),
+								  mnemonic:  ''
+						};
+						
+						var hospital_specific_model = new App.Models.ModalHospitalSpecific(hospitalSpecific);						
+						var hospital_specific_view = new App.Views.ModalHospitalSpecific({ model : hospital_specific_model});
+						var hospital_specific_row = hospital_specific_view.render().el;
+						$(hospital_specific_tbody).append(hospital_specific_row);	
+						$(hospital_specific_row).find(".slcCodeType").val(slc_hospital_element.get('codeType').name);
+						
 						
 						console.log(event.target.parentNode);
 					});
@@ -510,6 +527,47 @@ App.Views.ModalExtraDataElement = Backbone.View
 		$(extra_tbody).append(extra_row);
 		$(extra_row).find(".slcCodeType").val(extra_model.get('codeType').name);
 		$(extra_row).find(".slcValueType").val(extra_model.get('valueType').name);		
+		
+	},
+	
+	removeRow : function (event){
+		console.log("remove extra row");
+		$(event.target).closest('tr').remove();
+	}
+});
+
+//Hospital Specific 
+App.Views.ModalHospitalSpecific =  Backbone.View
+.extend({
+	tagName : 'tr',
+	template: _.template($('#modal-hospital-specific').html()),		
+	
+	events : {
+		'click #plus-btn' : 'addRow',
+		'click #minus-btn': 'removeRow'		
+	},
+					
+	render : function() {	
+		this.$el.html(this.template(this.model.toJSON()));				
+		return this;
+	},
+	
+	addRow : function (event){		
+		console.log("add extra row");
+		
+		var hospital_specific_tbody = $('#modal-hospital-specific-table tbody');
+										
+		var hospitalSpecific =	{
+				  code:      '',
+				  codeType:  this.model.get("codeType"),
+				  mnemonic:  ''
+		};
+		
+		var hospital_specific_model = new App.Models.ModalHospitalSpecific(hospitalSpecific);						
+		var hospital_specific_view = new App.Views.ModalHospitalSpecific({ model : hospital_specific_model});
+		var hospital_specific_row = hospital_specific_view.render().el;
+		$(hospital_specific_tbody).append(hospital_specific_row);
+		$(hospital_specific_row).find(".slcCodeType").val(hospital_specific_model.get('codeType').name);
 		
 	},
 	

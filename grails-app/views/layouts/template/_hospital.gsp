@@ -76,10 +76,9 @@
 				</form>
           </div>		  
 		  <div id="hospital-specific" class="tab-pane fade">             
-		    <div class="row-fluid">		
-				
+		    <div class="row-fluid">						
 				<div class="span7">             
-				<table class="table table-striped table-bordered">				
+				<table id="modal-hospital-specific-table" class="table table-striped table-bordered">				
 				<thead>
         			<tr>
             			<th>
@@ -89,33 +88,13 @@
                 			CodeType
             			</th>
             			<th>
-							MNEMONIC
-						</th>			
+							Mnemonic
+						</th>
+						<th></th>
+						<th></th>			
         			</tr>					
     			</thead>
-    			<tbody>  
-					<tr>
-            			<td>
-                			code1
-            			</td>
-            			<td>
-                			codetype1
-            			</dh>
-            			<td>
-							mnemonic1
-						</td>			
-        			</tr>  
-					<tr>
-            			<td>
-                			code2
-            			</td>
-            			<td>
-                			codetype2
-            			</dh>
-            			<td>
-							mnemonic2
-						</td>			
-        			</tr>  
+    			<tbody>					
     			</tbody>
 				</table>
 				</div>
@@ -359,6 +338,33 @@
 				<option value="ValueSet">ValueSet</option>
      </select>
  </td>
+ <td><div id="plus-btn" class="btn btn-mini"><i class="icon-plus"></i></div></td>
+ <td><div id="minus-btn" class="btn btn-mini"><i class="icon-minus"></i></div></td>
+</script>
+
+<!-- modal-hospital-specific -->
+<script type="text/template" class="template" id="modal-hospital-specific">
+ <td><input type="text" class="code" id="code" value="{{code}}"></td> 
+ <td><select class="slcCodeType">                
+				 <option value=""></option>
+				 <option value="AdministrativeSex">AdministrativeSex</option>                 
+				 <option value="CDREC">CDREC</option>
+				 <option value="CDT">CDT</option>
+				 <option value="CPT">CPT</option>
+				 <option value="CVX">CVX</option>
+				 <option value="DischargeDisposition">DischargeDisposition</option>
+				 <option value="HCPCS">HCPCS</option>
+				 <option value="HSLOC">HSLOC</option>
+				 <option value="ICD10CM">ICD10CM</option>
+				 <option value="ICD10PCS">ICD10PCS</option>
+				 <option value="ICD9CM">ICD9CM</option>
+				 <option value="LOINC">LOINC</option>
+				 <option value="RXNORM">RXNORM</option>
+				 <option value="SNOMEDCT">SNOMEDCT</option>
+				 <option value="SOP">SOP</option>
+    </select>
+ </td>
+ <td><input type="text" class="mnemonic" id="mnemonic" value="{{mnemonic}}"></td>
  <td><div id="plus-btn" class="btn btn-mini"><i class="icon-plus"></i></div></td>
  <td><div id="minus-btn" class="btn btn-mini"><i class="icon-minus"></i></div></td>
 </script>

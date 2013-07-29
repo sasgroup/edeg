@@ -18,7 +18,8 @@
 <script type="text/template" class="template" id="single-data-elements-default">
  <td><input type="text" class="location" id="location" value="{{loc}}"></td>
  <td><select class="slcCodeType">                
-				 <option value="NotApplicable"></option>
+				 <option value="">-Select-</option>
+				 <option value="NotApplicable">NotApplicable</option>
 				 <option value="AdministrativeSex">AdministrativeSex</option>                 
 				 <option value="CDCREC">CDREC</option>
 				 <option value="CDT">CDT</option>
@@ -37,7 +38,8 @@
     </select>
  </td>
  <td><select class="slcValueType">			
-				<option value="NotApplicable"></option>		     
+				<option value="">-Select-</option>
+				<option value="NotApplicable">NotApplicable</option>				  
                 <option value="IMO_Code">IMO_Code</option>                
 				<option value="Query_Mnemonic">Query/Mnemonic</option>
 				<option value="HospitalSpecific">HospitalSpecific</option>
