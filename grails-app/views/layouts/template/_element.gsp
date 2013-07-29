@@ -7,7 +7,7 @@
 					<h3>List of DataElements</h3>
 				</div>				
 				<div class="span2">
-					<a id="create_dataElement"  href="javascript:;">Create New</a>
+					<a class= "add-btn btn" id="create_dataElement"  href="javascript:;">Create New</a>
 				</div>
 			</div>           
             <div class="clearfix"></div>

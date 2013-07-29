@@ -18,6 +18,11 @@ table.dataTable tr.odd {
     background-color: #FFFFFF;
 }
 
+
+.dataTables_filter {
+    float: left;
+}    
+
 div#message-box {
 	margin-left: 12px;
     margin-top: -3px;
@@ -32,11 +37,12 @@ h3 {
     font-size: 19.5px;
 }
 
-/*.create_new {  
-    left: 10px;
+.add-btn {  
+    right: 30px;
     position: absolute;
-    top: 60px;      
-}*/
+    top: 60px;
+    z-index: 1000;      
+}
 
 
 table.dataTable thead th {

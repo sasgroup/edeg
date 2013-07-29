@@ -88,7 +88,7 @@ App.Router = Backbone.Router.extend({
 			 			"bInfo": false,
 			 			"bAutoWidth": false,
 			 			"aoColumnDefs": [
-			 							{'bSortable': false, 'aTargets': [ 2,3,4 ] }
+			 							{'bSortable': false, 'aTargets': [ 3, 4,5 ] }
 			 						 ],
 			 			"aaSorting": [[0, 'asc']],			 
 						"bScrollCollapse": true						

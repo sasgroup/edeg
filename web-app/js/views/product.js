@@ -106,11 +106,10 @@ App.Views.Product = Backbone.View.extend({
 	showProductMeasure : function(){
 		var checked = this.checked;
 		var unchecked = this.unchecked;
-		
+				
 		var mids = _.pluck(this.model.get('measures'), 'mid');					
 		var measure_ids = App.measures.pluck('id');
-		
-		console.log("mids ",mids);
+				
 		App.measures.forEach(function(m){			
 				console.log(m);		
 			if (_.contains(mids, m.get('id'))) {				

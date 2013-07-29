@@ -1,9 +1,15 @@
 <!-- LIST -->
 <script type="text/template" class="template" id="measure-list-template">
 <div class="container" >
-    <div class="row">       
-            <h3>List of Measures</h3>
-			<a id="create_measure" class="create_new">Create New</a>    		
+    <div class="row">           
+			<div class="row">
+				<div class="span10">
+					<h3>List of Measures</h3>
+				</div>				
+				<div class="span2">
+					<a class= "add-btn btn" id="create_measure"  href="javascript:;">Create New</a>
+				</div>
+			</div>       		
             <form method="post" class="form-horizontal" id="measure-list" accept-charset="utf-8">
                 <table id="table_items" class="table table-striped" >
                     <thead>
