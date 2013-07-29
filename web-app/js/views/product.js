@@ -94,8 +94,8 @@ App.Views.Product = Backbone.View.extend({
 				
 		var data = this.model.get('measures');
 			
-		$.each(data, function ( hospital ) {
-			if (hospital.mid == product_measure.get('id')) {chd = 'checked';}
+		$.each(data, function (i, measure ) {
+			if (measure.mid == product_measure.get('id')) {chd = 'checked';}
 		});
 		this.$el.find('div#measures').append(temp({name:product_measure.get('name'),id:product_measure.get('id'),ch:chd}));		
 	},
