@@ -410,6 +410,7 @@ App.Views.SingleHospitalMeasure = Backbone.View
 						$(extra_tbody).empty();
 						
 						var extra_view = new App.Views.ModalExtraDataElement({ model : slc_hospital_element});		
+						console.log(slc_hospital_element);
 						var extra_row = extra_view.render().el;
 						$(extra_tbody).append(extra_row);		
 						$(extra_row).find(".slcCodeType").val(slc_hospital_element.get('codeType').name);
@@ -492,9 +493,24 @@ App.Views.ModalExtraDataElement = Backbone.View
 	
 	addRow : function (event){		
 		console.log("add extra row");
-		cur_row = $(event.target).closest('tr').html();
-		cur_tbody = $(event.target).closest('tbody');
-		$(cur_tbody).append(cur_row);
+		
+		var extraDataElement =	{
+				  location:  this.model.get('location'),
+				  sourceEHR: this.model.get("sourceEHR"),
+				  source:    this.model.get("source"),
+				  codeType:  this.model.get("codeType"),
+				  valueType: this.model.get("valueType")
+		};
+		
+		var extra_model = new App.Models.ModalExtraDataElement(extraDataElement);
+		var extra_view = new App.Views.ModalExtraDataElement({ model : extra_model});		
+		
+		var extra_tbody = $('#modal-extra-table tbody');
+		var extra_row = extra_view.render().el;
+		$(extra_tbody).append(extra_row);
+		$(extra_row).find(".slcCodeType").val(extra_model.get('codeType').name);
+		$(extra_row).find(".slcValueType").val(extra_model.get('valueType').name);		
+		
 	},
 	
 	removeRow : function (event){
