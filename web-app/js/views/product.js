@@ -50,16 +50,31 @@ App.Views.Product = Backbone.View.extend({
 			this.model.set("state" , "New");
 		};
 		this.$el.html(this.template(this.model.toJSON()));
-		App.measures.forEach(this.appendProductMeasure,this);	
 		
-		/*var data = this.model.get('hospitals');	
-		var curProduct = this;
 		
-		$.each(data, function ( hospital ) {
-			curProduct.appendHospital(hospital);
-		});*/
+		var temp = _.template($('#single-product-measure').html());		
+		this.checked = [];
+		this.unchecked = [];
+		
+		//App.measures.forEach(this.appendProductMeasure);		
+		this.showProductMeasure();
+		
+		console.log("checked ", this.checked);
+		console.log("unchecked ", this.unchecked);
+		
+		for(var product_measure in this.checked) {
+			var measure = this.checked[product_measure];
+			this.$el.find('div#measures').append(temp({name:measure.name,id:measure.id,ch:'checked'}));	 
+		}	
+		
+		for(var product_measure in this.unchecked) {
+			var measure = this.unchecked[product_measure];
+			this.$el.find('div#measures').append(temp({name:measure.name,id:measure.id,ch:''}));	 
+		}	
+						
 		this.model.get('hospitals').forEach(this.appendHospital,this);	
 			
+		console.log(this.checked );
 		return this;
 	},
 
@@ -88,7 +103,25 @@ App.Views.Product = Backbone.View.extend({
 		}				
 	},
 	
-	appendProductMeasure : function(product_measure){
+	showProductMeasure : function(){
+		var checked = this.checked;
+		var unchecked = this.unchecked;
+		
+		var mids = _.pluck(this.model.get('measures'), 'mid');					
+		var measure_ids = App.measures.pluck('id');
+		
+		console.log("mids ",mids);
+		App.measures.forEach(function(m){			
+				console.log(m);		
+			if (_.contains(mids, m.get('id'))) {				
+				checked.push({name:m.get('name'),id:m.get('id')});
+			} else {
+				unchecked.push({name:m.get('name'),id:m.get('id')});
+			}
+		});		
+	},
+	
+	/*appendProductMeasure : function(product_measure){
 		var temp = _.template($('#single-product-measure').html());		
 		var chd = '';
 				
@@ -97,18 +130,11 @@ App.Views.Product = Backbone.View.extend({
 		$.each(data, function (i, measure ) {
 			if (measure.mid == product_measure.get('id')) {chd = 'checked';}
 		});
+		
+		
 		this.$el.find('div#measures').append(temp({name:product_measure.get('name'),id:product_measure.get('id'),ch:chd}));		
-	},
-	
-	/*appendProductHospital : function(product_hospital){
-		var temp = _.template($('#single-product-hospital').html());
-		var chd = '';
-		this.model.get('hospitals').forEach(function( hospital ) {
-			if (hospital.hid == product_hospital.get('id')) {chd = 'checked';}
-		});
-		this.$el.find('div#hospitals').append(temp({name:product_hospital.get('name'),id:product_hospital.get('id'),ch:chd}));
 	},*/
-	
+		
 	appendHospital : function(product_hospital){
 		var temp = _.template($('#single-product-hospital').html());
 		this.$el.find('div#hospitals').append(temp({name:product_hospital.hname}));		
