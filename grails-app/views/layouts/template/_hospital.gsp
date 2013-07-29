@@ -275,7 +275,8 @@
  <td><input type="checkbox" class="sourceEhr" id="sourceEhr" value="{{sourceEHR}}" {{chd}}></td>
  <td><input type="text" class="source" id="source" value="{{source}}"></td>
  <td><select class="slcCodeType">                
-				 <option value=""></option>
+				 <option value="">-Select-</option>
+				 <option value="NotApplicable">NotApplicable</option>
 				 <option value="AdministrativeSex">AdministrativeSex</option>                 
 				 <option value="CDREC">CDREC</option>
 				 <option value="CDT">CDT</option>
@@ -294,7 +295,8 @@
     </select>
  </td>
  <td><select class="slcValueType">			
-				<option value=""></option>		     
+				<option value="">-Select-</option>
+				<option value="NotApplicable">NotApplicable</option>     
                 <option value="IMO_Code">IMO_Code</option>                
 				<option value="Query/Mnemonic">Query/Mnemonic</option>
 				<option value="HospitalSpecific">HospitalSpecific</option>
@@ -311,7 +313,8 @@
  <td><input type="checkbox" class="sourceEhr" id="sourceEhr" value="{{sourceEHR}}" {{chd}}></td>
  <td><input type="text" class="source" id="source" value="{{source}}"></td>
  <td><select class="slcCodeType">                
-				 <option value=""></option>
+				 <option value="">-Select-</option>
+				 <option value="NotApplicable">NotApplicable</option>
 				 <option value="AdministrativeSex">AdministrativeSex</option>                 
 				 <option value="CDREC">CDREC</option>
 				 <option value="CDT">CDT</option>
@@ -330,7 +333,8 @@
     </select>
  </td>
  <td><select class="slcValueType">			
-				<option value=""></option>		     
+				<option value="">-Select-</option>
+				<option value="NotApplicable">NotApplicable</option>	     
                 <option value="IMO_Code">IMO_Code</option>                
 				<option value="Query/Mnemonic">Query/Mnemonic</option>
 				<option value="HospitalSpecific">HospitalSpecific</option>
@@ -346,7 +350,8 @@
 <script type="text/template" class="template" id="modal-hospital-specific">
  <td><input type="text" class="code" id="code" value="{{code}}"></td> 
  <td><select class="slcCodeType">                
-				 <option value=""></option>
+				 <option value="">-Select-</option>
+				 <option value="NotApplicable">NotApplicable</option>
 				 <option value="AdministrativeSex">AdministrativeSex</option>                 
 				 <option value="CDREC">CDREC</option>
 				 <option value="CDT">CDT</option>
