@@ -140,26 +140,7 @@ App.Views.Product = Backbone.View.extend({
 	},
 	
 	changeCh : function(e) {
-		//console.log(e.target.value + ' ' + e.target.id + ' ' + e.target.checked+ ' '+e.target.name);
-		if (e.target.name == 'hospital' ) {
-			if ( e.target.checked ) {
-				//console.log("Push hospitals");
-				var hospitals = this.model.get("hospitals");
-				hospitals.push({"hid" : e.target.id, "hname" : e.target.value});
-				this.model.set("hospitals" , hospitals);
-			} else {
-				//console.log("Remove hospitals");
-				var hospitals = this.model.get("hospitals");
-				var removeIndex; 
-				for (var i = 0; i < hospitals.length; i++) {
-					if (hospitals[i].hid == e.target.id) {
-						removeIndex = i;
-					}
-				}
-				hospitals.splice(removeIndex,1);
-				this.model.set("hospitals" , hospitals);
-			}
-		};
+		//console.log(e.target.value + ' ' + e.target.id + ' ' + e.target.checked+ ' '+e.target.name);		
 		if (e.target.name == 'measure' ) {
 			if ( e.target.checked ) {
 				//console.log("Push measure");

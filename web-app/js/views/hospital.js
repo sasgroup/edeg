@@ -29,11 +29,11 @@ App.Views.Hospital = Backbone.View.extend({
 	},
 	
 	events : {
-		'click #submit-btn' 					 : 'submHospital',	
-		'click button#cancel' 					 : 'returnOnMain', 
+		'click #submit-btn' 			 : 'submHospital',	
+		'click button#cancel' 			 : 'returnOnMain', 
 		'click #btnApplyHospitalOptions' : 'applyHospitalOptions',
 		'click a[data-toggle="tab"]'	 : 'changeTab',
-		'change #notes' 				 : 'changeVal'
+		'change #notes' 				 : 'changeVal'		
 	},
 
 	render : function() {	
@@ -143,31 +143,11 @@ App.Views.Hospital = Backbone.View.extend({
 		// for all products
 		$.each( products , function( i, product ) {					
 			var slcTab = '#myTabContent div#t' + product.id;
-			$(slcTab).append(table_template());	
-						 						
-			/*tableToGrid(slcTab + ' .hospitalMeasureTable', {
-				   //autowidth:true,					
-				   height: 285,
-				   width: 950,
-				   datatype:'local',	 			
-				   colNames:['Use','ID', 'CODE', 'TITLE','Completed','Confirmed','Accepted', 'Verified'],
-				   colModel:[ {name:'included',index:'included',  width:40}, 
-				              {name:'id',index:'id', sortable: true, width:40, sorttype:"int" }, 
-				              {name:'code',index:'code', width:100}, 
-				              {name:'title',index:'title', width:325}, 
-				              {name:'accepted',index:'accepted', width:60, align:"right"},				              
-				              {name:'completed',index:'completed', width:60, align:"right"},
-				              {name:'confirmed',index:'confirmed', width:60, align:"right"},
-				              {name:'verified',index:'verified', width:60, align:"right"}
-				               ],
-				
-				sortable: true,	
-				rowNum: 10000,
-				viewrecords: true
-		   });*/
+			$(slcTab).append(table_template());			
 						
 			// get assigned measures
 			var measures = product.measures;
+			
 			$.each( measures, function( i, measure ) {
 				console.log(JSON.stringify(measure));		
 				var hospitalMeasure	 =  new App.Models.HospitalMeasure({"id":measure.id,
@@ -230,7 +210,20 @@ App.Views.Hospital = Backbone.View.extend({
 	submHospital : function(e) {
 		e.preventDefault();		
         console.log('submHospital');
-		this.model.save(this.attributes,{
+        
+        var p_id;
+        var m_id;
+        //this.model.get('products')[0].measures[0].included
+        var products = this.model.get('products');        
+        products.forEach(function(product){			
+			var measures = product.measures;
+			measures.forEach(function(measure){
+				console.log(measure);
+				//measure.included=true;
+			});
+        });
+			
+        this.model.save(this.attributes,{
 	        success: function (model, response) {
 	           console.log(response);
 	           $('div#message-box').text("").append(response.message).fadeIn(500).delay(1500).fadeOut(500);
@@ -284,6 +277,7 @@ App.Views.SingleHospitalMeasure = Backbone.View
 				'click .cancel-btn'           : 'goToCancel',
 				'click a#customLink'       	  : 'goToDataElements',
 				'change input[name="included"], input[name="completed"], input[name="confirmed"], input[name="accepted"], input[name="verified"]'  : 'changeVal'
+				
 			},
 
 			render : function() {						

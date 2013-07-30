@@ -7,7 +7,7 @@
 					<h3>List of EHR</h3>
 				</div>				
 				<div class="span2">
-					<a class= "add-btn btn" id="create_ehr"  href="#">Create New</a>
+					<a class= "add-btn btn" id="create_ehr"  href="javascript:;">Create New</a>
 				</div>
 			</div>            
             <div class="clearfix"></div>
