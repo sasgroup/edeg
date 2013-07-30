@@ -83,7 +83,7 @@ App.Router = Backbone.Router.extend({
 					{
 						"bPaginate": false,
 						"bFilter": true,
-						"sScrollY": "470px",
+						"sScrollY": "520px",
 						"bSort": true,
 			 			"bInfo": false,
 			 			"bAutoWidth": false,
@@ -109,7 +109,7 @@ App.Router = Backbone.Router.extend({
 					{
 						"bPaginate": false,
 						"bFilter": true,
-						"sScrollY": "470px",
+						"sScrollY": "520px",
 						"bSort": true,
 			 			"bInfo": false,
 			 			"bAutoWidth": false,
@@ -134,7 +134,7 @@ App.Router = Backbone.Router.extend({
 					{
 						"bPaginate": false,
 						"bFilter": true,
-						"sScrollY": "470px",
+						"sScrollY": "520px",
 						"bSort": true,
 			 			"bInfo": false,
 			 			"bAutoWidth": false,
@@ -160,7 +160,7 @@ App.Router = Backbone.Router.extend({
 					{
 						"bPaginate": false,
 						"bFilter": true,
-						"sScrollY": "470px",
+						"sScrollY": "520px",
 						"bSort": true,
 			 			"bInfo": false,
 			 			"bAutoWidth": false,

@@ -136,7 +136,7 @@ form input.error {
 
 form#hospital-edit div#myTabContent  {
 	display:block;
-	height: 300px;
+	height: 362px;
 	width:100%;
 	overflow: auto;   
 }
@@ -144,14 +144,14 @@ form#hospital-edit div#myTabContent  {
 
 form#product-edit div#myTabContent, form#element-edit div#myTabContent, form#ehr-edit div#myTabContent   {
 	display:block;
-	height: 304px;
+	height: 374px;
 	width:100%;
 	overflow: auto;   
 }
 
 form#measure-edit div#myTabContent  {
 	display:block;
-	height: 269px;
+	height: 339px;
 	width:100%;
 	overflow: auto;   
 }
@@ -278,7 +278,7 @@ nav.header-nav a:hover {
     background-color: #fff;    
     /*min-height: 720px;    */
     height: 100%;
-    padding-bottom:105px; /* Height of the footer */    
+    padding-bottom:55px; /* Height of the footer */    
     overflow: auto;    
 }
 
@@ -299,7 +299,7 @@ footer {
     margin-top: 12px;
     padding: 10px 0px 0px 0px;    
    /* height:115px;   /* Height of the footer */    
-    height:105px;   /* Height of the footer */
+    height:55px;   /* Height of the footer */
 }
 
 
