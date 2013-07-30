@@ -1,4 +1,4 @@
-App.Router = Backbone.Router.extend({
+App.Routers.Administrator = Backbone.Router.extend({
 	routes : {
 		''                : 'products',
 		'product'		  : 'products',

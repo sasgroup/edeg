@@ -7,12 +7,13 @@ window.App = {
 	Models : {},
 	Collections : {},
 	Views : {},
-	Router : {}
+	Routers : {}
 };
 
 
 $(function() {	
-	new App.Router();
+	
+	new App.Routers.Administrator();
 	Backbone.history.start();	
 	//Backbone.history.start({pushState: true});
 			
