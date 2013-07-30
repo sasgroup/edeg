@@ -41,7 +41,9 @@ App.Views.Hospital = Backbone.View.extend({
 			this.model.set("state" , "New");
 		};
 		
-		console.log(this.model.toJSON());
+		// get embedded collection
+		App.hospital_products = App.ho.get('products');
+		
 		this.$el.html(this.template(this.model.toJSON()));
 		
 		App.products.forEach(this.appendProductOption,this);
@@ -141,14 +143,14 @@ App.Views.Hospital = Backbone.View.extend({
 		var products = App.ho.get('products');	
 				
 		// for all products
-		$.each( products , function( i, product ) {					
+		$.each( products , function( p_index, product ) {					
 			var slcTab = '#myTabContent div#t' + product.id;
 			$(slcTab).append(table_template());			
 						
 			// get assigned measures
 			var measures = product.measures;
 			
-			$.each( measures, function( i, measure ) {
+			$.each( measures, function( m_index, measure ) {
 				console.log(JSON.stringify(measure));		
 				var hospitalMeasure	 =  new App.Models.HospitalMeasure({"id":measure.id,
 																		"code":measure.code,
@@ -157,7 +159,10 @@ App.Views.Hospital = Backbone.View.extend({
 																		"completed":measure.completed,
 																		"confirmed":measure.confirmed,
 																		"included" :measure.included,
-																		"verified" :measure.verified});				
+																		"verified" :measure.verified,
+																		"p_index"  :p_index,
+																		"m_index"  :m_index
+																		});				
 				
 				var view = new App.Views.SingleHospitalMeasure({ model : hospitalMeasure });				
 				$(slcTab + ' .hospitalMeasureTable tbody').append(view.render().el);				
@@ -210,19 +215,9 @@ App.Views.Hospital = Backbone.View.extend({
 	submHospital : function(e) {
 		e.preventDefault();		
         console.log('submHospital');
+                                
+        this.model.set("products" , App.hospital_products);
         
-        var p_id;
-        var m_id;
-        //this.model.get('products')[0].measures[0].included
-        var products = this.model.get('products');        
-        products.forEach(function(product){			
-			var measures = product.measures;
-			measures.forEach(function(measure){
-				console.log(measure);
-				//measure.included=true;
-			});
-        });
-			
         this.model.save(this.attributes,{
 	        success: function (model, response) {
 	           console.log(response);
@@ -276,8 +271,7 @@ App.Views.SingleHospitalMeasure = Backbone.View
 				'click .save-btn'             : 'goToSave',
 				'click .cancel-btn'           : 'goToCancel',
 				'click a#customLink'       	  : 'goToDataElements',
-				'change input[name="included"], input[name="completed"], input[name="confirmed"], input[name="accepted"], input[name="verified"]'  : 'changeVal'
-				
+				'change input[name="included"], input[name="completed"], input[name="confirmed"], input[name="accepted"], input[name="verified"]'  : 'changeVal'				
 			},
 
 			render : function() {						
@@ -301,12 +295,31 @@ App.Views.SingleHospitalMeasure = Backbone.View
 				return this;
 			},
 			
-			changeVal: function(e) {
-				console.log("changeVal " + e.target);
-				console.log(e.target.name);
-				this.model.attributes[e.target.name] = $(e.target).val();
-				console.log(this.model.attributes);
-						
+			changeVal: function(e) {				
+				console.log("checkbox "+e.target.name+ ":", $(e.target).is(':checked'));	
+							    
+			    p_index=this.model.get('p_index');
+			    m_index=this.model.get('m_index');			    
+			    
+			    switch (e.target.name) {
+			    case "included":
+			    	App.hospital_products[p_index].measures[m_index].included = $(e.target).is(':checked');	
+			        break;
+			    case "completed":			        
+			    	App.hospital_products[p_index].measures[m_index].completed = $(e.target).is(':checked');	
+			    	break;
+			    case "confirmed":			        
+			    	App.hospital_products[p_index].measures[m_index].confirmed = $(e.target).is(':checked');
+			    	break;
+			    case "accepted":
+			    	App.hospital_products[p_index].measures[m_index].accepted = $(e.target).is(':checked');
+			        break;    
+			    case "verified":
+			    	App.hospital_products[p_index].measures[m_index].verified = $(e.target).is(':checked');
+			        break;        
+			    }
+			   
+			    console.log( App.hospital_products);						
 			},
 
 			goToEdit : function(e) {
