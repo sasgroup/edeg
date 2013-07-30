@@ -115,7 +115,7 @@ App.Views.Hospital = Backbone.View.extend({
 			"bSort": true,
 			"bInfo": false,
 			"aaSorting": [[0, 'asc']],
-			"aoColumnDefs": [{'bSortable': false, 'aTargets': [ 4,5,6,7 ] }]
+			"aoColumnDefs": [{'bSortable': false, 'aTargets': [ 3,4,5,6 ] }]
 			/*"fnDrawCallback": function( oSettings ) {
 			      //alert( 'DataTables has redrawn the table' );
 				this.refeshTableHeader();
