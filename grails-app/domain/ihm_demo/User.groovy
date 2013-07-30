@@ -1,20 +1,20 @@
 package ihm_demo
 
-class Users {
+class User {
 	
-	String username
+	String login
 	String password
-	String role
+	String role = "SystemUser"
 	Hospital hospital
     
 	static constraints = {
-		username()
-		password()
+		login(blank:false, nullable:false, unique:true)
+		password(blank:false, password:true)
 		role(inList:["SystemUser" , "HospitalUser"])
 		hospital()
     }
 	
 	String toString(){
-		"$username, $password"
+		login
 	}
 }

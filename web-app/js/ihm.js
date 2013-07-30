@@ -13,10 +13,10 @@ window.App = {
 
 $(function() {	
 	
-	new App.Routers.Administrator();
+	//new App.Routers.Administrator();
+	new App.Routers.User();
 	Backbone.history.start();	
-	//Backbone.history.start({pushState: true});
-			
+				
 	$('.nav a').click(function(){
 		$('li.active').removeClass("active");
 		$(this).closest('li').addClass("active");	

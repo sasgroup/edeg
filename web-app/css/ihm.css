@@ -10,6 +10,15 @@ body {
     background: url("images/bg.png") repeat-y center;       
 }
 
+
+.hospital-dropdown, .signin-dropdown, .hospital-name  {
+	top: 40px;
+}
+
+.hospital-dropdown {
+	left: 670px;	
+}
+
 div#hospital-specific, div#hospital-specific input[type="file"] {
 	font-size: 12px;	
 }
@@ -239,6 +248,18 @@ header a.logo {
     left: 22px;
     background-image: url("images/ihm-logo-TRANS-sm.png");
 }
+
+header .hospital-name {
+    display: block;
+    position: absolute;
+    width:450px;
+    height: 85px;
+    top: 18px ;
+    left: 200px;
+    text-transforam: uppercase    
+}
+
+
 
 nav.header-nav {
     max-width: 980px;

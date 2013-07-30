@@ -15,7 +15,8 @@ modules = {
 		resource url: 'js/views/product.js'
 		
 				
-		resource url: 'js/router.js'		
+		resource url: 'js/routers/admin.js'	
+		resource url: 'js/routers/user.js'
 	}
 	
 	underscore {

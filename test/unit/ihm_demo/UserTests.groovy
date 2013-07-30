@@ -8,11 +8,11 @@ import org.junit.*
 /**
  * See the API for {@link grails.test.mixin.domain.DomainClassUnitTestMixin} for usage instructions
  */
-@TestFor(Users)
-class UsersTests {
+@TestFor(User)
+class UserTests {
 
     void testSomething() {
-       def user =new Users(username:"username",
+       def user =new User(username:"username",
 						   password:"password",
 						   role:"SystemUser",
 						   hospital:"hospital")

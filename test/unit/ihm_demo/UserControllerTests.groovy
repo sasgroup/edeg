@@ -5,9 +5,9 @@ package ihm_demo
 import org.junit.*
 import grails.test.mixin.*
 
-@TestFor(UsersController)
-@Mock(Users)
-class UsersControllerTests {
+@TestFor(UserController)
+@Mock(User)
+class UserControllerTests {
 
     def populateValidParams(params) {
         assert params != null
@@ -47,7 +47,7 @@ class UsersControllerTests {
 
         assert response.redirectedUrl == '/users/show/1'
         assert controller.flash.message != null
-        assert Users.count() == 1
+        assert User.count() == 1
     }
 
     void testShow() {
@@ -57,7 +57,7 @@ class UsersControllerTests {
         assert response.redirectedUrl == '/users/list'
 
         populateValidParams(params)
-        def users = new Users(params)
+        def users = new User(params)
 
         assert users.save() != null
 
@@ -75,7 +75,7 @@ class UsersControllerTests {
         assert response.redirectedUrl == '/users/list'
 
         populateValidParams(params)
-        def users = new Users(params)
+        def users = new User(params)
 
         assert users.save() != null
 
@@ -95,7 +95,7 @@ class UsersControllerTests {
         response.reset()
 
         populateValidParams(params)
-        def users = new Users(params)
+        def users = new User(params)
 
         assert users.save() != null
 
@@ -139,17 +139,17 @@ class UsersControllerTests {
         response.reset()
 
         populateValidParams(params)
-        def users = new Users(params)
+        def users = new User(params)
 
         assert users.save() != null
-        assert Users.count() == 1
+        assert User.count() == 1
 
         params.id = users.id
 
         controller.delete()
 
-        assert Users.count() == 0
-        assert Users.get(users.id) == null
+        assert User.count() == 0
+        assert User.get(users.id) == null
         assert response.redirectedUrl == '/users/list'
     }
 }
