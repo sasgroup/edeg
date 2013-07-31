@@ -7,12 +7,12 @@ modules = {
 		resource url: 'js/collections.js'
 		
 			
-		resource url: 'js/views/data_element_default.js'
-		resource url: 'js/views/ehr.js'
-		resource url: 'js/views/element.js'
-		resource url: 'js/views/hospital.js'
-		resource url: 'js/views/measure.js'
-		resource url: 'js/views/product.js'
+		resource url: 'js/views/admin/data_element_default.js'
+		resource url: 'js/views/admin/ehr.js'
+		resource url: 'js/views/admin/element.js'
+		resource url: 'js/views/admin/hospital.js'
+		resource url: 'js/views/admin/measure.js'
+		resource url: 'js/views/admin/product.js'
 		
 				
 		resource url: 'js/routers/admin.js'	

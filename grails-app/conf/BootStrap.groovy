@@ -1,5 +1,13 @@
 import ihm_demo.*
 
+/*class BootStrap {
+	
+		def init = { servletContext ->
+		}
+		def destroy = {
+		}
+}*/
+	
 class BootStrap {
 
     def init = { servletContext ->

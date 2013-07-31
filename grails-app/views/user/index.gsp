@@ -9,6 +9,7 @@
 	<body>	    
 	    	<div class="page-content">
 	    		<div id ='message-box'></div>
+	    		<div id ='breadcrumb-box'></div>
 				<div id ='app' class='app'></div>
 			</div>
 	</body>

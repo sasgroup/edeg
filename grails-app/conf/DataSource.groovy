@@ -20,7 +20,8 @@ environments {
     }
     test {
         dataSource {
-            dbCreate = "create-drop"
+            //dbCreate = "create-drop"
+			dbCreate = "update"
             url = "jdbc:h2:mem:testDb;MVCC=TRUE;LOCK_TIMEOUT=10000"
         }
     }
@@ -43,7 +44,8 @@ environments {
         }
         */
 		dataSource {
-			dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
+			//dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
+			dbCreate = "update"
 			url = "jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000"
 		}
     }
