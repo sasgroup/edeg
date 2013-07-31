@@ -13,9 +13,12 @@ window.App = {
 
 $(function() {	
 	
-	//new App.Routers.Administrator();
+	//new App.Routers.Administrator();	
 	new App.Routers.User();
 	Backbone.history.start();	
+//  window.location.href = "/ihm/user";
+//	Backbone.history.navigate("user/", true);
+	 
 				
 	$('.nav a').click(function(){
 		$('li.active').removeClass("active");
