@@ -16,7 +16,7 @@ $(function() {
 	//new App.Routers.Administrator();	
 	new App.Routers.User();
 	Backbone.history.start();	
-		
+			
 	$('#hospital-list-dropdown li').live('click', function(){	 
 		var hospital_name = $(this).find('a').text(); 
 		var hospital_id = $(this).data('id');
@@ -30,8 +30,8 @@ $(function() {
 			var products = App.ho.get('products');
 			$('nav#products-nav').empty();
 			$.each( products, function( i, product ) { 	
-				console.log(product.code);				
-				$('nav#products-nav').append('<a href="#product1">' + product.code + '</a>');		           
+				console.log(product.code);			
+				$('nav#products-nav').append('<a href="#'+ product.code+ '">' + product.code + '</a>');		           
 			});			
 		})
 	    
