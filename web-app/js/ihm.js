@@ -12,9 +12,16 @@ window.App = {
 
 
 $(function() {	
+		
+	var curUser = 'user';
 	
-	//new App.Routers.Administrator();	
-	new App.Routers.User();
+	if (curUser == 'admin') {
+		new App.Routers.Administrator();	
+	}
+	else {
+		new App.Routers.User();		
+	}
+		
 	Backbone.history.start();	
 			
 	$('#hospital-list-dropdown li').live('click', function(){	 
