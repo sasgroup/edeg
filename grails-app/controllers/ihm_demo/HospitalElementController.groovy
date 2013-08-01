@@ -19,7 +19,7 @@ class HospitalElementController {
 		if (params.id && HospitalMeasure.exists(params.id)) {
 			def  result = HospitalMeasure.get(params.id)
 
-			def hospitalElements = HospitalElement.list().findAll{it?.hospitalMeasure.findAll{it.id == result.id}.size() >= 1}
+			def hospitalElements =  result.hospitalElements //HospitalElement.list().findAll{it?.hospitalMeasure.findAll{it.id == result.id}.size() >= 1}
 
 			render(contentType: "text/json") {
 				hospitalElements = array {
