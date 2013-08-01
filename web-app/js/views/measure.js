@@ -23,7 +23,7 @@ App.Views.Measures = Backbone.View.extend({
 	},
 
 	createMeasure : function() {
-		console.log("createMeasure");
+		if (window.console) console.log("createMeasure");
 		Backbone.history.navigate("measure/new", true)
 	}
 });
@@ -100,15 +100,15 @@ App.Views.Measure = Backbone.View.extend({
 		this.$el.find('div#products').append(temp({name:measure_product.get('name'),id:measure_product.get('id'),ch:chd}));		
 	},
 	changeCh : function(e) {
-		console.log(e.target.value + ' ' + e.target.id + ' ' + e.target.checked+ ' '+e.target.name);
+		if (window.console) console.log(e.target.value + ' ' + e.target.id + ' ' + e.target.checked+ ' '+e.target.name);
 		if (e.target.name == 'product' ) {
 			if ( e.target.checked ) {
-				console.log("Push products");
+				if (window.console) console.log("Push products");
 				var products = this.model.get("products");
 				products.push({"pid" : e.target.id, "pname" : e.target.value});
 				this.model.set("products" , products);
 			} else {
-				console.log("Remove products");
+				if (window.console) console.log("Remove products");
 				var products = this.model.get("products");
 				var removeIndex; 
 				for (var i = 0; i < products.length; i++) {
@@ -121,12 +121,12 @@ App.Views.Measure = Backbone.View.extend({
 		};
 		if (e.target.name == 'element' ) {
 			if ( e.target.checked ) {
-				console.log("Push dataElements");
+				if (window.console) console.log("Push dataElements");
 				var dataElements = this.model.get("dataElements");
 				dataElements.push({"did" : e.target.id, "dname" : e.target.value});
 				this.model.set("dataElements" , dataElements);
 			} else {
-				console.log("Remove dataElements");
+				if (window.console) console.log("Remove dataElements");
 				var dataElements = this.model.get("dataElements");
 				var removeIndex; 
 				for (var i = 0; i < dataElements.length; i++) {
@@ -137,7 +137,7 @@ App.Views.Measure = Backbone.View.extend({
 				dataElements.splice(removeIndex,1);
 			};
 		};	
-		console.log(this.model);
+		if (window.console) console.log(this.model);
 	},
 	appendDataElement : function(measure_element){
 		var temp = _.template($('#single-measure-element').html());
@@ -175,7 +175,7 @@ App.Views.Measure = Backbone.View.extend({
 		
 		this.model.save(this.attributes,{
 	        success: function (model, response) {
-	           console.log(response);
+	           if (window.console) console.log(response);
 	           $('div#message-box').text("").append(response.message).fadeIn(500).delay(1500).fadeOut(500);
                Backbone.history.navigate("measure", true);
 	        },
@@ -211,7 +211,7 @@ App.Views.SingleMeasure = Backbone.View
 			},
 			
 			destroy : function(e){
-				console.log("destroy");
+				if (window.console) console.log("destroy");
 				e.preventDefault();
 				
 				if (confirm('Are you sure you want to delete this Measure?')) {
@@ -225,7 +225,7 @@ App.Views.SingleMeasure = Backbone.View
 				    	Backbone.history.navigate("measure", true);
 				     },
 				     error: function (model, response) {
-				    	 console.log(response);
+				    	 if (window.console) console.log(response);
 				    	 $('div#message-box').text("").append(response.responseText).fadeIn(500).delay(1500).fadeOut(500);
 				            Backbone.history.navigate("measure", true);
 				     }

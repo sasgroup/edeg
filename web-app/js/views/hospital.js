@@ -58,7 +58,7 @@ App.Views.Hospital = Backbone.View.extend({
 	},
 	
 	appendEhrOption: function(ehr) {	
-		console.log(ehr.code);
+		if (window.console) console.log(ehr.code);
 		var temp = _.template($('#product-option').html());
 		this.$el.find('#slcEHRs').append(temp({id:ehr.get('id'),code:ehr.get('name')}));		
 	},
@@ -151,7 +151,7 @@ App.Views.Hospital = Backbone.View.extend({
 			var measures = product.measures;
 			
 			$.each( measures, function( m_index, measure ) {
-				console.log(JSON.stringify(measure));		
+				if (window.console) console.log(JSON.stringify(measure));		
 				var hospitalMeasure	 =  new App.Models.HospitalMeasure({"id":measure.id,
 																		"code":measure.code,
 																		"name":measure.name,
@@ -207,20 +207,20 @@ App.Views.Hospital = Backbone.View.extend({
 	},
 
 	changeVal : function(e) {
-		console.log(e.target.name);
+		if (window.console) console.log(e.target.name);
 		this.model.attributes[e.target.name] = $(e.target).val();
-		console.log(this.model.attributes);
+		if (window.console) console.log(this.model.attributes);
 	},
 	
 	submHospital : function(e) {
 		e.preventDefault();		
-        console.log('submHospital');
+		if (window.console) console.log('submHospital');
                                 
         this.model.set("products" , App.hospital_products);
         
         this.model.save(this.attributes,{
 	        success: function (model, response) {
-	           console.log(response);
+	        	if (window.console) console.log(response);
 	           $('div#message-box').text("").append(response.message).fadeIn(500).delay(1500).fadeOut(500);
                Backbone.history.navigate("hospital", true);
 	        },
@@ -257,7 +257,7 @@ App.Views.SingleHospital = Backbone.View
 			},
 
 			destroy : function(){
-				console.log("destroy");
+				if (window.console) console.log("destroy");
 			}
 		});
 
@@ -296,7 +296,7 @@ App.Views.SingleHospitalMeasure = Backbone.View
 			},
 			
 			changeVal: function(e) {				
-				console.log("checkbox "+e.target.name+ ":", $(e.target).is(':checked'));	
+				if (window.console) console.log("checkbox "+e.target.name+ ":", $(e.target).is(':checked'));	
 							    
 			    p_index=this.model.get('p_index');
 			    m_index=this.model.get('m_index');			    
@@ -319,20 +319,20 @@ App.Views.SingleHospitalMeasure = Backbone.View
 			        break;        
 			    }
 			   
-			    console.log( App.hospital_products);						
+			    if (window.console) console.log( App.hospital_products);						
 			},
 
 			goToEdit : function(e) {
-				console.log("goToEdit " + e.target);				
+				if (window.console) console.log("goToEdit " + e.target);				
 						
 			},
 			
 			goToSave : function (e){
-				console.log("goToSave ");
+				if (window.console) console.log("goToSave ");
 								
 				this.model.save(this.attributes,{
 			        success: function (model, response) {
-			           console.log(response);
+			        	if (window.console) console.log(response);
 			           $('div#message-box').text("").append(response.message).fadeIn(500).delay(1500).fadeOut(500);
 		               //Backbone.history.navigate("product", true);
 			        },
@@ -346,7 +346,7 @@ App.Views.SingleHospitalMeasure = Backbone.View
 						
 			goToDataElements : function(e) {
 				e.preventDefault();
-				console.log("goToDataElements");				
+				if (window.console) console.log("goToDataElements");				
 				
 				$('#main_table').empty();
 				var table_template = _.template($('#hospital-elements_table').html());	
@@ -361,10 +361,10 @@ App.Views.SingleHospitalMeasure = Backbone.View
 				var hm_id = this.model.get('id');
 								
 				hospitalElements.fetch({data:{id: hm_id}}).then(function(){
-					console.log(hospitalElements);
+					if (window.console) console.log(hospitalElements);
 					
 					hospitalElements.forEach(function(hospitalElement){			
-						console.log(hospitalElement);
+						if (window.console) console.log(hospitalElement);
 						var view = new App.Views.ModalDataElement({ model : hospitalElement});		
 						var modalDataElementRow = view.render().el;
 						$(ehrtbody).append(modalDataElementRow);						
@@ -417,7 +417,7 @@ App.Views.SingleHospitalMeasure = Backbone.View
 						var extra_tbody = $('#modal-extra-table tbody');
 						$(extra_tbody).empty();						
 						var extra_view = new App.Views.ModalExtraDataElement({ model : slc_hospital_element});		
-						console.log(slc_hospital_element);
+						if (window.console) console.log(slc_hospital_element);
 						var extra_row = extra_view.render().el;
 						$(extra_tbody).append(extra_row);		
 						$(extra_row).find(".slcCodeType").val(slc_hospital_element.get('codeType').name);
@@ -440,7 +440,7 @@ App.Views.SingleHospitalMeasure = Backbone.View
 						$(hospital_specific_row).find(".slcCodeType").val(slc_hospital_element.get('codeType').name);
 						
 						
-						console.log(event.target.parentNode);
+						if (window.console) console.log(event.target.parentNode);
 					});
 					
 				   new FixedColumns( oTable,
@@ -474,11 +474,11 @@ App.Views.SingleHospitalMeasure = Backbone.View
 			
 			
 			goToCancel : function (e){
-				console.log("goToCancel " + e.target);			
+				if (window.console) console.log("goToCancel " + e.target);			
 			},
 
 			destroy : function(){
-				console.log("destroy");
+				if (window.console) console.log("destroy");
 			}
 		});
 
@@ -490,7 +490,7 @@ App.Views.ModalDataElement = Backbone.View
 	render : function() {			
 		var ch  = (this.model.get('sourceEHR'))  ? "checked" : "";		
 		this.model.set({chd:ch});
-		console.log(this.model.toJSON());
+		if (window.console) console.log(this.model.toJSON());
 		this.$el.html(this.template(this.model.toJSON()));				
 		return this;
 	}
@@ -510,13 +510,13 @@ App.Views.ModalExtraDataElement = Backbone.View
 	render : function() {			
 		var ch  = (this.model.get('sourceEHR'))  ? "checked" : "";		
 		this.model.set({chd:ch});
-		console.log(this.model.toJSON());
+		if (window.console) console.log(this.model.toJSON());
 		this.$el.html(this.template(this.model.toJSON()));				
 		return this;
 	},
 	
 	addRow : function (event){		
-		console.log("add extra row");
+		if (window.console) console.log("add extra row");
 		
 		var extraDataElement =	{
 				  location:  this.model.get('location'),
@@ -538,7 +538,7 @@ App.Views.ModalExtraDataElement = Backbone.View
 	},
 	
 	removeRow : function (event){
-		console.log("remove extra row");
+		if (window.console) console.log("remove extra row");
 		$(event.target).closest('tr').remove();
 	}
 });
@@ -560,7 +560,7 @@ App.Views.ModalHospitalSpecific =  Backbone.View
 	},
 	
 	addRow : function (event){		
-		console.log("add extra row");
+		if (window.console) console.log("add extra row");
 		
 		var hospital_specific_tbody = $('#modal-hospital-specific-table tbody');
 										
@@ -579,7 +579,7 @@ App.Views.ModalHospitalSpecific =  Backbone.View
 	},
 	
 	removeRow : function (event){
-		console.log("remove extra row");
+		if (window.console) console.log("remove extra row");
 		$(event.target).closest('tr').remove();
 	}
 });

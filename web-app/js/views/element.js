@@ -106,7 +106,7 @@ App.Views.DataElement = Backbone.View.extend({
 		
 		var dataElementDefaults = this.model.get('dataElementDefaults');
 		var ehrtbody = this.$el.find('div#ehrs .ehrTable tbody');
-		console.log("dataElementDefaults " + dataElementDefaults);
+		if (window.console) console.log("dataElementDefaults " + dataElementDefaults);
 		
 		var optionsList = this.ehrOptions();
 				
@@ -146,15 +146,15 @@ App.Views.DataElement = Backbone.View.extend({
 		this.model.attributes[e.target.name] = $(e.target).val();
 	},
 	changeCh : function(e) {
-		console.log(e.target.value + ' ' + e.target.id + ' ' + e.target.checked+ ' '+e.target.name);
+		if (window.console) console.log(e.target.value + ' ' + e.target.id + ' ' + e.target.checked+ ' '+e.target.name);
 		if (e.target.name == 'measure' ) {
 			if ( e.target.checked ) {
-				console.log("Push measure");
+				if (window.console) console.log("Push measure");
 				var measures = this.model.get("measures");
 				measures.push({"mid" : e.target.id, "mname" : e.target.value});
 				this.model.set("measures" , measures);
 			} else {
-				console.log("Remove measures");
+				if (window.console) console.log("Remove measures");
 				var measures = this.model.get("measures");
 				var removeIndex; 
 				for (var i = 0; i < measures.length; i++) {
@@ -172,7 +172,7 @@ App.Views.DataElement = Backbone.View.extend({
 		this.uniqueCodeCheck();
 		this.model.save(this.attributes,{
 	        success: function (model, response) {
-	           console.log(response);
+	        	if (window.console) console.log(response);
 	           $('div#message-box').text("").append(response.message).fadeIn(500).delay(1500).fadeOut(500);
                Backbone.history.navigate("element", true);
 	        },
@@ -207,13 +207,13 @@ App.Views.SingleDataElement = Backbone.View
 			},
 
 			goToEdit : function() {
-				console.log(this.model);
-				console.log("goToEdit",this.model.get('id'));							
+				if (window.console) console.log(this.model);
+				if (window.console) console.log("goToEdit",this.model.get('id'));							
 				Backbone.history.navigate("element/"+this.model.get('id')+'/edit', true);
 			},
 			
 			destroy : function(e){
-				console.log("destroy");
+				if (window.console) console.log("destroy");
 				e.preventDefault();
 				
 				if (confirm('Are you sure you want to delete this DataElement?')) {
@@ -228,7 +228,7 @@ App.Views.SingleDataElement = Backbone.View
 				    	Backbone.history.navigate("element", true);
 				     },
 				     error: function (model, response) {
-				    	 console.log(response);
+				    	 if (window.console) console.log(response);
 				    	 $('div#message-box').text("").append(response.responseText).fadeIn(500).delay(1500).fadeOut(500);
 				            Backbone.history.navigate("element", true);
 				     }

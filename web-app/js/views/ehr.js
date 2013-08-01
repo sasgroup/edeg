@@ -22,7 +22,7 @@ App.Views.Ehrs = Backbone.View.extend({
 	},
 
 	createEhr : function() {
-		console.log("create EHR");
+		if (window.console) console.log("create EHR");
 		Backbone.history.navigate("ehr/new", true)
 	}
 });
@@ -97,7 +97,7 @@ App.Views.Ehr = Backbone.View.extend({
 		if (dataElementDefaults !== undefined) {
 		  $.each( dataElementDefaults, function( i, dataElementDefault ) {
 			dataElementDefault.parent = "ehr";
-			console.log(JSON.stringify(dataElementDefault));
+			if (window.console) console.log(JSON.stringify(dataElementDefault));
 			var view = new App.Views.DataElementsDefault({ model : dataElementDefault, default_element: "element", parent:"ehr"});		
 			var dataElementDefaultRow = view.render().el;
 			$(ehrtbody).append(dataElementDefaultRow);	
@@ -139,7 +139,7 @@ App.Views.Ehr = Backbone.View.extend({
 		
 	/*appendDataElement : function(dem_element){
 		var temp = _.template($('#single-data-elements-def-element').html());		
-		console.log(dem_element);
+		if (window.console) console.log(dem_element);
 		this.$el.find('#dataElementsTable tbody').append(temp({is_imo:dem_element.isIMO, 
 															   loc:dem_element.location,
 															   query_mnemonic:dem_element.queryMnemonic,
@@ -154,7 +154,7 @@ App.Views.Ehr = Backbone.View.extend({
 		this.uniqueCodeCheck();
 		this.model.save(this.attributes,{
 	        success: function (model, response) {
-	           console.log(response);
+	        	if (window.console) console.log(response);
 	           $('div#message-box').text("").append(response.message).fadeIn(500).delay(1500).fadeOut(500);
                Backbone.history.navigate("ehr", true);
 	        },
@@ -188,13 +188,13 @@ App.Views.SingleEhr = Backbone.View
 			},
 
 			goToEdit : function() {				
-				console.log(this.model);
-				console.log("goToEdit",this.model.get('id'));							
+				if (window.console) console.log(this.model);
+				if (window.console) console.log("goToEdit",this.model.get('id'));							
 				Backbone.history.navigate("ehr/"+this.model.get('id')+'/edit', true);
 			},
 			
 			destroy : function(e){
-				console.log("destroy");
+				if (window.console) console.log("destroy");
 				e.preventDefault();
 				
 				if (confirm('Are you sure you want to delete this EHR?')) {
@@ -209,7 +209,7 @@ App.Views.SingleEhr = Backbone.View
 				    	Backbone.history.navigate("ehr", true);
 				     },
 				     error: function (model, response) {
-				    	 console.log(response);
+				    	 if (window.console) console.log(response);
 				    	 $('div#message-box').text("").append(response.responseText).fadeIn(500).delay(1500).fadeOut(500);
 				            Backbone.history.navigate("ehr", true);
 				     }
