@@ -19,7 +19,8 @@ App.Views.UserHospitalProduct = Backbone.View.extend({
 																"confirmed":measure.confirmed,
 																"included" :measure.included,
 																"verified" :measure.verified,																
-																"m_index"  :m_index
+																"m_index"  :m_index,
+																"product_code": cur_hospital_product.model.code
 																});	
 					
 			var view = new App.Views.SingleUserHospitalMeasure({ model : hospitalMeasure });					
@@ -34,7 +35,7 @@ App.Views.SingleUserHospitalMeasure = Backbone.View
 			tagName : 'tr',
 			template: _.template($('#user-single-hospital_measure').html()),			
 			events : {				
-				//'click a#customLink'       	  : 'goToDataElements',
+				'click a#customLink'       	  : 'goToDataElements'
 				//'change input[name="included"], input[name="completed"], input[name="confirmed"], input[name="accepted"], input[name="verified"]'  : 'changeVal'				
 			},
 
@@ -56,6 +57,14 @@ App.Views.SingleUserHospitalMeasure = Backbone.View
 											}));
 				this.$el.html(this.template(this.model.toJSON()));
 				
+				//console.log(this.model.get('product_code'));
+				
 				return this;
-			}
+			},
+			
+			goToDataElements : function(e) {
+				e.preventDefault();
+				//alert("goToDataElements");	
+				Backbone.history.navigate(this.model.get('product_code')+ "/" + this.model.get('code') + "/" + "elements", true);
+			}	
 		});

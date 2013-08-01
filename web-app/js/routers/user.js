@@ -1,7 +1,8 @@
 App.Routers.User = Backbone.Router.extend({
 	routes : {
-		""     	   : "home",
-		':id'      : 'productn'
+		""     	                                : "home",
+		':product_code/:measure_code/elements'  : 'elements',
+		':id'                                   : 'productn'			
 	},
 
 	initialize: function(options){
@@ -16,7 +17,7 @@ App.Routers.User = Backbone.Router.extend({
 			});
 		});
 	},
-			
+					
 	productn : function(product_code) {		
 		//breadcrumb
 		var temp = _.template($('#user-hospital-breadcrumb').html());		
@@ -43,6 +44,22 @@ App.Routers.User = Backbone.Router.extend({
 		});				
 		
 		new FixedColumns( oTable, {"sHeightMatch": "none"} );			
-	}	
+	},
+	
+	elements : function(product_code,measure_code){			
+		//breadcrumb
+		var temp = _.template($('#user-measure-breadcrumb').html());			
+		$('#breadcrumb-box').html(temp({product_code:product_code, measure_code:measure_code}));
+		
+		var temp_content = _.template($('#user-data-element').html());
+					
+		$('#app').html(temp_content());
+		
+		table_row = _.template($('#user-data-elements').html());
+		
+		//console.log(table_row);
+		
+		$('table#hospital-elements tbody').append(table_row);		
+	}
 	
 });
