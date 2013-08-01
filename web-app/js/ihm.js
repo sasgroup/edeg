@@ -12,7 +12,7 @@ window.App = {
 
 
 $(function() {	
-		
+	
 	var curUser = 'user';
 	
 	if (curUser == 'admin') {
@@ -31,6 +31,9 @@ $(function() {
 	    $('h3.hospital-name').text(hospital_name);
 	    console.log(hospital_name,hospital_id);
 	    
+	    $('#app').empty();
+	    $('#breadcrumb-box').empty();
+	    
 	    //generate tabs
 	    App.ho = new App.Models.Hospital();		
 		App.ho.fetch({data:{id: hospital_id}}).then(function(){		
@@ -47,8 +50,6 @@ $(function() {
 	$('.nav a').click(function(){
 		$('li.active').removeClass("active");
 		$(this).closest('li').addClass("active");	
-	});
-
-	
+	});	
 	
 });

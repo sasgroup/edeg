@@ -1,3 +1,33 @@
+//Hospital
+App.Views.UserHospitalProduct = Backbone.View.extend({		
+	template :  _.template($('#user-hospital-measure_table').html()),
+
+	render : function() {					
+		this.$el.html(this.template());		
+		var measures = this.model.measures;			
+		this.renderHospitalMeasureTable(measures,this);				
+		return this;
+	},
+	
+	renderHospitalMeasureTable: function(measures, cur_hospital_product){		
+		$.each( measures, function( m_index, measure ) {			
+			var hospitalMeasure	 =  new App.Models.HospitalMeasure({"id":measure.id,
+																"code":measure.code,
+																"name":measure.name,
+																"accepted" :measure.accepted,
+																"completed":measure.completed,
+																"confirmed":measure.confirmed,
+																"included" :measure.included,
+																"verified" :measure.verified,																
+																"m_index"  :m_index
+																});	
+					
+			var view = new App.Views.SingleUserHospitalMeasure({ model : hospitalMeasure });					
+			cur_hospital_product.$el.find('.hospitalMeasureTable tbody').append(view.render().el);
+		});		
+	}
+});	
+
 //Single User Hospital_Measure
 App.Views.SingleUserHospitalMeasure = Backbone.View
 		.extend({

@@ -1,4 +1,8 @@
-<!-- USER HOSPITAL -->
+<!-- USER HOSPITAL PRODUCT -->
+<script type="text/template" class="template" id="user-hospital-product-template">
+
+</script>
+
 <!-- user-hospital-measure_table -->
 <script type="text/template" class="template" id="user-hospital-measure_table">
 <table class="hospitalMeasureTable table table-striped ">

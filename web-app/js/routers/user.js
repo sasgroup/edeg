@@ -18,40 +18,19 @@ App.Routers.User = Backbone.Router.extend({
 	},
 			
 	productn : function(product_code) {		
+		//breadcrumb
 		var temp = _.template($('#user-hospital-breadcrumb').html());		
-		$('#breadcrumb-box').html(temp({product_code:product_code}));			
+		$('#breadcrumb-box').html(temp({product_code:product_code}));
 		
-		var measures;
-		
-		var table_template = _.template($('#user-hospital-measure_table').html());
-		$('#app').html(table_template());		
-		
+		//hospital_measure_table		
 		$.each( App.ho.get('products'), function( i, product ) { 	
-			if (product.code==product_code) {
-				measures = product.measures;
-				
-			}			
-			       
+			if (product.code==product_code) {				
+				var view = new App.Views.UserHospitalProduct({model: product});		
+				$('#app').html(view.render().el);	
+				return;
+			}						       
 		});	
-		
-		$.each( measures, function( m_index, measure ) {
-			//console.log(JSON.stringify(measure));		
-			var hospitalMeasure	 =  new App.Models.HospitalMeasure({"id":measure.id,
-																"code":measure.code,
-																"name":measure.name,
-																"accepted" :measure.accepted,
-																"completed":measure.completed,
-																"confirmed":measure.confirmed,
-																"included" :measure.included,
-																"verified" :measure.verified,																
-																"m_index"  :m_index
-																});	
-			console.log(hospitalMeasure);
-		
-			var view = new App.Views.SingleUserHospitalMeasure({ model : hospitalMeasure });				
-			$('.hospitalMeasureTable tbody').append(view.render().el);				
-		});
-		
+				
 		var oTable = $('.hospitalMeasureTable').dataTable({		
 			"bDestroy": true, 
 			"bPaginate": false,
@@ -60,10 +39,9 @@ App.Routers.User = Backbone.Router.extend({
 			"bSort": true,
 			"bInfo": false,
 			"aaSorting": [[0, 'asc']],
-			"aoColumnDefs": [{'bSortable': false, 'aTargets': [ 3,4,5,6 ] }]					
-			 
-		 });				
-	
+			"aoColumnDefs": [{'bSortable': false, 'aTargets': [ 3,4,5,6 ] }]			 
+		});				
+		
 		new FixedColumns( oTable, {"sHeightMatch": "none"} );			
 	}	
 	
