@@ -13,18 +13,15 @@ window.App = {
 
 $(function() {	
 	
-	var curUser = 'user';
+	var curUser = $('#role').val();
 	
 	if (curUser == 'admin') {
 		new App.Routers.Administrator();	
 	}
 	else {
-		new App.Routers.User();		
-	}
+		new App.Routers.User();	
 		
-	Backbone.history.start();	
-			
-	$('#hospital-list-dropdown li').live('click', function(){	 
+		$('#hospital-list-dropdown li').live('click', function(){	 
 		var hospital_name = $(this).find('a').text(); 
 		var hospital_id = $(this).data('id');
 		//show hospital-name
@@ -45,8 +42,11 @@ $(function() {
 			});			
 		})
 	    
-	});
-	
+		});
+	}
+		
+	Backbone.history.start();	
+		
 	$('.nav a').click(function(){
 		$('li.active').removeClass("active");
 		$(this).closest('li').addClass("active");	

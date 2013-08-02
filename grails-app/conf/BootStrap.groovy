@@ -11,6 +11,21 @@ import ihm_demo.*
 class BootStrap {
 
     def init = { servletContext ->
+		
+		def admin = new User(
+			login:"admin",
+			password: "admin",
+			role:"admin")
+			
+		admin.save()
+
+		def hospital_user = new User(
+			login:"user",
+			password: "user",
+			role:"user")
+	
+		hospital_user.save()
+		
 		//-----------MEASURE_CATEGORYs-----------
 		def measureCategory =new MeasureCategory(name:"CORE",
 												 description:"Core Measure Category")

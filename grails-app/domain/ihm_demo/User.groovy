@@ -5,13 +5,13 @@ class User {
 	String login
 	String password
 	String role = "SystemUser"
-	Hospital hospital
+	//Hospital hospital
     
 	static constraints = {
 		login(blank:false, nullable:false, unique:true)
 		password(blank:false, password:true)
-		role(inList:["SystemUser" , "HospitalUser"])
-		hospital()
+		role(inList:["user" , "admin"])
+		//hospital()
     }
 	
 	String toString(){

@@ -10,8 +10,12 @@ body {
     background: url("images/bg.png") repeat-y center;       
 }
 
+#loginHeader {
+	position: relative;
+	top: 40px;
+}
 
-.hospital-dropdown, .signin-dropdown, .hospital-name  {
+.hospital-dropdown, .hospital-name  {
 	top: 40px;
 }
 
