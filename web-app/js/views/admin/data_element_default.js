@@ -53,7 +53,7 @@ App.Views.DataElementsDefault = Backbone.View
 			},
 			
 			addRow : function (){
-				console.log(App[this.model.parent].get('dataElementDefaults'));
+				if (window.console) console.log(App[this.model.parent].get('dataElementDefaults'));
 				var timeId = parseInt(App[this.model.parent].timeId);
 				var emptyDataElementDefault = {"id":timeId,"linkId":"1","parent":this.options.parent,"location":"","linkId":"1","valueType":{"enumType":"","name":""},"codeType":{"enumType":"","name":""}};
 				var dataElementDefaults = App[this.model.parent].get('dataElementDefaults');
@@ -64,7 +64,7 @@ App.Views.DataElementsDefault = Backbone.View
 				var ehrtbody = this.$el.closest('tbody');
 				$(ehrtbody).append(view.render().el);					
 				$(view.render().el).find('.slcParent').append(this.defaultElementOptions());
-				console.log(App[this.model.parent].get('dataElementDefaults'));
+				if (window.console) console.log(App[this.model.parent].get('dataElementDefaults'));
 			},
 			
 			removeRow : function (e){
