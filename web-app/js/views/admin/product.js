@@ -40,9 +40,7 @@ App.Views.Product = Backbone.View.extend({
 		'submit' : 'submProduct',
 		'click button#cancel' : 'returnOnMain',       
 		'change #code, #name, #notes' : 'changeVal',
-		'change .checkbox' : 'changeCh',
-		'focusout input[name=code]': 'uniqueCodeCheck'
-
+		'change .checkbox' : 'changeCh'
 	},
 	
 	render : function() {	
@@ -78,31 +76,7 @@ App.Views.Product = Backbone.View.extend({
 		return this;
 	},
 
-	uniqueCodeCheck: function () {
-		var cur_code = '';
-		var new_code = $('input[name=code]').val();
-		var codes = [];
-		 		
-		if (this.model.toJSON().id) {
-			cur_code = this.model.get('code');
-		};
-		
-		$('input[name=code]').next('label.error').remove();		
-		
-		App.products.forEach(function(product){			
-			codes.push(product.get('code'));
-		});
-				
-		var index = codes.indexOf(cur_code);
-		if (index!=-1) {
-			codes.splice(index, 1);
-		}	
-				
-		if (codes.indexOf(new_code)!=-1) {
-			$('input[name=code]').after('<label class="error">Should be unique</label>');
-		}				
-	},
-	
+
 	showProductMeasure : function(){
 		var checked = this.checked;
 		var unchecked = this.unchecked;
@@ -169,10 +143,7 @@ App.Views.Product = Backbone.View.extend({
 	},
 	
 	submProduct : function(e) {
-		e.preventDefault();				
-		
-		this.uniqueCodeCheck();
-		
+		e.preventDefault();		
 		this.model.save(this.attributes,{
 	        success: function (model, response) {
 	           //console.log(response);
