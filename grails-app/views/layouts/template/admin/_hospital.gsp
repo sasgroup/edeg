@@ -263,7 +263,7 @@
 
 <!-- modal-data-elements -->
 <script type="text/template" class="template" id="modal-data-elements">
- <td id="{{id}}">{{dataElement}}</td>
+ <td id="{{id}}" class="slc_row">{{dataElement}}</td>
  <td><input type="text" class="location" id="location" value="{{location}}"></td>
  <td><input type="checkbox" class="sourceEhr" id="sourceEhr" value="{{sourceEHR}}" {{chd}}></td>
  <td><input type="text" class="source" id="source" value="{{source}}"></td>

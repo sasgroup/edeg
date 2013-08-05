@@ -389,14 +389,16 @@ App.Views.SingleHospitalMeasure = Backbone.View
 								"bPaginate": false
 							} );
 					
-					$("#hospital-elements").click(function(event) {
+					$("#hospital-elements .slc_row").click(function(event) {
 						$(oTable.fnSettings().aoData).each(function (){
 							$('.row_selected').css( "background-color", "#FFFFFF" );							
 							$('tr.row_selected td:first').css( "background-color", "#FFFFFF" );
 							$(this.nTr).removeClass('row_selected');							
 						});
+						
 						$(event.target.parentNode).addClass('row_selected');
 						$(event.target.parentNode).css( "background-color", "rgb(0, 136, 204, 0.5)" );
+						
 						$('tr.row_selected td:first').css( "background-color", "rgb(0, 136, 204, 0)" );
 						// show relevant information			
 						var he_id = $('tr.row_selected td:first').prop("id");
