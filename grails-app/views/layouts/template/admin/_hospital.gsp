@@ -32,7 +32,7 @@
 <div id="modalDataElements" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
-	<h4 id="myModalLabel">HospitalElements</h4>
+	<h4 id="hospitalElementLabel">HospitalElements</h4>
   </div>
   <div class="modal-body">  	
   	<div id="main_table"></div>

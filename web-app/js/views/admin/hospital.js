@@ -344,9 +344,11 @@ App.Views.SingleHospitalMeasure = Backbone.View
 			},
 			
 						
-			goToDataElements : function(e) {
+			goToDataElements : function(e) {				
 				e.preventDefault();
-				console.log("goToDataElements");				
+				
+				var hospital_measure_title = "Data Elements for " + $(e.target).text();
+				$('#hospitalElementLabel').text(hospital_measure_title);				
 				
 				$('#main_table').empty();
 				var table_template = _.template($('#hospital-elements_table').html());	
