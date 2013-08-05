@@ -130,7 +130,7 @@
 </script>
 
 <!-- data-elements -->
-<script type="text/template" class="template" id="user-data-elements">
+<!-- <script type="text/template" class="template" id="user-data-elements">
  <td id="">Data Element</td>
  <td><input type="text" class="location" id="location" value=""></td>
  <td><input type="checkbox" class="sourceEhr" id="sourceEhr" value=""></td>
@@ -165,4 +165,44 @@
 				<option value="ValueSet">ValueSet</option>
      </select>
  </td>
+</script>  -->
+
+
+<!-- modal-data-elements -->
+<script type="text/template" class="template" id="user-data-elements">
+ <td id="{{id}}" class="slc_row">{{dataElement}}</td>
+ <td><input type="text" class="location" id="location" value="{{location}}"></td>
+ <td><input type="checkbox" class="sourceEhr" id="sourceEhr" value="{{sourceEHR}}" {{chd}}></td>
+ <td><input type="text" class="source" id="source" value="{{source}}"></td>
+ <td><select class="slcCodeType">                
+				 <option value="">-Select-</option>
+				 <option value="NotApplicable">NotApplicable</option>
+				 <option value="AdministrativeSex">AdministrativeSex</option>                 
+				 <option value="CDREC">CDREC</option>
+				 <option value="CDT">CDT</option>
+				 <option value="CPT">CPT</option>
+				 <option value="CVX">CVX</option>
+				 <option value="DischargeDisposition">DischargeDisposition</option>
+				 <option value="HCPCS">HCPCS</option>
+				 <option value="HSLOC">HSLOC</option>
+				 <option value="ICD10CM">ICD10CM</option>
+				 <option value="ICD10PCS">ICD10PCS</option>
+				 <option value="ICD9CM">ICD9CM</option>
+				 <option value="LOINC">LOINC</option>
+				 <option value="RXNORM">RXNORM</option>
+				 <option value="SNOMEDCT">SNOMEDCT</option>
+				 <option value="SOP">SOP</option>
+    </select>
+ </td>
+ <td><select class="slcValueType">			
+				<option value="">-Select-</option>
+				<option value="NotApplicable">NotApplicable</option>     
+                <option value="IMO_Code">IMO_Code</option>                
+				<option value="Query/Mnemonic">Query/Mnemonic</option>
+				<option value="HospitalSpecific">HospitalSpecific</option>
+				<option value="StandardCode">StandardCode</option>
+				<option value="ValueSet">ValueSet</option>
+     </select>
+ </td>
 </script>
+

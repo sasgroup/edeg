@@ -53,8 +53,10 @@ App.Routers.User = Backbone.Router.extend({
 		
 		var temp_content = _.template($('#user-data-element').html());
 		
-		var hm_id = '';
+		$('#app').html(temp_content());		
 		
+		var hm_id = '';
+		// get hospital_measure_id
 		$.each( App.ho.get('products'), function( i, product ) { 	
 			if (product.code==product_code) {				
 				//console.log(product.measures);
@@ -70,12 +72,20 @@ App.Routers.User = Backbone.Router.extend({
 		
 		hospitalElements.fetch({data:{id: hm_id}}).then(function(){
 			console.log(hospitalElements);
+			
+			hospitalElements.forEach(function(hospitalElement){			
+			var view = new App.Views.UserDataElement({ model : hospitalElement});		
+			var modalDataElementRow = view.render().el;
+			$('table#hospital-elements tbody').append(modalDataElementRow);						
+			$(modalDataElementRow).find(".slcCodeType").val(hospitalElement.get('codeType').name);
+			$(modalDataElementRow).find(".slcValueType").val(hospitalElement.get('valueType').name);
+			});
 	    });
 		
-		$('#app').html(temp_content());		
-		table_row = _.template($('#user-data-elements').html());		
+		//$('#app').html(temp_content());		
+		//table_row = _.template($('#user-data-elements').html());		
 		//console.log(table_row);		
-		$('table#hospital-elements tbody').append(table_row);		
+		//$('table#hospital-elements tbody').append(table_row);		
 	}
 	
 });
