@@ -10,6 +10,7 @@ body {
     background: url("images/bg.png") repeat-y center;       
 }
 
+
 #loginHeader {
 	position: relative;
 	top: 40px;
@@ -188,7 +189,7 @@ div#modalDataElements {
     max-height: 500px;
 }
 
-.modal-body textarea {
+.modal-body textarea, #data-element-page textarea {
 	width: 95%;
 }
 
@@ -262,7 +263,6 @@ header .hospital-name {
     left: 200px;
     text-transforam: uppercase    
 }
-
 
 
 nav.header-nav {

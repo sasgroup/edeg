@@ -1,5 +1,5 @@
 //Hospital
-App.Views.UserHospitalProduct = Backbone.View.extend({		
+App.Views.UserHospitalProduct = Backbone.View.extend({	
 	template :  _.template($('#user-hospital-measure_table').html()),
 
 	render : function() {					
@@ -66,5 +66,6 @@ App.Views.SingleUserHospitalMeasure = Backbone.View
 				e.preventDefault();
 				//alert("goToDataElements");	
 				Backbone.history.navigate(this.model.get('product_code')+ "/" + this.model.get('code') + "/" + "elements", true);
+				//Backbone.history.navigate(this.model.get('product_code')+ "/" + this.model.get('id') + "/" + "elements", true);
 			}	
 		});

@@ -33,6 +33,7 @@
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
 	<h4 id="hospitalElementLabel">HospitalElements</h4>
+    <button title="Reset the data element location to default in accordance with the current EHR version">Reset All</button>
   </div>
   <div class="modal-body">  	
   	<div id="main_table"></div>
@@ -246,14 +247,15 @@
 
 <!-- modal-data-elements-table -->
 <script type="text/template" class="template" id="hospital-elements_table">
-<table class="table" id="hospital-elements">
+<table class="table table-condensed" id="hospital-elements">
 	  <thead><tr>
  				<th>DataElement</th>    
 		    	<th>Location</th>           
 				<th title="SourceEHR">EHR</th>
 				<th>Source</th>
 				<th>CodeType</th>
-		    	<th>ValueType</th>		    
+		    	<th>ValueType</th>	
+				<th></th>	    
 			 </tr>
       </thead>				
     <tbody></tbody>
@@ -296,6 +298,9 @@
 				<option value="StandardCode">StandardCode</option>
 				<option value="ValueSet">ValueSet</option>
      </select>
+ </td>
+ <td>
+ <div id="reset" class="btn" title="Reset the data element location to default in accordance with the current EHR version">Reset</div>
  </td>
 </script>
 

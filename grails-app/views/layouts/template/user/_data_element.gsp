@@ -1,8 +1,6 @@
 <!-- user-data-element -->
 <script type="text/template" class="template" id="user-data-element">
-<div id="data-element">
-  
-  <div class="modal-body">  	
+<form id="data-element-page">	
   	<div id="main_table">
 	 <table class="table" id="hospital-elements">
 	  <thead><tr>
@@ -17,7 +15,8 @@
     <tbody></tbody>
     </table>
 	</div>
-  	<div id="deatails">	
+  	
+		<div id="deatails">	
 		<ul id="detailsTab" class="nav nav-tabs">
           <li class="active">
             <a data-toggle="tab" href="#qa2">Q&A Level 2</a>
@@ -110,13 +109,15 @@
           </div>
        </div>
 	</div>
-  </div>  
-  <div class="modal-footer">
-	<button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-	<button class="btn">Save&Mark</button>
-    <button class="btn">Save</button>
-   </div>
+ 
+
+<div class="form-actions">					 
+                    
+<button class="btn btn-info pull-right">Cancel</button>
+<button class="btn btn-info pull-right">Save&Mark</button>
+<button class="btn btn-info pull-right">Save</button>			
 </div>
+</form>
 </script>
 
 <script type="text/template" class="template" id="user-measure-breadcrumb">

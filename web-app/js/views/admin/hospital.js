@@ -378,12 +378,12 @@ App.Views.SingleHospitalMeasure = Backbone.View
 							{	"bDestroy": true, 
 								"bPaginate": false,
 								"bFilter": false,
-								"sScrollY": "225px",
+								"sScrollY": "185px",
 								"bSort": true,
 					 			"bInfo": false,
 					 			"bAutoWidth": false,
 					 			"aoColumnDefs": [
-					 							{ 'bSortable': false, 'aTargets': [ 1,2,3,4,5 ] }
+					 							{ 'bSortable': false, 'aTargets': [ 1,2,3,4,5,6 ] }
 					 						 ],
 								"bScrollCollapse": true,
 								"bPaginate": false

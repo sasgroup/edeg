@@ -2,7 +2,7 @@ App.Routers.User = Backbone.Router.extend({
 	routes : {
 		""     	                                : "home",
 		':product_code/:measure_code/elements'  : 'elements',
-		':id'                                   : 'productn'			
+		':product_code'                         : 'productn'			
 	},
 
 	initialize: function(options){
@@ -36,11 +36,11 @@ App.Routers.User = Backbone.Router.extend({
 			"bDestroy": true, 
 			"bPaginate": false,
 			"bFilter": false,
-			"sScrollY": "600px",			
+			"sScrollY": "548px",			
 			"bSort": true,
 			"bInfo": false,
 			"aaSorting": [[0, 'asc']],
-			"aoColumnDefs": [{'bSortable': false, 'aTargets': [ 3,4,5,6 ] }]			 
+			"aoColumnDefs": [{'bSortable': false, 'aTargets': [ 2,3,4,5 ] }]			 
 		});				
 		
 		new FixedColumns( oTable, {"sHeightMatch": "none"} );			
@@ -52,13 +52,29 @@ App.Routers.User = Backbone.Router.extend({
 		$('#breadcrumb-box').html(temp({product_code:product_code, measure_code:measure_code}));
 		
 		var temp_content = _.template($('#user-data-element').html());
+		
+		var hm_id = '';
+		
+		$.each( App.ho.get('products'), function( i, product ) { 	
+			if (product.code==product_code) {				
+				//console.log(product.measures);
+				$.each(product.measures, function( i, measure ){
+					if (measure.code==measure_code) {
+						hm_id = measure.id;						
+					}				
+				});				
+			}						       
+		});	
 					
-		$('#app').html(temp_content());
+		var hospitalElements = new App.Collections.HospitalElements();
 		
-		table_row = _.template($('#user-data-elements').html());
+		hospitalElements.fetch({data:{id: hm_id}}).then(function(){
+			console.log(hospitalElements);
+	    });
 		
-		//console.log(table_row);
-		
+		$('#app').html(temp_content());		
+		table_row = _.template($('#user-data-elements').html());		
+		//console.log(table_row);		
 		$('table#hospital-elements tbody').append(table_row);		
 	}
 	
