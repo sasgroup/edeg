@@ -179,7 +179,7 @@ div#modalDataElements {
     left: auto;
     margin-left: auto;
     margin-right: auto;
-    position: relative;
+    /*position: relative;*/    
     /*right: auto;*/
     width: 900px;
 }

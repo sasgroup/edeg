@@ -320,6 +320,10 @@ App.Routers.Administrator = Backbone.Router.extend({
 				
 				new FixedColumns( oTable, {"sHeightMatch": "none"} );	
 				
+				$("#modalDataElements").draggable({
+				    handle: ".modal-header"
+				}); 
+				
 		});	
 	  });	 
     },
