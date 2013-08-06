@@ -9,14 +9,7 @@
 	</head>
 	<body>
 		<g:render template="/layouts/header_login" />	
-		<g:render template="/layouts/template/admin/data_element_default" />	
-		<g:render template="/layouts/template/admin/ehr" />
-		<g:render template="/layouts/template/admin/element" />
-		<g:render template="/layouts/template/admin/hospital" />
-		<g:render template="/layouts/template/admin/measure" />
-		<g:render template="/layouts/template/admin/product" />	
-		<g:render template="/layouts/template/user/hospital_measure" />
-		<g:render template="/layouts/template/user/data_element" />				
+		<g:render template="/layouts/templates" />	
 		<g:layoutBody/>
 		<g:render template="/layouts/footer" />
 		<r:layoutResources />
