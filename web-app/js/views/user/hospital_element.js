@@ -1,6 +1,6 @@
 //List of HospitalElements
 App.Views.HospitalElements = Backbone.View.extend({
-	template : _.template($('#user-data-element').html()),
+	template : _.template($('#user-hospital-element').html()),
 
 	render : function() {		
 		this.$el.html(this.template({ hospitals : this.collection }));
@@ -14,7 +14,7 @@ App.Views.HospitalElements = Backbone.View.extend({
 	}	
 });
 
-//Single HospitalElement
+//Single Hospital Element
 App.Views.SingleHospitalElement = Backbone.View
 .extend({
 	tagName : 'tr',

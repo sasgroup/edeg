@@ -1,5 +1,5 @@
-//Hospital
-App.Views.UserHospitalProduct = Backbone.View.extend({	
+//Hospital Product
+App.Views.HospitalProduct = Backbone.View.extend({	
 	template :  _.template($('#user-hospital-measure_table').html()),
 
 	render : function() {					
@@ -23,17 +23,17 @@ App.Views.UserHospitalProduct = Backbone.View.extend({
 																"product_code": cur_hospital_product.model.code
 																});	
 					
-			var view = new App.Views.SingleUserHospitalMeasure({ model : hospitalMeasure });					
+			var view = new App.Views.HospitalMeasure({ model : hospitalMeasure });					
 			cur_hospital_product.$el.find('.hospitalMeasureTable tbody').append(view.render().el);
 		});		
 	}
 });	
 
-//Single User Hospital_Measure
-App.Views.SingleUserHospitalMeasure = Backbone.View
+//Hospital_Measure
+App.Views.HospitalMeasure = Backbone.View
 		.extend({
 			tagName : 'tr',
-			template: _.template($('#user-single-hospital_measure').html()),			
+			template: _.template($('#user-hospital_measure').html()),			
 			events : {				
 				'click a#customLink'       	  : 'goToDataElements'
 				//'change input[name="included"], input[name="completed"], input[name="confirmed"], input[name="accepted"], input[name="verified"]'  : 'changeVal'				

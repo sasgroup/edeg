@@ -26,7 +26,7 @@ App.Routers.User = Backbone.Router.extend({
 		//hospital_measure_table		
 		$.each( App.ho.get('products'), function( i, product ) { 	
 			if (product.code==product_code) {				
-				var view = new App.Views.UserHospitalProduct({model: product});		
+				var view = new App.Views.HospitalProduct({model: product});		
 				$('#app').html(view.render().el);	
 				return;
 			}						       

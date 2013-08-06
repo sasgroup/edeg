@@ -4,5 +4,5 @@
 		<g:render template="/layouts/template/admin/hospital" />
 		<g:render template="/layouts/template/admin/measure" />
 		<g:render template="/layouts/template/admin/product" />	
-		<g:render template="/layouts/template/user/hospital_measure" />
+		<g:render template="/layouts/template/user/hospital_product" />
 		<g:render template="/layouts/template/user/hospital_element" />			

@@ -1,5 +1,5 @@
-<!-- user-data-element -->
-<script type="text/template" class="template" id="user-data-element">
+<!-- user-hospital-element -->
+<script type="text/template" class="template" id="user-hospital-element">
 <form id="data-element-page">	
   	<div id="main_table">
 	 <table class="table table-condensed" id="hospital-elements">

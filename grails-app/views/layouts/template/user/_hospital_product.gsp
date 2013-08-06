@@ -17,7 +17,7 @@
 </script>
 
 <!-- user hospital_measure -->
-<script type="text/template" class="template" id="user-single-hospital_measure">
+<script type="text/template" class="template" id="user-hospital_measure">
 <!-- <td>
 	<input type="checkbox" name="included" id="{{id}}" {{included}} >
  </td> -->
