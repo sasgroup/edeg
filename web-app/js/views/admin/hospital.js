@@ -33,7 +33,8 @@ App.Views.Hospital = Backbone.View.extend({
 		'click button#cancel' 			 : 'returnOnMain', 
 		'click #btnApplyHospitalOptions' : 'applyHospitalOptions',
 		'click a[data-toggle="tab"]'	 : 'changeTab',
-		'change #notes' 				 : 'changeVal'		
+		'change #notes' 				 : 'changeVal'
+		//'change #slcEHRs'                : 'changeslcEHRs'
 	},
 
 	render : function() {	
@@ -66,7 +67,15 @@ App.Views.Hospital = Backbone.View.extend({
 			
 	setPrimaryEhr : function(){		
 		var ehr_id = this.model.get('ehr').id;		
-		$("#slcEHRs").multiselect("widget").find('input[value='+ehr_id+']').click();		
+		$("#slcEHRs").multiselect("widget").find('input[value='+ehr_id+']').click();
+		
+		$('#slcEHRs').change(function(e){			
+			var new_e_id = $( "#slcEHRs").multiselect('getChecked').val();
+			
+			if (new_e_id!=ehr_id) {
+				alert("The EHR version has been updated. Make sure to reset locations for data elements.");
+			}	
+		});	
 	},
 	
 	createTabs : function(){
@@ -104,10 +113,8 @@ App.Views.Hospital = Backbone.View.extend({
 	changeTab: function (e){		
 		var product_id = $(e.target).attr('href').replace('#t','');				
 		var slcTab = '#myTabContent div#t' + product_id;	
-			
-		
-		var oTable = $('.hospitalMeasureTable').dataTable({
-			//"bRetrieve": true, 
+					
+		var oTable = $('.hospitalMeasureTable').dataTable({ 
 			"bDestroy": true, 
 			"bPaginate": false,
 			"bFilter": false,
@@ -115,17 +122,11 @@ App.Views.Hospital = Backbone.View.extend({
 			"bSort": true,
 			"bInfo": false,
 			"aaSorting": [[0, 'asc']],
-			"aoColumnDefs": [{'bSortable': false, 'aTargets': [ 3,4,5,6 ] }]
-			/*"fnDrawCallback": function( oSettings ) {
-			      //alert( 'DataTables has redrawn the table' );
-				this.refeshTableHeader();
-			 }*/	 
-		
+			"aoColumnDefs": [{'bSortable': false, 'aTargets': [ 3,4,5,6 ] }]			
 		 });	
 	
 	    new FixedColumns( oTable, {"sHeightMatch": "none"} );        	    
-	    setTimeout(this.refeshTableHeader, 300);    
-		
+	    setTimeout(this.refeshTableHeader, 300);    		
 	},
 	
 	refeshTableHeader:  function() {
@@ -135,6 +136,11 @@ App.Views.Hospital = Backbone.View.extend({
     		$('th.sorting_desc').click();
     	}	
 	},
+	
+	
+/*	changeslcEHRs: function (e){		
+		alert("Change EHR");
+	},*/
 
 	
 	// append HospitalMeasureTable to Tab
