@@ -33,8 +33,7 @@ App.Views.Hospital = Backbone.View.extend({
 		'click button#cancel' 			 : 'returnOnMain', 
 		'click #btnApplyHospitalOptions' : 'applyHospitalOptions',
 		'click a[data-toggle="tab"]'	 : 'changeTab',
-		'change #notes' 				 : 'changeVal'
-		//'change #slcEHRs'                : 'changeslcEHRs'
+		'change #notes' 				 : 'changeVal'		
 	},
 
 	render : function() {	
@@ -138,11 +137,6 @@ App.Views.Hospital = Backbone.View.extend({
 	},
 	
 	
-/*	changeslcEHRs: function (e){		
-		alert("Change EHR");
-	},*/
-
-	
 	// append HospitalMeasureTable to Tab
 	appendHospitalMeasureTable : function(){		
 	    var table_template = _.template($('#hospital-measure_table').html());						
@@ -172,14 +166,9 @@ App.Views.Hospital = Backbone.View.extend({
 				
 				var view = new App.Views.SingleHospitalMeasure({ model : hospitalMeasure });				
 				$(slcTab + ' .hospitalMeasureTable tbody').append(view.render().el);				
-			});		
+			});	
 		
-		});	  
-				
-		/*_.each (hospitalMeasures.models, function(model) {
-			model.set({verified:true})
-			model.save();
-		});*/				
+		});					
 	},
 			
 	

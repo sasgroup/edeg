@@ -33,7 +33,7 @@
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
 	<h4 id="hospitalElementLabel">HospitalElements</h4>
-    <button title="Reset the data element location to default in accordance with the current EHR version">Reset All</button>
+    <button id="resetAll" title="Reset all data elements in the measure to default locations in accordance with the current EHR version">Reset All</button>
   </div>
   <div class="modal-body">  	
   	<div id="main_table"></div>
