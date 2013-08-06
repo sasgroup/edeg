@@ -47,11 +47,29 @@ App.Views.DataElement = Backbone.View.extend({
 		if (!this.model.toJSON().id) {
 			this.model.set("state" , "New");
 		};				
-		this.$el.html(this.template(this.model.toJSON()));
-		App.measures.forEach(this.appendMeasure,this);
+		this.$el.html(this.template(this.model.toJSON()));		
 		this.model.timeId = -1;
 		this.appendDataElementsDefault();		
 		this.$el.find('.slcEHR').append(this.ehrOptions());		
+		
+		var temp = _.template($('#single-element-measure').html());	
+		this.checked = [];
+		this.unchecked = [];
+				
+		this.appendMeasures();
+		
+		console.log("checked ", this.checked);
+		console.log("unchecked ", this.unchecked);
+		
+		for(var de_measure in this.checked) {
+			var measure = this.checked[de_measure];
+			this.$el.find('div#measures').append(temp({name:measure.name,id:measure.id,ch:'checked'}));	 
+		}	
+		
+		for(var de_measure in this.unchecked) {
+			var measure = this.unchecked[de_measure];
+			this.$el.find('div#measures').append(temp({name:measure.name,id:measure.id,ch:''}));					
+		}			
 		
 		return this;
 	},
@@ -65,14 +83,22 @@ App.Views.DataElement = Backbone.View.extend({
 		return html;
 	},
 		
-	appendMeasure : function(element_measure){
-		var temp = _.template($('#single-element-measure').html());		
-		var chd = '';
-		this.model.get('measures').forEach(function( measure ) {
-			if (measure.mid == element_measure.get('id')) {chd = 'checked';}
-		});
-		this.$el.find('div#measures').append(temp({name:element_measure.get('name'),id:element_measure.get('id'),ch:chd}));		
-	},
+	appendMeasures : function(){
+		var checked = this.checked;
+		var unchecked = this.unchecked;
+				
+		var mids = _.pluck(this.model.get('measures'), 'mid');					
+		var measure_ids = App.measures.pluck('id');
+				
+		App.measures.forEach(function(m){			
+				console.log(m);		
+			if (_.contains(mids, m.get('id'))) {				
+				checked.push({name:m.get('name'),id:m.get('id')});
+			} else {
+				unchecked.push({name:m.get('name'),id:m.get('id')});
+			}
+		});		
+	},	
 	
 	appendDataElementsDefault: function(){
 		var table_template = _.template($('#data-elements-default-table').html());		
@@ -143,7 +169,6 @@ App.Views.DataElement = Backbone.View.extend({
 	
 	editDataElement : function(e) {
 		e.preventDefault();		
-		//this.uniqueCodeCheck();
 		this.model.save(this.attributes,{
 	        success: function (model, response) {
 	           console.log(response);

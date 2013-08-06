@@ -53,9 +53,8 @@ App.Views.Product = Backbone.View.extend({
 		var temp = _.template($('#single-product-measure').html());		
 		this.checked = [];
 		this.unchecked = [];
-		
-		//App.measures.forEach(this.appendProductMeasure);		
-		this.showProductMeasure();
+				
+		this.appendProductMeasures();
 		
 		console.log("checked ", this.checked);
 		console.log("unchecked ", this.unchecked);
@@ -77,7 +76,7 @@ App.Views.Product = Backbone.View.extend({
 	},
 
 
-	showProductMeasure : function(){
+	appendProductMeasures : function(){
 		var checked = this.checked;
 		var unchecked = this.unchecked;
 				
@@ -93,20 +92,6 @@ App.Views.Product = Backbone.View.extend({
 			}
 		});		
 	},
-	
-	/*appendProductMeasure : function(product_measure){
-		var temp = _.template($('#single-product-measure').html());		
-		var chd = '';
-				
-		var data = this.model.get('measures');
-			
-		$.each(data, function (i, measure ) {
-			if (measure.mid == product_measure.get('id')) {chd = 'checked';}
-		});
-		
-		
-		this.$el.find('div#measures').append(temp({name:product_measure.get('name'),id:product_measure.get('id'),ch:chd}));		
-	},*/
 		
 	appendHospital : function(product_hospital){
 		var temp = _.template($('#single-product-hospital').html());
@@ -208,20 +193,3 @@ App.Views.SingleProduct = Backbone.View
 				}
 			}
 		});
-
-
-//Single ProductMeasure (assigned Measures)
-App.Views.ProductMeasure = Backbone.View
-		.extend({			
-			tagName : 'label',
-			className: 'checkbox',
-			template: _.template($('#single-product-measure').html()),		
-			
-			render : function() {
-				//console.log("name:" + this.name);
-				this.$el.html(this.template());
-				return this;
-			}			
-			
-		});
-
