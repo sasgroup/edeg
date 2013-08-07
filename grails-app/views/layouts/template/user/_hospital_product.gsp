@@ -8,7 +8,8 @@
 		    <th>Completed</th>		    
 		    <th>Accepted</th>
 			<th>Declined</th>
-		    <th>Verified</th>		    
+		    <th>Verified</th>
+			<th>Help</th>		    
 		   </tr>
     </thead>				
     <tbody>		
@@ -34,6 +35,9 @@
  </td>
  <td>
      <input type="checkbox" name="verified" id="{{id}}" disabled="disabled" {{verified}}>
+ </td>
+ <td>
+     <div id="minus-btn" class="btn show_info"><i class="icon-info-sign"></i></div>
  </td>
 </script>
 

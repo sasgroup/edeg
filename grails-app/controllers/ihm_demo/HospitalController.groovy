@@ -44,7 +44,7 @@ class HospitalController {
 									for (h in HospitalMeasure.list().findAll{it?.hospitalProducts.findAll{it.product == p}.size() >= 1}){
 										measrue id : h.id,
 												code : h.measure.code,
-												name : h.measure.name,
+												name : h.measure.name,												
 												accepted : h.accepted,
 												completed : h.completed,
 												confirmed : h.confirmed,
@@ -145,6 +145,7 @@ class HospitalController {
 										measrue id : h.id,
 												code : h.measure.code,
 												name : h.measure.name,
+												notes : h.measure.notes,
 												accepted : h.accepted,
 												completed : h.completed,
 												confirmed : h.confirmed,

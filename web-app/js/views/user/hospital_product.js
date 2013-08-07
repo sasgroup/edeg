@@ -20,7 +20,8 @@ App.Views.HospitalProduct = Backbone.View.extend({
 																"included" :measure.included,
 																"verified" :measure.verified,																
 																"m_index"  :m_index,
-																"product_code": cur_hospital_product.model.code
+																"product_code": cur_hospital_product.model.code,
+																"notes"       : measure.notes
 																});	
 					
 			var view = new App.Views.HospitalMeasure({ model : hospitalMeasure });					
@@ -35,8 +36,9 @@ App.Views.HospitalMeasure = Backbone.View
 			tagName : 'tr',
 			template: _.template($('#user-hospital_measure').html()),			
 			events : {				
-				'click a#customLink'       	  : 'goToDataElements'
-				//'change input[name="included"], input[name="completed"], input[name="confirmed"], input[name="accepted"], input[name="verified"]'  : 'changeVal'				
+				'click a#customLink'       	  : 'goToDataElements',
+				//'change input[name="included"], input[name="completed"], input[name="confirmed"], input[name="accepted"], input[name="verified"]'  : 'changeVal'
+				'click .show_info'            : 'showInfo'	
 			},
 
 			render : function() {						
@@ -60,6 +62,12 @@ App.Views.HospitalMeasure = Backbone.View
 				//console.log(this.model.get('product_code'));
 				
 				return this;
+			},
+			
+			showInfo: function() {
+				if (this.model.get('notes')!=null)
+				alert(this.model.get('notes'));			
+				
 			},
 			
 			goToDataElements : function(e) {

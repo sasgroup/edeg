@@ -225,7 +225,7 @@ class BootStrap {
 		def measure
 		measure = new Measure(code:"CPOE",
 							  name:"CPOE",
-							  notes:"",
+							  notes:"More than 60 percent of medication orders created by the EP or authorized providers of the eligible hospital's or CAH's inpatient or emergency department (POS 21 or 23) during the EHR reporting period are recorded using CPOE",
 							  measureCategory : MeasureCategory.findByName("CORE"),
 							  cqmDomain:null)
 		
