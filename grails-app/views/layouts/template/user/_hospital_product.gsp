@@ -2,7 +2,7 @@
 <script type="text/template" class="template" id="user-hospital-measure_table">
 <table class="hospitalMeasureTable table table-striped ">
 	<thead><tr>
-		   <!-- <th>Use</th>-->			
+		    <th>Use</th>			
 			<th>CODE</th>
 		    <th>TITLE</th>				    				  
 		    <th>Completed</th>		    
@@ -18,9 +18,9 @@
 
 <!-- user hospital_measure -->
 <script type="text/template" class="template" id="user-hospital_measure">
-<!-- <td>
-	<input type="checkbox" name="included" id="{{id}}" {{included}} >
- </td> -->
+ <td>
+	<input type="checkbox" name="included" id="{{id}}" disabled="disabled" {{included}} >
+ </td> 
  <td>{{ code }}</td>
  <td><div class='title' title="{{name}}"><a id="customLink" href="#modalDataElements" role="button" data-toggle="modal">{{ name }}</a></div></td>
  <td>
