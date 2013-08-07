@@ -1,17 +1,36 @@
 //List of HospitalElements
 App.Views.HospitalElements = Backbone.View.extend({
 	template : _.template($('#user-hospital-element').html()),
+	
+	events : {
+		'click #resetAll' : 'resetAllToDefault'		
+	},
 
 	render : function() {		
 		this.$el.html(this.template({ hospitals : this.collection }));
 		this.collection.each(this.appendHospitalElement, this);
 		return this;
 	},
+	
+	resetAllToDefault : function() {		
+		this.collection.each(this.restoreHospitalElement, this);
+	},
 
 	appendHospitalElement : function(hospitalElement) {
 		var view = new App.Views.SingleHospitalElement({ model : hospitalElement});		
 		this.$el.find('#hospital-elements tbody').append(view.render().el);		
-	}	
+	},
+	
+	restoreHospitalElement : function(hospitalElement) {
+		//only for checked sourceEHR		
+		var cur_row = $('#hospital-elements td#'+hospitalElement.get('id')).closest('tr');
+		var ch = $(cur_row).find('.sourceEhr').is(':checked');
+			
+		if (ch) {
+			var view = new App.Views.SingleHospitalElement({ model : hospitalElement});
+			$(cur_row).replaceWith(view.render().el);
+		}		
+	}
 });
 
 //Single Hospital Element
@@ -20,7 +39,8 @@ App.Views.SingleHospitalElement = Backbone.View
 	tagName : 'tr',
 	template: _.template($('#user-data-elements').html()),	
 	events : {
-		'click .slc_row' : 'selectRow'
+		'click .slc_row' : 'selectRow',
+		'click #reset'   : 'resetToDefault'
 	},
 					
 	render : function() {			
@@ -53,6 +73,13 @@ App.Views.SingleHospitalElement = Backbone.View
 		this.showQA(slc_hospital_element);
 		this.showExtraLocation(slc_hospital_element);
 		this.showHospitalSpecific(slc_hospital_element);
+	},
+	
+	resetToDefault : function(event) {			
+		//var he_id = $(event.target).closest('tr').find('td:first').prop('id');	
+		this.$el.html(this.template(this.model.toJSON()));	
+		this.$el.find(".slcCodeType").val(this.model.get('codeType').name);
+		this.$el.find(".slcValueType").val(this.model.get('valueType').name);
 	},
 	
 	showQA: function(slc_hospital_element){		
