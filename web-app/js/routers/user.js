@@ -35,7 +35,7 @@ App.Routers.User = Backbone.Router.extend({
 		var oTable = $('.hospitalMeasureTable').dataTable({		
 			"bDestroy": true, 
 			"bPaginate": false,
-			"bFilter": false,
+			"bFilter": true,
 			"sScrollY": "548px",			
 			"bSort": true,
 			"bInfo": false,

@@ -1,6 +1,6 @@
 <!-- user-hospital-measure_table -->
 <script type="text/template" class="template" id="user-hospital-measure_table">
-<table class="hospitalMeasureTable table table-striped ">
+<table class="hospitalMeasureTable table table-striped table-condensed">
 	<thead><tr>
 		    <th>Use</th>			
 			<th>CODE</th>
@@ -14,7 +14,8 @@
     </thead>				
     <tbody>		
     </tbody>
-</table>
+</table>  
+</div>
 </script>
 
 <!-- user hospital_measure -->

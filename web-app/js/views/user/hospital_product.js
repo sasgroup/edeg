@@ -36,9 +36,9 @@ App.Views.HospitalMeasure = Backbone.View
 			tagName : 'tr',
 			template: _.template($('#user-hospital_measure').html()),			
 			events : {				
-				'click a#customLink'       	  : 'goToDataElements',
-				//'change input[name="included"], input[name="completed"], input[name="confirmed"], input[name="accepted"], input[name="verified"]'  : 'changeVal'
-				'click .show_info'            : 'showInfo'	
+				'click a#customLink'       	      : 'goToDataElements',
+				'change input[name="completed"]'  : 'changeVal',
+				'click .show_info'                : 'showInfo'	
 			},
 
 			render : function() {						
@@ -64,10 +64,16 @@ App.Views.HospitalMeasure = Backbone.View
 				return this;
 			},
 			
+			changeVal: function (){
+				this.model.save();
+			},
+			
 			showInfo: function() {
-				if (this.model.get('notes')!=null)
-				alert(this.model.get('notes'));			
-				
+				if (this.model.get('notes')!=null) {
+				//alert(this.model.get('notes'));
+					$('.alert-info').html(this.model.get('notes'));
+					$('.alert-info').fadeIn(500).delay(1500).fadeOut(500);
+				}
 			},
 			
 			goToDataElements : function(e) {
