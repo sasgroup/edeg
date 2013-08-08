@@ -412,7 +412,7 @@ background-color: #fff;
 }
 
 
-table input, table select  {
+table input , table select  {
   margin: 0 !important;
   width: 96%;
 }

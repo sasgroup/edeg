@@ -18,7 +18,10 @@ App.Routers.Administrator = Backbone.Router.extend({
 		'measure/:id/edit': 'editMeasure',
 		'element/:id/edit': 'editDataElement',
 		'ehr/:id/edit'    : 'editEhr',
-		'reload/:id'      :	'reopenHospital' 		
+		'reload/:id'      :	'reopenHospital',
+		
+		'product/:p_id/measure/:m_id':  'elements'
+		//#product/1/measure/17
 	},
 
 	initialize: function(options){
@@ -38,13 +41,15 @@ App.Routers.Administrator = Backbone.Router.extend({
 		
 		App.productMeasures = new App.Collections.ProductMeasures();	
 		
-		App.hospitalMeasures = new App.Collections.HospitalMeasures();	
-
-		
+		App.hospitalMeasures = new App.Collections.HospitalMeasures();		
 	},
 	
 	reopenHospital : function(id) {		
 		Backbone.history.navigate("hospital/"+id+'/edit', true);		
+	},
+	
+	elements : function(p_id, m_id){			
+		alert("ELEMENTS");
 	},
 	
 	// ------- LIST ------------
@@ -351,8 +356,8 @@ App.Routers.Administrator = Backbone.Router.extend({
 						"sScrollY": "272px",			
 						"bSort": true,
 						"bInfo": false,
-						"aaSorting": [[0, 'asc']]
-					//	"aoColumnDefs": [{'bSortable': false, 'aTargets': [ 3,4,5,6 ] }]					
+						"aaSorting": [[0, 'asc']],
+					    "aoColumnDefs": [{'bSortable': false, 'aTargets': [ 3,4,5,6 ] }]					
 						 
 					 });				
 				

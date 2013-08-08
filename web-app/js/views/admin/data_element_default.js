@@ -39,13 +39,13 @@ App.Views.DataElementsDefault = Backbone.View
 				
 				if (default_element_option=="ehr") {				
 					App.ehrs.each(function(ehr) {
-						html = html + temp({id:'e'+ehr.get('id'), name:ehr.get('name')}); //hardcode
+						html = html + temp({id:'e'+ehr.get('id'), code:ehr.get('code')}); //replace name to code
 					});			
 				} else 
 				
 				if (default_element_option=="element") {				
 					App.dataElements.each(function(element) {
-						html = html + temp({id:'e'+element.get('id'), name:element.get('name')});
+						html = html + temp({id:'e'+element.get('id'), code:element.get('code')});
 					});			
 				} 					
 				

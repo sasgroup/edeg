@@ -55,7 +55,7 @@ App.Views.Ehr = Backbone.View.extend({
 		var temp = _.template($('#default-element-option').html());
 		var html= '';		
 		App.dataElements.each(function(element) {
-			html = html + temp({id:'e'+element.get('id'), name:element.get('name')});
+			html = html + temp({id:'e'+element.get('id'), code:element.get('code')});
 		});			
 		return html;
 	},

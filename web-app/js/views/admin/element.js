@@ -78,7 +78,7 @@ App.Views.DataElement = Backbone.View.extend({
 		var temp = _.template($('#default-element-option').html());
 		var html= '';		
 		App.ehrs.each(function(ehr) {
-			html = html + temp({id:'e'+ehr.get('id'), name:ehr.get('name')});
+			html = html + temp({id:'e'+ehr.get('id'), code:ehr.get('code')});
 		});			
 		return html;
 	},

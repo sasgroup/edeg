@@ -58,5 +58,5 @@
 
 <!-- default-element Option -->
 <script type="text/template" class="template" id="default-element-option">
- <option value={{id}}>{{name}}</option>
+ <option value={{id}}>{{code}}</option>
 </script>

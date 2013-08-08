@@ -161,7 +161,8 @@ App.Views.Hospital = Backbone.View.extend({
 																		"included" :measure.included,
 																		"verified" :measure.verified,
 																		"p_index"  :p_index,
-																		"m_index"  :m_index
+																		"m_index"  :m_index,
+																		"product_id" : product.id
 																		});				
 				
 				var view = new App.Views.SingleHospitalMeasure({ model : hospitalMeasure });				
@@ -341,8 +342,9 @@ App.Views.SingleHospitalMeasure = Backbone.View
 						
 			goToDataElements : function(e) {				
 				e.preventDefault();
+				Backbone.history.navigate("product/" + this.model.get('product_id')+ "/measure/" + this.model.get('id'), true);
 
-				if (window.console) console.log("goToDataElements");				
+				/*if (window.console) console.log("goToDataElements");				
 
 				
 				var hospital_measure_title = "Data Elements for " + $(e.target).text();
@@ -454,25 +456,7 @@ App.Views.SingleHospitalMeasure = Backbone.View
 				
 											
 				
-				//circle
-				/*if (dataElementDefaults !== undefined) {
-					  $.each( dataElementDefaults, function( i, dataElementDefault ) {												
-						var view = new App.Views.ModalDataElement({ model : dataElementDefault});				
-						var dataElementDefaultRow = view.render().el;
-						$(ehrtbody).append(dataElementDefaultRow);	
-						$(dataElementDefaultRow).find(".slcCodeType").val(dataElementDefault.codeType.name);
-						$(dataElementDefaultRow).find(".slcValueType").val(dataElementDefault.valueType.name);
-						
-						$(dataElementDefaultRow).find('.slcParent').append(optionsList);			
-						$(dataElementDefaultRow).find(".slcParent").val("e"+dataElementDefault.linkId);			
-					  });	
-			    }*/				
-				
-				/*var view = new App.Views.ModalDataElement({ model : dataElementDefault});		
-				var modalDataElementRow = view.render().el;
-				
-						
-				$(ehrtbody).append(modalDataElementRow);	*/			
+				*/
 			},
 			
 			
@@ -485,6 +469,8 @@ App.Views.SingleHospitalMeasure = Backbone.View
 			}
 		});
 
+
+/*
 App.Views.ModalDataElement = Backbone.View
 .extend({
 	tagName : 'tr',
@@ -585,4 +571,4 @@ App.Views.ModalHospitalSpecific =  Backbone.View
 		if (window.console) console.log("remove extra row");
 		$(event.target).closest('tr').remove();
 	}
-});
+});*/
