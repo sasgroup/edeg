@@ -60,3 +60,4 @@ stacktrace.log
 # other
 *.iws
 
+/application.properties
