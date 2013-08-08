@@ -49,7 +49,26 @@ App.Routers.Administrator = Backbone.Router.extend({
 	},
 	
 	elements : function(p_id, m_id){			
-		alert("ELEMENTS");
+		
+		App.hospitalElements = new App.Collections.HospitalElements();
+		
+		App.hospitalElements.fetch({data:{id: m_id}}).then(function(){			
+			App.viewHospitalElements = new App.Views.HospitalElements ({collection:App.hospitalElements});
+			$('#app').html(App.viewHospitalElements.render().el);		
+			
+			var oTable = $('#hospital-elements').dataTable({		
+				"bDestroy": true, 
+				"bPaginate": false,
+				"bFilter": false,
+				"sScrollY": "262px",			
+				"bSort": true,
+				"bInfo": false,
+				"aaSorting": [[0, 'asc']],
+				"aoColumnDefs": [{'bSortable': false, 'aTargets': [ 1,2,3,4,5,6 ] }]			 
+			});				
+			
+			new FixedColumns( oTable, {"sHeightMatch": "none"} );				
+	    });
 	},
 	
 	// ------- LIST ------------

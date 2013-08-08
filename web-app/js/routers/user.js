@@ -1,8 +1,7 @@
 App.Routers.User = Backbone.Router.extend({
 	routes : {
-		""     	                                : "home",
-		//':product_code/:measure_code/elements'  : 'elements',
-		'product/:p_id/measure/:m_id'   :  'elements',
+		""     	                        : 'home',		
+		'product/:p_id/measure/:m_id'   : 'elements',
 		'product/:p_id'                 : 'productn'			
 	},
 
@@ -55,8 +54,6 @@ App.Routers.User = Backbone.Router.extend({
 	},
 			
 	elements : function(p_id, m_id){			
-		
-		
 		var hm_id = '';
 		// get hospital_measure_id
 		$.each( App.ho.get('products'), function( i, product ) { 	
