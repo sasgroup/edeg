@@ -21,6 +21,7 @@ App.Views.HospitalProduct = Backbone.View.extend({
 																"verified" :measure.verified,																
 																"m_index"  :m_index,
 																"product_code": cur_hospital_product.model.code,
+																"product_id": cur_hospital_product.model.id,
 																"notes"       : measure.notes
 																});	
 					
@@ -79,9 +80,9 @@ App.Views.HospitalMeasure = Backbone.View
 			},
 			
 			goToDataElements : function(e) {
-				e.preventDefault();
-				//alert("goToDataElements");	
-				Backbone.history.navigate(this.model.get('product_code')+ "/" + this.model.get('code') + "/" + "elements", true);
+				e.preventDefault();				
+				//Backbone.history.navigate(this.model.get('product_code')+ "/" + this.model.get('code') + "/" + "elements", true);
+				Backbone.history.navigate("product/" + this.model.get('product_id')+ "/measure/" + this.model.get('id'), true);
 				//Backbone.history.navigate(this.model.get('product_code')+ "/" + this.model.get('id') + "/" + "elements", true);
 			}	
 		});

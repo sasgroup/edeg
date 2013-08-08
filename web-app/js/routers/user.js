@@ -1,8 +1,9 @@
 App.Routers.User = Backbone.Router.extend({
 	routes : {
 		""     	                                : "home",
-		':product_code/:measure_code/elements'  : 'elements',
-		':product_code'                         : 'productn'			
+		//':product_code/:measure_code/elements'  : 'elements',
+		'product/:p_id/measure/:m_id'   :  'elements',
+		'product/:p_id'                 : 'productn'			
 	},
 
 	initialize: function(options){
@@ -18,14 +19,16 @@ App.Routers.User = Backbone.Router.extend({
 		});
 	},
 					
-	productn : function(product_code) {		
-		//breadcrumb
-		var temp = _.template($('#user-hospital-breadcrumb').html());		
-		$('#breadcrumb-box').html(temp({product_code:product_code}));
+	productn : function(p_id) {		
 		
 		//hospital_measure_table		
 		$.each( App.ho.get('products'), function( i, product ) { 	
-			if (product.code==product_code) {				
+			if (product.id==p_id) {
+				
+				//breadcrumb
+				var temp = _.template($('#user-hospital-breadcrumb').html());		
+				$('#breadcrumb-box').html(temp({product_code:product.code}));
+				
 				var view = new App.Views.HospitalProduct({model: product});		
 				$('#app').html(view.render().el);	
 				return;
@@ -51,18 +54,19 @@ App.Routers.User = Backbone.Router.extend({
            });
 	},
 			
-	elements : function(product_code,measure_code){			
-		//breadcrumb
-		var temp = _.template($('#user-measure-breadcrumb').html());			
-		$('#breadcrumb-box').html(temp({product_code:product_code, measure_code:measure_code}));
+	elements : function(p_id, m_id){			
+		
 		
 		var hm_id = '';
 		// get hospital_measure_id
 		$.each( App.ho.get('products'), function( i, product ) { 	
-			if (product.code==product_code) {				
+			if (product.id==p_id) {				
 				$.each(product.measures, function( i, measure ){
-					if (measure.code==measure_code) {
-						hm_id = measure.id;						
+					if (measure.id==m_id) {
+						hm_id = measure.id;				
+						//breadcrumb
+						var temp = _.template($('#user-measure-breadcrumb').html());			
+						$('#breadcrumb-box').html(temp({product_code:product.code, product_id:p_id, measure_code:measure.code}));
 					}				
 				});				
 			}						       

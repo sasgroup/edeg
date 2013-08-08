@@ -38,7 +38,7 @@ $(function() {
 			$('nav#products-nav').empty();
 			$.each( products, function( i, product ) { 	
 				console.log(product.code);			
-				$('nav#products-nav').append('<a href="#'+ product.code+ '">' + product.code + '</a>');		           
+				$('nav#products-nav').append('<a href="#product/'+ product.id+ '">' + product.code + '</a>');		           
 			});			
 		})
 	    

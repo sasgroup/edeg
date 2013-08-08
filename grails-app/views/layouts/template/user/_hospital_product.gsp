@@ -44,8 +44,8 @@
 
 <script type="text/template" class="template" id="user-hospital-breadcrumb">
 <ul class="breadcrumb">
-	<li><a href="#">Home</a><span class="divider">></span></li>
-	<li><a href="#{{product_code}}">{{ product_code }}</a><span class="divider">></span></li>
+	<li><a href="#">Home</a><span class="divider">></span></li>	
+    <li class="active">{{ product_code }}:</li>
 	<li class="active">Measures</li>
 </ul>
 </script>
