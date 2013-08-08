@@ -1,5 +1,5 @@
-//Hospital
-App.Views.UserHospitalProduct = Backbone.View.extend({		
+//Hospital Product
+App.Views.HospitalProduct = Backbone.View.extend({	
 	template :  _.template($('#user-hospital-measure_table').html()),
 
 	render : function() {					
@@ -20,23 +20,25 @@ App.Views.UserHospitalProduct = Backbone.View.extend({
 																"included" :measure.included,
 																"verified" :measure.verified,																
 																"m_index"  :m_index,
-																"product_code": cur_hospital_product.model.code
+																"product_code": cur_hospital_product.model.code,
+																"notes"       : measure.notes
 																});	
 					
-			var view = new App.Views.SingleUserHospitalMeasure({ model : hospitalMeasure });					
+			var view = new App.Views.HospitalMeasure({ model : hospitalMeasure });					
 			cur_hospital_product.$el.find('.hospitalMeasureTable tbody').append(view.render().el);
 		});		
 	}
 });	
 
-//Single User Hospital_Measure
-App.Views.SingleUserHospitalMeasure = Backbone.View
+//Hospital_Measure
+App.Views.HospitalMeasure = Backbone.View
 		.extend({
 			tagName : 'tr',
-			template: _.template($('#user-single-hospital_measure').html()),			
+			template: _.template($('#user-hospital_measure').html()),			
 			events : {				
-				'click a#customLink'       	  : 'goToDataElements'
-				//'change input[name="included"], input[name="completed"], input[name="confirmed"], input[name="accepted"], input[name="verified"]'  : 'changeVal'				
+				'click a#customLink'       	      : 'goToDataElements',
+				'change input[name="completed"]'  : 'changeVal',
+				'click .show_info'                : 'showInfo'	
 			},
 
 			render : function() {						
@@ -62,9 +64,24 @@ App.Views.SingleUserHospitalMeasure = Backbone.View
 				return this;
 			},
 			
+			changeVal: function (){
+				this.model.save();
+			},
+			
+			showInfo: function() {
+				//if (this.model.get('notes')!=null) {
+				//alert(this.model.get('notes'));
+					//$('.alert-info').html(this.model.get('notes'));
+					//$('.alert-info').fadeIn(500).delay(1500).fadeOut(500);
+				    console.log(this.model.get('notes'));
+					$('.show_info').attr('title',this.model.get('notes'));
+				//}
+			},
+			
 			goToDataElements : function(e) {
 				e.preventDefault();
 				//alert("goToDataElements");	
 				Backbone.history.navigate(this.model.get('product_code')+ "/" + this.model.get('code') + "/" + "elements", true);
+				//Backbone.history.navigate(this.model.get('product_code')+ "/" + this.model.get('id') + "/" + "elements", true);
 			}	
 		});

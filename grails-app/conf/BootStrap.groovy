@@ -97,6 +97,7 @@ class BootStrap {
 		}
 
 		//-----------PRODUCTs-----------
+
 		def _products = [
 			["MU1",	"Meaningful Use Solution 2014 Stage 1",	""],
 			["MU2",	"Meaningful Use Solution 2014 Stage 2",	""],
@@ -112,6 +113,311 @@ class BootStrap {
 				_product.errors.allErrors.each{error ->
 					println "An error occured with event1: ${error}"
 				}
+
+		def product
+		product = new Product(code:"MU1",
+							  name:"Meaningful Use Solution 2014 Stage 1",
+							  notes:"")
+		if (!product.save()){
+			product.errors.allErrors.each{error ->
+				println "An error occured with event1: ${error}"
+			}
+		}
+
+		product = new Product(code:"MU2",
+							  name:"Meaningful Use Solution 2014 Stage 2",
+							  notes:""//"<script>alert('FY');</script>"//notes:""
+							  )
+		if (!product.save()){
+			product.errors.allErrors.each{error ->
+				println "An error occured with event1: ${error}"
+			}
+		}
+
+		product = new Product(code:"IA",
+							  name:"Infection Alert",
+							  notes:"")
+		if (!product.save()){
+			product.errors.allErrors.each{error ->
+				println "An error occured with event1: ${error}"
+			}
+		}
+
+		product = new Product(code:"QA",
+							  name:"Quality Alert ",
+							  notes:"")
+		if (!product.save()){
+			product.errors.allErrors.each{error ->
+				println "An error occured with event1: ${error}"
+			}
+		}
+		//-----------MEASUREs-----------
+		def measure
+		measure = new Measure(code:"CPOE",
+							  name:"CPOE",
+							  notes:"More than 60 percent of medication orders created by the EP or authorized providers of the eligible hospital's or CAH's inpatient or emergency department (POS 21 or 23) during the EHR reporting period are recorded using CPOE",
+							  measureCategory : MeasureCategory.findByName("CORE"),
+							  cqmDomain:null)
+		
+		if (!measure.save()){
+			measure.errors.allErrors.each{error ->
+				println "An error occured with event1: ${error}"
+			}
+		}
+		measure.addToProducts(Product.findByCode("MU1"))
+		measure.save()
+		
+		measure = new Measure(code:"Demograph",
+							  name:"Demographics",
+							  notes:"",
+							  measureCategory : MeasureCategory.findByName("CORE"),
+							  cqmDomain:null)
+		
+		if (!measure.save()){
+			measure.errors.allErrors.each{error ->
+				println "An error occured with event1: ${error}"
+			}
+		}
+		measure.addToProducts(Product.findByCode("MU1"))
+		measure.addToProducts(Product.findByCode("MU2"))
+		measure.save()
+
+		measure = new Measure(code:"Prob List",
+							  name:"Problem List",
+							  notes:"",
+							  measureCategory : MeasureCategory.findByName("CORE"),
+							  cqmDomain:null)
+		
+		if (!measure.save()){
+			measure.errors.allErrors.each{error ->
+				println "An error occured with event1: ${error}"
+			}
+		}
+		measure.addToProducts(Product.findByCode("MU1"))
+		measure.save() 
+		
+		measure = new Measure(code:"Med List",
+							  name:"Medication List",
+							  notes:"",
+							  measureCategory : MeasureCategory.findByName("CORE"),
+							  cqmDomain:null)
+		
+		if (!measure.save()){
+			measure.errors.allErrors.each{error ->
+				println "An error occured with event1: ${error}"
+			}
+		}
+		measure.addToProducts(Product.findByCode("MU1"))
+		measure.save()
+		
+		measure = new Measure(code:"MedAllerg",
+							  name:"Medication Allergy",
+							  notes:"",
+							  measureCategory : MeasureCategory.findByName("CORE"),
+							  cqmDomain:null)
+		
+		if (!measure.save()){
+			measure.errors.allErrors.each{error ->
+				println "An error occured with event1: ${error}"
+			}
+		}
+		measure.addToProducts(Product.findByCode("MU1"))
+		measure.save() 
+		
+		measure = new Measure(code:"Vitals",
+							  name:"Vitals",
+							  notes:"",
+							  measureCategory : MeasureCategory.findByName("CORE"),
+							  cqmDomain:null)
+		
+		if (!measure.save()){
+			measure.errors.allErrors.each{error ->
+				println "An error occured with event1: ${error}"
+			}
+		}
+		measure.addToProducts(Product.findByCode("MU1"))
+		measure.addToProducts(Product.findByCode("MU2"))
+		measure.save() 
+		
+		measure = new Measure(code:"Smoking",
+							  name:"Smoking",
+							  notes:"",
+							  measureCategory : MeasureCategory.findByName("CORE"),
+							  cqmDomain:null)
+		
+		if (!measure.save()){
+			measure.errors.allErrors.each{error ->
+				println "An error occured with event1: ${error}"
+			}
+		}
+		measure.addToProducts(Product.findByCode("MU1"))
+		measure.addToProducts(Product.findByCode("MU2"))
+		measure.save() 
+		
+		measure = new Measure(code:"Adv Dir",
+							  name:"Advance Directive",
+							  notes:"",
+							  measureCategory : MeasureCategory.findByName("MENU"),
+							  cqmDomain:null)
+		
+		if (!measure.save()){
+			measure.errors.allErrors.each{error ->
+				println "An error occured with event1: ${error}"
+			}
+		}
+		measure.addToProducts(Product.findByCode("MU1"))
+		measure.save() 
+		
+		measure = new Measure(code:"Lab Tests",
+							  name:"Laboratory Test Results",
+							  notes:"",
+							  measureCategory : MeasureCategory.findByName("MENU"),
+							  cqmDomain:null)
+		
+		if (!measure.save()){
+			measure.errors.allErrors.each{error ->
+				println "An error occured with event1: ${error}"
+			}
+		}
+		measure.addToProducts(Product.findByCode("MU1"))
+		measure.save() 
+		
+		measure = new Measure(code:"EDU Res",
+							  name:"Education Resources",
+							  notes:"",
+							  measureCategory : MeasureCategory.findByName("MENU"),
+							  cqmDomain:null)
+		
+		if (!measure.save()){
+			measure.errors.allErrors.each{error ->
+				println "An error occured with event1: ${error}"
+			}
+		}
+		measure.addToProducts(Product.findByCode("MU1"))
+		measure.save() 
+		
+		measure = new Measure(code:"Med Rec",
+							  name:"Medication Reconciliation",
+							  notes:"",
+							  measureCategory : MeasureCategory.findByName("MENU"),
+							  cqmDomain:null)
+		
+		if (!measure.save()){
+			measure.errors.allErrors.each{error ->
+				println "An error occured with event1: ${error}"
+			}
+		}
+		measure.addToProducts(Product.findByCode("MU1"))
+		measure.save() 
+		
+		measure = new Measure(code:"Trans Sum",
+							  name:"Transition Summary",
+							  notes:"",
+							  measureCategory : MeasureCategory.findByName("MENU"),
+							  cqmDomain:null)
+		
+		if (!measure.save()){
+			measure.errors.allErrors.each{error ->
+				println "An error occured with event1: ${error}"
+			}
+		}
+		measure.addToProducts(Product.findByCode("MU1"))
+		measure.save() 
+		
+		measure = new Measure(code:"CPOE-Med",
+							  name:"CPOE - Medication Orders",
+							  notes:"",
+							  measureCategory : MeasureCategory.findByName("CORE"),
+							  cqmDomain:null)
+		
+		if (!measure.save()){
+			measure.errors.allErrors.each{error ->
+				println "An error occured with event1: ${error}"
+			}
+		}
+		measure.addToProducts(Product.findByCode("MU2"))
+		measure.save() 
+		
+		measure = new Measure(code:"CPOE-Lab",
+							  name:"CPOE - Laboratory Orders",
+							  notes:"",
+							  measureCategory : MeasureCategory.findByName("CORE"),
+							  cqmDomain:null)
+		
+		if (!measure.save()){
+			measure.errors.allErrors.each{error ->
+				println "An error occured with event1: ${error}"
+			}
+		}
+		measure.addToProducts(Product.findByCode("MU2"))
+		measure.save() 
+		
+		measure = new Measure(code:"CPOE-Rad",
+							  name:"CPOE - Radiology Orders",
+							  notes:"",
+							  measureCategory : MeasureCategory.findByName("CORE"),
+							  cqmDomain:null)
+		
+		if (!measure.save()){
+			measure.errors.allErrors.each{error ->
+				println "An error occured with event1: ${error}"
+			}
+		}
+		measure.addToProducts(Product.findByCode("MU2"))
+		measure.save() 
+		
+		measure = new Measure(code:"SumOfCare",
+							  name:"Summary of Care",
+							  notes:"",
+							  measureCategory : MeasureCategory.findByName("CORE"),
+							  cqmDomain:null)
+		
+		if (!measure.save()){
+			measure.errors.allErrors.each{error ->
+				println "An error occured with event1: ${error}"
+			}
+		}
+		measure.addToProducts(Product.findByCode("MU2"))
+		measure.save() 
+		
+		measure = new Measure(code:"eSumOfCare",
+							  name:"Summary of Care: Electronic Transmission",
+							  notes:"",
+							  measureCategory : MeasureCategory.findByName("CORE"),
+							  cqmDomain:null)
+		
+		if (!measure.save()){
+			measure.errors.allErrors.each{error ->
+				println "An error occured with event1: ${error}"
+			}
+		}
+		measure.addToProducts(Product.findByCode("MU2"))
+		measure.save() 
+		
+		measure = new Measure(code:"eMAR",
+							  name:"eMAR",
+							  notes:"",
+							  measureCategory : MeasureCategory.findByName("CORE"),
+							  cqmDomain:null)
+		
+		if (!measure.save()){
+			measure.errors.allErrors.each{error ->
+				println "An error occured with event1: ${error}"
+			}
+		}
+		measure.addToProducts(Product.findByCode("MU2"))
+		measure.save() 
+		
+		measure = new Measure(code:"eNote",
+							  name:"Electronic Note",
+							  notes:"",
+							  measureCategory : MeasureCategory.findByName("MENU"),
+							  cqmDomain:null)
+		
+		if (!measure.save()){
+			measure.errors.allErrors.each{error ->
+				println "An error occured with event1: ${error}"
+>>>>>>> loginPageHelp
 			}
 		}
 		

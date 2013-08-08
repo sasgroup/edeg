@@ -40,9 +40,7 @@ App.Views.Product = Backbone.View.extend({
 		'submit' : 'submProduct',
 		'click button#cancel' : 'returnOnMain',       
 		'change #code, #name, #notes' : 'changeVal',
-		'change .checkbox' : 'changeCh',
-		'focusout input[name=code]': 'uniqueCodeCheck'
-
+		'change .checkbox' : 'changeCh'
 	},
 	
 	render : function() {	
@@ -55,9 +53,8 @@ App.Views.Product = Backbone.View.extend({
 		var temp = _.template($('#single-product-measure').html());		
 		this.checked = [];
 		this.unchecked = [];
-		
-		//App.measures.forEach(this.appendProductMeasure);		
-		this.showProductMeasure();
+				
+		this.appendProductMeasures();
 		
 		if (window.console) console.log("checked ", this.checked);
 		if (window.console) console.log("unchecked ", this.unchecked);
@@ -78,32 +75,8 @@ App.Views.Product = Backbone.View.extend({
 		return this;
 	},
 
-	uniqueCodeCheck: function () {
-		var cur_code = '';
-		var new_code = $('input[name=code]').val();
-		var codes = [];
-		 		
-		if (this.model.toJSON().id) {
-			cur_code = this.model.get('code');
-		};
-		
-		$('input[name=code]').next('label.error').remove();		
-		
-		App.products.forEach(function(product){			
-			codes.push(product.get('code'));
-		});
-				
-		var index = codes.indexOf(cur_code);
-		if (index!=-1) {
-			codes.splice(index, 1);
-		}	
-				
-		if (codes.indexOf(new_code)!=-1) {
-			$('input[name=code]').after('<label class="error">Should be unique</label>');
-		}				
-	},
-	
-	showProductMeasure : function(){
+
+	appendProductMeasures : function(){
 		var checked = this.checked;
 		var unchecked = this.unchecked;
 				
@@ -119,20 +92,6 @@ App.Views.Product = Backbone.View.extend({
 			}
 		});		
 	},
-	
-	/*appendProductMeasure : function(product_measure){
-		var temp = _.template($('#single-product-measure').html());		
-		var chd = '';
-				
-		var data = this.model.get('measures');
-			
-		$.each(data, function (i, measure ) {
-			if (measure.mid == product_measure.get('id')) {chd = 'checked';}
-		});
-		
-		
-		this.$el.find('div#measures').append(temp({name:product_measure.get('name'),id:product_measure.get('id'),ch:chd}));		
-	},*/
 		
 	appendHospital : function(product_hospital){
 		var temp = _.template($('#single-product-hospital').html());
@@ -169,10 +128,7 @@ App.Views.Product = Backbone.View.extend({
 	},
 	
 	submProduct : function(e) {
-		e.preventDefault();				
-		
-		this.uniqueCodeCheck();
-		
+		e.preventDefault();		
 		this.model.save(this.attributes,{
 	        success: function (model, response) {
 	        	if (window.console) console.log(response);
@@ -236,6 +192,7 @@ App.Views.SingleProduct = Backbone.View
 				
 				}
 			}
+
 		});
 
 
@@ -253,4 +210,7 @@ App.Views.ProductMeasure = Backbone.View
 			}			
 			
 		});
+
+
+
 

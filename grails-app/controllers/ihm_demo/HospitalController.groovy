@@ -36,6 +36,7 @@ class HospitalController {
 				id   = result.id
 				ehr = result.ehr
 				products = array {
+
 					for (hp in hospitalProducts) {
 						product id : hp.product.id,
 						name : hp.product.name,
@@ -52,6 +53,7 @@ class HospitalController {
 								verified : hm.verified
 							}
 						}
+
 					}
 				}
 			}
@@ -192,6 +194,7 @@ class HospitalController {
 				products = array {
 					for (p in productList) {
 						product id : p.id,
+<<<<<<< HEAD
 						name : p.name,
 						code : p.code,
 						measures : array {
@@ -206,6 +209,23 @@ class HospitalController {
 								verified : h.verified
 							}
 						}
+=======
+								name : p.name,
+								code : p.code,
+								measures : array {
+									for (h in HospitalMeasure.list().findAll{it?.hospitalProducts.findAll{it.product == p}.size() >= 1}){
+										measrue id : h.id,
+												code : h.measure.code,
+												name : h.measure.name,
+												notes : h.measure.notes,
+												accepted : h.accepted,
+												completed : h.completed,
+												confirmed : h.confirmed,
+												included : h.included,
+												verified : h.verified
+									}
+								}
+>>>>>>> loginPageHelp
 					}
 				}
 

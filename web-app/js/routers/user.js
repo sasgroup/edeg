@@ -2,7 +2,7 @@ App.Routers.User = Backbone.Router.extend({
 	routes : {
 		""     	                                : "home",
 		':product_code/:measure_code/elements'  : 'elements',
-		':id'                                   : 'productn'			
+		':product_code'                         : 'productn'			
 	},
 
 	initialize: function(options){
@@ -26,7 +26,7 @@ App.Routers.User = Backbone.Router.extend({
 		//hospital_measure_table		
 		$.each( App.ho.get('products'), function( i, product ) { 	
 			if (product.code==product_code) {				
-				var view = new App.Views.UserHospitalProduct({model: product});		
+				var view = new App.Views.HospitalProduct({model: product});		
 				$('#app').html(view.render().el);	
 				return;
 			}						       
@@ -35,31 +35,59 @@ App.Routers.User = Backbone.Router.extend({
 		var oTable = $('.hospitalMeasureTable').dataTable({		
 			"bDestroy": true, 
 			"bPaginate": false,
-			"bFilter": false,
-			"sScrollY": "600px",			
+			"bFilter": true,
+			"sScrollY": "548px",			
 			"bSort": true,
 			"bInfo": false,
 			"aaSorting": [[0, 'asc']],
-			"aoColumnDefs": [{'bSortable': false, 'aTargets': [ 3,4,5,6 ] }]			 
+			"aoColumnDefs": [{'bSortable': false, 'aTargets': [ 0,3,4,5,6,7 ] }]			 
 		});				
 		
-		new FixedColumns( oTable, {"sHeightMatch": "none"} );			
+		new FixedColumns( oTable, {"sHeightMatch": "none"} );	
+		
+		 $(".btn show_info").tooltip({
+             'selector': '',
+             'placement': 'left'
+           });
 	},
-	
+			
 	elements : function(product_code,measure_code){			
 		//breadcrumb
 		var temp = _.template($('#user-measure-breadcrumb').html());			
 		$('#breadcrumb-box').html(temp({product_code:product_code, measure_code:measure_code}));
 		
-		var temp_content = _.template($('#user-data-element').html());
+		var hm_id = '';
+		// get hospital_measure_id
+		$.each( App.ho.get('products'), function( i, product ) { 	
+			if (product.code==product_code) {				
+				$.each(product.measures, function( i, measure ){
+					if (measure.code==measure_code) {
+						hm_id = measure.id;						
+					}				
+				});				
+			}						       
+		});	
 					
-		$('#app').html(temp_content());
+		App.hospitalElements = new App.Collections.HospitalElements();
 		
-		table_row = _.template($('#user-data-elements').html());
+		App.hospitalElements.fetch({data:{id: hm_id}}).then(function(){			
+			App.viewHospitalElements = new App.Views.HospitalElements ({collection:App.hospitalElements});
+			$('#app').html(App.viewHospitalElements.render().el);		
+			
+			var oTable = $('#hospital-elements').dataTable({		
+				"bDestroy": true, 
+				"bPaginate": false,
+				"bFilter": false,
+				"sScrollY": "262px",			
+				"bSort": true,
+				"bInfo": false,
+				"aaSorting": [[0, 'asc']],
+				"aoColumnDefs": [{'bSortable': false, 'aTargets': [ 1,2,3,4,5,6 ] }]			 
+			});				
+			
+			new FixedColumns( oTable, {"sHeightMatch": "none"} );				
+	    });
 		
-		//console.log(table_row);
 		
-		$('table#hospital-elements tbody').append(table_row);		
-	}
-	
+	}	
 });

@@ -94,3 +94,12 @@ App.Models.ModalExtraDataElement = Backbone.Model.extend({
 
 App.Models.ModalHospitalSpecific = Backbone.Model.extend({
 });
+
+
+//ExtraDataElement
+App.Models.ExtraDataElement = Backbone.Model.extend({
+});
+
+//HospitalSpecific
+App.Models.HospitalSpecific = Backbone.Model.extend({
+});

@@ -185,18 +185,28 @@ App.Routers.Administrator = Backbone.Router.extend({
 		App.measures.fetch().then(function(){			
 			App.hospitals.fetch().then(function(){
 				var view = new App.Views.Product({model:productModel});
-				$('#app').html(view.render().el);
+				$('#app').html(view.render().el);					
+				
+				jQuery.validator.addMethod("unique", (function(value, element) {										
+					return App.route.checkCode(productModel, App.products, value );					
+					}), "Code should be unique!"
+				);
 				
 				$('form#product-edit').validate({
 				     rules: {
-				   	 code: { required: true },
-				         	name: { required: true }	               
-				           },
-				    messages: {
-				       	code: "Code cannot be blank", 
-				            name: "Name cannot be blank"
-				         }
-				});
+				   	     code: { required: true,
+				   	    	     unique  : true
+				   	    	   },
+				         name: { required: true }	               
+				     },
+				     messages: {
+				       	 code: {required: "Code cannot be blank",
+				       	    	   unique  : "Code should be unique"			       	    	
+				       	       },
+				         name: {required: "Name cannot be blank"}
+				     }
+				});		
+				
 			});			
 		});		
     },
@@ -205,18 +215,27 @@ App.Routers.Administrator = Backbone.Router.extend({
 		App.hospitals.fetch().then(function(){	
 			App.dataElements.fetch().then(function(){
 				var view = new App.Views.Ehr({model:ehrModel});
-				$('#app').html(view.render().el);
+				$('#app').html(view.render().el);				
+				
+				jQuery.validator.addMethod("unique", (function(value, element) {										
+					return App.route.checkCode(ehrModel, App.ehrs, value );					
+					}), "Code should be unique!"
+				);
 				
 				$('form#ehr-edit').validate({
 				     rules: {
-				   	 code: { required: true },
+				   	     code: { required: true,
+				   	    	     unique  : true
+				   	    	   },
 				         name: { required: true }	               
-				         },
-				    messages: {
-				       	code: "Code cannot be blank", 
-				            name: "Name cannot be blank"
-				         }
-				});
+				     },
+				     messages: {
+				       	 code: {required: "Code cannot be blank",
+				       	    	   unique  : "Code should be unique"			       	    	
+				       	       },
+				         name: {required: "Name cannot be blank"}
+				     }
+				});		
 				
 				$('.ehrTable').dataTable({
 					"bPaginate": false,
@@ -234,36 +253,55 @@ App.Routers.Administrator = Backbone.Router.extend({
 				var view = new App.Views.Measure({model: measureModel});		
 				$('#app').html(view.render().el); 
 				
+				jQuery.validator.addMethod("unique", (function(value, element) {										
+					return App.route.checkCode(measureModel, App.measures, value );					
+					}), "Code should be unique!"
+				);
+				
 				$('form#measure-edit').validate({
 				     rules: {
-				   	 code: { required: true },
+				   	     code: { required: true,
+				   	    	     unique  : true
+				   	    	   },
 				         name: { required: true }	               
-				         },
-				    messages: {
-				       	code: "Code cannot be blank", 
-				            name: "Name cannot be blank"
-				         }
-				});
+				     },
+				     messages: {
+				       	 code: {required: "Code cannot be blank",
+				       	    	unique  : "Code should be unique"			       	    	
+				       	       },
+				         name: {required: "Name cannot be blank"}
+				     }
+				});						
+				
 			});			
 			  
 		});		
     },
-    
+          
     dataElement  : function (dataElement) {
 		App.measures.fetch().then(function(){	
 			App.ehrs.fetch().then(function(){
 				var view = new App.Views.DataElement({model: dataElement});		
 				$('#app').html(view.render().el);
 				
+				jQuery.validator.addMethod("unique", (function(value, element) {										
+					return App.route.checkCode(dataElement, App.dataElements, value );					
+					}), "Code should be unique!"
+				);
+				
 				$('form#element-edit').validate({
 				     rules: {
-				   	 code: { required: true },
+				   	     code: { required: true,
+				   	    	     unique  : true
+				   	    	   },
 				         name: { required: true }	               
-				         },
-				    messages: {
-				       	code: "Code cannot be blank", 
-				            name: "Name cannot be blank"
-				         }
+				     },
+				     messages: {
+				       	 code: {required: "Code cannot be blank",
+				       	    	   unique  : "Code should be unique"			       	    	
+				       	       },
+				         name: {required: "Name cannot be blank"}
+				     }
 				});
 				
 				$('.ehrTable').dataTable({
@@ -319,6 +357,10 @@ App.Routers.Administrator = Backbone.Router.extend({
 					 });				
 				
 				new FixedColumns( oTable, {"sHeightMatch": "none"} );	
+				
+				$("#modalDataElements").draggable({
+				    handle: ".modal-header"
+				}); 
 				
 		});	
 	  });	 
@@ -389,6 +431,31 @@ App.Routers.Administrator = Backbone.Router.extend({
 		App.ehr.fetch({data:{id: id}}).then(function(){
 			App.route.ehr(App.ehr);
 		})
-	}
+	},
+	
+	// check code uniqueness
+	checkCode : function(model_to_check, collection_to_check, value) {
+	    	var cur_code = '';
+			var new_code = value;
+			var codes = [];
+			 		
+			if (model_to_check.toJSON().id) {
+				cur_code = this.model.get('code');
+			};
+			
+			collection_to_check.forEach(function(model){			
+				codes.push(model.get('code'));
+			});
+			
+			var index = codes.indexOf(cur_code);
+			if (index!=-1) {
+				codes.splice(index, 1);
+			}	
+			
+			if (codes.indexOf(new_code)!=-1) {
+				return false;
+			}		
+			return true;		
+	 }
 
 });
