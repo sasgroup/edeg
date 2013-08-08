@@ -9,4 +9,5 @@ class HospitalProductMeasure {
 	String toString(){
 		"$hospitalProduct.product.name, $hospitalMeasure.measure.name"
 	}
+
 }
