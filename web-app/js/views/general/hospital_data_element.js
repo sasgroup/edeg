@@ -1,5 +1,3 @@
-//glyphicon glyphicon-info-sign
-
 //List of HospitalElements
 App.Views.HospitalElements = Backbone.View.extend({
 	template : _.template($('#hospital_data_element-form').html()),
