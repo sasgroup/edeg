@@ -5,33 +5,29 @@ class HospitalMeasure {
 	Boolean accepted
 	Boolean completed
 	Boolean confirmed
-	Boolean included
+	//Boolean included
 	Boolean verified
 	Measure measure
-
-	static hasMany = [hospitalProducts : HospitalProduct,
-					  hospitalElement : HospitalElement]
 	
-	static belongsTo = HospitalElement
+	//new addition
+	Hospital hospital
+
+	//static hasMany = [hospitalProducts : HospitalProduct,
+	//				  hospitalElements : HospitalElement]
+	
+	//static belongsTo = [HospitalProduct]
+	
+	static hasMany = [hospitalProductMeasures : HospitalProductMeasure,
+					  hospitalMeasureElements : HospitalMeasureElement]
 	
     static constraints = {
 		accepted()
 		completed()
 		confirmed()
-		included()
+		//included()
     }
-	
-	static HospitalMeasure findAllByHospitalProductsAndMeasure(HospitalProduct hospitalProduct, Measure m) {
-		def c = HospitalMeasure.createCriteria()
-		def result = c.get{
-			and {
-				eq("measure" , m)
-				hospitalProducts {
-					idEq(hospitalProduct.id)
-				}
-			}	
-			
-		}
-		return result
+
+	String toString(){
+		"$hospital.name, $measure.name"
 	}
 }

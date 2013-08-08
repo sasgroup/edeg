@@ -174,7 +174,6 @@ class BootStrap {
 		}
 		
 		//-----------DATA_ELEMENTs-----------
-		
 		def _elementsAllMeasures = [	
 			["AdmsDate", 	"Admission Date", 					"ADM.PAT.admit.date", 		"StandartCode", ["MEDITECH 6.0", "MEDITECH 6.1"]],
 			["AdmsTime", 	"Admission Time", 					"ADM.PAT.admit.time", 		"StandartCode", ["MEDITECH 6.0", "MEDITECH 6.1"]],
@@ -292,6 +291,7 @@ class BootStrap {
 			["NDE7", "New Data Element 7", "Loc.1.1.7", "StandartCode", ["NM1","NM4"],["MEDITECH 6.0", "MEDITECH 6.1"]],
 			["NDE8", "New Data Element 8", "Loc.1.1.8", "StandartCode", ["NM4","NM2"],["MEDITECH 6.0", "MEDITECH 6.1"]],
 			["NDE9", "New Data Element 9", "Loc.1.1.9", "StandartCode", ["NM3","NM2"],["MEDITECH 6.0", "MEDITECH 6.1"]],
+			["NDE0", "New Data Element 0", "Loc.1.1.0", "StandartCode", ["NM4"],["MEDITECH 6.0", "MEDITECH 6.1"]]
 		]
 		for(_el in _elements){
 			def _element = new DataElement(code:_el[0], name:_el[1], notes:"")

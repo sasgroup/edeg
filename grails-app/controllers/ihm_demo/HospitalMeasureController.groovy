@@ -22,29 +22,23 @@ class HospitalMeasureController {
 	def show() {
 		if (params.id && Hospital.exists(params.id)) {
 			def  result = Hospital.get(params.id)
-			println params.id
-
-			def hospitalProdcuts = HospitalProduct.findAllByHospital(result)
-			def productList	=  hospitalProdcuts.collect{it.product}
-
-
+			
+			def hospitalProducts = HospitalProduct.findAllByHospital(result)
 			render(contentType: "text/json") {
 				measures = array {
-					for (p in productList) {
-						for (h in HospitalMeasure.list().findAll{it?.hospitalProducts.findAll{it.product == p}.size() >= 1}){
-										measrue id : h.id,
-												code : h.measure.code,
-												name : h.measure.name,
-												accepted : h.accepted,
-												completed : h.completed,
-												confirmed : h.confirmed,
-												included : h.included,
-												verified : h.verified,
-												productId: p.id
-									}
-								}
-				}	
-
+					for (hp in hospitalProducts) {
+						for (hpm in hp.hospitalProductMeasures){
+							measure id : hpm.hospitalMeasure.id,
+							code : hpm.hospitalMeasure.measure.code,
+							name : hpm.hospitalMeasure.measure.name,
+							accepted : hpm.hospitalMeasure.accepted,
+							completed : hpm.hospitalMeasure.completed,
+							confirmed : hpm.hospitalMeasure.confirmed,
+							included : hpm.included,
+							verified : hpm.hospitalMeasure.verified
+						}
+					}
+				}
 			}
 		}	
 	}
@@ -53,27 +47,27 @@ class HospitalMeasureController {
 		println "Update"
 		def hospitalMeasureInstance = HospitalMeasure.get(id)
 		
-				if  (!hospitalMeasureInstance) {
-					render(contentType: "text/json") {
-						resp = "error"
-						message = "Id exceptions"
-					}
-				}
-		
-				 if (params.version != null) {
-					if (hospitalMeasureInstance.version > params.version) {
-						return render(contentType: "text/json") {
-							resp = "error"
-							message = "Another User has updated hospitalMeasureInstance while you were editing"
-						}
-					}
-				 }
-				
-				hospitalMeasureInstance  = saveInstance(hospitalMeasureInstance, params)
+			if  (!hospitalMeasureInstance) {
 				render(contentType: "text/json") {
-					resp = "ok"
-					message = "The Measure is updated successfully"
+					resp = "error"
+					message = "Id exceptions"
 				}
+			}
+	
+			 if (params.version != null) {
+				if (hospitalMeasureInstance.version > params.version) {
+					return render(contentType: "text/json") {
+						resp = "error"
+						message = "Another User has updated hospitalMeasureInstance while you were editing"
+					}
+				}
+			 }
+			
+			hospitalMeasureInstance  = saveInstance(hospitalMeasureInstance, params)
+			render(contentType: "text/json") {
+				resp = "ok"
+				message = "The Measure is updated successfully"
+			}
 	}
 
 	def delete(Long id) {

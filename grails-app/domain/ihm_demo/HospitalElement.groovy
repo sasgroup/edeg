@@ -13,9 +13,15 @@ class HospitalElement {
 	CodeType codeType
 	DataElement dataElement
 	
+	//new addition
+	Hospital hospital
 	
 	
-	static hasMany = [hospitalMeasure : HospitalMeasure]
+	//static hasMany = [hospitalMeasures : HospitalMeasure]
+	
+	//static belongsTo = [HospitalMeasure]
+	
+	static hasMany = [hospitalMeasureElements : HospitalMeasureElement]
 		
     static constraints = {
 		internalNotes()
@@ -23,7 +29,7 @@ class HospitalElement {
 		valueSet()
     }
 	
-	String toString() {
-		"$location, $valueSet"
+	String toString(){
+		"$hospital.name, $dataElement.name, $location"
 	}
 }
