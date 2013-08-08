@@ -43,7 +43,12 @@ App.Routers.User = Backbone.Router.extend({
 			"aoColumnDefs": [{'bSortable': false, 'aTargets': [ 0,3,4,5,6,7 ] }]			 
 		});				
 		
-		new FixedColumns( oTable, {"sHeightMatch": "none"} );			
+		new FixedColumns( oTable, {"sHeightMatch": "none"} );	
+		
+		 $(".btn show_info").tooltip({
+             'selector': '',
+             'placement': 'left'
+           });
 	},
 			
 	elements : function(product_code,measure_code){			

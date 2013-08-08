@@ -38,7 +38,7 @@
      <input type="checkbox" name="verified" id="{{id}}" disabled="disabled" {{verified}}>
  </td>
  <td>
-     <div id="minus-btn" class="btn show_info"><i class="icon-info-sign"></i></div>
+     <a class="btn show_info" rel="tooltip" title="first tooltip"><i class="icon-info-sign"></i></a>
  </td>
 </script>
 

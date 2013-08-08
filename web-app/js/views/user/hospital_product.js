@@ -69,11 +69,13 @@ App.Views.HospitalMeasure = Backbone.View
 			},
 			
 			showInfo: function() {
-				if (this.model.get('notes')!=null) {
+				//if (this.model.get('notes')!=null) {
 				//alert(this.model.get('notes'));
-					$('.alert-info').html(this.model.get('notes'));
-					$('.alert-info').fadeIn(500).delay(1500).fadeOut(500);
-				}
+					//$('.alert-info').html(this.model.get('notes'));
+					//$('.alert-info').fadeIn(500).delay(1500).fadeOut(500);
+				    console.log(this.model.get('notes'));
+					$('.show_info').attr('title',this.model.get('notes'));
+				//}
 			},
 			
 			goToDataElements : function(e) {
