@@ -13,15 +13,13 @@ hibernate {
 environments {
     development {
         dataSource {
-            //dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
-			dbCreate = "update"
+            dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
             url = "jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000"
         }
     }
     test {
         dataSource {
-            //dbCreate = "create-drop"
-			dbCreate = "update"
+            dbCreate = "create-drop"
             url = "jdbc:h2:mem:testDb;MVCC=TRUE;LOCK_TIMEOUT=10000"
         }
     }
@@ -44,8 +42,7 @@ environments {
         }
         */
 		dataSource {
-			//dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
-			dbCreate = "update"
+			dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
 			url = "jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000"
 		}
     }
