@@ -2,7 +2,7 @@
 
 //List of HospitalElements
 App.Views.HospitalElements = Backbone.View.extend({
-	template : _.template($('#user-hospital-element').html()),
+	template : _.template($('#hospital_data_element-form').html()),
 	
 	events : {
 		'click #resetAll' : 'resetAllToDefault'		
@@ -39,7 +39,7 @@ App.Views.HospitalElements = Backbone.View.extend({
 App.Views.SingleHospitalElement = Backbone.View
 .extend({
 	tagName : 'tr',
-	template: _.template($('#user-data-elements').html()),	
+	template: _.template($('#hospital_data_element').html()),	
 	events : {
 		'click .slc_row' : 'selectRow',
 		'click #reset'   : 'resetToDefault'
@@ -133,7 +133,7 @@ App.Views.SingleHospitalElement = Backbone.View
 App.Views.ExtraDataElement = Backbone.View
 .extend({
 	tagName : 'tr',
-	template: _.template($('#user-extra-elements').html()),		
+	template: _.template($('#extra-elements').html()),		
 	
 	events : {
 		'click #plus-btn' : 'addRow',
@@ -180,7 +180,7 @@ App.Views.ExtraDataElement = Backbone.View
 App.Views.HospitalSpecific =  Backbone.View
 .extend({
 	tagName : 'tr',
-	template: _.template($('#user-hospital-specific').html()),		
+	template: _.template($('#hospital-specific').html()),		
 	
 	events : {
 		'click #plus-btn' : 'addRow',
