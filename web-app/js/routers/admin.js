@@ -351,8 +351,8 @@ App.Routers.Administrator = Backbone.Router.extend({
 						"sScrollY": "272px",			
 						"bSort": true,
 						"bInfo": false,
-						"aaSorting": [[0, 'asc']],
-						"aoColumnDefs": [{'bSortable': false, 'aTargets': [ 3,4,5,6 ] }]					
+						"aaSorting": [[0, 'asc']]
+					//	"aoColumnDefs": [{'bSortable': false, 'aTargets': [ 3,4,5,6 ] }]					
 						 
 					 });				
 				
