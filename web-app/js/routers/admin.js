@@ -21,7 +21,7 @@ App.Routers.Administrator = Backbone.Router.extend({
 		'reload/:id'      :	'reopenHospital',
 		
 		'product/:p_id/measure/:m_id':  'elements'
-		//#product/1/measure/17
+		
 	},
 
 	initialize: function(options){
@@ -53,7 +53,7 @@ App.Routers.Administrator = Backbone.Router.extend({
 		App.hospitalElements = new App.Collections.HospitalElements();
 		
 		App.hospitalElements.fetch({data:{id: m_id}}).then(function(){			
-			App.viewHospitalElements = new App.Views.HospitalElements ({collection:App.hospitalElements});
+			App.viewHospitalElements = new App.Views.HospitalElements ({collection:App.hospitalElements, product_id: p_id});
 			$('#app').html(App.viewHospitalElements.render().el);		
 			
 			var oTable = $('#hospital-elements').dataTable({		
@@ -464,7 +464,7 @@ App.Routers.Administrator = Backbone.Router.extend({
 			var codes = [];
 			 		
 			if (model_to_check.toJSON().id) {
-				cur_code = this.model.get('code');
+				cur_code = model_to_check.get('code');
 			};
 			
 			collection_to_check.forEach(function(model){			

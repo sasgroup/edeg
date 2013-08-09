@@ -20,8 +20,7 @@ App.Routers.User = Backbone.Router.extend({
 	},
 					
 
-	productn : function(p_id) {		
-		
+	productn : function(p_id) {			
 		//hospital_measure_table		
 		$.each( App.ho.get('products'), function( i, product ) { 	
 			if (product.id==p_id) {
@@ -36,6 +35,17 @@ App.Routers.User = Backbone.Router.extend({
 				return;
 			}						       
 		});	
+		
+		$.fn.dataTableExt.afnSortData['dom-checkbox'] = function  ( oSettings, iColumn )
+		{
+		    var aData = [];
+		    $( 'td:eq('+iColumn+') input', oSettings.oApi._fnGetTrNodes(oSettings) ).each( function () {
+		        aData.push( this.checked==true ? "0" : "1" );
+		    } );
+		    
+		    console.log("aData ", aData);
+		    return aData;		    
+		}
 				
 		var oTable = $('.hospitalMeasureTable').dataTable({		
 			"bDestroy": true, 
@@ -45,7 +55,17 @@ App.Routers.User = Backbone.Router.extend({
 			"bSort": true,
 			"bInfo": false,
 			"aaSorting": [[0, 'asc']],
-			"aoColumnDefs": [{'bSortable': false, 'aTargets': [ 0,3,4,5,6,7 ] }]			 
+			//"aoColumnDefs": [{'bSortable': false, 'aTargets': [ 1,3,4,5,6,7 ] }]
+			"aoColumns": [
+			  			{ "sSortDataType": "dom-checkbox" },
+			  			null,
+			  			null,
+			  			{ "sSortDataType": "dom-checkbox" },
+			  			{ "sSortDataType": "dom-checkbox" },
+			  			{ "sSortDataType": "dom-checkbox" },
+			  			{ "sSortDataType": "dom-checkbox" },
+			  			{ "bSortable": false }
+			  		]
 		});				
 		
 		new FixedColumns( oTable, {"sHeightMatch": "none"} );	
@@ -76,8 +96,8 @@ App.Routers.User = Backbone.Router.extend({
 					
 		App.hospitalElements = new App.Collections.HospitalElements();
 		
-		App.hospitalElements.fetch({data:{id: hm_id}}).then(function(){			
-			App.viewHospitalElements = new App.Views.HospitalElements ({collection:App.hospitalElements});
+		App.hospitalElements.fetch({data:{id: hm_id}}).then(function(){			                          //pass product_id
+			App.viewHospitalElements = new App.Views.HospitalElements ({collection:App.hospitalElements, product_id: p_id});
 			$('#app').html(App.viewHospitalElements.render().el);		
 			
 			var oTable = $('#hospital-elements').dataTable({		

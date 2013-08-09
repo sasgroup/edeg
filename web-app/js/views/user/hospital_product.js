@@ -57,11 +57,7 @@ App.Views.HospitalMeasure = Backbone.View
 											 confirmed:ch_confirmed,
 											 accepted:ch_accepted,
 											 verified:ch_verified
-											}));
-				this.$el.html(this.template(this.model.toJSON()));
-				
-				//console.log(this.model.get('product_code'));
-				
+											}));				
 				return this;
 			},
 			

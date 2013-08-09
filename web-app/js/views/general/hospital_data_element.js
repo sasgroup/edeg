@@ -3,7 +3,8 @@ App.Views.HospitalElements = Backbone.View.extend({
 	template : _.template($('#hospital_data_element-form').html()),
 	
 	events : {
-		'click #resetAll' : 'resetAllToDefault'		
+		'click #resetAll'     : 'resetAllToDefault',
+		'click button#cancel' : 'returnToProduct' 
 	},
 
 	render : function() {		
@@ -30,6 +31,12 @@ App.Views.HospitalElements = Backbone.View.extend({
 			var view = new App.Views.SingleHospitalElement({ model : hospitalElement});
 			$(cur_row).replaceWith(view.render().el);
 		}		
+	},
+	
+	returnToProduct : function(){
+		//Backbone.history.navigate("product/" + this.options.product_id, true);
+		window.history.back();
+
 	}
 });
 

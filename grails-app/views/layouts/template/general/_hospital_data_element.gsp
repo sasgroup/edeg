@@ -115,7 +115,7 @@
 
 <div class="form-actions">					 
                     
-<button class="btn btn-info pull-right">Cancel</button>
+<button type="reset" id="cancel" class="btn btn-info pull-right">Cancel</button>
 <button class="btn btn-info pull-right">Save&Mark</button>
 <button class="btn btn-info pull-right">Save</button>			
 </div>
