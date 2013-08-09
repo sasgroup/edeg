@@ -367,6 +367,15 @@ App.Routers.Administrator = Backbone.Router.extend({
 				view.createTabs();
 				view.setPrimaryEhr();
 				
+				$.fn.dataTableExt.afnSortData['dom-checkbox'] = function  ( oSettings, iColumn )
+				{
+				    var aData = [];
+				    $( 'td:eq('+iColumn+') input', oSettings.oApi._fnGetTrNodes(oSettings) ).each( function () {
+				        aData.push( this.checked==true ? "0" : "1" );
+				    } );				   
+				    return aData;		    
+				}
+				
 				var oTable = $('.hospitalMeasureTable').dataTable({
 						//"bRetrieve": true,
 						"bDestroy": true, 
@@ -376,7 +385,16 @@ App.Routers.Administrator = Backbone.Router.extend({
 						"bSort": true,
 						"bInfo": false,
 						"aaSorting": [[0, 'asc']],
-					    "aoColumnDefs": [{'bSortable': false, 'aTargets': [ 3,4,5,6 ] }]					
+					    //"aoColumnDefs": [{'bSortable': false, 'aTargets': [ 3,4,5,6 ] }]
+						"aoColumns": [
+							  			{ "sSortDataType": "dom-checkbox" },
+							  			null,
+							  			null,
+							  			{ "sSortDataType": "dom-checkbox" },
+							  			{ "sSortDataType": "dom-checkbox" },
+							  			{ "sSortDataType": "dom-checkbox" },
+							  			{ "sSortDataType": "dom-checkbox" }
+							  		]
 						 
 					 });				
 				

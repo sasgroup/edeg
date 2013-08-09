@@ -112,6 +112,15 @@ App.Views.Hospital = Backbone.View.extend({
 	changeTab: function (e){		
 		var product_id = $(e.target).attr('href').replace('#t','');				
 		var slcTab = '#myTabContent div#t' + product_id;	
+		
+		$.fn.dataTableExt.afnSortData['dom-checkbox'] = function  ( oSettings, iColumn )
+		{
+		    var aData = [];
+		    $( 'td:eq('+iColumn+') input', oSettings.oApi._fnGetTrNodes(oSettings) ).each( function () {
+		        aData.push( this.checked==true ? "0" : "1" );
+		    } );				   
+		    return aData;		    
+		}
 					
 		var oTable = $('.hospitalMeasureTable').dataTable({ 
 			"bDestroy": true, 
@@ -121,7 +130,16 @@ App.Views.Hospital = Backbone.View.extend({
 			"bSort": true,
 			"bInfo": false,
 			"aaSorting": [[0, 'asc']],
-			"aoColumnDefs": [{'bSortable': false, 'aTargets': [ 3,4,5,6 ] }]			
+			//"aoColumnDefs": [{'bSortable': false, 'aTargets': [ 3,4,5,6 ] }]
+			"aoColumns": [
+				  			{ "sSortDataType": "dom-checkbox" },
+				  			null,
+				  			null,
+				  			{ "sSortDataType": "dom-checkbox" },
+				  			{ "sSortDataType": "dom-checkbox" },
+				  			{ "sSortDataType": "dom-checkbox" },
+				  			{ "sSortDataType": "dom-checkbox" }
+				  		]
 		 });	
 	
 	    new FixedColumns( oTable, {"sHeightMatch": "none"} );        	    

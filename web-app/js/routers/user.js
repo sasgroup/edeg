@@ -41,9 +41,8 @@ App.Routers.User = Backbone.Router.extend({
 		    var aData = [];
 		    $( 'td:eq('+iColumn+') input', oSettings.oApi._fnGetTrNodes(oSettings) ).each( function () {
 		        aData.push( this.checked==true ? "0" : "1" );
-		    } );
+		    } );		    
 		    
-		    console.log("aData ", aData);
 		    return aData;		    
 		}
 				
