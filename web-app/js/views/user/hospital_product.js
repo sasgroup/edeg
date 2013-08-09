@@ -80,9 +80,10 @@ App.Views.HospitalMeasure = Backbone.View
 			},
 			
 			goToDataElements : function(e) {
+
 				e.preventDefault();				
 				//Backbone.history.navigate(this.model.get('product_code')+ "/" + this.model.get('code') + "/" + "elements", true);
 				Backbone.history.navigate("product/" + this.model.get('product_id')+ "/measure/" + this.model.get('id'), true);
-				//Backbone.history.navigate(this.model.get('product_code')+ "/" + this.model.get('id') + "/" + "elements", true);
+
 			}	
 		});

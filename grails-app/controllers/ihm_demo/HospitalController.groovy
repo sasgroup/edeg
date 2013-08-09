@@ -11,7 +11,7 @@ class HospitalController {
 			if  (!hospitalInstance) {
 				render(contentType: "text/json") {
 					resp = "error"
-					message = "Id exceptions"
+					message = "Id exceptions" 
 				}
 			}
 

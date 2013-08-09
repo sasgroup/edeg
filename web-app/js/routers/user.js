@@ -3,6 +3,7 @@ App.Routers.User = Backbone.Router.extend({
 		""     	                        : 'home',		
 		'product/:p_id/measure/:m_id'   : 'elements',
 		'product/:p_id'                 : 'productn'			
+
 	},
 
 	initialize: function(options){
@@ -18,6 +19,7 @@ App.Routers.User = Backbone.Router.extend({
 		});
 	},
 					
+
 	productn : function(p_id) {		
 		
 		//hospital_measure_table		
@@ -28,6 +30,7 @@ App.Routers.User = Backbone.Router.extend({
 				var temp = _.template($('#user-hospital-breadcrumb').html());		
 				$('#breadcrumb-box').html(temp({product_code:product.code}));
 				
+
 				var view = new App.Views.HospitalProduct({model: product});		
 				$('#app').html(view.render().el);	
 				return;
@@ -53,6 +56,7 @@ App.Routers.User = Backbone.Router.extend({
            });
 	},
 			
+
 	elements : function(p_id, m_id){			
 		var hm_id = '';
 		// get hospital_measure_id
@@ -64,6 +68,7 @@ App.Routers.User = Backbone.Router.extend({
 						//breadcrumb
 						var temp = _.template($('#user-measure-breadcrumb').html());			
 						$('#breadcrumb-box').html(temp({product_code:product.code, product_id:p_id, measure_code:measure.code}));
+
 					}				
 				});				
 			}						       

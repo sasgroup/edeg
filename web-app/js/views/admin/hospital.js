@@ -342,9 +342,14 @@ App.Views.SingleHospitalMeasure = Backbone.View
 						
 			goToDataElements : function(e) {				
 				e.preventDefault();
+<<<<<<< HEAD:web-app/js/views/admin/hospital.js
 				Backbone.history.navigate("product/" + this.model.get('product_id')+ "/measure/" + this.model.get('id'), true);
 
 				/*if (window.console) console.log("goToDataElements");				
+=======
+
+				if (window.console) console.log("goToDataElements");				
+>>>>>>> 4c347d6fac492076c2771a3f28f93e5265e8465f:web-app/js/views/admin/hospital.js
 
 				
 				var hospital_measure_title = "Data Elements for " + $(e.target).text();

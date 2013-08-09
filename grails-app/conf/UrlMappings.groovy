@@ -52,7 +52,7 @@ class UrlMappings {
 		}
 
 		"/"(view:"/index")
-		//"/"(controller:"user", action:"authenticate")
+
 		"500"(view:'/error')
 	}
 }

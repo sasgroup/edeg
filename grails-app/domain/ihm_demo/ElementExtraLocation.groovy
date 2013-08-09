@@ -1,4 +1,4 @@
-package ihm_demo
+package ihm_demo 
 
 class ElementExtraLocation {
 	String location
