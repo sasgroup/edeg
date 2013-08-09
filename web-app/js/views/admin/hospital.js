@@ -278,14 +278,14 @@ App.Views.SingleHospital = Backbone.View
 //Single Hospital_Measure
 App.Views.SingleHospitalMeasure = Backbone.View
 		.extend({
-			tagName : 'tr',
+			tagName : 'tr',			
 			template: _.template($('#single-hospital_measure').html()),			
 			events : {
 				'click .edit-btn'             : 'goToEdit',
 				'click .save-btn'             : 'goToSave',
 				'click .cancel-btn'           : 'goToCancel',
-				'click a#customLink'       	  : 'goToDataElements',
-				'change input[name="included"], input[name="completed"], input[name="confirmed"], input[name="accepted"], input[name="verified"]'  : 'changeVal'				
+				'click a#customLink'       	  : 'goToDataElements',				
+				'change input[name="included"], input[name="completed"], input[name="confirmed"], input[name="accepted"], input[name="verified"]'  : 'changeVal'	
 			},
 
 			render : function() {						
@@ -306,12 +306,54 @@ App.Views.SingleHospitalMeasure = Backbone.View
 											}));
 				//this.$el.html(this.template(this.model.toJSON()));
 				
+				this.$el.attr("data-product", this.model.get('p_index'));
+				this.$el.attr("data-measure", this.model.get('m_index'));
+				this.$el.attr("id", "m"+this.model.get('id'));
+				
 				return this;
 			},
 			
-			changeVal: function(e) {				
-				if (window.console) console.log("checkbox "+e.target.name+ ":", $(e.target).is(':checked'));	
-							    
+						
+			changeVal: function(e) {			
+				if (window.console) console.log("checkbox "+e.target.name+ ":", $(e.target).is(':checked'));
+				
+				if (e.target.name!="included") {
+					var ch_slc = 'input[name="' + e.target.name + '"]';
+					var tr_slc = 'tr#' + $(e.target).closest('tr').attr('id');
+					var sl = tr_slc + ' ' + ch_slc;
+					var sl_val = $(e.target).is(':checked');					
+					$(sl).attr('checked', sl_val);
+					//$(sl).click();
+					//$('tr#m3 input[name="confirmed"]').attr('checked', true);					
+					console.log(sl);
+							
+					$(tr_slc).each(function( index ) {
+						//console.log( index + ": " + $(this).text() );
+						$(this).attr('checked', sl_val);
+						var p_index = $(this).data("product");
+						var m_index = $(this).data("measure");
+						
+						switch (e.target.name) {
+					    case "included":
+					    	App.hospital_products[p_index].measures[m_index].included = sl_val;	
+					        break;
+					    case "completed":			        
+					    	App.hospital_products[p_index].measures[m_index].completed = sl_val;	
+					    	break;
+					    case "confirmed":			        
+					    	App.hospital_products[p_index].measures[m_index].confirmed = sl_val;
+					    	break;
+					    case "accepted":
+					    	App.hospital_products[p_index].measures[m_index].accepted = sl_val;
+					        break;    
+					    case "verified":
+					    	App.hospital_products[p_index].measures[m_index].verified = sl_val;
+					        break;        
+					    }
+					});
+				
+				} else {
+											    
 			    p_index=this.model.get('p_index');
 			    m_index=this.model.get('m_index');			    
 			    
@@ -332,8 +374,8 @@ App.Views.SingleHospitalMeasure = Backbone.View
 			    	App.hospital_products[p_index].measures[m_index].verified = $(e.target).is(':checked');
 			        break;        
 			    }
-			   
-			    if (window.console) console.log( App.hospital_products);						
+				}
+			   		
 			},
 
 			goToEdit : function(e) {
