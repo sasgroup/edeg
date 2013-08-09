@@ -66,7 +66,15 @@ App.Views.Hospital = Backbone.View.extend({
 			
 	setPrimaryEhr : function(){		
 		var ehr_id = this.model.get('ehr').id;		
-		$("#slcEHRs").multiselect("widget").find('input[value='+ehr_id+']').click();		
+		$("#slcEHRs").multiselect("widget").find('input[value='+ehr_id+']').click();
+		
+		$('#slcEHRs').change(function(e){			
+			var new_e_id = $( "#slcEHRs").multiselect('getChecked').val();
+			
+			if (new_e_id!=ehr_id) {
+				alert("The EHR version has been updated. Make sure to reset locations for data elements.");
+			}	
+		});	
 	},
 	
 	createTabs : function(){
@@ -104,10 +112,8 @@ App.Views.Hospital = Backbone.View.extend({
 	changeTab: function (e){		
 		var product_id = $(e.target).attr('href').replace('#t','');				
 		var slcTab = '#myTabContent div#t' + product_id;	
-			
-		
-		var oTable = $('.hospitalMeasureTable').dataTable({
-			//"bRetrieve": true, 
+					
+		var oTable = $('.hospitalMeasureTable').dataTable({ 
 			"bDestroy": true, 
 			"bPaginate": false,
 			"bFilter": false,
@@ -115,17 +121,11 @@ App.Views.Hospital = Backbone.View.extend({
 			"bSort": true,
 			"bInfo": false,
 			"aaSorting": [[0, 'asc']],
-			"aoColumnDefs": [{'bSortable': false, 'aTargets': [ 3,4,5,6 ] }]
-			/*"fnDrawCallback": function( oSettings ) {
-			      //alert( 'DataTables has redrawn the table' );
-				this.refeshTableHeader();
-			 }*/	 
-		
+			"aoColumnDefs": [{'bSortable': false, 'aTargets': [ 3,4,5,6 ] }]			
 		 });	
 	
 	    new FixedColumns( oTable, {"sHeightMatch": "none"} );        	    
-	    setTimeout(this.refeshTableHeader, 300);    
-		
+	    setTimeout(this.refeshTableHeader, 300);    		
 	},
 	
 	refeshTableHeader:  function() {
@@ -135,7 +135,7 @@ App.Views.Hospital = Backbone.View.extend({
     		$('th.sorting_desc').click();
     	}	
 	},
-
+	
 	
 	// append HospitalMeasureTable to Tab
 	appendHospitalMeasureTable : function(){		
@@ -166,14 +166,9 @@ App.Views.Hospital = Backbone.View.extend({
 				
 				var view = new App.Views.SingleHospitalMeasure({ model : hospitalMeasure });				
 				$(slcTab + ' .hospitalMeasureTable tbody').append(view.render().el);				
-			});		
+			});	
 		
-		});	  
-				
-		/*_.each (hospitalMeasures.models, function(model) {
-			model.set({verified:true})
-			model.save();
-		});*/				
+		});					
 	},
 			
 	
@@ -222,11 +217,11 @@ App.Views.Hospital = Backbone.View.extend({
 	        success: function (model, response) {
 	        	if (window.console) console.log(response);
 	           $('div#message-box').text("").append(response.message).fadeIn(500).delay(1500).fadeOut(500);
-               Backbone.history.navigate("hospital", true);
+               Backbone.history.navigate("hospital", true);	           
 	        },
 	        error: function (model, response) {
 	        	$('div#message-box').text("").append(response.message).fadeIn(500).delay(1500).fadeOut(500);
-	            Backbone.history.navigate("hospital", true);
+	            Backbone.history.navigate("hospital", true);	        	
 	        }
 	    });
 	},
@@ -344,9 +339,15 @@ App.Views.SingleHospitalMeasure = Backbone.View
 			},
 			
 						
-			goToDataElements : function(e) {
+			goToDataElements : function(e) {				
 				e.preventDefault();
+
 				if (window.console) console.log("goToDataElements");				
+
+				
+				var hospital_measure_title = "Data Elements for " + $(e.target).text();
+				$('#hospitalElementLabel').text(hospital_measure_title);				
+
 				
 				$('#main_table').empty();
 				var table_template = _.template($('#hospital-elements_table').html());	
@@ -376,25 +377,27 @@ App.Views.SingleHospitalMeasure = Backbone.View
 							{	"bDestroy": true, 
 								"bPaginate": false,
 								"bFilter": false,
-								"sScrollY": "225px",
+								"sScrollY": "185px",
 								"bSort": true,
 					 			"bInfo": false,
 					 			"bAutoWidth": false,
 					 			"aoColumnDefs": [
-					 							{ 'bSortable': false, 'aTargets': [ 1,2,3,4,5 ] }
+					 							{ 'bSortable': false, 'aTargets': [ 1,2,3,4,5,6 ] }
 					 						 ],
 								"bScrollCollapse": true,
 								"bPaginate": false
 							} );
 					
-					$("#hospital-elements").click(function(event) {
+					$("#hospital-elements .slc_row").click(function(event) {
 						$(oTable.fnSettings().aoData).each(function (){
 							$('.row_selected').css( "background-color", "#FFFFFF" );							
 							$('tr.row_selected td:first').css( "background-color", "#FFFFFF" );
 							$(this.nTr).removeClass('row_selected');							
 						});
+						
 						$(event.target.parentNode).addClass('row_selected');
 						$(event.target.parentNode).css( "background-color", "rgb(0, 136, 204, 0.5)" );
+						
 						$('tr.row_selected td:first').css( "background-color", "rgb(0, 136, 204, 0)" );
 						// show relevant information			
 						var he_id = $('tr.row_selected td:first').prop("id");

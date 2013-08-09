@@ -11,7 +11,7 @@ class HospitalController {
 			if  (!hospitalInstance) {
 				render(contentType: "text/json") {
 					resp = "error"
-					message = "Id exceptions"
+					message = "Id exceptions" 
 				}
 			}
 
@@ -25,7 +25,7 @@ class HospitalController {
 			}
 			hospitalInstance.notes = params?.notes
 			hospitalInstance.save(flush:true)
-			
+
 			for (prod in params.products){
 				def product = Product.get(prod.id)
 				def hospitalProduct = HospitalProduct.findByHospitalAndProduct(hospitalInstance, product)
@@ -46,7 +46,7 @@ class HospitalController {
 					}
 				}
 			}
-			
+
 			def result = hospitalInstance
 			def hospitalProducts = HospitalProduct.findAllByHospital(result)
 			render(contentType: "text/json") {
@@ -90,7 +90,7 @@ class HospitalController {
 					hospitalProduct = new HospitalProduct(hospital:hospital, product:product).save(flush:true)
 
 				def idx = -1
-				def old_idx = -1	
+				def old_idx = -1
 				for (old_id in old_ids){
 					idx++
 					if (old_id == Integer.parseInt(prId))
@@ -104,14 +104,14 @@ class HospitalController {
 					if (!hospitalMeasure)
 						hospitalMeasure 	= new HospitalMeasure(hospital: hospital, measure: measure, accepted: false, completed: false, confirmed: false, verified: false).save(flush:true)
 					def hospitalProductMeasure 	= HospitalProductMeasure.findByHospitalProductAndHospitalMeasure(hospitalProduct, hospitalMeasure)
-					if (!hospitalProductMeasure) 
+					if (!hospitalProductMeasure)
 						hospitalProductMeasure 	= new HospitalProductMeasure(hospitalProduct:hospitalProduct, hospitalMeasure:hospitalMeasure, included:false).save(flush:true)
-					
+
 					for (de in measure.dataElements) {
 						def hospitalElement = HospitalElement.findByHospitalAndDataElement(hospital, de)
 						if (!hospitalElement)
 							hospitalElement = new HospitalElement(hospital: hospital, dataElement: de, internalNotes : "", notes:"", location : "", source : "", sourceEHR : true, valueSet : "", valueSetFile : "", valueType : ValueType.NotApplicable, codeType : CodeType.NotApplicable)
-						
+
 						def defaultSetting = DataElementDefaults.findByDataElementAndEhr(de, hospital.ehr)
 						if (defaultSetting) {
 							hospitalElement.location = defaultSetting.location
@@ -119,29 +119,29 @@ class HospitalController {
 							hospitalElement.codeType = defaultSetting.codeType
 						}
 						hospitalElement.save(flush:true)
-						
+
 						def hospitalMeasureElement 	= HospitalMeasureElement.findByHospitalMeasureAndHospitalElement(hospitalMeasure, hospitalElement)
-						if (!hospitalMeasureElement) 
+						if (!hospitalMeasureElement)
 							hospitalMeasureElement 	= new HospitalMeasureElement(hospitalMeasure:hospitalMeasure, hospitalElement:hospitalElement).save(flush:true)
 					}
 				}
 			}
-			
-			
+
+
 			for (oldId in old_ids){
 				def p  = Product.get(oldId)
 				def hp = HospitalProduct.findByHospitalAndProduct(hospital, p)
-				
+
 				def hp_id = hp?.id
 				def hm_ids = hp.hospitalProductMeasures.collect{it.hospitalMeasure.id}
-				
+
 				for (hm_id in hm_ids){
 					unlinkProductAndMeasure(hp_id, hm_id)
 				}
 				hp = HospitalProduct.findById(hp_id)
 				hp.delete(flush:true)
 			}
-			
+
 			render(contentType: "text/json") {
 				resp = "ok"
 				message = "Hospital ${hospital.name} "
@@ -151,19 +151,19 @@ class HospitalController {
 		}
 
 	}
-	
+
 	def unlinkProductAndMeasure(Long hp_id, Long hm_id){
 		def hp = HospitalProduct.findById(hp_id)
 		def hm = HospitalMeasure.findById(hm_id)
 		def hpm = HospitalProductMeasure.findByHospitalProductAndHospitalMeasure(hp, hm);
 		def hsize = hm.hospitalProductMeasures.size()
-		
+
 		hm.removeFromHospitalProductMeasures(hpm).save()
 		hp.removeFromHospitalProductMeasures(hpm).save()
 		hpm.hospitalProduct = null
 		hpm.hospitalMeasure = null
 		hpm.delete(flush:true)
-		
+
 		if (hsize==1){
 			def he_ids = hm.hospitalMeasureElements.collect{it.hospitalElement.id}
 			for (he_id in he_ids){
@@ -173,19 +173,19 @@ class HospitalController {
 			hm.delete(flush:true)
 		}
 	}
-	
+
 	def unlinkMeasureAndElement(Long hm_id, Long he_id){
 		def hm = HospitalMeasure.findById(hm_id)
 		def he = HospitalElement.findById(he_id)
 		def hme = HospitalMeasureElement.findByHospitalMeasureAndHospitalElement(hm, he);
 		def hsize = he.hospitalMeasureElements.size()
-		
+
 		hm.removeFromHospitalMeasureElements(hme).save()
 		he.removeFromHospitalMeasureElements(hme).save()
 		hme.hospitalElement = null
 		hme.hospitalMeasure = null
 		hme.delete(flush:true)
-		
+
 		if (hsize==1){
 			he = HospitalElement.findById(he_id)
 			he.delete(flush:true)

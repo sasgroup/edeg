@@ -7,18 +7,49 @@ window.App = {
 	Models : {},
 	Collections : {},
 	Views : {},
-	Router : {}
+	Routers : {}
 };
 
 
 $(function() {	
-	new App.Router();
+	
+	var curUser = $('#role').val();
+	
+	if (curUser == 'admin') {
+		new App.Routers.Administrator();	
+	}
+	else {
+		new App.Routers.User();	
+		
+		$('#hospital-list-dropdown li').live('click', function(){	 
+		var hospital_name = $(this).find('a').text(); 
+		var hospital_id = $(this).data('id');
+		//show hospital-name
+	    $('h3.hospital-name').text(hospital_name);
+	    console.log(hospital_name,hospital_id);
+	    
+	    $('#app').empty();
+	    $('#breadcrumb-box').empty();
+	    
+	    //generate tabs
+	    App.ho = new App.Models.Hospital();		
+		App.ho.fetch({data:{id: hospital_id}}).then(function(){		
+			var products = App.ho.get('products');
+			$('nav#products-nav').empty();
+			$.each( products, function( i, product ) { 	
+				console.log(product.code);			
+				$('nav#products-nav').append('<a href="#'+ product.code+ '">' + product.code + '</a>');		           
+			});			
+		})
+	    
+		});
+	}
+		
 	Backbone.history.start();	
-	//Backbone.history.start({pushState: true});
-			
+		
 	$('.nav a').click(function(){
 		$('li.active').removeClass("active");
 		$(this).closest('li').addClass("active");	
-	});
+	});	
 	
 });

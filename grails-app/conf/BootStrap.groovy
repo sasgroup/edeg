@@ -3,7 +3,20 @@ import ihm_demo.*
 class BootStrap {
 
     def init = { servletContext ->
-		
+		def admin = new User(
+			login:"admin",
+			password: "admin",
+			role:"admin")
+
+		admin.save()
+
+		def hospital_user = new User(
+			login:"user",
+			password: "user",
+			role:"user")
+
+		hospital_user.save()
+
 		//-----------MEASURE_CATEGORYs-----------
 		def _measureCategories = [
 			["CORE", 	"Core Measure Category"],
@@ -18,7 +31,7 @@ class BootStrap {
 				}
 			}
 		}
-		
+
 		//-----------CQM_DOMAINs-----------
 		def _cqmDomains = [
 			["Patient and Family Engagement", 			"Patient and Family Engagement"],
@@ -35,7 +48,7 @@ class BootStrap {
 				}
 			}
 		}
-		
+
 		//-----------EHRs-----------
 		def _ehrs = [
 			["MEDITECH 6.0", "MEDITECH Version 6.0", "MEDITECH Version 6.0"],
@@ -51,7 +64,7 @@ class BootStrap {
 				}
 			}
 		}
-		
+
 		//-----------HOSPITALs-----------
 		def _hospitals = [
 			["Massachusetts General Hospital",							"MEDITECH 6.0",""],
@@ -90,7 +103,7 @@ class BootStrap {
 				}
 			}
 		}
-		
+
 		//-----------MEASUREs-----------
 		def _measures = [
 			["CPOE", "CPOE", "", "CORE", "", ["MU1"]],
@@ -155,14 +168,14 @@ class BootStrap {
 			["NM2", "New Measure 2", "", "MENU", "", ["NP1","NP2"]],
 			["NM3", "New Measure 3", "", "CORE", "", ["NP1","NP2"]],
 			["NM4", "New Measure 4", "", "MENU", "", ["NP2"]]
-			
+
 			]
 		for(_m in _measures){
 			def _measure = new Measure(code:_m[0], name:_m[1], notes:_m[2], measureCategory:MeasureCategory.findByName(_m[3]), cqmDomain:CqmDomain.findByName(_m[4]))
-			
+
 			for(_p in _m[5])
 				_measure.addToProducts(Product.findByCode(_p))
-			
+
 			if (!_measure.save()){
 				_measure.errors.allErrors.each{error ->
 					println "An error occured with event1: ${error}"
@@ -172,7 +185,7 @@ class BootStrap {
 				_measure.save(flush:true)
 			}
 		}
-		
+
 		//-----------DATA_ELEMENTs-----------
 		def _elementsAllMeasures = [	
 			["AdmsDate", 	"Admission Date", 					"ADM.PAT.admit.date", 		"StandartCode", ["MEDITECH 6.0", "MEDITECH 6.1"]],
@@ -184,10 +197,10 @@ class BootStrap {
 	    ]
 		for(_el in _elementsAllMeasures){
 			def _element = new DataElement(code:_el[0], name:_el[1], notes:"")
-			
+
 			for (m in Measure.list())
 				_element.addToMeasures(m)
-			
+
 			if (!_element.save()){
 				_element.errors.allErrors.each{error ->
 					println "An error occured with event1: ${error}"
@@ -196,7 +209,7 @@ class BootStrap {
 			else{
 				_element.save(flush:true)
 			}
-			
+
 			for(_ehr in _el[4]){
 				def dataElementDefaults = new DataElementDefaults(location:_el[2], valueType:_el[3], codeType:"NotApplicable", dataElement:_element, ehr:Ehr.findByCode(_ehr))
 				if (!dataElementDefaults.save()){
@@ -209,8 +222,7 @@ class BootStrap {
 				}
 			}
 		}
-		
-		
+
 		def _elements = [
 			["AdmsODate", "Admission Order Date", "OE.ORD.order.date", "StandartCode", ["ED-1", "ED-2"],["MEDITECH 6.0", "MEDITECH 6.1"]],
 			["AdmsOTime", "Admission Order Time", "OE.ORD.order.time", "StandartCode", ["ED-1", "ED-2"],["MEDITECH 6.0", "MEDITECH 6.1"]],
@@ -280,7 +292,7 @@ class BootStrap {
 			["SmokSts", "Smoking Status (references standard codes)", "GEN.SMKST", "StandartCode", [],["MEDITECH 6.0", "MEDITECH 6.1"]],
 			["SmrCareDocComplFlg", "Flag that the Summary of care document was completed", "", "HospitalSpecific", [],["MEDITECH 6.0", "MEDITECH 6.1"]],
 			["SmrCareDocSentE", "Flag that the Summary of care document was sent electronically to another provider", "", "HospitalSpecific", [],["MEDITECH 6.0", "MEDITECH 6.1"]],
-			
+
 			// TEST
 			["NDE1", "New Data Element 1", "Loc.1.1.1", "StandartCode", ["NM1","NM2"],["MEDITECH 6.0", "MEDITECH 6.1"]],
 			["NDE2", "New Data Element 2", "Loc.1.1.2", "StandartCode", ["NM3","NM2"],["MEDITECH 6.0", "MEDITECH 6.1"]],
@@ -295,7 +307,7 @@ class BootStrap {
 		]
 		for(_el in _elements){
 			def _element = new DataElement(code:_el[0], name:_el[1], notes:"")
-			
+
 			for(_msr in _el[4]){
 				def _measure = Measure.findByCode(_msr)
 				if(!_measure)
@@ -311,7 +323,7 @@ class BootStrap {
 			else{
 				_element.save(flush:true)
 			}
-			
+
 			for(_ehr in _el[5]){
 				def dataElementDefaults = new DataElementDefaults(location:_el[2], valueType:_el[3], codeType:"NotApplicable", dataElement:_element, ehr : Ehr.findByCode(_ehr))
 				if (!dataElementDefaults.save()){

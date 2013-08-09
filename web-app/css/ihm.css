@@ -10,6 +10,25 @@ body {
     background: url("images/bg.png") repeat-y center;       
 }
 
+#resetAll { 
+	padding-left: 2px;
+	padding-right: 2px;
+}
+
+#loginHeader {
+	position: relative;
+	top: 40px;
+}
+
+
+.hospital-dropdown, .hospital-name  {
+	top: 40px;
+}
+
+.hospital-dropdown {
+	left: 670px;	
+}
+
 div#hospital-specific, div#hospital-specific input[type="file"] {
 	font-size: 12px;	
 }
@@ -87,6 +106,17 @@ td div.title {
     white-space: nowrap;
 }
 
+.hospitalMeasureTable td div.title {
+	display: block;
+    height: 20px;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    text-overflow: ellipsis;
+    width: 320px;
+    white-space: nowrap;
+}
+
 form#hospital-list td div.name {
 	 width: 400px;	
 }
@@ -113,6 +143,17 @@ form input.error {
 form input.error {
 	/*border:1px solid red;*/
 }
+
+/*.alert-info {   
+    position: absolute;
+    top: 400px;
+    width:400px;
+    right: 0;
+    left: 0;
+    margin: auto;
+    display: none;
+}*/
+
 
 #loading {
   width: 100%;
@@ -166,7 +207,7 @@ div#modalDataElements {
     left: auto;
     margin-left: auto;
     margin-right: auto;
-    position: relative;
+    /*position: relative;*/    
     /*right: auto;*/
     width: 900px;
 }
@@ -175,7 +216,7 @@ div#modalDataElements {
     max-height: 500px;
 }
 
-.modal-body textarea {
+.modal-body textarea, #data-element-page textarea {
 	width: 95%;
 }
 
@@ -239,6 +280,17 @@ header a.logo {
     left: 22px;
     background-image: url("images/ihm-logo-TRANS-sm.png");
 }
+
+header .hospital-name {
+    display: block;
+    position: absolute;
+    width:450px;
+    height: 85px;
+    top: 18px ;
+    left: 200px;
+    text-transforam: uppercase    
+}
+
 
 nav.header-nav {
     max-width: 980px;
