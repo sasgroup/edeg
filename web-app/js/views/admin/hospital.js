@@ -323,8 +323,6 @@ App.Views.SingleHospitalMeasure = Backbone.View
 					var sl = tr_slc + ' ' + ch_slc;
 					var sl_val = $(e.target).is(':checked');					
 					$(sl).attr('checked', sl_val);
-					//$(sl).click();
-					//$('tr#m3 input[name="confirmed"]').attr('checked', true);					
 					console.log(sl);
 							
 					$(tr_slc).each(function( index ) {

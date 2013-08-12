@@ -2,7 +2,7 @@ App.Routers.User = Backbone.Router.extend({
 	routes : {
 		""     	                        : 'home',		
 		'product/:p_id/measure/:m_id'   : 'elements',
-		'product/:p_id'                 : 'productn'			
+		'hospital/:h_id/product/:p_id'  : 'productn'			
 
 	},
 
@@ -20,17 +20,21 @@ App.Routers.User = Backbone.Router.extend({
 	},
 					
 
-	productn : function(p_id) {			
-		//hospital_measure_table		
-		$.each( App.ho.get('products'), function( i, product ) { 	
+	productn : function(h_id,p_id) {				
+		
+		App.ho.fetch({data:{id: h_id}}).then(function(){			
+		
+		//hospital_measure_table	
+		App.hospital_products =  App.ho.get('products');
+		$.each( App.hospital_products, function( i, product ) { 	
 			if (product.id==p_id) {
 				
 				//breadcrumb
 				var temp = _.template($('#user-hospital-breadcrumb').html());		
 				$('#breadcrumb-box').html(temp({product_code:product.code}));
 				
-
-				var view = new App.Views.HospitalProduct({model: product});		
+																		//product index	
+				var view = new App.Views.HospitalProduct({model: product, p_index: i});		
 				$('#app').html(view.render().el);	
 				return;
 			}						       
@@ -73,6 +77,8 @@ App.Routers.User = Backbone.Router.extend({
              'selector': '',
              'placement': 'left'
            });
+		 
+		});	 
 	},
 			
 
