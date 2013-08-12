@@ -10,7 +10,7 @@
 		<g:else>
      		<meta name="layout" content="user">
 		</g:else>-->
-				
+
 		<g:if test="${session.user?.role == 'admin'}">
     		<meta name="layout" content="admin">
 		</g:if>
@@ -20,14 +20,14 @@
 		<g:else>
     		<meta name="layout" content="login">
 		</g:else>	
-		
+
 	</head>
 	<body>	    
 	    	<div class="page-content">
 	    		<div id ='message-box'></div>
 	    		<div id ='breadcrumb-box'></div>
 				<div id ='app' class='app'>			
-				
+
 				</div>				
 			</div>
 	</body>

@@ -39,7 +39,8 @@ $(function() {
 			$.each( products, function( i, product ) { 	
 				if (window.console) console.log(product.code);			
 
-				$('nav#products-nav').append('<a href="#product/'+ product.id+ '">' + product.code + '</a>');		           
+				//$('nav#products-nav').append('<a href="#product/'+ product.id+ '">' + product.code + '</a>');		           
+				$('nav#products-nav').append('<a href="#hospital/' + hospital_id + '/product/'+ product.id+ '">' + product.code + '</a>');
 			});			
 		})
 	    
