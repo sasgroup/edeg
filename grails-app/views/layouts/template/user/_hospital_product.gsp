@@ -23,7 +23,8 @@
  <td>
 	<input type="checkbox" name="included" id="{{id}}" disabled="disabled" {{included}} >
  </td> 
- <td>{{ code }}</td>
+ <!--<td>{{ code }}</td>-->
+ <td><div class='code' title="{{code}}">{{ code }}</div></td>
  <td><div class='title' title="{{name}}"><a id="customLink" href="#modalDataElements" role="button" data-toggle="modal">{{ name }}</a></div></td>
  <td>
     <input type="checkbox" name="completed" id="{{id}}" {{completed}}>

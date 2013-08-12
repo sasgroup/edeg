@@ -118,6 +118,19 @@ td div.title {
     white-space: nowrap;
 }
 
+/*            new */
+.hospitalMeasureTable td div.code {
+	display: block;
+    height: 20px;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    text-overflow: ellipsis;
+    width: 75px;
+    /*white-space: nowrap;*/
+}
+
+
 form#hospital-list td div.name {
 	 width: 400px;	
 }
