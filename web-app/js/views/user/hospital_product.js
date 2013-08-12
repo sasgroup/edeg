@@ -18,9 +18,8 @@ App.Views.HospitalProduct = Backbone.View.extend({
 																"completed":measure.completed,
 																"confirmed":measure.confirmed,
 																"included" :measure.included,
-																"verified" :measure.verified,
-																"p_index"  :cur_hospital_product.options.p_index,
-																"m_index"  :m_index,
+																"verified" :measure.verified,																
+																"h_id"     :cur_hospital_product.options.h_id,
 																"product_code": cur_hospital_product.model.code,
 																"product_id": cur_hospital_product.model.id,
 																"notes"       : measure.notes
@@ -111,10 +110,9 @@ App.Views.HospitalMeasure = Backbone.View
 			},
 			
 			goToDataElements : function(e) {
-
 				e.preventDefault();				
 				//Backbone.history.navigate(this.model.get('product_code')+ "/" + this.model.get('code') + "/" + "elements", true);
-				Backbone.history.navigate("product/" + this.model.get('product_id')+ "/measure/" + this.model.get('id'), true);
-
+				//Backbone.history.navigate("product/" + this.model.get('product_id')+ "/measure/" + this.model.get('id'), true);
+				Backbone.history.navigate("/hospital/" +  this.model.get('h_id')+ "/product/" + this.model.get('product_id')+ "/measure/" + this.model.get('id'), true);		
 			}	
 		});

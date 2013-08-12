@@ -1,8 +1,8 @@
 App.Routers.User = Backbone.Router.extend({
 	routes : {
-		""     	                        : 'home',		
-		'product/:p_id/measure/:m_id'   : 'elements',
-		'hospital/:h_id/product/:p_id'  : 'productn'			
+		""     	                                       : 'home',		
+		'hospital/:h_id/product/:p_id/measure/:m_id'   : 'elements',
+		'hospital/:h_id/product/:p_id'                 : 'productn'			
 
 	},
 
@@ -20,12 +20,10 @@ App.Routers.User = Backbone.Router.extend({
 	},
 					
 
-	productn : function(h_id,p_id) {				
+	productn : function(h_id,p_id) {
 		
-		App.ho.fetch({data:{id: h_id}}).then(function(){			
+		App.ho.fetch({data:{id: h_id}}).then(function(){		
 		
-		//hospital_measure_table	
-		//App.hospital_products =  App.ho.get('products');
 		$.each(App.ho.get('products'), function( i, product ) { 	
 			if (product.id==p_id) {
 				
@@ -33,8 +31,8 @@ App.Routers.User = Backbone.Router.extend({
 				var temp = _.template($('#user-hospital-breadcrumb').html());		
 				$('#breadcrumb-box').html(temp({product_code:product.code}));
 				
-																		//product index	
-				var view = new App.Views.HospitalProduct({model: product, p_index: i});		
+																			
+				var view = new App.Views.HospitalProduct({model: product, h_id:h_id});		
 				$('#app').html(view.render().el);	
 				return;
 			}						       
@@ -82,7 +80,7 @@ App.Routers.User = Backbone.Router.extend({
 	},
 			
 
-	elements : function(p_id, m_id){			
+	elements : function(h_id, p_id, m_id){			
 		var hm_id = '';
 		// get hospital_measure_id
 		$.each( App.ho.get('products'), function( i, product ) { 	
@@ -92,7 +90,7 @@ App.Routers.User = Backbone.Router.extend({
 						hm_id = measure.id;				
 						//breadcrumb
 						var temp = _.template($('#user-measure-breadcrumb').html());			
-						$('#breadcrumb-box').html(temp({product_code:product.code, product_id:p_id, measure_code:measure.code}));
+						$('#breadcrumb-box').html(temp({product_code:product.code, product_id:p_id, measure_code:measure.code, hospital_id:h_id}));
 
 					}				
 				});				
