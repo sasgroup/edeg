@@ -129,6 +129,9 @@ FixedColumns.prototype = {
 	{
 		var that = this;
 		
+		if (this.s.dt == null)
+			return;
+		
 		/* Sanity checking */
 		if ( typeof this.s.dt.oInstance.fnVersionCheck != 'function' ||
 		     this.s.dt.oInstance.fnVersionCheck( '1.7.0' ) !== true )
