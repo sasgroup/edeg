@@ -156,11 +156,11 @@ App.Views.Hospital = Backbone.View.extend({
 	
 	// append HospitalMeasureTable to Tab
 	appendHospitalMeasureTable : function(){		
-	    var table_template = _.template($('#hospital-measure_table').html());						
-		var products = App.ho.get('products');	
+	    var table_template = _.template($('#hospital-measure_table').html());			
+		App.hospital_products = App.ho.get('products');	
 				
 		// for all products
-		$.each( products , function( p_index, product ) {					
+		$.each( App.hospital_products , function( p_index, product ) {					
 			var slcTab = '#myTabContent div#t' + product.id;
 			$(slcTab).append(table_template());			
 						

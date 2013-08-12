@@ -8,6 +8,7 @@ App.Routers.User = Backbone.Router.extend({
 
 	initialize: function(options){
 		App.hospitals = new App.Collections.Hospitals();		
+		App.route = this;
 	},
 		
 	home : function(){			
@@ -18,25 +19,34 @@ App.Routers.User = Backbone.Router.extend({
 			});
 		});
 	},
-					
+		
+	tabs: function(h_id){		
+		//generate tabs					
+		$('nav#products-nav').empty();		
+		$.each( App.hospital_products, function( i, product ) {		           
+			$('nav#products-nav').append('<a href="#hospital/' + h_id + '/product/'+ product.id+ '">' + product.code + '</a>');
+		});			
+	},
 
-	productn : function(h_id,p_id) {
+	productn : function(h_id,p_id) {	
+		App.route.home();
+		App.ho = new App.Models.Hospital();		
+		App.ho.fetch({data:{id: h_id}}).then(function(){
 		
-		App.ho.fetch({data:{id: h_id}}).then(function(){		
+		  App.hospital_products =  App.ho.get('products');	
+		  App.route.tabs(h_id);	
 		
-		$.each(App.ho.get('products'), function( i, product ) { 	
-			if (product.id==p_id) {
-				
+		  $.each(App.ho.get('products'), function( i, product ) { 	
+			if (product.id==p_id) {				
 				//breadcrumb
 				var temp = _.template($('#user-hospital-breadcrumb').html());		
-				$('#breadcrumb-box').html(temp({product_code:product.code}));
-				
-																			
+				$('#breadcrumb-box').html(temp({product_code:product.code}));				
+                //content 																			
 				var view = new App.Views.HospitalProduct({model: product, h_id:h_id});		
 				$('#app').html(view.render().el);	
 				return;
 			}						       
-		});	
+		  });	
 		
 		$.fn.dataTableExt.afnSortData['dom-checkbox'] = function  ( oSettings, iColumn )
 		{
@@ -80,14 +90,18 @@ App.Routers.User = Backbone.Router.extend({
 	},
 			
 
-	elements : function(h_id, p_id, m_id){			
-		var hm_id = '';
-		// get hospital_measure_id
+	elements : function(h_id, p_id, m_id){		
+		App.route.home();
+		App.ho = new App.Models.Hospital();		
+		App.ho.fetch({data:{id: h_id}}).then(function(){
+		
+		App.hospital_products =  App.ho.get('products');	
+		App.route.tabs(h_id);		
+		
 		$.each( App.ho.get('products'), function( i, product ) { 	
 			if (product.id==p_id) {				
 				$.each(product.measures, function( i, measure ){
-					if (measure.id==m_id) {
-						hm_id = measure.id;				
+					if (measure.id==m_id) {										
 						//breadcrumb
 						var temp = _.template($('#user-measure-breadcrumb').html());			
 						$('#breadcrumb-box').html(temp({product_code:product.code, product_id:p_id, measure_code:measure.code, hospital_id:h_id}));
@@ -96,11 +110,12 @@ App.Routers.User = Backbone.Router.extend({
 				});				
 			}						       
 		});	
-					
+						
 		App.hospitalElements = new App.Collections.HospitalElements();
 		
-		App.hospitalElements.fetch({data:{id: hm_id}}).then(function(){			                          //pass product_id
-			App.viewHospitalElements = new App.Views.HospitalElements ({collection:App.hospitalElements, product_id: p_id});
+		App.hospitalElements.fetch({data:{id: m_id}}).then(function(){			                          
+			
+			App.viewHospitalElements = new App.Views.HospitalElements ({collection:App.hospitalElements});
 			$('#app').html(App.viewHospitalElements.render().el);		
 			
 			var oTable = $('#hospital-elements').dataTable({		
@@ -115,8 +130,8 @@ App.Routers.User = Backbone.Router.extend({
 			});				
 			
 			new FixedColumns( oTable, {"sHeightMatch": "none"} );				
-	    });
+	    });		
 		
-		
+		});
 	}	
 });
