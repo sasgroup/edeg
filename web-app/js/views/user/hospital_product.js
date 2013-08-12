@@ -58,37 +58,46 @@ App.Views.HospitalMeasure = Backbone.View
 											 confirmed:ch_confirmed,
 											 accepted:ch_accepted,
 											 verified:ch_verified
-											}));	
+											}));				
 				
-				this.$el.attr("data-product", this.model.get('p_index'));
-				this.$el.attr("data-measure", this.model.get('m_index'));
-				this.$el.attr("id", "m"+this.model.get('id'));
-				
+				this.$el.attr("id", "m"+this.model.get('id'));				
 				return this;
 			},
 			
-			changeVal: function (e){				
-				var ch_slc = 'input[name="' + e.target.name + '"]';
-				var tr_slc = 'tr#' + $(e.target).closest('tr').attr('id');
-				var sl = tr_slc + ' ' + ch_slc;
-				var sl_val = $(e.target).is(':checked');					
-				$(sl).attr('checked', sl_val);
-				console.log(sl);
-						
-				$(tr_slc).each(function( index ) {
-					//console.log( index + ": " + $(this).text() );
-					$(this).attr('checked', sl_val);
-					var p_index = $(this).data("product");
-					var m_index = $(this).data("measure");
-					
-					console.log ("p_index "+p_index, " m_index "+m_index );
-					//App.ho.get('products')
-					App.hospital_products[p_index].measures[m_index].completed = sl_val;										
-				});
+			changeVal: function (e){			
+				// measure value
+				var sl_val = $(e.target).is(':checked');				
+				// measure_id
+				var m_id = $(e.target).closest('tr').attr('id').replace("m",'');
 				
-				App.ho.set("products" , App.hospital_products);
-		        
-				App.ho.save();
+				// for all products
+				$.each( App.ho.get('products') , function(p_index, product ) {					
+					$.each( product.measures, function(m_index, measure ) {
+						if (measure.id == m_id ){
+							console.log(p_index + ": " + product.id);
+							console.log(m_index + ": " + measure.id);
+							console.log(JSON.stringify(measure));
+							console.log("sl_val: " + sl_val);							
+							measure.completed = sl_val;
+						}
+							
+					});	
+				
+				});					
+				
+				App.ho.set({products : App.ho.get('products')});		        
+			    
+				App.ho.save(null,{
+			        success: function (model, response) {
+			           if (window.console) console.log(response);
+			           $('div#message-box').text("").append(response.message).fadeIn(500).delay(1500).fadeOut(500);
+		               //Backbone.history.navigate("hospital", true);	           
+			        },
+			        error: function (model, response) {
+			        	$('div#message-box').text("").append(response.message).fadeIn(500).delay(1500).fadeOut(500);
+			            //Backbone.history.navigate("hospital", true);	        	
+			        }
+			    });
 			},
 			
 			showInfo: function() {

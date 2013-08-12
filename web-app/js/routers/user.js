@@ -25,8 +25,8 @@ App.Routers.User = Backbone.Router.extend({
 		App.ho.fetch({data:{id: h_id}}).then(function(){			
 		
 		//hospital_measure_table	
-		App.hospital_products =  App.ho.get('products');
-		$.each( App.hospital_products, function( i, product ) { 	
+		//App.hospital_products =  App.ho.get('products');
+		$.each(App.ho.get('products'), function( i, product ) { 	
 			if (product.id==p_id) {
 				
 				//breadcrumb

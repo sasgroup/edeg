@@ -42,7 +42,6 @@ App.Views.Hospital = Backbone.View.extend({
 		};
 		
 		// get embedded collection
-		App.hospital_products = App.ho.get('products');
 		
 		this.$el.html(this.template(this.model.toJSON()));
 		
