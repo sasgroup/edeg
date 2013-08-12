@@ -170,10 +170,11 @@ form input.error {
 }
 
 #loading-image {
-  position: absolute;  
-  top: 280px;
-  left: 850px;
-  z-index: 100;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    top: 280px;
+    z-index: 100;
 }
 
 form#hospital-edit div#myTabContent  {
