@@ -1,6 +1,6 @@
 modules = {
 	ihm {
-		dependsOn 'jquery, underscore, backbone, bootstrap, jqgrid, jqmultiselect, datatable, html5shiv'
+		dependsOn 'jquery, json3, underscore, backbone, bootstrap, jqgrid, jqmultiselect, datatable, html5shiv'
 		resource url: 'css/ihm.css'		
 		resource url: 'js/ihm.js'
 		resource url: 'js/models.js'
@@ -71,6 +71,10 @@ modules = {
 	
 	html5shiv {
 		resource url: 'js/html5shiv.js'
+	}
+	
+	json3 {
+		resource url: 'js/json3.js'
 	}
 	
 }

@@ -70,7 +70,7 @@ App.Views.HospitalMeasure = Backbone.View
 				//alert(this.model.get('notes'));
 					//$('.alert-info').html(this.model.get('notes'));
 					//$('.alert-info').fadeIn(500).delay(1500).fadeOut(500);
-				    console.log(this.model.get('notes'));
+				if (window.console) console.log(this.model.get('notes'));
 					$('.show_info').attr('title',this.model.get('notes'));
 				//}
 			},

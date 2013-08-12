@@ -58,8 +58,8 @@ App.Views.DataElement = Backbone.View.extend({
 				
 		this.appendMeasures();
 		
-		console.log("checked ", this.checked);
-		console.log("unchecked ", this.unchecked);
+		if (window.console) console.log("checked ", this.checked);
+		if (window.console) console.log("unchecked ", this.unchecked);
 		
 		for(var de_measure in this.checked) {
 			var measure = this.checked[de_measure];
@@ -91,7 +91,7 @@ App.Views.DataElement = Backbone.View.extend({
 		var measure_ids = App.measures.pluck('id');
 				
 		App.measures.forEach(function(m){			
-				console.log(m);		
+			if (window.console) console.log(m);		
 			if (_.contains(mids, m.get('id'))) {				
 				checked.push({name:m.get('name'),id:m.get('id')});
 			} else {

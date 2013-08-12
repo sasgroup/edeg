@@ -169,7 +169,6 @@ App.Views.Hospital = Backbone.View.extend({
 			var measures = product.measures;
 			
 			$.each( measures, function( m_index, measure ) {
-				if (window.console) console.log(JSON.stringify(measure));		
 				var hospitalMeasure	 =  new App.Models.HospitalMeasure({"id":measure.id,
 																		"code":measure.code,
 																		"name":measure.name,
@@ -331,7 +330,7 @@ App.Views.SingleHospitalMeasure = Backbone.View
 					$(sl).attr('checked', sl_val);
 					//$(sl).click();
 					//$('tr#m3 input[name="confirmed"]').attr('checked', true);					
-					console.log(sl);
+					if (window.console) console.log(sl);
 							
 					$(tr_slc).each(function( index ) {
 						//console.log( index + ": " + $(this).text() );

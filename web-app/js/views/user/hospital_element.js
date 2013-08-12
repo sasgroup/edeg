@@ -48,7 +48,7 @@ App.Views.SingleHospitalElement = Backbone.View
 	render : function() {			
 		var ch  = (this.model.get('sourceEHR'))  ? "checked" : "";		
 		this.model.set({chd:ch});
-		console.log(this.model.toJSON());
+		if (window.console) console.log(this.model.toJSON());
 		this.$el.html(this.template(this.model.toJSON()));				
 		
 		this.$el.find(".slcCodeType").val(this.model.get('codeType').name);
@@ -103,7 +103,7 @@ App.Views.SingleHospitalElement = Backbone.View
 		var extra_tbody = $('#extra-table tbody');
 		$(extra_tbody).empty();						
 		var extra_view = new App.Views.ExtraDataElement({ model : slc_hospital_element});		
-		console.log(slc_hospital_element);
+		if (window.console) console.log(slc_hospital_element);
 		var extra_row = extra_view.render().el;
 		$(extra_tbody).append(extra_row);		
 		$(extra_row).find(".slcCodeType").val(slc_hospital_element.get('codeType').name);
@@ -143,13 +143,13 @@ App.Views.ExtraDataElement = Backbone.View
 	render : function() {			
 		var ch  = (this.model.get('sourceEHR'))  ? "checked" : "";		
 		this.model.set({chd:ch});
-		console.log(this.model.toJSON());
+		if (window.console) console.log(this.model.toJSON());
 		this.$el.html(this.template(this.model.toJSON()));				
 		return this;
 	},
 	
 	addRow : function (event){		
-		console.log("add extra row");
+		if (window.console) console.log("add extra row");
 		
 		var extraDataElement =	{
 				  location:  this.model.get('location'),
@@ -171,7 +171,7 @@ App.Views.ExtraDataElement = Backbone.View
 	},
 	
 	removeRow : function (event){
-		console.log("remove extra row");
+		if (window.console) console.log("remove extra row");
 		$(event.target).closest('tr').remove();
 	}
 });
@@ -193,7 +193,7 @@ App.Views.HospitalSpecific =  Backbone.View
 	},
 	
 	addRow : function (event){		
-		console.log("add extra row");
+		if (window.console) console.log("add extra row");
 		
 		var hospital_specific_tbody = $('#hospital-specific-table tbody');
 										
@@ -212,7 +212,7 @@ App.Views.HospitalSpecific =  Backbone.View
 	},
 	
 	removeRow : function (event){
-		console.log("remove extra row");
+		if (window.console) console.log("remove extra row");
 		$(event.target).closest('tr').remove();
 	}
 });

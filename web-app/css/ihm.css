@@ -163,10 +163,14 @@ form input.error {
   left: 0px;
   position: fixed;
   display: block;
-  opacity: 0.7;
   background-color: #fff;
   z-index: 99;
   text-align: center;
+  
+  filter: alpha(opacity=50); /* internet explorer */
+  -khtml-opacity: 0.5;      /* khtml, old safari */
+  -moz-opacity: 0.5;       /* mozilla, netscape */
+  opacity: 0.5;           /* fx, safari, opera */
 }
 
 #loading-image {

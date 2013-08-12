@@ -26,7 +26,7 @@ $(function() {
 		var hospital_id = $(this).data('id');
 		//show hospital-name
 	    $('h3.hospital-name').text(hospital_name);
-	    console.log(hospital_name,hospital_id);
+	    if (window.console) console.log(hospital_name,hospital_id);
 	    
 	    $('#app').empty();
 	    $('#breadcrumb-box').empty();
@@ -37,7 +37,7 @@ $(function() {
 			var products = App.ho.get('products');
 			$('nav#products-nav').empty();
 			$.each( products, function( i, product ) { 	
-				console.log(product.code);			
+				if (window.console) console.log(product.code);			
 
 				$('nav#products-nav').append('<a href="#product/'+ product.id+ '">' + product.code + '</a>');		           
 			});			
