@@ -25,7 +25,7 @@ App.Views.Hospital = Backbone.View.extend({
 	template : _.template($('#hospital-template').html()),
 
 	initialize : function() {		
-		this.model.on('change', this.render, this);
+		//this.model.on('change', this.render, this);
 	},
 	
 	events : {
@@ -207,17 +207,23 @@ App.Views.Hospital = Backbone.View.extend({
 		this.model.attributes.product_ids = pr_ids;
 		this.model.attributes.id = h_id;
 		
-		var view = this;								
-		this.model.save(this.attributes,{
-	        success: function (model, response) {	               	
+		var view = this;
+		$('#loading').show();
+		
+		this.model.save(null, {
+	        success: function (model, response) {
+	        	$('#loading').hide();
 	        	Backbone.history.navigate("reload/"+h_id, true);	           
 	        },
 	        
-	        error: function (model,xhr) {	        	
+	        error: function (model,xhr) {
+	        	$('#loading').hide();
 	        	$('#app').html("apply error");
 	        	//Backbone.history.navigate("reload/"+h_id, true);	
 	        }
-	    });
+	    }, {wait:true});
+	    
+	    return false;
 	},
 
 	changeVal : function(e) {
