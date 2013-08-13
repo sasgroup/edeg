@@ -60,7 +60,7 @@
 					    <div class="row-fluid">	
 							<div class="span2">
 								<label for="notes">Notes</label>
-								<a id="btnHelp" href="javascript:;" class="btn btn-info btn-mini"><i class="icon-question-sign"></i> Help</a>
+								<a id="btnHelp" href="javascript:;" >Help <i class="icon-question-sign"></i></a>
 							</div>      				      
                           <textarea rows="3" class="span10" name="notes" id="notes">{{ notes }}</textarea>
     				    </div>
