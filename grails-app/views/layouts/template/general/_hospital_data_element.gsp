@@ -11,7 +11,7 @@
 				<th>Source</th>
 				<th>CodeType</th>
 		    	<th>ValueType</th>
-				<th><a href="#" id="resetAll" class= "btn" title="Reset all data elements in the measure to default locations in accordance with the current EHR version">Reset All</a> </th>	    		    
+				<th><button id="resetAll" class= "btn" title="Reset all data elements in the measure to default locations in accordance with the current EHR version">Reset All</button> </th>	    		    
 			 </tr>
       </thead>				
     <tbody></tbody>
