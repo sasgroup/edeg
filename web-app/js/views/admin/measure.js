@@ -38,7 +38,8 @@ App.Views.Measure = Backbone.View.extend({
 		'click button#cancel' : 'returnOnMain', 
 		'change #code, #name, #notes' : 'changeVal',
 		'change #measureCategory, #cqmDomain' : 'changeDr',
-		'change .checkbox' : 'changeCh'
+		'change .checkbox' : 'changeCh',
+		'click #btnHelp' : 'showHelpDialog'
 	},
 	
 	render : function() {		
@@ -154,6 +155,12 @@ App.Views.Measure = Backbone.View.extend({
 	
 	returnOnMain: function () {		
 		Backbone.history.navigate("/measure", true);				
+	},
+	
+	showHelpDialog : function(){
+		if (! $('.helpArea').data("wysihtml5") )
+			$('.helpArea').wysihtml5();
+		$('#myHelp').modal('show');
 	}
 });	
 
