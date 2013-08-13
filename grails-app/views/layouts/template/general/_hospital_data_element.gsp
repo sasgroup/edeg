@@ -125,10 +125,10 @@
 <!-- hospital_data_element -->
 <script type="text/template" class="template" id="hospital_data_element">
  <td id="{{id}}" class="slc_row">{{dataElement}}</td>
- <td><input type="text" class="location" id="location" value="{{location}}"></td>
- <td><input type="checkbox" class="sourceEhr" id="sourceEhr" value="{{sourceEHR}}" {{chd}}></td>
- <td><input type="text" class="source" id="source" value="{{source}}"></td>
- <td><select class="slcCodeType">                
+ <td><input type="text" class="location" name="location" id="location" value="{{location}}"></td>
+ <td><input type="checkbox" class="sourceEHR" name="sourceEHR" id="sourceEHR" value={{sourceEHR}} {{chd}}></td>
+ <td><input type="text" class="source" id="source" name= "source" value="{{source}}"></td>
+ <td><select class="slcCodeType" name="codeType">                
 				 <option value="">-Select-</option>
 				 <option value="NotApplicable">NotApplicable</option>
 				 <option value="AdministrativeSex">AdministrativeSex</option>                 
@@ -148,11 +148,11 @@
 				 <option value="SOP">SOP</option>
     </select>
  </td>
- <td><select class="slcValueType">			
+ <td><select class="slcValueType" name="valueType">			
 				<option value="">-Select-</option>
 				<option value="NotApplicable">NotApplicable</option>     
                 <option value="IMO_Code">IMO_Code</option>                
-				<option value="Query/Mnemonic">Query/Mnemonic</option>
+				<option value="Query_Mnemonic">Query/Mnemonic</option>
 				<option value="HospitalSpecific">HospitalSpecific</option>
 				<option value="StandardCode">StandardCode</option>
 				<option value="ValueSet">ValueSet</option>
@@ -193,7 +193,7 @@
 				<option value="">-Select-</option>
 				<option value="NotApplicable">NotApplicable</option>	     
                 <option value="IMO_Code">IMO_Code</option>                
-				<option value="Query/Mnemonic">Query/Mnemonic</option>
+				<option value="Query_Mnemonic">Query/Mnemonic</option>
 				<option value="HospitalSpecific">HospitalSpecific</option>
 				<option value="StandardCode">StandardCode</option>
 				<option value="ValueSet">ValueSet</option>

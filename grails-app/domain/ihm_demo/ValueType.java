@@ -5,6 +5,6 @@ public enum ValueType {
 	IMO_Code,
 	Query_Mnemonic,
 	HospitalSpecific,
-	StandartCode,
+	StandardCode,
 	ValueSet
 }

@@ -20,7 +20,7 @@ App.Views.HospitalElements = Backbone.View.extend({
 		return this;
 	},
 	
-	resetAllToDefault : function() {		
+	resetAllToDefault : function(e) {		
 		this.collection.each(this.restoreHospitalElement, this);
 	},
 
@@ -32,7 +32,7 @@ App.Views.HospitalElements = Backbone.View.extend({
 	restoreHospitalElement : function(hospitalElement) {
 		//only for checked sourceEHR		
 		var cur_row = $('#hospital-elements td#'+hospitalElement.get('id')).closest('tr');
-		var ch = $(cur_row).find('.sourceEhr').is(':checked');
+		var ch = $(cur_row).find('.sourceEHR').is(':checked');
 			
 		if (ch) {
 			var view = new App.Views.SingleHospitalElement({ model : hospitalElement});
@@ -65,9 +65,11 @@ App.Views.SingleHospitalElement = Backbone.View
 	tagName : 'tr',
 	template: _.template($('#hospital_data_element').html()),	
 	events : {
-		'click .slc_row'  : 'selectRow',
-		'click #reset'    : 'resetToDefault',
-		'change  #source' : 'changeVal'		
+		'click .slc_row'                   			   : 'selectRow',
+		'click  #reset'                     		   : 'resetToDefault',
+		'change .source, .location'       			   : 'changeVal',
+		'change .sourceEHR'                            : 'changeCh',
+		'change .slcCodeType, .slcValueType' 		   : 'changeSlc'
 	},
 					
 	render : function() {			
@@ -83,7 +85,15 @@ App.Views.SingleHospitalElement = Backbone.View
 	},
 	
 	changeVal : function(e) {
-		this.model.attributes[e.target.name] = $(e.target).val();
+		this.model.attributes[e.target.name] = $(e.target).val();		
+	},
+	
+	changeCh : function(e) {
+		this.model.attributes[e.target.name] = $(e.target).is(':checked');	
+	},
+	
+	changeSlc : function(e) {
+		this.model.attributes[e.target.name].name = e.target.value;
 	},
 	
 	selectRow: function(event) {		
@@ -107,10 +117,11 @@ App.Views.SingleHospitalElement = Backbone.View
 	},
 	
 	resetToDefault : function(event) {			
-		//var he_id = $(event.target).closest('tr').find('td:first').prop('id');	
-		this.$el.html(this.template(this.model.toJSON()));	
-		this.$el.find(".slcCodeType").val(this.model.get('codeType').name);
-		this.$el.find(".slcValueType").val(this.model.get('valueType').name);
+		//var he_id = $(event.target).closest('tr').find('td:first').prop('id');
+		/*var modelToRestore = this.options.modelToRestore;
+		this.$el.html(this.template(modelToRestore.toJSON()));	
+		this.$el.find(".slcCodeType").val(modelToRestore.get('codeType').name);
+		this.$el.find(".slcValueType").val(this.modelToRestore.get('valueType').name);*/
 	},
 	
 	showQA: function(slc_hospital_element){		
