@@ -434,7 +434,8 @@ App.Views.SingleHospitalMeasure = Backbone.View
 						
 			goToDataElements : function(e) {				
 				e.preventDefault();
-				Backbone.history.navigate("product/" + this.model.get('product_id')+ "/measure/" + this.model.get('id'), true);			
+				//Backbone.history.navigate("product/" + this.model.get('product_id')+ "/measure/" + this.model.get('id'), true);			
+				Backbone.history.navigate("hospital/"+ App.ho.get('id') +"/product/" + this.model.get('product_id')+ "/measure/" + this.model.get('id'), true);
 			},
 			
 			

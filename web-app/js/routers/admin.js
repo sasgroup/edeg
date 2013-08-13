@@ -20,7 +20,8 @@ App.Routers.Administrator = Backbone.Router.extend({
 		'ehr/:id/edit'    : 'editEhr',
 		'reload/:id'      :	'reopenHospital',
 		
-		'product/:p_id/measure/:m_id':  'elements'
+		//'product/:p_id/measure/:m_id':  'elements'
+		'hospital/:h_id/product/:p_id/measure/:m_id':  'elements'
 		
 	},
 
@@ -48,7 +49,7 @@ App.Routers.Administrator = Backbone.Router.extend({
 		Backbone.history.navigate("hospital/"+id+'/edit', true);		
 	},
 	
-	elements : function(p_id, m_id){			
+	elements : function(h_id,p_id, m_id){			
 		
 		App.hospitalElements = new App.Collections.HospitalElements();
 		
