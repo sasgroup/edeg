@@ -11,7 +11,7 @@
 				<th>Source</th>
 				<th>CodeType</th>
 		    	<th>ValueType</th>
-				<th><button id="resetAll" class= "btn" title="Reset all data elements in the measure to default locations in accordance with the current EHR version">Reset All</button> </th>	    		    
+				<th><a id="resetAll" class= "btn" title="Reset all data elements in the measure to default locations in accordance with the current EHR version">Reset All</a> </th>	    		    
 			 </tr>
       </thead>				
     <tbody></tbody>
@@ -128,11 +128,12 @@
  <td><input type="text" class="location" name="location" id="location" value="{{location}}"></td>
  <td><input type="checkbox" class="sourceEHR" name="sourceEHR" id="sourceEHR" value={{sourceEHR}} {{chd}}></td>
  <td><input type="text" class="source" id="source" name= "source" value="{{source}}"></td>
- <td><select class="slcCodeType" name="codeType">                
+ <td>
+    <select class="slcCodeType" name="codeType">                
 				 <option value="">-Select-</option>
 				 <option value="NotApplicable">NotApplicable</option>
 				 <option value="AdministrativeSex">AdministrativeSex</option>                 
-				 <option value="CDREC">CDREC</option>
+				 <option value="CDCREC">CDREC</option>
 				 <option value="CDT">CDT</option>
 				 <option value="CPT">CPT</option>
 				 <option value="CVX">CVX</option>
@@ -148,7 +149,8 @@
 				 <option value="SOP">SOP</option>
     </select>
  </td>
- <td><select class="slcValueType" name="valueType">			
+ <td>
+    <select class="slcValueType" name="valueType">			
 				<option value="">-Select-</option>
 				<option value="NotApplicable">NotApplicable</option>     
                 <option value="IMO_Code">IMO_Code</option>                

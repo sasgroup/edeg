@@ -7,9 +7,12 @@ App.Views.HospitalElements = Backbone.View.extend({
 		'click button#cancel' : 'returnToProduct' ,
 		'click #save-btn'     : 'saveHospitalElements'
 	},
+	
+	initialize : function() {		
+		App.hospitalElementsToRestore = new App.Collections.HospitalElements(App.hospitalElements.toJSON());		
+	},
 
 	render : function() {		
-		console.log(this.options.measure_code);
 		this.$el.html(this.template({ hospitals : this.collection}));
 		this.collection.each(this.appendHospitalElement, this);
 				
@@ -21,7 +24,7 @@ App.Views.HospitalElements = Backbone.View.extend({
 	},
 	
 	resetAllToDefault : function(e) {		
-		this.collection.each(this.restoreHospitalElement, this);
+		App.hospitalElementsToRestore.each(this.restoreHospitalElement, this);
 	},
 
 	appendHospitalElement : function(hospitalElement) {
@@ -30,12 +33,15 @@ App.Views.HospitalElements = Backbone.View.extend({
 	},
 	
 	restoreHospitalElement : function(hospitalElement) {
-		//only for checked sourceEHR		
-		var cur_row = $('#hospital-elements td#'+hospitalElement.get('id')).closest('tr');
+		//only for checked sourceEHR	
+		
+		var he = new App.Models.HospitalElement(hospitalElement.toJSON());		
+		
+		var cur_row = $('#hospital-elements td#'+he.get('id')).closest('tr');
 		var ch = $(cur_row).find('.sourceEHR').is(':checked');
 			
 		if (ch) {
-			var view = new App.Views.SingleHospitalElement({ model : hospitalElement});
+			var view = new App.Views.SingleHospitalElement({ model : he});			
 			$(cur_row).replaceWith(view.render().el);
 		}		
 	},
@@ -117,11 +123,13 @@ App.Views.SingleHospitalElement = Backbone.View
 	},
 	
 	resetToDefault : function(event) {			
-		//var he_id = $(event.target).closest('tr').find('td:first').prop('id');
-		/*var modelToRestore = this.options.modelToRestore;
-		this.$el.html(this.template(modelToRestore.toJSON()));	
-		this.$el.find(".slcCodeType").val(modelToRestore.get('codeType').name);
-		this.$el.find(".slcValueType").val(this.modelToRestore.get('valueType').name);*/
+		var id = $(event.target).closest('tr').find('td:first').prop('id');		
+		var he = App.hospitalElementsToRestore.get(id);		
+		App.hospitalElementToRestore = new App.Models.HospitalElement(he.toJSON());
+		
+		this.$el.html(this.template(App.hospitalElementToRestore.toJSON()));	
+		this.$el.find(".slcCodeType").val(App.hospitalElementToRestore.get('codeType').name);
+		this.$el.find(".slcValueType").val(App.hospitalElementToRestore.get('valueType').name);
 	},
 	
 	showQA: function(slc_hospital_element){		
