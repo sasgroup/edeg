@@ -116,7 +116,7 @@
 <div class="form-actions">					 
                     
 <button type="reset" id="cancel" class="btn btn-info pull-right">Cancel</button>
-<button class="btn btn-info pull-right">Save&Mark</button>
+<button id="save-mark-btn" class="btn btn-info pull-right">Save&Mark</button>
 <button id="save-btn" class="btn btn-info pull-right">Save</button>			
 </div>
 </form>

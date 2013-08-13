@@ -103,9 +103,9 @@
 		    <th>Use</th>			
 			<th>CODE</th>
 		    <th>TITLE</th>				    				  
-		    <th>Completed</th>
-		    <th>Confirmed</th>
+		    <th>Completed</th>		    
 		    <th>Accepted</th>
+			<th>Declined</th>
 		    <th>Verified</th>		    
 		   </tr>
     </thead>				
@@ -123,12 +123,12 @@
  <td><div class='title' title="{{name}}"><a id="customLink" href="#modalDataElements" role="button" data-toggle="modal">{{ name }}</a></div></td>
  <td>
     <input type="checkbox" name="completed" id="{{id}}" {{completed}}>
+ </td> 
+ <td>
+     <input type="checkbox" name="accepted" id="{{id}}" {{accepted}}>
  </td>
  <td>
      <input type="checkbox" name="confirmed" id="{{id}}" {{confirmed}}>
- </td>
- <td>
-     <input type="checkbox" name="accepted" id="{{id}}" {{accepted}}>
  </td>
  <td>
      <input type="checkbox" name="verified" id="{{id}}" {{verified}}>

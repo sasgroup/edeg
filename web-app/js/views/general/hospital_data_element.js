@@ -5,7 +5,8 @@ App.Views.HospitalElements = Backbone.View.extend({
 	events : {
 		'click #resetAll'     : 'resetAllToDefault',
 		'click button#cancel' : 'returnToProduct' ,
-		'click #save-btn'     : 'saveHospitalElements'
+		'click #save-btn'     : 'saveHospitalElements',
+		'click #save-mark-btn': 'saveAndMarkHospitalElements'
 	},
 	
 	initialize : function() {		
@@ -58,14 +59,27 @@ App.Views.HospitalElements = Backbone.View.extend({
 	
 	saveHospitalElements : function() {		
 		_.each(this.collection.models, function(model) {
+			  model.set({markAsComplete: false});	 
 			  return model.save({
 			    wait: true,
 			    error: function (collection, response) {
 		        			if (window.console) console.log("error");	          
 		        		}    
 			  });
-		});	
-		
+		});			
+	},
+	
+	saveAndMarkHospitalElements : function() {		
+		_.each(this.collection.models, function(model) {
+			  model.set({markAsComplete: true});	
+			  return model.save({
+			    wait: true,
+			    error: function (collection, response) {
+		        			if (window.console) console.log("error");	          
+		        		}    
+			  });
+		});
+		window.history.back();
 	}
 });
 
