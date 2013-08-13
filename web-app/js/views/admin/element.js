@@ -169,7 +169,8 @@ App.Views.DataElement = Backbone.View.extend({
 	},
 	
 	editDataElement : function(e) {
-		e.preventDefault();
+		e.preventDefault();	
+		this.model.attributes.help = $('.helpArea').val();
 		
 		this.model.set({code:this.$el.find('#code').val()});
 		

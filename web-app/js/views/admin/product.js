@@ -132,7 +132,8 @@ App.Views.Product = Backbone.View.extend({
 	},
 	
 	submProduct : function(e) {
-		e.preventDefault();			
+		e.preventDefault();
+		this.model.attributes.help = $('.helpArea').val();			
 		this.model.set({code:this.$el.find('#code').val()});		
 		this.model.save(this.attributes,{
 	        success: function (model, response) {
