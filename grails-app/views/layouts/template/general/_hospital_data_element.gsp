@@ -23,7 +23,7 @@
           <li class="active">
             <a data-toggle="tab" href="#qa2">Q&A Level 2</a>
           </li>
-          <li class="">
+          <li class="qa3">
             <a data-toggle="tab" href="#qa3">Q&A Level 3</a>
           </li>
 		  <li class="">
