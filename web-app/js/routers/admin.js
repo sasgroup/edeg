@@ -20,7 +20,6 @@ App.Routers.Administrator = Backbone.Router.extend({
 		'ehr/:id/edit'    : 'editEhr',
 		'reload/:id'      :	'reopenHospital',
 		
-		//'product/:p_id/measure/:m_id':  'elements'
 		'hospital/:h_id/product/:p_id/measure/:m_id':  'elements'
 		
 	},

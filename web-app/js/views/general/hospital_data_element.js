@@ -4,7 +4,8 @@ App.Views.HospitalElements = Backbone.View.extend({
 	
 	events : {
 		'click #resetAll'     : 'resetAllToDefault',
-		'click button#cancel' : 'returnToProduct' 
+		'click button#cancel' : 'returnToProduct' ,
+		'click #save-btn'     : 'saveHospitalElements'
 	},
 
 	render : function() {		
@@ -43,6 +44,18 @@ App.Views.HospitalElements = Backbone.View.extend({
 		//Backbone.history.navigate("product/" + this.options.product_id, true);
 		window.history.back();
 
+	},
+	
+	saveHospitalElements : function() {		
+		_.each(this.collection.models, function(model) {
+			  return model.save({
+			    wait: true,
+			    error: function (collection, response) {
+		        			if (window.console) console.log("error");	          
+		        		}    
+			  });
+		});	
+		
 	}
 });
 
@@ -52,8 +65,9 @@ App.Views.SingleHospitalElement = Backbone.View
 	tagName : 'tr',
 	template: _.template($('#hospital_data_element').html()),	
 	events : {
-		'click .slc_row' : 'selectRow',
-		'click #reset'   : 'resetToDefault'
+		'click .slc_row'  : 'selectRow',
+		'click #reset'    : 'resetToDefault',
+		'change  #source' : 'changeVal'		
 	},
 					
 	render : function() {			
@@ -66,6 +80,10 @@ App.Views.SingleHospitalElement = Backbone.View
 		this.$el.find(".slcValueType").val(this.model.get('valueType').name);
 		
 		return this;
+	},
+	
+	changeVal : function(e) {
+		this.model.attributes[e.target.name] = $(e.target).val();
 	},
 	
 	selectRow: function(event) {		
