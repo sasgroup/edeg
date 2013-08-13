@@ -8,8 +8,14 @@ App.Views.HospitalElements = Backbone.View.extend({
 	},
 
 	render : function() {		
-		this.$el.html(this.template({ hospitals : this.collection }));
+		console.log(this.options.measure_code);
+		this.$el.html(this.template({ hospitals : this.collection}));
 		this.collection.each(this.appendHospitalElement, this);
+				
+		if ($('#role').val() == 'admin') {
+			this.$el.find("h3").html(this.options.measure_code+ ":DataElements");
+		}
+		
 		return this;
 	},
 	

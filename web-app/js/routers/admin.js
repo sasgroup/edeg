@@ -49,12 +49,26 @@ App.Routers.Administrator = Backbone.Router.extend({
 		Backbone.history.navigate("hospital/"+id+'/edit', true);		
 	},
 	
-	elements : function(h_id,p_id, m_id){			
+	elements : function(h_id,p_id, m_id){	
+		App.ho = new App.Models.Hospital();		
+		App.ho.fetch({data:{id: h_id}}).then(function(){
+		
+		var measure_code='';
+		//get measure_code
+		$.each( App.ho.get('products'), function( i, product ) { 	
+			if (product.id==p_id) {				
+				$.each(product.measures, function( i, measure ){
+					if (measure.id==m_id) {										
+						 measure_code = measure.code;
+					}				
+				});				
+			}						       
+		});	
 		
 		App.hospitalElements = new App.Collections.HospitalElements();
 		
 		App.hospitalElements.fetch({data:{id: m_id}}).then(function(){			
-			App.viewHospitalElements = new App.Views.HospitalElements ({collection:App.hospitalElements, product_id: p_id});
+			App.viewHospitalElements = new App.Views.HospitalElements ({collection:App.hospitalElements, product_id: p_id, measure_code: measure_code});
 			$('#app').html(App.viewHospitalElements.render().el);		
 			
 			var oTable = $('#hospital-elements').dataTable({		
@@ -69,7 +83,9 @@ App.Routers.Administrator = Backbone.Router.extend({
 			});				
 			
 			new FixedColumns( oTable, {"sHeightMatch": "none"} );				
-	    });
+	    });		
+			
+		});			
 	},
 	
 	// ------- LIST ------------

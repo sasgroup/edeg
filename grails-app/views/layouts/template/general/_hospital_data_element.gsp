@@ -1,8 +1,8 @@
 <!-- hospital_data_element-form -->
 <script type="text/template" class="template" id="hospital_data_element-form">
-<form id="data-element-page">	
-    
-  	<div id="main_table">
+<form id="data-element-page">    
+    <h3></h3>
+ 	<div id="main_table">
 	 <table class="table table-condensed" id="hospital-elements">
 	  <thead><tr>
  				<th>DataElement</th>    
