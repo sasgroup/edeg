@@ -139,7 +139,8 @@ App.Views.Measure = Backbone.View.extend({
 	},
 
 	editMeasure : function(e) {
-		e.preventDefault();	
+		e.preventDefault();
+		this.model.attributes.help = $('.helpArea').val();	
 		this.model.set({code:this.$el.find('#code').val()});
 		this.model.save(this.attributes,{
 	        success: function (model, response) {
