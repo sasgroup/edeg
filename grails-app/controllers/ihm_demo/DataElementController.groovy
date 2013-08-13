@@ -10,6 +10,7 @@ class DataElementController {
 		instance.name = param.name
 		instance.code = param.code
 		instance.notes = param.notes
+		instance.help = param.help
 		//need reLook this One for clear from dataElement
 
 		Measure.list().each { it.removeFromDataElements(instance) }
@@ -61,6 +62,7 @@ class DataElementController {
 				code = de.code
 				name = de.name
 				notes = de.notes
+				help = de.help
 				measures =  array {
 					for (m in de?.measures) {
 						measure  mname: m.name, mid: m.id

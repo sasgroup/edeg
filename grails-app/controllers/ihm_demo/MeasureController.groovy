@@ -8,6 +8,7 @@ class MeasureController {
 	private Measure saveInstance (Measure instance, def param) {
 		instance.name = param.name
 		instance.code = param.code
+		instance.help = param.help
 		
 		if (param.notes)
 			instance.notes = param.notes
@@ -52,6 +53,7 @@ class MeasureController {
 				code = result.code
 				name = result.name
 				notes= result.notes
+				help = result.help
 				id   = result.id
 				measureCategory = result?.measureCategory
 				cqmDomain = result?.cqmDomain
