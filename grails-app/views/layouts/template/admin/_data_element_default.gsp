@@ -43,7 +43,7 @@
                 <option value="IMO_Code">IMO_Code</option>                
 				<option value="Query_Mnemonic">Query/Mnemonic</option>
 				<option value="HospitalSpecific">HospitalSpecific</option>
-				<option value="StandartCode">StandardCode</option>
+				<option value="StandardCode">StandardCode</option>
 				<option value="ValueSet">ValueSet</option>
      </select>
  </td>
