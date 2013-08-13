@@ -40,7 +40,8 @@ App.Views.Product = Backbone.View.extend({
 		'submit' : 'submProduct',
 		'click button#cancel' : 'returnOnMain',       
 		'change #code, #name, #notes' : 'changeVal',
-		'change .checkbox' : 'changeCh'
+		'change .checkbox' : 'changeCh',
+		'click #btnHelp' : 'showHelpDialog'
 	},
 	
 	render : function() {	
@@ -72,6 +73,9 @@ App.Views.Product = Backbone.View.extend({
 		this.model.get('hospitals').forEach(this.appendHospital,this);	
 			
 		if (window.console) console.log(this.checked );
+		
+		$('.helpArea').wysihtml5();
+		
 		return this;
 	},
 
@@ -144,6 +148,12 @@ App.Views.Product = Backbone.View.extend({
 	
 	returnOnMain: function () {		
 		Backbone.history.navigate("/product", true);				
+	},
+	
+	showHelpDialog : function(){
+		if (! $('.helpArea').data("wysihtml5") )
+			$('.helpArea').wysihtml5();
+		$('#myHelp').modal('show');
 	}
 	
 });

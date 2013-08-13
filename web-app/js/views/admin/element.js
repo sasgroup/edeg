@@ -40,7 +40,8 @@ App.Views.DataElement = Backbone.View.extend({
 		'submit' : 'editDataElement',
 		'click button#cancel' : 'returnOnMain', 
 		'change #code, #name, #notes' : 'changeVal',
-		'change .checkbox' : 'changeCh'		
+		'change .checkbox' : 'changeCh',
+		'click #btnHelp' : 'showHelpDialog'		
 	},
 	
 	render : function() {	
@@ -184,6 +185,12 @@ App.Views.DataElement = Backbone.View.extend({
 	
 	returnOnMain: function () {		
 		Backbone.history.navigate("/element", true);				
+	},
+	
+	showHelpDialog : function(){
+		if (! $('.helpArea').data("wysihtml5") )
+			$('.helpArea').wysihtml5();
+		$('#myHelp').modal('show');
 	}
 	
 });

@@ -69,7 +69,10 @@
 					  </div>    				  
 					  <div class="span7">
 					    <div class="row-fluid">	
-      				      <label for="notes" class="span2">Notes</label>                    
+							<div class="span2">
+								<label for="notes">Notes</label>
+								<a id="btnHelp" href="javascript:;" >Help <i class="icon-question-sign"></i></a>
+							</div>      				      
                           <textarea rows="3" class="span10" name="notes" id="notes">{{ notes }}</textarea>
     				    </div>
 						
@@ -82,7 +85,16 @@
 
 					  </div>
   				    </div>
-				</div>				
+				</div>
+				<div id="myHelp" class="modal hide fade">
+    				<div class="modal-header">
+    					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    					<h3>Help for Measure [ {{ name }} ]</h3>
+    				</div>
+    				<div class="modal-body">
+    					<textarea rows="8" name="help" id="help" class="helpArea"></textarea>
+    				</div>
+    			</div>				
                 <ul id="myTab" class="nav nav-tabs">
                   <li class="active">
                     <a data-toggle="tab" href="#products">Products</a>
