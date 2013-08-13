@@ -74,7 +74,7 @@
     					<h3>Help for Data Element [ {{ name }} ]</h3>
     				</div>
     				<div class="modal-body">
-    					<textarea rows="8" name="help" id="help" class="helpArea"></textarea>
+    					<textarea rows="8" name="help" id="help" class="helpArea">{{ help }}</textarea>
     				</div>
     			</div>
                 <ul id="myTab" class="nav nav-tabs">
