@@ -36,7 +36,7 @@ App.Views.Measure = Backbone.View.extend({
 	events : {
 		'submit' : 'editMeasure',
 		'click button#cancel' : 'returnOnMain', 
-		'change #code, #name, #notes' : 'changeVal',
+		'change #name, #notes' : 'changeVal',
 		'change #measureCategory, #cqmDomain' : 'changeDr',
 		'change .checkbox' : 'changeCh',
 		'click #btnHelp' : 'showHelpDialog'
@@ -139,7 +139,8 @@ App.Views.Measure = Backbone.View.extend({
 	},
 
 	editMeasure : function(e) {
-		e.preventDefault();		
+		e.preventDefault();	
+		this.model.set({code:this.$el.find('#code').val()});
 		this.model.save(this.attributes,{
 	        success: function (model, response) {
 	           if (window.console) console.log(response);

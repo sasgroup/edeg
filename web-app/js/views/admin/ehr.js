@@ -34,7 +34,7 @@ App.Views.Ehr = Backbone.View.extend({
 	events : {
 		'submit' : 'editEhr',
 		'click button#cancel' : 'returnOnMain', 
-		'change #code, #name, #notes' : 'changeVal'		
+		'change #name, #notes' : 'changeVal'		
 	},
 	
 	
@@ -108,22 +108,10 @@ App.Views.Ehr = Backbone.View.extend({
 		var temp = _.template($('#single-ehr-hospital').html());
 		this.$el.find('div#hospitals').append(temp({name:ehr_hospital.hname}));		
 	},
-	
 		
-	/*appendDataElement : function(dem_element){
-		var temp = _.template($('#single-data-elements-def-element').html());		
-		if (window.console) console.log(dem_element);
-		this.$el.find('#dataElementsTable tbody').append(temp({is_imo:dem_element.isIMO, 
-															   loc:dem_element.location,
-															   query_mnemonic:dem_element.queryMnemonic,
-															   value_set:dem_element.valueSet,
-															   value_set_req:dem_element.valueSetRequired,
-															   location_type:dem_element.locationtype.name}));
-		
-	},*/
-	
 	editEhr : function(e) {
-		e.preventDefault();		
+		e.preventDefault();	
+		this.model.set({code:this.$el.find('#code').val()});
 		this.model.save(this.attributes,{
 	        success: function (model, response) {
 	        	if (window.console) console.log(response);

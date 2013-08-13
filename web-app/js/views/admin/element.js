@@ -39,7 +39,7 @@ App.Views.DataElement = Backbone.View.extend({
 	events : {
 		'submit' : 'editDataElement',
 		'click button#cancel' : 'returnOnMain', 
-		'change #code, #name, #notes' : 'changeVal',
+		'change  #name, #notes' : 'changeVal',		
 		'change .checkbox' : 'changeCh',
 		'click #btnHelp' : 'showHelpDialog'		
 	},
@@ -169,8 +169,11 @@ App.Views.DataElement = Backbone.View.extend({
 	},
 	
 	editDataElement : function(e) {
-		e.preventDefault();		
-		this.model.save(this.attributes,{
+		e.preventDefault();
+		
+		this.model.set({code:this.$el.find('#code').val()});
+		
+		this.model.save(null,{
 	        success: function (model, response) {
 	        	if (window.console) console.log(response);
 	           $('div#message-box').text("").append(response.message).fadeIn(500).delay(1500).fadeOut(500);
