@@ -18,7 +18,7 @@ body {
 
 #loginHeader {
 	position: relative;
-	top: 40px;
+	top: 10px;
 }
 
 
@@ -27,7 +27,8 @@ body {
 }
 
 .hospital-dropdown {
-	left: 670px;	
+	position: absolute;
+    right: 0;
 }
 
 div#hospital-specific, div#hospital-specific input[type="file"] {
@@ -461,7 +462,13 @@ button#btnApplyHospitalOptions {
 	height: 250px;
 }
 
-
+.open > .dropdown-menu {
+    margin: 0;
+    max-height: 450px !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    padding: 5px 7px;
+}
 
 ul.wysihtml5-toolbar {
 	margin: 0;
