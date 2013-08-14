@@ -6,6 +6,7 @@ App.Models.Product = Backbone.Model.extend({
 	    "code":     "",
 	    "name":    "",
 	    "notes": "",
+	    "help": "",
 	    "measures" : [],
 	    "hospitals" :[]
 	  }
@@ -19,6 +20,7 @@ App.Models.Measure = Backbone.Model.extend({
 	    "code":     "",
 	    "name":    "",
 	    "notes": "",
+	    "help": "",
 	    "measureCategory" : "",
 	    "cqmDomain" : "",
 	    "products" : [],
@@ -38,6 +40,7 @@ App.Models.DataElement = Backbone.Model.extend({
 	    "code":     "",
 	    "name":    "",
 	    "notes": "",
+	    "help": "",
 	    "dataElementDefaults" : [],
 	    "measures" : []//,
 	    //"hospitals" :[]
