@@ -28,7 +28,7 @@ App.Views.HospitalElements = Backbone.View.extend({
 	resetAllToDefault : function(e) {		
 		var m_id = this.options.m_id;
         App.hospitalElements = new App.Collections.HospitalElements();		
-		App.hospitalElements.fetch({data:{id: m_id}}).then(function(){			
+		App.hospitalElements.fetch({data:{id: m_id, defaults: true}}).then(function(){			
 			App.hospitalElements.forEach(function(hospitalElement) {
 			   var cur_row = $('#hospital-elements td#'+hospitalElement.id).closest('tr');
 			   var ch = $(cur_row).find('.sourceEHR').is(':checked');				
@@ -143,7 +143,7 @@ App.Views.SingleHospitalElement = Backbone.View
 		var id = $(event.target).closest('tr').find('td:first').prop('id');		
 		
 		App.hospitalElements = new App.Collections.HospitalElements();		
-		App.hospitalElements.fetch({data:{id: m_id}}).then(function(){			
+		App.hospitalElements.fetch({data:{id: m_id, defaults: true, he_id: id}}).then(function(){			
 			var hospitalElement = App.hospitalElements.get(id);
 			var cur_row = $('#hospital-elements td#'+hospitalElement.id).closest('tr');
 			var view = new App.Views.SingleHospitalElement({ model : hospitalElement, m_id: m_id});			
