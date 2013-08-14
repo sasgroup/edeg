@@ -199,6 +199,13 @@ form#hospital-edit div#myTabContent  {
 	overflow: auto;   
 }
 
+form#hospital-edit #name  {	
+	width:235px;	   
+}
+
+form#hospital-edit #notes  {	
+	width:355px;	   
+}
 
 form#product-edit div#myTabContent, form#element-edit div#myTabContent, form#ehr-edit div#myTabContent   {
 	display:block;
