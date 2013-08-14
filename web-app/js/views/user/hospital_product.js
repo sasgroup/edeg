@@ -11,18 +11,19 @@ App.Views.HospitalProduct = Backbone.View.extend({
 	
 	renderHospitalMeasureTable: function(measures, cur_hospital_product){		
 		$.each( measures, function( m_index, measure ) {			
-			var hospitalMeasure	 =  new App.Models.HospitalMeasure({"id":measure.id,
-																"code":measure.code,
-																"name":measure.name,
-																"accepted" :measure.accepted,
-																"completed":measure.completed,
-																"confirmed":measure.confirmed,
-																"included" :measure.included,
-																"verified" :measure.verified,																
-																"h_id"     :cur_hospital_product.options.h_id,
-																"product_code": cur_hospital_product.model.code,
-																"product_id": cur_hospital_product.model.id,
-																"notes"       : measure.notes
+			var hospitalMeasure	 =  new App.Models.HospitalMeasure({"id"		: measure.id,
+																"code"			: measure.code,
+																"name"			: measure.name,
+																"accepted" 		: measure.accepted,
+																"completed"		: measure.completed,
+																"confirmed"		: measure.confirmed,
+																"included" 		: measure.included,
+																"verified" 		: measure.verified,																
+																"h_id"     		: cur_hospital_product.options.h_id,
+																"product_code"	: cur_hospital_product.model.code,
+																"product_id"	: cur_hospital_product.model.id,
+																"notes"       	: measure.notes,
+																"help"			: measure.help
 																});	
 					
 			var view = new App.Views.HospitalMeasure({ model : hospitalMeasure });					
@@ -99,14 +100,20 @@ App.Views.HospitalMeasure = Backbone.View
 			    });
 			},
 			
-			showInfo: function() {
-				//if (this.model.get('notes')!=null) {
-				//alert(this.model.get('notes'));
-					//$('.alert-info').html(this.model.get('notes'));
-					//$('.alert-info').fadeIn(500).delay(1500).fadeOut(500);
-				if (window.console) console.log(this.model.get('notes'));
-					$('.show_info').attr('title',this.model.get('notes'));
-				//}
+			showInfo: function(obj) {
+				var _mid = $(obj.target).attr('mid');
+				var _help = this.model.get('help');
+				$('.show_info.shown')
+				.removeClass('shown')
+				.popover('hide');
+				
+				$('.show_info[mid='+_mid+']')
+				.addClass('shown')
+				.popover({html:true,placement:'left',title:'help',content:_help})
+				.popover('show');
+
+				//return false;
+				//$('.show_info').attr('title',this.model.get('notes'));
 			},
 			
 			goToDataElements : function(e) {
