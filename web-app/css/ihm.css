@@ -10,10 +10,29 @@ body {
     background: url("images/bg.png") repeat-y center;       
 }
 
+a.show-help, a.show-notes, a.show-help-product {
+	display: block;
+	position: absolute;
+	top: 3px;	
+}
+
+a.show-notes {
+	right: 132px;
+}
+
+a.show-help {
+	right: 65px;
+}
+
+
 #resetAll { 
 	padding-left: 2px;
 	padding-right: 2px;
 	font-size: 12px;
+}
+
+th.resetAll {
+	text-align: center;
 }
 
 #loginHeader {

@@ -39,7 +39,7 @@
      <input type="checkbox" name="verified" id="{{id}}" disabled="disabled" {{verified}}>
  </td>
  <td>
-     <a class="btn show_info" rel="tooltip" title="first tooltip"><i class="icon-info-sign"></i></a>
+     <a class="btn show_info" rel="tooltip" title="instructions"><i class="icon-info-sign"></i></a>
  </td>
 </script>
 
@@ -48,5 +48,8 @@
 	<li><a href="#">Home</a><span class="divider">></span></li>	
     <li class="active">{{ product_code }}:</li>
 	<li class="active">Measures</li>
+
+    <li class="pull-right"><a class="btn show-help" title="instructions"><i class="icon-info-sign"></i></a></li>
+	<li class="pull-right"><a class="btn show-notes" title="notes"><i class="icon-comment"></i></a></li>	
 </ul>
 </script>

@@ -11,7 +11,8 @@
 				<th>Source</th>
 				<th>CodeType</th>
 		    	<th>ValueType</th>
-				<th><a id="resetAll" class= "btn" title="Reset all data elements in the measure to default locations in accordance with the current EHR version">Reset All</a> </th>	    		    
+				<th class='resetAll'><a id="resetAll" title="Reset all data elements in the measure to default locations in accordance with the current EHR version"><i class="icon-retweet"></i></a> </th>
+				<th>Help</th>	    		    
 			 </tr>
       </thead>				
     <tbody></tbody>
@@ -160,9 +161,11 @@
 				<option value="ValueSet">ValueSet</option>
      </select>
  </td>
- <td>
+ <!--<td>
    <div id="reset" class="btn" title="Reset the data element location to default in accordance with the current EHR version">Reset</div>
- </td>
+ </td>-->
+<td class="f-btn"><div id="reset" class= "btn" title="Reset the data element location to default in accordance with the current EHR version"><i class="icon-refresh"></i></div></td>
+<td><a class="btn show_info" rel="tooltip" title="instructions"><i class="icon-info-sign"></i></a></td>
 </script>
 
 
