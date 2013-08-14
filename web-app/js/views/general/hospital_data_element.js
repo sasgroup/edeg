@@ -38,8 +38,7 @@ App.Views.HospitalElements = Backbone.View.extend({
 	},
 	
 	restoreHospitalElement : function(hospitalElement) {
-		//only for checked sourceEHR	
-		
+		//only for checked sourceEHR			
 		var he = new App.Models.HospitalElement(hospitalElement.toJSON());		
 		
 		var cur_row = $('#hospital-elements td#'+he.get('id')).closest('tr');
