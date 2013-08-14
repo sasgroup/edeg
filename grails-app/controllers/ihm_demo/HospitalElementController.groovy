@@ -16,6 +16,18 @@ class HospitalElementController {
 		// TODO append notes info
 		instance.internalNotes = param.internalNotes
 		instance.notes = param.notes
+				
+		if (param.markAsComplete){
+			def mid = param.m_id as Long
+			for(def hme in instance.hospitalMeasureElements){
+				def hm = hme.hospitalMeasure
+				if (hm.id == mid){
+					hm.completed = true
+					hm.save()
+				}
+			}	
+		}
+				
 		return instance.save(flush :true)
 	}
 
