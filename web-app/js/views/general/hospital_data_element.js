@@ -54,8 +54,10 @@ App.Views.HospitalElements = Backbone.View.extend({
 	},
 	
 	saveHospitalElements : function() {		
+		var m_id = this.options.m_id;
 		_.each(this.collection.models, function(model) {
 			  model.set({markAsComplete: false});	 
+			  model.set({m_id: m_id});	
 			  return model.save({
 			    wait: true,
 			    error: function (collection, response) {
@@ -65,9 +67,11 @@ App.Views.HospitalElements = Backbone.View.extend({
 		});			
 	},
 	
-	saveAndMarkHospitalElements : function() {		
+	saveAndMarkHospitalElements : function() {	
+		var m_id = this.options.m_id;
 		_.each(this.collection.models, function(model) {
-			  model.set({markAsComplete: true});	
+			  model.set({markAsComplete: true});
+			  model.set({m_id: m_id});	
 			  return model.save({
 			    wait: true,
 			    error: function (collection, response) {
