@@ -39,7 +39,7 @@
      <input type="checkbox" name="verified" id="{{id}}" disabled="disabled" {{verified}}>
  </td>
  <td>
-     <a class="btn show_info" rel="tooltip" title="instructions"><i class="icon-info-sign"></i></a>
+     <a class="btn show_info" rel="tooltip" mid="{{id}}" title="instructions"><i class="icon-info-sign" mid="{{id}}"></i></a>
  </td>
 </script>
 
