@@ -126,7 +126,7 @@
 <script type="text/template" class="template" id="hospital_data_element">
  <td id="{{id}}" class="slc_row">{{dataElement}}</td>
  <td><input type="text" class="location" name="location" id="location" value="{{location}}"></td>
- <td><input type="checkbox" class="sourceEHR" name="sourceEHR" id="sourceEHR" value={{sourceEHR}} {{chd}}></td>
+ <td><input type="checkbox" class="sourceEHR" name="sourceEHR" id="sourceEHR" value={{sourceEHR}}></td>
  <td><input type="text" class="source" id="source" name= "source" value="{{source}}"></td>
  <td>
     <select class="slcCodeType" name="codeType">                

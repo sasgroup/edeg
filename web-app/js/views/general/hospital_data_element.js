@@ -9,10 +9,7 @@ App.Views.HospitalElements = Backbone.View.extend({
 		'click #save-mark-btn': 'saveAndMarkHospitalElements'
 	},
 	
-	initialize : function() {		
-		App.hospitalElementsToRestore = new App.Collections.HospitalElements(App.hospitalElements.toJSON());		
-	},
-
+	
 	render : function() {		
 		this.$el.html(this.template({ hospitals : this.collection}));
 		this.collection.each(this.appendHospitalElement, this);
@@ -29,26 +26,26 @@ App.Views.HospitalElements = Backbone.View.extend({
 	},
 	
 	resetAllToDefault : function(e) {		
-		App.hospitalElementsToRestore.each(this.restoreHospitalElement, this);
+		var m_id = this.options.m_id;
+        App.hospitalElements = new App.Collections.HospitalElements();		
+		App.hospitalElements.fetch({data:{id: m_id}}).then(function(){			
+			App.hospitalElements.forEach(function(hospitalElement) {
+			   var cur_row = $('#hospital-elements td#'+hospitalElement.id).closest('tr');
+			   var ch = $(cur_row).find('.sourceEHR').is(':checked');				
+			   if (ch) {
+				var view = new App.Views.SingleHospitalElement({ model : hospitalElement, m_id: m_id});			
+				$(cur_row).replaceWith(view.render().el);
+			   }	
+			});	
+		});		
 	},
 
 	appendHospitalElement : function(hospitalElement) {
-		var view = new App.Views.SingleHospitalElement({ model : hospitalElement});		
+		var m_id = this.options.m_id;
+		var view = new App.Views.SingleHospitalElement({ model : hospitalElement, m_id: m_id});		
 		this.$el.find('#hospital-elements tbody').append(view.render().el);		
 	},
-	
-	restoreHospitalElement : function(hospitalElement) {
-		//only for checked sourceEHR			
-		var he = new App.Models.HospitalElement(hospitalElement.toJSON());		
 		
-		var cur_row = $('#hospital-elements td#'+he.get('id')).closest('tr');
-		var ch = $(cur_row).find('.sourceEHR').is(':checked');
-			
-		if (ch) {
-			var view = new App.Views.SingleHospitalElement({ model : he});			
-			$(cur_row).replaceWith(view.render().el);
-		}		
-	},
 	
 	returnToProduct : function(){
 		//Backbone.history.navigate("product/" + this.options.product_id, true);
@@ -95,15 +92,13 @@ App.Views.SingleHospitalElement = Backbone.View
 		'change .slcCodeType, .slcValueType' 		   : 'changeSlc'
 	},
 					
-	render : function() {			
-		var ch  = (this.model.get('sourceEHR'))  ? "checked" : "";		
-		this.model.set({chd:ch});
-		if (window.console) console.log(this.model.toJSON());
+	render : function() {		
 		this.$el.html(this.template(this.model.toJSON()));				
 		
 		this.$el.find(".slcCodeType").val(this.model.get('codeType').name);
 		this.$el.find(".slcValueType").val(this.model.get('valueType').name);
-		
+		this.$el.find('.sourceEHR').attr('checked', this.model.get('sourceEHR'));
+				
 		return this;
 	},
 	
@@ -140,13 +135,16 @@ App.Views.SingleHospitalElement = Backbone.View
 	},
 	
 	resetToDefault : function(event) {			
+		var m_id = this.options.m_id;
 		var id = $(event.target).closest('tr').find('td:first').prop('id');		
-		var he = App.hospitalElementsToRestore.get(id);		
-		App.hospitalElementToRestore = new App.Models.HospitalElement(he.toJSON());
 		
-		this.$el.html(this.template(App.hospitalElementToRestore.toJSON()));	
-		this.$el.find(".slcCodeType").val(App.hospitalElementToRestore.get('codeType').name);
-		this.$el.find(".slcValueType").val(App.hospitalElementToRestore.get('valueType').name);
+		App.hospitalElements = new App.Collections.HospitalElements();		
+		App.hospitalElements.fetch({data:{id: m_id}}).then(function(){			
+			var hospitalElement = App.hospitalElements.get(id);
+			var cur_row = $('#hospital-elements td#'+hospitalElement.id).closest('tr');
+			var view = new App.Views.SingleHospitalElement({ model : hospitalElement, m_id: m_id});			
+			$(cur_row).replaceWith(view.render().el);				
+		});		
 	},
 	
 	showQA: function(slc_hospital_element){		

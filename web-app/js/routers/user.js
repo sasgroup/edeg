@@ -115,7 +115,7 @@ App.Routers.User = Backbone.Router.extend({
 		
 		App.hospitalElements.fetch({data:{id: m_id}}).then(function(){			                          
 			
-			App.viewHospitalElements = new App.Views.HospitalElements ({collection:App.hospitalElements});
+			App.viewHospitalElements = new App.Views.HospitalElements ({collection:App.hospitalElements, m_id: m_id});
 			$('#app').html(App.viewHospitalElements.render().el);		
 			
 			var oTable = $('#hospital-elements').dataTable({		
