@@ -68,7 +68,9 @@ class HospitalController {
 								completed : hpm.hospitalMeasure.completed,
 								confirmed : hpm.hospitalMeasure.confirmed,
 								included : hpm.included,
-								verified : hpm.hospitalMeasure.verified
+								verified : hpm.hospitalMeasure.verified,
+								notes : hpm.hospitalMeasure.measure.notes,
+								help : hpm.hospitalMeasure.measure.help
 							}
 						}
 					}
@@ -217,7 +219,9 @@ class HospitalController {
 								completed : hpm.hospitalMeasure.completed,
 								confirmed : hpm.hospitalMeasure.confirmed,
 								included : hpm.included,
-								verified : hpm.hospitalMeasure.verified
+								verified : hpm.hospitalMeasure.verified,
+								notes : hpm.hospitalMeasure.measure.notes,
+								help : hpm.hospitalMeasure.measure.help
 							}
 						}
 					}
