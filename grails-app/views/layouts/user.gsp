@@ -6,6 +6,10 @@
 		<title><g:layoutTitle default="Grails"/></title>
 		<g:layoutHead/>
 		<r:layoutResources />
+		
+		<!--[if IE 7]> 
+			<link href="/ihm/static/css/ie7-fix.css" type="text/css" rel="stylesheet" />
+		<![endif]-->
 	</head>
 	<body>
 		<g:render template="/layouts/header_user" />
