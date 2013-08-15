@@ -124,15 +124,15 @@ App.Views.Hospital = Backbone.View.extend({
 		    return aData;		    
 		}
 					
-		var oTable = $('.hospitalMeasureTable').dataTable({ 
+		var oTable = $(slcTab + ' .hospitalMeasureTable').dataTable({ 
 			"bDestroy": true, 
 			"bPaginate": false,
+			"bSortClasses": false,
 			"bFilter": false,
 			"sScrollY": "272px",			
 			"bSort": true,
 			"bInfo": false,
-			"aaSorting": [[0, 'asc']],
-			//"aoColumnDefs": [{'bSortable': false, 'aTargets': [ 3,4,5,6 ] }]
+			"aaSorting": [[0, 'asc'], [1, 'asc']],
 			"aoColumns": [
 				  			{ "sSortDataType": "dom-checkbox" },
 				  			null,
@@ -141,20 +141,30 @@ App.Views.Hospital = Backbone.View.extend({
 				  			{ "sSortDataType": "dom-checkbox" },
 				  			{ "sSortDataType": "dom-checkbox" },
 				  			{ "sSortDataType": "dom-checkbox" }
-				  		]
+				  		]			
 		 });	
 	
-	    new FixedColumns( oTable, {"sHeightMatch": "none"} );        	    
-	    setTimeout(this.refeshTableHeader, 300);    		
+	    //new FixedColumns( oTable, {"sHeightMatch": "none"} );		
+		$(slcTab + ' .dataTables_scrollHeadInner').css('width', '934px');
+		$(slcTab + ' .hospitalMeasureTable.dataTable').css('width', '934px');
+		$(slcTab + ' .hospitalMeasureTable.dataTable td:eq(0), ' + slcTab + ' .hospitalMeasureTable.dataTable th:eq(0)').css('width', '30px');
+		$(slcTab + ' .hospitalMeasureTable.dataTable td:eq(1), ' + slcTab + ' .hospitalMeasureTable.dataTable th:eq(1)').css('width', '97px');
+		$(slcTab + ' .hospitalMeasureTable.dataTable td:eq(2), ' + slcTab + ' .hospitalMeasureTable.dataTable th:eq(2)').css('width', '336px');
+		$(slcTab + ' .hospitalMeasureTable.dataTable td:eq(3), ' + slcTab + ' .hospitalMeasureTable.dataTable th:eq(3)').css('width', '83px');
+		$(slcTab + ' .hospitalMeasureTable.dataTable td:eq(4), ' + slcTab + ' .hospitalMeasureTable.dataTable th:eq(4)').css('width', '72px');
+		$(slcTab + ' .hospitalMeasureTable.dataTable td:eq(5), ' + slcTab + ' .hospitalMeasureTable.dataTable th:eq(5)').css('width', '66px');
+		$(slcTab + ' .hospitalMeasureTable.dataTable td:eq(6), ' + slcTab + ' .hospitalMeasureTable.dataTable th:eq(6)').css('width', '63px');
+	    
+	    //setTimeout(this.refeshTableHeader, 300);    		
 	},
 	
-	refeshTableHeader:  function() {
+	/*refeshTableHeader:  function() {
 		if ($('th.sorting_asc').length >0) {
     		$('th.sorting_asc').click();	
     	} else {
     		$('th.sorting_desc').click();
     	}	
-	},
+	},*/
 	
 	
 	// append HospitalMeasureTable to Tab

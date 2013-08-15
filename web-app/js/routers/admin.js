@@ -392,16 +392,15 @@ App.Routers.Administrator = Backbone.Router.extend({
 				    return aData;		    
 				}
 				
-				var oTable = $('.hospitalMeasureTable').dataTable({
-						//"bRetrieve": true,
+				var oTable = $('.hospitalMeasureTable:first').dataTable({
 						"bDestroy": true, 
 						"bPaginate": false,
+						"bSortClasses": false,
 						"bFilter": false,
 						"sScrollY": "272px",			
 						"bSort": true,
 						"bInfo": false,
-						"aaSorting": [[0, 'asc']],
-					    //"aoColumnDefs": [{'bSortable': false, 'aTargets': [ 3,4,5,6 ] }]
+						"aaSorting": [[0, 'asc'], [1, 'asc']],
 						"aoColumns": [
 							  			{ "sSortDataType": "dom-checkbox" },
 							  			null,
@@ -410,15 +409,10 @@ App.Routers.Administrator = Backbone.Router.extend({
 							  			{ "sSortDataType": "dom-checkbox" },
 							  			{ "sSortDataType": "dom-checkbox" },
 							  			{ "sSortDataType": "dom-checkbox" }
-							  		]
-						 
+							  		]						 
 					 });				
 				
-				new FixedColumns( oTable, {"sHeightMatch": "none"} );	
-				
-				$("#modalDataElements").draggable({
-				    handle: ".modal-header"
-				}); 
+				new FixedColumns( oTable, {"sHeightMatch": "none"} );				
 				
 		});	
 	  });	 

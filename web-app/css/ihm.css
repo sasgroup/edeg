@@ -10,6 +10,10 @@ body {
     background: url("images/bg.png") repeat-y center;       
 }
 
+.hospitalMeasureTable.dataTable {
+	width:934px
+}
+
 a.show-help, a.show-notes, a.show-help-product {
 	display: block;
 	position: absolute;
