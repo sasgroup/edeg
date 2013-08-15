@@ -50,28 +50,14 @@ App.Views.DataElement = Backbone.View.extend({
 		};				
 		this.$el.html(this.template(this.model.toJSON()));		
 		this.model.timeId = -1;
-		this.appendDataElementsDefault();		
-		this.$el.find('.slcEHR').append(this.ehrOptions());		
-		
-		var temp = _.template($('#single-element-measure').html());	
-		this.checked = [];
-		this.unchecked = [];
-				
+						
+		//append Measures
 		this.appendMeasures();
 		
-		if (window.console) console.log("checked ", this.checked);
-		if (window.console) console.log("unchecked ", this.unchecked);
-		
-		for(var de_measure in this.checked) {
-			var measure = this.checked[de_measure];
-			this.$el.find('div#measures').append(temp({name:measure.name,id:measure.id,ch:'checked'}));	 
-		}	
-		
-		for(var de_measure in this.unchecked) {
-			var measure = this.unchecked[de_measure];
-			this.$el.find('div#measures').append(temp({name:measure.name,id:measure.id,ch:''}));					
-		}			
-		
+		//append DataElementsDefault
+		this.appendDataElementsDefault();		
+		this.$el.find('.slcEHR').append(this.ehrOptions());		
+				
 		return this;
 	},
 		
@@ -85,8 +71,9 @@ App.Views.DataElement = Backbone.View.extend({
 	},
 		
 	appendMeasures : function(){
-		var checked = this.checked;
-		var unchecked = this.unchecked;
+		var temp = _.template($('#single-element-measure').html());	
+		checked = [];
+		unchecked = [];
 				
 		var mids = _.pluck(this.model.get('measures'), 'mid');					
 		var measure_ids = App.measures.pluck('id');
@@ -99,6 +86,16 @@ App.Views.DataElement = Backbone.View.extend({
 				unchecked.push({name:m.get('name'),id:m.get('id')});
 			}
 		});		
+		
+		for(var de_measure in checked) {
+			var measure = checked[de_measure];
+			this.$el.find('div#measures').append(temp({name:measure.name,id:measure.id,ch:'checked'}));	 
+		}	
+		
+		for(var de_measure in unchecked) {
+			var measure = unchecked[de_measure];
+			this.$el.find('div#measures').append(temp({name:measure.name,id:measure.id,ch:''}));					
+		}		
 	},	
 	
 	appendDataElementsDefault: function(){

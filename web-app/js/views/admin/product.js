@@ -50,28 +50,11 @@ App.Views.Product = Backbone.View.extend({
 		};
 		this.$el.html(this.template(this.model.toJSON()));
 				
-		var temp = _.template($('#single-product-measure').html());		
-		
-		this.checked = [];
-		this.unchecked = [];
-				
+		//append Measures				
 		this.appendProductMeasures();
-		
-		if (window.console) console.log("checked ", this.checked);
-		if (window.console) console.log("unchecked ", this.unchecked);
-		
-		for(var product_measure in this.checked) {
-			var measure = this.checked[product_measure];
-			this.$el.find('div#measures').append(temp({name:measure.name,id:measure.id,ch:'checked'}));	 
-		}	
-		
-		for(var product_measure in this.unchecked) {
-			var measure = this.unchecked[product_measure];
-			this.$el.find('div#measures').append(temp({name:measure.name,id:measure.id,ch:''}));	 
-		}	
 						
-		//this.model.get('hospitals').forEach(this.appendHospital,this);	
-	    var this_product = this;		
+		//append Hospitals
+		var this_product = this;		
 		$.each(this.model.get('hospitals'), function(i, product_hospital){
 			this_product.appendHospital(product_hospital);
 		});
@@ -82,8 +65,9 @@ App.Views.Product = Backbone.View.extend({
 
 
 	appendProductMeasures : function(){
-		var checked = this.checked;
-		var unchecked = this.unchecked;
+		var temp = _.template($('#single-product-measure').html());		
+		var checked = [];
+		var unchecked = [];
 				
 		var mids = _.pluck(this.model.get('measures'), 'mid');					
 		var measure_ids = App.measures.pluck('id');
@@ -96,6 +80,16 @@ App.Views.Product = Backbone.View.extend({
 				unchecked.push({name:m.get('name'),id:m.get('id')});
 			}
 		});		
+		
+		for(var product_measure in checked) {
+			var measure = checked[product_measure];
+			this.$el.find('div#measures').append(temp({name:measure.name,id:measure.id,ch:'checked'}));	 
+		}	
+		
+		for(var product_measure in unchecked) {
+			var measure = unchecked[product_measure];
+			this.$el.find('div#measures').append(temp({name:measure.name,id:measure.id,ch:''}));	 
+		}	
 	},
 		
 	appendHospital : function(product_hospital){

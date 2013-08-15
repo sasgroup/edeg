@@ -44,8 +44,14 @@ App.Views.Ehr = Backbone.View.extend({
 		};
 		this.model.timeId = -1;
 		this.$el.html(this.template(this.model.toJSON()));
-		this.model.get('hospitals').forEach(this.appendHospital,this);		
 		
+		//append Hospitals
+		var this_ehr = this;		
+		$.each(this.model.get('hospitals'), function(i, ehr_hospital){
+			this_ehr.appendHospital(ehr_hospital);
+		});
+		
+		//append DataElementsDefault
 		this.appendDataElementsDefault();	
 		
 		return this;

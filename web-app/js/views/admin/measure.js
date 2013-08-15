@@ -47,39 +47,58 @@ App.Views.Measure = Backbone.View.extend({
 			this.model.set("state" , "New");
 		};
 		this.$el.html(this.template(this.model.toJSON()));
-		App.products.forEach(this.appendProduct,this);		
+				
+		//append Products	
+		this.appendProducts();	
 		
-		var temp = _.template($('#single-measure-element').html());
+		//append DataElements
+		this.appendDataElements();			
+			
+		//append MeasureCategories	
+		var this_measure = this;		
+		App.measureCategories.each(function( measure_category){
+			this_measure.appendMeasureCategory(measure_category);			
+		});
 		
-		this.checked = [];
-		this.unchecked = [];
-		
-		this.appendDataElements();
-		
-		if (window.console) console.log("checked ", this.checked);
-		if (window.console) console.log("unchecked ", this.unchecked);
-		
-		for(var measure_element in this.checked) {
-			var element = this.checked[measure_element];			
-			this.$el.find('div#elements').append(temp({name:element.name,id:element.id,ch:'checked'}));
-		}	
-		
-		for(var measure_element in this.unchecked) {
-			var element = this.unchecked[measure_element];			
-			this.$el.find('div#elements').append(temp({name:element.name,id:element.id,ch:''}));
-		}	
-		
-		//App.dataElements.forEach(this.appendDataElement,this);			
-		App.measureCategories.forEach(this.appendMeasureCategory,this);	
-		App.cqmDomains.forEach(this.appendCqmDomain,this);
+		//append CqmDomains
+		App.cqmDomains.each(function(cqm_domain){
+			this_measure.appendCqmDomain(cqm_domain);			
+		});	
 		
 		return this;
 	},
+			
+	appendProducts : function(){
+		var temp = _.template($('#single-measure-product').html());		
+		var checked = [];
+		var unchecked = [];
+						
+		var pids = _.pluck(this.model.get('products'), 'pid');					
+								
+		App.products.forEach(function(p){	
+			if (_.contains(pids, p.get('id'))) {				
+				checked.push({name:p.get('name'),id:p.get('id')});
+			} else {
+				unchecked.push({name:p.get('name'),id:p.get('id')});
+			}
+		});		
+		
+		for(var measure_product in checked) {
+			var product = checked[measure_product];			
+			this.$el.find('div#products').append(temp({name:product.name,id:product.id,ch:'checked'}));					
+		}	
+		
+		for(var measure_product in unchecked) {
+			var product = unchecked[measure_product];			
+			this.$el.find('div#products').append(temp({name:product.name,id:product.id,ch:''}));
+		}	
+	},
 	
 	appendDataElements : function(){
-		var checked = this.checked;
-		var unchecked = this.unchecked;
-				
+		var temp = _.template($('#single-measure-element').html());
+		var checked = [];
+		var unchecked = [];
+						
 		var dids = _.pluck(this.model.get('dataElements'), 'did');					
 								
 		App.dataElements.forEach(function(e){	
@@ -89,6 +108,36 @@ App.Views.Measure = Backbone.View.extend({
 				unchecked.push({name:e.get('name'),id:e.get('id')});
 			}
 		});		
+		
+		for(var measure_element in checked) {
+			var element = checked[measure_element];			
+			this.$el.find('div#elements').append(temp({name:element.name,id:element.id,ch:'checked'}));
+		}	
+		
+		for(var measure_element in unchecked) {
+			var element = unchecked[measure_element];			
+			this.$el.find('div#elements').append(temp({name:element.name,id:element.id,ch:''}));
+		}	
+	},
+	
+	appendMeasureCategory : function(measure_category){
+		var temp = _.template($('#single-measure-category').html());
+		var sel = "";
+		if (this.model.get('measureCategory')){
+			if (this.model.get('measureCategory').id == measure_category.get("id"))
+				sel="selected";
+		}
+		this.$el.find('#measureCategory').append(temp({selected:sel, id:measure_category.get("id"),name:measure_category.get('name')}));
+	},
+	
+	appendCqmDomain : function(cqmComain){
+		var temp = _.template($('#single-measure-domain').html());
+		var sel = "";
+		if (this.model.get('cqmDomain')){
+			if (this.model.get('cqmDomain').id == cqmComain.get("id"))
+				sel="selected";
+		}
+		this.$el.find('#cqmDomain').append(temp({selected:sel, id:cqmComain.get("id"),name:cqmComain.get('name')}));
 	},
 		
 	changeDr : function(e) {
@@ -97,14 +146,7 @@ App.Views.Measure = Backbone.View.extend({
 	changeVal : function(e) {
 		this.model.attributes[e.target.name] = $(e.target).val();
 	},
-	appendProduct : function(measure_product){
-		var temp = _.template($('#single-measure-product').html());		
-		var chd = '';
-		this.model.get('products').forEach(function( product ) {
-			if (product.pid == measure_product.get('id')) {chd = 'checked';}
-		});
-		this.$el.find('div#products').append(temp({name:measure_product.get('name'),id:measure_product.get('id'),ch:chd}));		
-	},
+	
 	changeCh : function(e) {
 		if (window.console) console.log(e.target.value + ' ' + e.target.id + ' ' + e.target.checked+ ' '+e.target.name);
 		if (e.target.name == 'product' ) {
@@ -145,35 +187,7 @@ App.Views.Measure = Backbone.View.extend({
 		};	
 		if (window.console) console.log(this.model);
 	},
-	appendDataElement : function(measure_element){
-		var temp = _.template($('#single-measure-element').html());
-		var chd = '';
-		this.model.get('dataElements').forEach(function( element ) {
-			if (element.did == measure_element.get('id')) {chd = 'checked';}
-		});
-		this.$el.find('div#elements').append(temp({name:measure_element.get('name'),id:measure_element.get('id'),ch:chd}));
-	},
 	
-	appendMeasureCategory : function(measure_category){
-		var temp = _.template($('#single-measure-category').html());
-		var sel = "";
-		if (this.model.get('measureCategory')){
-			if (this.model.get('measureCategory').id == measure_category.get("id"))
-				sel="selected";
-		}
-		this.$el.find('#measureCategory').append(temp({selected:sel, id:measure_category.get("id"),name:measure_category.get('name')}));
-	},
-	
-	appendCqmDomain : function(cqmComain){
-		var temp = _.template($('#single-measure-domain').html());
-		var sel = "";
-		if (this.model.get('cqmDomain')){
-			if (this.model.get('cqmDomain').id == cqmComain.get("id"))
-				sel="selected";
-		}
-		this.$el.find('#cqmDomain').append(temp({selected:sel, id:cqmComain.get("id"),name:cqmComain.get('name')}));
-	},
-
 	editMeasure : function(e) {
 		e.preventDefault();
 		this.model.attributes.help = $('.helpArea').val();	
