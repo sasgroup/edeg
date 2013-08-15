@@ -61,11 +61,12 @@ App.Routers.User = Backbone.Router.extend({
 		var oTable = $('.hospitalMeasureTable').dataTable({		
 			"bDestroy": true, 
 			"bPaginate": false,
+			"bSortClasses": false,
 			"bFilter": true,
 			"sScrollY": "548px",			
 			"bSort": true,
 			"bInfo": false,
-			"aaSorting": [[0, 'asc']],
+			"aaSorting": [[0, 'asc'], [1, 'asc']],
 			//"aoColumnDefs": [{'bSortable': false, 'aTargets': [ 1,3,4,5,6,7 ] }]
 			"aoColumns": [
 			  			{ "sSortDataType": "dom-checkbox" },
