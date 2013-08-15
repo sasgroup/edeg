@@ -5,7 +5,16 @@ App.Views.HospitalProduct = Backbone.View.extend({
 	render : function() {					
 		this.$el.html(this.template());		
 		var measures = this.model.measures;			
-		this.renderHospitalMeasureTable(measures,this);				
+		this.renderHospitalMeasureTable(measures,this);	
+		
+		$('body')
+		.unbind('mousedown')
+		.mousedown(function(){
+			$('.show_info.shown')
+			.removeClass('shown')
+			.popover('hide');	
+		})
+		
 		return this;
 	},
 	
@@ -103,17 +112,33 @@ App.Views.HospitalMeasure = Backbone.View
 			showInfo: function(evt) {
 				var _mid = $(evt.target).attr('mid');
 				var _help = this.model.get('help');
+				var _code = this.model.get('code');
 				$('.show_info.shown')
 				.removeClass('shown')
 				.popover('hide');
 				
 				$('.show_info[mid='+_mid+']')
 				.addClass('shown')
-				.popover({html:true,placement:'left',title:'help',content:_help})
+				.popover({html:true,placement:'left',title:'instructions for ['+_code+']',content:_help||"No Instructions were supplied..."})
 				.popover('show');
-
+				
+				
+				evt.preventDefault();
+				evt.stopPropagation();
+				
+				this.adjustPopover();
+				
 				//return false;
 				//$('.show_info').attr('title',this.model.get('notes'));
+			},
+			
+			adjustPopover:function(){
+				$('.popover')
+				.unbind('mousedown')
+				.mousedown(function(e){
+					e.preventDefault();
+					e.stopPropagation();
+				})
 			},
 			
 			goToDataElements : function(e) {

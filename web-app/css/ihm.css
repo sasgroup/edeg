@@ -542,8 +542,9 @@ ul.wysihtml5-commands-disabled .dropdown-menu {
 }
 
 .popover{
-	width:450px;
-	max-width: 500px;
+	width:750px;
+	max-width: 800px;
+	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.75);
 }
 .popover-content{
 	max-height:150px;
