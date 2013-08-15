@@ -10,7 +10,7 @@
 		<g:else>
      		<meta name="layout" content="user">
 		</g:else>-->
-
+		<g:setUser />
 		<g:if test="${session.user?.role == 'admin'}">
     		<meta name="layout" content="admin">
 		</g:if>

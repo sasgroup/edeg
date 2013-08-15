@@ -15,6 +15,6 @@ class User {
     }
 	
 	String toString(){
-		login
+		"$login, $role"
 	}
 }
