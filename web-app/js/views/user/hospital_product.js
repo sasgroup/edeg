@@ -113,20 +113,23 @@ App.Views.HospitalMeasure = Backbone.View
 				var _mid = $(evt.target).attr('mid');
 				var _help = this.model.get('help');
 				var _code = this.model.get('code');
-				$('.show_info.shown')
-				.removeClass('shown')
+				var _show = $('.show_info[mid='+_mid+']').hasClass('show');
+
+				$('.show_info.show')
+				.removeClass('show')
 				.popover('hide');
 				
-				$('.show_info[mid='+_mid+']')
-				.addClass('shown')
-				.popover({html:true,placement:'left',title:'instructions for ['+_code+']',content:_help||"No Instructions were supplied..."})
-				.popover('show');
-				
+				if (!_show){
+					$('.show_info[mid='+_mid+']')
+					.addClass('show')
+					.popover({html:true,placement:'left',title:'instructions for ['+_code+']',content:_help||"No Instructions were supplied..."})
+					.popover('show');
+					
+					this.adjustPopover();
+				}
 				
 				evt.preventDefault();
 				evt.stopPropagation();
-				
-				this.adjustPopover();
 				
 				//return false;
 				//$('.show_info').attr('title',this.model.get('notes'));
