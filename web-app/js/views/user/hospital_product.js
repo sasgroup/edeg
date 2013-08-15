@@ -100,8 +100,8 @@ App.Views.HospitalMeasure = Backbone.View
 			    });
 			},
 			
-			showInfo: function(obj) {
-				var _mid = $(obj.target).attr('mid');
+			showInfo: function(evt) {
+				var _mid = $(evt.target).attr('mid');
 				var _help = this.model.get('help');
 				$('.show_info.shown')
 				.removeClass('shown')

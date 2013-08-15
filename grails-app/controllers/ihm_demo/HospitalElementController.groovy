@@ -23,7 +23,7 @@ class HospitalElementController {
 				def hm = hme.hospitalMeasure
 				if (hm.id == mid){
 					hm.completed = true
-					hm.save()
+					hm.save(flush :true)
 				}
 			}	
 		}
@@ -41,6 +41,42 @@ class HospitalElementController {
 	
 	def show() {
 		if (params.id && HospitalMeasure.exists(params.id)) {
+			
+			if (params.defaults){
+				if (params.he_id){
+					println "reset to default settings only required HospitalElement"
+					def hElement = HospitalElement.get(params.he_id)
+					if (hElement && hElement.sourceEHR){
+						def defSettings = DataElementDefaults.findByDataElementAndEhr(hElement.dataElement, hElement.hospital.ehr)
+						if (defSettings && hElement.sourceEHR) {
+							hElement.location = defSettings.location
+							hElement.valueType = defSettings.valueType
+							hElement.codeType = defSettings.codeType
+						}
+						hElement.save(flush:true)
+					}
+				}
+				else{
+					println "reset all hospital element to default settings"
+					def hMeasure = HospitalMeasure.get(params.id)
+					if (hMeasure){
+						def hElementIds =  hMeasure.hospitalMeasureElements.collect{it.hospitalElement.id}
+						for (hElementId in hElementIds){
+							def hElement = HospitalElement.get(hElementId)
+							if (hElement && hElement.sourceEHR){
+								def defSettings = DataElementDefaults.findByDataElementAndEhr(hElement.dataElement, hElement.hospital.ehr)
+								if (defSettings) {
+									hElement.location = defSettings.location
+									hElement.valueType = defSettings.valueType
+									hElement.codeType = defSettings.codeType
+								}
+								hElement.save(flush:true)
+							}
+						}
+					}
+				}
+			}
+
 			def  result = HospitalMeasure.get(params.id)
 
 			def hospitalElements =  result.hospitalMeasureElements //HospitalElement.list().findAll{it?.hospitalMeasure.findAll{it.id == result.id}.size() >= 1}

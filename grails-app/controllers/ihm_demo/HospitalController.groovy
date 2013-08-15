@@ -112,10 +112,12 @@ class HospitalController {
 					for (de in measure.dataElements) {
 						def hospitalElement = HospitalElement.findByHospitalAndDataElement(hospital, de)
 						if (!hospitalElement)
-							hospitalElement = new HospitalElement(hospital: hospital, dataElement: de, internalNotes : "", notes:"", location : "", source : "", sourceEHR : true, valueSet : "", valueSetFile : "", valueType : ValueType.NotApplicable, codeType : CodeType.NotApplicable)
+							hospitalElement = new HospitalElement(hospital: hospital, dataElement: de, internalNotes : "", notes:"", location : "", source : "", sourceEHR : false, valueSet : "", valueSetFile : "", valueType : ValueType.NotApplicable, codeType : CodeType.NotApplicable)
 
 						def defaultSetting = DataElementDefaults.findByDataElementAndEhr(de, hospital.ehr)
 						if (defaultSetting) {
+							hospitalElement.sourceEHR = true
+							hospitalElement.source = hospital.ehr.code
 							hospitalElement.location = defaultSetting.location
 							hospitalElement.valueType = defaultSetting.valueType
 							hospitalElement.codeType = defaultSetting.codeType
