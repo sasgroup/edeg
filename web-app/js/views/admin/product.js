@@ -49,9 +49,9 @@ App.Views.Product = Backbone.View.extend({
 			this.model.set("state" , "New");
 		};
 		this.$el.html(this.template(this.model.toJSON()));
-		
-		
+				
 		var temp = _.template($('#single-product-measure').html());		
+		
 		this.checked = [];
 		this.unchecked = [];
 				
