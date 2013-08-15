@@ -153,20 +153,9 @@ App.Views.Hospital = Backbone.View.extend({
 		$(slcTab + ' .hospitalMeasureTable.dataTable td:eq(3), ' + slcTab + ' .hospitalMeasureTable.dataTable th:eq(3)').css('width', '83px');
 		$(slcTab + ' .hospitalMeasureTable.dataTable td:eq(4), ' + slcTab + ' .hospitalMeasureTable.dataTable th:eq(4)').css('width', '72px');
 		$(slcTab + ' .hospitalMeasureTable.dataTable td:eq(5), ' + slcTab + ' .hospitalMeasureTable.dataTable th:eq(5)').css('width', '66px');
-		$(slcTab + ' .hospitalMeasureTable.dataTable td:eq(6), ' + slcTab + ' .hospitalMeasureTable.dataTable th:eq(6)').css('width', '63px');
-	    
-	    //setTimeout(this.refeshTableHeader, 300);    		
+		$(slcTab + ' .hospitalMeasureTable.dataTable td:eq(6), ' + slcTab + ' .hospitalMeasureTable.dataTable th:eq(6)').css('width', '63px');	    
 	},
-	
-	/*refeshTableHeader:  function() {
-		if ($('th.sorting_asc').length >0) {
-    		$('th.sorting_asc').click();	
-    	} else {
-    		$('th.sorting_desc').click();
-    	}	
-	},*/
-	
-	
+		
 	// append HospitalMeasureTable to Tab
 	appendHospitalMeasureTable : function(){		
 	    var table_template = _.template($('#hospital-measure_table').html());			

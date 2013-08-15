@@ -70,12 +70,13 @@ App.Views.Product = Backbone.View.extend({
 			this.$el.find('div#measures').append(temp({name:measure.name,id:measure.id,ch:''}));	 
 		}	
 						
-		this.model.get('hospitals').forEach(this.appendHospital,this);	
-			
-		if (window.console) console.log(this.checked );
-		
-		$('.helpArea').wysihtml5();
-		
+		//this.model.get('hospitals').forEach(this.appendHospital,this);	
+	    var this_product = this;		
+		$.each(this.model.get('hospitals'), function(i, product_hospital){
+			this_product.appendHospital(product_hospital);
+		});
+				
+		$('.helpArea').wysihtml5();		
 		return this;
 	},
 
