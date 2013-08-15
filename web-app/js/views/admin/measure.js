@@ -48,11 +48,47 @@ App.Views.Measure = Backbone.View.extend({
 		};
 		this.$el.html(this.template(this.model.toJSON()));
 		App.products.forEach(this.appendProduct,this);		
-		App.dataElements.forEach(this.appendDataElement,this);		
+		
+		var temp = _.template($('#single-measure-element').html());
+		
+		this.checked = [];
+		this.unchecked = [];
+		
+		this.appendDataElements();
+		
+		if (window.console) console.log("checked ", this.checked);
+		if (window.console) console.log("unchecked ", this.unchecked);
+		
+		for(var measure_element in this.checked) {
+			var element = this.checked[measure_element];			
+			this.$el.find('div#elements').append(temp({name:element.name,id:element.id,ch:'checked'}));
+		}	
+		
+		for(var measure_element in this.unchecked) {
+			var element = this.unchecked[measure_element];			
+			this.$el.find('div#elements').append(temp({name:element.name,id:element.id,ch:''}));
+		}	
+		
+		//App.dataElements.forEach(this.appendDataElement,this);			
 		App.measureCategories.forEach(this.appendMeasureCategory,this);	
 		App.cqmDomains.forEach(this.appendCqmDomain,this);
 		
 		return this;
+	},
+	
+	appendDataElements : function(){
+		var checked = this.checked;
+		var unchecked = this.unchecked;
+				
+		var dids = _.pluck(this.model.get('dataElements'), 'did');					
+								
+		App.dataElements.forEach(function(e){	
+			if (_.contains(dids, e.get('id'))) {				
+				checked.push({name:e.get('name'),id:e.get('id')});
+			} else {
+				unchecked.push({name:e.get('name'),id:e.get('id')});
+			}
+		});		
 	},
 		
 	changeDr : function(e) {
