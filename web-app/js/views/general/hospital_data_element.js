@@ -64,7 +64,8 @@ App.Views.HospitalElements = Backbone.View.extend({
 		        			if (window.console) console.log("error");	          
 		        		}    
 			  });
-		});			
+		});	
+		window.history.back();
 	},
 	
 	saveAndMarkHospitalElements : function() {	

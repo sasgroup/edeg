@@ -16,7 +16,9 @@ $(function() {
 	var curUser = $('#role').val();
 	
 	if (curUser == 'admin') {
-		new App.Routers.Administrator();	
+		new App.Routers.Administrator();		
+		Backbone.history.start();
+		Backbone.history.navigate("/product", true);		
 	}
 	else {
 		new App.Routers.User();	
@@ -41,10 +43,11 @@ $(function() {
 				});			
 			})	    
 		});
+		
+		Backbone.history.start();	
 	}
 		
-	Backbone.history.start();	
-		
+			
 	$('.nav a').click(function(){
 		$('li.active').removeClass("active");
 		$(this).closest('li').addClass("active");	
