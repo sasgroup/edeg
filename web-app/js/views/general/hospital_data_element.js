@@ -150,6 +150,12 @@ App.Views.SingleHospitalElement = Backbone.View
 			var view = new App.Views.SingleHospitalElement({ model : hospitalElement, m_id: m_id});			
 			$(cur_row).replaceWith(view.render().el);				
 		});		
+		
+		this.clearTabsContent();
+	},
+	
+	clearTabsContent: function(){
+		alert("clearTabsContent");
 	},
 	
 	showQA: function(slc_hospital_element){		
