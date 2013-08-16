@@ -155,7 +155,10 @@ App.Views.SingleHospitalElement = Backbone.View
 	},
 	
 	clearTabsContent: function(){
-		alert("clearTabsContent");
+		$('#txt-qa2').val('');
+		$('#txt-qa3').val('');
+		$('#extra-table tbody').empty();
+		$('#hospital-specific-table tbody').empty();		
 	},
 	
 	showQA: function(slc_hospital_element){		
