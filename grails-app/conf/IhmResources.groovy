@@ -16,7 +16,6 @@ modules = {
 		
 		
 		resource url: 'js/views/user/hospital_product.js'
-
 		
 		resource url: 'js/views/general/hospital_data_element.js'
 				
@@ -46,8 +45,7 @@ modules = {
 		resource url: 'js/jqgrid/jquery.jqGrid.js'
 		resource url: 'js/jqgrid/jquery.layout.js'
 		resource url: 'js/jqgrid/jquery.tablednd.js'
-		resource url: 'js/jqgrid/ui.multiselect.js'
-		
+		resource url: 'js/jqgrid/ui.multiselect.js'		
 		
 		resource url: 'css/jqgrid/jquery-ui-custom.css'
 		resource url: 'css/jqgrid/ui.jqgrid.css'
