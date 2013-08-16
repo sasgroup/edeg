@@ -17,6 +17,15 @@ eventCompileStart = { kind ->
 	
 	
 	metadata.persist()
- 
+	
+	
+	eventConfigureTomcat = {tomcat ->
+		tomcat.addUser("admin", "admin")
+		tomcat.addRole("admin", "onboarding")
+		tomcat.addUser("user", "user")
+		tomcat.addRole("user", "onboarding")
+		tomcat.addUser("test", "test")
+		tomcat.addRole("test", "onboarding")
+	}
 	println "**** Compile Starting on Build #${buildNumber}"
 }

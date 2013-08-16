@@ -30,7 +30,6 @@ class UrlMappings {
 			action = [GET: "show", PUT: "update", DELETE: "delete", POST: "save"]
 		}
 		
-		
 		"/api/measure_category/$id?"(resource: "measureCategory") {
 			action = [GET: "show"]
 		}
@@ -50,7 +49,11 @@ class UrlMappings {
 		"/api/hospital_element/$id?"(resource: "hospitalElement") {
 			action = [GET: "show", PUT: "update", DELETE: "delete", POST: "save"]
 		}
-
+		
+		"/api/security/$id?"(resource: "security") {
+			action = [GET: "show", POST: "update", PUT:"update"]
+		}
+		
 		"/"(view:"/index")
 
 		"500"(view:'/error')
