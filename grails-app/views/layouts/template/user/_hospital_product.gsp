@@ -49,7 +49,7 @@
     <li class="active">{{ product_code }}:</li>
 	<li class="active">Measures</li>
 
-    <li class="pull-right"><a class="btn show-help" title="instructions"><i class="icon-info-sign"></i></a></li>
-	<li class="pull-right"><a class="btn show-notes" title="notes"><i class="icon-comment"></i></a></li>	
+    <li class="pull-right"><a class="btn show-help" title="Help"><i class="icon-info-sign"></i></a></li>
+	<li class="pull-right"><a class="btn show-notes" title={{notes}}><i class="icon-comment"></i></a></li>	
 </ul>
 </script>

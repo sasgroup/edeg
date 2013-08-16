@@ -41,6 +41,63 @@ App.Views.HospitalProduct = Backbone.View.extend({
 	}
 });	
 
+//Hospital Product Breadcrumb
+App.Views.HospitalProductBreadcrumb = Backbone.View.extend({	
+	template :  _.template($('#user-hospital-breadcrumb').html()),
+	
+	events : {				
+		'click .show-help'                : 'showHelp',
+		'click .show-notes'               : 'showNotes'
+	},
+	
+	render : function() {					
+		this.$el.html(this.template({product_code:this.model.code, notes:this.model.notes}));		
+		return this;
+	},
+	
+	showHelp : function(evt){
+		//alert(this.model.help);
+		var _mid = $(evt.target).attr('mid');
+		var _help = this.model.help;
+		//var _code = this.model.get('code');
+		var _show = $('.show-help').hasClass('show');
+
+		$('.show-help.show')
+		.removeClass('show')
+		.popover('hide');
+		
+		if (!_show){
+			$('.show-help')
+			.addClass('show')
+			.popover({html:true,placement:'left',title:'help for ',content:_help||"No Instructions were supplied..."})			
+			.popover('show');
+			
+			$('#breadcrumb-box .popover').css('top','0px');
+			
+			this.adjustPopover();
+		}
+		
+		evt.preventDefault();
+		evt.stopPropagation();
+		
+		//return false;
+		//$('.show_info').attr('title',this.model.get('notes'));
+	},
+	
+	adjustPopover:function(){
+		$('.popover')
+		.unbind('mousedown')
+		.mousedown(function(e){
+			e.preventDefault();
+			e.stopPropagation();
+		})
+	},
+	
+	showNotes : function(){
+		alert(this.model.notes);
+	}
+});	
+
 //Hospital_Measure
 App.Views.HospitalMeasure = Backbone.View
 		.extend({

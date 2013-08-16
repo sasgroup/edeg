@@ -39,9 +39,13 @@ App.Routers.User = Backbone.Router.extend({
 		  $.each(App.ho.get('products'), function( i, product ) { 	
 			if (product.id==p_id) {				
 				//breadcrumb
-				var temp = _.template($('#user-hospital-breadcrumb').html());		
-				$('#breadcrumb-box').html(temp({product_code:product.code}));				
-                //content 																			
+				//var temp = _.template($('#user-hospital-breadcrumb').html());		
+				//$('#breadcrumb-box').html(temp({product_code:product.code}));
+				
+				var viewBreadcrumb = new App.Views.HospitalProductBreadcrumb({model: product});		
+				$('#breadcrumb-box').html(viewBreadcrumb.render().el);
+                
+				//content 																			
 				var view = new App.Views.HospitalProduct({model: product, h_id:h_id});		
 				$('#app').html(view.render().el);	
 				return;

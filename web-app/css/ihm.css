@@ -550,6 +550,12 @@ ul.wysihtml5-commands-disabled .dropdown-menu {
 	max-width: 800px;
 	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.75);
 }
+
+
+#breadcrumb-box .popover{
+	top: 0;
+} 
+
 .popover-content{
 	max-height:150px;
 	overflow:auto;
