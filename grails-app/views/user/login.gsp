@@ -9,36 +9,22 @@
       <g:if test="${flash.message}">
         <div class="message">${flash.message}</div>
       </g:if>
-      <g:form action="authenticate" method="post" >
-        <div class="dialog">
-          <table>
-            <tbody>            
-              <tr class="prop">
-                <td class="name">
-                  <label for="login">Login:</label>
-                </td>
-                <td>
-                  <input type="text" id="login" name="login"/>
-                </td>
-              </tr> 
-          
-              <tr class="prop">
-                <td class="name">
-                  <label for="password">Password:</label>
-                </td>
-                <td>
-                  <input type="password" id="password" name="password"/>
-                </td>
-              </tr> 
-            </tbody>
-          </table>
-        </div>
-        <div class="buttons">
-          <span class="button">
-            <input class="save" type="submit" value="Login" />
-          </span>
-        </div>
-      </g:form>
+		<form method="POST" action='<%= response.encodeURL("j_security_check") %>' name="loginForm">
+			<table class="enter">
+				<tr>
+					<td class="label">Us3rname:</td>
+					<td><input type="text" name="j_username" maxlength="20" size="16" tabindex="1" id="username" class="input"/></td>
+				</tr>
+				<tr>
+					<td class="label">Password:</td>
+					<td><input type="password" name="j_password" maxlength="50" size="16" tabindex="2" id="password" class="input"/></td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+					<td><input onclick="trimUsername();" name="#" type="submit" id="loginButton" value="Login" tabindex="3" class="inputTools" /></td>
+				</tr>
+			</table>
+		</form>
     </div>
   </body>
 </html>
