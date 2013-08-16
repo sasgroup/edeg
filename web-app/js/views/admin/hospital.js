@@ -251,7 +251,7 @@ App.Views.Hospital = Backbone.View.extend({
 	},
 	
 	submCloseHospital : function(e) {
-		//e.preventDefault();		
+		e.preventDefault();
 		                                
         this.model.set("products" , App.hospital_products);
         
