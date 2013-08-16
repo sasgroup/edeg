@@ -251,9 +251,8 @@ App.Views.Hospital = Backbone.View.extend({
 	},
 	
 	submCloseHospital : function(e) {
-		e.preventDefault();		
-		if (window.console) console.log('submHospital');
-                                
+		//e.preventDefault();		
+		                                
         this.model.set("products" , App.hospital_products);
         
         this.model.save(this.attributes,{
@@ -271,13 +270,39 @@ App.Views.Hospital = Backbone.View.extend({
 	
 	returnOnMain: function (e) {
 		e.preventDefault();
+		this_hospital = this;
 		if (App.isModified) {
-			if (confirm('Are you sure you want to leave Edit Hospital page without having saved the data?')) {
+			$('#app').append('<div id="dialog-confirm" title="Confirm the changes">'+
+				'<p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>You want to leave Hospital without saving the data. Save the changes?</p>'+	
+				'</div>')
+		
+			$( "#dialog-confirm" ).dialog({
+		      resizable: false,
+		      height:180,		     
+		      modal: true,
+		      buttons: {
+		        "YES": function() {
+		          $( this ).dialog( "close" );
+		          this_hospital.submCloseHospital(e);
+		        },
+		        "NO": function() {
+		          $( this ).dialog( "close" );
+		          Backbone.history.navigate("/hospital", true);
+		        }
+		      }
+			});		
+		}
+		else {
+			Backbone.history.navigate("/hospital", true);
+		}
+				
+		/*if (App.isModified) {
+			if (confirm('Should the changes be saved?')) {
 				Backbone.history.navigate("/hospital", true);			
 			}
 		}	else {
 			Backbone.history.navigate("/hospital", true);
-		}
+		}*/
 	}
 
 });
