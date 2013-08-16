@@ -46,8 +46,7 @@ App.Views.HospitalProductBreadcrumb = Backbone.View.extend({
 	template :  _.template($('#user-hospital-breadcrumb').html()),
 	
 	events : {				
-		'click .show-help'                : 'showHelp',
-		'click .show-notes'               : 'showNotes'
+		'click .show-help'                : 'showHelp'		
 	},
 	
 	render : function() {					
@@ -91,11 +90,8 @@ App.Views.HospitalProductBreadcrumb = Backbone.View.extend({
 			e.preventDefault();
 			e.stopPropagation();
 		})
-	},
+	}	
 	
-	showNotes : function(){
-		alert(this.model.notes);
-	}
 });	
 
 //Hospital_Measure
