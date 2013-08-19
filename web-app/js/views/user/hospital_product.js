@@ -58,7 +58,7 @@ App.Views.HospitalProductBreadcrumb = Backbone.View.extend({
 		//alert(this.model.help);
 		var _mid = $(evt.target).attr('mid');
 		var _help = this.model.help;
-		//var _code = this.model.get('code');
+		var _code = this.model.code;
 		var _show = $('.show-help').hasClass('show');
 
 		$('.show-help.show')
@@ -68,7 +68,7 @@ App.Views.HospitalProductBreadcrumb = Backbone.View.extend({
 		if (!_show){
 			$('.show-help')
 			.addClass('show')
-			.popover({html:true,placement:'left',title:'help for ',content:_help||"No Instructions were supplied..."})			
+			.popover({html:true,placement:'left',title:'Help for [' + _code + ']',content:_help||"No help were supplied..."})			
 			.popover('show');
 			
 			$('#breadcrumb-box .popover').css('top','0px');
@@ -175,7 +175,7 @@ App.Views.HospitalMeasure = Backbone.View
 				if (!_show){
 					$('.show_info[mid='+_mid+']')
 					.addClass('show')
-					.popover({html:true,placement:'left',title:'instructions for ['+_code+']',content:_help||"No Instructions were supplied..."})
+					.popover({html:true,placement:'left',title:'Instructions for ['+_code+']',content:_help||"No Instructions were supplied..."})
 					.popover('show');
 					
 					this.adjustPopover();

@@ -38,12 +38,9 @@ App.Routers.User = Backbone.Router.extend({
 		
 		  $.each(App.ho.get('products'), function( i, product ) { 	
 			if (product.id==p_id) {				
-				//breadcrumb
-				//var temp = _.template($('#user-hospital-breadcrumb').html());		
-				//$('#breadcrumb-box').html(temp({product_code:product.code}));
-				
-				var viewBreadcrumb = new App.Views.HospitalProductBreadcrumb({model: product});		
-				$('#breadcrumb-box').html(viewBreadcrumb.render().el);
+				//breadcrumb							
+				var viewProductBreadcrumb = new App.Views.HospitalProductBreadcrumb({model: product});		
+				$('#breadcrumb-box').html(viewProductBreadcrumb.render().el);
                 
 				//content 																			
 				var view = new App.Views.HospitalProduct({model: product, h_id:h_id});		
@@ -107,9 +104,8 @@ App.Routers.User = Backbone.Router.extend({
 				$.each(product.measures, function( i, measure ){
 					if (measure.id==m_id) {										
 						//breadcrumb
-						var temp = _.template($('#user-measure-breadcrumb').html());			
-						$('#breadcrumb-box').html(temp({product_code:product.code, product_id:p_id, measure_code:measure.code, hospital_id:h_id}));
-
+						var viewMeasureBreadcrumb = new App.Views.HospitalMeasureBreadcrumb({model: measure, product_code:product.code, product_id:p_id, hospital_id:h_id});		
+						$('#breadcrumb-box').html(viewMeasureBreadcrumb.render().el);
 					}				
 				});				
 			}						       
@@ -130,7 +126,7 @@ App.Routers.User = Backbone.Router.extend({
 				"bSort": true,
 				"bInfo": false,
 				"aaSorting": [[0, 'asc']],
-				"aoColumnDefs": [{'bSortable': false, 'aTargets': [ 1,2,3,4,5,6 ] }]			 
+				"aoColumnDefs": [{'bSortable': false, 'aTargets': [ 1,2,3,4,5,6,7 ] }]			 
 			});				
 			
 			new FixedColumns( oTable, {"sHeightMatch": "none"} );				

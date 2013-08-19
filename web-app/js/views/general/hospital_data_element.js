@@ -22,6 +22,14 @@ App.Views.HospitalElements = Backbone.View.extend({
 			this.$el.find('li.qa3').hide();
 		}
 		
+		$('body')
+		.unbind('mousedown')
+		.mousedown(function(){
+			$('.show_info.shown')
+			.removeClass('shown')
+			.popover('hide');	
+		});
+		
 		return this;
 	},
 	
@@ -87,14 +95,16 @@ App.Views.HospitalElements = Backbone.View.extend({
 //Single Hospital Element
 App.Views.SingleHospitalElement = Backbone.View
 .extend({
-	tagName : 'tr',
+	tagName : 'tr',	
 	template: _.template($('#hospital_data_element').html()),	
 	events : {
 		'click .slc_row'                   			   : 'selectRow',
 		'click  #reset'                     		   : 'resetToDefault',
 		'change .source, .location'       			   : 'changeVal',
 		'change .sourceEHR'                            : 'changeCh',
-		'change .slcCodeType, .slcValueType' 		   : 'changeSlc'
+		'change .slcCodeType, .slcValueType' 		   : 'changeSlc',
+		'click .show_info'                			   : 'showInfo'	
+			
 	},
 					
 	render : function() {		
@@ -103,6 +113,8 @@ App.Views.SingleHospitalElement = Backbone.View
 		this.$el.find(".slcCodeType").val(this.model.get('codeType').name);
 		this.$el.find(".slcValueType").val(this.model.get('valueType').name);
 		this.$el.find('.sourceEHR').attr('checked', this.model.get('sourceEHR'));
+		
+		this.$el.attr('id',this.model.get('id'));
 				
 		return this;
 	},
@@ -203,7 +215,39 @@ App.Views.SingleHospitalElement = Backbone.View
 		$(hospital_specific_tbody).append(hospital_specific_row);	
 		$(hospital_specific_row).find(".slcCodeType").val(slc_hospital_element.get('codeType').name);	
 		
-	}
+	},
+	
+	showInfo: function(evt) {		
+		var _did = $(evt.target).closest('tr').prop("id");
+		var _help = this.model.get('help');
+		var _code = this.model.get('dataElement');
+		var _show = $('.show_info[did='+_did+']').hasClass('show');
+
+		$('.show_info.show')
+		.removeClass('show')
+		.popover('hide');
+		
+		if (!_show){
+			$('.show_info[did='+_did+']')
+			.addClass('show')
+			.popover({html:true,placement:'left',title:'Instructions for ['+_code+']',content:_help||"No Instructions were supplied..."})
+			.popover('show');
+			
+			this.adjustPopover();
+		}
+		
+		evt.preventDefault();
+		evt.stopPropagation();		
+	},
+	
+	adjustPopover:function(){
+		$('.popover')
+		.unbind('mousedown')
+		.mousedown(function(e){
+			e.preventDefault();
+			e.stopPropagation();
+		})
+	},
 });	
 
 //EXTRA

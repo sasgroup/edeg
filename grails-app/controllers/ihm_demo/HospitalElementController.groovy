@@ -96,6 +96,8 @@ class HospitalElementController {
 						valueType : hme.hospitalElement.valueType,
 						codeType : hme.hospitalElement.codeType,
 						dataElement : hme.hospitalElement.dataElement.code,
+						element_notes:hme.hospitalElement.dataElement.notes,
+						help:hme.hospitalElement.dataElement.help,
 						hospitalValueSet : HospitalValueSet.findByHospitalElement(hme.hospitalElement),
 						elementExtraLocation : ElementExtraLocation.findByHospitalElement(hme.hospitalElement)
 					}

@@ -125,7 +125,7 @@
 
 <!-- hospital_data_element -->
 <script type="text/template" class="template" id="hospital_data_element">
- <td id="{{id}}" class="slc_row">{{dataElement}}</td>
+ <td id="{{id}}" class="slc_row" title="{{element_notes}}">{{dataElement}}</td>
  <td><input type="text" class="location" name="location" id="location" value="{{location}}"></td>
  <td><input type="checkbox" class="sourceEHR" name="sourceEHR" id="sourceEHR" value={{sourceEHR}}></td>
  <td><input type="text" class="source" id="source" name= "source" value="{{source}}"></td>
@@ -165,7 +165,7 @@
    <div id="reset" class="btn" title="Reset the data element location to default in accordance with the current EHR version">Reset</div>
  </td>-->
 <td class="f-btn"><div id="reset" class= "btn" title="Reset the data element location to default in accordance with the current EHR version"><i class="icon-refresh"></i></div></td>
-<td><a class="btn show_info" rel="tooltip" title="instructions"><i class="icon-info-sign"></i></a></td>
+<td><a class="btn show_info" rel="tooltip" did="{{id}}" title=""><i class="icon-info-sign" did="{{id}}"></i></a></td>
 </script>
 
 

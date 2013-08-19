@@ -15,6 +15,7 @@ modules = {
 		resource url: 'js/views/admin/product.js'
 		
 		
+		resource url: 'js/views/user/hospital_element.js'
 		resource url: 'js/views/user/hospital_product.js'
 		
 		resource url: 'js/views/general/hospital_data_element.js'
