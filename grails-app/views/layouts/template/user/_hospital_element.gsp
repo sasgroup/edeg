@@ -7,6 +7,6 @@
 
 	
 	<li class="pull-right"><a class="btn show-help" rel="tooltip" title=""><i class="icon-info-sign"></i></a></li>
-	<li class="pull-right"><a class="btn show-notes" title="{{notes}}"><i class="icon-comment"></i></a></li>	
+	<li class="pull-right"><a class="btn show-notes" rel="tooltip" title=""><i class="icon-comment"></i></a></li>	
 </ul>
 </script>

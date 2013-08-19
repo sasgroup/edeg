@@ -22,9 +22,8 @@
 <script type="text/template" class="template" id="user-hospital_measure">
  <td>
 	<input type="checkbox" name="included" id="{{id}}" disabled="disabled" {{included}} >
- </td> 
- <!--<td>{{ code }}</td>-->
- <td><div class='code' title="{{code}}">{{ code }}</div></td>
+ </td>
+ <td><div class='code' title="{{notes}}">{{ code }}</div></td>
  <td><div class='title' title="{{name}}"><a id="customLink" href="#modalDataElements" role="button" data-toggle="modal">{{ name }}</a></div></td>
  <td>
     <input type="checkbox" name="completed" id="{{id}}" {{completed}}>
@@ -50,6 +49,6 @@
 	<li class="active">Measures</li>
 
     <li class="pull-right"><a class="btn show-help" rel="tooltip" title=""><i class="icon-info-sign"></i></a></li>
-	<li class="pull-right"><a class="btn show-notes" title="{{notes}}"><i class="icon-comment"></i></a></li>	
+	<li class="pull-right"><a class="btn show-notes" rel="tooltip" title=""><i class="icon-comment"></i></a></li>	
 </ul>
 </script>

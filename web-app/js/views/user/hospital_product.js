@@ -46,7 +46,8 @@ App.Views.HospitalProductBreadcrumb = Backbone.View.extend({
 	template :  _.template($('#user-hospital-breadcrumb').html()),
 	
 	events : {				
-		'click .show-help'                : 'showHelp'		
+		'click .show-help'                : 'showHelp',
+		'click .show-notes'               : 'showNotes'
 	},
 	
 	render : function() {					
@@ -54,9 +55,7 @@ App.Views.HospitalProductBreadcrumb = Backbone.View.extend({
 		return this;
 	},
 	
-	showHelp : function(evt){
-		//alert(this.model.help);
-		var _mid = $(evt.target).attr('mid');
+	showHelp : function(evt){		
 		var _help = this.model.help;
 		var _code = this.model.code;
 		var _show = $('.show-help').hasClass('show');
@@ -77,11 +76,33 @@ App.Views.HospitalProductBreadcrumb = Backbone.View.extend({
 		}
 		
 		evt.preventDefault();
-		evt.stopPropagation();
-		
-		//return false;
-		//$('.show_info').attr('title',this.model.get('notes'));
+		evt.stopPropagation();		
 	},
+	
+	showNotes : function(evt){		
+		var _help = this.model.notes;
+		var _code = this.model.code;
+		var _show = $('.show-notes').hasClass('show');
+
+		$('.show-notes.show')
+		.removeClass('show')
+		.popover('hide');
+		
+		if (!_show){
+			$('.show-notes')
+			.addClass('show')
+			.popover({html:true,placement:'left',title:'Notes for [' + _code + ']',content:_help||"No notes were supplied..."})			
+			.popover('show');
+			
+			$('#breadcrumb-box .popover').css('top','0px');
+			
+			this.adjustPopover();
+		}
+		
+		evt.preventDefault();
+		evt.stopPropagation();		
+	},
+	
 	
 	adjustPopover:function(){
 		$('.popover')
@@ -115,6 +136,7 @@ App.Views.HospitalMeasure = Backbone.View
 				this.$el.html(this.template({id:this.model.get('id'),
 											 code:this.model.get('code'),
 											 name:this.model.get('name'),
+											 notes:this.model.get('notes'),
 											 included:ch_included,
 											 completed:ch_completed,
 											 confirmed:ch_confirmed,
