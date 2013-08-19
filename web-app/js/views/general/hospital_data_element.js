@@ -31,6 +31,8 @@ App.Views.HospitalElements = Backbone.View.extend({
 			.popover('hide');	
 		});
 		
+		
+		
 		return this;
 	},
 	
@@ -136,7 +138,9 @@ App.Views.SingleHospitalElement = Backbone.View
 		this.model.attributes[e.target.name].name = e.target.value;
 	},
 	
-	selectRow: function(event) {		
+	selectRow: function(event) {
+		//activate details tabs
+		$('#deatails *').prop('disabled',false);
         // remove selection		
 		$('.row_selected').css( "background-color", "#FFFFFF" );
 		$('tr.row_selected td:first').css( "background-color", "#FFFFFF" );

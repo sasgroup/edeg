@@ -116,7 +116,9 @@ App.Routers.User = Backbone.Router.extend({
 		App.hospitalElements.fetch({data:{id: m_id}}).then(function(){			                          
 			
 			App.viewHospitalElements = new App.Views.HospitalElements ({collection:App.hospitalElements, m_id: m_id});
-			$('#app').html(App.viewHospitalElements.render().el);		
+			$('#app').html(App.viewHospitalElements.render().el);	
+			
+			$('#deatails *').prop('disabled',true);
 			
 			var oTable = $('#hospital-elements').dataTable({		
 				"bDestroy": true, 

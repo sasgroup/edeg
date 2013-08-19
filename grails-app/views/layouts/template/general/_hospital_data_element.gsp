@@ -38,8 +38,7 @@
     	<div id="detailsTabContent" class="tab-content">
           <div id="qa2" class="tab-pane fade active in">
 				<form id="tab-qa2">
-					<textarea id="txt-qa2" rows="3" class="input-xlarge">
-					</textarea>					
+					<textarea id="txt-qa2" rows="3" class="input-xlarge" placeholder="Click on the Data Element to view its details"></textarea>					
 					<textarea rows="1" class="input-xlarge">
 					</textarea>	
 					<div>
@@ -49,8 +48,7 @@
           </div>
           <div id="qa3" class="tab-pane fade">
 		  		<form id="tab-qa3">
-					<textarea id="txt-qa3" rows="3" class="input-xlarge">
-					</textarea>					
+					<textarea id="txt-qa3" rows="3" class="input-xlarge" placeholder="Click on the Data Element to view its details"></textarea>					
 					<textarea rows="1" class="input-xlarge">
 					</textarea>	
 					<div>
