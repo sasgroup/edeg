@@ -26,9 +26,7 @@
 	    	<div class="page-content">
 	    		<div id ='message-box'></div>
 	    		<div id ='breadcrumb-box'></div>
-				<div id ='app' class='app'>			
-
-				</div>				
+				<div id ='app' class='app' data-login="${session.user?.login}" data-role="${session.user?.role}"></div>
 			</div>
 	</body>
 </html>
