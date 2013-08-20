@@ -15,7 +15,7 @@ App.Views.HospitalElements = Backbone.View.extend({
 		this.$el.html(this.template({ hospitals : this.collection}));
 		this.collection.each(this.appendHospitalElement, this);
 				
-		if ($('#role').val() == 'admin') {
+		if (App.userRole == 'admin') {
 			this.$el.find("h3").html(this.options.measure_code+ ":DataElements");			
 		} else {
 			// hide Q&A tab
@@ -30,9 +30,7 @@ App.Views.HospitalElements = Backbone.View.extend({
 			.removeClass('shown')
 			.popover('hide');	
 		});
-		
-		
-		
+				
 		return this;
 	},
 	
@@ -80,7 +78,7 @@ App.Views.HospitalElements = Backbone.View.extend({
 		        		}    
 			  });
 		});	
-		window.history.back();
+		//window.history.back();
 	},
 	
 	saveAndMarkHospitalElements : function() {	
@@ -184,7 +182,7 @@ App.Views.SingleHospitalElement = Backbone.View
 	
 	showQA: function(slc_hospital_element){		
 		//g&a level1
-		var notes = slc_hospital_element.get("notes");
+		/*var notes = slc_hospital_element.get("notes");
 		//g&a level2
 		var internalNotes = slc_hospital_element.get("internalNotes");
 		//hospital specific
@@ -193,11 +191,14 @@ App.Views.SingleHospitalElement = Backbone.View
 		var elementExtraLocation = slc_hospital_element.get("elementExtraLocation");
 		
 		//load relevant values
-		/*$("#txt-qa2").val("some notes for " + slc_hospital_element.get("dataElement") + ":" + notes);
+		$("#txt-qa2").val("some notes for " + slc_hospital_element.get("dataElement") + ":" + notes);
 		$("#txt-qa3").val("some internalNotes for " + slc_hospital_element.get("dataElement") + ":" + internalNotes );*/
 		
-		var qa_view = new App.Views.QADataElement({ model : slc_hospital_element});	
-		$('div#tab-qa2').append(qa_view);	
+		var qa_view2 = new App.Views.QADataElement({ model : slc_hospital_element, tab: "tab-qa2"});	
+		$('div#tab-qa2').replaceWith(qa_view2.render().el);	
+		
+		var qa_view3 = new App.Views.QADataElement({ model : slc_hospital_element, tab: "tab-qa3"});
+		$('div#tab-qa3').replaceWith(qa_view3.render().el);	
 	},
 	
 	showExtraLocation: function(slc_hospital_element){	
@@ -263,18 +264,48 @@ App.Views.SingleHospitalElement = Backbone.View
 });	
 
 //QA
-App.Views.QAElement = Backbone.View
+App.Views.QADataElement = Backbone.View
 .extend({	
 	template: _.template($('#qa').html()),			
 	
 	events : {
-		/*'click #plus-btn' : 'addRow',
-		'click #minus-btn': 'removeRow'		*/
+		'click .send-btn' : 'appendQuestion'
 	},
 					
-	render : function() {		
-		this.$el.html(this.template(this.model.toJSON()));				
+	render : function() {
+		console.log(this.model.toJSON());				
+				
+		if (this.options.tab=="tab-qa2") {
+			this.$el.html(this.template({notes:this.model.get('notes')}));		
+		} else 
+		if (this.options.tab=="tab-qa3") {
+			this.$el.html(this.template({notes:this.model.get('internalNotes')}));		
+		}
+		
+		this.$el.attr('id',this.options.tab);
+		
 		return this;
+	},
+	
+	appendQuestion : function() {
+		var message = this.$el.find(".message").val();
+		var txt = this.$el.find(".txt-qa").val();
+		
+		var date = new Date();
+		var messageTimeStamp = (date.getMonth() + 1) + "/" + date.getDate() + "/"  + date.getFullYear().toString();
+		var user = App.userRole;
+		
+		message = user + ", " + messageTimeStamp + ": " + message;
+		
+		this.$el.find(".txt-qa").val(txt + "\n"+message);
+		this.$el.find(".message").val('');		
+				
+		if (this.options.tab=="tab-qa2") {
+			this.model.set({"notes":this.$el.find(".txt-qa").val()});
+		} else 
+		if (this.options.tab=="tab-qa3") {
+			this.model.set({"internalNotes":this.$el.find(".txt-qa").val()});
+		}
 	}
 });
 

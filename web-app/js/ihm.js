@@ -12,10 +12,14 @@ window.App = {
 
 
 $(function() {	
+	//$('#app').data('role')
+	//$('#app').data('login')
 	
-	var curUser = $('#role').val();
+	//$('#role').val();
 	
-	if (curUser == 'admin') {
+	App.userRole = $('#app').data('role');
+	
+	if (App.userRole == 'admin') {
 		new App.Routers.Administrator();		
 		Backbone.history.start();
 		Backbone.history.navigate("/product", true);		

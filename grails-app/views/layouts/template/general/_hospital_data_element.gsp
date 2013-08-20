@@ -38,17 +38,17 @@
     	<div id="detailsTabContent" class="tab-content">
           <div id="qa2" class="tab-pane fade active in">
 				<div id="tab-qa2">
-					<!--<textarea id="txt-qa2" rows="3" class="input-xlarge" placeholder="Click on the Data Element to view its details"></textarea>					
-					<textarea rows="1" class="input-xlarge"></textarea>	
+					<textarea class="txt-qa input-xlarge" placeholder="Click on the Data Element to view its details"></textarea>					
+					<textarea rows="1" class="message input-xlarge"></textarea>	
 					<div>
 						<a class="btn btn-info send-btn">Send</a>
-					</div>-->
+					</div>
 				</div>
           </div>
           <div id="qa3" class="tab-pane fade">
 		  		<div id="tab-qa3">
-					<textarea id="txt-qa3" rows="3" class="input-xlarge" placeholder="Click on the Data Element to view its details"></textarea>					
-					<textarea rows="1" class="input-xlarge"></textarea>	
+					<textarea class="txt-qa input-xlarge" placeholder="Click on the Data Element to view its details"></textarea>					
+					<textarea rows="1" class="message input-xlarge"></textarea>
 					<div>
 						<a class="btn btn-info send-btn">Send</a>
 					</div>
@@ -119,6 +119,13 @@
 </form>
 </script>
 
+<!-- qa -->
+<script type="text/template" class="template" id="qa">
+<textarea rows="3" class="txt-qa input-xlarge" disabled>{{notes}}</textarea>					
+<textarea rows="1" class="message input-xlarge"></textarea>	
+<div><a class="btn btn-info send-btn">Send</a></div>
+</script>
+
 <!-- hospital_data_element -->
 <script type="text/template" class="template" id="hospital_data_element">
  <td id="{{id}}" class="slc_row" title="{{element_notes}}">{{dataElement}}</td>
@@ -164,12 +171,6 @@
 <td><a class="btn show_info" rel="tooltip" did="{{id}}" title=""><i class="icon-info-sign" did="{{id}}"></i></a></td>
 </script>
 
-<!-- qa -->
-<script type="text/template" class="template" id="qa">
-<textarea id="txt-qa" rows="3" class="input-xlarge" placeholder="Click on the Data Element to view its details"></textarea>					
-<textarea rows="1" class="input-xlarge"></textarea>	
-<div><a class="btn btn-info send-btn">Send</a></div>
-</script>
 
 <!--extra-elements -->
 <script type="text/template" class="template" id="extra-elements">
