@@ -4,8 +4,7 @@
 			<a class="logo" href="#"></a>
 			<h3 class="hospital-name"></h3>
 			<div id="loginHeader" class="pull-right">
-				<g:loginControl />
-				<input id="role" type="hidden" value=${session.user?.role}>
+				<g:loginControl />				
 			</div>
 
 			<div class="hospital-dropdown btn-group">

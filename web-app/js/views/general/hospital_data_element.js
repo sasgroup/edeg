@@ -15,7 +15,7 @@ App.Views.HospitalElements = Backbone.View.extend({
 		this.$el.html(this.template({ hospitals : this.collection}));
 		this.collection.each(this.appendHospitalElement, this);
 				
-		if ($('#role').val() == 'admin') {
+		if (App.userRole == 'admin') {
 			this.$el.find("h3").html(this.options.measure_code+ ":DataElements");			
 		} else {
 			// hide Q&A tab

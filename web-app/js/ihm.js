@@ -12,15 +12,17 @@ window.App = {
 
 
 $(function() {	
+	//$('#app').data('role')
+	//$('#app').data('login')
+	   
+	App.userRole = $('#app').data('role');
 	
-	var curUser = $('#role').val();
-	
-	if (curUser == 'admin') {
+	if (App.userRole == 'admin') {
 		new App.Routers.Administrator();		
 		Backbone.history.start();
 		Backbone.history.navigate("/product", true);		
 	}
-	else {
+	else if (App.userRole == 'user') {
 		new App.Routers.User();	
 		
 		$('#hospital-list-dropdown li').live('click', function(){	 
