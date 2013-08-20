@@ -6,8 +6,7 @@ App.Views.HospitalElements = Backbone.View.extend({
 		'click #resetAll'     : 'resetAllToDefault',
 		'click button#cancel' : 'returnToProduct' ,
 		'click #save-btn'     : 'saveHospitalElements',
-		'click #save-mark-btn': 'saveAndMarkHospitalElements'
-		//'change #txt-qa2'     : 'changeQA2'
+		'click #save-mark-btn': 'saveAndMarkHospitalElements'		
 	},
 	
 	
@@ -56,11 +55,7 @@ App.Views.HospitalElements = Backbone.View.extend({
 		var view = new App.Views.SingleHospitalElement({ model : hospitalElement, m_id: m_id});		
 		this.$el.find('#hospital-elements tbody').append(view.render().el);		
 	},
-			
-	/*changeQA2 : function(e){
-		 model.set({"notes": $(e.target).val()});
-		 //Click on the Data Element to view its details.
-	},*/
+	
 	
 	returnToProduct : function(){
 		//Backbone.history.navigate("product/" + this.options.product_id, true);
