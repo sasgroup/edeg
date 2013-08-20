@@ -140,7 +140,7 @@ App.Views.SingleHospitalElement = Backbone.View
 	
 	selectRow: function(event) {
 		//activate details tabs
-		$('#deatails *').prop('disabled',false);
+		$('#deatails *').removeAttr('disabled');
         // remove selection		
 		$('.row_selected').css( "background-color", "#FFFFFF" );
 		$('tr.row_selected td:first').css( "background-color", "#FFFFFF" );
@@ -193,8 +193,11 @@ App.Views.SingleHospitalElement = Backbone.View
 		var elementExtraLocation = slc_hospital_element.get("elementExtraLocation");
 		
 		//load relevant values
-		$("#txt-qa2").val("some notes for " + slc_hospital_element.get("dataElement") );
-		$("#txt-qa3").val("some internalNotes for " + slc_hospital_element.get("dataElement") );		
+		/*$("#txt-qa2").val("some notes for " + slc_hospital_element.get("dataElement") + ":" + notes);
+		$("#txt-qa3").val("some internalNotes for " + slc_hospital_element.get("dataElement") + ":" + internalNotes );*/
+		
+		var qa_view = new App.Views.QADataElement({ model : slc_hospital_element});	
+		$('div#tab-qa2').append(qa_view);	
 	},
 	
 	showExtraLocation: function(slc_hospital_element){	
@@ -258,6 +261,22 @@ App.Views.SingleHospitalElement = Backbone.View
 		})
 	},
 });	
+
+//QA
+App.Views.QAElement = Backbone.View
+.extend({	
+	template: _.template($('#qa').html()),			
+	
+	events : {
+		/*'click #plus-btn' : 'addRow',
+		'click #minus-btn': 'removeRow'		*/
+	},
+					
+	render : function() {		
+		this.$el.html(this.template(this.model.toJSON()));				
+		return this;
+	}
+});
 
 //EXTRA
 App.Views.ExtraDataElement = Backbone.View

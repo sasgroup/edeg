@@ -37,24 +37,22 @@
          
     	<div id="detailsTabContent" class="tab-content">
           <div id="qa2" class="tab-pane fade active in">
-				<form id="tab-qa2">
-					<textarea id="txt-qa2" rows="3" class="input-xlarge" placeholder="Click on the Data Element to view its details"></textarea>					
-					<textarea rows="1" class="input-xlarge">
-					</textarea>	
+				<div id="tab-qa2">
+					<!--<textarea id="txt-qa2" rows="3" class="input-xlarge" placeholder="Click on the Data Element to view its details"></textarea>					
+					<textarea rows="1" class="input-xlarge"></textarea>	
 					<div>
-						<button class="btn btn-info">Send</button>
-					</div>
-				</form>
+						<a class="btn btn-info send-btn">Send</a>
+					</div>-->
+				</div>
           </div>
           <div id="qa3" class="tab-pane fade">
-		  		<form id="tab-qa3">
+		  		<div id="tab-qa3">
 					<textarea id="txt-qa3" rows="3" class="input-xlarge" placeholder="Click on the Data Element to view its details"></textarea>					
-					<textarea rows="1" class="input-xlarge">
-					</textarea>	
+					<textarea rows="1" class="input-xlarge"></textarea>	
 					<div>
-						<button class="btn btn-info">Send</button>
+						<a class="btn btn-info send-btn">Send</a>
 					</div>
-				</form>
+				</div>
           </div>		  
 		  <div id="hospital-specific-tab" class="tab-pane fade">             
 		    <div class="row-fluid">						
@@ -166,6 +164,12 @@
 <td><a class="btn show_info" rel="tooltip" did="{{id}}" title=""><i class="icon-info-sign" did="{{id}}"></i></a></td>
 </script>
 
+<!-- qa -->
+<script type="text/template" class="template" id="qa">
+<textarea id="txt-qa" rows="3" class="input-xlarge" placeholder="Click on the Data Element to view its details"></textarea>					
+<textarea rows="1" class="input-xlarge"></textarea>	
+<div><a class="btn btn-info send-btn">Send</a></div>
+</script>
 
 <!--extra-elements -->
 <script type="text/template" class="template" id="extra-elements">

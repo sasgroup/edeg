@@ -67,7 +67,9 @@ App.Routers.Administrator = Backbone.Router.extend({
 		
 		App.hospitalElements.fetch({data:{id: m_id}}).then(function(){			
 			App.viewHospitalElements = new App.Views.HospitalElements ({collection:App.hospitalElements, m_id: m_id, product_id: p_id, measure_code: measure_code});
-			$('#app').html(App.viewHospitalElements.render().el);		
+			$('#app').html(App.viewHospitalElements.render().el);	
+			
+			$('#deatails *').attr('disabled','disabled');
 			
 			var oTable = $('#hospital-elements').dataTable({		
 				"bDestroy": true, 
