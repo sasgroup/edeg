@@ -7,6 +7,8 @@ class SecurityController {
 		render(contentType: "text/json") {
 			curHospital = securityService.getCurrentHospital(request.getRemoteUser())
 			availableHospitals       = securityService.getHospitalNameMap(request.getRemoteUser())
+			curUser =  request.getRemoteUser()
+			curRole = securityService.getRole(request.getRemoteUser())
 		}	
 	}
 	
