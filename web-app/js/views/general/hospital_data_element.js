@@ -6,8 +6,7 @@ App.Views.HospitalElements = Backbone.View.extend({
 		'click #resetAll'     : 'resetAllToDefault',
 		'click button#cancel' : 'returnToProduct' ,
 		'click #save-btn'     : 'saveHospitalElements',
-		'click #save-mark-btn': 'saveAndMarkHospitalElements'
-		//'change #txt-qa2'     : 'changeQA2'
+		'click #save-mark-btn': 'saveAndMarkHospitalElements'		
 	},
 	
 	
@@ -15,7 +14,8 @@ App.Views.HospitalElements = Backbone.View.extend({
 		this.$el.html(this.template({ hospitals : this.collection}));
 		this.collection.each(this.appendHospitalElement, this);
 				
-		if (App.userRole == 'admin') {
+		//if (App.userRole == 'admin') {
+		if ($('#role').val()== 'admin') {		
 			this.$el.find("h3").html(this.options.measure_code+ ":DataElements");			
 		} else {
 			// hide Q&A tab
@@ -55,11 +55,6 @@ App.Views.HospitalElements = Backbone.View.extend({
 		this.$el.find('#hospital-elements tbody').append(view.render().el);		
 	},
 			
-	/*changeQA2 : function(e){
-		 model.set({"notes": $(e.target).val()});
-		 //Click on the Data Element to view its details.
-	},*/
-	
 	returnToProduct : function(){
 		//Backbone.history.navigate("product/" + this.options.product_id, true);
 		window.history.back();
@@ -71,7 +66,7 @@ App.Views.HospitalElements = Backbone.View.extend({
 		_.each(this.collection.models, function(model) {
 			  model.set({markAsComplete: false});	 
 			  model.set({m_id: m_id});			 
-			  return model.save({
+			  model.save({
 			    wait: true,
 			    error: function (collection, response) {
 		        			if (window.console) console.log("error");	          
@@ -79,6 +74,7 @@ App.Views.HospitalElements = Backbone.View.extend({
 			  });
 		});	
 		//window.history.back();
+		Backbone.history.navigate("/product/", true);
 	},
 	
 	saveAndMarkHospitalElements : function() {	
@@ -86,7 +82,7 @@ App.Views.HospitalElements = Backbone.View.extend({
 		_.each(this.collection.models, function(model) {
 			  model.set({markAsComplete: true});
 			  model.set({m_id: m_id});	
-			  return model.save({
+			  model.save({
 			    wait: true,
 			    error: function (collection, response) {
 		        			if (window.console) console.log("error");	          
@@ -194,7 +190,7 @@ App.Views.SingleHospitalElement = Backbone.View
 		$("#txt-qa2").val("some notes for " + slc_hospital_element.get("dataElement") + ":" + notes);
 		$("#txt-qa3").val("some internalNotes for " + slc_hospital_element.get("dataElement") + ":" + internalNotes );*/
 		
-		var qa_view2 = new App.Views.QADataElement({ model : slc_hospital_element, tab: "tab-qa2"});	
+	    var qa_view2 = new App.Views.QADataElement({ model : slc_hospital_element, tab: "tab-qa2"});	
 		$('div#tab-qa2').replaceWith(qa_view2.render().el);	
 		
 		var qa_view3 = new App.Views.QADataElement({ model : slc_hospital_element, tab: "tab-qa3"});
