@@ -10,6 +10,26 @@ body {
     background: url("images/bg.png") repeat-y center;       
 }
 
+div.txt-qa {	
+	overflow: auto;
+	border: 1px solid #cccccc;
+	background-color: #eeeeee;
+	width: 92%;
+	height: 100px;
+	margin-bottom: 8px;
+	color: gray;	
+    border-radius: 4px;
+}
+
+/*div#txt-qa {	
+	overflow: auto;
+	border: 1px solid #cccccc;	
+	width: 92%;
+	height: 100px;
+	margin-bottom: 8px;		
+    border-radius: 4px;
+}*/
+
 .hospitalMeasureTable.dataTable {
 	width:934px
 }
@@ -265,7 +285,8 @@ div#modalDataElements {
 }
 
 .modal-body textarea, #data-element-page textarea {
-	width: 95%;
+	width: 91%;	
+	resize: none;
 }
 
 

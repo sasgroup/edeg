@@ -29,8 +29,7 @@ App.Views.HospitalElements = Backbone.View.extend({
 			.removeClass('shown')
 			.popover('hide');	
 		});
-		
-		
+			
 		
 		return this;
 	},
@@ -373,23 +372,24 @@ App.Views.QADataElement = Backbone.View
   },
   
   appendQuestion : function() {
-    var message = this.$el.find(".message").val();
-    var txt = this.$el.find(".txt-qa").val();
+    var message = this.$el.find(".txt-message").val();
+    var txt =  this.$el.find(".txt-qa").html();
     
     var date = new Date();
     var messageTimeStamp = (date.getMonth() + 1) + "/" + date.getDate() + "/"  + date.getFullYear().toString();
     var user = App.userRole;
     
     message = user + ", " + messageTimeStamp + ": " + message;
-    
-    this.$el.find(".txt-qa").val(txt + "\n"+message);
-    this.$el.find(".message").val('');    
+    txt = txt + "<p>" + message + "</p>";
+        
+    this.$el.find(".txt-qa").html(txt);
+    this.$el.find(".txt-message").val('');    
         
     if (this.options.tab=="tab-qa2") {
-      this.model.set({"notes":this.$el.find(".txt-qa").val()});
+      this.model.set({"notes":txt});
     } else 
     if (this.options.tab=="tab-qa3") {
-      this.model.set({"internalNotes":this.$el.find(".txt-qa").val()});
+      this.model.set({"internalNotes":txt});
     }
   }
 });
