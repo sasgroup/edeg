@@ -17,8 +17,7 @@
       </thead>				
     <tbody></tbody>
     </table>
-	</div>
-  	
+	</div>  	
 		<div id="deatails">	
 		<ul id="detailsTab" class="nav nav-tabs">
           <li class="active">
@@ -39,20 +38,18 @@
           <div id="qa2" class="tab-pane fade active in">
 				<form id="tab-qa2">
 					<textarea id="txt-qa2" rows="3" class="input-xlarge" placeholder="Click on the Data Element to view its details"></textarea>					
-					<textarea rows="1" class="input-xlarge">
-					</textarea>	
+					<textarea rows="1" class="input-xlarge"></textarea>	
 					<div>
-						<button class="btn btn-info">Send</button>
+						<a class="btn btn-info">Send</a>
 					</div>
 				</form>
           </div>
           <div id="qa3" class="tab-pane fade">
 		  		<form id="tab-qa3">
 					<textarea id="txt-qa3" rows="3" class="input-xlarge" placeholder="Click on the Data Element to view its details"></textarea>					
-					<textarea rows="1" class="input-xlarge">
-					</textarea>	
+					<textarea rows="1" class="input-xlarge"></textarea>	
 					<div>
-						<button class="btn btn-info">Send</button>
+						<a class="btn btn-info">Send</a>
 					</div>
 				</form>
           </div>		  
@@ -232,4 +229,11 @@
  <td><input type="text" class="mnemonic" id="mnemonic" value="{{mnemonic}}"></td>
  <td><div id="plus-btn" class="btn btn-mini"><i class="icon-plus"></i></div></td>
  <td><div id="minus-btn" class="btn btn-mini"><i class="icon-minus"></i></div></td>
+</script>
+
+<!-- qa -->
+<script type="text/template" class="template" id="qa">
+ <textarea rows="3" class="txt-qa input-xlarge" disabled>{{notes}}</textarea>          
+ <textarea rows="1" class="message input-xlarge"></textarea>  
+ <div><a class="btn btn-info send-btn">Send</a></div>
 </script>
