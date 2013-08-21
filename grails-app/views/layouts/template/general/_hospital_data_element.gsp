@@ -44,7 +44,6 @@
           <div id="qa3" class="tab-pane fade">
 		  		<form id="tab-qa3">
 					<div rows="3" class="txt-qa input-xlarge" placeholder="Click on the Data Element to view its details"></div>					
-					<textarea rows="1" class="input-xlarge"></textarea>	
 					<textarea rows="2" class="input-xlarge"></textarea> <a class="btn btn-info">Send</a>	
 				</form>
           </div>		  

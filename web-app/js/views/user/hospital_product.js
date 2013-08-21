@@ -10,10 +10,10 @@ App.Views.HospitalProduct = Backbone.View.extend({
 		$('body')
 		.unbind('mousedown')
 		.mousedown(function(){
-			$('.show_info.shown')
-			.removeClass('shown')
+			$('.show')
+			.removeClass('show')
 			.popover('hide');	
-		})
+		});
 		
 		return this;
 	},
@@ -60,22 +60,14 @@ App.Views.HospitalProductBreadcrumb = Backbone.View.extend({
 		var _code = this.model.code;
 		var _show = $('.show-help').hasClass('show');
 
-		$('.show-help.show')
-		.removeClass('show')
-		.popover('hide');
+		$('.show').removeClass('show').popover('hide');
 		
 		if (!_show){
-			$('.show-help')
-			.addClass('show')
-			.popover({html:true,placement:'left',title:'Help for [' + _code + ']',content:_help||"No help were supplied..."})			
-			.popover('show');
-			
+			$('.show-help').addClass('show')
+			.popover({html:true,placement:'left',title:'Help for [' + _code + ']',content:_help||"No help were supplied..."}).popover('show');
 			$('#breadcrumb-box .popover').css('top','0px');
-			
 			this.adjustPopover();
 		}
-		
-		evt.preventDefault();
 		evt.stopPropagation();		
 	},
 	
@@ -84,22 +76,14 @@ App.Views.HospitalProductBreadcrumb = Backbone.View.extend({
 		var _code = this.model.code;
 		var _show = $('.show-notes').hasClass('show');
 
-		$('.show-notes.show')
-		.removeClass('show')
-		.popover('hide');
+		$('.show').removeClass('show').popover('hide');
 		
 		if (!_show){
-			$('.show-notes')
-			.addClass('show')
-			.popover({html:true,placement:'left',title:'Notes for [' + _code + ']',content:_help||"No notes were supplied..."})			
-			.popover('show');
-			
+			$('.show-notes').addClass('show')
+			.popover({html:true,placement:'left',title:'Notes for [' + _code + ']',content:_help||"No notes were supplied..."}).popover('show');
 			$('#breadcrumb-box .popover').css('top','0px');
-			
 			this.adjustPopover();
 		}
-		
-		evt.preventDefault();
 		evt.stopPropagation();		
 	},
 	
@@ -108,7 +92,6 @@ App.Views.HospitalProductBreadcrumb = Backbone.View.extend({
 		$('.popover')
 		.unbind('mousedown')
 		.mousedown(function(e){
-			e.preventDefault();
 			e.stopPropagation();
 		})
 	}	
@@ -190,31 +173,20 @@ App.Views.HospitalMeasure = Backbone.View
 				var _code = this.model.get('code');
 				var _show = $('.show_info[mid='+_mid+']').hasClass('show');
 
-				$('.show_info.show')
-				.removeClass('show')
-				.popover('hide');
+				$('.show').removeClass('show').popover('hide');
 				
 				if (!_show){
-					$('.show_info[mid='+_mid+']')
-					.addClass('show')
-					.popover({html:true,placement:'left',title:'Instructions for ['+_code+']',content:_help||"No Instructions were supplied..."})
-					.popover('show');
-					
+					$('.show_info[mid='+_mid+']').addClass('show')
+					.popover({html:true,placement:'left',title:'Instructions for ['+_code+']',content:_help||"No Instructions were supplied..."}).popover('show');
 					this.adjustPopover();
 				}
-				
-				evt.preventDefault();
 				evt.stopPropagation();
-				
-				//return false;
-				//$('.show_info').attr('title',this.model.get('notes'));
 			},
 			
 			adjustPopover:function(){
 				$('.popover')
 				.unbind('mousedown')
 				.mousedown(function(e){
-					e.preventDefault();
 					e.stopPropagation();
 				})
 			},

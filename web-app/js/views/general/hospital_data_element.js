@@ -25,8 +25,8 @@ App.Views.HospitalElements = Backbone.View.extend({
 		$('body')
 		.unbind('mousedown')
 		.mousedown(function(){
-			$('.show_info.shown')
-			.removeClass('shown')
+			$('.show')
+			.removeClass('show')
 			.popover('hide');	
 		});
 			
@@ -232,20 +232,13 @@ App.Views.SingleHospitalElement = Backbone.View
 		var _code = this.model.get('dataElement');
 		var _show = $('.show_info[did='+_did+']').hasClass('show');
 
-		$('.show_info.show')
-		.removeClass('show')
-		.popover('hide');
+		$('.show').removeClass('show').popover('hide');
 		
 		if (!_show){
-			$('.show_info[did='+_did+']')
-			.addClass('show')
-			.popover({html:true,placement:'left',title:'Instructions for ['+_code+']',content:_help||"No Instructions were supplied..."})
-			.popover('show');
-			
+			$('.show_info[did='+_did+']').addClass('show')
+			.popover({html:true,placement:'left',title:'Instructions for ['+_code+']',content:_help||"No Instructions were supplied..."}).popover('show');
 			this.adjustPopover();
 		}
-		
-		evt.preventDefault();
 		evt.stopPropagation();		
 	},
 	
@@ -253,7 +246,6 @@ App.Views.SingleHospitalElement = Backbone.View
 		$('.popover')
 		.unbind('mousedown')
 		.mousedown(function(e){
-			e.preventDefault();
 			e.stopPropagation();
 		})
 	},

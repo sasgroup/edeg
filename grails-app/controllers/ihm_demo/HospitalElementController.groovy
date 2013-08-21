@@ -8,7 +8,7 @@ class HospitalElementController {
 		//instance.properties = param
 		instance.location = param.location
 		instance.sourceEHR = param.sourceEHR
-		instance.source = param.source
+		instance.source = param.sourceEHR ? instance.hospital.ehr.code : param.source
 		instance.codeType =  CodeType.valueOf(param.codeType.name)
 		instance.valueType = ValueType.valueOf(param.valueType.name)
 		instance.valueSet = param.valueSet
