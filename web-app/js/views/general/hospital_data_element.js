@@ -255,7 +255,7 @@ App.Views.SingleHospitalElement = Backbone.View
 		.mousedown(function(e){
 			e.stopPropagation();
 		})
-	},
+	}
 });	
 
 //EXTRA

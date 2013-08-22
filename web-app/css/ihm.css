@@ -1,13 +1,17 @@
 body {
     color: #575c7a;
     line-height: 1.5em;
-    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande","Lucida Sans", Arial, sans-serif;
+    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande","Lucida Sans", Arial, sans-serif !important;
     font-size: 14px;
     background-color:rgb(209, 223, 201);
     margin:0;
     padding:0;
     height:100%;
     background: url("images/bg.png") repeat-y center;       
+}
+
+input, select, textarea, .btn  {
+	font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 div.txt-qa {	
@@ -21,14 +25,6 @@ div.txt-qa {
     border-radius: 4px;
 }
 
-/*div#txt-qa {	
-	overflow: auto;
-	border: 1px solid #cccccc;	
-	width: 92%;
-	height: 100px;
-	margin-bottom: 8px;		
-    border-radius: 4px;
-}*/
 
 .hospitalMeasureTable.dataTable {
 	width:934px
@@ -48,12 +44,6 @@ a.show-help {
 	right: 65px;
 }
 
-
-/*#resetAll { 
-	padding-left: 2px;
-	padding-right: 2px;
-	font-size: 12px;
-}*/
 
 th.resetAll {
 	text-align: center;
@@ -195,20 +185,6 @@ form label.error {
 form input.error {
 	border:1px solid red;
 }
-
-form input.error {
-	/*border:1px solid red;*/
-}
-
-/*.alert-info {   
-    position: absolute;
-    top: 400px;
-    width:400px;
-    right: 0;
-    left: 0;
-    margin: auto;
-    display: none;
-}*/
 
 
 #loading {
@@ -463,8 +439,9 @@ select.ui-pg-selbox{
 }
 
 .ui-widget {
- 	font-family: Lucida Grande, Lucida Sans, Arial, sans-serif;
-    font-size: .9em;
+ 	font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+ 	font-size: 14px;   
+ 	font-weight: normal;
 }
 
 .ui-multiselect-checkboxes input {
@@ -483,11 +460,15 @@ background-color: #fff;
 
 table input , table select  {
   margin: 0 !important;
-  width: 96%;
+  width: 100%;
 }
 
-table input  {
-  width: 90%;
+table#extra-table input, table#hospital-specific-table input {
+	width : 90%;
+}
+
+table input#sourceEHR  {
+  width: 30px;
 }
 
 .btn-mini {
@@ -495,10 +476,6 @@ table input  {
     height: 28px;
 }
 
-
-/*input[type="checkbox"] {
-	width: 40px;
-}*/
 
 button#btnApplyHospitalOptions {
 	width: 112px;
@@ -579,8 +556,6 @@ ul.wysihtml5-commands-disabled .dropdown-menu {
 #breadcrumb-box .popover div.arrow{
 	top: 24px;	
 } 
-
-
 
 .popover-content{
 	max-height:150px;

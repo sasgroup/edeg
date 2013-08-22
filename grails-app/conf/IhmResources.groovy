@@ -1,6 +1,6 @@
 modules = {
 	ihm {
-		dependsOn 'jquery, json3, underscore, backbone, bootstrap, jqgrid, jqmultiselect, datatable, html5shiv, wysihtml5'
+		dependsOn 'jquery, json3, underscore, backbone, bootstrap, jqgrid, jqmultiselect, datatable, html5shiv, wysihtml5, modernizr'
 		resource url: 'css/ihm.css'		
 		resource url: 'js/ihm.js'
 		resource url: 'js/models.js'
@@ -22,6 +22,10 @@ modules = {
 				
 		resource url: 'js/routers/admin.js'	
 		resource url: 'js/routers/user.js'
+	}
+	
+	modernizr {
+		resource url: 'js/modernizr.js'
 	}
 	
 	underscore {
@@ -80,6 +84,7 @@ modules = {
 		resource url: 'js/wysihtml5.js'
 		resource url: 'js/bootstrap-wysihtml5.js'
 	}
+	
 	
 }
 
