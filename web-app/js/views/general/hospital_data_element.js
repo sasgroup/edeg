@@ -29,8 +29,7 @@ App.Views.HospitalElements = Backbone.View.extend({
 			.removeClass('show')
 			.popover('hide');	
 		});
-			
-		
+					
 		return this;
 	},
 	
@@ -116,6 +115,10 @@ App.Views.SingleHospitalElement = Backbone.View
 		
 		this.$el.attr('id',this.model.get('id'));
 				
+		if (this.$el.find('#sourceEHR').is(':checked')) {
+			this.$el.find('#source').attr('disabled','disabled');
+		}	
+				
 		return this;
 	},
 	
@@ -125,6 +128,11 @@ App.Views.SingleHospitalElement = Backbone.View
 	
 	changeCh : function(e) {
 		this.model.attributes[e.target.name] = $(e.target).is(':checked');	
+		if (this.$el.find('#sourceEHR').is(':checked')) {
+			this.$el.find('#source').attr('disabled','disabled');
+		}	else {
+			this.$el.find('#source').removeAttr('disabled');
+		}
 	},
 	
 	changeSlc : function(e) {
