@@ -104,8 +104,7 @@ App.Views.SingleHospitalElement = Backbone.View
 		'change .source, .location'       			   : 'changeVal',
 		'change .sourceEHR'                            : 'changeCh',
 		'change .slcCodeType, .slcValueType' 		   : 'changeSlc',
-		'click .show_info'                			   : 'showInfo'	
-			
+		'click .show_info'                			   : 'showInfo'				
 	},
 					
 	render : function() {		

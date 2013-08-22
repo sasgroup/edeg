@@ -67,7 +67,7 @@ App.Routers.User = Backbone.Router.extend({
 			"sScrollY": "548px",			
 			"bSort": true,
 			"bInfo": false,
-			"aaSorting": [[0, 'asc'], [1, 'asc']],			
+			"aaSorting": [[0, 'asc'], [2, 'asc']],			
 			"aoColumns": [
 			  			{ "sSortDataType": "dom-checkbox" },
 			  			null,

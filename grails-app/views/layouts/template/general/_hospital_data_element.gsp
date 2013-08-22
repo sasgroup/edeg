@@ -1,6 +1,6 @@
 <!-- hospital_data_element-form -->
 <script type="text/template" class="template" id="hospital_data_element-form">
-<form id="data-element-page">    
+<div id="data-element-page">    
     <h3></h3>
  	<div id="main_table">
 	 <table class="table table-condensed" id="hospital-elements">
@@ -11,7 +11,7 @@
 				<th>Source</th>
 				<th>CodeType</th>
 		    	<th>ValueType</th>
-				<th class='resetAll'><a id="resetAll" title="Reset all data elements in the measure to default locations in accordance with the current EHR version"><i class="icon-retweet"></i></a> </th>
+				<th class='f-btn'><div class= "btn"><a id="resetAll" title="Reset all data elements in the measure to default locations in accordance with the current EHR version"><i class="icon-retweet"></i></a></div></th>
 				<th>Help</th>	    		    
 			 </tr>
       </thead>				
@@ -102,14 +102,12 @@
        </div>
 	</div>
  
-
-<div class="form-actions">					 
-                    
+<div class="form-actions">                   
 <button type="reset" id="cancel" class="btn btn-info pull-right">Cancel</button>
 <button id="save-mark-btn" class="btn btn-info pull-right">Save&Mark</button>
 <button id="save-btn" class="btn btn-info pull-right">Save</button>			
 </div>
-</form>
+</div>
 </script>
 
 <!-- hospital_data_element -->
@@ -150,9 +148,6 @@
 				<option value="ValueSet">ValueSet</option>
      </select>
  </td>
- <!--<td>
-   <div id="reset" class="btn" title="Reset the data element location to default in accordance with the current EHR version">Reset</div>
- </td>-->
 <td class="f-btn"><div id="reset" class= "btn" title="Reset the data element location to default in accordance with the current EHR version"><i class="icon-refresh"></i></div></td>
 <td><a class="btn show_info" rel="tooltip" did="{{id}}" title=""><i class="icon-info-sign" did="{{id}}"></i></a></td>
 </script>
