@@ -184,19 +184,6 @@ App.Views.SingleHospitalElement = Backbone.View
 	},
 	
 	showQA: function(slc_hospital_element){		
-		//g&a level1
-		/*var notes = slc_hospital_element.get("notes");
-		//g&a level2
-		var internalNotes = slc_hospital_element.get("internalNotes");
-		//hospital specific
-		var hospitalValueSet = slc_hospital_element.get("hospitalValueSet");
-		//extra locations
-		var elementExtraLocation = slc_hospital_element.get("elementExtraLocation");
-		
-		//load relevant values
-		$("#txt-qa2").val("some notes for " + slc_hospital_element.get("dataElement") );
-		$("#txt-qa3").val("some internalNotes for " + slc_hospital_element.get("dataElement") );*/
-		
 		 var qa_view2 = new App.Views.QADataElement({ model : slc_hospital_element, tab: "tab-qa2"});  
 		 $('div#qa2').html(qa_view2.render().el);  
 		   
@@ -374,8 +361,17 @@ App.Views.QADataElement = Backbone.View
     var message = this.$el.find(".txt-message").val();
     var txt =  this.$el.find(".txt-qa").html();
     
-    var date = new Date();
-    var messageTimeStamp = (date.getMonth() + 1) + "/" + date.getDate() + "/"  + date.getFullYear().toString();
+    var date = new Date();        
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    var ampm = hours >= 12 ? 'pm' : 'am';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    minutes = minutes < 10 ? '0'+minutes : minutes;
+    var strTime = hours + ':' + minutes + ' ' + ampm;
+    
+    var messageTimeStamp = (date.getMonth() + 1) + "/" + date.getDate() + "/"  + date.getFullYear().toString() + " " +strTime;
+    
     var user = App.userRole;
     
     message = user + ", " + messageTimeStamp + ": " + message;
