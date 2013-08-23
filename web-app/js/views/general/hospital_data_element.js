@@ -6,9 +6,15 @@ App.Views.HospitalElements = Backbone.View.extend({
 		'click #resetAll'     : 'resetAllToDefault',
 		'click button#cancel' : 'returnToProduct' ,
 		'click #save-btn'     : 'saveHospitalElements',
-		'click #save-mark-btn': 'saveAndMarkHospitalElements'		
+		'click #save-mark-btn': 'saveAndMarkHospitalElements',
+		'click #upload' : 'upload'
 	},
 	
+	upload : function(){
+		$('#uploadForm').ajaxSubmit({
+	        target: '#output2'
+	    }); 
+	},
 	
 	render : function() {		
 		this.$el.html(this.template({ hospitals : this.collection}));
@@ -140,6 +146,9 @@ App.Views.SingleHospitalElement = Backbone.View
 	},
 	
 	selectRow: function(event) {
+		//set hospitalElementId to AjaxForm
+		$("#currentHospitalElement").val(this.model.id);
+		
 		//activate details tabs
 		$('#deatails *').removeAttr('disabled');
         // remove selection		

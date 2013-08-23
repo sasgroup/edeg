@@ -54,6 +54,10 @@ class UrlMappings {
 			action = [GET: "show", POST: "update", PUT:"update"]
 		}
 		
+		"/api/file"(controller: "file") {
+			action = [ GET: "show", POST: "save" ]
+		}
+		
 		"/"(view:"/index")
 
 		"500"(view:'/error')

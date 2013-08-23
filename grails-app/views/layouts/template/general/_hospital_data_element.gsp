@@ -76,8 +76,13 @@
 					      <input id="txtValueSet" type="text" class="span9">
 					    </div>					  
 					    <div class="row-fluid">	
-                          <label for="fileValueSets" class="span3">File Upload</label>                                         
-                          <input id="fileValueSets" type="file" class="span9">
+							<form id="uploadForm"  method="post" enctype="multipart/form-data" action="/ihm/api/file">
+								<input type="file" id="fileToUpload" name="fileToUpload"/>
+								<input type="hidden" id="currentHospitalElement" name="currentHospitalElement"/>
+								<input id="upload" type="button"  value="Upload"/>
+							</form>
+							<p>
+							<div id="output2">AJAX response will replace this content.</div>
 					   </div>					   	 				
 				</div>
 			</div>					
