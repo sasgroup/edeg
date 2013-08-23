@@ -9,23 +9,28 @@ class FileController {
 	def fileUploadService
     
 	def show= {
-		def hospitalElementId = params?.currentHospitalElement
-		//find hospitalElement and get file name
-		def fileName = "test.txt"
-		def file = grailsAttributes.getApplicationContext().getResource("uploadFiles/${hospitalElementId}_${fileName}").getFile()
 		
-		if (file.exists()) {
-			def os = response.outputStream
-			response.setHeader("Content-Type", "application/zip")
-			response.setHeader("Content-disposition", "attachment;filename=${file.name}")
-	
-			def bytes = file.text.bytes
-			for(b in bytes) {
-			   os.write(b)
+		if (params?.currentHospitalElement && HospitalMeasure.exists(params.currentHospitalElement)) {
+			def hospitalElement = HospitalElement.get(params.currentHospitalElement)
+			//find hospitalElement and get file name
+			def fileName = hospitalElement.valueSetFile
+			def file = grailsAttributes.getApplicationContext().getResource("uploadFiles/${fileName}").getFile()
+			
+			if (file.exists()) {
+				def os = response.outputStream
+				response.setHeader("Content-Type", "application/zip")
+				response.setHeader("Content-disposition", "attachment;filename=${file.name}")
+		
+				def bytes = file.text.bytes
+				for(b in bytes) {
+				   os.write(b)
+				}
+				os.flush()
+				org.springframework.web.context.request.RequestContextHolder.currentRequestAttributes().renderView = false
 			}
-			os.flush()
-			org.springframework.web.context.request.RequestContextHolder.currentRequestAttributes().renderView = false
-		}
+		} else {
+			render "file not found"
+		}	
 	}
 	def save= {  
 		println("go")
@@ -38,6 +43,13 @@ class FileController {
 		def multiRequest = request.getFile("fileToUpload")
 		if (!multiRequest.isEmpty()) {
 			def path =fileUploadService.uploadFile(multiRequest, "${hospitalElementId}_${multiRequest?.fileItem?.name}", "uploadFiles")
+			if (path) {
+				if (params?.currentHospitalElement && HospitalMeasure.exists(params.currentHospitalElement)) {
+					def hospitalElement = HospitalElement.get(params.currentHospitalElement)
+					hospitalElement.valueSetFile = "${hospitalElementId}_${multiRequest?.fileItem?.name}"
+					hospitalElement.save(flush :true)
+				}
+			}
 			render "$path"
 		} else {
 			render "empty"
