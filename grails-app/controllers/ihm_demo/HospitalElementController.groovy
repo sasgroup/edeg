@@ -27,8 +27,18 @@ class HospitalElementController {
 				}
 			}	
 		}
-				
-		return instance.save(flush :true)
+		
+		instance.save(flush :true)
+		
+		// TODO remove all hospital value sets
+//		def hvSets = HospitalValueSet.findByHospitalElement(instance)
+		
+		if (param.hospitalValueSet)																//codeType:CodeType.valueOf(hvs.codeType)	
+			for (hvs in param.hospitalValueSet){
+				new HospitalValueSet(code:hvs.code, mnemonic:hvs.mnemonic, codeType:hvs.codeType, hospitalElement:instance).save(flush:true)				
+			}
+					
+		return instance		
 	}
 
 	def save() {
@@ -98,7 +108,13 @@ class HospitalElementController {
 						dataElement : hme.hospitalElement.dataElement.code,
 						element_notes:hme.hospitalElement.dataElement.notes,
 						help:hme.hospitalElement.dataElement.help,
-						hospitalValueSet : HospitalValueSet.findByHospitalElement(hme.hospitalElement),
+						hospitalValueSet : array {
+							for (hvs in HospitalValueSet.findAllByHospitalElement(hme.hospitalElement)){
+								hvset code : hvs.code,
+								mnemonic : hvs.mnemonic,
+								codeType : hvs.codeType
+							}
+						},
 						elementExtraLocation : ElementExtraLocation.findByHospitalElement(hme.hospitalElement)
 					}
 				}

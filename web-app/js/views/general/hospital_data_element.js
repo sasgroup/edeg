@@ -58,7 +58,6 @@ App.Views.HospitalElements = Backbone.View.extend({
 	returnToProduct : function(){
 		//Backbone.history.navigate("product/" + this.options.product_id, true);
 		window.history.back();
-
 	},
 	
 	saveHospitalElements : function() {		
@@ -139,14 +138,36 @@ App.Views.SingleHospitalElement = Backbone.View
 		this.model.attributes[e.target.name].name = e.target.value;
 	},
 	
+	
+	
 	selectRow: function(event) {
 		//activate details tabs
 		$('#deatails *').removeAttr('disabled');
         // remove selection		
-		$('.row_selected').css( "background-color", "#FFFFFF" );
-		$('tr.row_selected td:first').css( "background-color", "#FFFFFF" );
-		$('.row_selected').removeClass('row_selected');
-		
+		//SAVE THE STATE!!!!!!!!!!!!!!!!
+		if ($('tr').hasClass("row_selected")){
+			var he_id_to_save = $('tr.row_selected td:first').prop("id");
+			var hospital_element_to_save = App.hospitalElements.get(he_id_to_save);
+			
+			hospitalValueSet = [];
+			
+			$('table#hospital-specific-table tr').not(':first').each(function( ) {
+				var _code = $(this).find('input#code').val();
+				var _mnemonic = $(this).find('input#mnemonic').val();
+				var _codeType = $(this).find('select.slcCodeType').val();
+				
+				var hvs = {"code":_code, "mnemonic":_mnemonic, "codeType":_codeType};				
+				hospitalValueSet.push(hvs);				
+			});
+			
+			//hospital_element_to_save.set({"hospitalValueSet":[{code:'test_code',mnemonic:'test_mnemonic',codeType:'NotApplicable'}, {code:'test_code2',mnemonic:'test_mnemonic2',codeType:'NotApplicable2'}] });
+			hospital_element_to_save.set({"hospitalValueSet":hospitalValueSet});
+			
+			$('.row_selected').css( "background-color", "#FFFFFF" );
+			$('tr.row_selected td:first').css( "background-color", "#FFFFFF" );
+			$('.row_selected').removeClass('row_selected');
+		}
+						
 		// add selection
 		$(event.target.parentNode).addClass('row_selected');
 		$(event.target.parentNode).css( "background-color", "rgb(0, 136, 204, 0.5)" );		
@@ -203,20 +224,61 @@ App.Views.SingleHospitalElement = Backbone.View
 	},
 	
 	showHospitalSpecific: function(slc_hospital_element){		
-		var hospital_specific_tbody = $('#hospital-specific-table tbody');
+		/*var hospital_specific_tbody = $('#hospital-specific-table tbody');
 		$(hospital_specific_tbody).empty();		
-								
+		
+		//var hospitalValueSet = slc_hospital_element.get('hospitalValueSet');
+					
 		var hospitalSpecific =	{
 				  code:      '',
-				  codeType:  slc_hospital_element.get('codeType'),
+				  codeType:  '-Select-',
 				  mnemonic:  ''
 		};
-		
+				
 		var hospital_specific_model = new App.Models.HospitalSpecific(hospitalSpecific);						
 		var hospital_specific_view = new App.Views.HospitalSpecific({ model : hospital_specific_model});
 		var hospital_specific_row = hospital_specific_view.render().el;
 		$(hospital_specific_tbody).append(hospital_specific_row);	
-		$(hospital_specific_row).find(".slcCodeType").val(slc_hospital_element.get('codeType').name);	
+		//$(hospital_specific_row).find(".slcCodeType").val(slc_hospital_element.get('codeType').name);	
+		
+		var hospitalValueSet = slc_hospital_element.get('hospitalValueSet');
+		
+		if (hospitalValueSet==null) {
+			hospitalValueSet = [];
+		}
+		
+		hospitalValueSet.push(hospital_specific_model);
+		slc_hospital_element.set("hospitalValueSet",hospitalValueSet);*/
+		
+		$('div#hs-table div.span7').remove();
+		
+		var view = new App.Views.HospitalSpesificTable({ model : slc_hospital_element});  
+		$('div#hs-table').prepend(view.render().el);  
+		
+		var hospitalValueSet = slc_hospital_element.get('hospitalValueSet');
+		
+		if (hospitalValueSet.length==0){			
+			//add empty row
+			var hospitalSpecific =	{
+					  code:      '',
+					  codeType:  '-Select-',
+					  mnemonic:  ''
+			};					
+			var hospital_specific_model = new App.Models.HospitalSpecific(hospitalSpecific);
+			var hospital_specific_view = new App.Views.HospitalSpecific({ model : hospital_specific_model});
+			var hospital_specific_row = hospital_specific_view.render().el;
+			$('#hospital-specific-table tbody').append(hospital_specific_row);	
+		}			
+		else {
+			//append existing rows 
+			$.each( hospitalValueSet, function( i, hvs ) {
+				var hospital_specific_model = new App.Models.HospitalSpecific(hvs);
+				var hospital_specific_view = new App.Views.HospitalSpecific({ model : hospital_specific_model}); 
+				var hospital_specific_row = hospital_specific_view.render().el;
+				$('#hospital-specific-table tbody').append(hospital_specific_row);		
+				$(hospital_specific_row).find(".slcCodeType").val(hospital_specific_model.get('codeType').name);	
+			  });				
+		}
 		
 	},
 	
@@ -325,6 +387,10 @@ App.Views.HospitalSpecific =  Backbone.View
 		$(hospital_specific_tbody).append(hospital_specific_row);
 		$(hospital_specific_row).find(".slcCodeType").val(hospital_specific_model.get('codeType').name);
 		
+		/*var hospitalValueSet = slc_hospital_element.get('hospitalValueSet');
+		hospitalValueSet.push(hospital_specific_model);
+		this.model.set("hospitalValueSet",hospitalValueSet);*/
+		
 	},
 	
 	removeRow : function (event){
@@ -387,4 +453,24 @@ App.Views.QADataElement = Backbone.View
       this.model.set({"internalNotes":txt});
     }
   }
+});
+
+
+//Hospital Spesific Table !!!!!!!!!!!!!!
+App.Views.HospitalSpesificTable = Backbone.View
+.extend({ 
+  className: "span7",	
+  template: _.template($('#hosp-spec-table').html()),      
+  
+  events : {
+   
+  },
+          
+  render : function() {
+    console.log(this.model.toJSON());
+    this.$el.html(this.template());
+
+    return this;
+  }  
+  
 });
