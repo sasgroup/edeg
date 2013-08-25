@@ -60,7 +60,29 @@ App.Views.HospitalElements = Backbone.View.extend({
 		window.history.back();
 	},
 	
+	saveCurrentHospitalSpecific: function() {
+		if ($('tr').hasClass("row_selected")){
+			var he_id_to_save = $('tr.row_selected td:first').prop("id");
+			var hospital_element_to_save = App.hospitalElements.get(he_id_to_save);
+			
+			hospitalValueSet = [];		
+			
+			$('table#hospital-specific-table tr').not(':first').each(function( ) {
+				var _code = $(this).find('input#code').val();
+				var _mnemonic = $(this).find('input#mnemonic').val();
+				var _codeType = $(this).find('select.slcCodeType').val();
+				
+				var hvs = {"code":_code, "mnemonic":_mnemonic, "codeType":_codeType};				
+				hospitalValueSet.push(hvs);				
+			});
+									
+			hospital_element_to_save.set({"hospitalValueSet":hospitalValueSet});		
+		}
+	},
+	
 	saveHospitalElements : function() {		
+		this.saveCurrentHospitalSpecific();		
+		
 		var m_id = this.options.m_id;
 		_.each(this.collection.models, function(model) {
 			  model.set({markAsComplete: false});	 
@@ -76,6 +98,8 @@ App.Views.HospitalElements = Backbone.View.extend({
 	},
 	
 	saveAndMarkHospitalElements : function() {	
+		this.saveCurrentHospitalSpecific();		
+		
 		var m_id = this.options.m_id;
 		_.each(this.collection.models, function(model) {
 			  model.set({markAsComplete: true});
@@ -138,18 +162,18 @@ App.Views.SingleHospitalElement = Backbone.View
 		this.model.attributes[e.target.name].name = e.target.value;
 	},
 	
-	
-	
 	selectRow: function(event) {
 		//activate details tabs
 		$('#deatails *').removeAttr('disabled');
-        // remove selection		
-		//SAVE THE STATE!!!!!!!!!!!!!!!!
-		if ($('tr').hasClass("row_selected")){
+        	
+		//save selected hospital specific and remove selection	
+		if ($('tr').hasClass("row_selected")){			
+								
+			//this.saveHospitalSpecific();
 			var he_id_to_save = $('tr.row_selected td:first').prop("id");
 			var hospital_element_to_save = App.hospitalElements.get(he_id_to_save);
 			
-			hospitalValueSet = [];
+			hospitalValueSet = [];		
 			
 			$('table#hospital-specific-table tr').not(':first').each(function( ) {
 				var _code = $(this).find('input#code').val();
@@ -159,8 +183,7 @@ App.Views.SingleHospitalElement = Backbone.View
 				var hvs = {"code":_code, "mnemonic":_mnemonic, "codeType":_codeType};				
 				hospitalValueSet.push(hvs);				
 			});
-			
-			//hospital_element_to_save.set({"hospitalValueSet":[{code:'test_code',mnemonic:'test_mnemonic',codeType:'NotApplicable'}, {code:'test_code2',mnemonic:'test_mnemonic2',codeType:'NotApplicable2'}] });
+					
 			hospital_element_to_save.set({"hospitalValueSet":hospitalValueSet});
 			
 			$('.row_selected').css( "background-color", "#FFFFFF" );
@@ -211,45 +234,8 @@ App.Views.SingleHospitalElement = Backbone.View
 		 var qa_view3 = new App.Views.QADataElement({ model : slc_hospital_element, tab: "tab-qa3"});
 		 $('div#qa3').html(qa_view3.render().el); 
 	},
-	
-	showExtraLocation: function(slc_hospital_element){	
-		var extra_tbody = $('#extra-table tbody');
-		$(extra_tbody).empty();						
-		var extra_view = new App.Views.ExtraDataElement({ model : slc_hospital_element});		
-		if (window.console) console.log(slc_hospital_element);
-		var extra_row = extra_view.render().el;
-		$(extra_tbody).append(extra_row);		
-		$(extra_row).find(".slcCodeType").val(slc_hospital_element.get('codeType').name);
-		$(extra_row).find(".slcValueType").val(slc_hospital_element.get('valueType').name);
-	},
-	
+			
 	showHospitalSpecific: function(slc_hospital_element){		
-		/*var hospital_specific_tbody = $('#hospital-specific-table tbody');
-		$(hospital_specific_tbody).empty();		
-		
-		//var hospitalValueSet = slc_hospital_element.get('hospitalValueSet');
-					
-		var hospitalSpecific =	{
-				  code:      '',
-				  codeType:  '-Select-',
-				  mnemonic:  ''
-		};
-				
-		var hospital_specific_model = new App.Models.HospitalSpecific(hospitalSpecific);						
-		var hospital_specific_view = new App.Views.HospitalSpecific({ model : hospital_specific_model});
-		var hospital_specific_row = hospital_specific_view.render().el;
-		$(hospital_specific_tbody).append(hospital_specific_row);	
-		//$(hospital_specific_row).find(".slcCodeType").val(slc_hospital_element.get('codeType').name);	
-		
-		var hospitalValueSet = slc_hospital_element.get('hospitalValueSet');
-		
-		if (hospitalValueSet==null) {
-			hospitalValueSet = [];
-		}
-		
-		hospitalValueSet.push(hospital_specific_model);
-		slc_hospital_element.set("hospitalValueSet",hospitalValueSet);*/
-		
 		$('div#hs-table div.span7').remove();
 		
 		var view = new App.Views.HospitalSpesificTable({ model : slc_hospital_element});  
@@ -282,6 +268,17 @@ App.Views.SingleHospitalElement = Backbone.View
 		
 	},
 	
+	showExtraLocation: function(slc_hospital_element){	
+		var extra_tbody = $('#extra-table tbody');
+		$(extra_tbody).empty();						
+		var extra_view = new App.Views.ExtraDataElement({ model : slc_hospital_element});		
+		if (window.console) console.log(slc_hospital_element);
+		var extra_row = extra_view.render().el;
+		$(extra_tbody).append(extra_row);		
+		$(extra_row).find(".slcCodeType").val(slc_hospital_element.get('codeType').name);
+		$(extra_row).find(".slcValueType").val(slc_hospital_element.get('valueType').name);
+	},
+	
 	showInfo: function(evt) {		
 		var _did = $(evt.target).closest('tr').prop("id");
 		var _help = this.model.get('help');
@@ -307,51 +304,25 @@ App.Views.SingleHospitalElement = Backbone.View
 	}
 });	
 
-//EXTRA
-App.Views.ExtraDataElement = Backbone.View
-.extend({
-	tagName : 'tr',
-	template: _.template($('#extra-elements').html()),		
-	
-	events : {
-		'click #plus-btn' : 'addRow',
-		'click #minus-btn': 'removeRow'		
-	},
-					
-	render : function() {			
-		var ch  = (this.model.get('sourceEHR'))  ? "checked" : "";		
-		this.model.set({chd:ch});
-		if (window.console) console.log(this.model.toJSON());
-		this.$el.html(this.template(this.model.toJSON()));				
-		return this;
-	},
-	
-	addRow : function (event){		
-		if (window.console) console.log("add extra row");
-		
-		var extraDataElement =	{
-				  location:  this.model.get('location'),
-				  sourceEHR: this.model.get("sourceEHR"),
-				  source:    this.model.get("source"),
-				  codeType:  this.model.get("codeType"),
-				  valueType: this.model.get("valueType")
-		};
-		
-		var extra_model = new App.Models.ExtraDataElement(extraDataElement);
-		var extra_view = new App.Views.ExtraDataElement({ model : extra_model});		
-		
-		var extra_tbody = $('#extra-table tbody');
-		var extra_row = extra_view.render().el;
-		$(extra_tbody).append(extra_row);
-		$(extra_row).find(".slcCodeType").val(extra_model.get('codeType').name);
-		$(extra_row).find(".slcValueType").val(extra_model.get('valueType').name);		
-		
-	},
-	
-	removeRow : function (event){
-		if (window.console) console.log("remove extra row");
-		$(event.target).closest('tr').remove();
-	}
+
+
+//Hospital Spesific Table !!!!!!!!!!!!!!
+App.Views.HospitalSpesificTable = Backbone.View
+.extend({ 
+className: "span7",	
+template: _.template($('#hosp-spec-table').html()),      
+
+events : {
+ 
+},
+        
+render : function() {
+  console.log(this.model.toJSON());
+  this.$el.html(this.template());
+
+  return this;
+}  
+
 });
 
 //Hospital Specific 
@@ -398,6 +369,7 @@ App.Views.HospitalSpecific =  Backbone.View
 		$(event.target).closest('tr').remove();
 	}
 });
+
 
 //QA
 App.Views.QADataElement = Backbone.View
@@ -455,22 +427,49 @@ App.Views.QADataElement = Backbone.View
   }
 });
 
-
-//Hospital Spesific Table !!!!!!!!!!!!!!
-App.Views.HospitalSpesificTable = Backbone.View
-.extend({ 
-  className: "span7",	
-  template: _.template($('#hosp-spec-table').html()),      
-  
-  events : {
-   
-  },
-          
-  render : function() {
-    console.log(this.model.toJSON());
-    this.$el.html(this.template());
-
-    return this;
-  }  
-  
+//EXTRA
+App.Views.ExtraDataElement = Backbone.View
+.extend({
+	tagName : 'tr',
+	template: _.template($('#extra-elements').html()),		
+	
+	events : {
+		'click #plus-btn' : 'addRow',
+		'click #minus-btn': 'removeRow'		
+	},
+					
+	render : function() {			
+		var ch  = (this.model.get('sourceEHR'))  ? "checked" : "";		
+		this.model.set({chd:ch});
+		if (window.console) console.log(this.model.toJSON());
+		this.$el.html(this.template(this.model.toJSON()));				
+		return this;
+	},
+	
+	addRow : function (event){		
+		if (window.console) console.log("add extra row");
+		
+		var extraDataElement =	{
+				  location:  this.model.get('location'),
+				  sourceEHR: this.model.get("sourceEHR"),
+				  source:    this.model.get("source"),
+				  codeType:  this.model.get("codeType"),
+				  valueType: this.model.get("valueType")
+		};
+		
+		var extra_model = new App.Models.ExtraDataElement(extraDataElement);
+		var extra_view = new App.Views.ExtraDataElement({ model : extra_model});		
+		
+		var extra_tbody = $('#extra-table tbody');
+		var extra_row = extra_view.render().el;
+		$(extra_tbody).append(extra_row);
+		$(extra_row).find(".slcCodeType").val(extra_model.get('codeType').name);
+		$(extra_row).find(".slcValueType").val(extra_model.get('valueType').name);		
+		
+	},
+	
+	removeRow : function (event){
+		if (window.console) console.log("remove extra row");
+		$(event.target).closest('tr').remove();
+	}
 });
