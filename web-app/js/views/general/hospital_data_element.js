@@ -168,8 +168,7 @@ App.Views.SingleHospitalElement = Backbone.View
         	
 		//save selected hospital specific and remove selection	
 		if ($('tr').hasClass("row_selected")){			
-								
-			//this.saveHospitalSpecific();
+						
 			var he_id_to_save = $('tr.row_selected td:first').prop("id");
 			var hospital_element_to_save = App.hospitalElements.get(he_id_to_save);
 			
