@@ -11,10 +11,7 @@ class LoginTagLib {
 		if (name){
 			def user = new User(login:name, password: "", role:securityService.getRole(name))
 			session.user = user
-			println "$user"
 		}
-	
-		println "~~~~~~~~~$session.user.role"
 	}
 	
 	def loginControl = {
