@@ -48,8 +48,8 @@
 				</div>
           </div>		  
 		  <div id="hospital-specific-tab" class="tab-pane fade">             
-		    <div class="row-fluid">						
-				<div class="span7">             
+		    <div class="row-fluid" id="hs-table">						
+				<!--<div class="span7" >             
 				<table id="hospital-specific-table" class="table table-bordered table-condensed">				
 				<thead>
         			<tr>
@@ -69,7 +69,7 @@
     			<tbody>					
     			</tbody>
 				</table>
-				</div>
+				</div>-->
 				<div class="span5">						
 						<div class="row-fluid">
                           <label for="txtValueSet" class="span3">Value Set</label>   
@@ -88,7 +88,7 @@
 			</div>					
 		  </div>
 		  <div id="extra-location" class="tab-pane fade">
-			 <table id="extra-table" class="table table-condensed table-bordered">				
+			 <!--<table id="extra-table" class="table table-condensed table-bordered">				
 				<thead>
         			<tr>
             			<th>Location</th>           
@@ -102,7 +102,7 @@
     			</thead>
     			<tbody>					
     			</tbody>
-				</table>		   
+				</table>-->		   
           </div>
        </div>
 	</div>
@@ -199,7 +199,7 @@
 
 <!-- hospital-specific -->
 <script type="text/template" class="template" id="hospital-specific">
- <td><input type="text" class="code" id="code" value="{{code}}"></td> 
+ <td><input type="text" class="code" id="code" value="{{code}}" placeholder="Enter Code"></td> 
  <td><select class="slcCodeType">                
 				 <option value="">-Select-</option>
 				 <option value="NotApplicable">NotApplicable</option>
@@ -220,7 +220,7 @@
 				 <option value="SOP">SOP</option>
     </select>
  </td>
- <td><input type="text" class="mnemonic" id="mnemonic" value="{{mnemonic}}"></td>
+ <td><input type="text" class="mnemonic" id="mnemonic" value="{{mnemonic}}" placeholder="Enter Mnemonic"></td>
  <td><div id="plus-btn" class="btn btn-mini"><i class="icon-plus"></i></div></td>
  <td><div id="minus-btn" class="btn btn-mini"><i class="icon-minus"></i></div></td>
 </script>
@@ -228,6 +228,45 @@
 <!-- qa -->
 <script type="text/template" class="template" id="qa">
   <div rows="3" class="txt-qa input-xlarge" placeholder="Click on the Data Element to view its details"><p>{{notes}}</p></div>					
-  <textarea rows="2" class="txt-message input-xlarge"></textarea><td class="f-btn"><a class= "btn send-btn" title="send"><i class="icon-share"></i></a>
- <!-- <a class="btn btn-info send-btn">Send</a>-->
+  <textarea rows="2" class="txt-message input-xlarge"></textarea><td class="f-btn"><a class= "btn send-btn" title="send"><i class="icon-share"></i></a> 
+</script>
+
+<script type="text/template" class="template" id="hosp-spec-table">
+<table id="hospital-specific-table" class="table table-bordered table-condensed">				
+<thead>
+	<tr>
+		<th>
+			Code
+		</th>
+		<th>
+			CodeType
+		</th>
+		<th>
+			Mnemonic
+		</th>
+		<th></th>
+		<th></th>			
+	</tr>					
+</thead>
+<tbody>					
+</tbody>
+</table>
+</script>
+
+<script type="text/template" class="template" id="extra-table-temp">
+<table id="extra-table" class="table table-condensed table-bordered">				
+				<thead>
+        			<tr>
+            			<th>Location</th>           
+						<th title="SourceEHR">EHR</th>
+						<th>Source</th>
+						<th>CodeType</th>
+		    			<th>ValueType</th>		
+						<th></th>
+						<th></th>			
+        			</tr>					
+    			</thead>
+    			<tbody>					
+    			</tbody>
+</table>
 </script>
