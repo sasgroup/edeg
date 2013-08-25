@@ -83,7 +83,7 @@
 			</div>					
 		  </div>
 		  <div id="extra-location" class="tab-pane fade">
-			 <table id="extra-table" class="table table-condensed table-bordered">				
+			 <!--<table id="extra-table" class="table table-condensed table-bordered">				
 				<thead>
         			<tr>
             			<th>Location</th>           
@@ -97,7 +97,7 @@
     			</thead>
     			<tbody>					
     			</tbody>
-				</table>		   
+				</table>-->		   
           </div>
        </div>
 	</div>
@@ -245,5 +245,23 @@
 </thead>
 <tbody>					
 </tbody>
+</table>
+</script>
+
+<script type="text/template" class="template" id="extra-table-temp">
+<table id="extra-table" class="table table-condensed table-bordered">				
+				<thead>
+        			<tr>
+            			<th>Location</th>           
+						<th title="SourceEHR">EHR</th>
+						<th>Source</th>
+						<th>CodeType</th>
+		    			<th>ValueType</th>		
+						<th></th>
+						<th></th>			
+        			</tr>					
+    			</thead>
+    			<tbody>					
+    			</tbody>
 </table>
 </script>

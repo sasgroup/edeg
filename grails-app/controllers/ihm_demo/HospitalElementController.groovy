@@ -33,11 +33,19 @@ class HospitalElementController {
 		// TODO remove all hospital value sets
 //		def hvSets = HospitalValueSet.findByHospitalElement(instance)
 		
-		if (param.hospitalValueSet)																//codeType:CodeType.valueOf(hvs.codeType)	
+		if (param.hospitalValueSet)																
 			for (hvs in param.hospitalValueSet){
 				new HospitalValueSet(code:hvs.code, mnemonic:hvs.mnemonic, codeType:hvs.codeType, hospitalElement:instance).save(flush:true)				
 			}
-					
+			
+		
+		/*if (param.elementExtraLocation)
+			for (e in param.elementExtraLocation){
+				println e
+				new ElementExtraLocation(location:e.location, source:e.source, sourceEHR:e.sourceEHR, codeType:CodeType.valueOf(e.codeType), valueType: ValueType.valueOf(e.valueType), hospitalElement:instance).save(flush:true)
+			}			*/
+				
+				
 		return instance		
 	}
 
@@ -115,7 +123,19 @@ class HospitalElementController {
 								codeType : hvs.codeType
 							}
 						},
-						elementExtraLocation : ElementExtraLocation.findByHospitalElement(hme.hospitalElement)
+					
+						elementExtraLocation : array {
+							for (e in ElementExtraLocation.findAllByHospitalElement(hme.hospitalElement)){
+								elem location  : e.location,
+									 source    : e.source
+									 sourceEHR : e.sourceEHR 
+									 codeType  : e.codeType
+									 valueType : e.valueType								
+							}
+						}
+						 
+						
+						//elementExtraLocation : ElementExtraLocation.findAllByHospitalElement(hme.hospitalElement)
 					}
 				}
 			}
