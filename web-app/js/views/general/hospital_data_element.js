@@ -66,13 +66,12 @@ App.Views.HospitalElements = Backbone.View.extend({
 		window.history.back();
 	},
 	
-	saveCurrentHospitalSpecific: function() {
+	saveCurHospSpecAndExtraLoc: function() {
 		if ($('tr').hasClass("row_selected")){
 			var he_id_to_save = $('tr.row_selected td:first').prop("id");
 			var hospital_element_to_save = App.hospitalElements.get(he_id_to_save);
 			
-			hospitalValueSet = [];		
-			
+			hospitalValueSet = [];				
 			$('table#hospital-specific-table tr').not(':first').each(function( ) {
 				var _code = $(this).find('input#code').val();
 				var _mnemonic = $(this).find('input#mnemonic').val();
@@ -83,14 +82,29 @@ App.Views.HospitalElements = Backbone.View.extend({
 					hospitalValueSet.push(hvs);				
 				}	
 			});
-									
+			
+			
+			elementExtraLocation = [];
+			$('table#extra-table tr').not(':first').each(function( ) {
+				var _location = $(this).find('input#location').val();
+				var _sourceEHR = $(this).find('input#sourceEHR').val();
+				var _source = $(this).find('input#source').val();
+				var _codeType = $(this).find('select.slcCodeType').val();
+				var _valueType = $(this).find('select.slcValueType').val();
+						
+				if ((_location!="")&&(_source!="")&&(_codeType!="")&&(_valueType!="")) {
+					var extraloc = {"location":_location, "source":_source, "sourceEHR":_sourceEHR, "codeType":{name:_codeType}, "valueType":{name:_valueType}};					
+					elementExtraLocation.push(extraloc);				
+				}				
+			});
+								
+			hospital_element_to_save.set({"elementExtraLocation":elementExtraLocation});									
 			hospital_element_to_save.set({"hospitalValueSet":hospitalValueSet});		
-		}
-		
+		}		
 	},
 	
 	saveHospitalElements : function() {		
-		this.saveCurrentHospitalSpecific();		
+		this.saveCurHospSpecAndExtraLoc();		
 		
 		var m_id = this.options.m_id;
 		_.each(this.collection.models, function(model) {
@@ -107,7 +121,7 @@ App.Views.HospitalElements = Backbone.View.extend({
 	},
 	
 	saveAndMarkHospitalElements : function() {	
-		this.saveCurrentHospitalSpecific();		
+		this.saveCurHospSpecAndExtraLoc();		
 		
 		var m_id = this.options.m_id;
 		_.each(this.collection.models, function(model) {
@@ -184,21 +198,38 @@ App.Views.SingleHospitalElement = Backbone.View
 			var he_id_to_save = $('tr.row_selected td:first').prop("id");
 			var hospital_element_to_save = App.hospitalElements.get(he_id_to_save);
 			
+			// save hospitalValueSet
 			hospitalValueSet = [];		
 			
 			$('table#hospital-specific-table tr').not(':first').each(function( ) {
 				var _code = $(this).find('input#code').val();
 				var _mnemonic = $(this).find('input#mnemonic').val();
 				var _codeType = $(this).find('select.slcCodeType').val();
-						
+										
 				if ((_code!="")&&(_mnemonic!="")&&(_codeType!="")) {
 					var hvs = {"code":_code, "mnemonic":_mnemonic, "codeType":{name:_codeType}};					
 					hospitalValueSet.push(hvs);				
-				}		
-				
+				}				
 			});
+			
+			//save elementExtraLocation
+			elementExtraLocation = [];
+			$('table#extra-table tr').not(':first').each(function( ) {
+				var _location = $(this).find('input#location').val();
+				var _sourceEHR = $(this).find('input#sourceEHR').val();
+				var _source = $(this).find('input#source').val();
+				var _codeType = $(this).find('select.slcCodeType').val();
+				var _valueType = $(this).find('select.slcValueType').val();
+						
+				if ((_location!="")&&(_source!="")&&(_codeType!="")&&(_valueType!="")) {
+					var extraloc = {"location":_location, "source":_source, "sourceEHR":_sourceEHR, "codeType":{name:_codeType}, "valueType":{name:_valueType}};					
+					elementExtraLocation.push(extraloc);				
+				}				
+			});
+			
 					
 			hospital_element_to_save.set({"hospitalValueSet":hospitalValueSet});
+			hospital_element_to_save.set({"elementExtraLocation":elementExtraLocation});
 			
 			$('.row_selected').css( "background-color", "#FFFFFF" );
 			$('tr.row_selected td:first').css( "background-color", "#FFFFFF" );
@@ -276,8 +307,7 @@ App.Views.SingleHospitalElement = Backbone.View
 				var hospital_specific_model = new App.Models.HospitalSpecific(hvs);
 				var hospital_specific_view = new App.Views.HospitalSpecific({ model : hospital_specific_model}); 
 				var hospital_specific_row = hospital_specific_view.render().el;
-				$('#hospital-specific-table tbody').append(hospital_specific_row);		
-				//$(hospital_specific_row).find(".slcCodeType").val(hospital_specific_model.get('codeType').name);	
+				$('#hospital-specific-table tbody').append(hospital_specific_row);				
 			  });				
 		}
 		
@@ -324,16 +354,7 @@ App.Views.SingleHospitalElement = Backbone.View
 		//  });	
 			
 	//	}
-		
-		
-		/*var extra_tbody = $('#extra-table tbody');
-		$(extra_tbody).empty();						
-		var extra_view = new App.Views.ExtraDataElement({ model : slc_hospital_element});		
-		if (window.console) console.log(slc_hospital_element);
-		var extra_row = extra_view.render().el;
-		$(extra_tbody).append(extra_row);		
-		$(extra_row).find(".slcCodeType").val(slc_hospital_element.get('codeType').name);
-		$(extra_row).find(".slcValueType").val(slc_hospital_element.get('valueType').name);*/
+			
 	},
 	
 	showInfo: function(evt) {		
@@ -426,9 +447,7 @@ App.Views.ExtraDataElement = Backbone.View
 		
 		var extra_tbody = $('#extra-table tbody');
 		var extra_row = extra_view.render().el;
-		$(extra_tbody).append(extra_row);
-		$(extra_row).find(".slcCodeType").val(extra_model.get('codeType').name);
-		$(extra_row).find(".slcValueType").val(extra_model.get('valueType').name);		
+		$(extra_tbody).append(extra_row);				
 		
 	},
 	
@@ -469,9 +488,7 @@ App.Views.HospitalSpecific =  Backbone.View
 		var hospital_specific_model = new App.Models.HospitalSpecific(hospitalSpecific);						
 		var hospital_specific_view = new App.Views.HospitalSpecific({ model : hospital_specific_model});
 		var hospital_specific_row = hospital_specific_view.render().el;
-		$(hospital_specific_tbody).append(hospital_specific_row);
-		$(hospital_specific_row).find(".slcCodeType").val(hospital_specific_model.get('codeType').name);
-	
+		$(hospital_specific_tbody).append(hospital_specific_row);	
 	},
 	
 	removeRow : function (event){
