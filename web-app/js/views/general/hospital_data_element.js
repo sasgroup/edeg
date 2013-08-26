@@ -78,8 +78,10 @@ App.Views.HospitalElements = Backbone.View.extend({
 				var _mnemonic = $(this).find('input#mnemonic').val();
 				var _codeType = $(this).find('select.slcCodeType').val();
 				
-				var hvs = {"code":_code, "mnemonic":_mnemonic, "codeType":_codeType};				
-				hospitalValueSet.push(hvs);				
+				if ((_code!="")&&(_mnemonic!="")&&(_codeType!="")) {
+					var hvs = {"code":_code, "mnemonic":_mnemonic, "codeType":{name:_codeType}};					
+					hospitalValueSet.push(hvs);				
+				}	
 			});
 									
 			hospital_element_to_save.set({"hospitalValueSet":hospitalValueSet});		
@@ -188,9 +190,12 @@ App.Views.SingleHospitalElement = Backbone.View
 				var _code = $(this).find('input#code').val();
 				var _mnemonic = $(this).find('input#mnemonic').val();
 				var _codeType = $(this).find('select.slcCodeType').val();
+						
+				if ((_code!="")&&(_mnemonic!="")&&(_codeType!="")) {
+					var hvs = {"code":_code, "mnemonic":_mnemonic, "codeType":{name:_codeType}};					
+					hospitalValueSet.push(hvs);				
+				}		
 				
-				var hvs = {"code":_code, "mnemonic":_mnemonic, "codeType":_codeType};				
-				hospitalValueSet.push(hvs);				
 			});
 					
 			hospital_element_to_save.set({"hospitalValueSet":hospitalValueSet});
@@ -267,11 +272,12 @@ App.Views.SingleHospitalElement = Backbone.View
 		else {
 			//append existing rows 
 			$.each( hospitalValueSet, function( i, hvs ) {
+				console.log(hvs);
 				var hospital_specific_model = new App.Models.HospitalSpecific(hvs);
 				var hospital_specific_view = new App.Views.HospitalSpecific({ model : hospital_specific_model}); 
 				var hospital_specific_row = hospital_specific_view.render().el;
 				$('#hospital-specific-table tbody').append(hospital_specific_row);		
-				$(hospital_specific_row).find(".slcCodeType").val(hospital_specific_model.get('codeType').name);	
+				//$(hospital_specific_row).find(".slcCodeType").val(hospital_specific_model.get('codeType').name);	
 			  });				
 		}
 		
@@ -281,29 +287,44 @@ App.Views.SingleHospitalElement = Backbone.View
 		var elementExtraLocation = slc_hospital_element.get('elementExtraLocation');		
 		var view = new App.Views.ExtraTable({collection : elementExtraLocation});			
 		$('div#extra-location').html(view.render().el);  
+				
+		var elementExtraLocation = slc_hospital_element.get('elementExtraLocation');
 		
-		/*$.each( elementExtraLocation, function( i, hvs ) {
-			var hospital_specific_model = new App.Models.HospitalSpecific(hvs);
-			var hospital_specific_view = new App.Views.HospitalSpecific({ model : hospital_specific_model}); 
-			var hospital_specific_row = hospital_specific_view.render().el;
-			$('#hospital-specific-table tbody').append(hospital_specific_row);		
+		
+	/*	if (elementExtraLocation.length==0){	
+		  //add empty row	
+		  var extraDataElement =	{
+				  location: '',
+				  sourceEHR: '',
+				  source:    '',
+				  codeType:  '-Select-',
+				  valueType: '-Select-'
+		  };
+		  
+		  var extra_model = new App.Models.ExtraDataElement(extraDataElement);
+		  var extra_view = new App.Views.ExtraDataElement({ model : extra_model});					  
+		  var extra_row = extra_view.render().el;
+		  $('#extra-table tbody').append(extra_row);
+		} else {*/
 			
-		});	*/
+		//  $.each( elementExtraLocation, function( i, extraDataElement ) {
+			  
+			 var extraDataElement =	{
+					  location: 'test_location',
+					  sourceEHR: '',
+					  source:    'test_source',
+					  codeType:  'RXNORM',
+					  valueType: 'IMO_Code'
+			 };  
+			  
+			var extra_model = new App.Models.ExtraDataElement(extraDataElement);
+			var extra_view = new App.Views.ExtraDataElement({ model : extra_model});	
+			var extra_row = extra_view.render().el;
+			$('#extra-table tbody').append(extra_row);
+		//  });	
+			
+	//	}
 		
-		var extraDataElement =	{
-				  location:  this.model.get('location'),
-				  sourceEHR: this.model.get("sourceEHR"),
-				  source:    this.model.get("source"),
-				  codeType:  this.model.get("codeType"),
-				  valueType: this.model.get("valueType")
-		};
-		
-		var extra_model = new App.Models.ExtraDataElement(extraDataElement);
-		var extra_view = new App.Views.ExtraDataElement({ model : extra_model});		
-		
-		var extra_tbody = $('#extra-table tbody');
-		var extra_row = extra_view.render().el;
-		$(extra_tbody).append(extra_row);
 		
 		/*var extra_tbody = $('#extra-table tbody');
 		$(extra_tbody).empty();						

@@ -35,7 +35,8 @@ class HospitalElementController {
 		
 		if (param.hospitalValueSet)																
 			for (hvs in param.hospitalValueSet){
-				new HospitalValueSet(code:hvs.code, mnemonic:hvs.mnemonic, codeType:hvs.codeType, hospitalElement:instance).save(flush:true)				
+				//new HospitalValueSet(code:hvs.code, mnemonic:hvs.mnemonic, codeType:hvs.codeType, hospitalElement:instance).save(flush:true)				
+				new HospitalValueSet(code:hvs.code, mnemonic:hvs.mnemonic, codeType:CodeType.valueOf(hvs.codeType.name), hospitalElement:instance).save(flush:true)
 			}
 			
 		
