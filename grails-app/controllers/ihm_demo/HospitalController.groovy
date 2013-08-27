@@ -24,6 +24,7 @@ class HospitalController {
 				}
 			}
 			hospitalInstance.notes = params?.notes
+			hospitalInstance.email = params?.email
 			hospitalInstance.save(flush:true)
 
 			for (prod in params.products){
