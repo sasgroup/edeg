@@ -223,8 +223,18 @@ form#hospital-edit div#myTabContent  {
 	overflow: auto;   
 }
 
-form#hospital-edit #name  {	
+form#hospital-edit #name, #email  {	
 	width:235px;	   
+}
+
+form#hospital-edit table#fields td {
+	border-top: none;
+}
+
+form#hospital-edit textarea#notes {
+	width:95%;
+	height:100%;
+	resize: none;
 }
 
 form#hospital-edit #notes  {	

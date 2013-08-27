@@ -32,19 +32,26 @@
    <div class="row">   
    <h3>Hospital: Edit</h3>
    <form method="post" class="form-horizontal" id="hospital-edit" accept-charset="utf-8">    
-	<table class="table">
+	<table class="table" id="fields">
         <tbody>
 			  <tr>
                 <td>Name</td>
                 <td>
                     <input name="name" type="text" value="{{ name }}" id="name" disabled>
                 </td>
-                <td>Notes</td>
-                <td>
-                <input name="notes" type="text" value="{{ notes }}" id="notes"> 
+                <td rowspan="2">Notes</td>
+                <td rowspan="2">
+                	<textarea rows="3" name="notes" rows="3" id="notes">{{ notes }}</textarea>					
                 </td>
-                <td></td>
-             </tr>					
+                <td rowspan="2"></td>
+             </tr>		
+
+			 <tr>
+                <td>Email</td>
+                <td colspan="4">
+                    <input name="email" type="text" value="{{ email }}" id="email">
+                </td>               
+             </tr>			
 
 			  <tr>
                 <td>Primary EHR</td>

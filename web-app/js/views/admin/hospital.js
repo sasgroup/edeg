@@ -35,7 +35,7 @@ App.Views.Hospital = Backbone.View.extend({
 		'click button#cancel' 			 : 'returnOnMain', 
 		'click #btnApplyHospitalOptions' : 'applyHospitalOptions',
 		'click a[data-toggle="tab"]'	 : 'changeTab',
-		'change #notes' 				 : 'changeVal'		
+		'change #notes, #email' 		 : 'changeVal'		
 	},
 
 	render : function() {	

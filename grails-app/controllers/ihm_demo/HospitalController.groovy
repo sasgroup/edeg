@@ -51,6 +51,7 @@ class HospitalController {
 			def hospitalProducts = HospitalProduct.findAllByHospital(result)
 			render(contentType: "text/json") {
 				name = result.name
+				email = result.email
 				notes= result.notes
 				id   = result.id
 				ehr = result.ehr
@@ -209,6 +210,7 @@ class HospitalController {
 			//def productList	=  hospitalProducts.collect{it.product}
 			render(contentType: "text/json") {
 				name = result.name
+				email = (result.email)?result.email:""
 				notes= result.notes
 				id   = result.id
 				ehr = result.ehr
