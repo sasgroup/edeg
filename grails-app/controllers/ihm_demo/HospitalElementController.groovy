@@ -31,23 +31,22 @@ class HospitalElementController {
 		instance.save(flush :true)
 		
 		// TODO remove all hospital value sets
-//		def hvSets = HospitalValueSet.findByHospitalElement(instance)
+		HospitalValueSet.executeUpdate("delete HospitalValueSet hvs where hvs.hospitalElement=?", [instance])
+		ElementExtraLocation.executeUpdate("delete ElementExtraLocation eel where eel.hospitalElement=?", [instance])
 		
 		if (param.hospitalValueSet)																
 			for (hvs in param.hospitalValueSet){
-				//new HospitalValueSet(code:hvs.code, mnemonic:hvs.mnemonic, codeType:hvs.codeType, hospitalElement:instance).save(flush:true)				
-				new HospitalValueSet(code:hvs.code, mnemonic:hvs.mnemonic, codeType:CodeType.valueOf(hvs.codeType.name), hospitalElement:instance).save(flush:true)
+				new HospitalValueSet(code:hvs.code, mnemonic:hvs.mnemonic, codeType:CodeType.valueOf(hvs.codeType.name), hospitalElement:instance).save()
 			}
 			
 		
-		/*if (param.elementExtraLocation)
+		if (param.elementExtraLocation)
 			for (e in param.elementExtraLocation){
-				println e
-				new ElementExtraLocation(location:e.location, source:e.source, sourceEHR:e.sourceEHR, codeType:CodeType.valueOf(e.codeType), valueType: ValueType.valueOf(e.valueType), hospitalElement:instance).save(flush:true)
-			}			*/
+				new ElementExtraLocation(location:e.location, source:e.source, sourceEHR:e.sourceEHR, codeType:CodeType.valueOf(e.codeType.name), valueType: ValueType.valueOf(e.valueType.name), hospitalElement:instance).save()
+			}
 				
 				
-		return instance		
+		return instance.save(flush :true)	
 	}
 
 	def save() {
