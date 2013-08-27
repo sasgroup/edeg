@@ -52,6 +52,27 @@ App.Views.HospitalElements = Backbone.View.extend({
 			   }	
 			});	
 		});		
+		
+		this.clearTabsContent();		
+		$('ul#detailsTab li:first a').click();
+		$('#deatails *').attr('disabled','disabled');
+		
+		//remove selection
+		$('.row_selected').css( "background-color", "#FFFFFF" );
+		$('tr.row_selected td:first').css( "background-color", "#FFFFFF" );
+		$('.row_selected').removeClass('row_selected');
+	},
+	
+	clearTabsContent: function(){		
+		var temp =  _.template($('#qa').html());
+			
+		$('div#qa2').html(temp({notes:''}));  
+		   
+		$('div#qa3').html(temp({notes:''}));  
+		
+		
+		$('div#hs-table').empty();
+		$('div#extra-location').empty();
 	},
 
 	appendHospitalElement : function(hospitalElement) {
@@ -248,7 +269,7 @@ App.Views.SingleHospitalElement = Backbone.View
 	
 	resetToDefault : function(event) {		
 		this.restoreValues(event);		
-		this.clearTabsContent();
+		//this.clearTabsContent();
 	},
 	
 	restoreValues : function(event) {
@@ -260,7 +281,8 @@ App.Views.SingleHospitalElement = Backbone.View
 			var hospitalElement = App.hospitalElements.get(id);
 			var cur_row = $('#hospital-elements td#'+hospitalElement.id).closest('tr');
 			var view = new App.Views.SingleHospitalElement({ model : hospitalElement, m_id: m_id});			
-			$(cur_row).replaceWith(view.render().el);				
+			$(cur_row).replaceWith(view.render().el);	
+			$('#hospital-elements td#'+hospitalElement.id).closest('tr').find('.slc_row').click();			
 		});				
 	},
 	
@@ -275,13 +297,7 @@ App.Views.SingleHospitalElement = Backbone.View
 			$(cur_row).find('input#source').val(hospitalElement.get('source'));
 		});				
 	},
-	
-	clearTabsContent: function(){
-		$('#txt-qa2').val('');
-		$('#txt-qa3').val('');
-		$('#extra-table tbody').empty();
-		$('#hospital-specific-table tbody').empty();		
-	},
+		
 	
 	showQA: function(slc_hospital_element){		
 		 var qa_view2 = new App.Views.QADataElement({ model : slc_hospital_element, tab: "tab-qa2"});  
