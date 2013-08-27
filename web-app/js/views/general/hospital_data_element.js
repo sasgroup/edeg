@@ -370,8 +370,8 @@ App.Views.SingleHospitalElement = Backbone.View
 					  location: 'test_location',
 					  sourceEHR: '',
 					  source:    'test_source',
-					  codeType:  'RXNORM',
-					  valueType: 'IMO_Code'
+					  codeType:  {name: 'RXNORM'},
+					  valueType: {name: 'IMO_Code'}
 			 };  
 			  
 			var extra_model = new App.Models.ExtraDataElement(extraDataElement);

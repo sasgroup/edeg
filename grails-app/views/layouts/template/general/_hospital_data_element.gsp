@@ -185,12 +185,12 @@
  </td>
  <td><select class="slcValueType">			
 				<option value="">-Select-</option>
-				<option value="NotApplicable" {{valueType=="NotApplicable"? "selected": ""}}>NotApplicable</option>	     
-                <option value="IMO_Code" {{valueType=="IMO_Code"? "selected": ""}}>IMO_Code</option>                
-				<option value="Query_Mnemonic" {{valueType=="Query_Mnemonic"? "selected": ""}}>Query/Mnemonic</option>
-				<option value="HospitalSpecific" {{valueType=="HospitalSpecific"? "selected": ""}}>HospitalSpecific</option>
-				<option value="StandardCode" {{valueType=="StandardCode"? "selected": ""}}>StandardCode</option>
-				<option value="ValueSet" {{valueType=="ValueSet"? "selected": ""}}>ValueSet</option>
+				<option value="NotApplicable" {{valueType.name=="NotApplicable"? "selected": ""}}>NotApplicable</option>	     
+                <option value="IMO_Code" {{valueType.name=="IMO_Code"? "selected": ""}}>IMO_Code</option>                
+				<option value="Query_Mnemonic" {{valueType.name=="Query_Mnemonic"? "selected": ""}}>Query/Mnemonic</option>
+				<option value="HospitalSpecific" {{valueType.name=="HospitalSpecific"? "selected": ""}}>HospitalSpecific</option>
+				<option value="StandardCode" {{valueType.name=="StandardCode"? "selected": ""}}>StandardCode</option>
+				<option value="ValueSet" {{valueType.name=="ValueSet"? "selected": ""}}>ValueSet</option>
      </select>
  </td>
  <td><div id="plus-btn" class="btn btn-mini"><i class="icon-plus"></i></div></td>
