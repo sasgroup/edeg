@@ -23,7 +23,9 @@ class HospitalController {
 					}
 				}
 			}
+			println "save"
 			hospitalInstance.notes = params?.notes
+			hospitalInstance.email = params?.email
 			hospitalInstance.save(flush:true)
 
 			for (prod in params.products){
@@ -82,6 +84,8 @@ class HospitalController {
 			// update Hospital set EHR
 			def hospital = Hospital.get(params.id)
 			hospital.ehr = Ehr.get(params.ehr_id)
+			hospital.notes = params?.notes
+			hospital.email = params?.email
 			hospital.save(flush : true)
 
 			def old_ids = HospitalProduct.list().findAll{it?.hospital == hospital}.collect{it.product.id}
@@ -245,7 +249,7 @@ class HospitalController {
 			render(contentType: "text/json") {
 				hospitals = array {
 					for (p in results) {
-						hospital name: p.name, notes: p.notes, id: p.id
+						hospital name: p.name, notes: p.notes,email: p.email, id: p.id
 					}
 				}
 			}
