@@ -154,11 +154,6 @@ App.Views.SingleHospitalElement = Backbone.View
 					
 	render : function() {		
 		this.$el.html(this.template(this.model.toJSON()));				
-		
-		this.$el.find(".slcCodeType").val(this.model.get('codeType').name);
-		this.$el.find(".slcValueType").val(this.model.get('valueType').name);
-		this.$el.find('.sourceEHR').attr('checked', this.model.get('sourceEHR'));
-		
 		this.$el.attr('id',this.model.get('id'));
 				
 		if (this.$el.find('#sourceEHR').is(':checked')) {
@@ -175,9 +170,11 @@ App.Views.SingleHospitalElement = Backbone.View
 	changeCh : function(e) {
 		this.model.attributes[e.target.name] = $(e.target).is(':checked');	
 		if (this.$el.find('#sourceEHR').is(':checked')) {
-			this.$el.find('#source').attr('disabled','disabled');
-		}	else {
-			this.$el.find('#source').removeAttr('disabled');
+			this.restoreSourceValue(e);
+			this.$el.find('#source').attr('disabled','disabled');			
+		}	else {						
+			this.$el.find('#source').val('').removeAttr('disabled');
+			this.model.attributes["source"]="";
 		}
 	},
 	
@@ -226,8 +223,7 @@ App.Views.SingleHospitalElement = Backbone.View
 					elementExtraLocation.push(extraloc);				
 				}				
 			});
-			
-					
+								
 			hospital_element_to_save.set({"hospitalValueSet":hospitalValueSet});
 			hospital_element_to_save.set({"elementExtraLocation":elementExtraLocation});
 			
@@ -250,7 +246,12 @@ App.Views.SingleHospitalElement = Backbone.View
 		this.showHospitalSpecific(slc_hospital_element);
 	},
 	
-	resetToDefault : function(event) {			
+	resetToDefault : function(event) {		
+		this.restoreValues(event);		
+		this.clearTabsContent();
+	},
+	
+	restoreValues : function(event) {
 		var m_id = this.options.m_id;
 		var id = $(event.target).closest('tr').find('td:first').prop('id');		
 		
@@ -260,9 +261,19 @@ App.Views.SingleHospitalElement = Backbone.View
 			var cur_row = $('#hospital-elements td#'+hospitalElement.id).closest('tr');
 			var view = new App.Views.SingleHospitalElement({ model : hospitalElement, m_id: m_id});			
 			$(cur_row).replaceWith(view.render().el);				
-		});		
+		});				
+	},
+	
+	restoreSourceValue : function(event) {
+		var m_id = this.options.m_id;
+		var id = $(event.target).closest('tr').find('td:first').prop('id');		
 		
-		this.clearTabsContent();
+		App.hospitalElements = new App.Collections.HospitalElements();		
+		App.hospitalElements.fetch({data:{id: m_id, defaults: true, he_id: id}}).then(function(){			
+			var hospitalElement = App.hospitalElements.get(id);
+			var cur_row = $('#hospital-elements td#'+hospitalElement.id).closest('tr');
+			$(cur_row).find('input#source').val(hospitalElement.get('source'));
+		});				
 	},
 	
 	clearTabsContent: function(){
@@ -420,9 +431,9 @@ App.Views.ExtraDataElement = Backbone.View
 	},
 					
 	render : function() {			
-		this.model.set('sourceEHR',true);
+		/*this.model.set('sourceEHR',true);
 		var ch  = (this.model.get('sourceEHR'))  ? "checked" : "";	
-		this.model.set({chd:ch});
+		this.model.set({chd:ch});*/
 		/*if (window.console) console.log(this.model.toJSON());
 		this.model.set('location','test_loaction');
 		this.model.set('source',"test_source");*/

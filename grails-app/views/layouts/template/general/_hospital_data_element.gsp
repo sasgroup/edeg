@@ -119,38 +119,38 @@
 <script type="text/template" class="template" id="hospital_data_element">
  <td id="{{id}}" class="slc_row" title="{{element_notes}}">{{dataElement}}</td>
  <td><input type="text" class="location" name="location" id="location" value="{{location}}"></td>
- <td><input type="checkbox" class="sourceEHR" name="sourceEHR" id="sourceEHR" value={{sourceEHR}}></td>
+ <td><input type="checkbox" class="sourceEHR" name="sourceEHR" id="sourceEHR" value={{sourceEHR}} {{sourceEHR ? "checked": ""}}></td>
  <td><input type="text" class="source" id="source" name= "source" value="{{source}}"></td>
  <td>
     <select class="slcCodeType" name="codeType">                
 				 <option value="">-Select-</option>
-				 <option value="NotApplicable">NotApplicable</option>
-				 <option value="AdministrativeSex">AdministrativeSex</option>                 
-				 <option value="CDCREC">CDCREC</option>
-				 <option value="CDT">CDT</option>
-				 <option value="CPT">CPT</option>
-				 <option value="CVX">CVX</option>
-				 <option value="DischargeDisposition">DischargeDisposition</option>
-				 <option value="HCPCS">HCPCS</option>
-				 <option value="HSLOC">HSLOC</option>
-				 <option value="ICD10CM">ICD10CM</option>
-				 <option value="ICD10PCS">ICD10PCS</option>
-				 <option value="ICD9CM">ICD9CM</option>
-				 <option value="LOINC">LOINC</option>
-				 <option value="RXNORM">RXNORM</option>
-				 <option value="SNOMEDCT">SNOMEDCT</option>
-				 <option value="SOP">SOP</option>
+				 <option value="NotApplicable" {{codeType.name=="NotApplicable"? "selected": ""}}>NotApplicable</option>
+				 <option value="AdministrativeSex" {{codeType.name=="AdministrativeSex"? "selected": ""}}>AdministrativeSex</option>                 
+				 <option value="CDCREC" {{codeType.name=="CDCREC"? "selected": ""}}>CDCREC</option>
+				 <option value="CDT" {{codeType.name=="CDT"? "selected": ""}}>CDT</option>
+				 <option value="CPT" {{codeType.name=="CPT"? "selected": ""}}>CPT</option>
+				 <option value="CVX" {{codeType.name=="CVX"? "selected": ""}}>CVX</option>
+				 <option value="DischargeDisposition" {{codeType.name=="DischargeDisposition"? "selected": ""}}>DischargeDisposition</option>
+				 <option value="HCPCS" {{codeType.name=="HCPCS"? "selected": ""}}>HCPCS</option>
+				 <option value="HSLOC" {{codeType.name=="HSLOC"? "selected": ""}}>HSLOC</option>
+				 <option value="ICD10CM" {{codeType.name=="ICD10CM"? "selected": ""}}>ICD10CM</option>
+				 <option value="ICD10PCS" {{codeType.name=="ICD10PCS"? "selected": ""}}>ICD10PCS</option>
+				 <option value="ICD9CM" {{codeType.name=="ICD9CM"? "selected": ""}}>ICD9CM</option>
+				 <option value="LOINC" {{codeType.name=="LOINC"? "selected": ""}}>LOINC</option>
+				 <option value="RXNORM" {{codeType.name=="RXNORM"? "selected": ""}}>RXNORM</option>
+				 <option value="SNOMEDCT" {{codeType.name=="SNOMEDCT"? "selected": ""}}>SNOMEDCT</option>
+				 <option value="SOP" {{codeType.name=="SOP"? "selected": ""}}>SOP</option>
     </select>
  </td>
  <td>
     <select class="slcValueType" name="valueType">			
 				<option value="">-Select-</option>
-				<option value="NotApplicable">NotApplicable</option>     
-                <option value="IMO_Code">IMO_Code</option>                
-				<option value="Query_Mnemonic">Query/Mnemonic</option>
-				<option value="HospitalSpecific">HospitalSpecific</option>
-				<option value="StandardCode">StandardCode</option>
-				<option value="ValueSet">ValueSet</option>
+				<option value="NotApplicable" {{valueType.name=="NotApplicable"? "selected": ""}}>NotApplicable</option>	     
+                <option value="IMO_Code" {{valueType.name=="IMO_Code"? "selected": ""}}>IMO_Code</option>                
+				<option value="Query_Mnemonic" {{valueType.name=="Query_Mnemonic"? "selected": ""}}>Query/Mnemonic</option>
+				<option value="HospitalSpecific" {{valueType.name=="HospitalSpecific"? "selected": ""}}>HospitalSpecific</option>
+				<option value="StandardCode" {{valueType.name=="StandardCode"? "selected": ""}}>StandardCode</option>
+				<option value="ValueSet" {{valueType.name=="ValueSet"? "selected": ""}}>ValueSet</option>
      </select>
  </td>
 <td class="f-btn"><div id="reset" class= "btn" title="Reset the data element location to default in accordance with the current EHR version"><i class="icon-refresh"></i></div></td>
@@ -161,7 +161,7 @@
 <!--extra-elements -->
 <script type="text/template" class="template" id="extra-elements">
  <td><input type="text" class="location" id="location" value="{{location}}" placeholder="Enter Location"></td>
- <td><input type="checkbox" class="sourceEHR" id="sourceEHR" value="{{sourceEHR}}" {{chd}}></td>
+ <td><input type="checkbox" class="sourceEHR" id="sourceEHR" value="{{sourceEHR}}" {{sourceEHR ? "checked": ""}}></td>
  <td><input type="text" class="source" id="source" value="{{source}}" placeholder="Enter Source"></td>
  <td><select class="slcCodeType">                
 				 <option value="">-Select-</option>
