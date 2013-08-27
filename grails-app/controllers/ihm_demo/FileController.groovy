@@ -10,7 +10,7 @@ class FileController {
     
 	def show= {
 		
-		if (params?.currentHospitalElement && HospitalMeasure.exists(params.currentHospitalElement)) {
+		if (params?.currentHospitalElement && HospitalElement.exists(params.currentHospitalElement)) {
 			def hospitalElement = HospitalElement.get(params.currentHospitalElement)
 			//find hospitalElement and get file name
 			def fileName = hospitalElement.valueSetFile
@@ -32,29 +32,50 @@ class FileController {
 			render "file not found"
 		}	
 	}
+	
 	def save= {  
 		println("go")
 	   if (!(request instanceof MultipartHttpServletRequest)) {
 		   println("no multipart")
 		 }
-	    
-	   def hospitalElementId = params?.currentHospitalElement
 	   
-		def multiRequest = request.getFile("fileToUpload")
-		if (!multiRequest.isEmpty()) {
-			def path =fileUploadService.uploadFile(multiRequest, "${hospitalElementId}_${multiRequest?.fileItem?.name}", "uploadFiles")
-			if (path) {
-				if (params?.currentHospitalElement && HospitalMeasure.exists(params.currentHospitalElement)) {
-					def hospitalElement = HospitalElement.get(params.currentHospitalElement)
-					hospitalElement.valueSetFile = "${hospitalElementId}_${multiRequest?.fileItem?.name}"
-					hospitalElement.save(flush :true)
+	   if (params?.currentHospitalElement && HospitalElement.exists(params.currentHospitalElement)) {
+			def multiRequest = request.getFile("fileToUpload")
+			
+			if (!multiRequest.isEmpty()) {
+				def hospitalElement = HospitalElement.get(params.currentHospitalElement)
+				def hospitalElementId = params?.currentHospitalElement
+				hospitalElement.valueSetFile = "${hospitalElementId}_${multiRequest?.fileItem?.name}"
+				hospitalElement.save(flush:true)
+				
+				def path = fileUploadService.uploadFile(multiRequest, "${hospitalElementId}_${multiRequest?.fileItem?.name}", "uploadFiles")
+				if (path) {
+					if (params?.currentHospitalElement && HospitalMeasure.exists(params.currentHospitalElement)) {
+						hospitalElement = HospitalElement.get(params.currentHospitalElement)
+						hospitalElement.valueSetFile = "${hospitalElementId}_${multiRequest?.fileItem?.name}"
+						hospitalElement.save(flush :true)
+					}
 				}
+				render "$path"
+			} else {
+				render "empty"
 			}
-			render "$path"
-		} else {
-			render "empty"
-		}
+	   }
 	}
 	
-	
+	def delete= {
+		println "delete"
+		if (params?.currentHospitalElement && HospitalElement.exists(params.currentHospitalElement)) {
+			def hospitalElement = HospitalElement.get(params.currentHospitalElement)
+			//	find hospitalElement and get file name
+			def fileName = hospitalElement.valueSetFile
+		
+			def path = fileUploadService.uploadFile(null, "${fileName}", "uploadFiles",true)
+			render "$path"
+		}	else {
+			render "some errror"
+		}
+	}
 }
+
+
