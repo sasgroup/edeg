@@ -10,6 +10,13 @@ body {
     background: url("images/bg.png") repeat-y center;       
 }
 
+.form-actions {
+	padding: 10px 20px 10px !important;
+	margin-top: none !important;
+	margin-bottom: none !important;
+}
+
+
 input, select, textarea, .btn  {
 	font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
@@ -229,6 +236,10 @@ form#hospital-edit #name, #email  {
 
 form#hospital-edit table#fields td {
 	border-top: none;
+}
+
+form#hospital-edit table#fields {
+	margin-bottom:0;
 }
 
 form#hospital-edit textarea#notes {
