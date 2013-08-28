@@ -48,7 +48,7 @@ class DataElementController {
 		def dataElementtInstance  = saveInstance(new DataElement(), params)
 		render(contentType: "text/json") {
 			resp = "ok"
-			message = "Product ${dataElementtInstance.name} successfully created"
+			message = "Data Element ${dataElementtInstance.code} has been successfully created"
 		}
 	}
 
@@ -112,7 +112,7 @@ class DataElementController {
 				println 'inside'
 				return render(contentType: "text/json") {
 					resp = "error"
-					message = "Another User has updated product(${dataElementInstance.name}) while you were editing"
+					message = "Another User has updated data element (${dataElementInstance.name}) while you were editing"
 				}
 			}
 		}
@@ -120,7 +120,7 @@ class DataElementController {
 		dataElementInstance  = saveInstance(dataElementInstance, params)
 		render(contentType: "text/json") {
 			resp = "ok"
-			message = "Product ${dataElementInstance.name} successfully updated"
+			message = "Data Element ${dataElementInstance.code} has been successfully updated"
 		}
 	}
 
@@ -130,18 +130,19 @@ class DataElementController {
 
 		def de = DataElement.findById(params.id)
 		String name = de.name
+		String code = de.code
 		println ("product.measures:" + de.measures)
 
 		def measuresDep = de.measures ? true : false
 		def hasDataElementDefaultsList = DataElementDefaults.list().findAll{it.ehr.id.findAll{it == de.id}.size() >= 1} ? true : false
 
 		if (measuresDep|| hasDataElementDefaultsList ) {
-			render(status: 420, text: "DataElement ${name} cannot be deleted because of existing dependencie")
+			render(status: 420, text: "Data Element ${code} cannot be deleted because of existing dependencies")
 		} else {
 			de?.delete(flush: true)
 			render(contentType: "text/json") {
 				resp = "success"
-				message = "DataElement ${name} successfully deleted"
+				message = "Data Element ${code} has been successfully deleted"
 			}
 		}
 	}

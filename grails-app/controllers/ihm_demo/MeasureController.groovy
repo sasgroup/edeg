@@ -40,7 +40,7 @@ class MeasureController {
 		def measureInstance  = saveInstance(new Measure(), params)
 		render(contentType: "text/json") {
 					resp = "ok"
-					message = "Measure ${measureInstance?.name} successfully created"
+					message = "Measure ${measureInstance?.code} has been successfully created"
 		}
 	}
    
@@ -97,7 +97,7 @@ class MeasureController {
             if (measureInstance.version > params.version) {
 				return render(contentType: "text/json") {
 					resp = "error"
-					message = "Another User has updated measure (${measureInstance.name}) while you were editing"
+					message = "Another User has updated measure (${measureInstance.code}) while you were editing"
 				}
 			} 
 		 }	
@@ -105,7 +105,7 @@ class MeasureController {
 		measureInstance  = saveInstance(measureInstance, params)
 		render(contentType: "text/json") {
 			resp = "ok"
-			message = "Measure ${measureInstance.name} successfully updated"
+			message = "Measure ${measureInstance.code} has been successfully updated"
 		}                          
     }
 	
@@ -113,6 +113,7 @@ class MeasureController {
     def delete(Long id) {
 		def measure = Measure.findById(params.id)
 		String name = measure.name
+		String code = measure.code
 
 		def dataElementsDep = measure.dataElements ? true : false
 
@@ -121,12 +122,12 @@ class MeasureController {
 		def hospitalmeasureDep = HospitalMeasure.findByMeasure(measure) ? true : false
 
 		if (dataElementsDep || productsDep || hospitalmeasureDep) {
-			render(status: 420, text: "Measure ${name} cannot be deleted because of existing dependencies")
+			render(status: 420, text: "Measure ${code} cannot be deleted because of existing dependencies")
 		} else {
 			measure?.delete(flush: true)
 			render(contentType: "text/json") {
 				resp = "success"
-				message = "Measure ${name} successfully deleted"
+				message = "Measure ${code} has been successfully deleted"
 			}
 		}
     }

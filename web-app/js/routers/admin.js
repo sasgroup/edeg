@@ -233,7 +233,7 @@ App.Routers.Administrator = Backbone.Router.extend({
 				
 				jQuery.validator.addMethod("unique", (function(value, element) {										
 					return App.route.checkCode(productModel, App.products, value );					
-					}), "Code should be unique!"
+					}), "This code name already exists in the system."
 				);
 				
 				$('form#product-edit').validate({
@@ -244,10 +244,10 @@ App.Routers.Administrator = Backbone.Router.extend({
 				         name: { required: true }	               
 				     },
 				     messages: {
-				       	 code: {required: "Code cannot be blank",
-				       	    	   unique  : "Code should be unique"			       	    	
+				       	 code: {required: "Code is required",
+				       	    	unique  : "This code name already exists in the system."			       	    	
 				       	       },
-				         name: {required: "Name cannot be blank"}
+				         name: {required: "Name is required"}
 				     }
 				});		
 				
@@ -263,7 +263,7 @@ App.Routers.Administrator = Backbone.Router.extend({
 				
 				jQuery.validator.addMethod("unique", (function(value, element) {										
 					return App.route.checkCode(ehrModel, App.ehrs, value );					
-					}), "Code should be unique!"
+					}), "This code name already exists in the system."
 				);
 				
 				$('form#ehr-edit').validate({
@@ -274,10 +274,10 @@ App.Routers.Administrator = Backbone.Router.extend({
 				         name: { required: true }	               
 				     },
 				     messages: {
-				       	 code: {required: "Code cannot be blank",
-				       	    	   unique  : "Code should be unique"			       	    	
+				       	 code: {required: "Code is required",
+				       	        unique  : "This code name already exists in the system."			       	    	
 				       	       },
-				         name: {required: "Name cannot be blank"}
+				         name: {required: "Name is required"}
 				     }
 				});		
 				
@@ -299,7 +299,7 @@ App.Routers.Administrator = Backbone.Router.extend({
 				
 				jQuery.validator.addMethod("unique", (function(value, element) {										
 					return App.route.checkCode(measureModel, App.measures, value );					
-					}), "Code should be unique!"
+					}), "This code name already exists in the system."
 				);
 				
 				$('form#measure-edit').validate({
@@ -310,10 +310,10 @@ App.Routers.Administrator = Backbone.Router.extend({
 				         name: { required: true }	               
 				     },
 				     messages: {
-				       	 code: {required: "Code cannot be blank",
-				       	    	unique  : "Code should be unique"			       	    	
+				       	 code: {required: "Code is required",
+				       	    	unique  : "This code name already exists in the system."			       	    	
 				       	       },
-				         name: {required: "Name cannot be blank"}
+				         name: {required: "Name is required"}
 				     }
 				});						
 				
@@ -330,7 +330,7 @@ App.Routers.Administrator = Backbone.Router.extend({
 				
 				jQuery.validator.addMethod("unique", (function(value, element) {										
 					return App.route.checkCode(dataElement, App.dataElements, value );					
-					}), "Code should be unique!"
+					}), "This code name already exists in the system."
 				);
 				
 				$('form#element-edit').validate({
@@ -341,10 +341,10 @@ App.Routers.Administrator = Backbone.Router.extend({
 				         name: { required: true }	               
 				     },
 				     messages: {
-				       	 code: {required: "Code cannot be blank",
-				       	    	   unique  : "Code should be unique"			       	    	
+				       	 code: {required: "Code is required",
+				       	    	unique  : "This code name already exists in the system."			       	    	
 				       	       },
-				         name: {required: "Name cannot be blank"}
+				         name: {required: "Name is required"}
 				     }
 				});
 				

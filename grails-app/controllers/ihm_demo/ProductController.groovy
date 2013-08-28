@@ -9,7 +9,7 @@ class ProductController {
 		def productInstance  = saveInstance(new Product(), params)
 		render(contentType: "text/json") {
 					resp = "ok"
-					message = "Product ${productInstance.name} successfully created"
+					message = "Product ${productInstance.code} has been successfully created"
 		}
 	}
 
@@ -66,7 +66,7 @@ class ProductController {
             if (productInstance.version > params.version) {
 				return render(contentType: "text/json") {
 					resp = "error"
-					message = "Another User has updated product(${productInstance.name}) while you were editing"
+					message = "Another User has updated product(${productInstance.code}) while you were editing"
 				}
 			} 
 		 }	
@@ -74,7 +74,7 @@ class ProductController {
 		productInstance  = saveInstance(productInstance, params)
 		render(contentType: "text/json") {
 			resp = "ok"
-			message = "Product ${productInstance.code} successfully updated"
+			message = "Product ${productInstance.code} has been successfully updated"
 		}
 	}
 	
@@ -83,17 +83,19 @@ class ProductController {
 	def delete(Long id) {
 		def product = Product.findById(params.id)
 		String name = product.name
+		String code = product.code
+		
 		def measuresDep = product.measures ? true : false
 		
 		def hospitalsDep = HospitalProduct.findByProduct(product) ? true : false
 
 		if (measuresDep || hospitalsDep) {
-			render(status: 420, text: "Product ${name} cannot be deleted because of existing dependencie")
+			render(status: 420, text: "Product ${code} cannot be deleted because of existing dependencies")
 		} else {
 			product?.delete(flush: true)
 			render(contentType: "text/json") {
 				resp = "success"
-				message = "Product ${name} successfully deleted"
+				message = "Product ${code} has been successfully deleted"
 			}
 		}
 	}
