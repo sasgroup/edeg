@@ -3,8 +3,8 @@
 <table class="ehrTable table table-striped ">
 	<thead><tr>
 		    <th>Location</th>           
-			<th>CodeType</th>
-		    <th>ValueType</th>		    
+			<th>Code Type</th>
+		    <th>Value Type</th>		    
 		    <th>{{ehr_element}}</th>
 			<th></th>
 			<th></th>

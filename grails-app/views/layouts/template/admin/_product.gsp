@@ -7,7 +7,7 @@
 					<h3>List of Products</h3>
 				</div>				
 				<div class="span2">
-					<a class= "add-btn btn" id="create_product"  href="javascript:;">Create New</a>
+					<a class= "add-btn btn" id="create_product"  href="javascript:;">Add New</a>
 				</div>
 			</div>       
             <div class="clearfix"></div>
@@ -16,13 +16,13 @@
                     <thead>
                         <tr>
                             <th>
-                                Code
+                                ID
                             </th>
                             <th>
                                 Name
                             </th>
                             <th>
-                                Notes
+                                Description
                             </th>            
                 			<th class="f-btn">Edit</th>
                 			<th class="f-btn">Delete</th>
@@ -40,7 +40,7 @@
 <script type="text/template" class="template" id="product-template">
 <div class="container">
     <div class="row">      
-            <h3>Product: {{state}}</h3>
+            <h3>{{state}}</h3>
             <hr>
             <div class="clearfix"></div>
             <form method="post" class="form-horizontal" id="product-edit" accept-charset="utf-8">
@@ -48,7 +48,7 @@
   				    <div class="row">
     				  <div class="span5">      				  
                         <div class="row-fluid">
-                          <label for="code" class="span3">Code<span class="required">*</span></label>   
+                          <label for="code" class="span3">ID<span class="required">*</span></label>   
 					      <input name="code" type="text" class="span9" value="{{ code }}" id="code">
 					    </div>					  
 					    <div class="row-fluid">	
@@ -59,7 +59,7 @@
 					  <div class="span7">
 					    <div class="row-fluid">	
 							<div class="span2">
-								<label for="notes">Notes</label>
+								<label for="notes">Description</label>
 								<a id="btnHelp" href="javascript:;" >Help <i class="icon-question-sign"></i></a>
 							</div>      				      
                           <textarea rows="3" class="span10" name="notes" id="notes">{{ notes }}</textarea>

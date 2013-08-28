@@ -45,9 +45,9 @@ App.Views.DataElement = Backbone.View.extend({
 	},
 	
 	render : function() {	
-		if (!this.model.toJSON().id) {
-			this.model.set("state" , "New");
-		};				
+		var state = (this.model.toJSON().id)? "Edit Data Element" : "Add New Data Element"; 
+		this.model.set("state", state);
+		
 		this.$el.html(this.template(this.model.toJSON()));		
 		this.model.timeId = -1;
 						

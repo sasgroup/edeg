@@ -18,7 +18,7 @@ class LoginTagLib {
 		if(request.getSession(false) && session.user){
 			out << "${session.user.login} "
 			out << """[${link(action:"logout",
-			controller:"user"){"Logout"}}]"""
+			controller:"user"){"Sign Out"}}]"""
 		} else {
 			out << """[${link(action:"login",
 			controller:"user"){"Login"}}]"""

@@ -39,9 +39,9 @@ App.Views.Ehr = Backbone.View.extend({
 	
 	
 	render : function() {	
-		if (!this.model.toJSON().id) {
-			this.model.set("state" , "New");
-		};
+		var state = (this.model.toJSON().id)? "Edit Ehr" : "Add New Ehr"; 
+		this.model.set("state", state);
+		
 		this.model.timeId = -1;
 		this.$el.html(this.template(this.model.toJSON()));
 		

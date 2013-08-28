@@ -273,7 +273,7 @@ App.Views.Hospital = Backbone.View.extend({
 		this_hospital = this;
 		if (App.isModified) {
 			$('#app').append('<div id="dialog-confirm" title="Confirm the changes">'+
-				'<p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>You want to leave Hospital without saving the data. Save the changes?</p>'+	
+				'<p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>Save the changes?</p>'+	
 				'</div>')
 		
 			$( "#dialog-confirm" ).dialog({

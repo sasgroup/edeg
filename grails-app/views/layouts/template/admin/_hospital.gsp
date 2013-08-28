@@ -12,7 +12,7 @@
                 			Name
             			</th>
             			<th>
-                			Notes
+                			Description
             			</th>
             			<th class="f-btn">Edit</th>			
         			</tr>
@@ -30,7 +30,7 @@
 
 <div class="container">
    <div class="row">   
-   <h3>Hospital: Edit</h3>
+   <h3>Edit Hospital</h3>
    <form method="post" class="form-horizontal" id="hospital-edit" accept-charset="utf-8">    
 	<table class="table" id="fields">
         <tbody>
@@ -39,7 +39,7 @@
                 <td>
                     <input name="name" type="text" value="{{ name }}" id="name" disabled>
                 </td>
-                <td rowspan="2">Notes</td>
+                <td rowspan="2">IHM Notes</td>
                 <td rowspan="2">
                 	<textarea rows="3" name="notes" rows="3" id="notes">{{ notes }}</textarea>					
                 </td>
@@ -59,9 +59,9 @@
                     <select id="slcEHRs" style="width:250px;">                      
                     </select>
                 </td>
-                <td>Products</td>
+                <td>IHM Products</td>
                 <td>
-                    <select id="slcProducts" style="width:370px;">                  
+                    <select id="slcProducts" style="width:350px;">                  
                     </select>
                 </td>
                 <td><button id="btnApplyHospitalOptions" class="btn btn-info">Apply</button></td>
@@ -108,9 +108,9 @@
 <table class="hospitalMeasureTable table table-striped ">
 	<thead><tr>
 		    <th>Use</th>			
-			<th>CODE</th>
+			<th>ID</th>
 		    <th>TITLE</th>				    				  
-		    <th>Completed</th>		    
+		    <th>Complete</th>		    
 		    <th>Accepted</th>
 			<th>Declined</th>
 		    <th>Verified</th>		    

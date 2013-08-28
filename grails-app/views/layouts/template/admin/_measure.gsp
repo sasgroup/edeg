@@ -7,7 +7,7 @@
 					<h3>List of Measures</h3>
 				</div>				
 				<div class="span2">
-					<a class= "add-btn btn" id="create_measure"  href="javascript:;">Create New</a>
+					<a class= "add-btn btn" id="create_measure"  href="javascript:;">Add New</a>
 				</div>
 			</div>       		
             <form method="post" class="form-horizontal" id="measure-list" accept-charset="utf-8">
@@ -18,13 +18,13 @@
 								Category
                             </th> 
 							<th>
-                                Code
+                                ID
                             </th>
                             <th>
                                 Name
                             </th>                            
 							<th>
-                                Notes
+                                Description
                             </th>	
                             <th class="f-btn">Edit</th>
                 			<th class="f-btn">Delete</th>
@@ -43,7 +43,7 @@
 <script type="text/template" class="template" id="measure-template">
 <div class="container">
     <div class="row">       
-            <h3>Measure: {{state}}</h3>
+            <h3>{{state}}</h3>
             <hr>
             <div class="clearfix"></div>
             <form method="post" class="form-horizontal" id="measure-edit" accept-charset="utf-8">               
@@ -51,7 +51,7 @@
   				    <div class="row">
     				  <div class="span5">      				  
                         <div class="row-fluid">
-                          <label for="code" class="span3">Code<span class="required">*</span></label>    
+                          <label for="code" class="span3">ID<span class="required">*</span></label>    
 					      <input name="code" type="text" class="span9" value="{{ code }}" id="code">
 					    </div>					  
 					    <div class="row-fluid">	
@@ -70,14 +70,14 @@
 					  <div class="span7">
 					    <div class="row-fluid">	
 							<div class="span2">
-								<label for="notes">Notes</label>
+								<label for="notes">Description</label>
 								<a id="btnHelp" href="javascript:;" >Help <i class="icon-question-sign"></i></a>
 							</div>      				      
                           <textarea rows="3" class="span10" name="notes" id="notes">{{ notes }}</textarea>
     				    </div>
 						
 						<div class="row-fluid">	
-                          <label for="cqmDomain" class="span2 cqmDomain">CQMDomain</label>                                         
+                          <label for="cqmDomain" class="span2 cqmDomain">CQM Domain</label>                                         
                           <select id="cqmDomain" class="span10 cqmDomain">
 							<option></option>								
 					  	  </select>
@@ -100,7 +100,7 @@
                     <a data-toggle="tab" href="#products">Products</a>
                   </li>
                   <li class="">
-                    <a data-toggle="tab" href="#elements">DataElements</a>
+                    <a data-toggle="tab" href="#elements">Data Elements</a>
                   </li>
                 </ul>
      

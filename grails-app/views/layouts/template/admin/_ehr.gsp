@@ -40,7 +40,7 @@
 <script type="text/template" class="template" id="ehr-template">
 <div class="container">
     <div class="row">       
-            <h3>EHR: {{state}}</h3>
+            <h3>{{state}}</h3>
             <hr>
             <div class="clearfix"></div>
             <form method="post" class="form-horizontal" id="ehr-edit" accept-charset="utf-8">

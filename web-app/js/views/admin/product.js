@@ -44,10 +44,10 @@ App.Views.Product = Backbone.View.extend({
 		'click #btnHelp' : 'showHelpDialog'
 	},
 	
-	render : function() {	
-		if (!this.model.toJSON().id) {
-			this.model.set("state" , "New");
-		};
+	render : function() {
+		var state = (this.model.toJSON().id)? "Edit Product" : "Add New Product"; 
+		this.model.set("state", state);
+				
 		this.$el.html(this.template(this.model.toJSON()));
 				
 		//append Measures				
