@@ -47,7 +47,7 @@
              </tr>		
 
 			 <tr>
-                <td>Email</td>
+                <td>Email<span class="required">*</span></td>
                 <td colspan="4">
                     <input name="email" type="text" value="{{ email }}" id="email">
                 </td>               

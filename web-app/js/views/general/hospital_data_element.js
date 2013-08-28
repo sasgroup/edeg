@@ -98,7 +98,7 @@ App.Views.HospitalElements = Backbone.View.extend({
 				var _mnemonic = $(this).find('input#mnemonic').val();
 				var _codeType = $(this).find('select.slcCodeType').val();
 				
-				if ((_code!="")&&(_mnemonic!="")&&(_codeType!="")) {
+				if ((_code!="")||(_mnemonic!="")||(_codeType!="")) {
 					var hvs = {"code":_code, "mnemonic":_mnemonic, "codeType":{name:_codeType}};					
 					hospitalValueSet.push(hvs);				
 				}	
@@ -108,12 +108,12 @@ App.Views.HospitalElements = Backbone.View.extend({
 			elementExtraLocation = [];
 			$('table#extra-table tr').not(':first').each(function( ) {
 				var _location = $(this).find('input#location').val();
-				var _sourceEHR = $(this).find('input#sourceEHR').val();
+				var _sourceEHR = $(this).find('input#sourceEHR').is(':checked');
 				var _source = $(this).find('input#source').val();
 				var _codeType = $(this).find('select.slcCodeType').val();
 				var _valueType = $(this).find('select.slcValueType').val();
 						
-				if ((_location!="")&&(_source!="")&&(_codeType!="")&&(_valueType!="")) {
+				if ((_location!="")||(_source!="")||(_codeType!="")||(_valueType!="")) {
 					var extraloc = {"location":_location, "source":_source, "sourceEHR":_sourceEHR, "codeType":{name:_codeType}, "valueType":{name:_valueType}};					
 					elementExtraLocation.push(extraloc);				
 				}				
@@ -224,7 +224,7 @@ App.Views.SingleHospitalElement = Backbone.View
 				var _mnemonic = $(this).find('input#mnemonic').val();
 				var _codeType = $(this).find('select.slcCodeType').val();
 										
-				if ((_code!="")&&(_mnemonic!="")&&(_codeType!="")) {
+				if ((_code!="")||(_mnemonic!="")||(_codeType!="")) {
 					var hvs = {"code":_code, "mnemonic":_mnemonic, "codeType":{name:_codeType}};					
 					hospitalValueSet.push(hvs);				
 				}				
@@ -234,12 +234,12 @@ App.Views.SingleHospitalElement = Backbone.View
 			elementExtraLocation = [];
 			$('table#extra-table tr').not(':first').each(function( ) {
 				var _location = $(this).find('input#location').val();
-				var _sourceEHR = $(this).find('input#sourceEHR').val();
+				var _sourceEHR = $(this).find('input#sourceEHR').is(':checked');
 				var _source = $(this).find('input#source').val();
 				var _codeType = $(this).find('select.slcCodeType').val();
 				var _valueType = $(this).find('select.slcValueType').val();
 						
-				if ((_location!="")&&(_source!="")&&(_codeType!="")&&(_valueType!="")) {
+				if ((_location!="")||(_source!="")||(_codeType!="")||(_valueType!="")) {
 					var extraloc = {"location":_location, "source":_source, "sourceEHR":_sourceEHR, "codeType":{name:_codeType}, "valueType":{name:_valueType}};					
 					elementExtraLocation.push(extraloc);				
 				}				
@@ -348,7 +348,7 @@ App.Views.SingleHospitalElement = Backbone.View
 		var elementExtraLocation = slc_hospital_element.get('elementExtraLocation');
 		
 		
-	/*	if (elementExtraLocation.length==0){	
+		if (elementExtraLocation.length==0){	
 		  //add empty row	
 		  var extraDataElement =	{
 				  location: '',
@@ -362,26 +362,15 @@ App.Views.SingleHospitalElement = Backbone.View
 		  var extra_view = new App.Views.ExtraDataElement({ model : extra_model});					  
 		  var extra_row = extra_view.render().el;
 		  $('#extra-table tbody').append(extra_row);
-		} else {*/
-			
-		//  $.each( elementExtraLocation, function( i, extraDataElement ) {
-			  
-			 var extraDataElement =	{
-					  location: 'test_location',
-					  sourceEHR: '',
-					  source:    'test_source',
-					  codeType:  {name: 'RXNORM'},
-					  valueType: {name: 'IMO_Code'}
-			 };  
-			  
+		} else {			
+		  $.each( elementExtraLocation, function( i, extraDataElement ) {			  
+			console.log(extraDataElement);
 			var extra_model = new App.Models.ExtraDataElement(extraDataElement);
 			var extra_view = new App.Views.ExtraDataElement({ model : extra_model});	
 			var extra_row = extra_view.render().el;
 			$('#extra-table tbody').append(extra_row);
-		//  });	
-			
-	//	}
-			
+		  });				
+		}			
 	},
 	
 	showInfo: function(evt) {		

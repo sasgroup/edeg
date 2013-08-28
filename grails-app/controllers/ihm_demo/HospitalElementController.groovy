@@ -126,6 +126,7 @@ class HospitalElementController {
 					
 						elementExtraLocation : array {
 							for (e in ElementExtraLocation.findAllByHospitalElement(hme.hospitalElement)){
+								println e 
 								elem location  : e.location,
 									 source    : e.source
 									 sourceEHR : e.sourceEHR 

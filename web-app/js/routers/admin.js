@@ -361,8 +361,25 @@ App.Routers.Administrator = Backbone.Router.extend({
 		App.products.fetch().then(function(){	
 		 App.ehrs.fetch().then(function(){		 
 			var view = new App.Views.Hospital({model: hospital});		
-			$('#app').html(view.render().el);	
-		
+			$('#app').html(view.render().el);			
+				
+				jQuery.validator.addMethod("emaillist", function(value, element) {
+				        return this.optional(element) || /^(\s*,?\s*[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\s*,?\s*){1,}$/im.test(value);
+				    }, "Please specify at least one email address. <br> Separate multiple addresses with a comma.");
+				
+				$('form#hospital-edit').validate({
+				     rules: {				   	    
+				         email: { required: true,
+				        	 	  emaillist: true
+				        	 	}	               
+				     },
+				     messages: {
+				    	 email: {required   : "Email is required.",
+				    		 	 emaillist  : "Please specify at least one email address. <br> Separate multiple addresses with a comma"			       	    	
+				       	       }				        
+				     }
+				});		
+										
 				$( "#slcEHRs").multiselect({
 			        multiple : false,
 			        header : false,
