@@ -38,13 +38,13 @@
           <div id="qa2" class="tab-pane fade active in">
 				<div id="tab-qa2">
 					<div rows="3" class="txt-qa input-xlarge" placeholder="Click on the Data Element to view its details">Click on the Data Element to view its details</div>					
-					<textarea rows="2" class="input-xlarge"></textarea><a class= "btn send-btn" title="send"><i class="icon-share"></i></a>		
+					<textarea rows="2" class="input-xlarge"></textarea><a class= "btn send-btn" title="Send"><i class="icon-share"></i></a>		
 				</div>
           </div>
           <div id="qa3" class="tab-pane fade">
 		  		<div id="tab-qa3">
 					<div rows="3" class="txt-qa input-xlarge" placeholder="Click on the Data Element to view its details"></div>					
-					<textarea rows="2" class="input-xlarge"></textarea><a class= "btn send-btn" title="send"><i class="icon-share"></i></a>
+					<textarea rows="2" class="input-xlarge"></textarea><a class= "btn send-btn" title="Send"><i class="icon-share"></i></a>
 				</div>
           </div>		  
 		  <div id="hospital-specific-tab" class="tab-pane fade">             
@@ -228,7 +228,7 @@
 <!-- qa -->
 <script type="text/template" class="template" id="qa">
   <div rows="3" class="txt-qa input-xlarge" placeholder="Click on the Data Element to view its details"><p>{{notes}}</p></div>					
-  <textarea rows="2" class="txt-message input-xlarge"></textarea><td class="f-btn"><a class= "btn send-btn" title="send"><i class="icon-share"></i></a> 
+  <textarea rows="2" class="txt-message input-xlarge"></textarea><td class="f-btn"><a class= "btn send-btn" title="Send"><i class="icon-share"></i></a> 
 </script>
 
 <script type="text/template" class="template" id="hosp-spec-table">

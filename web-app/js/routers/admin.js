@@ -367,8 +367,8 @@ App.Routers.Administrator = Backbone.Router.extend({
 			$('#app').html(view.render().el);			
 				
 				jQuery.validator.addMethod("emaillist", function(value, element) {
-				        return this.optional(element) || /^(\s*,?\s*[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\s*,?\s*){1,}$/im.test(value);
-				    }, "Please specify at least one email address. <br> Separate multiple addresses with a comma.");
+				        return this.optional(element) || /^(\s*;?\s*[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\s*;?\s*){1,}$/im.test(value);
+				    }, "Please specify at least one email address. <br> Separate multiple addresses with a semicolon.");
 				
 				$('form#hospital-edit').validate({
 				     rules: {				   	    
@@ -378,7 +378,7 @@ App.Routers.Administrator = Backbone.Router.extend({
 				     },
 				     messages: {
 				    	 email: {required   : "Email is required.",
-				    		 	 emaillist  : "Please specify at least one email address. <br> Separate multiple addresses with a comma"			       	    	
+				    		 	 emaillist  : "Please specify at least one email address. <br> Separate multiple addresses with a semicolon"			       	    	
 				       	       }				        
 				     }
 				});		
