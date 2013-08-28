@@ -49,7 +49,7 @@
 			 <tr>
                 <td>Email<span class="required">*</span></td>
                 <td colspan="4">
-                    <input name="email" type="text" value="{{ email }}" id="email">
+                    <input name="email" type="text" value="{{ email }}" id="email" placeholder="user1@domain.com" title="Please specify at least one email address. Separate multiple addresses with a semicolon">
                 </td>               
              </tr>			
 
