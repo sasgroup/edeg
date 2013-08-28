@@ -77,12 +77,12 @@
 					    </div>					  
 					    <div class="row-fluid">	
 							<form id="uploadForm"  method="post" enctype="multipart/form-data" action="/ihm/api/file">
-								<input type="file" id="fileToUpload" name="fileToUpload"/>
+								<input type="file"   id="fileToUpload" name="fileToUpload"/>								
+								<input type="button" id="upload" class= "hide"   value="Upload"/>
+								<input type="button" id="del"    class= "hide"   value="Delete"/>
 								<input type="hidden" id="currentHospitalElement" name="currentHospitalElement"/>
-								<input id="upload" type="button"  value="Upload"/>
-							</form>
-							<p>
-							<div id="output2">AJAX response will replace this content.</div>
+							</form>							
+							<div id="output2" class='hide'></div>
 					   </div>					   	 				
 				</div>
 			</div>					

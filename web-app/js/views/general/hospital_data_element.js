@@ -7,13 +7,46 @@ App.Views.HospitalElements = Backbone.View.extend({
 		'click button#cancel' : 'returnToProduct' ,
 		'click #save-btn'     : 'saveHospitalElements',
 		'click #save-mark-btn': 'saveAndMarkHospitalElements',
-		'click #upload' : 'upload'
+		'click #upload' 	  : 'upload',
+		'click #del' 		  : 'delete',
+		'change #fileToUpload': 'changeFile'
+	},
+	
+	delete : function() {
+		console.log("delete");		
+		
+	},
+	
+	changeFile : function() {
+		$('input#fileToUpload').addClass('hide');
+		$('input#upload').removeClass('hide');
+		
+		var str = $('input[type=file]').val();
+		str = str.substr(str.lastIndexOf('\\')+1);
+		$('form#uploadForm').append('<span>'+str+'</span>');	
 	},
 	
 	upload : function(){
 		$('#uploadForm').ajaxSubmit({
-	        target: '#output2'
-	    }); 
+	        target: '#output2',
+	        success:  function afterSuccess(url){
+	        				$('#uploadForm').resetForm();  // reset form	  
+	        				var str = url;	        				
+	        				str = str.substr(str.indexOf('uploadFiles'));
+	        				console.log(str);
+	        				var path = "/ihm/static/" + str;
+	        				console.log(path);
+	        				var name = str.substr(str.lastIndexOf('/')+1);
+	        				console.log(name);
+	        					        				
+	        				$('input#fileToUpload').addClass('hide');
+	        				$('input#upload').addClass('hide');
+	        				$('input#del').removeClass('hide');	        				    				
+	        				$('form#uploadForm span').replaceWith('<a href= " ' + path + '">' + name +'</a>');
+	        				
+					 }
+	    }); 		
+		
 	},
 	
 	render : function() {		
@@ -435,14 +468,7 @@ App.Views.ExtraDataElement = Backbone.View
 		'click #minus-btn': 'removeRow'		
 	},
 					
-	render : function() {			
-		/*this.model.set('sourceEHR',true);
-		var ch  = (this.model.get('sourceEHR'))  ? "checked" : "";	
-		this.model.set({chd:ch});*/
-		/*if (window.console) console.log(this.model.toJSON());
-		this.model.set('location','test_loaction');
-		this.model.set('source',"test_source");*/
-				
+	render : function() {						
 		this.$el.html(this.template(this.model.toJSON()));				
 		return this;
 	},
