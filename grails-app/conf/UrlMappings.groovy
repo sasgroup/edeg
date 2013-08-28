@@ -11,6 +11,10 @@ class UrlMappings {
 			action = [GET: "show", PUT: "update", DELETE: "delete", POST: "save"]
 		}
 		
+		"/api/report/$id?"(resource: "report") {
+			action = [GET: "show"]
+		}
+		
 		"/api/measure/$id?"(resource: "measure") {
 			action = [GET: "show", PUT: "update", DELETE: "delete", POST: "save"]
 		}

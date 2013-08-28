@@ -218,7 +218,10 @@ App.Routers.Administrator = Backbone.Router.extend({
 	
 	// reports
 	reports : function() {		
-		$('#app').html("Here should be reports");				
+		App.hospitals.fetch().then(function(){
+			var view = new App.Views.Reports({model:App.hospitals});
+			$('#app').html(view.render().el);	
+		});
 	},	
 	
 	// ----- display Edit/New 
