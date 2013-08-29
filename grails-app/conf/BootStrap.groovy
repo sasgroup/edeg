@@ -67,6 +67,7 @@ class BootStrap {
 
 		//-----------HOSPITALs-----------
 		def _hospitals = [
+			["Community Hospital",										"MEDITECH 6.0",""],
 			["Massachusetts General Hospital",							"MEDITECH 6.0",""],
 			["Lindemann Mental Health Center",							"MEDITECH 6.0",""],
 			["Hebrew Rehabilitation Center for the Aged",				"MEDITECH 6.0",""],
@@ -93,6 +94,7 @@ class BootStrap {
 			["Wellington Hospital, London",								"MEDITECH 6.2",""],
 			["Spotsylvania Regional Medical Center",					"MEDITECH 6.0",""],
 			["London Bridge Hospital",									"MEDITECH 6.0",""]
+			
 			
 			]
 		for(_h in _hospitals){

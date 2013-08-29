@@ -116,6 +116,7 @@ class HospitalElementController {
 						dataElement : hme.hospitalElement.dataElement.code,
 						element_notes:hme.hospitalElement.dataElement.notes,
 						help:hme.hospitalElement.dataElement.help,
+						
 						hospitalValueSet : array {
 							for (hvs in HospitalValueSet.findAllByHospitalElement(hme.hospitalElement)){
 								hvset code : hvs.code,
@@ -126,12 +127,11 @@ class HospitalElementController {
 					
 						elementExtraLocation : array {
 							for (e in ElementExtraLocation.findAllByHospitalElement(hme.hospitalElement)){
-								println e 
 								elem location  : e.location,
-									 source    : e.source
-									 sourceEHR : e.sourceEHR 
-									 codeType  : e.codeType
-									 valueType : e.valueType								
+									 source    : e.source,
+									 sourceEHR : e.sourceEHR, 
+									 codeType  : e.codeType,
+									 valueType : e.valueType
 							}
 						}
 						 
