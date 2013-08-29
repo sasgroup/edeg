@@ -69,6 +69,8 @@ class FileController {
 			def hospitalElement = HospitalElement.get(params.currentHospitalElement)
 			//	find hospitalElement and get file name
 			def fileName = hospitalElement.valueSetFile
+			hospitalElement.valueSetFile = ""
+			hospitalElement.save(flush:true)
 		
 			def res = fileUploadService.uploadFile(null, "${fileName}", "uploadFiles",true)
 			render "$res"
