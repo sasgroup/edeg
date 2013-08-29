@@ -49,7 +49,7 @@
           </div>		  
 		  <div id="hospital-specific-tab" class="tab-pane fade">             
 		    <div class="row-fluid" id="hs-table">				
-				<div class="span5">						
+				<!--<div class="span5">						
 						<div class="row-fluid">
                           <label for="txtValueSet" class="span4">Value Set Name</label>   
 					      <input id="txtValueSet" type="text" class="span8" placeholder="Enter Value Set Name">
@@ -64,7 +64,7 @@
 							</form>							
 							<div id="output2" class='hide'></div>
 					   </div>					   	 				
-				</div>
+				</div>-->
 			</div>					
 		  </div>
 		  <div id="extra-location" class="tab-pane fade"></div>
