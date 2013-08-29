@@ -47,7 +47,12 @@ App.Views.HospitalElements = Backbone.View.extend({
 	        				$('input#fileToUpload').addClass('hide');
 	        				$('input#upload').addClass('hide');
 	        				$('input#del').removeClass('hide');	        				    				
-	        				$('form#uploadForm span').replaceWith('<a href= " ' + path + '">' + name +'</a>');
+	        				//$('form#uploadForm span').replaceWith('<a href= " ' + path + '">' + name +'</a>');
+	        				
+	        				$('form#uploadForm span').replaceWith('<a href= "http://localhost:8080/ihm/api/file?currentHospitalElement=2">' + name +'</a>');
+	        				
+	        				//http://localhost:8080/ihm/api/file?currentHospitalElement=2
+	        				 				
 	        				
 					 }
 	    }); 		
