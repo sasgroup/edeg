@@ -3,9 +3,9 @@
 <table class="hospitalMeasureTable table table-striped table-condensed">
 	<thead><tr>
 		    <th>Use</th>			
-			<th>CODE</th>
-		    <th>TITLE</th>				    				  
-		    <th>Completed</th>		    
+			<th>ID</th>
+		    <th>Name</th>				    				  
+		    <th>Complete</th>		    
 		    <th>Accepted</th>
 			<th>Declined</th>
 		    <th>Verified</th>

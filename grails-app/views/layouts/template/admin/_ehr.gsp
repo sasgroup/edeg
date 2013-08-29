@@ -4,10 +4,10 @@
     <div class="row">      
 			<div class="row">
 				<div class="span10">
-					<h3>List of EHR</h3>
+					<h3>List of EHRs</h3>
 				</div>				
 				<div class="span2">
-					<a class= "add-btn btn" id="create_ehr"  href="javascript:;">Create New</a>
+					<a class= "add-btn btn" id="create_ehr"  href="javascript:;">Add New</a>
 				</div>
 			</div>            
             <div class="clearfix"></div>
@@ -16,13 +16,13 @@
                 <thead>
                     <tr>
                         <th>
-                            Code
+                            ID
                         </th>
                         <th>
-                            Name
+                            Name and Version
                         </th>
                         <th>
-                            Notes
+                            Description
                         </th>
                         <th class="f-btn">Edit</th>
             			<th class="f-btn">Delete</th>
@@ -48,17 +48,17 @@
   				    <div class="row">
     				  <div class="span5">      				  
                         <div class="row-fluid">
-                          <label for="code" class="span3">Code<span class="required">*</span></label>    
+                          <label for="code" class="span3">ID<span class="required">*</span></label>    
 					      <input name="code" type="text" class="span9" value="{{ code }}" id="code">
 					    </div>					  
 					    <div class="row-fluid">	
-                          <label for="name" class="span3">Name<span class="required">*</span></label>                                         
+                          <label for="name" class="span3">Name and Version<span class="required">*</span></label>                                         
                           <input name="name" type="text" class="span9" value="{{ name }}" id="name">
 					   </div> 					
 					  </div>    				  
 					  <div class="span7">
 					    <div class="row-fluid">	
-      				      <label for="notes" class="span2">Notes</label>                    
+      				      <label for="notes" class="span2">Description</label>                    
                           <textarea rows="3" class="span10" name="notes" id="notes">{{ notes }}</textarea>
     				    </div>
 					  </div>
@@ -67,10 +67,10 @@
 				
                 <ul id="myTab" class="nav nav-tabs">
                   <li class="active">
-                    <a data-toggle="tab" href="#hospitals">Hospital</a>
+                    <a data-toggle="tab" href="#hospitals">Hospitals</a>
                   </li>
                   <li class="">
-                    <a data-toggle="tab" href="#elements">DataElementsDefault</a>
+                    <a data-toggle="tab" href="#elements">Default Data Element Locations</a>
                   </li>
                 </ul>
      

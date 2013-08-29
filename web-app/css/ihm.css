@@ -16,6 +16,9 @@ body {
 	margin-bottom: none !important;
 }
 
+th.data-element-column{
+	width: 90px;
+}
 
 input, select, textarea, .btn  {
 	font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;

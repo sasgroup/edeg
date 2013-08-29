@@ -5,13 +5,13 @@
  	<div id="main_table">
 	 <table class="table table-condensed" id="hospital-elements">
 	  <thead><tr>
- 				<th>DataElement</th>    
+ 				<th class="data-element-column">Data Element</th>    
 		    	<th>Location</th>           
 				<th title="SourceEHR">EHR</th>
-				<th>Source</th>
-				<th>CodeType</th>
-		    	<th>ValueType</th>
-				<th class='f-btn'><div class= "btn"><a id="resetAll" title="Reset all data elements in the measure to default locations in accordance with the current EHR version"><i class="icon-retweet"></i></a></div></th>
+				<th>Source EHR</th>
+				<th>Code Type</th>
+		    	<th>Values Type</th>
+				<th>Reset</th>
 				<th>Help</th>	    		    
 			 </tr>
       </thead>				
@@ -21,16 +21,16 @@
 		<div id="deatails">	
 		<ul id="detailsTab" class="nav nav-tabs">
           <li class="active">
-            <a data-toggle="tab" href="#qa2">Q&A Level 2</a>
+            <a data-toggle="tab" href="#qa2">Questions and Comments</a>
           </li>
           <li class="qa3">
-            <a data-toggle="tab" href="#qa3">Q&A Level 3</a>
+            <a data-toggle="tab" href="#qa3">Internal IHM Comments</a>
           </li>
 		  <li class="">
-            <a data-toggle="tab" href="#hospital-specific-tab">Hospital Specific Settings</a>
+            <a data-toggle="tab" href="#hospital-specific-tab">Hospital Specific Value List</a>
           </li>	
 		   <li class="">
-            <a data-toggle="tab" href="#extra-location">Extra Locations</a>
+            <a data-toggle="tab" href="#extra-location">Additional Locations</a>
           </li>
         </ul>
          
@@ -38,13 +38,13 @@
           <div id="qa2" class="tab-pane fade active in">
 				<div id="tab-qa2">
 					<div rows="3" class="txt-qa input-xlarge" placeholder="Click on the Data Element to view its details">Click on the Data Element to view its details</div>					
-					<textarea rows="2" class="input-xlarge"></textarea><a class= "btn send-btn" title="Send"><i class="icon-share"></i></a>		
+					<textarea rows="2" class="input-xlarge"></textarea><a class= "btn send-btn" title="Add"><i class="icon-share"></i></a>		
 				</div>
           </div>
           <div id="qa3" class="tab-pane fade">
 		  		<div id="tab-qa3">
 					<div rows="3" class="txt-qa input-xlarge" placeholder="Click on the Data Element to view its details"></div>					
-					<textarea rows="2" class="input-xlarge"></textarea><a class= "btn send-btn" title="Send"><i class="icon-share"></i></a>
+					<textarea rows="2" class="input-xlarge"></textarea><a class= "btn send-btn" title="Add"><i class="icon-share"></i></a>
 				</div>
           </div>		  
 		  <div id="hospital-specific-tab" class="tab-pane fade">             
@@ -72,11 +72,12 @@
 				</div>-->
 				<div class="span5">						
 						<div class="row-fluid">
-                          <label for="txtValueSet" class="span3">Value Set</label>   
-					      <input id="txtValueSet" type="text" class="span9">
+                          <label for="txtValueSet" class="span4">Value Set Name</label>   
+					      <input id="txtValueSet" type="text" class="span8">
 					    </div>					  
 					    <div class="row-fluid">	
 							<form id="uploadForm"  method="post" enctype="multipart/form-data" action="/ihm/api/file">
+								<label class="span4">File Upload</label>  
 								<input type="file"   id="fileToUpload" name="fileToUpload"/>								
 								<input type="button" id="upload" class= "hide"   value="Upload"/>
 								<input type="button" id="del"    class= "hide"   value="Delete"/>
@@ -93,9 +94,9 @@
         			<tr>
             			<th>Location</th>           
 						<th title="SourceEHR">EHR</th>
-						<th>Source</th>
-						<th>CodeType</th>
-		    			<th>ValueType</th>		
+						<th>Source EHR</th>
+						<th>Code Type</th>
+		    			<th>Values Type</th>		
 						<th></th>
 						<th></th>			
         			</tr>					
@@ -228,7 +229,7 @@
 <!-- qa -->
 <script type="text/template" class="template" id="qa">
   <div rows="3" class="txt-qa input-xlarge" placeholder="Click on the Data Element to view its details"><p>{{notes}}</p></div>					
-  <textarea rows="2" class="txt-message input-xlarge"></textarea><td class="f-btn"><a class= "btn send-btn" title="Send"><i class="icon-share"></i></a> 
+  <textarea rows="2" class="txt-message input-xlarge"></textarea><td class="f-btn"><a class= "btn send-btn" title="Add"><i class="icon-share"></i></a> 
 </script>
 
 <script type="text/template" class="template" id="hosp-spec-table">
@@ -239,10 +240,10 @@
 			Code
 		</th>
 		<th>
-			CodeType
+			Code Type
 		</th>
 		<th>
-			Mnemonic
+			Description
 		</th>
 		<th></th>
 		<th></th>			
@@ -259,9 +260,9 @@
         			<tr>
             			<th>Location</th>           
 						<th title="SourceEHR">EHR</th>
-						<th>Source</th>
-						<th>CodeType</th>
-		    			<th>ValueType</th>		
+						<th>Source EHR</th>
+						<th>Code Type</th>
+		    			<th>Values Type</th>		
 						<th></th>
 						<th></th>			
         			</tr>					

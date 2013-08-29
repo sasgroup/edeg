@@ -4,7 +4,7 @@
 	<thead><tr>
 		    <th>Location</th>           
 			<th>Code Type</th>
-		    <th>Value Type</th>		    
+		    <th>Values Type</th>		    
 		    <th>{{ehr_element}}</th>
 			<th></th>
 			<th></th>

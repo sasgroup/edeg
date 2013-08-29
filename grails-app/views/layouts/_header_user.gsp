@@ -8,7 +8,7 @@
 			</div>
 
 			<div class="hospital-dropdown btn-group">
-				<button type="button" class="btn btn-default" style="background-color:transparent ! important;background-image: none;border-color:rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1)">Hospitals</button>
+				<button type="button" class="btn btn-default" style="background-color:transparent ! important;background-image: none;border-color:rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1)">Select Hospital</button>
 				<button type="button" class="btn btn-default dropdown-toggle"
 					data-toggle="dropdown" style="background-color: transparent ! important; background-image: none;border-color:rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1)">
 					<span class="caret"></span>

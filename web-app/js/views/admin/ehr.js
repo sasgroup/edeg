@@ -39,7 +39,7 @@ App.Views.Ehr = Backbone.View.extend({
 	
 	
 	render : function() {	
-		var state = (this.model.toJSON().id)? "Edit Ehr" : "Add New Ehr"; 
+		var state = (this.model.toJSON().id)? "Edit EHR" : "Add New EHR"; 
 		this.model.set("state", state);
 		
 		this.model.timeId = -1;
@@ -68,7 +68,7 @@ App.Views.Ehr = Backbone.View.extend({
 	
 	appendDataElementsDefault: function(){
 		var table_template = _.template($('#data-elements-default-table').html());		
-		this.$el.find('div#elements').append(table_template({ehr_element:"DataElement"}));			
+		this.$el.find('div#elements').append(table_template({ehr_element:"Data Element"}));			
 		
 		var dataElementDefaults = this.model.get('dataElementDefaults');
 		var ehrtbody = this.$el.find('div#elements .ehrTable tbody');

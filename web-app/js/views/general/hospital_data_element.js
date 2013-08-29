@@ -3,7 +3,7 @@ App.Views.HospitalElements = Backbone.View.extend({
 	template : _.template($('#hospital_data_element-form').html()),
 	
 	events : {
-		'click #resetAll'     : 'resetAllToDefault',
+		//'click #resetAll'     : 'resetAllToDefault',
 		'click button#cancel' : 'returnToProduct' ,
 		'click #save-btn'     : 'saveHospitalElements',
 		'click #save-mark-btn': 'saveAndMarkHospitalElements',
@@ -54,7 +54,7 @@ App.Views.HospitalElements = Backbone.View.extend({
 		this.collection.each(this.appendHospitalElement, this);
 				
 		if (App.userRole == 'admin') {
-			this.$el.find("h3").html(this.options.measure_code+ ":DataElements");			
+			this.$el.find("h3").html(this.options.measure_code+ ":Data Elements");			
 		} else {
 			// hide Q&A tab
 			this.$el.find('div#qa3').hide();
@@ -72,7 +72,7 @@ App.Views.HospitalElements = Backbone.View.extend({
 		return this;
 	},
 	
-	resetAllToDefault : function(e) {		
+	/*resetAllToDefault : function(e) {		
 		var m_id = this.options.m_id;
         App.hospitalElements = new App.Collections.HospitalElements();		
 		App.hospitalElements.fetch({data:{id: m_id, defaults: true}}).then(function(){			
@@ -94,7 +94,7 @@ App.Views.HospitalElements = Backbone.View.extend({
 		$('.row_selected').css( "background-color", "#FFFFFF" );
 		$('tr.row_selected td:first').css( "background-color", "#FFFFFF" );
 		$('.row_selected').removeClass('row_selected');
-	},
+	},*/
 	
 	clearTabsContent: function(){		
 		var temp =  _.template($('#qa').html());

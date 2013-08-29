@@ -1,0 +1,42 @@
+function getSubCategory(topic, category, subCategoryList){  
+  var count = $(subCategoryList).children('li').length;
+  for (var i=0; i<count; i++ ) { 
+   var subCategory = $(subCategoryList).children('li:eq(' + i + ')').text();
+   subCategory = $.trim(subCategory); 
+   //console.log(topic + " > " + category + " > " + subCategory); 
+   record = {"topic": topic , "category":category, "subcategory":subCategory};
+   t.push(record) 
+  }
+}
+
+function getCategory(topic) { 
+  var categoryCount = $(topic).siblings('h4').length;
+  for (var i=0; i<categoryCount; i++ ) {  
+  var category = $(topic).siblings('h4:eq('+ i+ ')');
+  var categoryTitle = $(category).text();        
+  categoryTitle = $.trim(categoryTitle);   
+  
+  var subCategoryList = $(category).next();   
+  getSubCategory($(topic).text(), categoryTitle, subCategoryList);       
+  //console.log($(topic).text() + " > " + categoryTitle); 
+ }
+}
+
+function getTopic() { 
+  var topicCount = $('.col_topic h3').length;
+  for (var i=0; i<topicCount; i++ ) {     
+    var topic = $('.col_topic h3:eq('+ i+ ')');       
+    getCategory(topic);
+  }       
+}
+
+var t = new Array();
+getTopic();
+
+var jsonText = JSON.stringify(t);
+console.log(jsonText);
+
+/*for(var i=0; i<t.length; i++) {
+	var value = t[i];
+	console.log(value.category);
+}*/
