@@ -49,7 +49,7 @@
 			 <tr>
                 <td>Email<span class="required">*</span></td>
                 <td colspan="4">
-                    <input name="email" type="text" value="{{ email }}" id="email" placeholder="user1@domain.com" title="Please specify at least one email address. Separate multiple addresses with a semicolon">
+                    <input name="email" type="text" value="{{ email }}" id="email" placeholder="user1@domain.com"/>
                 </td>               
              </tr>			
 
@@ -75,8 +75,8 @@
     </div>
 
 	<div class="form-actions">
-                    <button id="submit-close-btn" class="btn btn-info pull-right">Save&Close</button>
-					<button id="submit-btn" class="btn btn-info pull-right">Save Hospital</button>
+                    <button type="submit" id="submit-close-btn" class="btn btn-info pull-right">Save&Close</button>
+					<button type="submit" id="submit-btn" class="btn btn-info pull-right">Save Hospital</button>
 					<button id="cancel" class="btn btn-info pull-right">Cancel</button>
 					
     </div>

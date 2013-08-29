@@ -48,12 +48,12 @@
   				    <div class="row">
     				  <div class="span5">      				  
                         <div class="row-fluid">
-                          <label for="code" class="span3">ID<span class="required">*</span></label>    
-					      <input name="code" type="text" class="span9" value="{{ code }}" id="code">
+                          <label for="code" class="span4">ID<span class="required">*</span></label>    
+					      <input name="code" type="text" class="span8" value="{{ code }}" id="code">
 					    </div>					  
 					    <div class="row-fluid">	
-                          <label for="name" class="span3">Name and Version<span class="required">*</span></label>                                         
-                          <input name="name" type="text" class="span9" value="{{ name }}" id="name">
+                          <label for="name" class="span4">Name and Version<span class="required">*</span></label>                                         
+                          <input name="name" type="text" class="span8" value="{{ name }}" id="name">
 					   </div> 					
 					  </div>    				  
 					  <div class="span7">
@@ -65,20 +65,18 @@
   				    </div>
 				</div>
 				
-                <ul id="myTab" class="nav nav-tabs">
+                <ul id="myTab" class="nav nav-tabs">                  
                   <li class="active">
-                    <a data-toggle="tab" href="#hospitals">Hospitals</a>
-                  </li>
-                  <li class="">
                     <a data-toggle="tab" href="#elements">Default Data Element Locations</a>
+                  </li>
+			      <li class="">
+                    <a data-toggle="tab" href="#hospitals">Hospitals</a>
                   </li>
                 </ul>
      
                 <div id="myTabContent" class="tab-content">
-                   <div id="hospitals" class="tab-pane fade active in">    
-                   </div>					
-				   <div id="elements" class="tab-pane fade">						        
-                   </div>				
+				   <div id="elements" class="tab-pane fade active in"></div>
+                   <div id="hospitals" class="tab-pane fade "></div>			   				
                 </div>
 
                 <div class="form-actions">

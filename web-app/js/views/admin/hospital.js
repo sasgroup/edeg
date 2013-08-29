@@ -19,8 +19,7 @@ App.Views.Hospitals = Backbone.View.extend({
 	}	
 });
 
-
-//New/Edit Hospital
+//Edit Hospital
 App.Views.Hospital = Backbone.View.extend({
 	template : _.template($('#hospital-template').html()),
 
@@ -38,13 +37,7 @@ App.Views.Hospital = Backbone.View.extend({
 		'change #notes, #email' 		 : 'changeVal'		
 	},
 
-	render : function() {	
-		if (!this.model.toJSON().id) {
-			this.model.set("state" , "New");
-		};
-		
-		// get embedded collection
-		
+	render : function() {		
 		this.$el.html(this.template(this.model.toJSON()));
 		
 		App.products.forEach(this.appendProductOption,this);
