@@ -8,11 +8,11 @@ App.Views.HospitalElements = Backbone.View.extend({
 		'click #save-btn'     : 'saveHospitalElements',
 		'click #save-mark-btn': 'saveAndMarkHospitalElements',
 		'click #upload' 	  : 'upload',
-		'click #del' 		  : 'delete',
+		'click #del' 		  : 'deleteFile',
 		'change #fileToUpload': 'changeFile'
 	},
 	
-	delete : function() {
+	deleteFile : function() {
 		$.ajax({
 			  type: "DELETE",
 			  url: "/ihm/api/file?currentHospitalElement="+$("#currentHospitalElement").val()
@@ -23,7 +23,6 @@ App.Views.HospitalElements = Backbone.View.extend({
 				$('input#upload').addClass('hide');
 				$('input#del').addClass('hide');	        
 			});	
-		
 	},
 	
 	changeFile : function() {
@@ -440,11 +439,25 @@ App.Views.SingleHospitalElement = Backbone.View
 });	
 
 
+
 //Hospital Spesific Table 
 App.Views.HospitalSpesificTable = Backbone.View
 .extend({ 
 className: "span7",	
 template: _.template($('#hosp-spec-table').html()),      
+      
+render : function() {  
+this.$el.html(this.template());
+return this;
+}  
+
+});
+
+//File Upload
+App.Views.FileUpload = Backbone.View
+.extend({ 
+className: "span5",	
+template: _.template($('#file-upload-temp').html()),      
         
 render : function() {  
   this.$el.html(this.template());
@@ -464,6 +477,7 @@ render : function() {
 }
 
 });
+
 
 //EXTRA
 App.Views.ExtraDataElement = Backbone.View

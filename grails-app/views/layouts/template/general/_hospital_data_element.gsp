@@ -215,6 +215,23 @@
 </table>
 </script>
 
+<script type="text/template" class="template" id="file-upload-temp">
+<div class="row-fluid">
+	<label for="txtValueSet" class="span4">Value Set Name</label>   
+	<input id="txtValueSet" type="text" class="span8" placeholder="Enter Value Set Name">
+</div>					  
+<div class="row-fluid">	
+	<form id="uploadForm"  method="post" enctype="multipart/form-data" action="/ihm/api/file">
+		<label class="span4">File Upload</label>  
+		<input type="file"   id="fileToUpload" name="fileToUpload"/>								
+    	<input type="button" id="upload" class= "hide"   value="Upload"/>
+		<input type="button" id="del"    class= "hide"   value="Delete"/>
+		<input type="hidden" id="currentHospitalElement" name="currentHospitalElement"/>
+	</form>							
+<div id="output2" class='hide'></div>
+</div>	
+</script>	
+
 <script type="text/template" class="template" id="extra-table-temp">
 <table id="extra-table" class="table table-condensed table-bordered">				
 				<thead>
