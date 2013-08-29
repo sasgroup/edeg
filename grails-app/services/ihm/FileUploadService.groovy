@@ -5,7 +5,7 @@ import org.codehaus.groovy.grails.web.context.*
 
 class FileUploadService {
 	
-	def String uploadFile(MultipartFile file, String name, String destinationDirectory) {
+	def String uploadFile(MultipartFile file, String name, String destinationDirectory,boolean isDelet) {
 		def servletContext = ServletContextHolder.servletContext
 		def storagePath = servletContext.getRealPath(destinationDirectory)
 		//Create storage path directory if it does not exist
@@ -17,23 +17,33 @@ class FileUploadService {
 			} else {
 				println "FAILED"
 			}
-		}
-		//Store file
-		if(!file.isEmpty()) {
-			def storedFile = new File("${storagePath}/${name}")
-			if (!storedFile.exists()) {
-				file.transferTo(new File("${storagePath}/${name}"))
-				println "SAved file: ${storagePath}/${name}"
-				return "${storagePath}/${name}"
+		}	
+		
+		def storedFile = new File("${storagePath}/${name}")
+		
+		if (!isDelet) {
+			//Store file
+			if(file && !file.isEmpty()) {
+				
+				
+				if (!storedFile.exists()) {
+					file.transferTo(new File("${storagePath}/${name}"))
+					println "SAved file: ${storagePath}/${name}"
+					return "${storagePath}/${name}"
+				} else {
+					println "File Exist"
+					return "exist"
+				}	
 			} else {
-				println "File Exist"
-				return "exist"
+				println "File ${file.inspect()} was empty"
+				return null
 			}
 		} else {
-			println "File ${file.inspect()} was empty"
-			return null
-		}
-	}
+			if (storedFile.exists() && storedFile.delete()) {
+				return "deleted" 
+			} else {
+				return "error"
+			}
+		}	
+    }
 }
-
-

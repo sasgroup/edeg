@@ -48,7 +48,7 @@ class FileController {
 				hospitalElement.valueSetFile = "${hospitalElementId}_${multiRequest?.fileItem?.name}"
 				hospitalElement.save(flush:true)
 				
-				def path = fileUploadService.uploadFile(multiRequest, "${hospitalElementId}_${multiRequest?.fileItem?.name}", "uploadFiles")
+				def path = fileUploadService.uploadFile(multiRequest, "${hospitalElementId}_${multiRequest?.fileItem?.name}", "uploadFiles",false)
 				if (path) {
 					if (params?.currentHospitalElement && HospitalMeasure.exists(params.currentHospitalElement)) {
 						hospitalElement = HospitalElement.get(params.currentHospitalElement)
@@ -70,8 +70,8 @@ class FileController {
 			//	find hospitalElement and get file name
 			def fileName = hospitalElement.valueSetFile
 		
-			def path = fileUploadService.uploadFile(null, "${fileName}", "uploadFiles",true)
-			render "$path"
+			def res = fileUploadService.uploadFile(null, "${fileName}", "uploadFiles",true)
+			render "$res"
 		}	else {
 			render "some errror"
 		}
