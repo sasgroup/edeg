@@ -58,7 +58,7 @@ class UrlMappings {
 			action = [GET: "show", POST: "update", PUT:"update"]
 		}
 		
-		"/api/file/$id?"(controller: "file") {
+		"/api/file"(controller: "file") {
 			action = [ GET: "show", POST: "save", DELETE:"delete" ]
 		}
 		

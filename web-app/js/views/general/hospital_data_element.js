@@ -244,8 +244,7 @@ App.Views.SingleHospitalElement = Backbone.View
 	},
 	
 	selectRow: function(event) {
-		//set hospitalElementId to AjaxForm
-		$("#currentHospitalElement").val(this.model.id);
+		
 		
 		//activate details tabs
 		$('#deatails *').removeAttr('disabled');
@@ -355,6 +354,9 @@ App.Views.SingleHospitalElement = Backbone.View
 		
 		var view_file = new App.Views.HospitalFileUpload({ model : slc_hospital_element});  
 		$('div#hs-table').append(view_file.render().el);  
+		
+		//set hospitalElementId to AjaxForm
+		$("#currentHospitalElement").val(this.model.id);
 		
 		var hospitalValueSet = slc_hospital_element.get('hospitalValueSet');
 		
@@ -473,10 +475,12 @@ render : function() {
   return this;
 },
 
-deleteFile : function() {
+deleteFile : function() {	
+	var id = this.model.get('id');
 	$.ajax({
 		  type: "DELETE",
-		  url: "/ihm/api/file?currentHospitalElement="+$("#currentHospitalElement").val()
+		  //url: "/ihm/api/file?currentHospitalElement="+$("#currentHospitalElement").val()
+		  url: "/ihm/api/file?currentHospitalElement="+id
 		}).done(function( msg ) {
 		  //reload model
 			$('form#uploadForm a').remove();
