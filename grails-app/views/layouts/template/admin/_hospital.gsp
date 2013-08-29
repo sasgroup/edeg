@@ -49,7 +49,7 @@
 			 <tr>
                 <td>Email<span class="required">*</span></td>
                 <td colspan="4">
-                    <input name="email" type="text" value="{{ email }}" id="email" placeholder="user1@domain.com"/>
+                    <input name="email" type="text" value="{{ email }}" id="email" placeholder="email@example.com"/>
                 </td>               
              </tr>			
 
@@ -109,10 +109,10 @@
 	<thead><tr>
 		    <th>Use</th>			
 			<th>ID</th>
-		    <th>TITLE</th>				    				  
+		    <th>Name</th>				    				  
 		    <th>Complete</th>		    
 		    <th>Accepted</th>
-			<th>Declined</th>
+			<th class="needs-rv">Needs Review</th>
 		    <th>Verified</th>		    
 		   </tr>
     </thead>				

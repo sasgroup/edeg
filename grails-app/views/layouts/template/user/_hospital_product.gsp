@@ -7,7 +7,7 @@
 		    <th>Name</th>				    				  
 		    <th>Complete</th>		    
 		    <th>Accepted</th>
-			<th>Declined</th>
+			<th>Needs Review</th>
 		    <th>Verified</th>
 			<th>Help</th>		    
 		   </tr>

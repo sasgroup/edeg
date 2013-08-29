@@ -52,7 +52,7 @@
 				<div class="span5">						
 						<div class="row-fluid">
                           <label for="txtValueSet" class="span4">Value Set Name</label>   
-					      <input id="txtValueSet" type="text" class="span8">
+					      <input id="txtValueSet" type="text" class="span8" placeholder="Enter Value Set Name">
 					    </div>					  
 					    <div class="row-fluid">	
 							<form id="uploadForm"  method="post" enctype="multipart/form-data" action="/ihm/api/file">

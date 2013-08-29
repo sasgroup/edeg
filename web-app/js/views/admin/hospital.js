@@ -141,11 +141,11 @@ App.Views.Hospital = Backbone.View.extend({
 		$(slcTab + ' .dataTables_scrollHeadInner').css('width', '934px');
 		$(slcTab + ' .hospitalMeasureTable.dataTable').css('width', '934px');
 		$(slcTab + ' .hospitalMeasureTable.dataTable td:eq(0), ' + slcTab + ' .hospitalMeasureTable.dataTable th:eq(0)').css('width', '30px');
-		$(slcTab + ' .hospitalMeasureTable.dataTable td:eq(1), ' + slcTab + ' .hospitalMeasureTable.dataTable th:eq(1)').css('width', '97px');
+		$(slcTab + ' .hospitalMeasureTable.dataTable td:eq(1), ' + slcTab + ' .hospitalMeasureTable.dataTable th:eq(1)').css('width', '73px');
 		$(slcTab + ' .hospitalMeasureTable.dataTable td:eq(2), ' + slcTab + ' .hospitalMeasureTable.dataTable th:eq(2)').css('width', '336px');
 		$(slcTab + ' .hospitalMeasureTable.dataTable td:eq(3), ' + slcTab + ' .hospitalMeasureTable.dataTable th:eq(3)').css('width', '83px');
 		$(slcTab + ' .hospitalMeasureTable.dataTable td:eq(4), ' + slcTab + ' .hospitalMeasureTable.dataTable th:eq(4)').css('width', '72px');
-		$(slcTab + ' .hospitalMeasureTable.dataTable td:eq(5), ' + slcTab + ' .hospitalMeasureTable.dataTable th:eq(5)').css('width', '66px');
+		$(slcTab + ' .hospitalMeasureTable.dataTable td:eq(5), ' + slcTab + ' .hospitalMeasureTable.dataTable th:eq(5)').css('width', '90px');
 		$(slcTab + ' .hospitalMeasureTable.dataTable td:eq(6), ' + slcTab + ' .hospitalMeasureTable.dataTable th:eq(6)').css('width', '63px');	    
 	},
 		

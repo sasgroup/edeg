@@ -5,7 +5,7 @@
 	       </a>
 	       <a href="#product">Products</a>
 	       <a href="#measure">Measures</a>
-	       <a href="#element">DataElements</a>
+	       <a href="#element">Data Elements</a>
 	       <a href="#hospital">Hospitals</a>
 	       <a href="#ehr">EHR</a>
 	       <a href="#"> &copy; 2013 IHM Services&nbsp;&nbsp;&nbsp;

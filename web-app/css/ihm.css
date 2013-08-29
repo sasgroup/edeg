@@ -162,9 +162,10 @@ td div.title {
     overflow: hidden;
     padding: 0;
     text-overflow: ellipsis;
-    width: 320px;
+    width: 260px;
     white-space: nowrap;
 }
+
 
 .hospitalMeasureTable td div.code {
 	display: block;
@@ -173,7 +174,7 @@ td div.title {
     overflow: hidden;
     padding: 0;
     text-overflow: ellipsis;
-    width: 75px;
+    width: 50px;
 }
 
 
