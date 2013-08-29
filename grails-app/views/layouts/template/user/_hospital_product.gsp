@@ -21,7 +21,7 @@
 <!-- user hospital_measure -->
 <script type="text/template" class="template" id="user-hospital_measure">
  <td>
-	<input type="checkbox" name="included" id="{{id}}" disabled="disabled" {{included}} >
+	<input type="checkbox" name="included" id="{{id}}" disabled="disabled" {{included}} {{included? "": "title='Contact IHM customer support to change selected measures'"}}>
  </td>
  <td><div class='code' title="{{notes}}">{{ code }}</div></td>
  <td><div class='title' title="{{name}}"><a id="customLink" href="#modalDataElements" role="button" data-toggle="modal">{{ name }}</a></div></td>

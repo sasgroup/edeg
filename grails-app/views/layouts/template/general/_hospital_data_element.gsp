@@ -184,7 +184,7 @@
 				 <option value="SOP" {{codeType.name=="SOP"? "selected": ""}}>SOP</option>
     </select>
  </td>-->
- <td><input type="text" class="mnemonic" id="mnemonic" value="{{mnemonic}}" placeholder="Enter Mnemonic"></td>
+ <td><input type="text" class="mnemonic" id="mnemonic" value="{{mnemonic}}" placeholder="Enter Description"></td>
  <td><div id="plus-btn" class="btn btn-mini"><i class="icon-plus"></i></div></td>
  <td><div id="minus-btn" class="btn btn-mini"><i class="icon-minus"></i></div></td>
 </script>

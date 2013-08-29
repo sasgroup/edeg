@@ -2,12 +2,11 @@
 <script type="text/template" class="template" id="data-elements-default-table">
 <table class="ehrTable table table-striped ">
 	<thead><tr>
-		    <th>Location</th>           
-			<!--<th>Code Type</th>-->
+		    <th>Location</th>		
 		    <th>Values Type</th>		    
 		    <th>{{ehr_element}}</th>
-			<th></th>
-			<th></th>
+			<th class="f-btn"></th>
+			<th class="f-btn"></th>
 		    </tr>
     </thead>				
     <tbody></tbody>
@@ -17,26 +16,6 @@
 <!-- data-elements-default -->
 <script type="text/template" class="template" id="single-data-elements-default">
  <td><input type="text" class="location" id="location" value="{{loc}}"></td>
- <!--<td><select class="slcCodeType">                
-				 <option value="">-Select-</option>
-				 <option value="NotApplicable">NotApplicable</option>
-				 <option value="AdministrativeSex">AdministrativeSex</option>                 
-				 <option value="CDCREC">CDREC</option>
-				 <option value="CDT">CDT</option>
-				 <option value="CPT">CPT</option>
-				 <option value="CVX">CVX</option>
-				 <option value="DischargeDisposition">DischargeDisposition</option>
-				 <option value="HCPCS">HCPCS</option>
-				 <option value="HSLOC">HSLOC</option>
-				 <option value="ICD10CM">ICD10CM</option>
-				 <option value="ICD10PCS">ICD10PCS</option>
-				 <option value="ICD9CM">ICD9CM</option>
-				 <option value="LOINC">LOINC</option>
-				 <option value="RXNORM">RXNORM</option>
-				 <option value="SNOMEDCT">SNOMEDCT</option>
-				 <option value="SOP">SOP</option>
-    </select>
- </td>-->
  <td><select class="slcValueType">			
 				<option value="">-Select-</option>
 				<option value="NotApplicable">NotApplicable</option>				  

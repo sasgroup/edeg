@@ -258,7 +258,8 @@ form#hospital-edit #notes  {
 
 form#product-edit div#myTabContent, form#element-edit div#myTabContent, form#ehr-edit div#myTabContent   {
 	display:block;
-	height: 374px;
+	/*height: 374px;*/
+	height: 398px;
 	width:100%;
 	overflow: auto;   
 }
