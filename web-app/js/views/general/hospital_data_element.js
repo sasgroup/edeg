@@ -13,7 +13,12 @@ App.Views.HospitalElements = Backbone.View.extend({
 	},
 	
 	delete : function() {
-		console.log("delete");		
+		$.ajax({
+			  type: "DELETE",
+			  url: "/ihm/api/file?currentHospitalElement="+$("#currentHospitalElement").val()
+			}).done(function( msg ) {
+			  //reload model
+			});	
 		
 	},
 	
