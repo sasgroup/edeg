@@ -9,7 +9,7 @@
 		    	<th>Location</th>           
 				<th title="SourceEHR">EHR</th>
 				<th>Source EHR</th>
-				<th>Code Type</th>
+				<!--<th>Code Type</th>-->
 		    	<th>Values Type</th>
 				<th>Reset</th>
 				<th>Help</th>	    		    
@@ -48,28 +48,7 @@
 				</div>
           </div>		  
 		  <div id="hospital-specific-tab" class="tab-pane fade">             
-		    <div class="row-fluid" id="hs-table">						
-				<!--<div class="span7" >             
-				<table id="hospital-specific-table" class="table table-bordered table-condensed">				
-				<thead>
-        			<tr>
-            			<th>
-                			Code
-            			</th>
-            			<th>
-                			CodeType
-            			</th>
-            			<th>
-							Mnemonic
-						</th>
-						<th></th>
-						<th></th>			
-        			</tr>					
-    			</thead>
-    			<tbody>					
-    			</tbody>
-				</table>
-				</div>-->
+		    <div class="row-fluid" id="hs-table">				
 				<div class="span5">						
 						<div class="row-fluid">
                           <label for="txtValueSet" class="span4">Value Set Name</label>   
@@ -88,23 +67,7 @@
 				</div>
 			</div>					
 		  </div>
-		  <div id="extra-location" class="tab-pane fade">
-			 <!--<table id="extra-table" class="table table-condensed table-bordered">				
-				<thead>
-        			<tr>
-            			<th>Location</th>           
-						<th title="SourceEHR">EHR</th>
-						<th>Source EHR</th>
-						<th>Code Type</th>
-		    			<th>Values Type</th>		
-						<th></th>
-						<th></th>			
-        			</tr>					
-    			</thead>
-    			<tbody>					
-    			</tbody>
-				</table>-->		   
-          </div>
+		  <div id="extra-location" class="tab-pane fade"></div>
        </div>
 	</div>
  
@@ -122,7 +85,7 @@
  <td><input type="text" class="location" name="location" id="location" value="{{location}}"></td>
  <td><input type="checkbox" class="sourceEHR" name="sourceEHR" id="sourceEHR" value={{sourceEHR}} {{sourceEHR ? "checked": ""}}></td>
  <td><input type="text" class="source" id="source" name= "source" value="{{source}}"></td>
- <td>
+ <!--<td>
     <select class="slcCodeType" name="codeType">                
 				 <option value="">-Select-</option>
 				 <option value="NotApplicable" {{codeType.name=="NotApplicable"? "selected": ""}}>NotApplicable</option>
@@ -142,7 +105,7 @@
 				 <option value="SNOMEDCT" {{codeType.name=="SNOMEDCT"? "selected": ""}}>SNOMEDCT</option>
 				 <option value="SOP" {{codeType.name=="SOP"? "selected": ""}}>SOP</option>
     </select>
- </td>
+ </td>-->
  <td>
     <select class="slcValueType" name="valueType">			
 				<option value="">-Select-</option>
@@ -164,7 +127,7 @@
  <td><input type="text" class="location" id="location" value="{{location}}" placeholder="Enter Location"></td>
  <td><input type="checkbox" class="sourceEHR" id="sourceEHR" value="{{sourceEHR}}" {{sourceEHR ? "checked": ""}}></td>
  <td><input type="text" class="source" id="source" value="{{source}}" placeholder="Enter Source"></td>
- <td><select class="slcCodeType">                
+ <!--<td><select class="slcCodeType">                
 				 <option value="">-Select-</option>
 				 <option value="NotApplicable" {{codeType.name=="NotApplicable"? "selected": ""}}>NotApplicable</option>
 				 <option value="AdministrativeSex" {{codeType.name=="AdministrativeSex"? "selected": ""}}>AdministrativeSex</option>                 
@@ -183,7 +146,7 @@
 				 <option value="SNOMEDCT" {{codeType.name=="SNOMEDCT"? "selected": ""}}>SNOMEDCT</option>
 				 <option value="SOP" {{codeType.name=="SOP"? "selected": ""}}>SOP</option>
     </select>
- </td>
+ </td>-->
  <td><select class="slcValueType">			
 				<option value="">-Select-</option>
 				<option value="NotApplicable" {{valueType.name=="NotApplicable"? "selected": ""}}>NotApplicable</option>	     
@@ -201,7 +164,7 @@
 <!-- hospital-specific -->
 <script type="text/template" class="template" id="hospital-specific">
  <td><input type="text" class="code" id="code" value="{{code}}" placeholder="Enter Code"></td> 
- <td><select class="slcCodeType">                
+ <!--<td><select class="slcCodeType">                
 				 <option value="">-Select-</option>
 				 <option value="NotApplicable" {{codeType.name=="NotApplicable"? "selected": ""}}>NotApplicable</option>
 				 <option value="AdministrativeSex" {{codeType.name=="AdministrativeSex"? "selected": ""}}>AdministrativeSex</option>                 
@@ -220,7 +183,7 @@
 				 <option value="SNOMEDCT" {{codeType.name=="SNOMEDCT"? "selected": ""}}>SNOMEDCT</option>
 				 <option value="SOP" {{codeType.name=="SOP"? "selected": ""}}>SOP</option>
     </select>
- </td>
+ </td>-->
  <td><input type="text" class="mnemonic" id="mnemonic" value="{{mnemonic}}" placeholder="Enter Mnemonic"></td>
  <td><div id="plus-btn" class="btn btn-mini"><i class="icon-plus"></i></div></td>
  <td><div id="minus-btn" class="btn btn-mini"><i class="icon-minus"></i></div></td>
@@ -239,9 +202,7 @@
 		<th>
 			Code
 		</th>
-		<th>
-			Code Type
-		</th>
+		<!--<th>Code Type</th>-->
 		<th>
 			Description
 		</th>
@@ -261,7 +222,7 @@
             			<th>Location</th>           
 						<th title="SourceEHR">EHR</th>
 						<th>Source EHR</th>
-						<th>Code Type</th>
+						<!--<th>Code Type</th>-->
 		    			<th>Values Type</th>		
 						<th></th>
 						<th></th>			

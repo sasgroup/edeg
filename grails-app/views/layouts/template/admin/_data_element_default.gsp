@@ -3,7 +3,7 @@
 <table class="ehrTable table table-striped ">
 	<thead><tr>
 		    <th>Location</th>           
-			<th>Code Type</th>
+			<!--<th>Code Type</th>-->
 		    <th>Values Type</th>		    
 		    <th>{{ehr_element}}</th>
 			<th></th>
@@ -17,7 +17,7 @@
 <!-- data-elements-default -->
 <script type="text/template" class="template" id="single-data-elements-default">
  <td><input type="text" class="location" id="location" value="{{loc}}"></td>
- <td><select class="slcCodeType">                
+ <!--<td><select class="slcCodeType">                
 				 <option value="">-Select-</option>
 				 <option value="NotApplicable">NotApplicable</option>
 				 <option value="AdministrativeSex">AdministrativeSex</option>                 
@@ -36,7 +36,7 @@
 				 <option value="SNOMEDCT">SNOMEDCT</option>
 				 <option value="SOP">SOP</option>
     </select>
- </td>
+ </td>-->
  <td><select class="slcValueType">			
 				<option value="">-Select-</option>
 				<option value="NotApplicable">NotApplicable</option>				  

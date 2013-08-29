@@ -79,7 +79,7 @@ App.Routers.Administrator = Backbone.Router.extend({
 				"bSort": true,
 				"bInfo": false,
 				"aaSorting": [[0, 'asc']],
-				"aoColumnDefs": [{'bSortable': false, 'aTargets': [ 1,2,3,4,5,6,7 ] }]			 
+				"aoColumnDefs": [{'bSortable': false, 'aTargets': [ 1,2,3,4,5,6 ] }]			 
 			});				
 			
 			new FixedColumns( oTable, {"sHeightMatch": "none"} );				
