@@ -1,0 +1,105 @@
+
+var Tynax = [];
+var AssetId = 4400;
+var maxAssetId = 4410; // change this parameter to avoid memory leaks problems in browsers
+
+function stripHTML(str){
+    return $('<div></div>').html(str.replace(/<br \/>/gi, ' ').replace(/<br>/gi, ' ')).text().replace(/\n/gi, ' ').replace(/?/g, ' ');
+}
+
+function init(){
+	$("<iframe style='width:99%; height: 500px; border:1px solid lightgray; margin:2px' id='ifrScrapper' onload='scrapReady()' src=''></iframe>").appendTo("body");
+}
+
+function scrapReady(){
+	scrapAssetDetails();
+}
+
+function scrapAssetDetails(){
+    var _body =  $("#ifrScrapper").contents().find("body");
+	var _id = _body.find(".sidebox li:first").text().replace(_body.find(".sidebox li:first label").text(), '').trim();
+
+	if (_id != "") {
+	    console.log("+"+_id);
+	    
+	    var _ttypes = [], _ttopics= [];
+	    _body.find(".sidebox ul:eq(1) li").each(function (i, li) {_ttypes.push($(li).text())});
+	    _body.find(".sidebox ul:eq(2) li").each(function (i, li) { var _url = $('a', li).attr('href'); _ttopics.push({id:_url.split('/')[3], t: $(li).text(), u:_url}); });
+	    
+	    var _obj = {
+    	    id:           "tynax:"+_id,
+	    	src:          "tynax.com",
+	    	company:      "IQ0000001",
+	    	active:       true,
+	    	matchable:    true,
+	    	atype:        "IP",
+	    	profile:      50,
+	    	dealTypes:    _ttypes,
+	    	categories:	  _ttopics,
+	    	status:		  _body.find(".sidebox li:eq(1)").text(),
+	    	name: 		  _body.find(".box-main h1").text().replace(_body.find(".box-main h1 p").text(), '').trim(),
+	    	summary:      '',
+	    	problem:      '',
+	    	solution:      '',
+	    	status:       '',
+	    	dealInfo:     '',
+	    	transferedIP: '',
+	    	opportunity:  '',
+	    	additionalInfo:'',
+	    	overview:     '',
+	    	usage:        '',
+	    	details:      ''
+	    };
+
+	    var _fld='summary';
+        var _tag='';
+        var _txt='';
+        var _fields = {
+            'The Problem Solved by the Technology' : 'problem',
+            'Competitive Advantage' : 'solution',
+            'How the Technology Solves the Problem': 'solution',
+            'Deployment' : 'usage',
+            'Development Platform' : 'solution',
+            'Notes on Development Status' : 'status',
+            'Platforms Supported' : 'solution',
+            'Notes on Sales Status' : 'dealInfo',
+            'Frequently Asked Questions' : 'transferedIP',
+            'Comments on Deal Structure, Potential Terms and Restrictions' : 'dealInfo',
+            'Other Potential Applications' : 'opportunity',
+            'Additional Information' : 'additionalInfo',
+            'Overview' : 'overview',
+            'Primary Application of the Technology' : 'status',
+            'Patent Summary' : 'details'
+        };
+	    
+        _body.find("div.box-main>h3, div.box-main>div").each(function(i,n){
+            if (!$(n).hasClass('widget') && !$(n).hasClass('widget_link')){
+                _tag = $(n)[0].tagName;
+                _txt = $(n).text();
+                if (_tag != 'H3')
+                    _obj[_fld] += stripHTML(_txt)+' ';
+                else{
+                    _fld = _fields[_txt];
+                }
+            }
+        });
+        Tynax.push(_obj);
+	}
+	else
+    	console.log("-"+AssetId);
+    
+	gotoNextAsset();
+}
+
+function gotoNextAsset(){
+	AssetId++;
+	if (AssetId <= maxAssetId)
+		document.getElementById('ifrScrapper').src = "/listing/" + AssetId;
+	else{
+	   console.log('***************** Finished ***************');
+	   console.log(JSON.stringify(Tynax));
+   }
+}
+
+init(); gotoNextAsset();
+//JSON.stringify(Tynax)

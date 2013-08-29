@@ -1,0 +1,189 @@
+﻿var Fintbox = [];
+var AssetId = 22000;
+var maxAssetId = 22003; // change this parameter to avoid memory leaks problems in browsers
+
+function stripHTML(str){
+    return $('<div></div>').html(str.replace(/<br \/>/gi, ' ').replace(/<br>/gi, ' ')).text().replace(/\n/gi, ' ');
+}
+
+function init(){
+    $("<iframe style='width:99%; height: 500px; border:1px solid lightgray; margin:2px' id='ifrScrapper' onload='scrapReady()' src=''></iframe>").appendTo("body");
+}
+
+function scrapReady(){
+    scrapAssetDetails();
+}
+
+function parseAsset() {
+    /*var keywords = [];
+     var _ttypes = [];
+     var _ttopics = [];*/
+    var keywords_s;
+
+    var _obj = {
+        aid:          "flintbox:"+AssetId,
+        src:          "flintbox.com",
+        company:      "IQ0000002",
+        active:       true,
+        matchable:    true,
+        atype:        "IP",
+        profile:      50,
+        dealTypes:    '',
+        categories:	  '',
+        status:		  '',
+        name: 		  '',
+        tcode_s: 	  '', //new
+        summary:      '',
+        problem:      '',
+        solution:      '',
+        status:       '',
+        dealInfo:     '',
+        transferedIP: '',
+        opportunity:  '',
+        additionalInfo:'',
+        overview:      '',
+        usage:        '',
+        details:      '',
+        keywords:     ''   //new
+    };
+
+    var _body =  $("#ifrScrapper").contents().find("body");
+    for (var i=0; i<$(_body).find('table.key-value th').length; i++ ) {
+        var title = $(_body).find('table.key-value th:eq('+i+')').text();
+        var text = $(_body).find('table.key-value th:eq('+i+')').next().text();
+
+        switch (title) {
+            case 'Project Title':
+                _obj.name = stripHTML(text);
+                break;
+            case 'Track Code':
+                _obj.tcode_s = text;
+                break;
+            case 'Short Description':
+                _obj.summary = stripHTML(text);
+                break;
+            case 'Abstract':
+                _obj.overview = stripHTML(text);
+                //var advantages = $('table.key-value th:eq('+i+')').next().children('ul').html();
+                //console.log('advantages'+ ' : ' +advantages);
+                break;
+            case 'Tags':
+                /* _obj.keywords = text.split(",");
+                 for (var j=0; j<_obj.keywords.length; j++ ){
+                 _obj.keywords[j] = _obj.keywords[j].trim();
+                 }    */
+                _obj.keywords = stripHTML(text);
+                break;
+        }
+    }
+    Fintbox.push(_obj);
+}
+
+function scrapAssetDetails(){
+    var _body =  $("#ifrScrapper").contents().find("body");
+    var _trackCode = $(_body).find('table.key-value th:eq(1)').next().text();
+
+    if (_trackCode != "") {
+        console.log("+"+ AssetId + ":" + _trackCode);
+        parseAsset();
+    }
+    else {
+        console.log("-"+AssetId);
+    }
+
+    gotoNextAsset();
+}
+
+function gotoNextAsset(){
+    AssetId++;
+    if (AssetId <= maxAssetId)
+        document.getElementById('ifrScrapper').src = "/public/project/" + AssetId;
+    else{
+        console.log('***************** Finished ***************');
+        console.log(JSON.stringify(Fintbox));
+        initDatabase();     //new
+        insertRecord(Fintbox);
+    }
+}
+
+init();
+gotoNextAsset();
+
+var createStatement = "CREATE TABLE IF NOT EXISTS Assets (id INTEGER PRIMARY KEY AUTOINCREMENT," +
+    "aid TEXT," +
+    "src TEXT," +
+    "company TEXT," +
+    "active BOOLEAN," +
+    "matchable BOOLEAN," +
+    "atype TEXT," +
+    "profile INTEGER," +
+    "dealTypes TEXT," +
+    "categories TEXT," +
+    "status TEXT," +
+    "name TEXT," +
+    "tcode_s TEXT," +
+    "summary TEXT," +
+    "problem TEXT," +
+    "solution TEXT," +
+    "dealInfo TEXT," +
+    "transferedIP TEXT," +
+    "opportunity TEXT," +
+    "additionalInfo TEXT," +
+    "overview TEXT," +
+    "usage TEXT," +
+    "details TEXT," +
+    "keywords TEXT)";
+
+var insertStatement = "INSERT INTO Assets (aid, src, company, active, matchable, atype, profile, dealTypes, categories, " +
+    "status, name, tcode_s, summary, problem, solution, dealInfo, transferedIP, opportunity,additionalInfo,overview, usage, details, keywords) " +
+    "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+
+var db = openDatabase("Assets4", "1.0", "Assets", 200000);  // Open SQLite Database
+
+function insertRecord(data) {
+
+    db.transaction(function (tx) {
+        for(var i=0; i<data.length; i++) {
+         var mvalue =[];
+
+         for (var name in data[i]) {
+             mvalue.push(data[i][name]);
+         }
+
+         console.log(insertStatement);
+         tx.executeSql(insertStatement, mvalue, null, null);
+        }
+
+    });
+    //tx.executeSql(SQL Query Statement,[ Parameters ] , Sucess Result Handler Function, Error Result Handler Function );
+}
+
+function createTable()  // Function for Create Table in SQLite.
+{
+    db.transaction(function (tx) {
+        console.log (createStatement);
+        tx.executeSql(createStatement, [], null, null);
+    });
+}
+
+function initDatabase()  // Function Call When Page is ready.
+{
+    try {
+        if (!window.openDatabase)  // Check browser is supported SQLite or not.
+        {
+            alert('Databases are not supported in this browser.');
+        }
+        else {
+            createTable();  // If supported then call Function for create table in SQLite
+        }
+    }
+    catch (e) {
+        if (e == 2) {
+            // Version number mismatch.
+            console.log("Invalid database version.");
+        } else {
+            console.log("Unknown error " + e + ".");
+        }
+        return;
+    }
+}

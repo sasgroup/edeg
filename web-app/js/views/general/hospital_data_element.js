@@ -18,6 +18,10 @@ App.Views.HospitalElements = Backbone.View.extend({
 			  url: "/ihm/api/file?currentHospitalElement="+$("#currentHospitalElement").val()
 			}).done(function( msg ) {
 			  //reload model
+				$('form#uploadForm a').remove();
+				$('input#fileToUpload').removeClass('hide');
+				$('input#upload').addClass('hide');
+				$('input#del').addClass('hide');	        
 			});	
 		
 	},
@@ -36,12 +40,9 @@ App.Views.HospitalElements = Backbone.View.extend({
 	        target: '#output2',
 	        success:  function afterSuccess(url){
 	        				$('#uploadForm').resetForm();  // reset form	  
-	        				var str = url;	        				
-	        				str = str.substr(str.indexOf('uploadFiles'));
-	        				console.log(str);
-	        				var path = "/ihm/static/" + str;
-	        				console.log(path);
+	        				var str = url;
 	        				var name = str.substr(str.lastIndexOf('/')+1);
+	        				var name = name.substr(name.indexOf('_')+1);
 	        				console.log(name);
 	        					        				
 	        				$('input#fileToUpload').addClass('hide');
@@ -49,10 +50,15 @@ App.Views.HospitalElements = Backbone.View.extend({
 	        				$('input#del').removeClass('hide');	        				    				
 	        				//$('form#uploadForm span').replaceWith('<a href= " ' + path + '">' + name +'</a>');
 	        				
-	        				$('form#uploadForm span').replaceWith('<a href= "http://localhost:8080/ihm/api/file?currentHospitalElement=2">' + name +'</a>');
+	        				//hardcode
+	        				var he_id = $('tr.row_selected td:first').prop("id");
 	        				
-	        				//http://localhost:8080/ihm/api/file?currentHospitalElement=2
-	        				 				
+	        				var path = "/ihm/api/file?currentHospitalElement=" + he_id;
+	        				
+	        				$('form#uploadForm span').replaceWith('<a href= "' + path + '">' + name +'</a>');
+	        				
+	        				//$('form#uploadForm span').replaceWith('<a href= "/ihm/api/file?currentHospitalElement="' + he_id + '">' + name +'</a>');	        				
+	        				//http://localhost:8080/ihm/api/file?currentHospitalElement=2       				 				
 	        				
 					 }
 	    }); 		
