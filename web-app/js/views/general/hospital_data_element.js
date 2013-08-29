@@ -48,21 +48,13 @@ App.Views.HospitalElements = Backbone.View.extend({
 	        				$('input#fileToUpload').addClass('hide');
 	        				$('input#upload').addClass('hide');
 	        				$('input#del').removeClass('hide');	        				    				
-	        				//$('form#uploadForm span').replaceWith('<a href= " ' + path + '">' + name +'</a>');
-	        				
+	        					        				
 	        				//hardcode
-	        				var he_id = $('tr.row_selected td:first').prop("id");
-	        				
-	        				var path = "/ihm/api/file?currentHospitalElement=" + he_id;
-	        				
-	        				$('form#uploadForm span').replaceWith('<a href= "' + path + '">' + name +'</a>');
-	        				
-	        				//$('form#uploadForm span').replaceWith('<a href= "/ihm/api/file?currentHospitalElement="' + he_id + '">' + name +'</a>');	        				
-	        				//http://localhost:8080/ihm/api/file?currentHospitalElement=2       				 				
-	        				
+	        				var he_id = $('tr.row_selected td:first').prop("id");	        				
+	        				var path = "/ihm/api/file?currentHospitalElement=" + he_id;	        				
+	        				$('form#uploadForm span').replaceWith('<a href= "' + path + '">' + name +'</a>');    				
 					 }
 	    }); 		
-		
 	},
 	
 	render : function() {		
