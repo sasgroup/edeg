@@ -161,11 +161,11 @@
 <div class="row-fluid">	
 	<form id="uploadForm"  method="post" enctype="multipart/form-data" action="/ihm/api/file">
 		<label class="span4">File Upload</label>  
-		<input type="file"   id="fileToUpload" name="fileToUpload"/>								
-    	<input type="button" id="upload" class= "hide"   value="Upload"/>
-		<input type="button" id="del"    class= "hide"   value="Delete"/>
-		<input type="hidden" id="currentHospitalElement" name="currentHospitalElement"/>
+		<input type="file"   id="fileToUpload" name="fileToUpload" {{status=="browse"? "": "class='hide'"}}/>								
+    	<input type="button" id="upload" value="Upload" {{status=="upload"? "": "class='hide'"}}/>
+		<input type="button" id="del"    value="Delete" {{status=="delete"? "": "class='hide'"}} />
 		{{linkToFile}}
+		<input type="hidden" id="currentHospitalElement" name="currentHospitalElement"/>
 	</form>							
 <div id="output2" class='hide'></div>
 </div>	

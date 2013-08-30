@@ -30,31 +30,7 @@ App.Views.HospitalElements = Backbone.View.extend({
 					
 		return this;
 	},
-	
-	/*resetAllToDefault : function(e) {		
-		var m_id = this.options.m_id;
-        App.hospitalElements = new App.Collections.HospitalElements();		
-		App.hospitalElements.fetch({data:{id: m_id, defaults: true}}).then(function(){			
-			App.hospitalElements.forEach(function(hospitalElement) {
-			   var cur_row = $('#hospital-elements td#'+hospitalElement.id).closest('tr');
-			   var ch = $(cur_row).find('.sourceEHR').is(':checked');				
-			   if (ch) {
-				var view = new App.Views.SingleHospitalElement({ model : hospitalElement, m_id: m_id});			
-				$(cur_row).replaceWith(view.render().el);
-			   }	
-			});	
-		});		
 		
-		this.clearTabsContent();		
-		$('ul#detailsTab li:first a').click();
-		$('#deatails *').attr('disabled','disabled');
-		
-		//remove selection
-		$('.row_selected').css( "background-color", "#FFFFFF" );
-		$('tr.row_selected td:first').css( "background-color", "#FFFFFF" );
-		$('.row_selected').removeClass('row_selected');
-	},*/
-	
 	clearTabsContent: function(){		
 		var temp =  _.template($('#qa').html());
 			
@@ -237,6 +213,9 @@ App.Views.SingleHospitalElement = Backbone.View
 								
 			//Hospital Specific
 			hospital_element_to_save.set({"valueSet":valueSet});
+			
+			//$('#output2').text()
+			//hospital_element_to_save.set({"valueSetFile":valueSet});
 			hospital_element_to_save.set({"hospitalValueSet":hospitalValueSet});
 			
 			//ExtraLocation
@@ -429,16 +408,23 @@ render : function() {
   var he_id = this.model.get('id');
   var linkToFile = "";
   
+  //browse/upload/delete
+  var status = "browse"; // if name=="";
+  //var status = "delete"; // if name!="";
+  //var status = "upload"; // if clicked browse
+  
   if (name.length>0) {  
 	  var path = "/ihm/api/file?currentHospitalElement=" + he_id;  				
 	  linkToFile = '<a href= "' + path + '">' + name +'</a>';
+	  status = "delete";
   }
-  
-  this.$el.html(this.template({valueSet:this.model.get('valueSet'), linkToFile:linkToFile}));
+   
+  this.$el.html(this.template({valueSet:this.model.get('valueSet'), linkToFile:linkToFile, status:status}));
   return this;
 },
 
 deleteFile : function() {	
+	var he = this.model;
 	var id = this.model.get('id');
 	$.ajax({
 		  type: "DELETE",
@@ -449,8 +435,9 @@ deleteFile : function() {
 			$('form#uploadForm a').remove();
 			$('input#fileToUpload').removeClass('hide');
 			$('input#upload').addClass('hide');
-			$('input#del').addClass('hide');	        
-		});	
+			$('input#del').addClass('hide');
+			he.set({"valueSetFile":''});
+		});		
 },
 
 changeFile : function() {
@@ -463,12 +450,15 @@ changeFile : function() {
 },
 
 upload : function(){
+	var he = this.model;
 	$('#uploadForm').ajaxSubmit({
         target: '#output2',
         success:  function afterSuccess(url){
         				$('#uploadForm').resetForm();  // reset form	  
         				var str = url;
         				var name = str.substr(str.lastIndexOf('/')+1);
+        				he.set({"valueSetFile":name});
+        				
         				var name = name.substr(name.indexOf('_')+1);
         				console.log(name);
         					        				
@@ -479,7 +469,11 @@ upload : function(){
         				//hardcode
         				var he_id = $('tr.row_selected td:first').prop("id");	        				
         				var path = "/ihm/api/file?currentHospitalElement=" + he_id;	        				
-        				$('form#uploadForm span').replaceWith('<a href= "' + path + '">' + name +'</a>');    				
+        				$('form#uploadForm span').replaceWith('<a href= "' + path + '">' + name +'</a>');
+        				
+        				
+        				
+        				
 				 }
     }); 		
 }
