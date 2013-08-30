@@ -423,8 +423,18 @@ events : {
 	'change #fileToUpload': 'changeFile'
 },
         
-render : function() {  
-  this.$el.html(this.template({valueSet:this.model.get('valueSet')}));
+render : function() {
+  var name = this.model.get('valueSetFile');
+  var name = name.substr(name.indexOf('_')+1);  
+  var he_id = this.model.get('id');
+  var linkToFile = "";
+  
+  if (name.length>0) {  
+	  var path = "/ihm/api/file?currentHospitalElement=" + he_id;  				
+	  linkToFile = '<a href= "' + path + '">' + name +'</a>';
+  }
+  
+  this.$el.html(this.template({valueSet:this.model.get('valueSet'), linkToFile:linkToFile}));
   return this;
 },
 

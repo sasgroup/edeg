@@ -165,6 +165,7 @@
     	<input type="button" id="upload" class= "hide"   value="Upload"/>
 		<input type="button" id="del"    class= "hide"   value="Delete"/>
 		<input type="hidden" id="currentHospitalElement" name="currentHospitalElement"/>
+		{{linkToFile}}
 	</form>							
 <div id="output2" class='hide'></div>
 </div>	
