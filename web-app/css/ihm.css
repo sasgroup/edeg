@@ -1,0 +1,593 @@
+body {
+    color: #575c7a;
+    line-height: 1.5em;
+    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande","Lucida Sans", Arial, sans-serif !important;
+    font-size: 14px;
+    background-color:rgb(209, 223, 201);
+    margin:0;
+    padding:0;
+    height:100%;
+    background: url("images/bg.png") repeat-y center;       
+}
+
+.form-actions {
+	padding: 10px 20px 10px !important;
+	margin-top: none !important;
+	margin-bottom: none !important;
+}
+
+th.data-element-column{
+	width: 90px;
+}
+
+input, select, textarea, .btn  {
+	font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.send-btn {
+	margin-left: 8px;
+}
+
+div.txt-qa {	
+	overflow: auto;
+	border: 1px solid #cccccc;
+	background-color: #eeeeee;
+	width: 92%;
+	height: 100px;
+	margin-bottom: 8px;
+	color: gray;	
+    border-radius: 4px;
+}
+
+
+.hospitalMeasureTable.dataTable {
+	width:934px
+}
+
+a.show-help, a.show-notes, a.show-help-product {
+	display: block;
+	position: absolute;
+	top: 3px;	
+}
+
+a.show-notes {
+	right: 132px;
+}
+
+a.show-help {
+	right: 65px;
+}
+
+
+th.resetAll {
+	text-align: center;
+}
+
+#loginHeader {
+	position: relative;
+	top: 10px;
+}
+
+
+.hospital-dropdown, .hospital-name  {
+	top: 40px;
+}
+
+.hospital-dropdown {
+	position: absolute;
+    right: 0;
+}
+
+div#hospital-specific, div#hospital-specific input[type="file"] {
+	font-size: 12px;	
+}
+
+table.dataTable tr.odd {
+    background-color: #FFFFFF;
+}
+
+
+.dataTables_filter {
+    float: left;
+}    
+
+div#message-box {
+	margin-left: 12px;
+    margin-top: -3px;
+    color: #0088CC;
+}
+
+.row_selected {
+	background-color: #FF0000;
+}
+
+h3 {
+    font-size: 19.5px;
+}
+
+.add-btn {  
+    right: 30px;
+    position: absolute;
+    top: 60px;
+    z-index: 1000;      
+}
+
+
+table.dataTable thead th {
+    border-bottom: none;
+}    
+
+button.btn, input.btn[type="submit"] {
+    margin-left: 4px;
+}
+
+td div.name {
+	display: block;
+    height: 20px;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    text-overflow: ellipsis;
+    width: 300px;
+    white-space: nowrap;
+}
+
+td div.notes {
+	display: block;
+    height: 20px;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    text-overflow: ellipsis;
+    width: 300px;
+    white-space: nowrap;
+}
+
+
+td div.title {
+	display: block;
+    height: 20px;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    text-overflow: ellipsis;
+    width: 380px;
+    white-space: nowrap;
+}
+
+.hospitalMeasureTable td div.title {
+	display: block;
+    height: 20px;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    text-overflow: ellipsis;
+    width: 260px;
+    white-space: nowrap;
+}
+
+
+.hospitalMeasureTable td div.code {
+	display: block;
+    height: 20px;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    text-overflow: ellipsis;
+    width: 50px;
+}
+
+
+form#hospital-list td div.name {
+	 width: 400px;	
+}
+
+form#hospital-list td div.notes {
+	 width: 400px;	
+}
+
+form#measure-list td div.notes {
+	 width: 250px;	
+}
+
+form label.error {
+	color:red;
+	padding: 0;
+	border: none;
+	background: none;
+}
+
+form input.error {
+	border:1px solid red;
+}
+
+
+#loading {
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+  position: fixed;
+  display: block;
+  background-color: #fff;
+  z-index: 99;
+  text-align: center;
+  
+  filter: alpha(opacity=50); /* internet explorer */
+  -khtml-opacity: 0.5;      /* khtml, old safari */
+  -moz-opacity: 0.5;       /* mozilla, netscape */
+  opacity: 0.5;           /* fx, safari, opera */
+}
+
+#loading-image {
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    top: 280px;
+    z-index: 100;
+}
+
+form#hospital-edit div#myTabContent  {
+	display:block;
+	height: 362px;
+	width:100%;
+	overflow: auto;   
+}
+
+form#hospital-edit #name, #email  {	
+	width:235px;	   
+}
+
+form#hospital-edit table#fields td {
+	border-top: none;
+}
+
+form#hospital-edit table#fields {
+	margin-bottom:0;
+}
+
+form#hospital-edit textarea#notes {
+	width:95%;
+	height:100%;
+	resize: none;
+}
+
+form#hospital-edit #notes  {	
+	width:355px;	   
+}
+
+form#product-edit div#myTabContent, form#element-edit div#myTabContent, form#ehr-edit div#myTabContent   {
+	display:block;
+	/*height: 374px;*/
+	height: 398px;
+	width:100%;
+	overflow: auto;   
+}
+
+form#measure-edit div#myTabContent  {
+	display:block;
+	height: 339px;
+	width:100%;
+	overflow: auto;   
+}
+
+
+th.f-btn, td.f-btn {
+	width: 20px;
+}
+
+div#modalDataElements {
+	height: 600px;
+    left: auto;
+    margin-left: auto;
+    margin-right: auto;
+    /*position: relative;*/    
+    /*right: auto;*/
+    width: 900px;
+}
+
+.modal-body {
+    max-height: 500px;
+}
+
+.modal-body textarea, #data-element-page textarea {
+	width: 91%;	
+	resize: none;
+}
+
+
+.modal-body button.btn {
+    margin-left: 0;
+}
+
+#detailsTabContent {
+    height: 190px;
+    overflow: auto;
+}
+
+
+div.row-fluid textarea {
+	height: 64px;	
+}
+
+
+.cqmDomain {
+	margin-top: 5px;
+}
+
+.required {
+	color: #ff0000;
+}
+
+
+/* container */
+.page-container {
+   min-height:100%;
+   position:relative;
+}
+
+
+/* header */
+.page-header{
+    height: 140px;
+    background: url("images/blue-sliver.png") repeat-x;   
+    margin: 0;
+    border-bottom: none;    
+}
+
+
+header {
+    max-width: 980px;
+    height: 140px;
+    background: url("images/head-bg.png") no-repeat scroll -13px 0;
+    margin: 0px auto 0px auto;
+    position: relative;
+}
+
+header a.logo {
+    display: block;
+    position: absolute;
+    background-position: 0px 0px;
+    background-repeat: no-repeat;
+    width:150px;
+    height: 85px;
+    top: 18px ;
+    left: 22px;
+    background-image: url("images/ihm-logo-TRANS-sm.png");
+}
+
+header .hospital-name {
+    display: block;
+    position: absolute;
+    width:450px;
+    height: 85px;
+    top: 18px ;
+    left: 200px;
+    text-transforam: uppercase    
+}
+
+
+nav.header-nav {
+    max-width: 980px;
+    display: block;
+    position: absolute;
+    top: 102px;
+}
+
+nav.header-nav a {
+    color: #fff;
+    background-color: #58727F;
+    text-transform: uppercase;
+    text-decoration: none;
+    display: inline-block;
+    float: left;
+    font-weight: bold;
+    font-size: .9em;
+    line-height: 38px;
+    margin-right: 3px;
+    padding: 0 48px;
+}
+
+nav.header-nav a:hover {
+    background-color:#0A99B2;
+}
+
+.btn-primary {
+	background-color:#0A99B2;
+}
+
+
+/* content */
+.page-content {
+    max-width: 980px;
+    margin: 0px auto 0px auto;
+    position: relative;
+    background-color: #fff;    
+    /*min-height: 720px;    */
+    height: 100%;
+    padding-bottom:55px; /* Height of the footer */    
+    overflow: auto;    
+}
+
+.app {
+    padding: 0 20px 10px 20px;
+    margin: 0 12px 12px 12px;
+}
+
+
+/* footer */
+footer {
+    width:100%;
+    position:fixed;
+    bottom:0;
+    font-size: 0.85em;
+    background-color: #58727F;
+    color: #fff;
+    margin-top: 12px;
+    padding: 10px 0px 0px 0px;    
+   /* height:115px;   /* Height of the footer */    
+    height:55px;   /* Height of the footer */
+}
+
+
+nav.footer-nav {
+    width: 100%;
+    display: block;
+    position: absolute;
+    text-align: center;
+    background-color: #58727F;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+nav.footer-nav a {
+    color: #fff;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1.1em;
+    margin: 10px 0px 10px 50px ;
+}
+
+nav.footer-nav a:hover {
+    color: #EEE;
+    text-decoration: underline;
+}
+
+nav.footer-nav a.logo {
+    display: inline-block;    
+    position: relative;
+    bottom: 10px;
+   /*height: 85px;*/
+}
+
+div#message-box {
+	display: none;
+	position:absolute;
+}
+
+select.ui-pg-selbox{
+	padding:0 !important;	
+}
+
+.ui-widget {
+ 	font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+ 	font-size: 14px;   
+ 	font-weight: normal;
+}
+
+.ui-multiselect-checkboxes input {
+	margin: 5px;
+}
+
+.ui-multiselect-checkboxes label {
+	font-size: 1.1em;
+}
+
+
+table.dataTable tr.even td.sorting_1, table.dataTable tr.odd td.sorting_1 {
+background-color: #fff;
+}
+
+
+table input , table select  {
+  margin: 0 !important;
+  width: 100%;
+}
+
+table#extra-table input, table#hospital-specific-table input {
+	width : 90%;
+}
+
+table input#sourceEHR  {
+  width: 30px;
+}
+
+.btn-mini {
+	margin: 0;
+    height: 28px;
+}
+
+
+button#btnApplyHospitalOptions {
+	width: 112px;
+}
+
+/* rich-text : help area */
+#myHelp{
+	display:none;
+}
+.helpArea{
+	width: 600px;
+	height: 250px;
+}
+
+.open > .dropdown-menu {
+    margin: 0;
+    max-height: 450px !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    padding: 5px 7px;
+}
+
+ul.wysihtml5-toolbar {
+	margin: 0;
+	padding: 0;
+	display: block;
+}
+
+ul.wysihtml5-toolbar::after {
+	clear: both;
+	display: table;
+	content: "";
+}
+
+ul.wysihtml5-toolbar > li {
+	float: left;
+	display: list-item;
+	list-style: none;
+	margin: 0 5px 10px 0;
+}
+
+ul.wysihtml5-toolbar a[data-wysihtml5-command=bold] {
+	font-weight: bold;
+}
+
+ul.wysihtml5-toolbar a[data-wysihtml5-command=italic] {
+	font-style: italic;
+}
+
+ul.wysihtml5-toolbar a[data-wysihtml5-command=underline] {
+	text-decoration: underline;
+}
+
+ul.wysihtml5-toolbar a.btn.wysihtml5-command-active {
+	background-image: none;
+	-webkit-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15),0 1px 2px rgba(0, 0, 0, 0.05);
+	-moz-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15),0 1px 2px rgba(0, 0, 0, 0.05);
+	box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15),0 1px 2px rgba(0, 0, 0, 0.05);
+	background-color: #E6E6E6;
+	background-color: #D9D9D9 9;
+	outline: 0;
+}
+
+ul.wysihtml5-commands-disabled .dropdown-menu {
+	display: none !important;
+}
+
+.popover{
+	width:750px;
+	max-width: 800px;
+	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.75);
+}
+
+#breadcrumb-box .popover{
+	top: 0;
+}
+
+#breadcrumb-box .popover div.arrow{
+	top: 24px;	
+} 
+
+.popover-content{
+	max-height:150px;
+	overflow:auto;
+}
