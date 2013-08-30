@@ -16,6 +16,11 @@ body {
 	margin-bottom: none !important;
 }
 
+a.disable {
+	text-decoration : none;
+	color: inherit;
+}
+
 th.data-element-column{
 	width: 90px;
 }

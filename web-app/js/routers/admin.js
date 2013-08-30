@@ -244,7 +244,7 @@ App.Routers.Administrator = Backbone.Router.extend({
 				         name: { required: true }	               
 				     },
 				     messages: {
-				       	 code: {required: "Code is required",
+				       	 code: {required: "ID is required",
 				       	    	unique  : "This code name already exists in the system."			       	    	
 				       	       },
 				         name: {required: "Name is required"}
@@ -274,10 +274,10 @@ App.Routers.Administrator = Backbone.Router.extend({
 				         name: { required: true }	               
 				     },
 				     messages: {
-				       	 code: {required: "Code is required",
+				       	 code: {required: "ID is required",
 				       	        unique  : "This code name already exists in the system."			       	    	
 				       	       },
-				         name: {required: "Name is required"}
+				         name: {required: "Name and vesrion are required"}
 				     }
 				});		
 				
@@ -310,7 +310,7 @@ App.Routers.Administrator = Backbone.Router.extend({
 				         name: { required: true }	               
 				     },
 				     messages: {
-				       	 code: {required: "Code is required",
+				       	 code: {required: "ID is required",
 				       	    	unique  : "This code name already exists in the system."			       	    	
 				       	       },
 				         name: {required: "Name is required"}
@@ -341,7 +341,7 @@ App.Routers.Administrator = Backbone.Router.extend({
 				         name: { required: true }	               
 				     },
 				     messages: {
-				       	 code: {required: "Code is required",
+				       	 code: {required: "ID is required",
 				       	    	unique  : "This code name already exists in the system."			       	    	
 				       	       },
 				         name: {required: "Name is required"}
