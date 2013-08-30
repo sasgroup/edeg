@@ -61,3 +61,4 @@ stacktrace.log
 *.iws
 
 /application.properties
+/bin
