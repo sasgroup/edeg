@@ -49,7 +49,7 @@
 			 <tr>
                 <td>Email<span class="required">*</span></td>
                 <td colspan="4">
-                    <input name="email" type="text" value="{{ email }}" id="email" placeholder="email@example.com"/>
+                    <input name="email" type="text" value="{{ email }}" id="email" placeholder="email@example.com;"/>
                 </td>               
              </tr>			
 
