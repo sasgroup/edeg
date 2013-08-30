@@ -6,11 +6,11 @@ App.Views.DataElementsDefault = Backbone.View
 			events : {
 				'click #plus-btn' : 'addRow',
 				'click #minus-btn': 'removeRow',
-				'change .slcCodeType, .slcValueType, .slcParent, #location' : 'changeVal'
+				'change .slcValueType, .slcParent, #location' : 'changeVal'
 			},
 						
 			render : function() {	
-				this.$el.html(this.template({loc:this.model.location, code_type: this.model.codeType.name, value_type: this.model.valueType.name, ehr: this.model.linkId}));				
+				this.$el.html(this.template({loc:this.model.location, value_type: this.model.valueType.name, ehr: this.model.linkId}));				
 				return this;
 			},
 			changeVal : function(e){
@@ -19,9 +19,7 @@ App.Views.DataElementsDefault = Backbone.View
 				 dataElementDefaults.forEach(function( dataElementDefault ){
 					if (dataElementDefault.id == curId){
 						if (e.currentTarget.className == "location")
-							dataElementDefault.location = e.target.value;
-						if (e.currentTarget.className == "slcCodeType")
-							dataElementDefault.codeType.name = e.target.value;
+							dataElementDefault.location = e.target.value;					
 						if (e.currentTarget.className == "slcValueType")
 							dataElementDefault.valueType.name = e.target.value;
 						if (e.currentTarget.className == "slcParent")
@@ -55,7 +53,7 @@ App.Views.DataElementsDefault = Backbone.View
 			addRow : function (){
 				if (window.console) console.log(App[this.model.parent].get('dataElementDefaults'));
 				var timeId = parseInt(App[this.model.parent].timeId);
-				var emptyDataElementDefault = {"id":timeId,"linkId":"1","parent":this.options.parent,"location":"","linkId":"1","valueType":{"enumType":"","name":""},"codeType":{"enumType":"","name":""}};
+				var emptyDataElementDefault = {"id":timeId,"linkId":"1","parent":this.options.parent,"location":"","linkId":"1","valueType":{"enumType":"","name":""}};
 				var dataElementDefaults = App[this.model.parent].get('dataElementDefaults');
 				dataElementDefaults.push(emptyDataElementDefault);
 				App[this.model.parent].set("dataElementDefaults" , dataElementDefaults);

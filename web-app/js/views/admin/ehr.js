@@ -79,8 +79,7 @@ App.Views.Ehr = Backbone.View.extend({
 			dataElementDefault.parent = "ehr";
 			var view = new App.Views.DataElementsDefault({ model : dataElementDefault, default_element: "element", parent:"ehr"});		
 			var dataElementDefaultRow = view.render().el;
-			$(ehrtbody).append(dataElementDefaultRow);	
-			$(dataElementDefaultRow).find(".slcCodeType").val(dataElementDefault.codeType.name);
+			$(ehrtbody).append(dataElementDefaultRow);			
 			$(dataElementDefaultRow).find(".slcValueType").val(dataElementDefault.valueType.name);
 						
 			$(dataElementDefaultRow).find('.slcParent').append(optionsList);			
@@ -89,7 +88,7 @@ App.Views.Ehr = Backbone.View.extend({
 		}
 				
 		if ((dataElementDefaults == undefined)||(dataElementDefaults.length == 0)) { 	
-			var emptyDataElementDefault = {"id":"-1","linkId":"1","location":"","sourceEHR":"","valueType":{"enumType":"","name":""},"codeType":{"enumType":"","name":""}};		
+			var emptyDataElementDefault = {"id":"-1","linkId":"1","location":"","sourceEHR":"","valueType":{"enumType":"","name":""}};		
 			emptyDataElementDefault.parent = "ehr";
 			this.model.timeId = -2;
 			var dataElementDefaults = this.model.get('dataElementDefaults');

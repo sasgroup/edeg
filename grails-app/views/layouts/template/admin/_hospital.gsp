@@ -12,7 +12,7 @@
                 			Name
             			</th>
             			<th>
-                			Description
+                			IHM Notes
             			</th>
             			<th class="f-btn">Edit</th>			
         			</tr>

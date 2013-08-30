@@ -277,7 +277,7 @@ App.Routers.Administrator = Backbone.Router.extend({
 				       	 code: {required: "ID is required",
 				       	        unique  : "This code name already exists in the system."			       	    	
 				       	       },
-				         name: {required: "Name and vesrion are required"}
+				         name: {required: "Name and version are required"}
 				     }
 				});		
 				
