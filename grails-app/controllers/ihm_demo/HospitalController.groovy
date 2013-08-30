@@ -244,7 +244,7 @@ class HospitalController {
 			}
 		}
 		else {
-			def results = Hospital.list()
+			def results = Hospital.list([sort: 'name', order:'asc'])
 
 			render(contentType: "text/json") {
 				hospitals = array {
