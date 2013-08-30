@@ -79,7 +79,7 @@ App.Views.HospitalElements = Backbone.View.extend({
 		window.history.back();
 	},
 	
-	saveCurHospSpecAndExtraLoc: function() {
+	saveHospitalElementDetails: function() {
 		if ($('tr').hasClass("row_selected")){
 			var he_id_to_save = $('tr.row_selected td:first').prop("id");
 			var hospital_element_to_save = App.hospitalElements.get(he_id_to_save);
@@ -95,7 +95,8 @@ App.Views.HospitalElements = Backbone.View.extend({
 				}	
 			});
 			
-			
+			var valueSet = $('#txtValueSet').val();
+						
 			elementExtraLocation = [];
 			$('table#extra-table tr').not(':first').each(function( ) {
 				var _location = $(this).find('input#location').val();
@@ -111,11 +112,12 @@ App.Views.HospitalElements = Backbone.View.extend({
 								
 			hospital_element_to_save.set({"elementExtraLocation":elementExtraLocation});									
 			hospital_element_to_save.set({"hospitalValueSet":hospitalValueSet});		
+			hospital_element_to_save.set({"valueSet":valueSet});
 		}		
 	},
 	
 	saveHospitalElements : function() {		
-		this.saveCurHospSpecAndExtraLoc();		
+		this.saveHospitalElementDetails();		
 		
 		var m_id = this.options.m_id;
 		_.each(this.collection.models, function(model) {
@@ -132,7 +134,7 @@ App.Views.HospitalElements = Backbone.View.extend({
 	},
 	
 	saveAndMarkHospitalElements : function() {	
-		this.saveCurHospSpecAndExtraLoc();		
+		this.saveHospitalElementDetails();		
 		
 		var m_id = this.options.m_id;
 		_.each(this.collection.models, function(model) {
@@ -204,7 +206,7 @@ App.Views.SingleHospitalElement = Backbone.View
 			var he_id_to_save = $('tr.row_selected td:first').prop("id");
 			var hospital_element_to_save = App.hospitalElements.get(he_id_to_save);
 			
-			// save hospitalValueSet
+			// save Hospital Specific
 			hospitalValueSet = [];		
 			
 			$('table#hospital-specific-table tr').not(':first').each(function( ) {
@@ -216,6 +218,8 @@ App.Views.SingleHospitalElement = Backbone.View
 					hospitalValueSet.push(hvs);				
 				}				
 			});
+			
+			var valueSet = $('#txtValueSet').val();
 			
 			//save elementExtraLocation
 			elementExtraLocation = [];
@@ -231,7 +235,11 @@ App.Views.SingleHospitalElement = Backbone.View
 				}				
 			});
 								
+			//Hospital Specific
+			hospital_element_to_save.set({"valueSet":valueSet});
 			hospital_element_to_save.set({"hospitalValueSet":hospitalValueSet});
+			
+			//ExtraLocation
 			hospital_element_to_save.set({"elementExtraLocation":elementExtraLocation});
 			
 			$('.row_selected').css( "background-color", "#FFFFFF" );
