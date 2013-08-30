@@ -36,7 +36,7 @@ class DataElementController {
 			//sourceEHR:"",
 			//valueSetRequired:false,
 			valueType:dataElementsDefault.valueType.name,
-			codeType:dataElementsDefault.codeType.name,
+			//codeType:dataElementsDefault.codeType.name,
 			dataElement : instance,
 			ehr : Ehr.get(dataElementsDefault.linkId)).save(flush:true)
 		}
@@ -75,7 +75,7 @@ class DataElementController {
 						//source : d.source,
 						//sourceEHR : d.sourceEHR,
 						valueType : d.valueType,
-						codeType : d.codeType,
+						//codeType : d.codeType,
 						linkId : d.ehr.id
 					}
 				}

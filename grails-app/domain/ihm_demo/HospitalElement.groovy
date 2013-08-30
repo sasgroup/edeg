@@ -10,7 +10,7 @@ class HospitalElement {
 	String valueSet
 	String valueSetFile
 	ValueType valueType
-	CodeType codeType
+	//CodeType codeType
 	DataElement dataElement
 	
 	//new addition

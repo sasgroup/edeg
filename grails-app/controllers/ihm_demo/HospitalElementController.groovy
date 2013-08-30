@@ -8,8 +8,7 @@ class HospitalElementController {
 		//instance.properties = param
 		instance.location = param.location
 		instance.sourceEHR = param.sourceEHR
-		instance.source = param.sourceEHR ? instance.hospital.ehr.code : param.source
-		instance.codeType =  CodeType.valueOf(param.codeType.name)
+		instance.source = param.sourceEHR ? instance.hospital.ehr.code : param.source		
 		instance.valueType = ValueType.valueOf(param.valueType.name)
 		instance.valueSet = param.valueSet
 		instance.valueSetFile = param.valueSetFile
@@ -36,13 +35,13 @@ class HospitalElementController {
 		
 		if (param.hospitalValueSet)																
 			for (hvs in param.hospitalValueSet){
-				new HospitalValueSet(code:hvs.code, mnemonic:hvs.mnemonic, codeType:CodeType.valueOf(hvs.codeType.name), hospitalElement:instance).save()
+				new HospitalValueSet(code:hvs.code, mnemonic:hvs.mnemonic, hospitalElement:instance).save()
 			}
 			
 		
 		if (param.elementExtraLocation)
 			for (e in param.elementExtraLocation){
-				new ElementExtraLocation(location:e.location, source:e.source, sourceEHR:e.sourceEHR, codeType:CodeType.valueOf(e.codeType.name), valueType: ValueType.valueOf(e.valueType.name), hospitalElement:instance).save()
+				new ElementExtraLocation(location:e.location, source:e.source, sourceEHR:e.sourceEHR, valueType: ValueType.valueOf(e.valueType.name), hospitalElement:instance).save()
 			}
 				
 				
@@ -68,8 +67,7 @@ class HospitalElementController {
 						def defSettings = DataElementDefaults.findByDataElementAndEhr(hElement.dataElement, hElement.hospital.ehr)
 						if (defSettings && hElement.sourceEHR) {
 							hElement.location = defSettings.location
-							hElement.valueType = defSettings.valueType
-							hElement.codeType = defSettings.codeType
+							hElement.valueType = defSettings.valueType							
 						}
 						hElement.save(flush:true)
 					}
@@ -85,8 +83,7 @@ class HospitalElementController {
 								def defSettings = DataElementDefaults.findByDataElementAndEhr(hElement.dataElement, hElement.hospital.ehr)
 								if (defSettings) {
 									hElement.location = defSettings.location
-									hElement.valueType = defSettings.valueType
-									hElement.codeType = defSettings.codeType
+									hElement.valueType = defSettings.valueType									
 								}
 								hElement.save(flush:true)
 							}
@@ -111,8 +108,7 @@ class HospitalElementController {
 						sourceEHR : hme.hospitalElement.sourceEHR,
 						valueSet : hme.hospitalElement.valueSet,
 						valueSetFile : hme.hospitalElement.valueSetFile,
-						valueType : hme.hospitalElement.valueType,
-						codeType : hme.hospitalElement.codeType,
+						valueType : hme.hospitalElement.valueType,						
 						dataElement : hme.hospitalElement.dataElement.code,
 						element_notes:hme.hospitalElement.dataElement.notes,
 						help:hme.hospitalElement.dataElement.help,
@@ -120,8 +116,7 @@ class HospitalElementController {
 						hospitalValueSet : array {
 							for (hvs in HospitalValueSet.findAllByHospitalElement(hme.hospitalElement)){
 								hvset code : hvs.code,
-								mnemonic : hvs.mnemonic,
-								codeType : hvs.codeType
+								mnemonic : hvs.mnemonic								
 							}
 						},
 					
@@ -129,8 +124,7 @@ class HospitalElementController {
 							for (e in ElementExtraLocation.findAllByHospitalElement(hme.hospitalElement)){
 								elem location  : e.location,
 									 source    : e.source,
-									 sourceEHR : e.sourceEHR, 
-									 codeType  : e.codeType,
+									 sourceEHR : e.sourceEHR,									
 									 valueType : e.valueType
 							}
 						}

@@ -85,27 +85,6 @@
  <td><input type="text" class="location" name="location" id="location" value="{{location}}"></td>
  <td><input type="checkbox" class="sourceEHR" name="sourceEHR" id="sourceEHR" value={{sourceEHR}} {{sourceEHR ? "checked": ""}}></td>
  <td><input type="text" class="source" id="source" name= "source" value="{{source}}"></td>
- <!--<td>
-    <select class="slcCodeType" name="codeType">                
-				 <option value="">-Select-</option>
-				 <option value="NotApplicable" {{codeType.name=="NotApplicable"? "selected": ""}}>NotApplicable</option>
-				 <option value="AdministrativeSex" {{codeType.name=="AdministrativeSex"? "selected": ""}}>AdministrativeSex</option>                 
-				 <option value="CDCREC" {{codeType.name=="CDCREC"? "selected": ""}}>CDCREC</option>
-				 <option value="CDT" {{codeType.name=="CDT"? "selected": ""}}>CDT</option>
-				 <option value="CPT" {{codeType.name=="CPT"? "selected": ""}}>CPT</option>
-				 <option value="CVX" {{codeType.name=="CVX"? "selected": ""}}>CVX</option>
-				 <option value="DischargeDisposition" {{codeType.name=="DischargeDisposition"? "selected": ""}}>DischargeDisposition</option>
-				 <option value="HCPCS" {{codeType.name=="HCPCS"? "selected": ""}}>HCPCS</option>
-				 <option value="HSLOC" {{codeType.name=="HSLOC"? "selected": ""}}>HSLOC</option>
-				 <option value="ICD10CM" {{codeType.name=="ICD10CM"? "selected": ""}}>ICD10CM</option>
-				 <option value="ICD10PCS" {{codeType.name=="ICD10PCS"? "selected": ""}}>ICD10PCS</option>
-				 <option value="ICD9CM" {{codeType.name=="ICD9CM"? "selected": ""}}>ICD9CM</option>
-				 <option value="LOINC" {{codeType.name=="LOINC"? "selected": ""}}>LOINC</option>
-				 <option value="RXNORM" {{codeType.name=="RXNORM"? "selected": ""}}>RXNORM</option>
-				 <option value="SNOMEDCT" {{codeType.name=="SNOMEDCT"? "selected": ""}}>SNOMEDCT</option>
-				 <option value="SOP" {{codeType.name=="SOP"? "selected": ""}}>SOP</option>
-    </select>
- </td>-->
  <td>
     <select class="slcValueType" name="valueType">			
 				<option value="">-Select-</option>
@@ -127,26 +106,6 @@
  <td><input type="text" class="location" id="location" value="{{location}}" placeholder="Enter Location"></td>
  <td><input type="checkbox" class="sourceEHR" id="sourceEHR" value="{{sourceEHR}}" {{sourceEHR ? "checked": ""}}></td>
  <td><input type="text" class="source" id="source" value="{{source}}" placeholder="Enter Source"></td>
- <!--<td><select class="slcCodeType">                
-				 <option value="">-Select-</option>
-				 <option value="NotApplicable" {{codeType.name=="NotApplicable"? "selected": ""}}>NotApplicable</option>
-				 <option value="AdministrativeSex" {{codeType.name=="AdministrativeSex"? "selected": ""}}>AdministrativeSex</option>                 
-				 <option value="CDCREC" {{codeType.name=="CDCREC"? "selected": ""}}>CDCREC</option>
-				 <option value="CDT" {{codeType.name=="CDT"? "selected": ""}}>CDT</option>
-				 <option value="CPT" {{codeType.name=="CPT"? "selected": ""}}>CPT</option>
-				 <option value="CVX" {{codeType.name=="CVX"? "selected": ""}}>CVX</option>
-				 <option value="DischargeDisposition" {{codeType.name=="DischargeDisposition"? "selected": ""}}>DischargeDisposition</option>
-				 <option value="HCPCS" {{codeType.name=="HCPCS"? "selected": ""}}>HCPCS</option>
-				 <option value="HSLOC" {{codeType.name=="HSLOC"? "selected": ""}}>HSLOC</option>
-				 <option value="ICD10CM" {{codeType.name=="ICD10CM"? "selected": ""}}>ICD10CM</option>
-				 <option value="ICD10PCS" {{codeType.name=="ICD10PCS"? "selected": ""}}>ICD10PCS</option>
-				 <option value="ICD9CM" {{codeType.name=="ICD9CM"? "selected": ""}}>ICD9CM</option>
-				 <option value="LOINC" {{codeType.name=="LOINC"? "selected": ""}}>LOINC</option>
-				 <option value="RXNORM" {{codeType.name=="RXNORM"? "selected": ""}}>RXNORM</option>
-				 <option value="SNOMEDCT" {{codeType.name=="SNOMEDCT"? "selected": ""}}>SNOMEDCT</option>
-				 <option value="SOP" {{codeType.name=="SOP"? "selected": ""}}>SOP</option>
-    </select>
- </td>-->
  <td><select class="slcValueType">			
 				<option value="">-Select-</option>
 				<option value="NotApplicable" {{valueType.name=="NotApplicable"? "selected": ""}}>NotApplicable</option>	     
@@ -164,26 +123,6 @@
 <!-- hospital-specific -->
 <script type="text/template" class="template" id="hospital-specific">
  <td><input type="text" class="code" id="code" value="{{code}}" placeholder="Enter Code"></td> 
- <!--<td><select class="slcCodeType">                
-				 <option value="">-Select-</option>
-				 <option value="NotApplicable" {{codeType.name=="NotApplicable"? "selected": ""}}>NotApplicable</option>
-				 <option value="AdministrativeSex" {{codeType.name=="AdministrativeSex"? "selected": ""}}>AdministrativeSex</option>                 
-				 <option value="CDCREC" {{codeType.name=="CDCREC"? "selected": ""}}>CDCREC</option>
-				 <option value="CDT" {{codeType.name=="CDT"? "selected": ""}}>CDT</option>
-				 <option value="CPT" {{codeType.name=="CPT"? "selected": ""}}>CPT</option>
-				 <option value="CVX" {{codeType.name=="CVX"? "selected": ""}}>CVX</option>
-				 <option value="DischargeDisposition" {{codeType.name=="DischargeDisposition"? "selected": ""}}>DischargeDisposition</option>
-				 <option value="HCPCS" {{codeType.name=="HCPCS"? "selected": ""}}>HCPCS</option>
-				 <option value="HSLOC" {{codeType.name=="HSLOC"? "selected": ""}}>HSLOC</option>
-				 <option value="ICD10CM" {{codeType.name=="ICD10CM"? "selected": ""}}>ICD10CM</option>
-				 <option value="ICD10PCS" {{codeType.name=="ICD10PCS"? "selected": ""}}>ICD10PCS</option>
-				 <option value="ICD9CM" {{codeType.name=="ICD9CM"? "selected": ""}}>ICD9CM</option>
-				 <option value="LOINC" {{codeType.name=="LOINC"? "selected": ""}}>LOINC</option>
-				 <option value="RXNORM" {{codeType.name=="RXNORM"? "selected": ""}}>RXNORM</option>
-				 <option value="SNOMEDCT" {{codeType.name=="SNOMEDCT"? "selected": ""}}>SNOMEDCT</option>
-				 <option value="SOP" {{codeType.name=="SOP"? "selected": ""}}>SOP</option>
-    </select>
- </td>-->
  <td><input type="text" class="mnemonic" id="mnemonic" value="{{mnemonic}}" placeholder="Enter Description"></td>
  <td><div id="plus-btn" class="btn btn-mini"><i class="icon-plus"></i></div></td>
  <td><div id="minus-btn" class="btn btn-mini"><i class="icon-minus"></i></div></td>

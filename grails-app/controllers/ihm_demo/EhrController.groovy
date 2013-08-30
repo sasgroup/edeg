@@ -22,7 +22,7 @@ class EhrController {
 				//sourceEHR:"",
 				//valueSetRequired:false,
 				valueType:dataElementsDefault.valueType.name,
-				codeType:dataElementsDefault.codeType.name,
+				//codeType:dataElementsDefault.codeType.name,
 				dataElement : DataElement.get(dataElementsDefault.linkId),
 				ehr : instance).save(flush:true)
 		}
@@ -62,7 +62,7 @@ class EhrController {
 											//source : d.source,
 											//sourceEHR : d.sourceEHR,
 											valueType : d.valueType,
-											codeType : d.codeType,
+											//codeType : d.codeType,
 											linkId : d.dataElement.id
 					}
 				}

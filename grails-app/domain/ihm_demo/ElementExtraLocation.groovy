@@ -4,14 +4,14 @@ class ElementExtraLocation {
 	String location
 	String source
 	Boolean sourceEHR
-	CodeType codeType
+	//CodeType codeType
 	HospitalElement hospitalElement
 	ValueType valueType
 	
     static constraints = {
 		location()
 		source()
-		codeType()
+		//codeType()
 		hospitalElement()
 		valueType()
     }

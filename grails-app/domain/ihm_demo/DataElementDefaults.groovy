@@ -5,7 +5,7 @@ class DataElementDefaults {
 	//String source
 	//String sourceEHR
 	ValueType valueType
-	CodeType codeType
+	//CodeType codeType
 	DataElement dataElement
 	Ehr ehr
 
@@ -15,7 +15,7 @@ class DataElementDefaults {
 		//source()
 		//sourceEHR()
 		valueType()
-		codeType()
+		//codeType()
     }
 	
 	String toString() {

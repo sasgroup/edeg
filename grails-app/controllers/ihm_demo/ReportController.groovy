@@ -169,8 +169,8 @@ class ReportController {
 							sourceEHR 		: he.sourceEHR,
 							valueSet 		: he.valueSet,
 							valueSetFile 	: he.valueSetFile,
-							valueType 		: he.valueType.toString(),
-							codeType 		: he.codeType.toString()//,
+							valueType 		: he.valueType.toString()
+							//codeType 		: he.codeType.toString()//,
 							//help			: he.dataElement.help//,
 /*
 							hospitalValueSet : array {
