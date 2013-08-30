@@ -424,7 +424,7 @@ events : {
 },
         
 render : function() {  
-  this.$el.html(this.template());
+  this.$el.html(this.template({valueSet:this.model.get('valueSet')}));
   return this;
 },
 

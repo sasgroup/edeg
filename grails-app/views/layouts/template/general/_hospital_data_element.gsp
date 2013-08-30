@@ -8,8 +8,7 @@
  				<th class="data-element-column">Data Element</th>    
 		    	<th>Location</th>           
 				<th title="SourceEHR">EHR</th>
-				<th>Source EHR</th>
-				<!--<th>Code Type</th>-->
+				<th>Source EHR</th>				
 		    	<th>Values Type</th>
 				<th>Reset</th>
 				<th>Help</th>	    		    
@@ -106,7 +105,8 @@
  <td><input type="text" class="location" id="location" value="{{location}}" placeholder="Enter Location"></td>
  <td><input type="checkbox" class="sourceEHR" id="sourceEHR" value="{{sourceEHR}}" {{sourceEHR ? "checked": ""}}></td>
  <td><input type="text" class="source" id="source" value="{{source}}" placeholder="Enter Source"></td>
- <td><select class="slcValueType">			
+ <td>
+    <select class="slcValueType" name="valueType">			
 				<option value="">-Select-</option>
 				<option value="NotApplicable" {{valueType.name=="NotApplicable"? "selected": ""}}>NotApplicable</option>	     
                 <option value="IMO_Code" {{valueType.name=="IMO_Code"? "selected": ""}}>IMO_Code</option>                
@@ -140,8 +140,7 @@
 	<tr>
 		<th>
 			Code
-		</th>
-		<!--<th>Code Type</th>-->
+		</th>		
 		<th>
 			Description
 		</th>
@@ -157,7 +156,7 @@
 <script type="text/template" class="template" id="file-upload-temp">
 <div class="row-fluid">
 	<label for="txtValueSet" class="span4">Value Set Name</label>   
-	<input id="txtValueSet" type="text" class="span8" placeholder="Enter Value Set Name">
+	<input id="txtValueSet" type="text" class="span8" placeholder="Enter Value Set Name" value="{{valueSet}}">
 </div>					  
 <div class="row-fluid">	
 	<form id="uploadForm"  method="post" enctype="multipart/form-data" action="/ihm/api/file">
@@ -177,8 +176,7 @@
         			<tr>
             			<th>Location</th>           
 						<th title="SourceEHR">EHR</th>
-						<th>Source EHR</th>
-						<!--<th>Code Type</th>-->
+						<th>Source EHR</th>						
 		    			<th>Values Type</th>		
 						<th></th>
 						<th></th>			
