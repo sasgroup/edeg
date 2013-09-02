@@ -70,12 +70,22 @@ th.resetAll {
 
 #loginHeader {
 	position: relative;
-	top: 10px;
+	top: 10px;	
 }
 
+#loginHeader div.btn{
+	top: -2px;
+    position: relative;
+}
+
+#loginHeader a{
+	color: rgb(51, 51, 51);
+	text-decoration : none;
+	
+}
 
 .hospital-dropdown, .hospital-name  {
-	top: 40px;
+	top: 42px;
 }
 
 .hospital-dropdown {
@@ -366,7 +376,7 @@ header .hospital-name {
     position: absolute;
     width:450px;
     height: 85px;
-    top: 18px ;
+    top: 22px ;
     left: 200px;
     text-transforam: uppercase    
 }

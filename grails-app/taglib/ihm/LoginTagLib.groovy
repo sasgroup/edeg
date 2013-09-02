@@ -11,17 +11,22 @@ class LoginTagLib {
 		if (name){
 			def user = new User(login:name, password: "", role:securityService.getRole(name))
 			session.user = user
+			session.curHospital = securityService.getCurrentHospital(name)
 		}
 	}
 	
 	def loginControl = {
 		if(request.getSession(false) && session.user){
 			out << "${session.user.login} "
-			out << """[${link(action:"logout",
-			controller:"user"){"Sign Out"}}]"""
+			out << """<div class="btn">
+					${link(action:"logout",
+			controller:"user"){"Sign Out"}}
+			</div>"""
 		} else {
-			out << """[${link(action:"login",
-			controller:"user"){"Login"}}]"""
+			out << """<div class="btn">
+					  ${link(action:"login",
+			controller:"user"){"Login"}}
+		   </div>"""
 		}
 	}
 }

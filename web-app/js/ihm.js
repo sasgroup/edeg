@@ -25,6 +25,10 @@ $(function() {
 	else if (App.userRole == 'user') {
 		new App.Routers.User();	
 		
+		App.curHospital = $('#app').data('hospital');
+		//show hospital-name		
+		$('h3.hospital-name').text(App.curHospital);
+		
 		$('#hospital-list-dropdown li').live('click', function(){	 
 			var hospital_name = $(this).find('a').text(); 
 			var hospital_id = $(this).data('id');
