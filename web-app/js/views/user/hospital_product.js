@@ -141,10 +141,10 @@ App.Views.HospitalMeasure = Backbone.View
 				$.each( App.ho.get('products') , function(p_index, product ) {					
 					$.each( product.measures, function(m_index, measure ) {
 						if (measure.id == m_id ){
-							console.log(p_index + ": " + product.id);
+							/*console.log(p_index + ": " + product.id);
 							console.log(m_index + ": " + measure.id);
 							console.log(JSON.stringify(measure));
-							console.log("sl_val: " + sl_val);							
+							console.log("sl_val: " + sl_val);			*/				
 							measure.completed = sl_val;
 						}
 							

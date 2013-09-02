@@ -104,7 +104,7 @@ App.Views.Reports = Backbone.View.extend({
 				
 				_el.find("#tblReportResults").jqGrid('setGridWidth', 920, true);
 				
-				console.log(resp);
+				//console.log(resp);
 			}
 		});
 	},

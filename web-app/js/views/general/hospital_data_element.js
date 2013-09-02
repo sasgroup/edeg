@@ -309,8 +309,7 @@ App.Views.SingleHospitalElement = Backbone.View
 		}			
 		else {
 			//append existing rows 
-			$.each( hospitalValueSet, function( i, hvs ) {
-				console.log(hvs);
+			$.each( hospitalValueSet, function( i, hvs ) {				
 				var hospital_specific_model = new App.Models.HospitalSpecific(hvs);
 				var hospital_specific_view = new App.Views.HospitalSpecific({ model : hospital_specific_model}); 
 				var hospital_specific_row = hospital_specific_view.render().el;
@@ -342,8 +341,7 @@ App.Views.SingleHospitalElement = Backbone.View
 		  var extra_row = extra_view.render().el;
 		  $('#extra-table tbody').append(extra_row);
 		} else {			
-		  $.each( elementExtraLocation, function( i, extraDataElement ) {			  
-			console.log(extraDataElement);
+		  $.each( elementExtraLocation, function( i, extraDataElement ) {			
 			var extra_model = new App.Models.ExtraDataElement(extraDataElement);
 			var extra_view = new App.Views.ExtraDataElement({ model : extra_model});	
 			var extra_row = extra_view.render().el;
@@ -462,8 +460,7 @@ upload : function(){
         				he.set({"valueSetFile":name});
         				
         				var name = name.substr(name.indexOf('_')+1);
-        				console.log(name);
-        					        				
+        				        					        				
         				$('input#fileToUpload').addClass('hide');
         				$('input#upload').addClass('hide');
         				$('input#del').removeClass('hide');	        				    				
@@ -588,7 +585,7 @@ App.Views.QADataElement = Backbone.View
   },
           
   render : function() {
-    console.log(this.model.toJSON());        
+    //console.log(this.model.toJSON());        
         
     if (this.options.tab=="tab-qa2") {
       this.$el.html(this.template({notes:this.model.get('notes')}));    

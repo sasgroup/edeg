@@ -192,8 +192,7 @@ App.Routers.Administrator = Backbone.Router.extend({
 	
 	// list of ehrs
 	ehrs : function() {		
-		App.ehrs.fetch().then(function(){
-			if (window.console) console.log ();
+		App.ehrs.fetch().then(function(){			
 			App.viewEhrs = new App.Views.Ehrs({collection:App.ehrs});			
 			$('#app').html(App.viewEhrs.render().el);
 			
@@ -467,8 +466,7 @@ App.Routers.Administrator = Backbone.Router.extend({
 	// edit hospital
 	edithospital : function(id) {
 		App.ho = new App.Models.Hospital();		
-		App.ho.fetch({data:{id: id}}).then(function(){
-			//if (window.console) console.log(App.ho);
+		App.ho.fetch({data:{id: id}}).then(function(){			
 			App.route.hospital(App.ho);
 		})
 	},
@@ -476,8 +474,7 @@ App.Routers.Administrator = Backbone.Router.extend({
 	editProduct : function(id) {
 		App.pr = new App.Models.Product();
 		
-		App.pr.fetch({data:{id: id}}).then(function(){
-			if (window.console) console.log(this); 
+		App.pr.fetch({data:{id: id}}).then(function(){			 
 			App.route.product(App.pr);
 		})
 	},
