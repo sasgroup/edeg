@@ -70,9 +70,16 @@
        </div>
 	</div>
  
-<div class="form-actions">                   
+
+<div class="checkbox pull-right">     
+    <label>
+      <input type="checkbox" id="markAsComplete"> Mark Measure Complete
+    </label>
+</div>
+
+<div class="form-actions">                  
 <button type="reset" id="cancel" class="btn btn-info pull-right">Cancel</button>
-<button id="save-mark-btn" class="btn btn-info pull-right">Save&Mark</button>
+<!--<button id="save-mark-btn" class="btn btn-info pull-right">Save&Mark</button>-->
 <button id="save-btn" class="btn btn-info pull-right">Save</button>			
 </div>
 </div>

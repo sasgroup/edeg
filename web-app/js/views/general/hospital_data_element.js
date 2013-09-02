@@ -4,8 +4,8 @@ App.Views.HospitalElements = Backbone.View.extend({
 	
 	events : {		
 		'click button#cancel' : 'returnToProduct' ,
-		'click #save-btn'     : 'saveHospitalElements',
-		'click #save-mark-btn': 'saveAndMarkHospitalElements'
+		'click #save-btn'     : 'saveHospitalElements'
+		//'click #save-mark-btn': 'saveAndMarkHospitalElements'
 	},
 	
 	render : function() {		
@@ -92,12 +92,14 @@ App.Views.HospitalElements = Backbone.View.extend({
 		}		
 	},
 	
-	saveHospitalElements : function() {		
+	saveHospitalElements : function() {
+		var markAsComplete = $('#markAsComplete').is(":checked");
+		
 		this.saveHospitalElementDetails();		
 		
 		var m_id = this.options.m_id;
 		_.each(this.collection.models, function(model) {
-			  model.set({markAsComplete: false});	 
+			  model.set({markAsComplete: markAsComplete});	 
 			  model.set({m_id: m_id});			 
 			  return model.save({
 			    wait: true,
@@ -107,9 +109,9 @@ App.Views.HospitalElements = Backbone.View.extend({
 			  });
 		});	
 		window.history.back();
-	},
+	}
 	
-	saveAndMarkHospitalElements : function() {	
+	/*saveAndMarkHospitalElements : function() {	
 		this.saveHospitalElementDetails();		
 		
 		var m_id = this.options.m_id;
@@ -124,7 +126,7 @@ App.Views.HospitalElements = Backbone.View.extend({
 			  });
 		});
 		window.history.back();
-	}
+	}*/
 });
 
 //Single Hospital Element
