@@ -83,6 +83,18 @@ App.Views.Measure = Backbone.View.extend({
 			}
 		});		
 		
+		checked.sort(function(a, b){
+		    if(a.name < b.name) return -1;
+		    if(a.name > b.name) return 1;
+		    return 0;
+		});
+		
+		unchecked.sort(function(a, b){
+		    if(a.name < b.name) return -1;
+		    if(a.name > b.name) return 1;
+		    return 0;
+		});
+		
 		for(var measure_product in checked) {
 			var product = checked[measure_product];			
 			this.$el.find('div#products').append(temp({name:product.name,id:product.id,ch:'checked'}));					
@@ -108,6 +120,19 @@ App.Views.Measure = Backbone.View.extend({
 				unchecked.push({name:e.get('name'),id:e.get('id')});
 			}
 		});		
+		
+		checked.sort(function(a, b){
+		    if(a.name < b.name) return -1;
+		    if(a.name > b.name) return 1;
+		    return 0;
+		});
+		
+		unchecked.sort(function(a, b){
+		    if(a.name < b.name) return -1;
+		    if(a.name > b.name) return 1;
+		    return 0;
+		});
+
 		
 		for(var measure_element in checked) {
 			var element = checked[measure_element];			

@@ -81,6 +81,18 @@ App.Views.Product = Backbone.View.extend({
 			}
 		});		
 		
+		checked.sort(function(a, b){
+		    if(a.name < b.name) return -1;
+		    if(a.name > b.name) return 1;
+		    return 0;
+		});
+		
+		unchecked.sort(function(a, b){
+		    if(a.name < b.name) return -1;
+		    if(a.name > b.name) return 1;
+		    return 0;
+		});
+		
 		for(var product_measure in checked) {
 			var measure = checked[product_measure];
 			this.$el.find('div#measures').append(temp({name:measure.name,id:measure.id,ch:'checked'}));	 

@@ -87,6 +87,18 @@ App.Views.DataElement = Backbone.View.extend({
 			}
 		});		
 		
+		checked.sort(function(a, b){
+		    if(a.name < b.name) return -1;
+		    if(a.name > b.name) return 1;
+		    return 0;
+		});
+		
+		unchecked.sort(function(a, b){
+		    if(a.name < b.name) return -1;
+		    if(a.name > b.name) return 1;
+		    return 0;
+		});
+		
 		for(var de_measure in checked) {
 			var measure = checked[de_measure];
 			this.$el.find('div#measures').append(temp({name:measure.name,id:measure.id,ch:'checked'}));	 
