@@ -67,7 +67,27 @@
 					  </div>
   				    </div>
 				</div>
-    			<div id="myHelp" class="modal hide fade">
+
+				<!--<table class="table" id="fields">
+					<tbody>
+						<tr>
+							<td>ID<span class="required">*</span></td>
+							<td><input name="code" type="text" value="{{ code }}" id="code"></td>
+							<td rowspan="2"><label for="notes">Description</label></td>
+                			<td rowspan="2">
+                				<a id="btnHelp" href="javascript:;" >Help <i class="icon-question-sign"></i></a>				
+                			</td>
+                			<td rowspan="2"></td>							
+						</tr>
+						<tr>
+							<td>Name<span class="required">*</span></td>
+							<td><input name="name" type="text" value="{{ name }}" id="name"></td>
+						</tr>
+
+					</tbody>
+				</table>-->
+    			
+					<div id="myHelp" class="modal hide fade">
     				<div class="modal-header">
     					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
     					<h3>Help for Product [ {{ name }} ]</h3>

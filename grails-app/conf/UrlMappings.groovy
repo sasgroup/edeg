@@ -54,7 +54,7 @@ class UrlMappings {
 			action = [GET: "show", PUT: "update", DELETE: "delete", POST: "save"]
 		}
 		
-		"/api/security/$id?"(resource: "security") {
+		"/api/security?"(resource: "security") {
 			action = [GET: "show", POST: "update", PUT:"update"]
 		}
 		

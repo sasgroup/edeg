@@ -10,8 +10,7 @@ class LoginTagLib {
 		def name = request.getRemoteUser()
 		if (name){
 			def user = new User(login:name, password: "", role:securityService.getRole(name))
-			session.user = user
-			session.curHospital = securityService.getCurrentHospital(name)
+			session.user = user			
 		}
 	}
 	

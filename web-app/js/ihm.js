@@ -25,9 +25,25 @@ $(function() {
 	else if (App.userRole == 'user') {
 		new App.Routers.User();	
 		
-		App.curHospital = $('#app').data('hospital');
-		//show hospital-name		
-		$('h3.hospital-name').text(App.curHospital);
+		App.security = new App.Models.Security();		
+		App.security.fetch().then(function(){		
+			var hospital_id = App.security.get('curHospitalId');
+			//generate tabs
+			App.ho = new App.Models.Hospital();		
+			App.ho.fetch({data:{id: hospital_id}}).then(function(){		
+				var products = App.ho.get('products');
+				$('nav#products-nav').empty();
+				$.each( products, function( i, product ) {		           
+					$('nav#products-nav').append('<a href="#hospital/' + hospital_id + '/product/'+ product.id+ '">' + product.code + '</a>');
+				});			
+			});	  
+			var curHospital = App.security.get('curHospital');
+			//show hospital-name		
+			$('h3.hospital-name').text(curHospital);			
+			var availableHospitals = App.security.get('availableHospitals');
+			console.log(curHospitalId, " ", curHospital, " ", availableHospitals );
+		});   
+					
 		
 		$('#hospital-list-dropdown li').live('click', function(){	 
 			var hospital_name = $(this).find('a').text(); 

@@ -98,3 +98,8 @@ App.Models.ExtraDataElement = Backbone.Model.extend({
 //HospitalSpecific
 App.Models.HospitalSpecific = Backbone.Model.extend({
 });
+
+//HospitalSpecific
+App.Models.Security = Backbone.Model.extend({
+	urlRoot: '/ihm/api/security'	
+});
