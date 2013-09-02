@@ -14,8 +14,7 @@
     </thead>				
     <tbody>		
     </tbody>
-</table>  
-</div>
+</table>
 </script>
 
 <!-- user hospital_measure -->
