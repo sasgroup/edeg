@@ -1,3 +1,16 @@
 .page-content{
 	overflow: hidden;
 }
+
+body {
+    color: red;
+}
+
+.btn-info {
+	margin-right: 5px;
+}
+    
+    
+div.form-actions {
+	width :95%;
+}

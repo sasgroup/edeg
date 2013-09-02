@@ -11,6 +11,9 @@
 		<!--[if IE 7]> 
 			<link href="/ihm/static/css/ie7-fix.css" type="text/css" rel="stylesheet" />
 		<![endif]-->
+		<!--[if lt IE 8]>
+    		<link href="/ihm/static/css/bootstrap-ie7buttonfix.css" rel="stylesheet">
+		<![endif]-->		
 	</head>
 	<body>
 		<g:render template="/layouts/header_user" />

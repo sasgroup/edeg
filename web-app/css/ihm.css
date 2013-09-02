@@ -315,6 +315,10 @@ div#modalDataElements {
     margin-left: 0;
 }
 
+div#deatails {
+	margin-top: 30px;
+}
+
 #detailsTabContent {
     height: 190px;
     overflow: auto;

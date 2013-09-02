@@ -1,0 +1,20 @@
+config
+
+browsers = ['C:/Program Files (x86)/Google/Chrome/Application/chrome.exe'];
+
+
+<div class="page-header">
+    <header>
+        <a class="logo" href="#"></a>
+        <nav class="header-nav">
+            <a href="#product">Products</a>
+            <a href="#measure">Measures</a>
+            <a href="#element">DataElements</a>
+            <a href="#hospital">Hospitals</a>
+            <a href="#ehr">EHR</a>
+        </nav>
+    </header>
+</div>
+
+
+resource url: 'css/ihm.css'		
