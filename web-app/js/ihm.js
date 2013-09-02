@@ -24,17 +24,23 @@ $(function() {
 	}
 	else if (App.userRole == 'user') {
 		new App.Routers.User();	
-		
+		Backbone.history.start();
+				
 		App.security = new App.Models.Security();		
 		App.security.fetch().then(function(){		
 			var hospital_id = App.security.get('curHospitalId');
+			var first_product = "";
 			//generate tabs
 			App.ho = new App.Models.Hospital();		
 			App.ho.fetch({data:{id: hospital_id}}).then(function(){		
-				var products = App.ho.get('products');
+				var products = App.ho.get('products');				
 				$('nav#products-nav').empty();
-				$.each( products, function( i, product ) {		           
+				$.each( products, function( i, product ) {								
 					$('nav#products-nav').append('<a href="#hospital/' + hospital_id + '/product/'+ product.id+ '">' + product.code + '</a>');
+					if (first_product=="") {
+					    first_product = '/hospital/' + hospital_id + '/product/'+ product.id;					    	
+						Backbone.history.navigate(first_product, true);
+					}		
 				});			
 			});	  
 			var curHospital = App.security.get('curHospital');
@@ -54,6 +60,7 @@ $(function() {
 			$('#app').empty();
 			$('#breadcrumb-box').empty();
 	    
+			var first_product = "";
 			//generate tabs
 			App.ho = new App.Models.Hospital();		
 			App.ho.fetch({data:{id: hospital_id}}).then(function(){		
@@ -61,11 +68,13 @@ $(function() {
 				$('nav#products-nav').empty();
 				$.each( products, function( i, product ) {		           
 					$('nav#products-nav').append('<a href="#hospital/' + hospital_id + '/product/'+ product.id+ '">' + product.code + '</a>');
+					if (first_product=="") {
+					    first_product = '/hospital/' + hospital_id + '/product/'+ product.id;					    	
+						Backbone.history.navigate(first_product, true);
+					}	
 				});			
 			})	    
-		});
-		
-		Backbone.history.start();	
+		});		
 	}
 		
 			
