@@ -40,8 +40,7 @@ $(function() {
 			var curHospital = App.security.get('curHospital');
 			//show hospital-name		
 			$('h3.hospital-name').text(curHospital);			
-			var availableHospitals = App.security.get('availableHospitals');
-			console.log(curHospitalId, " ", curHospital, " ", availableHospitals );
+			var availableHospitals = App.security.get('availableHospitals');			
 		});   
 					
 		
