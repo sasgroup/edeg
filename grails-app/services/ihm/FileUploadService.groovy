@@ -32,7 +32,7 @@ class FileUploadService {
 					return "${storagePath}/${name}"
 				} else {
 					println "File Exist"
-					return "exist"
+					return null
 				}	
 			} else {
 				println "File ${file.inspect()} was empty"
@@ -42,7 +42,7 @@ class FileUploadService {
 			if (storedFile.exists() && storedFile.delete()) {
 				return "deleted" 
 			} else {
-				return "error"
+				return null
 			}
 		}	
     }
