@@ -22,7 +22,8 @@ div.form-actions {
 
 
 input#txtValueSet {
-	width: 60%;	
+	width: 240px;
+	padding: 0 !important;
 }
 
 input.location, input.source {
@@ -38,9 +39,16 @@ select{
 	/* For IE7, add top margin to align select with labels */
 	line-height: 30px;
 	font-size: 16px;
-	width: 150px;
+	width: auto !important;
 }
 
+table#extra-table input[type='text'] {
+	width:260px;
+}
+
+table td {
+	padding-bottom: 0 !important;
+}
 
 
 
