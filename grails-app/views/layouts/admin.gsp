@@ -13,7 +13,8 @@
 		<![endif]-->
 		<!--[if lt IE 8]>
     		<link href="/ihm/static/css/bootstrap-ie7buttonfix.css" rel="stylesheet">
-		<![endif]-->		
+		<![endif]-->
+				
 	</head>
 	<body>
 		<g:render template="/layouts/header" />
