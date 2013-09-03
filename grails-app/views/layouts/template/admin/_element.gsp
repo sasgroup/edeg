@@ -42,32 +42,28 @@
 <div class="container">
     <div class="row">       
             <h3>{{state}}</h3>
-            <hr>
-            <div class="clearfix"></div>
             <form method="post" class="form-horizontal" id="element-edit" accept-charset="utf-8">
-               <div class="container">
-  				    <div class="row">
-    				  <div class="span5">      				  
-                        <div class="row-fluid">
-                          <label for="code" class="span3">ID<span class="required">*</span></label>    
-					      <input name="code" type="text" class="span9" value="{{ code }}" id="code">
-					    </div>					  
-					    <div class="row-fluid">	
-                          <label for="name" class="span3">Name<span class="required">*</span></label>                                         
-                          <input name="name" type="text" class="span9" value="{{ name }}" id="name">
-					   </div> 					
-					  </div>    				  
-					  <div class="span7">
-					    <div class="row-fluid">	
-							<div class="span2">
-								<label for="notes">Description</label>
-								<a id="btnHelp" href="javascript:;" >Help <i class="icon-question-sign"></i></a>
-							</div>      				      
-                          <textarea rows="3" class="span10" name="notes" id="notes">{{ notes }}</textarea>
-    				    </div>
-					  </div>
-  				    </div>
-				</div>
+            <table class="table" id="fields">
+              <tbody>
+              <tr>
+                <td>ID<span class="required">*</span></td>
+                <td><input name="code" type="text" value="{{ code }}" id="code"></td>
+                <td rowspan="2">
+                  Description<br />
+                  <a id="btnHelp" href="javascript:;" >Help <i class="icon-question-sign"></i></a>
+                </td>
+                <td rowspan="2" colspan="2">
+                  <textarea rows="3" name="notes" id="notes">{{ notes }}</textarea>                  
+                </td>                            
+              </tr>      
+              <tr>
+                <td>Name<span class="required">*</span></td>
+                <td>
+                  <input name="name" type="text" value="{{ name }}" id="name">
+                </td>                             
+              </tr>                                    
+              </tbody>
+       		</table>       
 				<div id="myHelp" class="modal hide fade">
     				<div class="modal-header">
     					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>

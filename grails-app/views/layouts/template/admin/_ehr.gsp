@@ -40,11 +40,9 @@
 <script type="text/template" class="template" id="ehr-template">
 <div class="container">
     <div class="row">       
-            <h3>{{state}}</h3>
-            <hr>
-            <div class="clearfix"></div>
+            <h3>{{state}}</h3>            
             <form method="post" class="form-horizontal" id="ehr-edit" accept-charset="utf-8">
-                <div class="container">
+                <!--<div class="container">
   				    <div class="row">
     				  <div class="span5">      				  
                         <div class="row-fluid">
@@ -63,7 +61,27 @@
     				    </div>
 					  </div>
   				    </div>
-				</div>
+				</div>-->
+				<table class="table" id="fields">
+              <tbody>
+                <tr>
+                  <td>ID<span class="required">*</span></td>
+                  <td><input name="code" type="text" value="{{ code }}" id="code"></td>
+                  <td rowspan="2">
+                    Description
+                  </td>
+                  <td rowspan="2" colspan="2">
+                    <textarea rows="3" name="notes" id="notes">{{ notes }}</textarea>                  
+                  </td>                            
+                </tr>      
+                <tr>
+                  <td>Name and Version<span class="required">*</span></td>
+                    <td>
+                      <input name="name" type="text" value="{{ name }}" id="name">
+                    </td>                             
+                </tr>                                    
+              </tbody>
+            </table>  
 				
                 <ul id="myTab" class="nav nav-tabs">                  
                   <li class="active">

@@ -253,7 +253,18 @@ form#hospital-edit #name, #email  {
 	width:235px;	   
 }
 
-form#hospital-edit table#fields td {
+form input[name='code'], form input[name='name']  {	
+	width:235px;	   
+}
+
+
+form textarea#notes  {
+	width: 490px;
+	height: 66px;
+	resize: none;
+}
+
+table#fields td {
 	border-top: none;
 }
 
