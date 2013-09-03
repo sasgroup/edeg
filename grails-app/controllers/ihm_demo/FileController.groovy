@@ -18,13 +18,9 @@ class FileController {
 
 			if (file.exists()) {
 				def os = response.outputStream
-				response.setHeader("Content-Type", "application/zip")
 				response.setHeader("Content-disposition", "attachment;filename=${file.name}")
-
-				def bytes = file.text.bytes
-				for(b in bytes) {
-				   os.write(b)
-				}
+				def bytes = file.bytes
+				os << bytes
 				os.flush()
 				org.springframework.web.context.request.RequestContextHolder.currentRequestAttributes().renderView = false
 			}
