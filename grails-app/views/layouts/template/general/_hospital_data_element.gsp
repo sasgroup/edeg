@@ -48,22 +48,6 @@
           </div>		  
 		  <div id="hospital-specific-tab" class="tab-pane fade">             
 		    <div class="row-fluid" id="hs-table">				
-				<!--<div class="span5">						
-						<div class="row-fluid">
-                          <label for="txtValueSet" class="span4">Value Set Name</label>   
-					      <input id="txtValueSet" type="text" class="span8" placeholder="Enter Value Set Name">
-					    </div>					  
-					    <div class="row-fluid">	
-							<form id="uploadForm"  method="post" enctype="multipart/form-data" action="/ihm/api/file">
-								<label class="span4">File Upload</label>  
-								<input type="file"   id="fileToUpload" name="fileToUpload"/>								
-								<input type="button" id="upload" class= "hide"   value="Upload"/>
-								<input type="button" id="del"    class= "hide"   value="Delete"/>
-								<input type="hidden" id="currentHospitalElement" name="currentHospitalElement"/>
-							</form>							
-							<div id="output2" class='hide'></div>
-					   </div>					   	 				
-				</div>-->
 			</div>					
 		  </div>
 		  <div id="extra-location" class="tab-pane fade"></div>
@@ -161,11 +145,11 @@
 </script>
 
 <script type="text/template" class="template" id="file-upload-temp">
-<div class="row-fluid">
+<div>
 	<label for="txtValueSet" class="span4">Value Set Name</label>   
 	<input id="txtValueSet" type="text" class="span8" placeholder="Enter Value Set Name" value="{{valueSet}}">
 </div>					  
-<div class="row-fluid">	
+<div>	
 	<form id="uploadForm"  method="post" enctype="multipart/form-data" action="/ihm/api/file">
 		<label class="span4">File Upload</label>  
 		<input type="file"   id="fileToUpload" name="fileToUpload" {{status=="browse"? "": "class='hide'"}}/>								
