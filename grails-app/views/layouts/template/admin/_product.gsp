@@ -42,30 +42,6 @@
     <div class="row">      
             <h3>{{state}}</h3>
              <form method="post" class="form-horizontal" id="product-edit" accept-charset="utf-8">
-              <!--	<div class="container">
-  				    <div class="row">
-    				  <div class="span5">      				  
-                        <div class="row-fluid">
-                          <label for="code" class="span3">ID<span class="required">*</span></label>   
-					      <input name="code" type="text" class="span9" value="{{ code }}" id="code">
-					    </div>					  
-					    <div class="row-fluid">	
-                          <label for="name" class="span3">Name<span class="required">*</span></label>                                         
-                          <input name="name" type="text" class="span9" value="{{ name }}" id="name">
-					   </div> 					
-					  </div>    				  
-					  <div class="span7">
-					    <div class="row-fluid">	
-							<div class="span2">
-								<label for="notes">Description</label>
-								<a id="btnHelp" href="javascript:;" >Help <i class="icon-question-sign"></i></a>
-							</div>      				      
-                          <textarea rows="3" class="span10" name="notes" id="notes">{{ notes }}</textarea>
-    				    </div>
-					  </div>
-  				    </div>
-				</div>-->
-
 				<table class="table" id="fields">
                     <tbody>
                           <tr>

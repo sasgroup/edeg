@@ -282,6 +282,18 @@ form#hospital-edit #notes  {
 	width:355px;	   
 }
 
+div.sp7 {
+	width: 50%;
+	float: left;
+}	
+
+div.sp5 {
+	width: 48%;
+	float: right;
+}	
+
+
+
 form#product-edit div#myTabContent, form#element-edit div#myTabContent, form#ehr-edit div#myTabContent   {
 	display:block;
 	/*height: 374px;*/

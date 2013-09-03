@@ -41,28 +41,8 @@
 <div class="container">
     <div class="row">       
             <h3>{{state}}</h3>            
-            <form method="post" class="form-horizontal" id="ehr-edit" accept-charset="utf-8">
-                <!--<div class="container">
-  				    <div class="row">
-    				  <div class="span5">      				  
-                        <div class="row-fluid">
-                          <label for="code" class="span4">ID<span class="required">*</span></label>    
-					      <input name="code" type="text" class="span8" value="{{ code }}" id="code">
-					    </div>					  
-					    <div class="row-fluid">	
-                          <label for="name" class="span4">Name and Version<span class="required">*</span></label>                                         
-                          <input name="name" type="text" class="span8" value="{{ name }}" id="name">
-					   </div> 					
-					  </div>    				  
-					  <div class="span7">
-					    <div class="row-fluid">	
-      				      <label for="notes" class="span2">Description</label>                    
-                          <textarea rows="3" class="span10" name="notes" id="notes">{{ notes }}</textarea>
-    				    </div>
-					  </div>
-  				    </div>
-				</div>-->
-				<table class="table" id="fields">
+            <form method="post" class="form-horizontal" id="ehr-edit" accept-charset="utf-8">                
+			<table class="table" id="fields">
               <tbody>
                 <tr>
                   <td>ID<span class="required">*</span></td>

@@ -380,7 +380,7 @@ App.Views.SingleHospitalElement = Backbone.View
 //Hospital Spesific Table 
 App.Views.HospitalSpesificTable = Backbone.View
 .extend({ 
-className: "span7",	
+className: "sp7",	
 template: _.template($('#hosp-spec-table').html()),      
       
 render : function() {  
@@ -393,7 +393,7 @@ return this;
 //File Upload
 App.Views.HospitalFileUpload = Backbone.View
 .extend({ 
-className: "span5",	
+className: "sp5",	
 template: _.template($('#file-upload-temp').html()),   
 
 events : {
