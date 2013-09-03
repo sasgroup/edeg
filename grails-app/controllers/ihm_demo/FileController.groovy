@@ -14,6 +14,7 @@ class FileController {
 			def hospitalElement = HospitalElement.get(params.currentHospitalElement)
 			//find hospitalElement and get file name
 			def fileName = hospitalElement.valueSetFile
+			println fileName
 			def file = grailsAttributes.getApplicationContext().getResource("uploadFiles/${fileName}").getFile()
 
 			if (file.exists()) {
@@ -37,18 +38,21 @@ class FileController {
 
 	   if (params?.currentHospitalElement && HospitalElement.exists(params.currentHospitalElement)) {
 			def multiRequest = request.getFile("fileToUpload")
-
+			println multiRequest.getClass()
 			if (!multiRequest.isEmpty()) {
+				String fileName="${multiRequest?.fileItem?.name}"
+
+				if (fileName.contains("\\")  ||  fileName.contains("/") )
+					fileName = fileName.find(~/\w*\.\w*/)
+
 				def hospitalElement = HospitalElement.get(params.currentHospitalElement)
 				def hospitalElementId = params?.currentHospitalElement
-				hospitalElement.valueSetFile = "${hospitalElementId}_${multiRequest?.fileItem?.name}"
-				hospitalElement.save(flush:true)
 
-				def path = fileUploadService.uploadFile(multiRequest, "${hospitalElementId}_${multiRequest?.fileItem?.name}", "uploadFiles",false)
+				def path = fileUploadService.uploadFile(multiRequest, "${hospitalElementId}_${fileName}", "uploadFiles",false)
 				if (path) {
 					if (params?.currentHospitalElement && HospitalMeasure.exists(params.currentHospitalElement)) {
 						hospitalElement = HospitalElement.get(params.currentHospitalElement)
-						hospitalElement.valueSetFile = "${hospitalElementId}_${multiRequest?.fileItem?.name}"
+						hospitalElement.valueSetFile = "${hospitalElementId}_${fileName}"
 						hospitalElement.save(flush :true)
 					}
 				}
