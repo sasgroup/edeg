@@ -23,9 +23,10 @@ class HospitalController {
 					}
 				}
 			}
-			println "save"
 			hospitalInstance.notes = params?.notes
 			hospitalInstance.email = params?.email
+			hospitalInstance.externalEHRs = params?.externalEHRs
+			hospitalInstance.populationMethod = params?.populationMethod
 			hospitalInstance.save(flush:true)
 
 			for (prod in params.products){
@@ -55,6 +56,8 @@ class HospitalController {
 				name = result.name
 				email = result.email
 				notes= result.notes
+				externalEHRs = result.externalEHRs
+				populationMethod = result.populationMethod
 				id   = result.id
 				ehr = result.ehr
 				products = array {
@@ -216,6 +219,8 @@ class HospitalController {
 				name = result.name
 				email = (result.email)?result.email:""
 				notes= result.notes
+				externalEHRs = result.externalEHRs
+				populationMethod = result.populationMethod
 				id   = result.id
 				ehr = result.ehr
 				products = array {

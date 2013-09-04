@@ -5,10 +5,14 @@ import org.springframework.dao.DataIntegrityViolationException
 class HospitalElementController {
 
 	private HospitalElement saveInstance (HospitalElement instance, def param) {
+		
+		def ehrCode = instance.hospital.ehr.code
+		
 		//instance.properties = param
 		instance.location = param.location
-		instance.sourceEHR = param.sourceEHR
-		instance.source = param.sourceEHR ? instance.hospital.ehr.code : param.source		
+		instance.sourceEHR = (ehrCode == param.source)
+		//instance.source = param.sourceEHR ? instance.hospital.ehr.code : param.source		
+		instance.source = param.source
 		instance.valueType = ValueType.valueOf(param.valueType.name)
 		instance.valueSet = param.valueSet
 		instance.valueSetFile = param.valueSetFile
@@ -41,7 +45,8 @@ class HospitalElementController {
 		
 		if (param.elementExtraLocation)
 			for (e in param.elementExtraLocation){
-				new ElementExtraLocation(location:e.location, source:e.source, sourceEHR:e.sourceEHR, valueType: ValueType.valueOf(e.valueType.name), hospitalElement:instance).save()
+				if (e.valueType.name)
+					new ElementExtraLocation(location:e.location, source:e.source, sourceEHR:(ehrCode==e.source), valueType: ValueType.valueOf(e.valueType.name), hospitalElement:instance).save()
 			}
 				
 				
