@@ -2,8 +2,14 @@
 	overflow: hidden;
 }
 
-body {
-   /* color: red;*/
+div.page-content {
+	position:relative;
+	z-index:-1;
+}
+
+div.hospital-dropdown {
+	text-align:right; 
+	width:500px;
 }
 
 .btn-info {
