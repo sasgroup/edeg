@@ -10,7 +10,14 @@ body {
     background: url("images/bg.png") repeat-y center;       
 }
 
-/*.ui-menu { position: absolute; width: 100px; }*/
+.hospital-dropdown button:hover{
+	background-color: #F5F5F5;
+    color: #333333;
+    background-image: linear-gradient(to bottom, #FFFFFF, #E6E6E6);
+    text-decoration: none;
+    background-position: 0;
+    transition: none;
+}	
 
 .form-actions {
 	padding: 10px 20px 10px !important;
@@ -403,7 +410,7 @@ header a.logo {
 header .hospital-name {
     display: block;
     position: absolute;
-    width:450px;
+    width:630px;
     height: 85px;
     top: 22px ;
     left: 200px;
