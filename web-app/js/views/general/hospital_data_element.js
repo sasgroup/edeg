@@ -132,11 +132,12 @@ App.Views.SingleHospitalElement = Backbone.View
 		this.$el.html(this.template(this.model.toJSON()));				
 		this.$el.attr('id',this.model.get('id'));
 				
-		this.$el.find('#source').append("<optgroup class='opt1'><option value='"+this.options.primary_ehr+"' >"+this.options.primary_ehr+"</option></optgroup>");	
-		this.$el.find('#source').append("<optgroup class='opt2'></optgroup>");
+		this.$el.find('#source').append("<option class='opt1' value='"+this.options.primary_ehr+"' >"+this.options.primary_ehr+"</option>");	
+		//this.$el.find('#source').append("<optgroup class='opt2'></optgroup>");
 		var _el = this.$el; 
 		$(this.options.external_ehrs).each(function(i,ex){
-			_el.find('#source .opt2').append("<option value='"+ex+"' >"+ex+"</option>")	
+			if (ex)
+				_el.find('#source').append("<option class='opt2' value='"+ex+"' >"+ex+"</option>")	
 		});
 		
 		if (this.$el.find('#sourceEHR').is(':checked')) {
@@ -511,11 +512,12 @@ App.Views.ExtraDataElement = Backbone.View
 		var external_ehrs = this.options.external_ehrs;
 		var primary_ehr = this.options.primary_ehr;
 		
-		this.$el.find('#source').append("<optgroup class='opt1'><option value='"+this.options.primary_ehr+"' >"+this.options.primary_ehr+"</option></optgroup>");	
-		this.$el.find('#source').append("<optgroup class='opt2'></optgroup>");
+		this.$el.find('#source').append("<option class='opt1' value='"+this.options.primary_ehr+"' >"+this.options.primary_ehr+"</option>");	
+		//this.$el.find('#source').append("<optgroup class='opt2'></optgroup>");
 		var _el = this.$el; 
 		$(this.options.external_ehrs).each(function(i,ex){
-			_el.find('#source .opt2').append("<option value='"+ex+"' >"+ex+"</option>")	
+			if (ex)
+				_el.find('#source').append("<option class='opt2' value='"+ex+"' >"+ex+"</option>")	
 		});
 		
 		if (this.$el.find('#sourceEHR').is(':checked')) {

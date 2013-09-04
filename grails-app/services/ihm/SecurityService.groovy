@@ -1,5 +1,6 @@
 package ihm
 
+import ihm_demo.Hospital
 import org.healthmetrics.security.*
 
 class SecurityService {
@@ -27,6 +28,19 @@ class SecurityService {
 	
 	def getHospitalNameMap(String user) {
 		return ihmSecurity?.getHospitalNameMap(user)
+	}
+	
+	def getHospitalNameMapCurrentId(String user) {
+
+		Map map = getHospitalNameMap(user)
+		Map avHospitals = new  HashMap()
+		
+		map.each { key, value  ->
+			Hospital h = Hospital.findByName(value)
+			if (h)
+				avHospitals.put(h.id, value)
+		}
+		return avHospitals
 	}
 	
 }
