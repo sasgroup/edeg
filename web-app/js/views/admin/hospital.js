@@ -287,15 +287,7 @@ App.Views.Hospital = Backbone.View.extend({
 		}
 		else {
 			Backbone.history.navigate("/hospital", true);
-		}
-				
-		/*if (App.isModified) {
-			if (confirm('Should the changes be saved?')) {
-				Backbone.history.navigate("/hospital", true);			
-			}
-		}	else {
-			Backbone.history.navigate("/hospital", true);
-		}*/
+		}		
 	}
 
 });
@@ -306,8 +298,7 @@ App.Views.SingleHospital = Backbone.View
 			tagName : 'tr',
 			template: _.template($('#single-hospital').html()),			
 			events : {
-				'click #edit' : 'goToEdit',
-				'click #destroy' : 'destroy'
+				'click #edit' : 'goToEdit'
 			},
 
 			render : function() {
@@ -317,11 +308,7 @@ App.Views.SingleHospital = Backbone.View
 
 			goToEdit : function() {
 				Backbone.history.navigate("hospital/"+this.model.get('id')+'/edit', true);
-			},
-
-			destroy : function(){
-				if (window.console) console.log("destroy");
-			}
+			}			
 		});
 
 //Single Hospital_Measure
@@ -329,10 +316,7 @@ App.Views.SingleHospitalMeasure = Backbone.View
 		.extend({
 			tagName : 'tr',			
 			template: _.template($('#single-hospital_measure').html()),			
-			events : {
-				'click .edit-btn'             : 'goToEdit',
-				'click .save-btn'             : 'goToSave',
-				'click .cancel-btn'           : 'goToCancel',
+			events : {				
 				'click a#customLink'       	  : 'goToDataElements',				
 				'change input[name="included"], input[name="completed"], input[name="confirmed"], input[name="accepted"], input[name="verified"]'  : 'changeVal'	
 			},
@@ -424,45 +408,22 @@ App.Views.SingleHospitalMeasure = Backbone.View
 			        break;        
 			    }
 				}
-			   		
-			},
-
-			goToEdit : function(e) {
-				if (window.console) console.log("goToEdit " + e.target);				
-						
-			},
-			
-			goToSave : function (e){
-				if (window.console) console.log("goToSave ");
-								
-				this.model.save(this.attributes,{
+				
+			 App.ho.set('products', App.hospital_products);		
+			 App.ho.save(this.attributes,{
 			        success: function (model, response) {
-			        	if (window.console) console.log(response);
-			           $('div#message-box').text("").append(response.message).fadeIn(500).delay(1500).fadeOut(500);
-		               //Backbone.history.navigate("product", true);
+			           if (window.console) console.log(response);			           	           
 			        },
-			        error: function (model, response) {
-			        	$('div#message-box').text("").append(response.message).fadeIn(500).delay(1500).fadeOut(500);
-			            //Backbone.history.navigate("product", true);
+			        error: function (model, response) {			 
+			           if (window.console) console.log(response);
 			        }
-			    });				
+			});
 			},
-			
-						
+									
 			goToDataElements : function(e) {				
-				e.preventDefault();
-				//Backbone.history.navigate("product/" + this.model.get('product_id')+ "/measure/" + this.model.get('id'), true);			
+				e.preventDefault();							
 				Backbone.history.navigate("hospital/"+ App.ho.get('id') +"/product/" + this.model.get('product_id')+ "/measure/" + this.model.get('id'), true);
-			},
-			
-			
-			goToCancel : function (e){
-				if (window.console) console.log("goToCancel " + e.target);			
-			},
-
-			destroy : function(){
-				if (window.console) console.log("destroy");
-			}
+			}			
 		});
 
 
