@@ -67,38 +67,36 @@ class BootStrap {
 
 		//-----------HOSPITALs-----------
 		def _hospitals = [
-			["Community Hospital",										"MEDITECH 6.0",""],
-			["Massachusetts General Hospital",							"MEDITECH 6.0",""],
-			["Lindemann Mental Health Center",							"MEDITECH 6.0",""],
-			["Hebrew Rehabilitation Center for the Aged",				"MEDITECH 6.0",""],
-			["Faulkner Hospital",										"MEDITECH 6.0",""],
-			["Carney Hospital",											"MEDITECH 6.0",""],
-			["Franciscan Children's Hospital and Rehabilitation Center","MEDITECH 6.0",""],
-			["Tufts Medical Center",									"MEDITECH 6.0",""],
-			["Lowell General Hospital",									"MEDITECH 6.0",""],
-			["Hospital Corporation of America (HCA)",					"MEDITECH 6.1",""],
-			["United States Marine Hospital",							"MEDITECH 6.1",""],
-			["Chicago Hospital for Women and Children",					"MEDITECH 6.1",""],
-			["Louis A. Weiss Memorial Hospital",						"MEDITECH 6.1",""],
-			["Lurie Children's Hospital",								"MEDITECH 6.1",""],
-			["Mercy Hospital and Medical Center",						"MEDITECH 6.2",""],
-			["Michael Reese Hospital",									"MEDITECH 6.3",""],
-			["Northwestern Memorial Hospital",							"MEDITECH 6.2",""],
-			["Rehabilitation Institute of Chicago",						"MEDITECH 6.2",""],
-			["Ruth M. Rothstein CORE Center",							"MEDITECH 6.2",""],
-			["University of Chicago Medical Center",					"MEDITECH 6.3",""],
-			["Swedish Covenant Hospital",								"MEDITECH 6.3",""],
-			["Fawcett Memorial Hospital",								"MEDITECH 6.3",""],
-			["HealthONE Colorado",										"MEDITECH 6.3",""],
-			["Tulane Medical Center",									"MEDITECH 6.2",""],
-			["Wellington Hospital, London",								"MEDITECH 6.2",""],
-			["Spotsylvania Regional Medical Center",					"MEDITECH 6.0",""],
-			["London Bridge Hospital",									"MEDITECH 6.0",""]
-			
-			
+			["Community Hospital",										"MEDITECH 6.0","","ED-ALL"],
+			["Massachusetts General Hospital",							"MEDITECH 6.0","","ED-ALL"],
+			["Lindemann Mental Health Center",							"MEDITECH 6.0","","ED-ALL"],
+			["Hebrew Rehabilitation Center for the Aged",				"MEDITECH 6.0","","ED-OBS"],
+			["Faulkner Hospital",										"MEDITECH 6.0","","ED-ALL"],
+			["Carney Hospital",											"MEDITECH 6.0","","ED-ALL"],
+			["Franciscan Children's Hospital and Rehabilitation Center","MEDITECH 6.0","","ED-ALL"],
+			["Tufts Medical Center",									"MEDITECH 6.0","","ED-ALL"],
+			["Lowell General Hospital",									"MEDITECH 6.0","","ED-ALL"],
+			["Hospital Corporation of America (HCA)",					"MEDITECH 6.1","","ED-OBS"],
+			["United States Marine Hospital",							"MEDITECH 6.1","","ED-OBS"],
+			["Chicago Hospital for Women and Children",					"MEDITECH 6.1","","ED-OBS"],
+			["Louis A. Weiss Memorial Hospital",						"MEDITECH 6.1","","ED-OBS"],
+			["Lurie Children's Hospital",								"MEDITECH 6.1","","ED-OBS"],
+			["Mercy Hospital and Medical Center",						"MEDITECH 6.2","","ED-OBS"],
+			["Michael Reese Hospital",									"MEDITECH 6.3","","ED-OBS"],
+			["Northwestern Memorial Hospital",							"MEDITECH 6.2","","ED-OBS"],
+			["Rehabilitation Institute of Chicago",						"MEDITECH 6.2","","ED-OBS"],
+			["Ruth M. Rothstein CORE Center",							"MEDITECH 6.2","","ED-OBS"],
+			["University of Chicago Medical Center",					"MEDITECH 6.3","","ED-OBS"],
+			["Swedish Covenant Hospital",								"MEDITECH 6.3","","ED-OBS"],
+			["Fawcett Memorial Hospital",								"MEDITECH 6.3","","ED-OBS"],
+			["HealthONE Colorado",										"MEDITECH 6.3","","ED-OBS"],
+			["Tulane Medical Center",									"MEDITECH 6.2","","ED-OBS"],
+			["Wellington Hospital, London",								"MEDITECH 6.2","","ED-OBS"],
+			["Spotsylvania Regional Medical Center",					"MEDITECH 6.0","","ED-ALL"],
+			["London Bridge Hospital",									"MEDITECH 6.0","","ED-ALL"]
 			]
 		for(_h in _hospitals){
-			def _hospital = new Hospital(name:_h[0], ehr:Ehr.findByCode(_h[1]), notes:_h[2])
+			def _hospital = new Hospital(name:_h[0], ehr:Ehr.findByCode(_h[1]), notes:_h[2], populationMethod: _h[3], externalEHRs:"")
 			if (!_hospital.save()){
 				_hospital.errors.allErrors.each{error ->
 					println "An error occured with event1: ${error}"
