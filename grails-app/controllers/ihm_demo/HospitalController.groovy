@@ -56,7 +56,7 @@ class HospitalController {
 				name = result.name
 				email = result.email
 				notes= result.notes
-				externalEHRs = result.externalEHRs
+				externalEHRs = (result.externalEHRs)?result.externalEHRs:""
 				populationMethod = result.populationMethod
 				id   = result.id
 				ehr = result.ehr
@@ -219,7 +219,7 @@ class HospitalController {
 				name = result.name
 				email = (result.email)?result.email:""
 				notes= result.notes
-				externalEHRs = result.externalEHRs
+				externalEHRs = (result.externalEHRs)?result.externalEHRs:""
 				populationMethod = result.populationMethod
 				id   = result.id
 				ehr = result.ehr

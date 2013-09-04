@@ -110,10 +110,15 @@ App.Routers.User = Backbone.Router.extend({
 		App.hospital_products =  App.ho.get('products');	
 		App.route.tabs(h_id);		
 		
+		var external_ehrs = [];
+		var primary_ehr="";
+		
 		$.each( App.ho.get('products'), function( i, product ) { 	
 			if (product.id==p_id) {				
 				$.each(product.measures, function( i, measure ){
-					if (measure.id==m_id) {										
+					if (measure.id==m_id) {
+						external_ehrs = App.ho.get('externalEHRs').split('\n');
+						primary_ehr = App.ho.get('ehr').code;
 						//breadcrumb
 						var viewMeasureBreadcrumb = new App.Views.HospitalMeasureBreadcrumb({model: measure, product_code:product.code, product_id:p_id, hospital_id:h_id});		
 						$('#breadcrumb-box').html(viewMeasureBreadcrumb.render().el);
@@ -126,7 +131,7 @@ App.Routers.User = Backbone.Router.extend({
 		
 		App.hospitalElements.fetch({data:{id: m_id}}).then(function(){			                          
 			
-			App.viewHospitalElements = new App.Views.HospitalElements ({collection:App.hospitalElements, m_id: m_id});
+			App.viewHospitalElements = new App.Views.HospitalElements ({collection:App.hospitalElements, m_id: m_id, external_ehrs:external_ehrs, primary_ehr:primary_ehr});
 			$('#app').html(App.viewHospitalElements.render().el);	
 			
 			$('#deatails *').attr('disabled','disabled');
