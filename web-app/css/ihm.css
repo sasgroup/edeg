@@ -472,21 +472,42 @@ nav.header-nav a:hover {
 
 
 /* footer */
-footer {
+.page-footer{
+    height: 44px;
     width:100%;
     position:fixed;
     bottom:0;
-    font-size: 0.85em;
+    padding: 10px 0px 0px 0px;
     background-color: #58727F;
-    color: #fff;
-    margin-top: 12px;
-    padding: 10px 0px 0px 0px;    
-   /* height:115px;   /* Height of the footer */    
-    height:55px;   /* Height of the footer */
+    color: #fff;   
+    font-size: 0.85em;    
+        
 }
 
+footer {   
+    max-width: 980px;       
+    margin: 0px auto 0px auto;
+    position: relative;    
+}
 
-nav.footer-nav {
+footer a {
+    color: #fff;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1.1em;
+    margin: 10px 0px 10px 10px ;
+}
+
+footer a.logo {  
+    margin: 0px 0px 0px 24px ;
+}
+
+footer a:hover {
+    color: #EEE;
+    text-decoration: underline;
+}
+
+/*nav.footer-nav {
     width: 100%;
     display: block;
     position: absolute;
@@ -511,9 +532,9 @@ nav.footer-nav a:hover {
 nav.footer-nav a.logo {
     display: inline-block;    
     position: relative;
-    bottom: 10px;
-   /*height: 85px;*/
+    bottom: 10px;   
 }
+*/
 
 div#message-box {
 	display: none;
