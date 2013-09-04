@@ -664,7 +664,7 @@ optgroup option{
 .dataTables_scroll input[type=text],
 .dataTables_scroll select,
 .dataTables_scroll .btn{
-	padding: 1px 2px;
+	padding: 1px 8px;
 }
 .dataTables_scroll select{
 	height: 24px;
