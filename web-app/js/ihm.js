@@ -47,9 +47,9 @@ $(function() {
 			//show hospital-name		
 			$('h3.hospital-name').text(curHospital);			
 			App.availableHospitals = App.security.get('availableHospitals');			
-			$.each(App.availableHospitals, function( i, hospital ) {
-				var id = i.substr(3);		
-				console.log(id,hospital);
+			$.each(App.availableHospitals, function( id, hospital ) {
+				/*var id = i.substr(3);		
+				console.log(id,hospital);*/
 				$('ul#hospital-list-dropdown').append('<li data-id='+ id +'><a href="#">' + hospital+ '</a></li>');				
 			});	
 		});   
