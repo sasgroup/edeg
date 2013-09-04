@@ -22,10 +22,10 @@ App.Views.Reports = Backbone.View.extend({
 	generateReports : function(){
 		var _el = this.$el; 
 		var _colNames = [
-			['Hospital', 'Product', 'Measure', 'Measure Name', 'Comp', 'Conf', 'Accp', 'Verf'],
-			['Hospital', 'Product', 'Measure', 'Measure Name', 'Comp', 'Conf', 'Accp', 'Verf'],
+			['Hospital', 'Product', 'Measure', 'Measure Name', 'Comp', 'Accp', 'NRev', 'Verf'],
+			['Hospital', 'Product', 'Measure', 'Measure Name', 'Comp', 'Accp', 'NRev', 'Verf'],
 			['Hospital', 'Product'],
-			['Hospital', 'Product', 'Measure', 'Measure Name', 'Comp', 'Conf', 'Accp', 'Verf'],
+			['Hospital', 'Product', 'Measure', 'Measure Name', 'Comp', 'Accp', 'NRev', 'Verf'],
 			['Hospital', 'Code', 'Data Element', 'Location', 'EHR', 'Src', 'Vtype']
 		];
 		var _colModels = [
@@ -34,8 +34,8 @@ App.Views.Reports = Backbone.View.extend({
 			 	{name:'mcode',		index:'mcode', 		width:60}, 
 			 	{name:'mname',		index:'mname'}, 
 			 	{name:'completed',	index:'completed', 	width:30, formatter: "checkbox"},
-			 	{name:'confirmed',	index:'confirmed', 	width:30, formatter: "checkbox"},
 			 	{name:'accepted',	index:'accepted', 	width:30, formatter: "checkbox"},
+			 	{name:'confirmed',	index:'confirmed', 	width:30, formatter: "checkbox"},
 			 	{name:'verified',	index:'verified', 	width:30, formatter: "checkbox"}	],
 			 	
 		 	[	{name:'hname',		index:'hname', 		width:100},
@@ -43,8 +43,8 @@ App.Views.Reports = Backbone.View.extend({
 			 	{name:'mcode',		index:'mcode', 		width:60}, 
 			 	{name:'mname',		index:'mname'}, 
 			 	{name:'completed',	index:'completed', 	width:30, formatter: "checkbox"},
-			 	{name:'confirmed',	index:'confirmed', 	width:30, formatter: "checkbox"},
 			 	{name:'accepted',	index:'accepted', 	width:30, formatter: "checkbox"},
+			 	{name:'confirmed',	index:'confirmed', 	width:30, formatter: "checkbox"},
 			 	{name:'verified',	index:'verified', 	width:30, formatter: "checkbox"}	],
 			 	
 		 	[	{name:'hname',		index:'hname', 		width:100},
@@ -55,8 +55,8 @@ App.Views.Reports = Backbone.View.extend({
 			 	{name:'mcode',		index:'mcode', 		width:60}, 
 			 	{name:'mname',		index:'mname'}, 
 			 	{name:'completed',	index:'completed', 	width:30, formatter: "checkbox"},
-			 	{name:'confirmed',	index:'confirmed', 	width:30, formatter: "checkbox"},
 			 	{name:'accepted',	index:'accepted', 	width:30, formatter: "checkbox"},
+			 	{name:'confirmed',	index:'confirmed', 	width:30, formatter: "checkbox"},
 			 	{name:'verified',	index:'verified', 	width:30, formatter: "checkbox"}	],
 			
 			[	{name:'hname',		index:'hname', 		width:100},
