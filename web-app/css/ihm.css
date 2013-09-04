@@ -10,6 +10,10 @@ body {
     background: url("images/bg.png") repeat-y center;       
 }
 
+textarea.txt-message {
+	overflow: hidden;
+}	
+
 .hospital-dropdown button:hover{
 	background-color: #F5F5F5;
     color: #333333;

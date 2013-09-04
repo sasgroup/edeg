@@ -602,7 +602,8 @@ App.Views.QADataElement = Backbone.View
   template: _.template($('#qa').html()),      
   
   events : {
-    'click .send-btn' : 'appendQuestion'
+    'click .send-btn' : 'appendQuestion',
+    'keypress .txt-message': 'sendOnEnter'
   },
           
   render : function() {
@@ -619,6 +620,12 @@ App.Views.QADataElement = Backbone.View
     
     return this;
   },
+  
+  sendOnEnter: function(e) {
+      if (e.keyCode == 13) {
+    	  this.appendQuestion();
+      }
+   },
   
   appendQuestion : function() {
     var message = this.$el.find(".txt-message").val();

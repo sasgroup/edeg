@@ -12,12 +12,7 @@ App.Routers.User = Backbone.Router.extend({
 	},
 		
 	home : function(){			
-		$('ul#hospital-list-dropdown').empty();
-		App.hospitals.fetch().then(function(){			
-			App.hospitals.forEach(function(hospital){				
-				$('ul#hospital-list-dropdown').append('<li data-id='+ hospital.get('id')+'><a href="#">' + hospital.get('name') + '</a></li>');
-			});
-		});
+		
 	},
 		
 	tabs: function(h_id){		
@@ -135,7 +130,8 @@ App.Routers.User = Backbone.Router.extend({
 				"bDestroy": true, 
 				"bPaginate": false,
 				"bFilter": false,
-				"sScrollY": "262px",			
+				//"sScrollY": "262px",			
+				"sScrollY": "220px",
 				"bSort": true,
 				"bInfo": false,
 				"aaSorting": [[0, 'asc']],

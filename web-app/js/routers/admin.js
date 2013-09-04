@@ -79,7 +79,7 @@ App.Routers.Administrator = Backbone.Router.extend({
 					"bDestroy": true, 
 					"bPaginate": false,
 					"bFilter": false,
-					"sScrollY": "264px",			
+					"sScrollY": "220px",			
 					"bSort": true,
 					"bInfo": false,
 					"aaSorting": [[0, 'asc']],
