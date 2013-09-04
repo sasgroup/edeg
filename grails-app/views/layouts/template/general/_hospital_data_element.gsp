@@ -7,7 +7,7 @@
 	  <thead><tr>
  				<th class="data-element-column">Data Element</th>    
 		    	<th>Location</th>           
-				<th title="SourceEHR">EHR</th>
+				<th title="SourceEHR" class="ihm_hidden">EHR</th>
 				<th>Source EHR</th>				
 		    	<th>Values Type</th>
 				<th>Reset</th>
@@ -73,8 +73,10 @@
 <script type="text/template" class="template" id="hospital_data_element">
  <td id="{{id}}" class="slc_row" title="{{element_notes}}">{{dataElement}}</td>
  <td><input type="text" class="location" name="location" id="location" value="{{location}}"></td>
- <td><input type="checkbox" class="sourceEHR" name="sourceEHR" id="sourceEHR" value={{sourceEHR}} {{sourceEHR ? "checked": ""}}></td>
- <td><input type="text" class="source" id="source" name= "source" value="{{source}}"></td>
+ <td class="ihm_hidden"><input type="checkbox" class="sourceEHR" name="sourceEHR" id="sourceEHR" value={{sourceEHR}} {{sourceEHR ? "checked": ""}}></td>
+ <td>
+	<select id="source" name="source" class="source">
+	</select>
  <td>
     <select class="slcValueType" name="valueType">			
 				<option value="">-Select-</option>
@@ -94,8 +96,11 @@
 <!--extra-elements -->
 <script type="text/template" class="template" id="extra-elements">
  <td><input type="text" class="location" id="location" value="{{location}}" placeholder="Enter Location"></td>
- <td><input type="checkbox" class="sourceEHR" id="sourceEHR" value="{{sourceEHR}}" {{sourceEHR ? "checked": ""}}></td>
- <td><input type="text" class="source" id="source" value="{{source}}" placeholder="Enter Source"></td>
+ <td class="ihm_hidden"><input type="checkbox" class="sourceEHR" id="sourceEHR" value="{{sourceEHR}}" {{sourceEHR ? "checked": ""}}></td>
+ <td>
+	<select id="source" name="source" class="source">
+	</select>
+ </td>
  <td>
     <select class="slcValueType" name="valueType">			
 				<option value="">-Select-</option>
@@ -167,7 +172,7 @@
 				<thead>
         			<tr>
             			<th>Location</th>           
-						<th title="SourceEHR">EHR</th>
+						<th title="SourceEHR" class="ihm_hidden">EHR</th>
 						<th>Source EHR</th>						
 		    			<th>Values Type</th>		
 						<th></th>
