@@ -635,3 +635,37 @@ ul.wysihtml5-commands-disabled .dropdown-menu {
 	max-height:150px;
 	overflow:auto;
 }
+#slcPopulationMethod{
+	padding:0px; 
+	height: 20px; 
+	margin:0px;
+}
+
+.ihm_hidden{
+	display:none;
+}
+optgroup{
+	border-bottom: 1px solid gray;
+	padding: 0px;
+}
+
+optgroup.opt1 option{
+	font-weight: bold;
+	color: #333;
+}
+
+optgroup.opt2 option{
+	color: #666;
+}
+
+optgroup option{
+	padding: 0;
+}
+.dataTables_scroll input[type=text],
+.dataTables_scroll select,
+.dataTables_scroll .btn{
+	padding: 1px 2px;
+}
+.dataTables_scroll select{
+	height: 24px;
+}

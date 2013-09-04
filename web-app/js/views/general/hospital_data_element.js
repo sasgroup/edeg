@@ -45,7 +45,9 @@ App.Views.HospitalElements = Backbone.View.extend({
 
 	appendHospitalElement : function(hospitalElement) {
 		var m_id = this.options.m_id;
-		var view = new App.Views.SingleHospitalElement({ model : hospitalElement, m_id: m_id});		
+		var e_ehrs = this.options.external_ehrs;
+		var p_ehr = this.options.primary_ehr;
+		var view = new App.Views.SingleHospitalElement({ model : hospitalElement, m_id: m_id, external_ehrs: e_ehrs, primary_ehr:p_ehr});		
 		this.$el.find('#hospital-elements tbody').append(view.render().el);		
 	},
 	
@@ -77,7 +79,7 @@ App.Views.HospitalElements = Backbone.View.extend({
 			$('table#extra-table tr').not(':first').each(function( ) {
 				var _location = $(this).find('input#location').val();
 				var _sourceEHR = $(this).find('input#sourceEHR').is(':checked');
-				var _source = $(this).find('input#source').val();				
+				var _source = $(this).find('select#source').val();				
 				var _valueType = $(this).find('select.slcValueType').val();
 						
 				if ((_location!="")||(_source!="")||(_valueType!="")) {
@@ -100,7 +102,7 @@ App.Views.HospitalElements = Backbone.View.extend({
 		var m_id = this.options.m_id;
 		_.each(this.collection.models, function(model) {
 			  model.set({markAsComplete: markAsComplete});	 
-			  model.set({m_id: m_id});			 
+			  model.set({m_id: m_id});
 			  return model.save({
 			    wait: true,
 			    error: function (collection, response) {
@@ -147,10 +149,20 @@ App.Views.SingleHospitalElement = Backbone.View
 		this.$el.html(this.template(this.model.toJSON()));				
 		this.$el.attr('id',this.model.get('id'));
 				
+		this.$el.find('#source').append("<optgroup class='opt1'><option value='"+this.options.primary_ehr+"' >"+this.options.primary_ehr+"</option></optgroup>");	
+		this.$el.find('#source').append("<optgroup class='opt2'></optgroup>");
+		var _el = this.$el; 
+		$(this.options.external_ehrs).each(function(i,ex){
+			_el.find('#source .opt2').append("<option value='"+ex+"' >"+ex+"</option>")	
+		});
+		
 		if (this.$el.find('#sourceEHR').is(':checked')) {
-			this.$el.find('#source').attr('disabled','disabled');
-		}	
-				
+			this.$el.find('#source').val(this.options.primary_ehr);
+		}
+		else{
+			this.$el.find('#source').val(this.model.get('source'));
+		}
+		
 		return this;
 	},
 	
@@ -204,7 +216,7 @@ App.Views.SingleHospitalElement = Backbone.View
 			$('table#extra-table tr').not(':first').each(function( ) {
 				var _location = $(this).find('input#location').val();
 				var _sourceEHR = $(this).find('input#sourceEHR').is(':checked');
-				var _source = $(this).find('input#source').val();				
+				var _source = $(this).find('select#source').val();				
 				var _valueType = $(this).find('select.slcValueType').val();
 						
 				if ((_location!="")||(_source!="")||(_valueType!="")) {
@@ -320,8 +332,12 @@ App.Views.SingleHospitalElement = Backbone.View
 	},
 	
 	showExtraLocation: function(slc_hospital_element){	
-		var elementExtraLocation = slc_hospital_element.get('elementExtraLocation');		
-		var view = new App.Views.ExtraTable({collection : elementExtraLocation});			
+		var elementExtraLocation = slc_hospital_element.get('elementExtraLocation');
+		
+		var external_ehrs = this.options.external_ehrs;
+		var primary_ehr = this.options.primary_ehr;
+		
+		var view = new App.Views.ExtraTable({collection : elementExtraLocation, external_ehrs:external_ehrs, primary_ehr:primary_ehr});			
 		$('div#extra-location').html(view.render().el);  
 				
 		var elementExtraLocation = slc_hospital_element.get('elementExtraLocation');
@@ -337,13 +353,13 @@ App.Views.SingleHospitalElement = Backbone.View
 		  };
 		  
 		  var extra_model = new App.Models.ExtraDataElement(extraDataElement);
-		  var extra_view = new App.Views.ExtraDataElement({ model : extra_model});					  
+		  var extra_view = new App.Views.ExtraDataElement({ model : extra_model, external_ehrs:external_ehrs, primary_ehr:primary_ehr});					  
 		  var extra_row = extra_view.render().el;
 		  $('#extra-table tbody').append(extra_row);
 		} else {			
 		  $.each( elementExtraLocation, function( i, extraDataElement ) {			
 			var extra_model = new App.Models.ExtraDataElement(extraDataElement);
-			var extra_view = new App.Views.ExtraDataElement({ model : extra_model});	
+			var extra_view = new App.Views.ExtraDataElement({ model : extra_model, external_ehrs:external_ehrs, primary_ehr:primary_ehr});	
 			var extra_row = extra_view.render().el;
 			$('#extra-table tbody').append(extra_row);
 		  });				
@@ -380,7 +396,7 @@ App.Views.SingleHospitalElement = Backbone.View
 //Hospital Spesific Table 
 App.Views.HospitalSpesificTable = Backbone.View
 .extend({ 
-className: "sp7",	
+className: "span7",	
 template: _.template($('#hosp-spec-table').html()),      
       
 render : function() {  
@@ -393,7 +409,7 @@ return this;
 //File Upload
 App.Views.HospitalFileUpload = Backbone.View
 .extend({ 
-className: "sp5",	
+className: "span5",	
 template: _.template($('#file-upload-temp').html()),   
 
 events : {
@@ -488,6 +504,7 @@ template: _.template($('#extra-table-temp').html()),
         
 render : function() {		
 	this.$el.html(this.template());	
+	// TODO extra Element source
 	return this;
 }
 
@@ -506,7 +523,25 @@ App.Views.ExtraDataElement = Backbone.View
 	},
 					
 	render : function() {						
-		this.$el.html(this.template(this.model.toJSON()));				
+		this.$el.html(this.template(this.model.toJSON()));	
+		// TODO extra Element source
+		var external_ehrs = this.options.external_ehrs;
+		var primary_ehr = this.options.primary_ehr;
+		
+		this.$el.find('#source').append("<optgroup class='opt1'><option value='"+this.options.primary_ehr+"' >"+this.options.primary_ehr+"</option></optgroup>");	
+		this.$el.find('#source').append("<optgroup class='opt2'></optgroup>");
+		var _el = this.$el; 
+		$(this.options.external_ehrs).each(function(i,ex){
+			_el.find('#source .opt2').append("<option value='"+ex+"' >"+ex+"</option>")	
+		});
+		
+		if (this.$el.find('#sourceEHR').is(':checked')) {
+			this.$el.find('#source').val(this.options.primary_ehr);
+		}
+		else{
+			this.$el.find('#source').val(this.model.get('source'));
+		}
+		
 		return this;
 	},
 	
@@ -520,8 +555,11 @@ App.Views.ExtraDataElement = Backbone.View
 				  valueType: this.model.get("valueType")
 		};
 		
+		var external_ehrs = this.options.external_ehrs;
+		var primary_ehr = this.options.primary_ehr;
+		
 		var extra_model = new App.Models.ExtraDataElement(extraDataElement);
-		var extra_view = new App.Views.ExtraDataElement({ model : extra_model});		
+		var extra_view = new App.Views.ExtraDataElement({ model : extra_model, external_ehrs:external_ehrs, primary_ehr:primary_ehr});		
 		
 		var extra_tbody = $('#extra-table tbody');
 		var extra_row = extra_view.render().el;

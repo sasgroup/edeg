@@ -29,12 +29,13 @@ App.Views.Hospital = Backbone.View.extend({
 	},
 	
 	events : {
-		'click #submit-btn' 			 : 'submHospital',	
-		'click #submit-close-btn' 		 : 'submCloseHospital',
-		'click button#cancel' 			 : 'returnOnMain', 
-		'click #btnApplyHospitalOptions' : 'applyHospitalOptions',
-		'click a[data-toggle="tab"]'	 : 'changeTab',
-		'change #notes, #email' 		 : 'changeVal'		
+		'click #submit-btn' 			 							: 'submHospital',	
+		'click #submit-close-btn' 		 							: 'submCloseHospital',
+		'click button#cancel' 			 							: 'returnOnMain', 
+		'click #btnApplyHospitalOptions' 							: 'applyHospitalOptions',
+		'click a[data-toggle="tab"]'	 							: 'changeTab',
+		'change #notes, #email, #slcPopulationMethod, #txtEHRs' 	: 'changeVal',
+		'click #btnExternalEHRs' 		 							: 'showExternalEHRs'		
 	},
 
 	render : function() {		
@@ -296,6 +297,10 @@ App.Views.Hospital = Backbone.View.extend({
 		}	else {
 			Backbone.history.navigate("/hospital", true);
 		}*/
+	},
+	
+	showExternalEHRs : function(){
+		$('#divExternalEHRs').modal('show');
 	}
 
 });

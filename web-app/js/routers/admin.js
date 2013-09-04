@@ -51,39 +51,43 @@ App.Routers.Administrator = Backbone.Router.extend({
 		App.ho = new App.Models.Hospital();		
 		App.ho.fetch({data:{id: h_id}}).then(function(){
 		
-		var measure_code='';
-		//get measure_code
-		$.each( App.ho.get('products'), function( i, product ) { 	
-			if (product.id==p_id) {				
-				$.each(product.measures, function( i, measure ){
-					if (measure.id==m_id) {										
-						 measure_code = measure.code;
-					}				
+			var measure_code='';
+			var external_ehrs = [];
+			var primary_ehr="";
+			//get measure_code
+			$.each( App.ho.get('products'), function( i, product ) { 	
+				if (product.id==p_id) {
+					$.each(product.measures, function( i, measure ){
+						if (measure.id==m_id) {
+							 measure_code = measure.code;
+							 external_ehrs = App.ho.get('externalEHRs').split('\n');
+							 primary_ehr = App.ho.get('ehr').code;
+						}
+					});
+				}
+			});
+			
+			App.hospitalElements = new App.Collections.HospitalElements();
+		
+			App.hospitalElements.fetch({data:{id: m_id}}).then(function(){			
+				App.viewHospitalElements = new App.Views.HospitalElements ({collection:App.hospitalElements, m_id: m_id, product_id: p_id, measure_code: measure_code, external_ehrs:external_ehrs, primary_ehr:primary_ehr});
+				$('#app').html(App.viewHospitalElements.render().el);	
+
+				$('#deatails *').attr('disabled','disabled');
+			
+				var oTable = $('#hospital-elements').dataTable({		
+					"bDestroy": true, 
+					"bPaginate": false,
+					"bFilter": false,
+					"sScrollY": "264px",			
+					"bSort": true,
+					"bInfo": false,
+					"aaSorting": [[0, 'asc']],
+					"aoColumnDefs": [{'bSortable': false, 'aTargets': [ 1,2,3,4,5,6 ] }]			 
 				});				
-			}						       
-		});	
-		
-		App.hospitalElements = new App.Collections.HospitalElements();
-		
-		App.hospitalElements.fetch({data:{id: m_id}}).then(function(){			
-			App.viewHospitalElements = new App.Views.HospitalElements ({collection:App.hospitalElements, m_id: m_id, product_id: p_id, measure_code: measure_code});
-			$('#app').html(App.viewHospitalElements.render().el);	
 			
-			$('#deatails *').attr('disabled','disabled');
-			
-			var oTable = $('#hospital-elements').dataTable({		
-				"bDestroy": true, 
-				"bPaginate": false,
-				"bFilter": false,
-				"sScrollY": "264px",			
-				"bSort": true,
-				"bInfo": false,
-				"aaSorting": [[0, 'asc']],
-				"aoColumnDefs": [{'bSortable': false, 'aTargets': [ 1,2,3,4,5,6 ] }]			 
-			});				
-			
-			new FixedColumns( oTable, {"sHeightMatch": "none"} );				
-	    });		
+				new FixedColumns( oTable, {"sHeightMatch": "none"} );				
+		    });		
 			
 		});			
 	},
