@@ -245,13 +245,15 @@ App.Views.SingleHospitalElement = Backbone.View
 	
 	restoreValues : function(event) {
 		var m_id = this.options.m_id;
+		var e_ehrs = this.options.external_ehrs;
+		var p_ehr = this.options.primary_ehr;
 		var id = $(event.target).closest('tr').find('td:first').prop('id');		
 		
 		App.hospitalElements = new App.Collections.HospitalElements();		
 		App.hospitalElements.fetch({data:{id: m_id, defaults: true, he_id: id}}).then(function(){			
 			var hospitalElement = App.hospitalElements.get(id);
 			var cur_row = $('#hospital-elements td#'+hospitalElement.id).closest('tr');
-			var view = new App.Views.SingleHospitalElement({ model : hospitalElement, m_id: m_id});			
+			var view = new App.Views.SingleHospitalElement({ model : hospitalElement, m_id: m_id, external_ehrs: e_ehrs, primary_ehr:p_ehr});			
 			$(cur_row).replaceWith(view.render().el);	
 			$('#hospital-elements td#'+hospitalElement.id).closest('tr').find('.slc_row').click();			
 		});				
