@@ -32,19 +32,27 @@
    <div class="row">   
    <h3>Edit Hospital</h3>
    <form method="post" class="form-horizontal" id="hospital-edit" accept-charset="utf-8">    
-	<table class="table" id="fields">
+	<table class="table table-condensed" id="fields">
         <tbody>
 			  <tr>
                 <td>Name</td>
                 <td>
                     <input name="name" type="text" value="{{ name }}" id="name" disabled>
                 </td>
-                <td rowspan="2">IHM Notes</td>
                 <td rowspan="2">
-                	<textarea rows="3" name="notes" rows="3" id="notes">{{ notes }}</textarea>					
+					IHM Notes <br />
+					<select id="slcPopulationMethod">
+						<option value="ED-ALL" {{populationMethod=="ED-ALL"? "selected": ""}} >ED-ALL</option>
+						<option value="ED-OBS" {{populationMethod=="ED-OBS"? "selected": ""}}>ED-OBS</option>
+					</select><br />
+					<a id="btnExternalEHRs" href="javascript:;" >EHRs <i class="icon-th-list"></i></a>
+				</td>
+                <td rowspan="2">
+                	<textarea name="notes" rows="2" id="notes">{{ notes }}</textarea>					
                 </td>
                 <td rowspan="2"></td>
              </tr>		
+
 			 <tr>
                 <td>Email<span class="required">*</span></td>
                 <td colspan="4">
@@ -67,6 +75,16 @@
         </tbody>
     </table>   
    
+		<div id="divExternalEHRs" class="modal hide fade">
+    		<div class="modal-header">
+    			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    			<h3>External EHRs for Hospital [ {{ name }} ]</h3>
+    		</div>
+    		<div class="modal-body">
+    			<textarea rows="8" name="externalEHRs" id="txtEHRs" class="helpArea">{{ externalEHRs }}</textarea>
+    		</div>
+		</div>
+
     <ul id="myTab" class="nav nav-tabs">               
     </ul>     
     <div id="myTabContent" class="tab-content">               
