@@ -24,7 +24,7 @@
 					<select id="slcHospital" class="span5">
 						<option value="0"> - All Hospitals - </option>
 					</select>
-					<button type="button" id="btnGenerateReports">Generate Reports</button>
+					<button type="button" class="btn btn-mini" id="btnGenerateReports">Generate Reports</button>
 				</div>
 				<div class="row-fluid">
 					<div id="reportResults">

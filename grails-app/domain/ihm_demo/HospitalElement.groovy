@@ -24,7 +24,8 @@ class HospitalElement {
 	static hasMany = [hospitalMeasureElements : HospitalMeasureElement]
 		
     static constraints = {
-		internalNotes()
+		notes(maxSize:5000)
+		internalNotes(maxSize:5000)
 		location()
 		valueSet()
     }
