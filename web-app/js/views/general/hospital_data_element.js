@@ -3,8 +3,9 @@ App.Views.HospitalElements = Backbone.View.extend({
 	template : _.template($('#hospital_data_element-form').html()),
 	
 	events : {		
-		'click button#cancel' : 'returnToProduct' ,
-		'click #save-btn'     : 'saveHospitalElements'
+		'click button#cancel' 			: 'returnToProduct' ,
+		'click #save-btn'     			: 'saveHospitalElements',
+		'click a[data-toggle="tab"]'	:  'changeTab'
 	},
 	
 	render : function() {		
@@ -29,19 +30,12 @@ App.Views.HospitalElements = Backbone.View.extend({
 					
 		return this;
 	},
-		
-	clearTabsContent: function(){		
-		var temp =  _.template($('#qa').html());
-			
-		$('div#qa2').html(temp({notes:''}));  
-		   
-		$('div#qa3').html(temp({notes:''}));  
-		
-		
-		$('div#hs-table').empty();
-		$('div#extra-location').empty();
-	},
-
+	
+	changeTab: function (e){		
+		 $('div#tab-qa2 .txt-qa').scrollTop($('div#tab-qa2 .txt-qa')[0].scrollHeight);
+		 $('div#tab-qa3 .txt-qa').scrollTop($('div#tab-qa3 .txt-qa')[0].scrollHeight);
+	},	
+	
 	appendHospitalElement : function(hospitalElement) {
 		var m_id = this.options.m_id;
 		var e_ehrs = this.options.external_ehrs;
@@ -236,11 +230,13 @@ App.Views.SingleHospitalElement = Backbone.View
 		this.showQA(slc_hospital_element);
 		this.showExtraLocation(slc_hospital_element);
 		this.showHospitalSpecific(slc_hospital_element);
+		
+		 $('div#tab-qa2 .txt-qa').scrollTop($('div#tab-qa2 .txt-qa')[0].scrollHeight);
+		 $('div#tab-qa3 .txt-qa').scrollTop($('div#tab-qa3 .txt-qa')[0].scrollHeight);
 	},
 	
 	resetToDefault : function(event) {		
 		this.restoreValues(event);		
-		//this.clearTabsContent();
 	},
 	
 	restoreValues : function(event) {
@@ -278,6 +274,8 @@ App.Views.SingleHospitalElement = Backbone.View
 		   
 		 var qa_view3 = new App.Views.QADataElement({ model : slc_hospital_element, tab: "tab-qa3"});
 		 $('div#qa3').html(qa_view3.render().el); 
+		 
+		
 	},
 			
 	showHospitalSpecific: function(slc_hospital_element){		
@@ -620,7 +618,7 @@ App.Views.QADataElement = Backbone.View
       this.$el.html(this.template({notes:this.model.get('internalNotes')}));    
     }
     
-    this.$el.attr('id',this.options.tab);
+    this.$el.attr('id',this.options.tab);    
     
     return this;
   },
@@ -629,6 +627,7 @@ App.Views.QADataElement = Backbone.View
       if (e.keyCode == 13) {
     	  this.appendQuestion();
       }
+      this.$el.find('.txt-qa').scrollTop(this.$el.find('.txt-qa')[0].scrollHeight);
    },
   
   appendQuestion : function() {
