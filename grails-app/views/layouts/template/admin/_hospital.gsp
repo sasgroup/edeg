@@ -40,15 +40,16 @@
                 <td rowspan="2">
 					IHM Notes			
 				</td>
-                <td rowspan="2">
+                <td rowspan="2" colspan="2">
                 	<textarea name="notes" rows="2" id="notes">{{ notes }}</textarea>					
-                </td>                
+                </td>				
              </tr>	
 			 <tr>
                 <td>Email<span class="required">*</span></td>
                 <td><input name="email" type="text" value="{{ email }}" id="email" placeholder="email@example.com;"/></td>               
              </tr>		
-			 <tr>
+			 
+			<tr>
                 <td>Primary EHR</td>
                 <td>
                     <select id="slcEHRs">                      
@@ -57,10 +58,11 @@
                 <td>IHM Products</td>
                 <td>
                     <select id="slcProducts">          
-                    </select>
-					<button id="btnApplyHospitalOptions" class="btn btn-info pull-right">Apply</button>						
-                </td>                
+                    </select>											
+                </td>    
+				<td><button id="btnApplyHospitalOptions" class="btn btn-info pull-right">Apply</button></td>            
              </tr>
+			
 			<tr>
 				<td title="Meaningful Use Population Method">Population Method</td>
 				<td>
@@ -70,8 +72,9 @@
 					</select>	
 					<a id="btnExternalEHRs" href="javascript:;" >Additional EHRs <i class="icon-th-list"></i></a>				
 				</td>	
-				<td><!--<a id="btnExternalEHRs" href="javascript:;" >Additional EHRs <i class="icon-th-list"></i></a>--></td>
-				<td></td>			
+				<td></td>
+				<td></td>	
+				<td></td>		
 			</tr>	
         </tbody>
     </table>   

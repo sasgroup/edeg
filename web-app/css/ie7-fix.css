@@ -48,6 +48,14 @@ select{
 	width: auto !important;
 }
 
+#slcEHRs{
+	width:255px !important;
+}
+
+#btnExternalEHRs {
+	padding-left: 53px;
+}
+
 table#extra-table input[type='text'] {
 	width:260px;
 }
