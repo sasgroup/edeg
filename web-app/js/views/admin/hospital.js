@@ -34,8 +34,9 @@ App.Views.Hospital = Backbone.View.extend({
 		'click button#cancel' 			 							: 'returnOnMain', 
 		'click #btnApplyHospitalOptions' 							: 'applyHospitalOptions',
 		'click a[data-toggle="tab"]'	 							: 'changeTab',
-		'change #notes, #email, #slcPopulationMethod, #txtEHRs' 	: 'changeVal',
-		'click #btnExternalEHRs' 		 							: 'showExternalEHRs'		
+		'change #notes, #email,  #txtEHRs' 	                        : 'changeVal',
+		'click #btnExternalEHRs' 		 							: 'showExternalEHRs',
+		'change #slcPopulationMethod'								: 'changeSlcVal',
 	},
 
 	render : function() {		
@@ -222,6 +223,15 @@ App.Views.Hospital = Backbone.View.extend({
 		App.isModified = true;
 		if (window.console) console.log(e.target.name);
 		this.model.attributes[e.target.name] = $(e.target).val();
+		if (window.console) console.log(this.model.attributes);
+	},
+	
+	changeSlcVal : function(e) {
+		//HOSPITAL IS MODIFIED
+		App.isModified = true;
+		console.log(this.model);
+		if (window.console) console.log(e.target.name);
+		this.model.attributes[e.target.name] =  $(e.target).multiselect('getChecked').val();
 		if (window.console) console.log(this.model.attributes);
 	},
 	

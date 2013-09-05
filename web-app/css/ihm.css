@@ -14,6 +14,30 @@ textarea.txt-message {
 	overflow: hidden;
 }	
 
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active {
+	color: #2e6e9e;
+}
+
+.ui-state-active .ui-icon {
+	background-image: none;
+}
+
+#slcPopulationMethod {
+	width: 100px;
+}
+
+#slcProducts {
+	width: 330px;
+}
+
+#slcEHRs{
+	width:250px;
+}
+
+#btnExternalEHRs {
+	padding-left: 28px;
+}
+
 .hospital-dropdown button:hover{
 	background-color: #F5F5F5;
     color: #333333;
@@ -287,7 +311,7 @@ form#hospital-edit table#fields {
 }
 
 form#hospital-edit textarea#notes {
-	width:95%;
+	width:97%;
 	height:100%;
 	resize: none;
 }
@@ -585,7 +609,8 @@ table input#sourceEHR  {
 
 
 button#btnApplyHospitalOptions {
-	width: 112px;
+	width: 100px;
+	padding: 2px 0px 2px 0px;
 }
 
 /* rich-text : help area */

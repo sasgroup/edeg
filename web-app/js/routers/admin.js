@@ -404,6 +404,15 @@ App.Routers.Administrator = Backbone.Router.extend({
 			        height: "auto",
 			        minWidth: "300px"
 			    });	
+				
+				$( "#slcPopulationMethod").multiselect({
+					 multiple : false,
+				     header : false,
+				     noneSelectedText : "Select",
+				     selectedList : 1,
+				     height: "auto",
+				     minWidth: "150px"
+			    });
 																				
 				view.createTabs();
 				view.setPrimaryEhr();

@@ -41,11 +41,7 @@
                 </td>
                 <td rowspan="2">
 					IHM Notes <br />
-					<select id="slcPopulationMethod">
-						<option value="ED-ALL" {{populationMethod=="ED-ALL"? "selected": ""}} >ED-ALL</option>
-						<option value="ED-OBS" {{populationMethod=="ED-OBS"? "selected": ""}}>ED-OBS</option>
-					</select><br />
-					<a id="btnExternalEHRs" href="javascript:;" >EHRs <i class="icon-th-list"></i></a>
+					<br />					
 				</td>
                 <td rowspan="2">
                 	<textarea name="notes" rows="2" id="notes">{{ notes }}</textarea>					
@@ -62,16 +58,29 @@
 			 <tr>
                 <td>Primary EHR</td>
                 <td>
-                    <select id="slcEHRs" style="width:250px;">                      
+                    <select id="slcEHRs">                      
                     </select>
                 </td>
                 <td>IHM Products</td>
                 <td>
-                    <select id="slcProducts" style="width:350px;">              
+                    <select id="slcProducts">              
                     </select>
+					<button id="btnApplyHospitalOptions" class="btn btn-info pull-right">Apply</button>
                 </td>
-                <td><button id="btnApplyHospitalOptions" class="btn btn-info">Apply</button></td>
+                
              </tr>
+			<tr>
+				<td title="Meaningful Use Population Method">Population Method</td>
+				<td>
+					<select id="slcPopulationMethod" name="populationMethod">
+						<option value="ED-ALL" {{populationMethod=="ED-ALL"? "selected": ""}} >ED-ALL</option>
+						<option value="ED-OBS" {{populationMethod=="ED-OBS"? "selected": ""}}>ED-OBS</option>
+					</select>	
+					<a id="btnExternalEHRs" href="javascript:;" >Additional EHRs <i class="icon-th-list"></i></a>				
+				</td>	
+				<td><!--<a id="btnExternalEHRs" href="javascript:;" >Additional EHRs <i class="icon-th-list"></i></a>--></td>
+				<td></td>			
+			</tr>	
         </tbody>
     </table>   
    
@@ -80,6 +89,7 @@
     			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
     			<h3>External EHRs for Hospital [ {{ name }} ]</h3>
     		</div>
+			
     		<div class="modal-body">
     			<textarea rows="8" name="externalEHRs" id="txtEHRs" class="helpArea">{{ externalEHRs }}</textarea>
     		</div>
