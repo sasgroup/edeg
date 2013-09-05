@@ -36,7 +36,7 @@ App.Views.Hospital = Backbone.View.extend({
 		'click a[data-toggle="tab"]'	 							: 'changeTab',
 		'change #notes, #email,  #txtEHRs' 	                        : 'changeVal',
 		'click #btnExternalEHRs' 		 							: 'showExternalEHRs',
-		'change #slcPopulationMethod'								: 'changeSlcVal',
+		'change #slcPopulationMethod'								: 'changeSlcVal'
 	},
 
 	render : function() {		

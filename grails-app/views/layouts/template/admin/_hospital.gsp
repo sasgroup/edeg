@@ -36,24 +36,17 @@
         <tbody>
 			  <tr>
                 <td>Name</td>
-                <td>
-                    <input name="name" type="text" value="{{ name }}" id="name" disabled>
-                </td>
+                <td><input name="name" type="text" value="{{ name }}" id="name" disabled></td>
                 <td rowspan="2">
-					IHM Notes <br />
-					<br />					
+					IHM Notes			
 				</td>
                 <td rowspan="2">
                 	<textarea name="notes" rows="2" id="notes">{{ notes }}</textarea>					
-                </td>
-                <td rowspan="2"></td>
-             </tr>		
-
+                </td>                
+             </tr>	
 			 <tr>
                 <td>Email<span class="required">*</span></td>
-                <td colspan="4">
-                    <input name="email" type="text" value="{{ email }}" id="email" placeholder="email@example.com;"/>
-                </td>               
+                <td><input name="email" type="text" value="{{ email }}" id="email" placeholder="email@example.com;"/></td>               
              </tr>		
 			 <tr>
                 <td>Primary EHR</td>
@@ -63,11 +56,10 @@
                 </td>
                 <td>IHM Products</td>
                 <td>
-                    <select id="slcProducts">              
+                    <select id="slcProducts">          
                     </select>
-					<button id="btnApplyHospitalOptions" class="btn btn-info pull-right">Apply</button>
-                </td>
-                
+					<button id="btnApplyHospitalOptions" class="btn btn-info pull-right">Apply</button>						
+                </td>                
              </tr>
 			<tr>
 				<td title="Meaningful Use Population Method">Population Method</td>

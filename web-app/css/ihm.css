@@ -10,6 +10,11 @@ body {
     background: url("images/bg.png") repeat-y center;       
 }
 
+button#btnApplyHospitalOptions {
+	width: 60px;
+	padding: 2px 0px 2px 0px;
+}
+
 textarea.txt-message {
 	overflow: hidden;
 }	
@@ -27,7 +32,7 @@ textarea.txt-message {
 }
 
 #slcProducts {
-	width: 330px;
+	width: 310px;
 }
 
 #slcEHRs{
@@ -607,11 +612,6 @@ table input#sourceEHR  {
     height: 28px;
 }
 
-
-button#btnApplyHospitalOptions {
-	width: 100px;
-	padding: 2px 0px 2px 0px;
-}
 
 /* rich-text : help area */
 #myHelp{
