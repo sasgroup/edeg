@@ -10,6 +10,11 @@ body {
     background: url("images/bg.png") repeat-y center;       
 }
 
+
+div#hospitals label {
+	cursor: default !important;
+}
+
 button#btnApplyHospitalOptions {
 	width: 100px;
 	padding: 2px 0px 2px 0px;

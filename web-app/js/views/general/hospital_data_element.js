@@ -632,6 +632,9 @@ App.Views.QADataElement = Backbone.View
   
   appendQuestion : function() {
     var message = this.$el.find(".txt-message").val();
+    
+    if (message.length!=0) {
+    
     var txt =  this.$el.find(".txt-qa").html();
     
     var date = new Date();        
@@ -659,6 +662,7 @@ App.Views.QADataElement = Backbone.View
     if (this.options.tab=="tab-qa3") {
       this.model.set({"internalNotes":txt});
     }
+  }
   }
 });
 
