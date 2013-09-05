@@ -1,6 +1,6 @@
 App.Routers.User = Backbone.Router.extend({
 	routes : {
-		""     	                                       : 'home',		
+		""     	                                   	   : 'home',		
 		'hospital/:h_id/product/:p_id/measure/:m_id'   : 'elements',
 		'hospital/:h_id/product/:p_id'                 : 'productn'			
 
@@ -12,7 +12,9 @@ App.Routers.User = Backbone.Router.extend({
 	},
 		
 	home : function(){			
-		
+		App.viewHome = new App.Views.Home ();
+		$('#app').html(App.viewHome.render().el);	
+		$('#breadcrumb-box').empty();
 	},
 		
 	tabs: function(h_id){		
