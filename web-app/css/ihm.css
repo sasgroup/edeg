@@ -15,8 +15,8 @@ img.icon_pdf {
 }	
 
 div.my-frame {
-	border: solid 2px rgb(87, 92, 122);
-	border-radius: 5px;
+	/*border: solid 2px rgb(87, 92, 122);
+	border-radius: 5px;*/
 	padding-left: 20px;	
 	margin-bottom: 20px;	
 	height: 350px;

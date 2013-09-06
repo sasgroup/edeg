@@ -3,8 +3,8 @@
 <div class="my-frame">
 	<h2>Welcome</h2>
 	<p>Welcome to IHM Services Electronic Data Element Guide (eDEG).</p>
-	<p>This tool will allow you to specify where in your hospital's data the information IHM needs is located. The toll helps to facilitate the
-	communication between all parties so that IHM can ensure they are accesing the correct data and using it in the correct place 
+	<p>This tool will allow you to specify where in your hospital's data the information IHM needs is located. The tool helps to facilitate the
+	communication between all parties so that IHM can ensure they are accessing the correct data and using it in the correct place 
 	within our products.</p>
 
 	<p>For more information on how to use the eDEG refer to our User Guide. <img class="icon_pdf" src="/ihm/static/css/images/icon_pdf.gif"><a href="/ihm/static/uploadFiles/eDEGGuide.pdf">IHM Services eDEG Guide.pdf</a></p>
