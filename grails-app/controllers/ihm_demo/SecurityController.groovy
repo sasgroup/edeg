@@ -9,6 +9,8 @@ class SecurityController {
 		def result = Hospital.findByName(curHospitalName)
 		if(result)
 	  		id = result.id
+			  
+		println	  securityService.getHospitalNameMapCurrentId(request.getRemoteUser())
 	  	render(contentType: "text/json") {
 			curHospitalId =  id
 			curHospital =  curHospitalName

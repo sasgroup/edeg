@@ -40,7 +40,9 @@ class SecurityService {
 			if (h)
 				avHospitals.put(h.id, value)
 		}
-		return avHospitals
+
+		Map res = avHospitals.sort { a,b -> a.value <=> b.value }
+		return res
 	}
 	
 }
