@@ -18,15 +18,15 @@
     <table>
 		<tbody>
 			<tr>
-				<td>Hospital Name: #Community Hospital# </td>
-				<td>IHM Products: #MU1, MU2#</td>				
+				<td>Hospital Name: {{hospital}} </td>
+				<td>IHM Products: {{products}}</td>				
 			</tr>
 			<tr>
-				<td>Primary EHR: #MEDITECH Version 6.1# </td>
-				<td>Meaningful Use Population Methode: #OBS Services#</td>
+				<td>Primary EHR: {{pr_ehr}} </td>
+				<td>Meaningful Use Population Methode: {{pop_methode}}</td>
 			</tr>
 			<tr>
-				<td>Additional EHRs: #Picis, ProMed#</td>
+				<td>Additional EHRs: {{add_ehrs}}</td>
 				<td></td>
 			</tr>
 		<tbody>

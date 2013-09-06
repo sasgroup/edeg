@@ -37,15 +37,17 @@ $(function() {
 				$('nav#products-nav').empty();
 				$.each( products, function( i, product ) {								
 					$('nav#products-nav').append('<a href="#hospital/' + hospital_id + '/product/'+ product.id+ '">' + product.code + '</a>');
-					if (first_product=="") {
+					/*if (first_product=="") {
 					    first_product = '/hospital/' + hospital_id + '/product/'+ product.id;					    	
 						Backbone.history.navigate(first_product, true);
-					}		
+					}	*/	
 				});			
 			});	  
 			var curHospital = App.security.get('curHospital');
 			//show hospital-name		
-			$('h3.hospital-name').text(curHospital);			
+			$('h3.hospital-name').text(curHospital);				
+			Backbone.history.navigate('/home', true);
+				
 			App.availableHospitals = App.security.get('availableHospitals');			
 			$.each(App.availableHospitals, function( id, hospital ) {
 				/*var id = i.substr(3);		
@@ -73,11 +75,12 @@ $(function() {
 				$('nav#products-nav').empty();
 				$.each( products, function( i, product ) {		           
 					$('nav#products-nav').append('<a href="#hospital/' + hospital_id + '/product/'+ product.id+ '">' + product.code + '</a>');
-					if (first_product=="") {
+					/*if (first_product=="") {
 					    first_product = '/hospital/' + hospital_id + '/product/'+ product.id;					    	
 						Backbone.history.navigate(first_product, true);
-					}	
-				});			
+					}	*/
+				});		
+				Backbone.history.navigate('/home', true);
 			})	    
 		});		
 	}

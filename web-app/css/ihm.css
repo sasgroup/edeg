@@ -17,6 +17,8 @@ div.my-frame {
 	padding-left: 20px;	
 	margin-bottom: 20px;	
 	height: 350px;
+	margin-left: -20px;
+	margin-right: -20px;
 }
 
 div.my-frame p{
@@ -521,8 +523,8 @@ nav.header-nav a:hover {
 }
 
 .app {
-    padding: 0 10px 10px 10px;
-    /*margin: 0 12px 12px 12px;*/
+    padding: 0 20px 10px 20px;
+    margin: 0 12px 12px 12px;
 }
 
 
