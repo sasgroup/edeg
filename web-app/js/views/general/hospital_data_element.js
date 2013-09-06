@@ -468,16 +468,10 @@ upload : function(){
         				//hardcode
         				var he_id = $('tr.row_selected td:first').prop("id");	        				
         				var path = "/ihm/api/file?currentHospitalElement=" + he_id;	        				
-        				$('form#uploadForm span').replaceWith('<a href= "' + path + '">' + name +'</a>');
-        				
-        				
-        				
-        				
+        				$('form#uploadForm span').replaceWith('<a href= "' + path + '">' + name +'</a>');        				
 				 }
     }); 		
 }
-
-
 
 });
 

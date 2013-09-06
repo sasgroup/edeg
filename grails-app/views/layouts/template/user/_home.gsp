@@ -7,7 +7,7 @@
 	communication between all parties so that IHM can ensure they are accesing the correct data and using it in the correct place 
 	within our products.</p>
 
-	<p>For more information on how to use the eDEG refer to our User Guide. <a href="#">IHM Services eDEG Guide.pdf</a></p>
+	<p>For more information on how to use the eDEG refer to our User Guide. <img class="icon_pdf" src="/ihm/static/css/images/icon_pdf.gif"><a href="/ihm/static/uploadFiles/eDEGGuide.pdf">IHM Services eDEG Guide.pdf</a></p>
 
 	<p>To get started select a product from the tabs above.</p>
 </div>

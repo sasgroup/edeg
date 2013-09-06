@@ -10,6 +10,9 @@ body {
     background: url("images/bg.png") repeat-y center;       
 }
 
+img.icon_pdf {
+	padding-right: 4px;
+}	
 
 div.my-frame {
 	border: solid 2px rgb(87, 92, 122);
