@@ -28,7 +28,11 @@ $(function() {
 				
 		App.security = new App.Models.Security();		
 		App.security.fetch().then(function(){		
-			var hospital_id = App.security.get('curHospitalId');
+			var hospital_id = App.security.get('curHospitalId');			
+			var curHospital = App.security.get('curHospital');
+			//show hospital-name		
+			$('h3.hospital-name').text(curHospital).attr("data-id",hospital_id);			
+			
 			var first_product = "";
 			//generate tabs
 			App.ho = new App.Models.Hospital();		
@@ -41,17 +45,17 @@ $(function() {
 					    first_product = '/hospital/' + hospital_id + '/product/'+ product.id;					    	
 						Backbone.history.navigate(first_product, true);
 					}	*/	
-				});			
+				});	
+				
+				App.viewHome = new App.Views.Home({model:App.ho});
+				$('#app').html(App.viewHome.render().el);		
 			});	  
-			var curHospital = App.security.get('curHospital');
-			//show hospital-name		
-			$('h3.hospital-name').text(curHospital);				
-			Backbone.history.navigate('/home', true);
+						
+				
+			//Backbone.history.navigate('/home', true);
 				
 			App.availableHospitals = App.security.get('availableHospitals');			
-			$.each(App.availableHospitals, function( id, hospital ) {
-				/*var id = i.substr(3);		
-				console.log(id,hospital);*/
+			$.each(App.availableHospitals, function( id, hospital ) {				
 				$('ul#hospital-list-dropdown').append('<li data-id='+ id +'><a href="#">' + hospital+ '</a></li>');				
 			});	
 		});   
@@ -62,8 +66,8 @@ $(function() {
 			var hospital_id = $(this).data('id');
 			
 			//show hospital-name
-			$('h3.hospital-name').text(hospital_name);
-	    	    
+			$('h3.hospital-name').text(hospital_name).attr("data-id",hospital_id);	
+			    	    
 			$('#app').empty();
 			$('#breadcrumb-box').empty();
 	    
@@ -80,7 +84,10 @@ $(function() {
 						Backbone.history.navigate(first_product, true);
 					}	*/
 				});		
-				Backbone.history.navigate('/home', true);
+				
+				//Backbone.history.navigate('/home', true);
+				App.viewHome = new App.Views.Home({model:App.ho});
+				$('#app').html(App.viewHome.render().el);		
 			})	    
 		});		
 	}

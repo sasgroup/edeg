@@ -19,11 +19,11 @@
 		<tbody>
 			<tr>
 				<td>Hospital Name: {{hospital}} </td>
-				<td>IHM Products: {{products}}</td>				
+				<td class="column2">IHM Products: {{products}}</td>				
 			</tr>
 			<tr>
 				<td>Primary EHR: {{pr_ehr}} </td>
-				<td>Meaningful Use Population Methode: {{pop_methode}}</td>
+				<td class="column2">Meaningful Use Population Methode: {{pop_methode}}</td>
 			</tr>
 			<tr>
 				<td>Additional EHRs: {{add_ehrs}}</td>

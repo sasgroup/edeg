@@ -10,10 +10,16 @@ App.Routers.User = Backbone.Router.extend({
 		App.route = this;
 	},
 		
-	home : function(){			
-		App.viewHome = new App.Views.Home();
-		$('#app').html(App.viewHome.render().el);	
+	home : function(){
 		$('#breadcrumb-box').empty();
+		$('#app').empty();
+		
+		var h_id = $('h3').data('id');
+		App.ho = new App.Models.Hospital();		
+		App.ho.fetch({data:{id: h_id}}).then(function(){
+			App.viewHome = new App.Views.Home({model:App.ho});
+			$('#app').html(App.viewHome.render().el);			
+		});		
 	},
 		
 	tabs: function(h_id){		

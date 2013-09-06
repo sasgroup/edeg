@@ -29,10 +29,15 @@ div.my-frame table{
 	margin-left: 30px;
 }
 
-div.my-frame table td{
-	width: 50%;
-	height: 50px;
+div.my-frame table td:eq(0){
+	width: auto;
+	height: 50px;	
 }	
+
+div.my-frame table td.column2{
+	padding-left: 50px; 
+}	
+
 
 div#hospitals label {
 	cursor: default !important;
