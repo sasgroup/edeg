@@ -52,8 +52,7 @@ $(function() {
 				$('ul#hospital-list-dropdown').append('<li data-id='+ id +'><a href="#">' + hospital+ '</a></li>');				
 			});	
 		});   
-					
-		
+							
 		$('#hospital-list-dropdown li').live('click', function(){	 
 			var hospital_name = $(this).find('a').text(); 
 			var hospital_id = $(this).data('id');

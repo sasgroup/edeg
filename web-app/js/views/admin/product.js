@@ -144,7 +144,7 @@ App.Views.Product = Backbone.View.extend({
 		this.model.set({code:this.$el.find('#code').val()});		
 		this.model.save(this.attributes,{
 	        success: function (model, response) {
-	        	if (window.console) console.log(response);
+	        if (window.console) console.log(response);
 	           $('div#message-box').text("").append(response.message).fadeIn(500).delay(1500).fadeOut(500);
                Backbone.history.navigate("product", true);
 	        },
