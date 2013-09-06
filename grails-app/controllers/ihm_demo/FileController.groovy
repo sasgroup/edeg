@@ -9,22 +9,29 @@ class FileController {
 	def fileUploadService
 	
 	def show= {
-
+		
+		def file
+		
 		if (params?.currentHospitalElement && HospitalElement.exists(params.currentHospitalElement)) {
 			def hospitalElement = HospitalElement.get(params.currentHospitalElement)
 			//find hospitalElement and get file name
 			def fileName = hospitalElement.valueSetFile
 			println fileName
-			def file = grailsAttributes.getApplicationContext().getResource("uploadFiles/${fileName}").getFile()
-
-			if (file.exists()) {
-				def os = response.outputStream
-				response.setHeader("Content-disposition", "attachment;filename=${file.name}")
-				def bytes = file.bytes
-				os << bytes
-				os.flush()
-				org.springframework.web.context.request.RequestContextHolder.currentRequestAttributes().renderView = false
-			}
+			file = grailsAttributes.getApplicationContext().getResource("uploadFiles/${fileName}").getFile()
+		}
+			
+		if (params?.fileName) {
+			file = grailsAttributes.getApplicationContext().getResource("uploadFiles/${params.fileName}").getFile()
+		}
+		
+		if (file && file.exists()) {
+			def os = response.outputStream
+			response.setHeader("Content-disposition", "attachment;filename=${file.name}")
+			def bytes = file.bytes
+			os << bytes
+			os.flush()
+			org.springframework.web.context.request.RequestContextHolder.currentRequestAttributes().renderView = false
+			
 		} else {
 			render "file not found"
 		}
