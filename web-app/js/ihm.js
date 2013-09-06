@@ -11,10 +11,7 @@ window.App = {
 };
 
 
-$(function() {	
-	//$('#app').data('role')
-	//$('#app').data('login')
-	   
+$(function() {  
 	App.userRole = $('#app').data('role');
 	
 	if (App.userRole == 'admin') {
@@ -46,14 +43,10 @@ $(function() {
 						Backbone.history.navigate(first_product, true);
 					}	*/	
 				});	
-				
-				App.viewHome = new App.Views.Home({model:App.ho});
-				$('#app').html(App.viewHome.render().el);		
+								
+				Backbone.history.navigate('/home/' + hospital_id , true);
 			});	  
-						
-				
-			//Backbone.history.navigate('/home', true);
-				
+							
 			App.availableHospitals = App.security.get('availableHospitals');			
 			$.each(App.availableHospitals, function( id, hospital ) {				
 				$('ul#hospital-list-dropdown').append('<li data-id='+ id +'><a href="#">' + hospital+ '</a></li>');				
@@ -84,10 +77,8 @@ $(function() {
 						Backbone.history.navigate(first_product, true);
 					}	*/
 				});		
-				
-				//Backbone.history.navigate('/home', true);
-				App.viewHome = new App.Views.Home({model:App.ho});
-				$('#app').html(App.viewHome.render().el);		
+								
+				Backbone.history.navigate('/home/' + hospital_id , true);
 			})	    
 		});		
 	}

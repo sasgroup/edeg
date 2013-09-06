@@ -1,6 +1,6 @@
 App.Routers.User = Backbone.Router.extend({
 	routes : {
-		"home"     	                                   : 'home',		
+		"home/:h_id"     	                                   : 'home',		
 		'hospital/:h_id/product/:p_id/measure/:m_id'   : 'elements',
 		'hospital/:h_id/product/:p_id'                 : 'productn'
 	},
@@ -10,11 +10,10 @@ App.Routers.User = Backbone.Router.extend({
 		App.route = this;
 	},
 		
-	home : function(){
+	home : function(h_id){
 		$('#breadcrumb-box').empty();
 		$('#app').empty();
-		
-		var h_id = $('h3').data('id');
+				
 		App.ho = new App.Models.Hospital();		
 		App.ho.fetch({data:{id: h_id}}).then(function(){
 			App.viewHome = new App.Views.Home({model:App.ho});
@@ -40,7 +39,7 @@ App.Routers.User = Backbone.Router.extend({
 		  $.each(App.ho.get('products'), function( i, product ) { 	
 			if (product.id==p_id) {				
 				//breadcrumb							
-				var viewProductBreadcrumb = new App.Views.HospitalProductBreadcrumb({model: product});		
+				var viewProductBreadcrumb = new App.Views.HospitalProductBreadcrumb({model: product, h_id:h_id});		
 				$('#breadcrumb-box').html(viewProductBreadcrumb.render().el);
                 
 				//content 																			

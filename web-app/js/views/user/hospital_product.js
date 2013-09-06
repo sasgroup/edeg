@@ -51,7 +51,7 @@ App.Views.HospitalProductBreadcrumb = Backbone.View.extend({
 	},
 	
 	render : function() {					
-		this.$el.html(this.template({product_code:this.model.code, notes:this.model.notes}));		
+		this.$el.html(this.template({product_code:this.model.code, notes:this.model.notes, h_id:this.options.h_id}));		
 		return this;
 	},
 	
