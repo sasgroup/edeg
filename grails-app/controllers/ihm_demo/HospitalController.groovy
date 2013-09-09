@@ -53,6 +53,10 @@ class HospitalController {
 			def result = hospitalInstance
 			def hospitalProducts = HospitalProduct.findAllByHospital(result)
 			render(contentType: "text/json") {
+				resp = "ok"
+				message = "Hospital ${hospitalInstance.name} has been successfully updated"
+				
+				/*
 				name = result.name
 				email = result.email
 				notes= result.notes
@@ -81,6 +85,7 @@ class HospitalController {
 						}
 					}
 				}
+				*/
 			}
 		}
 		else if (params.ehr_id) {
