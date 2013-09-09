@@ -263,7 +263,7 @@ App.Views.Hospital = Backbone.View.extend({
 	        success: function (model, response) {
 	           if (window.console) console.log(response);
 	          // if (response.resp=="ok") {	       
-	        	   $('div#message-box').text("").append("response.message").removeClass().addClass('alert').addClass('alert-success').fadeIn(10).delay(2000).fadeOut(50);  
+	        	   $('div#message-box').text("").append(response.message).removeClass().addClass('alert').addClass('alert-success').fadeIn(10).delay(2000).fadeOut(50);  
 	        	   Backbone.history.navigate("hospital", true);
 	          /* } else if (response.resp=="error") {
 					var btn = '<button type="button" class="close">&times;</button>';
