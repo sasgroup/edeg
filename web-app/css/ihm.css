@@ -187,16 +187,21 @@ table.dataTable tr.odd {
 
 div#message-box {
 	margin-left: 12px;
-    margin-top: -3px;
-    color: #0088CC;
+    margin-top: 3px;
+   /* color: #0088CC;*/
+
+	display: none;
+	position:absolute;
+	width: 900px;
 }
+
 
 .row_selected {
 	background-color: #FF0000;
 }
 
 h3 {
-    font-size: 19.5px;
+    font-size: 19.5px;    
 }
 
 .add-btn {  
@@ -601,10 +606,7 @@ nav.footer-nav a.logo {
 }
 */
 
-div#message-box {
-	display: none;
-	position:absolute;
-}
+
 
 select.ui-pg-selbox{
 	padding:0 !important;	

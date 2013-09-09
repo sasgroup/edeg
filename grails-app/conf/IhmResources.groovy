@@ -1,6 +1,6 @@
 modules = {
 	ihm {
-		dependsOn 'jquery, json3, underscore, modernizr, backbone, bootstrap, jqgrid, jqmultiselect, datatable, html5shiv, wysihtml5, upload'
+		dependsOn 'jquery, json3, underscore, modernizr, backbone, bootstrap, jqgrid, jqmultiselect, datatable, html5shiv, wysihtml5, upload, bootbox'
 		resource url: 'css/ihm.css'		
 		resource url: 'js/ihm.js'
 		resource url: 'js/models.js'
@@ -89,6 +89,10 @@ modules = {
 	
 	upload {
 		resource url: 'js/upload/jquery.form.js'
+	}
+	
+	bootbox {
+		resource url: 'js/bootbox.js'
 	}
 	
 }

@@ -145,12 +145,19 @@ App.Views.Product = Backbone.View.extend({
 		this.model.save(this.attributes,{
 	        success: function (model, response) {
 	        if (window.console) console.log(response);
-	           $('div#message-box').text("").append(response.message).fadeIn(500).delay(1500).fadeOut(500);
-               Backbone.history.navigate("product", true);
+	           if (response.resp=="ok") {	        	   
+	        	   $('div#message-box').text("").append(response.message).removeClass().addClass('alert').addClass('alert-success').fadeIn(10).delay(2000).fadeOut(50);              	           
+	        	   Backbone.history.navigate("product", true);
+	           } else if (response.resp=="error") {
+					var btn = '<button type="button" class="close">&times;</button>';
+			    	$('div#message-box').text("").append(btn).append(response.message).removeClass().addClass('alert').addClass('alert-error').show();
+		        	Backbone.history.navigate("product", true);	        	   
+	           } 
 	        },
-	        error: function (model, response) {
-	        	$('div#message-box').text("").append(response.message).fadeIn(500).delay(1500).fadeOut(500);
-	            //Backbone.history.navigate("product", true);
+	        error: function (model, response) {	        	
+	        	var btn = '<button type="button" class="close">&times;</button>';
+		    	$('div#message-box').text("").append(btn).append(response.message).removeClass().addClass('alert').addClass('alert-error').show();
+	        	Backbone.history.navigate("product", true);
 	        }
 	    });
 	},
@@ -193,23 +200,29 @@ App.Views.SingleProduct = Backbone.View
 				e.preventDefault();
 				
 				var el = this.$el;
+				var thisProduct = this.model;
 				
-				if (confirm('Are you sure you want to delete this Product?')) {
-				this.model.destroy({
-					wait: true,
-				    success: function(model, response){
-				    	$('div#message-box').text("").append(response.message).fadeIn(500).delay(1500).fadeOut(500);
-			    		el.remove();
-				    	Backbone.history.navigate("product", true);
-				     },
-				     error: function (model, response) {
-				    	 if (window.console) console.log(response);
-				    	 $('div#message-box').text("").append(response.responseText).fadeIn(500).delay(1500).fadeOut(500);
-				            Backbone.history.navigate("product", true);
-				     }
-				});
-				
-				}
+				bootbox.confirm("Are you sure you want to delete this Product?", function(result) {
+					
+					if (result) {
+						thisProduct.destroy({
+								wait: true,
+							    success: function(model, response){							    	
+							    	$('div#message-box').text("").append(response.message).removeClass().addClass('alert').addClass('alert-success').fadeIn(10).delay(2000).fadeOut(50);    
+						    		el.remove();
+							    	Backbone.history.navigate("product", true);
+							     },
+							     error: function (model, response) {
+							    	 if (window.console) console.log(response);							    	 
+							    	 var btn = '<button type="button" class="close">&times;</button>';
+							    	 $('div#message-box').text("").append(btn).append(response.responseText).removeClass().addClass('alert').addClass('alert-error').show();
+							    	 Backbone.history.navigate("product", true);
+							     }
+						 });
+						 
+					 }
+				 });				
+			
 			}
 
 		});

@@ -531,12 +531,15 @@ App.Routers.Administrator = Backbone.Router.extend({
 				codes.push(model.get('code'));
 			});
 			
-			var index = codes.indexOf(cur_code);
+			//var index = codes.indexOf(cur_code);			
+			var index = _.indexOf(codes, cur_code)
+			
 			if (index!=-1) {
 				codes.splice(index, 1);
-			}	
-			
-			if (codes.indexOf(new_code)!=-1) {
+			}
+						
+			//if (codes.indexOf(new_code)!=-1) {
+			if (_.indexOf(codes, new_code)!=-1) {
 				return false;
 			}		
 			return true;		

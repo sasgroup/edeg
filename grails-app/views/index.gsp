@@ -21,7 +21,9 @@
 	</head>
 	<body>	    
 	    	<div class="page-content">
-	    		<div id ='message-box'></div>
+	    		<div id ='message-box' class="alert">	    			
+	    			
+	    		</div>
 	    		<div id ='breadcrumb-box'></div>
 				<div id ='app' class='app' data-login="${session.user?.login}" data-role="${session.user?.role}"></div>
 				
