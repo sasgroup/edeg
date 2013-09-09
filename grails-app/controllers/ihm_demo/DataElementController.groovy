@@ -112,7 +112,7 @@ class DataElementController {
 				println 'inside'
 				return render(contentType: "text/json") {
 					resp = "error"
-					message = "Another User has updated data element (${dataElementInstance.name}) while you were editing"
+					message = "Another user edited this record and saved the changes before you attempted to save your changes. Re-edit the record ${dataElementInstance.code}."					
 				}
 			}
 		}

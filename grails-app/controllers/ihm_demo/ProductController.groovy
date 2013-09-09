@@ -66,7 +66,7 @@ class ProductController {
             if (productInstance.version > params.version) {
 				return render(contentType: "text/json") {
 					resp = "error"
-					message = "Another User has updated product(${productInstance.code}) while you were editing"
+					message = "Another user edited this record and saved the changes before you attempted to save your changes. Re-edit the record ${productInstance.code}."					
 				}
 			} 
 		 }	

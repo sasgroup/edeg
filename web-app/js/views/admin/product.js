@@ -202,8 +202,7 @@ App.Views.SingleProduct = Backbone.View
 				var el = this.$el;
 				var thisProduct = this.model;
 				
-				bootbox.confirm("Are you sure you want to delete this Product?", function(result) {
-					
+				bootbox.confirm("Are you sure you want to delete this Product?", function(result) {					
 					if (result) {
 						thisProduct.destroy({
 								wait: true,
@@ -221,10 +220,8 @@ App.Views.SingleProduct = Backbone.View
 						 });
 						 
 					 }
-				 });				
-			
+				});							
 			}
-
 		});
 
 

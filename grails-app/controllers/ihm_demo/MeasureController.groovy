@@ -97,7 +97,7 @@ class MeasureController {
             if (measureInstance.version > params.version) {
 				return render(contentType: "text/json") {
 					resp = "error"
-					message = "Another User has updated measure (${measureInstance.code}) while you were editing"
+					message = "Another user edited this record and saved the changes before you attempted to save your changes. Re-edit the record ${measureInstance.code}."					
 				}
 			} 
 		 }	

@@ -229,7 +229,7 @@ App.Views.Hospital = Backbone.View.extend({
 	changeSlcVal : function(e) {
 		//HOSPITAL IS MODIFIED
 		App.isModified = true;
-		console.log(this.model);
+		//console.log(this.model);
 		if (window.console) console.log(e.target.name);
 		this.model.attributes[e.target.name] =  $(e.target).multiselect('getChecked').val();
 		if (window.console) console.log(this.model.attributes);
@@ -262,11 +262,18 @@ App.Views.Hospital = Backbone.View.extend({
         this.model.save(this.attributes,{
 	        success: function (model, response) {
 	           if (window.console) console.log(response);
-	           $('div#message-box').text("").append(response.message).fadeIn(500).delay(1500).fadeOut(500);
-               Backbone.history.navigate("hospital", true);	           
+	          // if (response.resp=="ok") {	       
+	        	   $('div#message-box').text("").append("response.message").removeClass().addClass('alert').addClass('alert-success').fadeIn(10).delay(2000).fadeOut(50);  
+	        	   Backbone.history.navigate("hospital", true);
+	          /* } else if (response.resp=="error") {
+					var btn = '<button type="button" class="close">&times;</button>';
+			    	$('div#message-box').text("").append(btn).append("response.message").removeClass().addClass('alert').addClass('alert-error').show();
+		        	Backbone.history.navigate("hospital", true);	        	   
+	           } 	     */             
 	        },
 	        error: function (model, response) {
-	        	$('div#message-box').text("").append(response.message).fadeIn(500).delay(1500).fadeOut(500);
+	        	var btn = '<button type="button" class="close">&times;</button>';
+	        	$('div#message-box').text("").append(btn).append("response.message").removeClass().addClass('alert').addClass('alert-error').show();
 	            Backbone.history.navigate("hospital", true);	        	
 	        }
 	    });

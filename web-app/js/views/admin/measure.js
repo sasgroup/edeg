@@ -218,13 +218,19 @@ App.Views.Measure = Backbone.View.extend({
 		this.model.attributes.help = $('.helpArea').val();	
 		this.model.set({code:this.$el.find('#code').val()});
 		this.model.save(this.attributes,{
-	        success: function (model, response) {
-	           if (window.console) console.log(response);
-	           $('div#message-box').text("").append(response.message).fadeIn(500).delay(1500).fadeOut(500);
-               Backbone.history.navigate("measure", true);
+	        success: function (model, response) {	         
+	        	if (response.resp=="ok") {	        	   
+		        	   $('div#message-box').text("").append(response.message).removeClass().addClass('alert').addClass('alert-success').fadeIn(10).delay(2000).fadeOut(50);              	           
+		        	   Backbone.history.navigate("measure", true);
+		           } else if (response.resp=="error") {
+						var btn = '<button type="button" class="close">&times;</button>';
+				    	$('div#message-box').text("").append(btn).append(response.message).removeClass().addClass('alert').addClass('alert-error').show();
+			        	Backbone.history.navigate("measure", true);	        	   
+		           } 	
 	        },
 	        error: function (model, response) {
-	        	$('div#message-box').text("").append(response.responseText).fadeIn(500).delay(1500).fadeOut(500);
+	        	var btn = '<button type="button" class="close">&times;</button>';
+		    	$('div#message-box').text("").append(btn).append(response.message).removeClass().addClass('alert').addClass('alert-error').show();
 	            Backbone.history.navigate("measure", true);
 	        }
 	    });
@@ -264,8 +270,12 @@ App.Views.SingleMeasure = Backbone.View
 				if (window.console) console.log("destroy");
 				e.preventDefault();
 				
-				if (confirm('Are you sure you want to delete this Measure?')) {
 				var el = this.$el;
+				var thisMeasure = this.model;
+				
+				/*if (confirm('Are you sure you want to delete this Measure?')) {
+				var el = this.$el;
+				var thisProduct = this.model;
 				
 				this.model.destroy({
 					wait: true,
@@ -280,6 +290,25 @@ App.Views.SingleMeasure = Backbone.View
 				            Backbone.history.navigate("measure", true);
 				     }
 				});
-				}
+				}*/
+				bootbox.confirm("Are you sure you want to delete this Measure?", function(result) {					
+					if (result) {
+						thisMeasure.destroy({
+							wait: true,
+						    success: function(model, response){							    	
+						    	$('div#message-box').text("").append(response.message).removeClass().addClass('alert').addClass('alert-success').fadeIn(10).delay(2000).fadeOut(50);    
+					    		el.remove();
+						    	Backbone.history.navigate("measure", true);
+						     },
+						     error: function (model, response) {
+						    	 if (window.console) console.log(response);							    	 
+						    	 var btn = '<button type="button" class="close">&times;</button>';
+						    	 $('div#message-box').text("").append(btn).append(response.responseText).removeClass().addClass('alert').addClass('alert-error').show();
+						    	 Backbone.history.navigate("measure", true);
+						     }
+					 });	
+							
+					}
+				});		
 			}
 		});

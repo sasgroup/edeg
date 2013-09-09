@@ -19,7 +19,7 @@ class HospitalController {
 				if (hospitalInstance.version > params.version) {
 					return render(contentType: "text/json") {
 						resp = "error"
-						message = "Another User has updated hospital(${hospitalInstance.name}) while you were editing"
+						message = "Another user edited this record and saved the changes before you attempted to save your changes. Re-edit the record ${hospitalInstance.name}."
 					}
 				}
 			}
