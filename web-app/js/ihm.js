@@ -78,9 +78,19 @@ $(function() {
 			});	  
 							
 			App.availableHospitals = App.security.get('availableHospitals');			
-			$.each(App.availableHospitals, function( id, hospital ) {				
-				$('ul#hospital-list-dropdown').append('<li data-id='+ id +'><a href="#">' + hospital+ '</a></li>');				
-			});	
+			var output = new Array();
+
+			$.each(App.availableHospitals, function(key, value) {
+				output.push({id: key, name: value});
+			});
+			
+			output.sort(function(a,b) {
+			    return a.name > b.name;
+			});
+			
+			for(var index in output) {
+				$('ul#hospital-list-dropdown').append('<li data-id='+ output[index].id +'><a href="#">' + output[index].name+ '</a></li>');	
+			}
 		});   
 							
 		$('#hospital-list-dropdown li').live('click', function(){	 
