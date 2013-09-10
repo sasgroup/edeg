@@ -93,7 +93,9 @@ class HospitalController {
 			def hospital = Hospital.get(params.id)
 			hospital.ehr = Ehr.get(params.ehr_id)
 			hospital.notes = params?.notes
-			hospital.email = params?.email
+			hospital.email = params?.email				
+			hospital.externalEHRs = params?.externalEHRs
+			hospital.populationMethod = params?.populationMethod			
 			hospital.save(flush : true)
 
 			def old_ids = HospitalProduct.list().findAll{it?.hospital == hospital}.collect{it.product.id}

@@ -198,7 +198,7 @@ App.Views.Hospital = Backbone.View.extend({
 		this.model.attributes.ehr_id = e_id;
 		this.model.attributes.product_ids = pr_ids;
 		this.model.attributes.id = h_id;
-		
+				
 		var view = this;
 		$('#loading').show();
 		
