@@ -79,7 +79,6 @@
 	</select>
  <td>
     <select class="slcValueType" name="valueType">			
-				<option value="">-Select-</option>
 				<option value="NotApplicable" {{valueType.name=="NotApplicable"? "selected": ""}}>NotApplicable</option>	     
                 <option value="IMO_Code" {{valueType.name=="IMO_Code"? "selected": ""}}>IMO_Code</option>                
 				<option value="Query_Mnemonic" {{valueType.name=="Query_Mnemonic"? "selected": ""}}>Query/Mnemonic</option>

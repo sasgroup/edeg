@@ -18,15 +18,15 @@
     <table>
 		<tbody>
 			<tr>
-				<td>Hospital Name: {{hospital}} </td>
-				<td class="column2">IHM Products: {{products}}</td>				
+				<td><strong>Hospital Name: </strong>{{hospital}} </td>
+				<td class="column2"><strong>IHM Products: </strong>{{products}}</td>				
 			</tr>
 			<tr>
-				<td>Primary EHR: {{pr_ehr}} </td>
-				<td class="column2">Meaningful Use Population Methode: {{pop_methode}}</td>
+				<td><strong>Primary EHR: </strong>{{pr_ehr}} </td>
+				<td class="column2"><strong>Meaningful Use Population Methode: </strong>{{pop_methode}}</td>
 			</tr>
 			<tr>
-				<td>Additional EHRs: {{add_ehrs}}</td>
+				<td><strong>{{add_ehrs==""? "": "Additional EHRs:"}} </strong>{{add_ehrs}}</td>
 				<td></td>
 			</tr>
 		<tbody>
