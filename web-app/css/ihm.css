@@ -10,6 +10,13 @@ body {
     background: url("images/bg.png") repeat-y center;       
 }
 
+#side {
+	width: 300px;
+	height: 900px;
+	background-color: #B3C3D3;
+}	
+
+
 img.icon_pdf {
 	padding-right: 4px;
 }	
