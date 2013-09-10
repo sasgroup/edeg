@@ -60,6 +60,9 @@ App.Views.Measure = Backbone.View.extend({
 			this_measure.appendMeasureCategory(measure_category);			
 		});
 		
+		
+		this.$el.find('#cqmDomain').append('<option></option>');
+				
 		//append CqmDomains
 		App.cqmDomains.each(function(cqm_domain){
 			this_measure.appendCqmDomain(cqm_domain);			
@@ -162,7 +165,7 @@ App.Views.Measure = Backbone.View.extend({
 			if (this.model.get('cqmDomain').id == cqmComain.get("id"))
 				sel="selected";
 		}
-		this.$el.find('#cqmDomain').append(temp({selected:sel, id:cqmComain.get("id"),name:cqmComain.get('name')}));
+		this.$el.find('#cqmDomain').append(temp({selected:sel, id:cqmComain.get("id"),name:cqmComain.get('name')}));		
 	},
 		
 	changeDr : function(e) {
