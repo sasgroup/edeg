@@ -20,7 +20,7 @@
      													>
      </td>	
      <td style="vertical-align: top"> 
-     <img src="http://ihm-services.com/Portals/215627/assets/images/ihm-logo-TRANS-sm.png" style="margin-left: 75px;">
+     <img src="http://ihm-services.com/Portals/215627/assets/images/ihm-logo-TRANS-sm.png" style="margin-left: 75px; margin-top: 5px;">
       <g:if test="${flash.message}">
         <div class="message">${flash.message}</div>
       </g:if>
