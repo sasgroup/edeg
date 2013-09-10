@@ -15,12 +15,12 @@
     		<link href="/ihm/static/css/bootstrap-ie7buttonfix.css" rel="stylesheet">
 		<![endif]-->	
 		<!--[if IE 7]>
-<style>
-.bootstrap-select.btn-group .dropdown-menu li > a {
-    min-height: none;
-}
-</style>
-<![endif]-->	
+			<style>
+			.bootstrap-select.btn-group .dropdown-menu li > a {
+			    min-height: none;
+			}
+			</style>
+			<![endif]-->	
 	</head>
 	<body>
 		<g:render template="/layouts/header_user" />

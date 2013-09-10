@@ -88,6 +88,11 @@ textarea.txt-message {
     transition: none;
 }	
 
+.hospital-dropdown button.btn-default {
+	margin-right: -5px;
+}
+
+
 .form-actions {
 	padding: 10px 20px 10px !important;
 	margin-top: none !important;
