@@ -3,36 +3,6 @@ _.extend(_.templateSettings, {
     evaluate : /\{!(.+?)!\}/g
 });
 
-/*$.fn.fade_in= function(speed,callback){
-	 
-	return this.each(function(e){
-	 
-	$(this).fadeIn(speed,function(e){
-	 
-	$.browser.msie? $(this).get(0).style.removeAttribute('filter') : '';
-	(typeof(eval(callback)) == 'function')? eval(callback)() : '';
-	 
-	});
-	 
-	});
-	 
-};
-
-$.fn.fade_out= function(speed,callback){
-	 
-	return this.each(function(e){
-	 
-	$(this).fadeOut(speed,function(e){
-	 
-	$.browser.msie? $(this).get(0).style.removeAttribute('filter') : '';
-	(typeof(eval(callback)) == 'function')? eval(callback)() : '';
-	 
-	});
-	 
-	});
-	 
-	};*/
-
 window.App = {
 	Models : {},
 	Collections : {},
