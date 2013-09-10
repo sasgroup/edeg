@@ -333,7 +333,7 @@ App.Views.SingleHospitalElement = Backbone.View
 				  location: '',
 				  sourceEHR: '',
 				  source:    '',				 
-				  valueType: '-Select-'
+				  valueType: 'NotApplicable'
 		  };
 		  
 		  var extra_model = new App.Models.ExtraDataElement(extraDataElement);
