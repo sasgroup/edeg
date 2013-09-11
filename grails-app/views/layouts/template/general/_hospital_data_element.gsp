@@ -57,7 +57,7 @@
 
 <div class="checkbox pull-right">     
     <label>
-      <input type="checkbox" id="markAsComplete"> Mark Measure Complete
+      <input type="checkbox" id="markAsComplete" {{measure_completed? 'disabled="disabled" checked ': ''}}> Mark Measure Complete
     </label>
 </div>
 

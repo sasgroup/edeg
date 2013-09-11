@@ -9,7 +9,7 @@ App.Views.HospitalElements = Backbone.View.extend({
 	},
 	
 	render : function() {		
-		this.$el.html(this.template({ hospitals : this.collection}));
+		this.$el.html(this.template({ hospitals : this.collection, measure_completed: this.options.measure_completed}));
 		this.collection.each(this.appendHospitalElement, this);
 				
 		if (App.userRole == 'admin') {
