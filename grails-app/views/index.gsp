@@ -17,7 +17,8 @@
 		</g:elseif>
 		<g:else>
     		<meta name="layout" content="login">
-		</g:else>		
+		</g:else>	
+		<link rel="icon" type="image/x-icon" href="/ihm/static/images/favicon.ico">	
 	</head>
 	<body>	    
 	    	<div class="page-content">
