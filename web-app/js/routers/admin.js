@@ -428,7 +428,13 @@ App.Routers.Administrator = Backbone.Router.extend({
 				    return aData;		    
 				}
 				
-				var oTable = $('.hospitalMeasureTable:first').dataTable({
+				if ($.cookie("active_tab")) {		
+					var href= '#t'+ $.cookie("active_tab");
+					$('ul#myTab a[href=' + href +']').click();
+				}
+				else {
+								
+				var oTable = $(".hospitalMeasureTable:first").dataTable({
 						"bDestroy": true, 
 						"bPaginate": false,
 						"bSortClasses": false,
@@ -447,8 +453,9 @@ App.Routers.Administrator = Backbone.Router.extend({
 							  			{ "sSortDataType": "dom-checkbox" }
 							  		]						 
 					 });				
-				
-				new FixedColumns( oTable, {"sHeightMatch": "none"} );				
+								
+					new FixedColumns( oTable, {"sHeightMatch": "none"} );
+				}	
 				
 		});	
 	  });	 

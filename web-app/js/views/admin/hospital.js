@@ -44,7 +44,7 @@ App.Views.Hospital = Backbone.View.extend({
 		
 		App.products.forEach(this.appendProductOption,this);
 		App.ehrs.forEach(this.appendEhrOption,this);	
-				
+						
 		return this;
 	},
 		
@@ -102,14 +102,15 @@ App.Views.Hospital = Backbone.View.extend({
 				
 		// create and fill in HospitalMeasures for all checked products 
 		this.appendHospitalMeasureTable();	
-		$('#loading').hide();
-	
+		$('#loading').hide();		
 	},
 
 	changeTab: function (e){		
 		var product_id = $(e.target).attr('href').replace('#t','');				
 		var slcTab = '#myTabContent div#t' + product_id;	
 		
+		$.cookie("active_tab", product_id);
+				
 		$.fn.dataTableExt.afnSortData['dom-checkbox'] = function  ( oSettings, iColumn )
 		{
 		    var aData = [];
@@ -149,6 +150,8 @@ App.Views.Hospital = Backbone.View.extend({
 		$(slcTab + ' .hospitalMeasureTable.dataTable td:eq(4), ' + slcTab + ' .hospitalMeasureTable.dataTable th:eq(4)').css('width', '72px');
 		$(slcTab + ' .hospitalMeasureTable.dataTable td:eq(5), ' + slcTab + ' .hospitalMeasureTable.dataTable th:eq(5)').css('width', '90px');
 		$(slcTab + ' .hospitalMeasureTable.dataTable td:eq(6), ' + slcTab + ' .hospitalMeasureTable.dataTable th:eq(6)').css('width', '63px');	    
+		
+		
 	},
 		
 	// append HospitalMeasureTable to Tab
@@ -262,7 +265,7 @@ App.Views.Hospital = Backbone.View.extend({
 	        success: function (model, response) {
 	           if (window.console) console.log(response);
 	           if (response.resp=="ok") {	       
-	        	   $('div#message-box').text("").append(response.message).removeClass().addClass('alert').addClass('alert-success').fadeIn(10).delay(2000).fadeOut(50);  
+	        	   $('div#message-box').text("").append(response.message).removeClass().addClass('alert').addClass('alert-success').fadeIn(10).delay(2000).fadeOut(50);    	  
 	        	   Backbone.history.navigate("hospital", true);
 	           } else if (response.resp=="error") {
 					var btn = '<button type="button" class="close">&times;</button>';
@@ -332,7 +335,8 @@ App.Views.SingleHospital = Backbone.View
 			},
 
 			goToEdit : function() {
-				Backbone.history.navigate("hospital/"+this.model.get('id')+'/edit', true);
+				$.removeCookie('active_tab');
+				Backbone.history.navigate("hospital/"+this.model.get('id')+'/edit', true);				
 			}			
 		});
 
