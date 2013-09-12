@@ -98,9 +98,16 @@ App.Views.HospitalElements = Backbone.View.extend({
 			  model.set({m_id: m_id});
 			  return model.save({
 			    wait: true,
+			    success: function (model, response) {
+			        if (window.console) console.log(response);
+			           if (response.resp=="error") {
+							var btn = '<button type="button" class="close">&times;</button>';
+					    	$('div#message-box').text("").append(btn).append(response.message).removeClass().addClass('alert').addClass('alert-error').show();				        	
+			           } 
+			    },
 			    error: function (collection, response) {
 		        			if (window.console) console.log("error");	          
-		        		}    
+		        }    
 			  });
 		});	
 		window.history.back();
