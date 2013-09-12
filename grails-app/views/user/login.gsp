@@ -4,10 +4,10 @@
     <title>Login</title>         
   </head>
   <body>
-    <div class="body" style="width: 420px; height: 360px; border: 1px solid #006E86; margin: 150px auto 0 auto">
+    <div class="body" style="width: 425px; height: 325px; border: 1px solid #006E86; margin: 150px auto 0 auto">
     <table id="main" style="border-collapse: collapse">
     <tr> 
-     <td id="side" style="width: 100px; height: 350px;  background: #B3C3D3; /* for old browsers*/; 
+     <td id="side" style="width: 110px; height: 325px;  background: #B3C3D3; /* for old browsers*/; 
      													background: -webkit-linear-gradient(top, #B3C3D3, #FAFBFC);
      													background: -moz-linear-gradient(top, #B3C3D3, #FAFBFC); /* Firefox 3.6+ */;
      													background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#B3C3D3), color-stop(100%,#FAFBFC));
@@ -28,11 +28,11 @@
 			<table class="enter">
 				<tr>
 					<td class="label"><strong>Username:</strong></td>
-					<td><input type="text" name="j_username" maxlength="20" size="16" tabindex="1" id="username" class="input" style="background:#F0F0F0!important"/></td>
+					<td><input type="text" name="j_username" maxlength="20" size="16" tabindex="1" id="username" style="width: 125px; background:#F0F0F0!important"/></td>
 				</tr>
 				<tr>
 					<td class="label"><strong>Password:</strong></td>
-					<td><input type="password" name="j_password" maxlength="50" size="16" tabindex="2" id="password" class="input"/></td>					
+					<td><input type="password" name="j_password" maxlength="50" size="16" tabindex="2" id="password" style="width: 125px; background:#F0F0F0!important"/></td>					
 				</tr>
 				<tr>
 					<td></td>
@@ -44,6 +44,6 @@
 	</tr>	
     </table>    
     </div>
-    <div style="width: 420px; margin: 2px auto 0 auto; font-size: 12px;"> Version 1.1 - Copyright 2011-2013, Institute for Health Metrics, All Rights Reserved.</div>   
+    <div style="width: 425px; margin: 2px auto 0 auto; font-size: 12px;"> Version 1.1 - Copyright 2011-2013, Institute for Health Metrics, All Rights Reserved.</div>   
   </body>
 </html>
