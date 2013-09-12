@@ -10,7 +10,7 @@
 				<th title="SourceEHR" class="ihm_hidden">EHR</th>
 				<th>Source EHR</th>				
 		    	<th>Values Type</th>
-				<th>Reset</th>
+				<th class="r-btn">Reset</th>
 				<th>Help</th>	    		    
 			 </tr>
       </thead>				
@@ -73,7 +73,7 @@
 <script type="text/template" class="template" id="hospital_data_element">
  <td id="{{id}}" class="slc_row" title="{{element_notes}}">{{dataElement}}</td>
  <td><input type="text" class="location" name="location" id="location" value="{{location}}"></td>
- <td class="ihm_hidden"><input type="checkbox" class="sourceEHR" name="sourceEHR" id="sourceEHR" value={{sourceEHR}} {{sourceEHR ? "checked": ""}}></td>
+<td class="ihm_hidden"><input type="checkbox" class="sourceEHR" name="sourceEHR" id="sourceEHR" value={{sourceEHR}} {{sourceEHR ? "checked": ""}}></td>
  <td>
 	<select id="source" name="source" class="source">
 	</select>
@@ -87,7 +87,7 @@
 				<option value="ValueSet" {{valueType.name=="ValueSet"? "selected": ""}}>ValueSet</option>
      </select>
  </td>
-<td class="f-btn"><div id="reset" class= "btn" title="Reset the data element location to default in accordance with the current EHR version"><i class="icon-refresh"></i></div></td>
+<td class="r-btn"><div id="reset" class= "btn" title="Reset the data element location to default in accordance with the current EHR version"><i class="icon-refresh"></i></div></td>
 <td><a class="btn show_info" rel="tooltip" did="{{id}}" title=""><i class="icon-info-sign" did="{{id}}"></i></a></td>
 </script>
 
@@ -95,7 +95,7 @@
 <!--extra-elements -->
 <script type="text/template" class="template" id="extra-elements">
  <td><input type="text" class="location" id="location" value="{{location}}" placeholder="Enter Location"></td>
- <td class="ihm_hidden"><input type="checkbox" class="sourceEHR" id="sourceEHR" value="{{sourceEHR}}" {{sourceEHR ? "checked": ""}}></td>
+ <!--<td class="ihm_hidden"><input type="checkbox" class="sourceEHR" id="sourceEHR" value="{{sourceEHR}}" {{sourceEHR ? "checked": ""}}></td>-->
  <td>
 	<select id="source" name="source" class="source">
 	</select>
@@ -170,7 +170,7 @@
 				<thead>
         			<tr>
             			<th>Location</th>           
-						<th title="SourceEHR" class="ihm_hidden">EHR</th>
+						<!--<th title="SourceEHR" class="ihm_hidden">EHR</th>-->
 						<th>Source EHR</th>						
 		    			<th>Values Type</th>		
 						<th></th>

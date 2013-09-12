@@ -7,15 +7,8 @@ body {
     margin:0;
     padding:0;
     height:100%;
-    background: url("images/bg.png") repeat-y center;       
+    background: url("images/bg.png") repeat-y center;   
 }
-
-#side {
-	width: 300px;
-	height: 900px;
-	background-color: #B3C3D3;
-}	
-
 
 img.icon_pdf {
 	padding-right: 4px;
@@ -407,8 +400,9 @@ form#measure-edit div#myTabContent  {
 
 
 th.f-btn, td.f-btn {
-	width: 20px;
+	width: 20px;	
 }
+
 
 div#modalDataElements {
 	height: 600px;
@@ -645,7 +639,7 @@ background-color: #fff;
 
 
 table input , table select  {
-  margin: 0 !important;
+  margin: 0 auto !important;
   width: 100%;
 }
 
@@ -653,9 +647,6 @@ table#extra-table input, table#hospital-specific-table input {
 	width : 90%;
 }
 
-table input#sourceEHR  {
-  width: 30px;
-}
 
 .btn-mini {
 	margin: 0;
@@ -769,11 +760,25 @@ optgroup.opt2 option{
 optgroup option{
 	padding: 0;
 }
+
 .dataTables_scroll input[type=text],
-.dataTables_scroll select,
+.dataTables_scroll select{
+	padding: 1px 8px;
+}
+
+
 .dataTables_scroll .btn{
 	padding: 1px 8px;
 }
+
 .dataTables_scroll select{
 	height: 24px;
 }
+
+select, input[type="file"] {
+	line-height: 20px !important;	
+}
+
+/*#main_table table.dataTable td{
+    padding-right: 20px;
+}*/

@@ -33,7 +33,7 @@ class EhrController {
 
 		render(contentType: "text/json") {
 			resp = "ok"
-			message = "Ehr ${ehr.code} has been successfully created"
+			message = "EHR ${ehr.code} has been successfully created"
 		}
 	}
    
@@ -106,7 +106,7 @@ class EhrController {
 		ehr  = saveInstance(ehr, params)
 		render(contentType: "text/json") {
 			resp = "ok"
-			message = "Ehr ${ehr.code} has been successfully updated"
+			message = "EHR ${ehr.code} has been successfully updated"
 		}
 	}
 	
@@ -122,12 +122,12 @@ class EhrController {
 		def hasDataElementDefaultsList = DataElementDefaults.list().findAll{it.ehr.id.findAll{it == ehr.id}.size() >= 1} ? true : false
 		
 		if (hasHospitals || hasDataElementDefaultsList) {
-			render(status: 420, text: "Ehr ${code} cannot be deleted because of existing dependencies")
+			render(status: 420, text: "EHR ${code} cannot be deleted because of existing dependencies")
 		} else {
 			ehr?.delete(flush: true)
 			render(contentType: "text/json") {
 				resp = "success"
-				message = "Ehr ${code} has been successfully deleted"
+				message = "EHR ${code} has been successfully deleted"
 			}
 		}
 	}
