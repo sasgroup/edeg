@@ -8,6 +8,8 @@ class HospitalElementController {
 		
 		def ehrCode = instance.hospital.ehr.code
 		
+		// TODO: check here for possible changes to be reported via Email Notification
+		
 		//instance.properties = param
 		instance.location = param.location
 		instance.sourceEHR = (ehrCode == param.source)
@@ -48,8 +50,6 @@ class HospitalElementController {
 				if (e.valueType.name)
 					new ElementExtraLocation(location:e.location, source:e.source, sourceEHR:(ehrCode==e.source), valueType: ValueType.valueOf(e.valueType.name), hospitalElement:instance).save()
 			}
-				
-				
 		return instance.save(flush :true)	
 	}
 
@@ -133,9 +133,6 @@ class HospitalElementController {
 									 valueType : e.valueType
 							}
 						}
-						 
-						
-						//elementExtraLocation : ElementExtraLocation.findAllByHospitalElement(hme.hospitalElement)
 					}
 				}
 			}
