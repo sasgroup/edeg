@@ -53,11 +53,13 @@ $(function() {
 			$.each(App.availableHospitals, function(key, value) {
 				output.push({id: key, name: value});
 			});
-			
 			output.sort(function(a,b) {
-			    return a.name > b.name;
+
+			    if(a.name > b.name) return 1;
+			    if(a.name < b.name) return -1;
+			    return 0;
 			});
-			
+
 			for(var index in output) {
 				$('ul#hospital-list-dropdown').append('<li data-id='+ output[index].id +'><a href="#">' + output[index].name+ '</a></li>');	
 			}
