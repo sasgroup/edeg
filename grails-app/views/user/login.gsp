@@ -28,7 +28,7 @@
 			<table class="enter">
 				<tr>
 					<td class="label"><strong>Username:</strong></td>
-					<td><input type="text" name="j_username" maxlength="20" size="16" tabindex="1" id="username" style="width: 125px; background:#F0F0F0!important" autofocus /></td>
+					<td><input type="text" name="j_username" maxlength="20" size="16" tabindex="1" id="username" style="width: 125px; background:#F0F0F0!important" autofocus="autofocus" /></td>
 				</tr>
 				<tr>
 					<td class="label"><strong>Password:</strong></td>
