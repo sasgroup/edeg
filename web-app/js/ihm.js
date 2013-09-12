@@ -80,11 +80,7 @@ $(function() {
 				var products = App.ho.get('products');
 				$('nav#products-nav').empty();
 				$.each( products, function( i, product ) {		           
-					$('nav#products-nav').append('<a href="#hospital/' + hospital_id + '/product/'+ product.id+ '">' + product.code + '</a>');
-					/*if (first_product=="") {
-					    first_product = '/hospital/' + hospital_id + '/product/'+ product.id;					    	
-						Backbone.history.navigate(first_product, true);
-					}	*/
+					$('nav#products-nav').append('<a href="#hospital/' + hospital_id + '/product/'+ product.id+ '">' + product.code + '</a>');					
 				});		
 								
 				Backbone.history.navigate('/home/' + hospital_id , true);

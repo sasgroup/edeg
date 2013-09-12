@@ -1,7 +1,8 @@
 App.Views.Home = Backbone.View.extend({
 	template : _.template($('#home-page').html()),
 
-	render : function() {				
+	render : function() {		
+		
 		var hospital = this.model.get('name');
 		var pr_ehr = this.model.get('ehr').code;
 		var add_ehrs = this.model.get('externalEHRs');
