@@ -5,8 +5,7 @@
     <title>Login</title>         
   </head>
   <body>
-    <div class="body" style="width: 425px; height: 325px; border: 1px solid #006E86; margin: 150px auto 0 auto">
-    
+    <div class="body" style="width: 425px; height: 325px; border: 1px solid #006E86; margin: 150px auto 0 auto">    
      <div id="side" style="width: 130px; height: 325px; position:relative; float:left; background-color: #B3C3D3; /* for old browsers*/; 
      													background: -webkit-linear-gradient(top, #B3C3D3, #FAFBFC);
      													background: -moz-linear-gradient(top, #B3C3D3, #FAFBFC); /* Firefox 3.6+ */;
