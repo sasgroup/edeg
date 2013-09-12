@@ -1,4 +1,5 @@
-<html>
+<!DOCTYPE html>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <head>
     <meta name="layout" content="main" />
     <title>Login</title>         
@@ -6,7 +7,7 @@
   <body>
     <div class="body" style="width: 425px; height: 325px; border: 1px solid #006E86; margin: 150px auto 0 auto">
     
-     <div id="side" style="width: 130px; height: 325px; position:relative; float:left; background: #B3C3D3; /* for old browsers*/; 
+     <div id="side" style="width: 130px; height: 325px; position:relative; float:left; background-color: #B3C3D3; /* for old browsers*/; 
      													background: -webkit-linear-gradient(top, #B3C3D3, #FAFBFC);
      													background: -moz-linear-gradient(top, #B3C3D3, #FAFBFC); /* Firefox 3.6+ */;
      													background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#B3C3D3), color-stop(100%,#FAFBFC));
@@ -27,7 +28,7 @@
 			<table class="enter">
 				<tr>
 					<td class="label"><strong>Username:</strong></td>
-					<td><input type="text" name="j_username" maxlength="20" size="16" tabindex="1" id="username" style="width: 125px; background:#F0F0F0!important"/></td>
+					<td><input type="text" name="j_username" maxlength="20" size="16" tabindex="1" id="username" style="width: 125px; background:#F0F0F0!important" autofocus /></td>
 				</tr>
 				<tr>
 					<td class="label"><strong>Password:</strong></td>
