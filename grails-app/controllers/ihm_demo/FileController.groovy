@@ -51,7 +51,8 @@ class FileController {
 
 				if (fileName.contains("\\")  ||  fileName.contains("/") )
 					fileName = fileName.find(~/\w*\.\w*/)
-
+				
+				fileName = fileName.replaceAll(" ", "_")
 				def hospitalElement = HospitalElement.get(params.currentHospitalElement)
 				def hospitalElementId = params?.currentHospitalElement
 
