@@ -102,10 +102,9 @@ App.Views.HospitalElements = Backbone.View.extend({
 			    success: function (m, response) {			       
 			           if (response.resp=="ok") {	   
 			        	   if (window.console) console.log(response.message);			        	   
-			           } else if (response.resp=="error") {
-			        	   console.log(response.message);	
+			           } else if (response.resp=="error") {			        	  
 			        	   if (errorMessage=="") {
-			        		  
+			        		   var btn = '<button type="button" class="close">&times;</button>';
 			        		   $('div#message-box').text("").append(btn).append(response.message).removeClass().addClass('alert').addClass('alert-error').show();
 			        		   errorMessage = response.message;
 			        		   errorMessage = errorMessage.replace("[","");
