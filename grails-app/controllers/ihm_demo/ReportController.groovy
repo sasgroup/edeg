@@ -24,23 +24,25 @@ class ReportController {
 					rid = 1
 					data = array {
 						for (hp in hProducts){
-							for (hpm in hp.hospitalProductMeasures){
-								if (hpm.included && !hpm.hospitalMeasure.completed){
-									measure pid : hp.product.id,
-									pcode 		: hp.product.code,
-									pname 		: hp.product.name,
-									mid 		: hpm.hospitalMeasure.id,
-									mcode 		: hpm.hospitalMeasure.measure.code,
-									mname 		: hpm.hospitalMeasure.measure.name,
-									included 	: hpm.included,
-									accepted 	: hpm.hospitalMeasure.accepted,
-									completed 	: hpm.hospitalMeasure.completed,
-									confirmed 	: hpm.hospitalMeasure.confirmed,
-									verified 	: hpm.hospitalMeasure.verified,
-									hid			: hpm.hospitalMeasure.hospital.id,
-									hname		: hpm.hospitalMeasure.hospital.name
+							if (params.product == "0" || params.product == hp.product.id.toString())
+								for (hpm in hp.hospitalProductMeasures){
+									if (params.measure == "0" || params.measure == hpm.hospitalMeasure.measure.id.toString())
+										if (hpm.included && !hpm.hospitalMeasure.completed){
+											measure pid : hp.product.id,
+											pcode 		: hp.product.code,
+											pname 		: hp.product.name,
+											mid 		: hpm.hospitalMeasure.id,
+											mcode 		: hpm.hospitalMeasure.measure.code,
+											mname 		: hpm.hospitalMeasure.measure.name,
+											included 	: hpm.included,
+											accepted 	: hpm.hospitalMeasure.accepted,
+											completed 	: hpm.hospitalMeasure.completed,
+											confirmed 	: hpm.hospitalMeasure.confirmed,
+											verified 	: hpm.hospitalMeasure.verified,
+											hid			: hpm.hospitalMeasure.hospital.id,
+											hname		: hpm.hospitalMeasure.hospital.name
+										}
 								}
-							}
 						}
 					}
 				}
@@ -60,23 +62,25 @@ class ReportController {
 					rid = 2
 					data = array {
 						for (hp in hProducts){
-							for (hpm in hp.hospitalProductMeasures){
-								if (hpm.included && hpm.hospitalMeasure.completed){
-									measure pid : hp.product.id,
-									pcode 		: hp.product.code,
-									pname 		: hp.product.name,
-									mid 		: hpm.hospitalMeasure.id,
-									mcode 		: hpm.hospitalMeasure.measure.code,
-									mname 		: hpm.hospitalMeasure.measure.name,
-									included 	: hpm.included,
-									accepted 	: hpm.hospitalMeasure.accepted,
-									completed 	: hpm.hospitalMeasure.completed,
-									confirmed 	: hpm.hospitalMeasure.confirmed,
-									verified 	: hpm.hospitalMeasure.verified,
-									hid			: hpm.hospitalMeasure.hospital.id,
-									hname		: hpm.hospitalMeasure.hospital.name
+							if (params.product == "0" || params.product == hp.product.id.toString())
+								for (hpm in hp.hospitalProductMeasures){
+									if (params.measure == "0" || params.measure == hpm.hospitalMeasure.measure.id.toString())
+										if (hpm.included && hpm.hospitalMeasure.completed){
+											measure pid : hp.product.id,
+											pcode 		: hp.product.code,
+											pname 		: hp.product.name,
+											mid 		: hpm.hospitalMeasure.id,
+											mcode 		: hpm.hospitalMeasure.measure.code,
+											mname 		: hpm.hospitalMeasure.measure.name,
+											included 	: hpm.included,
+											accepted 	: hpm.hospitalMeasure.accepted,
+											completed 	: hpm.hospitalMeasure.completed,
+											confirmed 	: hpm.hospitalMeasure.confirmed,
+											verified 	: hpm.hospitalMeasure.verified,
+											hid			: hpm.hospitalMeasure.hospital.id,
+											hname		: hpm.hospitalMeasure.hospital.name
+										}
 								}
-							}
 						}
 					}
 				}
@@ -95,13 +99,14 @@ class ReportController {
 					report = "Hospital ~ Product Report"
 					rid=3
 					data = array {
-						for (hp in hProducts){
-							product pid : hp.product.id,
-							pcode 		: hp.product.code,
-							pname 		: hp.product.name,
-							hid			: hp.hospital.id,
-							hname		: hp.hospital.name
-						}
+						for (hp in hProducts)
+							if (params.product == "0" || params.product == hp.product.id.toString()){
+								product pid : hp.product.id,
+								pcode 		: hp.product.code,
+								pname 		: hp.product.name,
+								hid			: hp.hospital.id,
+								hname		: hp.hospital.name
+							}
 					}
 				}
 			}
@@ -120,23 +125,25 @@ class ReportController {
 					rid = 4
 					data = array {
 						for (hp in hProducts){
-							for (hpm in hp.hospitalProductMeasures){
-								if (hpm.included){
-									measure pid : hp.product.id,
-									pcode 		: hp.product.code,
-									pname 		: hp.product.name,
-									mid 		: hpm.hospitalMeasure.id,
-									mcode 		: hpm.hospitalMeasure.measure.code,
-									mname 		: hpm.hospitalMeasure.measure.name,
-									included 	: hpm.included,
-									accepted 	: hpm.hospitalMeasure.accepted,
-									completed 	: hpm.hospitalMeasure.completed,
-									confirmed 	: hpm.hospitalMeasure.confirmed,
-									verified 	: hpm.hospitalMeasure.verified,
-									hid			: hpm.hospitalMeasure.hospital.id,
-									hname		: hpm.hospitalMeasure.hospital.name
+							if (params.product == "0" || params.product == hp.product.id.toString())
+								for (hpm in hp.hospitalProductMeasures){
+									if (params.measure == "0" || params.measure == hpm.hospitalMeasure.measure.id.toString())
+										if (hpm.included){
+											measure pid : hp.product.id,
+											pcode 		: hp.product.code,
+											pname 		: hp.product.name,
+											mid 		: hpm.hospitalMeasure.id,
+											mcode 		: hpm.hospitalMeasure.measure.code,
+											mname 		: hpm.hospitalMeasure.measure.name,
+											included 	: hpm.included,
+											accepted 	: hpm.hospitalMeasure.accepted,
+											completed 	: hpm.hospitalMeasure.completed,
+											confirmed 	: hpm.hospitalMeasure.confirmed,
+											verified 	: hpm.hospitalMeasure.verified,
+											hid			: hpm.hospitalMeasure.hospital.id,
+											hname		: hpm.hospitalMeasure.hospital.name
+										}
 								}
-							}
 						}
 					}
 				}
@@ -155,43 +162,23 @@ class ReportController {
 					report = "Hospital ~ Data Elements Report"
 					rid = 5
 					data = array {
-						for (he in hElements){
-							element	hid		: he.hospital.id,
-							hname			: he.hospital.name, 
-							eid 			: he.dataElement.id,
-							ecode 			: he.dataElement.code,
-							ename 			: he.dataElement.name,
-							enotes			: he.dataElement.notes,
-							internalNotes 	: he.internalNotes,
-							location 		: he.location,
-							notes 			: he.notes,
-							source 			: he.source,
-							sourceEHR 		: he.sourceEHR,
-							valueSet 		: he.valueSet,
-							valueSetFile 	: he.valueSetFile,
-							valueType 		: he.valueType.toString()
-							//codeType 		: he.codeType.toString()//,
-							//help			: he.dataElement.help//,
-/*
-							hospitalValueSet : array {
-								for (hvs in HospitalValueSet.findAllByHospitalElement(hme.hospitalElement)){
-									hvset code : hvs.code,
-									mnemonic : hvs.mnemonic,
-									codeType : hvs.codeType
-								}
-							},
-						
-							elementExtraLocation : array {
-								for (e in ElementExtraLocation.findAllByHospitalElement(hme.hospitalElement)){
-									elem location  : e.location,
-										 source    : e.source
-										 sourceEHR : e.sourceEHR 
-										 codeType  : e.codeType
-										 valueType : e.valueType								
-								}
+						for (he in hElements)
+							if (params.element == "0" || params.element == he.dataElement.id.toString()){
+								element	hid		: he.hospital.id,
+								hname			: he.hospital.name, 
+								eid 			: he.dataElement.id,
+								ecode 			: he.dataElement.code,
+								ename 			: he.dataElement.name,
+								enotes			: he.dataElement.notes,
+								internalNotes 	: he.internalNotes,
+								location 		: he.location,
+								notes 			: he.notes,
+								source 			: he.source,
+								sourceEHR 		: he.sourceEHR,
+								valueSet 		: he.valueSet,
+								valueSetFile 	: he.valueSetFile,
+								valueType 		: he.valueType.toString()
 							}
-*/							
-						}
 					}
 				}
 			}

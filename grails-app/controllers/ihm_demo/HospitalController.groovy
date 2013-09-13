@@ -14,7 +14,6 @@ class HospitalController {
 					message = "Id exceptions" 
 				}
 			}
-
 			if (params.version != null) {
 				if (hospitalInstance.version > params.version) {
 					return render(contentType: "text/json") {
@@ -23,12 +22,20 @@ class HospitalController {
 					}
 				}
 			}
-			hospitalInstance.notes = params?.notes
-			hospitalInstance.email = params?.email
-			hospitalInstance.externalEHRs = params?.externalEHRs
-			hospitalInstance.populationMethod = params?.populationMethod
+			
+			def modificationDetected = false
+			//if (hospitalInstance.notes 				!= params?.notes)				modificationDetected = true; 	
+			hospitalInstance.notes 				= params?.notes
+			
+			if (hospitalInstance.email 				!= params?.email)				modificationDetected = true; 	hospitalInstance.email 				= params?.email
+			if (hospitalInstance.externalEHRs 		!= params?.externalEHRs)		modificationDetected = true; 	hospitalInstance.externalEHRs 		= params?.externalEHRs
+			if (hospitalInstance.populationMethod 	!= params?.populationMethod)	modificationDetected = true; 	hospitalInstance.populationMethod 	= params?.populationMethod
 			hospitalInstance.save(flush:true)
 
+			// TODO
+			//if (modificationDetected)
+			//	SendEmailAboutHospitalModification(hospitalInstance)
+			
 			for (prod in params.products){
 				def product = Product.get(prod.id)
 				def hospitalProduct = HospitalProduct.findByHospitalAndProduct(hospitalInstance, product)
@@ -36,6 +43,7 @@ class HospitalController {
 					for (msr in prod.measures){
 						def hospitalMeasure = HospitalMeasure.get(msr.id)
 						if (hospitalMeasure){
+							// TODO: check here for possible changes to be reported via Email Notification
 							hospitalMeasure.accepted = msr.accepted
 							hospitalMeasure.completed = msr.completed
 							hospitalMeasure.confirmed = msr.confirmed
@@ -55,42 +63,13 @@ class HospitalController {
 			render(contentType: "text/json") {
 				resp = "ok"
 				message = "Hospital ${hospitalInstance.name} has been successfully updated"
-				
-				/*
-				name = result.name
-				email = result.email
-				notes= result.notes
-				externalEHRs = (result.externalEHRs)?result.externalEHRs:""
-				populationMethod = result.populationMethod
-				id   = result.id
-				ehr = result.ehr
-				products = array {
-					for (hp in hospitalProducts) {
-						product id : hp.product.id,
-						name : hp.product.name,
-						code : hp.product.code,
-						measures : array {
-							for (hpm in hp.hospitalProductMeasures){
-								measure id : hpm.hospitalMeasure.id,
-								code : hpm.hospitalMeasure.measure.code,
-								name : hpm.hospitalMeasure.measure.name,
-								accepted : hpm.hospitalMeasure.accepted,
-								completed : hpm.hospitalMeasure.completed,
-								confirmed : hpm.hospitalMeasure.confirmed,
-								included : hpm.included,
-								verified : hpm.hospitalMeasure.verified,
-								notes : hpm.hospitalMeasure.measure.notes,
-								help : hpm.hospitalMeasure.measure.help
-							}
-						}
-					}
-				}
-				*/
 			}
 		}
 		else if (params.ehr_id) {
 			// update Hospital set EHR
 			def hospital = Hospital.get(params.id)
+			
+			// TODO: check here for possible changes to be reported via Email Notification
 			hospital.ehr = Ehr.get(params.ehr_id)
 			hospital.notes = params?.notes
 			hospital.email = params?.email				
@@ -151,7 +130,7 @@ class HospitalController {
 				}
 			}
 
-
+			// TODO: check here for possible changes to be reported via Email Notification
 			for (oldId in old_ids){
 				def p  = Product.get(oldId)
 				def hp = HospitalProduct.findByHospitalAndProduct(hospital, p)

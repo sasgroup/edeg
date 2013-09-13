@@ -234,10 +234,16 @@ App.Routers.Administrator = Backbone.Router.extend({
 	},	
 	
 	// reports
-	reports : function() {		
-		App.hospitals.fetch().then(function(){
-			var view = new App.Views.Reports({model:App.hospitals});
-			$('#app').html(view.render().el);	
+	reports : function() {	
+		App.dataElements.fetch().then(function(){
+			App.measures.fetch().then(function(){
+				App.products.fetch().then(function(){
+					App.hospitals.fetch().then(function(){
+						var view = new App.Views.Reports({model:{H:App.hospitals,P:App.products,M:App.measures,E:App.dataElements} });
+						$('#app').html(view.render().el);	
+					});
+				});
+			});
 		});
 	},	
 	
