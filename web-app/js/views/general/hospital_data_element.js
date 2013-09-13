@@ -88,6 +88,7 @@ App.Views.HospitalElements = Backbone.View.extend({
 	},
 	
 	saveHospitalElements : function() {
+		var errorMessage="";
 		var markAsComplete = $('#markAsComplete').is(":checked");
 		
 		this.saveHospitalElementDetails();		
@@ -96,16 +97,37 @@ App.Views.HospitalElements = Backbone.View.extend({
 		_.each(this.collection.models, function(model) {
 			  model.set({markAsComplete: markAsComplete});	 
 			  model.set({m_id: m_id});
-			  return model.save({
+			  model.save(null,{
 			    wait: true,
-			    error: function (collection, response) {
-		        			if (window.console) console.log("error");	          
-		        		}    
+			    success: function (m, response) {			       
+			           if (response.resp=="ok") {	   
+			        	   if (window.console) console.log(response.message);			        	   
+			           } else if (response.resp=="error") {
+			        	   console.log(response.message);	
+			        	   if (errorMessage=="") {
+			        		  
+			        		   $('div#message-box').text("").append(btn).append(response.message).removeClass().addClass('alert').addClass('alert-error').show();
+			        		   errorMessage = response.message;
+			        		   errorMessage = errorMessage.replace("[","");
+			        		   errorMessage = errorMessage.replace("]","");			        		   
+			        	   }else {
+			        		   var btn = '<button type="button" class="close">&times;</button>';
+			        		   var message = response.message;
+			        		   errorMessage = errorMessage.substring(0, errorMessage.length - 1);
+			        		   errorMessage = errorMessage + ', ' + message.substr(message.indexOf('[')+1,message.indexOf(']')-message.indexOf('[')-1)
+			        		   $('div#message-box').text("").append(btn).append(errorMessage);
+			        	   }
+			        		   
+			           } 
+			    },
+			    error: function (m, response) {
+			    	if (window.console) console.log("error");	          
+		        }		      
 			  });
 		});	
-		window.history.back();
+		window.history.back();		
 	}	
-	
+		
 });
 
 //Single Hospital Element
