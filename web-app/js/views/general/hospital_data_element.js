@@ -549,12 +549,12 @@ App.Views.ExtraDataElement = Backbone.View
 		if (window.console) console.log("add extra row");
 		
 		var extraDataElement =	{
-				  location:  this.model.get('location'),
-				  sourceEHR: this.model.get("sourceEHR"),
-				  source:    this.model.get("source"),				 
-				  valueType: this.model.get("valueType")
+				  location:  '',
+				  sourceEHR: '',
+				  source:    '',				 
+				  valueType: ''
 		};
-		
+						
 		var external_ehrs = this.options.external_ehrs;
 		var primary_ehr = this.options.primary_ehr;
 		
