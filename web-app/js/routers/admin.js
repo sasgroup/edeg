@@ -267,10 +267,10 @@ App.Routers.Administrator = Backbone.Router.extend({
 				         name: { required: true }	               
 				     },
 				     messages: {
-				       	 code: {required: "ID is required",
+				       	 code: {required: "ID is required.",
 				       	    	unique  : "This code name already exists in the system."			       	    	
 				       	       },
-				         name: {required: "Name is required"}
+				         name: {required: "Name is required."}
 				     }
 				});		
 				
@@ -297,10 +297,10 @@ App.Routers.Administrator = Backbone.Router.extend({
 				         name: { required: true }	               
 				     },
 				     messages: {
-				       	 code: {required: "ID is required",
+				       	 code: {required: "ID is required.",
 				       	        unique  : "This code name already exists in the system."			       	    	
 				       	       },
-				         name: {required: "Name and version are required"}
+				         name: {required: "Name and version are required."}
 				     }
 				});		
 				
@@ -333,10 +333,10 @@ App.Routers.Administrator = Backbone.Router.extend({
 				         name: { required: true }	               
 				     },
 				     messages: {
-				       	 code: {required: "ID is required",
+				       	 code: {required: "ID is required.",
 				       	    	unique  : "This code name already exists in the system."			       	    	
 				       	       },
-				         name: {required: "Name is required"}
+				         name: {required: "Name is required."}
 				     }
 				});						
 				
@@ -364,10 +364,10 @@ App.Routers.Administrator = Backbone.Router.extend({
 				         name: { required: true }	               
 				     },
 				     messages: {
-				       	 code: {required: "ID is required",
+				       	 code: {required: "ID is required.",
 				       	    	unique  : "This code name already exists in the system."			       	    	
 				       	       },
-				         name: {required: "Name is required"}
+				         name: {required: "Name is required."}
 				     }
 				});
 				
@@ -390,20 +390,19 @@ App.Routers.Administrator = Backbone.Router.extend({
 			$('#app').html(view.render().el);			
 				
 				jQuery.validator.addMethod("emaillist", function(value, element) {
-				        return  /^(\s*;?\s*[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\s*;?\s*){1,}$/im.test(value);
+				        //return  /^(\s*;?\s*[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\s*;?\s*){1,}$/im.test(value);
+				        
+				        return this.optional(element) || /^(\s*;?\s*[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\s*;?\s*){1,}$/im.test(value);
+				        
 				    }, "Please specify at least one email address. <br> Separate multiple addresses with a semicolon."
 				);
 				
 				$('form#hospital-edit').validate({
 				     rules: {				   	    
-				         email: { required: true,
-				        	 	  emaillist: true
-				        	 	}	               
+				         email: {emaillist: true}	               
 				     },
 				     messages: {
-				    	 email: {required   : "Email is required.",
-				    		 	 emaillist  : "Please specify at least one email address. <br> Separate multiple addresses with a semicolon"			       	    	
-				       	       }				        
+				    	 email: { emaillist  : "Please specify at least one email address. <br> Separate multiple addresses with a semicolon."}				        
 				     }
 				});		
 										

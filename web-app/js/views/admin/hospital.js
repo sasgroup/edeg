@@ -68,7 +68,9 @@ App.Views.Hospital = Backbone.View.extend({
 			var new_e_id = $( "#slcEHRs").multiselect('getChecked').val();
 			
 			if (new_e_id!=ehr_id) {				
-				alert("The EHR version has been updated. Make sure to reset locations for data elements.");
+				//alert("The EHR version has been updated. Make sure to reset locations for data elements.");
+				bootbox.alert("You are going to update the primary EHR. Please click on Apply if you want to update the default locations.", function() {
+				});
 				App.isModified = true;
 			}	
 		});	
@@ -249,7 +251,7 @@ App.Views.Hospital = Backbone.View.extend({
 	        },
 	        error: function (model, response) {
 	        	var btn = '<button type="button" class="close">&times;</button>';
-		    	$('div#message-box').text("").append(btn).append("response.message").removeClass().addClass('alert').addClass('alert-error').show();	           
+		    	$('div#message-box').text("").append(btn).append(response.message).removeClass().addClass('alert').addClass('alert-error').show();	           
 	        }
 	    });
 	},
@@ -267,13 +269,13 @@ App.Views.Hospital = Backbone.View.extend({
 	        	   Backbone.history.navigate("hospital", true);
 	           } else if (response.resp=="error") {
 					var btn = '<button type="button" class="close">&times;</button>';
-			    	$('div#message-box').text("").append(btn).append("response.message").removeClass().addClass('alert').addClass('alert-error').show();
+			    	$('div#message-box').text("").append(btn).append(response.message).removeClass().addClass('alert').addClass('alert-error').show();
 		        	Backbone.history.navigate("hospital", true);	        	   
 	           } 	                  
 	        },
 	        error: function (model, response) {
 	        	var btn = '<button type="button" class="close">&times;</button>';
-	        	$('div#message-box').text("").append(btn).append("response.message").removeClass().addClass('alert').addClass('alert-error').show();
+	        	$('div#message-box').text("").append(btn).append(response.message).removeClass().addClass('alert').addClass('alert-error').show();
 	            Backbone.history.navigate("hospital", true);	        	
 	        }
 	    });
@@ -282,33 +284,20 @@ App.Views.Hospital = Backbone.View.extend({
 	returnOnMain: function (e) {
 		e.preventDefault();
 		this_hospital = this;
-		if (App.isModified) {
-			$('#app').append('<div id="dialog-confirm" title="Confirm the changes">'+
-				'<p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>Save the changes?</p>'+	
-				'</div>')
-		
-			$( "#dialog-confirm" ).dialog({
-		      resizable: false,
-		      height:180,		     
-		      modal: true,
-		      buttons: {
-		        "YES": function() {
-		          $( this ).dialog( "close" );
-		          this_hospital.submCloseHospital(e);
-		        },
-		        "NO": function() {
-		          $( this ).dialog( "close" );
-		          Backbone.history.navigate("/hospital", true);
-		        }
-		      }
-			});		
+		if (App.isModified) {							
+			bootbox.confirm("Save the changes?", function(result) {
+					if (result) {
+						 this_hospital.submCloseHospital(e);
+					} else {
+						 Backbone.history.navigate("/hospital", true);
+					}
+			}); 	
 		}
 		else {
 			Backbone.history.navigate("/hospital", true);
 
 		}		
-
-		
+	
 	},
 	
 	showExternalEHRs : function(){
