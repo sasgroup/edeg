@@ -92,6 +92,11 @@ select{
 	width: auto !important;
 }
 
+
+div#main_table select{
+	width: 100% !important;
+}
+
 #slcEHRs{
 	width:255px !important;
 }
