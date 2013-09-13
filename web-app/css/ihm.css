@@ -455,7 +455,7 @@ div.row-fluid textarea {
 /* container */
 .page-container {
    min-height:100%;
-   position:relative;
+   position:relative;   
 }
 
 
@@ -469,7 +469,7 @@ div.row-fluid textarea {
 
 
 header {
-    max-width: 980px;
+    width: 980px;
     height: 140px;
     background: url("images/head-bg.png") no-repeat scroll -13px 0;
     margin: 0px auto 0px auto;
@@ -500,7 +500,7 @@ header .hospital-name {
 
 
 nav.header-nav {
-    max-width: 980px;
+    width: 980px;
     display: block;
     position: absolute;
     top: 102px;
@@ -531,7 +531,7 @@ nav.header-nav a:hover {
 
 /* content */
 .page-content {
-    max-width: 980px;
+    width: 980px;
     margin: 0px auto 0px auto;
     position: relative;
     background-color: #fff;    
@@ -561,9 +561,10 @@ nav.header-nav a:hover {
 }
 
 footer {   
-    max-width: 980px;       
+    width: 980px;       
     margin: 0px auto 0px auto;
-    position: relative;    
+    position: relative; 
+    overflow-x: auto;     
 }
 
 footer a {
