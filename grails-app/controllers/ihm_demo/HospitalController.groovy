@@ -31,10 +31,10 @@ class HospitalController {
 			if (hospitalInstance.externalEHRs 		!= params?.externalEHRs)		modificationDetected = true; 	hospitalInstance.externalEHRs 		= params?.externalEHRs
 			if (hospitalInstance.populationMethod 	!= params?.populationMethod)	modificationDetected = true; 	hospitalInstance.populationMethod 	= params?.populationMethod
 			hospitalInstance.save(flush:true)
-
+			String [] sendTo  = hospitalInstance?.email.tokenize(";").toArray()
 			// TODO
 			if (modificationDetected)
-				sendMailService.updateHospitalConfig("", hospitalInstance.name, new Date())
+				sendMailService.updateHospitalConfig(hospitalInstance.email, hospitalInstance.name, new Date())
 			
 			for (prod in params.products){
 				def product = Product.get(prod.id)
