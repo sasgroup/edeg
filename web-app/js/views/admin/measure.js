@@ -275,25 +275,7 @@ App.Views.SingleMeasure = Backbone.View
 				
 				var el = this.$el;
 				var thisMeasure = this.model;
-				
-				/*if (confirm('Are you sure you want to delete this Measure?')) {
-				var el = this.$el;
-				var thisProduct = this.model;
-				
-				this.model.destroy({
-					wait: true,
-				    success: function(model, response){
-				    	$('div#message-box').text("").append(response.message).fadeIn(500).delay(1500).fadeOut(500);
-			    		el.remove();
-				    	Backbone.history.navigate("measure", true);
-				     },
-				     error: function (model, response) {
-				    	 if (window.console) console.log(response);
-				    	 $('div#message-box').text("").append(response.responseText).fadeIn(500).delay(1500).fadeOut(500);
-				            Backbone.history.navigate("measure", true);
-				     }
-				});
-				}*/
+								
 				bootbox.confirm("Are you sure you want to delete this Measure?", function(result) {					
 					if (result) {
 						thisMeasure.destroy({

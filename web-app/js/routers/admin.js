@@ -1,5 +1,6 @@
 App.Routers.Administrator = Backbone.Router.extend({
 	routes : {		
+		
 		'product'		  : 'products',
 		'measure'         : 'measures',
 		'element'         : 'dataElements',
@@ -43,6 +44,18 @@ App.Routers.Administrator = Backbone.Router.extend({
 		App.hospitalMeasures = new App.Collections.HospitalMeasures();		
 	},
 	
+	before: {
+	    'hospital' : function() {
+	        alert("bla");
+	    },
+	    
+	    'product' : function() {
+	        alert("before go to product");
+	        return false;
+	    }	   
+	},
+
+		
 	reopenHospital : function(id) {		
 		Backbone.history.navigate("hospital/"+id+'/edit', true);		
 	},

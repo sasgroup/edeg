@@ -1,6 +1,6 @@
 modules = {
 	ihm {
-		dependsOn 'jquery, json3, underscore, modernizr, backbone, bootstrap, jqgrid, jqmultiselect, datatable, html5shiv, wysihtml5, upload, bootbox, jqcookie'
+		dependsOn 'jquery, json3, underscore, modernizr, backbone, bootstrap, jqgrid, jqmultiselect, datatable, html5shiv, wysihtml5, upload, bootbox, jqcookie, backbonefilter'
 		resource url: 'css/ihm.css'		
 		resource url: 'js/ihm.js'
 		resource url: 'js/models.js'
@@ -36,6 +36,10 @@ modules = {
 	
 	backbone {
 		resource url: 'js/backbone.js'
+	}
+	
+	backbonefilter {
+		resource url: 'js/backbonefilter/backbonefilter.js'
 	}
 	
 		
