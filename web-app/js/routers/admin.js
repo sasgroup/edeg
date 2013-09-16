@@ -45,14 +45,38 @@ App.Routers.Administrator = Backbone.Router.extend({
 	},
 	
 	before: {
-	    'hospital' : function() {
+	   /* 'hospital' : function() {
 	        alert("bla");
 	    },
 	    
 	    'product' : function() {
 	        alert("before go to product");
 	        return false;
-	    }	   
+	    }	*/ 
+	    
+	    'product$' : function() {
+	    	if (window.console) console.log("before go to product");
+	     },
+	     
+	     'measure$' : function() {
+	    	 if (window.console) console.log("before go to measure");
+		 },
+		 
+		 'element$' : function() {
+			 if (window.console) console.log("before go to element");
+		 },
+		 
+		 'hospital$' : function() {
+			 if (window.console) console.log("before go to hospital");
+		 },
+		 
+		 'ehr$' : function() {
+			 if (window.console) console.log("before go to ehr");
+		 },
+		 
+		 'reports$' : function() {
+			 if (window.console) console.log("before go to reports");
+		 }
 	},
 
 		

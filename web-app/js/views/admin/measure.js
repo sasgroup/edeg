@@ -220,6 +220,8 @@ App.Views.Measure = Backbone.View.extend({
 		e.preventDefault();
 		this.model.attributes.help = $('.helpArea').val();	
 		this.model.set({code:this.$el.find('#code').val()});
+		this.model.set({"measureCategory":{"id": this.$el.find('#measureCategory').val()} });
+		
 		this.model.save(this.attributes,{
 	        success: function (model, response) {	         
 	        	if (response.resp=="ok") {	        	   
