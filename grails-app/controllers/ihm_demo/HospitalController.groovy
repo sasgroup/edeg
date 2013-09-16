@@ -4,7 +4,7 @@ import grails.converters.JSON
 import org.springframework.dao.DataIntegrityViolationException
 
 class HospitalController {
-
+	def sendMailService
 	def update(Long id, Long version) {
 		if (!params.apply) {
 			def hospitalInstance = Hospital.get(id)
@@ -33,8 +33,8 @@ class HospitalController {
 			hospitalInstance.save(flush:true)
 
 			// TODO
-			//if (modificationDetected)
-			//	SendEmailAboutHospitalModification(hospitalInstance)
+			if (modificationDetected)
+				sendMailService.updateHospitalConfig("", hospitalInstance.name, new Date())
 			
 			for (prod in params.products){
 				def product = Product.get(prod.id)
