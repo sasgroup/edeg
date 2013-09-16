@@ -106,7 +106,7 @@
   </div>
 </div>
 <div id="loading">
-  <img id="loading-image" src="http://www.kuka-systems.com/res/icn/ajax_loader.gif" alt="Loading..." />
+  <img id="loading-image" src="/ihm/static/images/ajax_loader.gif" alt="Loading..." />
 </div>
 
 </script>
