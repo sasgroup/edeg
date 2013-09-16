@@ -480,23 +480,23 @@ App.Routers.Administrator = Backbone.Router.extend({
 	// ------- NEW ------------
     // new product
 	newProduct : function() {			
-		this.product(new App.Models.Product());
+		this.product(new App.Models.Product({measures:[], hospitals:[]}));
 	},
 	
 	// new measure
 	newMeasure : function() {		
-		this.measure(new App.Models.Measure());	
+		this.measure(new App.Models.Measure({products:[], dataElements:[]}));	
 	},
 
 	// new dataElement
 	newDataElement : function() {	
-		App.element = new App.Models.DataElement();
+		App.element = new App.Models.DataElement({measures:[], dataElementDefaults:[]});
 		this.dataElement(App.element);		
 	},
 
 	// new EHR
 	newEhr : function() {	
-		App.ehr = new App.Models.Ehr();
+		App.ehr = new App.Models.Ehr({hospitals:[], dataElementDefaults:[]});
 		this.ehr(App.ehr);
 	},	
 		
