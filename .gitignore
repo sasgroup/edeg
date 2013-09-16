@@ -51,7 +51,6 @@ stacktrace.log
 
 # older plugin install locations
 /plugins
-/web-app/uploadFiles
 /web-app/plugins
 /web-app/WEB-INF/classes
 
