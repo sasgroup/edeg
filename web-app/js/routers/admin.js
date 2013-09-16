@@ -41,7 +41,9 @@ App.Routers.Administrator = Backbone.Router.extend({
 		
 		App.productMeasures = new App.Collections.ProductMeasures();	
 		
-		App.hospitalMeasures = new App.Collections.HospitalMeasures();		
+		App.hospitalMeasures = new App.Collections.HospitalMeasures();	
+		
+		App.viewHospital = new App.Views.Hospital({isModified:false});
 	},
 	
 	before: {
@@ -55,27 +57,33 @@ App.Routers.Administrator = Backbone.Router.extend({
 	    }	*/ 
 	    
 	    'product$' : function() {
-	    	if (window.console) console.log("before go to product");
+	    	if (window.console) console.log("before go to product");	    		    	
+	    	if (App.viewHospital.isModified) App.viewHospital.showConfirm();
 	     },
 	     
 	     'measure$' : function() {
 	    	 if (window.console) console.log("before go to measure");
+	    	 if (App.viewHospital.isModified) App.viewHospital.showConfirm();
 		 },
 		 
 		 'element$' : function() {
 			 if (window.console) console.log("before go to element");
+			 if (App.viewHospital.isModified) App.viewHospital.showConfirm();
 		 },
 		 
 		 'hospital$' : function() {
-			 if (window.console) console.log("before go to hospital");
+			 if (window.console) console.log("before go to hospital");	
+			 //if (App.viewHospital.isModified) App.viewHospital.showConfirm();
 		 },
 		 
 		 'ehr$' : function() {
 			 if (window.console) console.log("before go to ehr");
+			 if (App.viewHospital.isModified) App.viewHospital.showConfirm();
 		 },
 		 
 		 'reports$' : function() {
 			 if (window.console) console.log("before go to reports");
+			 if (App.viewHospital.isModified) App.viewHospital.showConfirm();
 		 }
 	},
 
@@ -423,8 +431,8 @@ App.Routers.Administrator = Backbone.Router.extend({
     hospital  : function (hospital) {
 		App.products.fetch().then(function(){	
 		 App.ehrs.fetch().then(function(){		 
-			var view = new App.Views.Hospital({model: hospital});		
-			$('#app').html(view.render().el);			
+			App.viewHospital = new App.Views.Hospital({model: hospital});		
+			$('#app').html(App.viewHospital.render().el);			
 				
 				jQuery.validator.addMethod("emaillist", function(value, element) {
 				        //return  /^(\s*;?\s*[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\s*;?\s*){1,}$/im.test(value);
@@ -470,8 +478,8 @@ App.Routers.Administrator = Backbone.Router.extend({
 				     minWidth: "150px"
 			    });
 																				
-				view.createTabs();
-				view.setPrimaryEhr();
+				App.viewHospital.createTabs();
+				App.viewHospital.setPrimaryEhr();
 				
 				$.fn.dataTableExt.afnSortData['dom-checkbox'] = function  ( oSettings, iColumn )
 				{

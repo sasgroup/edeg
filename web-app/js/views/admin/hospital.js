@@ -24,8 +24,7 @@ App.Views.Hospital = Backbone.View.extend({
 	template : _.template($('#hospital-template').html()),
 
 	initialize : function() {		
-		//this.model.on('change', this.render, this);
-		App.isModified = false;
+		this.isModified = false;
 	},
 	
 	events : {
@@ -64,6 +63,8 @@ App.Views.Hospital = Backbone.View.extend({
 		var ehr_id = this.model.get('ehr').id;		
 		$("#slcEHRs").multiselect("widget").find('input[value='+ehr_id+']').click();
 		
+		this_hospital = this;
+		
 		$('#slcEHRs').change(function(e){			
 			var new_e_id = $( "#slcEHRs").multiselect('getChecked').val();
 			
@@ -71,7 +72,7 @@ App.Views.Hospital = Backbone.View.extend({
 				//alert("The EHR version has been updated. Make sure to reset locations for data elements.");
 				bootbox.alert("You are going to update the primary EHR. Please click on Apply if you want to update the default locations.", function() {
 				});
-				App.isModified = true;
+				this_hospital.isModified = true;
 			}	
 		});	
 	},
@@ -223,7 +224,7 @@ App.Views.Hospital = Backbone.View.extend({
 
 	changeVal : function(e) {
 		//HOSPITAL IS MODIFIED
-		App.isModified = true;
+		this.isModified = true;
 		if (window.console) console.log(e.target.name);
 		this.model.attributes[e.target.name] = $(e.target).val();
 		if (window.console) console.log(this.model.attributes);
@@ -231,7 +232,7 @@ App.Views.Hospital = Backbone.View.extend({
 	
 	changeSlcVal : function(e) {
 		//HOSPITAL IS MODIFIED
-		App.isModified = true;
+		this.isModified = true;
 		//console.log(this.model);
 		if (window.console) console.log(e.target.name);
 		this.model.attributes[e.target.name] =  $(e.target).multiselect('getChecked').val();
@@ -257,9 +258,8 @@ App.Views.Hospital = Backbone.View.extend({
 	},
 	
 	submCloseHospital : function(e) {
-		e.preventDefault();
-		                                
-        this.model.set("products" , App.hospital_products);
+		e.preventDefault();		
+		this.model.set("products" , App.hospital_products);
         
         this.model.save(this.attributes,{
 	        success: function (model, response) {
@@ -278,13 +278,14 @@ App.Views.Hospital = Backbone.View.extend({
 	        	$('div#message-box').text("").append(btn).append(response.message).removeClass().addClass('alert').addClass('alert-error').show();
 	            Backbone.history.navigate("hospital", true);	        	
 	        }
-	    });
+	    });        
 	},
-	
+		
 	returnOnMain: function (e) {
 		e.preventDefault();
+		//this.showConfirm();
 		this_hospital = this;
-		if (App.isModified) {							
+		if (this.isModified) {							
 			bootbox.confirm("Save the changes?", function(result) {
 					if (result) {
 						 this_hospital.submCloseHospital(e);
@@ -295,14 +296,43 @@ App.Views.Hospital = Backbone.View.extend({
 		}
 		else {
 			Backbone.history.navigate("/hospital", true);
-
-		}		
+		}			
+	},
 	
+	// for FILTER
+	saveAndClose : function() {
+		this.model.set("products", App.hospital_products);
+		
+        this.model.save(this.attributes,{
+	        success: function (model, response) {
+	           if (window.console) console.log(response);
+	           if (response.resp=="ok") {	       
+	        	   $('div#message-box').text("").append(response.message).removeClass().addClass('alert').addClass('alert-success').fadeIn(10).delay(2500).fadeOut(50);	        	   
+	           } else if (response.resp=="error") {
+					var btn = '<button type="button" class="close">&times;</button>';
+			    	$('div#message-box').text("").append(btn).append(response.message).removeClass().addClass('alert').addClass('alert-error').show();		        		        	   
+	           } 	                  
+	        },
+	        error: function (model, response) {
+	        	var btn = '<button type="button" class="close">&times;</button>';
+	        	$('div#message-box').text("").append(btn).append(response.message).removeClass().addClass('alert').addClass('alert-error').show();	         
+	        }
+	    });
+	},
+	
+	showConfirm: function() {
+		this_hospital = this;
+		if (this.isModified) {							
+			bootbox.confirm("Save the changes?", function(result) {
+					if (result) {
+						 this_hospital.saveAndClose();
+					} 
+			}); 	
+		}		
 	},
 	
 	showExternalEHRs : function(){
 		$('#divExternalEHRs').modal('show');
-
 	}
 
 });
@@ -365,7 +395,7 @@ App.Views.SingleHospitalMeasure = Backbone.View
 						
 			changeVal: function(e) {		
 				//HOSPITAL IS MODIFIED
-				App.isModified = true;
+				App.viewHospital.isModified = true;
 				if (window.console) console.log("checkbox "+e.target.name+ ":", $(e.target).is(':checked'));
 				
 				if (e.target.name!="included") {
@@ -426,14 +456,14 @@ App.Views.SingleHospitalMeasure = Backbone.View
 				}
 				
 			 App.ho.set('products', App.hospital_products);		
-			 App.ho.save(this.attributes,{
+			/* App.ho.save(this.attributes,{
 			        success: function (model, response) {
 			           if (window.console) console.log(response);			           	           
 			        },
 			        error: function (model, response) {			 
 			           if (window.console) console.log(response);
 			        }
-			});
+			});*/
 			},
 									
 			goToDataElements : function(e) {				

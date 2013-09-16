@@ -101,7 +101,7 @@ App.Views.HospitalElements = Backbone.View.extend({
 			    wait: true,
 			    success: function (m, response) {			       
 			           if (response.resp=="ok") {	   
-			        	   if (window.console) console.log(response.message);			        	   
+			        	   //if (window.console) console.log(response.message);			        	   
 			           } else if (response.resp=="error") {			        	  
 			        	   if (errorMessage=="") {
 			        		   var btn = '<button type="button" class="close">&times;</button>';
