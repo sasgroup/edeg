@@ -5,7 +5,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile
 import org.apache.commons.io.FileUtils;
 
 class FileController {
-
+	def sendMailService
 	def fileUploadService
 	
 	def show= {
@@ -64,6 +64,7 @@ class FileController {
 						hospitalElement.save(flush :true)
 					}
 				}
+				sendMailService.attachFile(hospitalElement?.hospital.email, hospitalElement?.hospital.name, hospitalElement?.dataElement.name, "??????", new Date(), session?.user.login)
 				render "$path"
 			} else {
 				render "empty"

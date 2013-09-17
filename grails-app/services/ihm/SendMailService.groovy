@@ -38,7 +38,6 @@ class SendMailService {
 	}
 	
 	def includeMeasureIntoHospitalProduct (String sendTo, String hospitalName, String productName, String measureName, Date updateDate) {
-		sendTo.add(reciverMail)
 		mailService.sendMail {
 			to transferToList(sendTo).toArray()
 			subject "Measure added"
@@ -47,7 +46,6 @@ class SendMailService {
 	}
 	
 	def markMeasureAsComplete (String sendTo, String hospitalName, String productName, String measureName, Date updateDate, String userName) {
-		sendTo.add(reciverMail)
 		mailService.sendMail {
 			to transferToList(sendTo).toArray()
 			subject "Measure Completed"
@@ -56,7 +54,6 @@ class SendMailService {
 	}
 	
 	def asseptMeasureThatCompleted (String sendTo, String hospitalName, String productName, String measureName, Date updateDate, String userName) {
-		sendTo.add(reciverMail)
 		mailService.sendMail {
 			to transferToList(sendTo).toArray()
 			subject "Measure Accepted"
@@ -65,7 +62,6 @@ class SendMailService {
 	}
 	
 	def omissionUserIdentifie (String sendTo, String hospitalName, String productName, String measureName) {
-		sendTo.add(reciverMail)
 		mailService.sendMail {
 			to transferToList(sendTo).toArray()
 			subject "Measure Needs Review"
@@ -74,7 +70,6 @@ class SendMailService {
 	}
 	
 	def verifieMeasure (String sendTo, String hospitalName, String productName, String measureName, Date updateDate, String userName) {
-		sendTo.add(reciverMail)
 		mailService.sendMail {
 			to transferToList(sendTo).toArray()
 			subject "Measure Verified"
@@ -83,7 +78,6 @@ class SendMailService {
 	}
 	
 	def updateDataElement (String sendTo, String hospitalName, String dataElement, String measureName, Date updateDate, String userName) {
-		sendTo.add(reciverMail)
 		mailService.sendMail {
 			to transferToList(sendTo).toArray()
 			subject "Data Element Has Been Updated"
@@ -92,7 +86,6 @@ class SendMailService {
 	}
 	
 	def attachFile (String sendTo, String hospitalName, String dataElement, String measureName, Date updateDate, String userName) {
-		sendTo.add(reciverMail)
 		mailService.sendMail {
 			to transferToList(sendTo).toArray() 
 			subject "File Attached to Data Element"

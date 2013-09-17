@@ -3,23 +3,47 @@ package ihm_demo
 import org.springframework.dao.DataIntegrityViolationException
 
 class HospitalElementController {
-
+	def sendMailService
+	
 	private HospitalElement saveInstance (HospitalElement instance, def param) {
 		
 		def ehrCode = instance.hospital.ehr.code
 		
 		// TODO: check here for possible changes to be reported via Email Notification
+		def modificationDetected = false
 		
-		//instance.properties = param
+		if (instance.location != param.location) 
+			modificationDetected = true 
 		instance.location = param.location
+		
+		if (instance.sourceEHR != (ehrCode == param.source))
+			modificationDetected = true
 		instance.sourceEHR = (ehrCode == param.source)
+		
+		if (instance.source != param.source)
+			modificationDetected = true
 		//instance.source = param.sourceEHR ? instance.hospital.ehr.code : param.source		
 		instance.source = param.source
+		
+		if (instance.valueType != ValueType.valueOf(param.valueType.name))
+			modificationDetected = true
 		instance.valueType = ValueType.valueOf(param.valueType.name)
+		
+		if (instance.valueSet != param.valueSet)
+			modificationDetected = true
 		instance.valueSet = param.valueSet
+
+		if (instance.valueSetFile != param.valueSetFile)
+			modificationDetected = true
 		instance.valueSetFile = param.valueSetFile
 		// TODO append notes info
+		
+		if (instance.internalNotes != param.internalNotes)
+			modificationDetected = true
 		instance.internalNotes = param.internalNotes
+
+		if (instance.notes != param.notes)
+			modificationDetected = true
 		instance.notes = param.notes
 				
 		if (param.markAsComplete){
@@ -34,6 +58,8 @@ class HospitalElementController {
 		}
 		
 		instance.save(flush :true)
+		if (modificationDetected)
+			sendMailService.updateDataElement(instance?.hospital.email, instance?.hospital.name, instance?.dataElement.name, "??????", new Date(), session?.user.login)
 		
 		// TODO remove all hospital value sets
 		HospitalValueSet.executeUpdate("delete HospitalValueSet hvs where hvs.hospitalElement=?", [instance])

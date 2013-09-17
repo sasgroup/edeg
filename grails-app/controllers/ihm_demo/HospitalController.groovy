@@ -33,12 +33,27 @@ class HospitalController {
 					for (msr in prod.measures){
 						def hospitalMeasure = HospitalMeasure.get(msr.id)
 						if (hospitalMeasure){
-							// TODO: check here for possible changes to be reported via Email Notification
+
+							boolean oldValueC = hospitalMeasure.completed
+							boolean oldValueA = hospitalMeasure.accepted
+							boolean oldValueV = hospitalMeasure.verified
+							
+							
 							hospitalMeasure.accepted = msr.accepted
 							hospitalMeasure.completed = msr.completed
 							hospitalMeasure.confirmed = msr.confirmed
 							hospitalMeasure.verified = msr.verified
 							hospitalMeasure.save(flush:true)
+							
+							if (oldValueC != hospitalMeasure.completed && hospitalMeasure.completed)
+								sendMailService.markMeasureAsComplete(hospitalInstance?.email, hospitalInstance?.name, product?.name, msr?.name, new Date(), session?.user.login)
+								
+							if (oldValueA != hospitalMeasure.accepted && hospitalMeasure.completed && hospitalMeasure.accepted)	
+								sendMailService.asseptMeasureThatCompleted(hospitalInstance?.email, hospitalInstance?.name, product?.name, msr?.name, new Date(), session?.user.login)
+								
+							if (oldValueV != hospitalMeasure.verified && hospitalMeasure.verified)
+								sendMailService.verifieMeasure(hospitalInstance?.email, hospitalInstance?.name, product?.name, msr?.name, new Date(), session?.user.login)
+							
 						}
 						def hospitalProductMeasure 	= HospitalProductMeasure.findByHospitalProductAndHospitalMeasure(hospitalProduct, hospitalMeasure)
 						if (hospitalProductMeasure)
@@ -115,7 +130,6 @@ class HospitalController {
 				}
 			}
 
-			// TODO: check here for possible changes to be reported via Email Notification
 			for (oldId in old_ids){
 				def p  = Product.get(oldId)
 				def hp = HospitalProduct.findByHospitalAndProduct(hospital, p)
@@ -249,7 +263,5 @@ class HospitalController {
 
 		return hospitalInstance
 	}
-	
-	private ArrayList 
 	
 }
