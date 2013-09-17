@@ -65,8 +65,10 @@ class HospitalController {
 			for (prId in params.product_ids) {//update HospitalProduct
 				def product = Product.get(prId)
 				def hospitalProduct = HospitalProduct.findByHospitalAndProduct(hospital, product)
-				if (!hospitalProduct)
+				if (!hospitalProduct) {
 					hospitalProduct = new HospitalProduct(hospital:hospital, product:product).save(flush:true)
+					sendMailService.assignProductToHospital(hospital?.email, hospital?.name, product?.name, new Date())
+				}		
 
 				def idx = -1
 				def old_idx = -1
@@ -126,6 +128,7 @@ class HospitalController {
 				}
 				hp = HospitalProduct.findById(hp_id)
 				hp.delete(flush:true)
+				sendMailService.deAssignProductFromHospital(hospital?.email, hospital?.name, p?.name, new Date())
 			}
 
 			render(contentType: "text/json") {
@@ -230,7 +233,7 @@ class HospitalController {
 		}
 	}
 
-	def saveHospital (Hospital hospitalInstance, GrailsParameterMap params) {
+	private Hospital saveHospital (Hospital hospitalInstance, GrailsParameterMap params) {
 		def modificationDetected = false
 		if (hospitalInstance.notes 				!= params?.notes)				modificationDetected = true; 	hospitalInstance.notes 				= params?.notes
 		if (hospitalInstance.email 				!= params?.email)				modificationDetected = true; 	hospitalInstance.email 				= params?.email
@@ -241,13 +244,12 @@ class HospitalController {
 		if (modificationDetected) { 		
 			hospitalInstance.save(flush:true)
 
-			String trimEmail = hospitalInstance?.email.trim()
-			String [] sendTo  = trimEmail?.tokenize(";").toArray()
-			ArrayList st = Arrays.asList(sendTo);
-			sendMailService.updateHospitalConfig(st, hospitalInstance.name, new Date())
+			sendMailService.updateHospitalConfig(hospitalInstance?.email, hospitalInstance.name, new Date())
 		}	
 
 		return hospitalInstance
 	}
+	
+	private ArrayList 
 	
 }
