@@ -1,6 +1,6 @@
 <!-- hospital_data_element-form -->
 <script type="text/template" class="template" id="hospital_data_element-form">
-<div id="data-element-page">    
+<div id="data-element-page">  
     <h3></h3>
  	<div id="main_table">
 	 <table class="table table-condensed" id="hospital-elements">
@@ -160,6 +160,7 @@
 		<input type="button" id="del"    value="Delete" {{status=="delete"? "": "class='hide'"}} />
 		{{linkToFile}}
 		<input type="hidden" id="currentHospitalElement" name="currentHospitalElement"/>
+		<input type="hidden" id="currentMeasureId" name="currentMeasureId"/>
 	</form>							
 <div id="output2" class='hide'></div>
 </div>	

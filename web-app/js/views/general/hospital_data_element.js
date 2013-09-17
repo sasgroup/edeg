@@ -11,7 +11,7 @@ App.Views.HospitalElements = Backbone.View.extend({
 	render : function() {		
 		this.$el.html(this.template({ hospitals : this.collection, measure_completed: this.options.measure_completed}));
 		this.collection.each(this.appendHospitalElement, this);
-				
+		console.log("~~");
 		if (App.userRole == 'admin') {
 			this.$el.find("h3").html(this.options.measure_code+ ": Data Elements");			
 		} else {
@@ -27,7 +27,7 @@ App.Views.HospitalElements = Backbone.View.extend({
 			.removeClass('show')
 			.popover('hide');	
 		});
-					
+		
 		return this;
 	},
 	
@@ -307,9 +307,9 @@ App.Views.SingleHospitalElement = Backbone.View
 		
 		var view_file = new App.Views.HospitalFileUpload({ model : slc_hospital_element});  
 		$('div#hs-table').append(view_file.render().el);  
-		
 		//set hospitalElementId to AjaxForm
 		$("#currentHospitalElement").val(this.model.id);
+		$("#currentMeasureId").val(this.options.m_id);
 		
 		var hospitalValueSet = slc_hospital_element.get('hospitalValueSet');
 		

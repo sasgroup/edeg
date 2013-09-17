@@ -42,7 +42,7 @@ class FileController {
 	   if (!(request instanceof MultipartHttpServletRequest)) {
 		   println("no multipart")
 		 }
-
+	   println params
 	   if (params?.currentHospitalElement && HospitalElement.exists(params.currentHospitalElement)) {
 			def multiRequest = request.getFile("fileToUpload")
 			println multiRequest.getClass()
@@ -64,7 +64,7 @@ class FileController {
 						hospitalElement.save(flush :true)
 					}
 				}
-				sendMailService.attachFile(hospitalElement?.hospital.email, hospitalElement?.hospital.name, hospitalElement?.dataElement.name, "??????", new Date(), session?.user.login)
+				sendMailService.attachFile(hospitalElement?.hospital.email, hospitalElement?.hospital.name, hospitalElement?.dataElement.name, HospitalMeasure.get(params?.currentMeasureId)?.measure.name, new Date(), session?.user.login)
 				render "$path"
 			} else {
 				render "empty"
