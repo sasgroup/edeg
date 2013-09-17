@@ -1,6 +1,7 @@
 package ihm_demo
 
 import grails.converters.JSON
+import org.codehaus.groovy.grails.web.servlet.mvc.GrailsParameterMap
 import org.springframework.dao.DataIntegrityViolationException
 
 class HospitalController {
@@ -23,18 +24,7 @@ class HospitalController {
 				}
 			}
 			
-			def modificationDetected = false
-			//if (hospitalInstance.notes 				!= params?.notes)				modificationDetected = true; 	
-			hospitalInstance.notes 				= params?.notes
-			
-			if (hospitalInstance.email 				!= params?.email)				modificationDetected = true; 	hospitalInstance.email 				= params?.email
-			if (hospitalInstance.externalEHRs 		!= params?.externalEHRs)		modificationDetected = true; 	hospitalInstance.externalEHRs 		= params?.externalEHRs
-			if (hospitalInstance.populationMethod 	!= params?.populationMethod)	modificationDetected = true; 	hospitalInstance.populationMethod 	= params?.populationMethod
-			hospitalInstance.save(flush:true)
-			String [] sendTo  = hospitalInstance?.email.tokenize(";").toArray()
-			// TODO
-			if (modificationDetected)
-				sendMailService.updateHospitalConfig(hospitalInstance.email, hospitalInstance.name, new Date())
+			hospitalInstance = saveHospital(hospitalInstance, params)
 			
 			for (prod in params.products){
 				def product = Product.get(prod.id)
@@ -68,14 +58,7 @@ class HospitalController {
 		else if (params.ehr_id) {
 			// update Hospital set EHR
 			def hospital = Hospital.get(params.id)
-			
-			// TODO: check here for possible changes to be reported via Email Notification
-			hospital.ehr = Ehr.get(params.ehr_id)
-			hospital.notes = params?.notes
-			hospital.email = params?.email				
-			hospital.externalEHRs = params?.externalEHRs
-			hospital.populationMethod = params?.populationMethod			
-			hospital.save(flush : true)
+			hospital = saveHospital(hospital, params)
 
 			def old_ids = HospitalProduct.list().findAll{it?.hospital == hospital}.collect{it.product.id}
 
@@ -247,4 +230,24 @@ class HospitalController {
 		}
 	}
 
+	def saveHospital (Hospital hospitalInstance, GrailsParameterMap params) {
+		def modificationDetected = false
+		if (hospitalInstance.notes 				!= params?.notes)				modificationDetected = true; 	hospitalInstance.notes 				= params?.notes
+		if (hospitalInstance.email 				!= params?.email)				modificationDetected = true; 	hospitalInstance.email 				= params?.email
+		if (hospitalInstance.externalEHRs 		!= params?.externalEHRs)		modificationDetected = true; 	hospitalInstance.externalEHRs 		= params?.externalEHRs
+		if (hospitalInstance.populationMethod 	!= params?.populationMethod)	modificationDetected = true; 	hospitalInstance.populationMethod 	= params?.populationMethod
+		if (hospitalInstance.ehr 	!= Ehr.get(params?.ehr_id))	modificationDetected = true; 	hospitalInstance.ehr = Ehr.get(params?.ehr_id)
+		
+		if (modificationDetected) { 		
+			hospitalInstance.save(flush:true)
+
+			String trimEmail = hospitalInstance?.email.trim()
+			String [] sendTo  = trimEmail?.tokenize(";").toArray()
+			ArrayList st = Arrays.asList(sendTo);
+			sendMailService.updateHospitalConfig(st, hospitalInstance.name, new Date())
+		}	
+
+		return hospitalInstance
+	}
+	
 }
