@@ -37,6 +37,7 @@ class HospitalController {
 							boolean oldValueC = hospitalMeasure.completed
 							boolean oldValueA = hospitalMeasure.accepted
 							boolean oldValueV = hospitalMeasure.verified
+							boolean oldValueCo = hospitalMeasure.confirmed
 							
 							
 							hospitalMeasure.accepted = msr.accepted
@@ -53,6 +54,9 @@ class HospitalController {
 								
 							if (oldValueV != hospitalMeasure.verified && hospitalMeasure.verified)
 								sendMailService.verifieMeasure(hospitalInstance?.email, hospitalInstance?.name, product?.name, msr?.name, new Date(), session?.user.login)
+								
+							if (oldValueCo != hospitalMeasure.confirmed && hospitalMeasure.confirmed)
+								sendMailService.omissionUserIdentifie(hospitalInstance?.email, hospitalInstance?.name, product?.name, msr?.name)
 							
 						}
 						def hospitalProductMeasure 	= HospitalProductMeasure.findByHospitalProductAndHospitalMeasure(hospitalProduct, hospitalMeasure)

@@ -59,8 +59,8 @@ class HospitalElementController {
 		
 		instance.save(flush :true)
 		if (modificationDetected)
-			sendMailService.updateDataElement(instance?.hospital.email, instance?.hospital.name, instance?.dataElement.name, "??????", new Date(), session?.user.login)
-		
+			sendMailService.updateDataElement(instance?.hospital.email, instance?.hospital.name, instance?.dataElement.name, HospitalMeasure.get(param?.m_id)?.measure.name, new Date(), session?.user.login)
+			instance.hospitalMeasureElements
 		// TODO remove all hospital value sets
 		HospitalValueSet.executeUpdate("delete HospitalValueSet hvs where hvs.hospitalElement=?", [instance])
 		ElementExtraLocation.executeUpdate("delete ElementExtraLocation eel where eel.hospitalElement=?", [instance])
