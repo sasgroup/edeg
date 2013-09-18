@@ -13,6 +13,7 @@ class HospitalMeasureController {
 		def hospitalMeasureInstance  = saveInstance(new HospitalMeasure(), params)
 		render(contentType: "text/json") {
 			resp = "ok"
+			version = hospitalMeasureInstance.version
 			message = "HospitalMeasure ${hospitalMeasureInstance.measure.name} successfully created"
 		}
 	}
@@ -63,6 +64,7 @@ class HospitalMeasureController {
 		hospitalMeasureInstance  = saveInstance(hospitalMeasureInstance, params)
 		render(contentType: "text/json") {
 			resp = "ok"
+			version = hospitalMeasureInstance.version
 			message = "The Hospital Measure is updated successfully"
 		}
 	}

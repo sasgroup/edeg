@@ -4,43 +4,37 @@ import grails.converters.JSON
 import org.springframework.dao.DataIntegrityViolationException
 
 class EhrController {
+	
 	private Ehr saveInstance (Ehr instance, def param) {
-		println param?.dataElementDefaults
-		instance.properties = param
+		instance.name = param.name
+		instance.code = param.code
+		instance.notes = param.notes
+		
 		instance.save(flush :true)
 	
-		//clear
-		def dataElementsDefaults = DataElementDefaults.findAllByEhr(instance)//param?.dataElementDefaults
-		for (dataElementsDefault in dataElementsDefaults) {
-			DataElementDefaults.get(dataElementsDefault.id).delete(flush: true)
-		}
+		DataElementDefaults.executeUpdate("delete DataElementDefaults ded where ded.ehr=?", [instance])
+		
 		//create new
-		dataElementsDefaults = param?.dataElementDefaults
+		def dataElementsDefaults = param?.dataElementDefaults
 		for (dataElementsDefault in dataElementsDefaults) {
-			 new DataElementDefaults(location:dataElementsDefault.location,
-				//source:"",
-				//sourceEHR:"",
-				//valueSetRequired:false,
-				valueType:dataElementsDefault.valueType.name,
-				//codeType:dataElementsDefault.codeType.name,
-				dataElement : DataElement.get(dataElementsDefault.linkId),
-				ehr : instance).save(flush:true)
+			if (dataElementsDefault.location)
+			 new DataElementDefaults(location:dataElementsDefault.location, valueType:dataElementsDefault.valueType.name, dataElement : DataElement.get(dataElementsDefault.linkId), ehr : instance).save(flush:true)
 		}
+		
 		return instance
 	}
+	
 	def save() {
-		def ehr = saveInstance (new Ehr(), params)
-
+		def ehrInstance = saveInstance (new Ehr(), params)
 		render(contentType: "text/json") {
 			resp = "ok"
-			message = "EHR ${ehr.code} has been successfully created"
+			message = "EHR ${ehrInstance.code} has been successfully created"
 		}
 	}
    
 	def show() {
 		if (params.id && Ehr.exists(params.id)) {
-			def  result = Ehr.get(params.id)
-
+			def result = Ehr.get(params.id)
 			def hospitalList = Hospital.list().findAll { it.ehr.id == result.id } 
 			def dataElementDefaultsList = DataElementDefaults.list().findAll{it.ehr.id.findAll{it == result.id}.size() >= 1}
 			
@@ -59,10 +53,7 @@ class EhrController {
 					for (d in dataElementDefaultsList) {
 						dataElementDefault  id : d.id,
 											location : d.location,
-											//source : d.source,
-											//sourceEHR : d.sourceEHR,
 											valueType : d.valueType,
-											//codeType : d.codeType,
 											linkId : d.dataElement.id
 					}
 				}
@@ -95,7 +86,6 @@ class EhrController {
 
 		 if (params.version != null) {
             if (ehr.version > params.version) {
-				println 'inside'
 				return render(contentType: "text/json") {
 					resp = "error"
 					message = "Another user edited this record and saved the changes before you attempted to save your changes. Re-edit the record ${ehr.code}."
@@ -112,22 +102,23 @@ class EhrController {
 	
 
 	def delete(Long id) {
-		println "Delete"
-
 		def ehr = Ehr.findById(id)
-		String name = ehr.name
-		String code = ehr.code
-
+		
 		def hasHospitals = Hospital.list().findAll { it.ehr.id == ehr.id } ? true : false
 		def hasDataElementDefaultsList = DataElementDefaults.list().findAll{it.ehr.id.findAll{it == ehr.id}.size() >= 1} ? true : false
 		
+		String name = ehr.name
+		String code = ehr.code
+		String code2 = ehr.code
+		
 		if (hasHospitals || hasDataElementDefaultsList) {
 			render(status: 420, text: "EHR ${code} cannot be deleted because of existing dependencies")
-		} else {
+		} 
+		else {
 			ehr?.delete(flush: true)
 			render(contentType: "text/json") {
 				resp = "success"
-				message = "EHR ${code} has been successfully deleted"
+				message = "EHR ${code2} has been successfully deleted"
 			}
 		}
 	}

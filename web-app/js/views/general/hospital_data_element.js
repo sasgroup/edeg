@@ -11,7 +11,7 @@ App.Views.HospitalElements = Backbone.View.extend({
 	render : function() {		
 		this.$el.html(this.template({ hospitals : this.collection, measure_completed: this.options.measure_completed}));
 		this.collection.each(this.appendHospitalElement, this);
-		console.log("~~");
+				
 		if (App.userRole == 'admin') {
 			this.$el.find("h3").html(this.options.measure_code+ ": Data Elements");			
 		} else {
@@ -27,7 +27,7 @@ App.Views.HospitalElements = Backbone.View.extend({
 			.removeClass('show')
 			.popover('hide');	
 		});
-		
+					
 		return this;
 	},
 	

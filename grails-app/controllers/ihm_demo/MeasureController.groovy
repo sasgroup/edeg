@@ -18,13 +18,9 @@ class MeasureController {
 			
 		if (param.cqmDomain)
 			instance.cqmDomain = CqmDomain.get (param.cqmDomain.id)
-		Product.list().each {
-			it.removeFromMeasures(instance)
-		}	
-		
-		DataElement.list().each {
-			it.removeFromMeasures(instance)
-		}
+			
+		Product.list().each { it.removeFromMeasures(instance) }	
+		DataElement.list().each { it.removeFromMeasures(instance) }
 		
 		for (dataElement in param.dataElements) {
 			instance.addToDataElements(DataElement.get(dataElement.did))
@@ -33,14 +29,15 @@ class MeasureController {
 		for (product in param.products) {
 			instance.addToProducts(Product.get(product.pid))
 		}
+		
 		return instance.save(flush :true)
 	}
 	
     def save() {
 		def measureInstance  = saveInstance(new Measure(), params)
 		render(contentType: "text/json") {
-					resp = "ok"
-					message = "Measure ${measureInstance?.code} has been successfully created"
+			resp = "ok"
+			message = "Measure ${measureInstance?.code} has been successfully created"
 		}
 	}
    
@@ -112,22 +109,22 @@ class MeasureController {
 
     def delete(Long id) {
 		def measure = Measure.findById(params.id)
+		
+		def dataElementsDep = measure.dataElements ? true : false
+		def productsDep = measure.products ? true : false
+		def hospitalMeasureDep = HospitalMeasure.findByMeasure(measure) ? true : false
+		
 		String name = measure.name
 		String code = measure.code
+		String code2 = measure.code
 
-		def dataElementsDep = measure.dataElements ? true : false
-
-		def productsDep = measure.products ? true : false
-		
-		def hospitalmeasureDep = HospitalMeasure.findByMeasure(measure) ? true : false
-
-		if (dataElementsDep || productsDep || hospitalmeasureDep) {
+		if (dataElementsDep || productsDep || hospitalMeasureDep) {
 			render(status: 420, text: "Measure ${code} cannot be deleted because of existing dependencies")
 		} else {
 			measure?.delete(flush: true)
 			render(contentType: "text/json") {
 				resp = "success"
-				message = "Measure ${code} has been successfully deleted"
+				message = "Measure ${code2} has been successfully deleted"
 			}
 		}
     }

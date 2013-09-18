@@ -4,7 +4,24 @@ import grails.converters.JSON
 import org.springframework.dao.DataIntegrityViolationException
 
 class ProductController {
+	
+	private Product saveInstance (Product instance, def param) {
+		instance.name = param.name
+		instance.code = param.code
+		instance.notes = param.notes
+		instance.help = param.help
 		
+		if (instance.id) {
+			instance.measures.clear()
+		}
+		
+		for (measure in param.measures) {
+			instance.addToMeasures(Measure.get(measure.mid))
+		}
+	
+		return instance.save(flush :true)
+	}
+	
 	def save() {
 		def productInstance  = saveInstance(new Product(), params)
 		render(contentType: "text/json") {
@@ -35,7 +52,8 @@ class ProductController {
 					}
 				}
 			}
-		} else {
+		} 
+		else {
 			def results = Product.list()
 	
 			render(contentType: "text/json") {
@@ -79,43 +97,26 @@ class ProductController {
 	}
 	
 
-
 	def delete(Long id) {
 		def product = Product.findById(params.id)
-		String name = product.name
-		String code = product.code
 		
 		def measuresDep = product.measures ? true : false
-		
 		def hospitalsDep = HospitalProduct.findByProduct(product) ? true : false
+		
+		String name = product.name
+		String code = product.code
+		String code2 = product.code
 
 		if (measuresDep || hospitalsDep) {
 			render(status: 420, text: "Product ${code} cannot be deleted because of existing dependencies")
-		} else {
+		} 
+		else {
 			product?.delete(flush: true)
 			render(contentType: "text/json") {
 				resp = "success"
-				message = "Product ${code} has been successfully deleted"
+				message = "Product ${code2} has been successfully deleted"
 			}
 		}
 	}
 	
-	private Product saveInstance (Product instance, def param) {
-		
-		instance.name = param.name
-		instance.code = param.code
-		instance.notes = param.notes
-		instance.help = param.help
-		
-		
-		if (instance.id) {
-			instance.measures.clear()
-		}	
-		
-		for (measure in param.measures) {
-			instance.addToMeasures(Measure.get(measure.mid))
-		}
-	
-		return instance.save(flush :true)
-	}
 }

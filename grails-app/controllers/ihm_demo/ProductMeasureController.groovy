@@ -3,13 +3,12 @@ package ihm_demo
 import grails.converters.JSON
 import org.springframework.dao.DataIntegrityViolationException
 
+
+/* this controller is possibly obsolete */
 class ProductMeasureController {	
 	
 	def show() {
-		println "Show"
-		println params.id
 		if (params.id && Product.exists(params.id)) {
-			println "One"
 			def  pr = Product.get(params.id)			
 
 			render(contentType: "text/json") {			
@@ -20,7 +19,6 @@ class ProductMeasureController {
 				}				
 			}
 		} else {
-			println "NExt"
 			def results = Product.list()
 	
 			render(contentType: "text/json") {
@@ -48,7 +46,6 @@ class ProductMeasureController {
 	}
 
 	def update(Long id, Long version) {
-		println "Update"
 		def productInstance = Product.get(id)
 
 		if  (!productInstance) {
@@ -59,9 +56,7 @@ class ProductMeasureController {
 		}
 
 		 if (params.version != null) {
-			 println productInstance.version > params.version
             if (productInstance.version > params.version) {
-				println 'inside'
 				return render(contentType: "text/json") {
 					resp = "error"
 					message = "Another User has updated product(${productInstance.name}) while you were editing"
@@ -79,11 +74,8 @@ class ProductMeasureController {
 
 
 	def delete(Long id) {
-		println "Delete"
-
 		def product = Product.findById(params.id)
 		String name = product.name
-		println ("product.measures:" + product.measures)
 
 		def measuresDep = product.measures ? true : false
 

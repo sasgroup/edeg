@@ -42,7 +42,7 @@ class FileController {
 	   if (!(request instanceof MultipartHttpServletRequest)) {
 		   println("no multipart")
 		 }
-	   println params
+	   //println params
 	   if (params?.currentHospitalElement && HospitalElement.exists(params.currentHospitalElement)) {
 			def multiRequest = request.getFile("fileToUpload")
 			println multiRequest.getClass()
