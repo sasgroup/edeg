@@ -23,7 +23,6 @@ class HospitalController {
 					}
 				}
 			}
-			
 			hospitalInstance = saveHospital(hospitalInstance, params)
 			
 			for (prod in params.products){
@@ -251,21 +250,32 @@ class HospitalController {
 		}
 	}
 
-	private Hospital saveHospital (Hospital hospitalInstance, GrailsParameterMap params) {
+private Hospital saveHospital (Hospital hospitalInstance, GrailsParameterMap params) {
 		def modificationDetected = false
-		if (hospitalInstance.notes 				!= params?.notes)				modificationDetected = true; 	hospitalInstance.notes 				= params?.notes
-		if (hospitalInstance.email 				!= params?.email)				modificationDetected = true; 	hospitalInstance.email 				= params?.email
-		if (hospitalInstance.externalEHRs 		!= params?.externalEHRs)		modificationDetected = true; 	hospitalInstance.externalEHRs 		= params?.externalEHRs
-		if (hospitalInstance.populationMethod 	!= params?.populationMethod)	modificationDetected = true; 	hospitalInstance.populationMethod 	= params?.populationMethod
-		if (hospitalInstance.ehr 	!= Ehr.get(params?.ehr_id))	modificationDetected = true; 	hospitalInstance.ehr = Ehr.get(params?.ehr_id)
 		
-		if (modificationDetected) { 		
+		if (!hospitalInstance.email && params?.email != "" &&   hospitalInstance.email 				!= params?.email)				modificationDetected = true; 	hospitalInstance.email 				= params?.email
+		
+		if (!hospitalInstance.externalEHRs && params?.externalEHRs != "" && hospitalInstance.externalEHRs 		!= params?.externalEHRs)		modificationDetected = true; 	hospitalInstance.externalEHRs 		= params?.externalEHRs
+		
+		if (!hospitalInstance.populationMethod && params?.populationMethod != "" && hospitalInstance.populationMethod 	!= params?.populationMethod)	modificationDetected = true; 	hospitalInstance.populationMethod 	= params?.populationMethod
+		
+		if (!hospitalInstance.ehr && params?.ehr_id != "" && hospitalInstance.ehr 	!= Ehr.get(params?.ehr_id))	modificationDetected = true; 	hospitalInstance.ehr = Ehr.get(params?.ehr_id)
+		
+		
+		if (modificationDetected) { 
+			hospitalInstance.notes = params?.notes
 			hospitalInstance.save(flush:true)
-
 			sendMailService.updateHospitalConfig(hospitalInstance?.email, hospitalInstance.name, new Date())
-		}	
-
+		} 
+		
+		if ((!modificationDetected && !hospitalInstance.notes && params?.notes != "" && hospitalInstance.notes != params?.notes) || (hospitalInstance.notes && !params?.notes)){
+			hospitalInstance.notes = params?.notes
+			hospitalInstance.save(flush:true)
+			sendMailService.updateHospitalConfig("", hospitalInstance.name, new Date())
+		}
+			
 		return hospitalInstance
 	}
+	
 	
 }
