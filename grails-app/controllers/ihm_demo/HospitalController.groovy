@@ -1,5 +1,7 @@
 package ihm_demo
 
+import java.util.Date;
+
 import grails.converters.JSON
 import org.codehaus.groovy.grails.web.servlet.mvc.GrailsParameterMap
 import org.springframework.dao.DataIntegrityViolationException
@@ -59,9 +61,14 @@ class HospitalController {
 							
 						}
 						def hospitalProductMeasure 	= HospitalProductMeasure.findByHospitalProductAndHospitalMeasure(hospitalProduct, hospitalMeasure)
+						boolean oldIncludedo = hospitalProductMeasure.included
 						if (hospitalProductMeasure)
 							hospitalProductMeasure.included	= msr.included
-							hospitalProductMeasure.save(flush:true)
+						hospitalProductMeasure.save(flush:true)
+						if (oldIncludedo != hospitalProductMeasure.included && hospitalProductMeasure.included)
+						sendMailService.includeMeasureIntoHospitalProduct(hospitalInstance?.email, hospitalInstance?.name, product?.name, msr?.name, new Date())
+							
+							
 					}
 				}
 			}
