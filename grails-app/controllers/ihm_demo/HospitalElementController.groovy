@@ -51,8 +51,14 @@ class HospitalElementController {
 			for(def hme in instance.hospitalMeasureElements){
 				def hm = hme.hospitalMeasure
 				if (hm.id == mid){
+					boolean oldValueC = hm.completed
 					hm.completed = true
 					hm.save(flush :true)
+					println param
+					if (oldValueC != hm.completed && hm.completed)
+						sendMailService.markMeasureAsComplete(instance?.hospital.email, instance?.hospital.name, Product.get(param?.p_id)?.name, HospitalMeasure.get(param?.m_id)?.measure.name, new Date(), session?.user.login)
+					
+
 				}
 			}	
 		}

@@ -8,7 +8,8 @@ App.Views.HospitalElements = Backbone.View.extend({
 		'click a[data-toggle="tab"]'	:  'changeTab'
 	},
 	
-	render : function() {		
+	render : function() {	
+		console.log(this);
 		this.$el.html(this.template({ hospitals : this.collection, measure_completed: this.options.measure_completed}));
 		this.collection.each(this.appendHospitalElement, this);
 				
@@ -38,9 +39,10 @@ App.Views.HospitalElements = Backbone.View.extend({
 	
 	appendHospitalElement : function(hospitalElement) {
 		var m_id = this.options.m_id;
+		var p_id = this.options.product_id;
 		var e_ehrs = this.options.external_ehrs;
 		var p_ehr = this.options.primary_ehr;
-		var view = new App.Views.SingleHospitalElement({ model : hospitalElement, m_id: m_id, external_ehrs: e_ehrs, primary_ehr:p_ehr});		
+		var view = new App.Views.SingleHospitalElement({ model : hospitalElement, m_id: m_id,p_id:p_id, external_ehrs: e_ehrs, primary_ehr:p_ehr});		
 		this.$el.find('#hospital-elements tbody').append(view.render().el);		
 	},
 	
@@ -92,11 +94,14 @@ App.Views.HospitalElements = Backbone.View.extend({
 		var markAsComplete = $('#markAsComplete').is(":checked");
 		
 		this.saveHospitalElementDetails();		
-		
+		product_id
 		var m_id = this.options.m_id;
+		var product_id = this.options.product_id;
 		_.each(this.collection.models, function(model) {
 			  model.set({markAsComplete: markAsComplete});	 
 			  model.set({m_id: m_id});
+			  model.set({p_id: product_id});
+			  
 			  model.save(null,{
 			    wait: true,
 			    success: function (m, response) {			       

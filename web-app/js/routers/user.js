@@ -132,7 +132,7 @@ App.Routers.User = Backbone.Router.extend({
 		
 		App.hospitalElements.fetch({data:{id: m_id}}).then(function(){			                          
 			
-			App.viewHospitalElements = new App.Views.HospitalElements ({collection:App.hospitalElements, m_id: m_id, external_ehrs:external_ehrs, primary_ehr:primary_ehr, measure_completed:measure_completed});
+			App.viewHospitalElements = new App.Views.HospitalElements ({collection:App.hospitalElements, m_id: m_id,product_id: p_id, external_ehrs:external_ehrs, primary_ehr:primary_ehr, measure_completed:measure_completed});
 			$('#app').html(App.viewHospitalElements.render().el);	
 			
 			$('#deatails *').attr('disabled','disabled');
