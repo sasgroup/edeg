@@ -18,7 +18,7 @@
     </context-param>
     <context-param>
       <param-name>adminEmail</param-name>
-      <param-value>eDEG@ihm-services.com</param-value>
+      <param-value>ihm.edeg.hospital@gmail.com</param-value>
       <description>
         The EMAIL address of the administrator to whom questions
         and comments about all Hospitals should be addressed.
