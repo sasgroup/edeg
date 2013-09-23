@@ -3,13 +3,14 @@ package ihm
 class SendMailService {
 	
 	def mailService
+	def grailsApplication
 	
-	static String reciverMail = "ihm.edeg.hospital@gmail.com"    	
+	
 	private ArrayList transferToList(String emails){
 		String trimEmail = emails.trim()
 		String [] sendTo  = trimEmail?.tokenize(";").toArray()
 		ArrayList st = Arrays.asList(sendTo);
-		st.add(reciverMail)
+		st.add(grailsApplication.mainContext.servletContext.getInitParameter("adminEmail"))
 		return st
 	}
 	
