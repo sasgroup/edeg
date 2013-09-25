@@ -328,9 +328,9 @@ App.Views.Hospital = Backbone.View.extend({
 		if (this.isModified) {							
 			bootbox.confirm("Save the changes?", function(result) {
 					if (result) {
-						 this_hospital.saveAndClose();
-						 App.viewHospital.isModified = false;
+						 this_hospital.saveAndClose();						 
 					} 
+					App.viewHospital.isModified = false;
 			}); 	
 		}		
 	},
@@ -460,18 +460,26 @@ App.Views.SingleHospitalMeasure = Backbone.View
 				}
 				
 			 App.ho.set('products', App.hospital_products);		
-			 App.ho.save(this.attributes,{
+			 /*App.ho.save(this.attributes,{
 			        success: function (model, response) {
 			           if (window.console) console.log(response);			           	           
 			        },
 			        error: function (model, response) {			 
 			           if (window.console) console.log(response);
 			        }
-			});
+			});*/
 			},
 									
 			goToDataElements : function(e) {				
-				e.preventDefault();							
+				e.preventDefault();	
+				App.ho.save(this.attributes,{
+				        success: function (model, response) {
+				           if (window.console) console.log(response);			           	           
+				        },
+				        error: function (model, response) {			 
+				           if (window.console) console.log(response);
+				        }
+				});
 				Backbone.history.navigate("hospital/"+ App.ho.get('id') +"/product/" + this.model.get('product_id')+ "/measure/" + this.model.get('id'), true);
 			}			
 		});
