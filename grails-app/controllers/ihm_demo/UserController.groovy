@@ -11,6 +11,8 @@ class UserController {
 	
 	def error = {}
 	
+	def list = {}
+	
 	def logout = {
 		flash.message = "Goodbye ${session.user?.login}"
 		session.invalidate()

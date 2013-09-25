@@ -43,7 +43,9 @@ $(function() {
 						Backbone.history.navigate(first_product, true);
 					}	*/	
 				});	
-								
+
+				$('.hospital#'+hospital_id).hide();
+				
 				Backbone.history.navigate('/home/' + hospital_id , true);
 			});	  
 							
@@ -61,14 +63,15 @@ $(function() {
 			});
 
 			for(var index in output) {
-				$('ul#hospital-list-dropdown').append('<li data-id='+ output[index].id +'><a href="#">' + output[index].name+ '</a></li>');	
+				$('ul#hospital-list-dropdown').append('<li data-id='+ output[index].id +' class="hospital" id='+ output[index].id+'><a href="#">' + output[index].name+ '</a></li>');	
 			}
 		});   
 							
 		$('#hospital-list-dropdown li').live('click', function(){	 
 			var hospital_name = $(this).find('a').text(); 
 			var hospital_id = $(this).data('id');
-			
+			$('.hospital').show()
+			$('.hospital#'+hospital_id).hide();
 			//show hospital-name
 			$('h3.hospital-name').text(hospital_name).attr("data-id",hospital_id);	
 			    	    
@@ -87,7 +90,7 @@ $(function() {
 								
 				Backbone.history.navigate('/home/' + hospital_id , true);
 			})	    
-		});		
+		});
 	}
 		
 			

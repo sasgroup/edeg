@@ -5,7 +5,6 @@ import org.springframework.dao.DataIntegrityViolationException
 class CqmDomainController {
 
 	def show() {
-		println "show"
 		if (params.id && CqmDomain.exists(params.id)) {
 			def  result = CqmDomain.get(params.id)
 

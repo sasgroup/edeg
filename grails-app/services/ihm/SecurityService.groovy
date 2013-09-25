@@ -7,8 +7,6 @@ class SecurityService {
 	IhmSecurity ihmSecurity = new IhmSecurityImpl()
 	
 	def getRole(String user) {
-		println "Service"
-		
 		if (ihmSecurity.hasRole("admin",user)) {
 			return "admin"
 		} else if (ihmSecurity.hasRole("user",user)){

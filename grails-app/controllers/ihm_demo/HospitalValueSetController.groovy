@@ -2,6 +2,7 @@ package ihm_demo
 
 import org.springframework.dao.DataIntegrityViolationException
 
+/* this controller is possibly obsolete */
 class HospitalValueSetController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]

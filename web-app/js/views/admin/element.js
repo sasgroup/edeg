@@ -209,7 +209,7 @@ App.Views.DataElement = Backbone.View.extend({
 	showHelpDialog : function(){
 		if (! $('.helpArea').data("wysihtml5") )
 			$('.helpArea').wysihtml5();
-		$('#myHelp').modal('show');
+		$('#myHelp').appendTo($("body")).modal('show');
 	}
 	
 });

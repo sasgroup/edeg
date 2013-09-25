@@ -26,6 +26,15 @@ eventCompileStart = { kind ->
 		tomcat.addRole("user", "onboarding")
 		tomcat.addUser("test", "test")
 		tomcat.addRole("test", "onboarding")
+		
+		tomcat.addUser("testadmin", "testadmin")
+		tomcat.addRole("testadmin", "onboarding")
+		tomcat.addUser("testuser1", "testuser1")
+		tomcat.addRole("testuser1", "onboarding")
+		tomcat.addUser("testuser2", "testuser2")
+		tomcat.addRole("testuser2", "onboarding")
+		tomcat.addUser("testuser3", "testuser3")
+		tomcat.addRole("testuser3", "onboarding")
 	}
 	println "**** Compile Starting on Build #${buildNumber}"
 }

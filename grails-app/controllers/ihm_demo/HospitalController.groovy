@@ -1,10 +1,13 @@
 package ihm_demo
 
+import java.util.Date;
+
 import grails.converters.JSON
+import org.codehaus.groovy.grails.web.servlet.mvc.GrailsParameterMap
 import org.springframework.dao.DataIntegrityViolationException
 
 class HospitalController {
-
+	def sendMailService
 	def update(Long id, Long version) {
 		if (!params.apply) {
 			def hospitalInstance = Hospital.get(id)
@@ -22,19 +25,7 @@ class HospitalController {
 					}
 				}
 			}
-			
-			def modificationDetected = false
-			//if (hospitalInstance.notes 				!= params?.notes)				modificationDetected = true; 	
-			hospitalInstance.notes 				= params?.notes
-			
-			if (hospitalInstance.email 				!= params?.email)				modificationDetected = true; 	hospitalInstance.email 				= params?.email
-			if (hospitalInstance.externalEHRs 		!= params?.externalEHRs)		modificationDetected = true; 	hospitalInstance.externalEHRs 		= params?.externalEHRs
-			if (hospitalInstance.populationMethod 	!= params?.populationMethod)	modificationDetected = true; 	hospitalInstance.populationMethod 	= params?.populationMethod
-			hospitalInstance.save(flush:true)
-
-			// TODO
-			//if (modificationDetected)
-			//	SendEmailAboutHospitalModification(hospitalInstance)
+			hospitalInstance = saveHospital(hospitalInstance, params)
 			
 			for (prod in params.products){
 				def product = Product.get(prod.id)
@@ -43,17 +34,41 @@ class HospitalController {
 					for (msr in prod.measures){
 						def hospitalMeasure = HospitalMeasure.get(msr.id)
 						if (hospitalMeasure){
-							// TODO: check here for possible changes to be reported via Email Notification
+
+							boolean oldValueC = hospitalMeasure.completed
+							boolean oldValueA = hospitalMeasure.accepted
+							boolean oldValueV = hospitalMeasure.verified
+							boolean oldValueCo = hospitalMeasure.confirmed
+							
+							
 							hospitalMeasure.accepted = msr.accepted
 							hospitalMeasure.completed = msr.completed
 							hospitalMeasure.confirmed = msr.confirmed
 							hospitalMeasure.verified = msr.verified
 							hospitalMeasure.save(flush:true)
+							
+							if (oldValueC != hospitalMeasure.completed && hospitalMeasure.completed)
+								sendMailService.markMeasureAsComplete(hospitalInstance?.email, hospitalInstance?.name, product?.name, msr?.name, new Date(), session?.user.login)
+								
+							if (oldValueA != hospitalMeasure.accepted && hospitalMeasure.completed && hospitalMeasure.accepted)	
+								sendMailService.asseptMeasureThatCompleted(hospitalInstance?.email, hospitalInstance?.name, product?.name, msr?.name, new Date(), session?.user.login)
+								
+							if (oldValueV != hospitalMeasure.verified && hospitalMeasure.verified)
+								sendMailService.verifieMeasure(hospitalInstance?.email, hospitalInstance?.name, product?.name, msr?.name, new Date(), session?.user.login)
+								
+							if (oldValueCo != hospitalMeasure.confirmed && hospitalMeasure.confirmed)
+								sendMailService.omissionUserIdentifie(hospitalInstance?.email, hospitalInstance?.name, product?.name, msr?.name)
+							
 						}
 						def hospitalProductMeasure 	= HospitalProductMeasure.findByHospitalProductAndHospitalMeasure(hospitalProduct, hospitalMeasure)
+						boolean oldIncludedo = hospitalProductMeasure.included
 						if (hospitalProductMeasure)
 							hospitalProductMeasure.included	= msr.included
-							hospitalProductMeasure.save(flush:true)
+						hospitalProductMeasure.save(flush:true)
+						if (oldIncludedo != hospitalProductMeasure.included && hospitalProductMeasure.included)
+						sendMailService.includeMeasureIntoHospitalProduct(hospitalInstance?.email, hospitalInstance?.name, product?.name, msr?.name, new Date())
+							
+							
 					}
 				}
 			}
@@ -68,22 +83,17 @@ class HospitalController {
 		else if (params.ehr_id) {
 			// update Hospital set EHR
 			def hospital = Hospital.get(params.id)
-			
-			// TODO: check here for possible changes to be reported via Email Notification
-			hospital.ehr = Ehr.get(params.ehr_id)
-			hospital.notes = params?.notes
-			hospital.email = params?.email				
-			hospital.externalEHRs = params?.externalEHRs
-			hospital.populationMethod = params?.populationMethod			
-			hospital.save(flush : true)
+			hospital = saveHospital(hospital, params)
 
 			def old_ids = HospitalProduct.list().findAll{it?.hospital == hospital}.collect{it.product.id}
 
 			for (prId in params.product_ids) {//update HospitalProduct
 				def product = Product.get(prId)
 				def hospitalProduct = HospitalProduct.findByHospitalAndProduct(hospital, product)
-				if (!hospitalProduct)
+				if (!hospitalProduct) {
 					hospitalProduct = new HospitalProduct(hospital:hospital, product:product).save(flush:true)
+					sendMailService.assignProductToHospital(hospital?.email, hospital?.name, product?.name, new Date())
+				}		
 
 				def idx = -1
 				def old_idx = -1
@@ -130,7 +140,6 @@ class HospitalController {
 				}
 			}
 
-			// TODO: check here for possible changes to be reported via Email Notification
 			for (oldId in old_ids){
 				def p  = Product.get(oldId)
 				def hp = HospitalProduct.findByHospitalAndProduct(hospital, p)
@@ -143,6 +152,7 @@ class HospitalController {
 				}
 				hp = HospitalProduct.findById(hp_id)
 				hp.delete(flush:true)
+				sendMailService.deAssignProductFromHospital(hospital?.email, hospital?.name, p?.name, new Date())
 			}
 
 			render(contentType: "text/json") {
@@ -247,4 +257,32 @@ class HospitalController {
 		}
 	}
 
+private Hospital saveHospital (Hospital hospitalInstance, GrailsParameterMap params) {
+		def modificationDetected = false
+		
+		if (!hospitalInstance.email && params?.email != "" &&   hospitalInstance.email 				!= params?.email)				modificationDetected = true; 	hospitalInstance.email 				= params?.email
+		
+		if (!hospitalInstance.externalEHRs && params?.externalEHRs != "" && hospitalInstance.externalEHRs 		!= params?.externalEHRs)		modificationDetected = true; 	hospitalInstance.externalEHRs 		= params?.externalEHRs
+		
+		if (!hospitalInstance.populationMethod && params?.populationMethod != "" && hospitalInstance.populationMethod 	!= params?.populationMethod)	modificationDetected = true; 	hospitalInstance.populationMethod 	= params?.populationMethod
+		
+		if (!hospitalInstance.ehr && params?.ehr_id != "" && hospitalInstance.ehr 	!= Ehr.get(params?.ehr_id))	modificationDetected = true; 	hospitalInstance.ehr = Ehr.get(params?.ehr_id)
+		
+		
+		if (modificationDetected) { 
+			hospitalInstance.notes = params?.notes
+			hospitalInstance.save(flush:true)
+			sendMailService.updateHospitalConfig(hospitalInstance?.email, hospitalInstance.name, new Date())
+		} 
+		
+		if ((!modificationDetected && !hospitalInstance.notes && params?.notes != "" && hospitalInstance.notes != params?.notes) || (hospitalInstance.notes && !params?.notes)){
+			hospitalInstance.notes = params?.notes
+			hospitalInstance.save(flush:true)
+			sendMailService.updateHospitalConfig("", hospitalInstance.name, new Date())
+		}
+			
+		return hospitalInstance
+	}
+	
+	
 }

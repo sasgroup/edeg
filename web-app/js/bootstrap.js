@@ -959,6 +959,7 @@
 
           this.$backdrop = $('<div class="modal-backdrop ' + animate + '" />')
             .appendTo(document.body)
+            //.insertAfter(this.$element)
 
           this.$backdrop.click(
             this.options.backdrop == 'static' ?
