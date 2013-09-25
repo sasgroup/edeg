@@ -65,9 +65,19 @@ class FileController {
 					}
 				}
 				sendMailService.attachFile(hospitalElement?.hospital.email, hospitalElement?.hospital.name, hospitalElement?.dataElement.name, HospitalMeasure.get(params?.currentMeasureId)?.measure.name, new Date(), session?.user.login)
-				render "$path"
+				//render "$path"
+				render(contentType: "text/json") {
+					resp = "ok"
+					message = "$path"
+					version = hospitalElement.version
+				}
+				
 			} else {
-				render "empty"
+				//render "empty"
+				render(contentType: "text/json") {
+					resp = "error"
+					message = "empty"
+				}
 			}
 	   }
 	}
@@ -82,9 +92,18 @@ class FileController {
 			hospitalElement.save(flush:true)
 
 			def res = fileUploadService.uploadFile(null, "${fileName}", "uploadFiles",true)
-			render "$res"
+			
+			render(contentType: "text/json") {
+				resp = "ok"
+				message = "$res"
+				version = hospitalElement.version 
+			}
 		}	else {
-			render "some errror"
+			//render "some errror"
+			render(contentType: "text/json") {
+				resp = "error"
+				message = "some error"
+			}
 		}
 	}
 }

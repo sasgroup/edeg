@@ -55,7 +55,9 @@ App.Views.HospitalElements = Backbone.View.extend({
 	saveHospitalElementDetails: function() {
 		if ($('tr').hasClass("row_selected")){
 			var he_id_to_save = $('tr.row_selected td:first').prop("id");
-			var hospital_element_to_save = App.hospitalElements.get(he_id_to_save);
+			//var hospital_element_to_save = App.hospitalElements.get(he_id_to_save);
+			
+			var hospital_element_to_save = this.collection.get(he_id_to_save); //NEW
 			
 			hospitalValueSet = [];				
 			$('table#hospital-specific-table tr').not(':first').each(function( ) {
@@ -94,7 +96,6 @@ App.Views.HospitalElements = Backbone.View.extend({
 		var markAsComplete = $('#markAsComplete').is(":checked");
 		
 		this.saveHospitalElementDetails();		
-		product_id
 		var m_id = this.options.m_id;
 		var product_id = this.options.product_id;
 		_.each(this.collection.models, function(model) {
@@ -189,8 +190,7 @@ App.Views.SingleHospitalElement = Backbone.View
 		this.model.attributes[e.target.name].name = e.target.value;
 	},
 	
-	selectRow: function(event) {
-				
+	selectRow: function(event) {				
 		//activate details tabs
 		$('#deatails *').removeAttr('disabled');
         	
@@ -198,7 +198,9 @@ App.Views.SingleHospitalElement = Backbone.View
 		if ($('tr').hasClass("row_selected")){			
 						
 			var he_id_to_save = $('tr.row_selected td:first').prop("id");
-			var hospital_element_to_save = App.hospitalElements.get(he_id_to_save);
+			//var hospital_element_to_save = App.hospitalElements.get(he_id_to_save);
+			
+			var hospital_element_to_save = this.model.collection.get(he_id_to_save); //NEW
 			
 			// save Hospital Specific
 			hospitalValueSet = [];		
@@ -251,7 +253,8 @@ App.Views.SingleHospitalElement = Backbone.View
 		
 		var he_id = $('tr.row_selected td:first').prop("id");
 		// get hospital element by id 
-		var slc_hospital_element = App.hospitalElements.get(he_id);
+		//var slc_hospital_element = App.hospitalElements.get(he_id);
+		var slc_hospital_element = this.model.collection.get(he_id);
 
 		this.showQA(slc_hospital_element);
 		this.showExtraLocation(slc_hospital_element);
@@ -269,13 +272,25 @@ App.Views.SingleHospitalElement = Backbone.View
 		var m_id = this.options.m_id;
 		var e_ehrs = this.options.external_ehrs;
 		var p_ehr = this.options.primary_ehr;
-		var id = $(event.target).closest('tr').find('td:first').prop('id');		
+		var id = $(event.target).closest('tr').find('td:first').prop('id');
+		
+		var curhospitalElement =this.model.collection.get(id);
 		
 		App.hospitalElements = new App.Collections.HospitalElements();		
 		App.hospitalElements.fetch({data:{id: m_id, defaults: true, he_id: id}}).then(function(){			
 			var hospitalElement = App.hospitalElements.get(id);
+									
+			$.each(["version","location","source","sourceEHR","valueType"], function(index,ael){
+				//curhospitalElement[ael] = hospitalElement[ael]; 
+				curhospitalElement.attributes[ael] = hospitalElement.attributes[ael]; 
+			})
+			//["version","internalNotes","location","notes","source","sourceEHR","valueSet","valueSetFile","valueType","dataElement","element_notes","help","hospitalValueSet","elementExtraLocation"]
+			
+			
+			//this.model.collection.get(id); // merge
+			
 			var cur_row = $('#hospital-elements td#'+hospitalElement.id).closest('tr');
-			var view = new App.Views.SingleHospitalElement({ model : hospitalElement, m_id: m_id, external_ehrs: e_ehrs, primary_ehr:p_ehr});			
+			var view = new App.Views.SingleHospitalElement({ model : curhospitalElement, m_id: m_id, external_ehrs: e_ehrs, primary_ehr:p_ehr});			
 			$(cur_row).replaceWith(view.render().el);	
 			$('#hospital-elements td#'+hospitalElement.id).closest('tr').find('.slc_row').click();			
 		});				
@@ -299,9 +314,7 @@ App.Views.SingleHospitalElement = Backbone.View
 		 $('div#qa2').html(qa_view2.render().el);  
 		   
 		 var qa_view3 = new App.Views.QADataElement({ model : slc_hospital_element, tab: "tab-qa3"});
-		 $('div#qa3').html(qa_view3.render().el); 
-		 
-		
+		 $('div#qa3').html(qa_view3.render().el); 		
 	},
 			
 	showHospitalSpecific: function(slc_hospital_element){		
@@ -456,13 +469,16 @@ deleteFile : function() {
 		  type: "DELETE",
 		  //url: "/ihm/api/file?currentHospitalElement="+$("#currentHospitalElement").val()
 		  url: "/ihm/api/file?currentHospitalElement="+id
-		}).done(function( msg ) {
+		}).done(function( data ) {
 		  //reload model
-			$('form#uploadForm a').remove();
-			$('input#fileToUpload').removeClass('hide');
-			$('input#upload').addClass('hide');
-			$('input#del').addClass('hide');
-			he.set({"valueSetFile":''});
+			if (data.resp=="ok") {        			
+				$('form#uploadForm a').remove();
+				$('input#fileToUpload').removeClass('hide');
+				$('input#upload').addClass('hide');
+				$('input#del').addClass('hide');
+				he.set({"valueSetFile":''});
+				he.set({"version":data.version});
+			}
 		});		
 },
 
@@ -479,22 +495,25 @@ upload : function(){
 	var he = this.model;
 	$('#uploadForm').ajaxSubmit({
         target: '#output2',
-        success:  function afterSuccess(url){
-        				$('#uploadForm').resetForm();  // reset form	  
-        				var str = url;
-        				var name = str.substr(str.lastIndexOf('/')+1);
-        				he.set({"valueSetFile":name});
+        success:  function afterSuccess(data){
+        				$('#uploadForm').resetForm();  // reset form
         				
-        				var name = name.substr(name.indexOf('_')+1);
-        				        					        				
-        				$('input#fileToUpload').addClass('hide');
-        				$('input#upload').addClass('hide');
-        				$('input#del').removeClass('hide');	        				    				
-        					        				
-        				//hardcode
-        				var he_id = $('tr.row_selected td:first').prop("id");	        				
-        				var path = "/ihm/api/file?currentHospitalElement=" + he_id;	        				
-        				$('form#uploadForm span').replaceWith('<a href= "' + path + '">' + name +'</a>');        				
+        				if (data.resp=="ok") {        				
+	        				var name = data.message.substr(data.message.lastIndexOf('/')+1);
+	        				he.set({"valueSetFile":name});
+	        				he.set({"version":data.version});
+	        				
+	        				var name = name.substr(name.indexOf('_')+1);
+	        				        					        				
+	        				$('input#fileToUpload').addClass('hide');
+	        				$('input#upload').addClass('hide');
+	        				$('input#del').removeClass('hide');	        				    				
+	        					        				
+	        				//hardcode
+	        				var he_id = $('tr.row_selected td:first').prop("id");	        				
+	        				var path = "/ihm/api/file?currentHospitalElement=" + he_id;	        				
+	        				$('form#uploadForm span').replaceWith('<a href= "' + path + '">' + name +'</a>');     
+        				}
 				 }
     }); 		
 }
