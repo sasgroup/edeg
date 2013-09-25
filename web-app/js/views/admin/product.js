@@ -59,7 +59,7 @@ App.Views.Product = Backbone.View.extend({
 			this_product.appendHospital(product_hospital);
 		});
 				
-		$('.helpArea').wysihtml5();		
+		$('.helpAreaProduct').wysihtml5();		
 		return this;
 	},
 
@@ -140,7 +140,7 @@ App.Views.Product = Backbone.View.extend({
 	
 	submProduct : function(e) {
 		e.preventDefault();
-		this.model.attributes.help = $('.helpArea').val();			
+		this.model.attributes.help = $('.helpAreaProduct').val();			
 		this.model.set({code:this.$el.find('#code').val()});		
 		this.model.save(this.attributes,{
 	        success: function (model, response) {
@@ -167,8 +167,8 @@ App.Views.Product = Backbone.View.extend({
 	},
 	
 	showHelpDialog : function(){
-		if (! $('.helpArea').data("wysihtml5") )
-			$('.helpArea').wysihtml5();
+		if (! $('.helpAreaProduct').data("wysihtml5") )
+			$('.helpAreaProduct').wysihtml5();
 		$('#myHelp').appendTo($("body")).modal('show');
 	}
 	

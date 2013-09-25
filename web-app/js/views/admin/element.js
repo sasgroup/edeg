@@ -9,6 +9,7 @@ App.Views.DataElements = Backbone.View.extend({
 	initialize : function() {		
 		this.collection.on('add', this.appendDataElement, this);
 		this.collection.on('change', this.render, this);
+		$('.helpAreaElement').wysihtml5();
 	},
 
 	render : function() {		
@@ -178,7 +179,7 @@ App.Views.DataElement = Backbone.View.extend({
 	
 	editDataElement : function(e) {
 		e.preventDefault();	
-		this.model.attributes.help = $('.helpArea').val();
+		this.model.attributes.help = $('.helpAreaElement').val();
 		
 		this.model.set({code:this.$el.find('#code').val()});
 		
@@ -207,8 +208,8 @@ App.Views.DataElement = Backbone.View.extend({
 	},
 	
 	showHelpDialog : function(){
-		if (! $('.helpArea').data("wysihtml5") )
-			$('.helpArea').wysihtml5();
+		if (! $('.helpAreaElement').data("wysihtml5") )
+			$('.helpAreaElement').wysihtml5();
 		$('#myHelp').appendTo($("body")).modal('show');
 	}
 	

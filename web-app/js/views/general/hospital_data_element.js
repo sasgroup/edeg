@@ -5,11 +5,10 @@ App.Views.HospitalElements = Backbone.View.extend({
 	events : {		
 		'click button#cancel' 			: 'returnToProduct' ,
 		'click #save-btn'     			: 'saveHospitalElements',
-		'click a[data-toggle="tab"]'	:  'changeTab'
+		'click a[data-toggle="tab"]'	: 'changeTab'
 	},
 	
-	render : function() {	
-		console.log(this);
+	render : function() {		
 		this.$el.html(this.template({ hospitals : this.collection, measure_completed: this.options.measure_completed}));
 		this.collection.each(this.appendHospitalElement, this);
 				
@@ -38,11 +37,11 @@ App.Views.HospitalElements = Backbone.View.extend({
 	},	
 	
 	appendHospitalElement : function(hospitalElement) {
-		var m_id = this.options.m_id;
+		var m_id 	= this.options.m_id;
 		var p_id = this.options.product_id;
-		var e_ehrs = this.options.external_ehrs;
-		var p_ehr = this.options.primary_ehr;
-		var view = new App.Views.SingleHospitalElement({ model : hospitalElement, m_id: m_id,p_id:p_id, external_ehrs: e_ehrs, primary_ehr:p_ehr});		
+		var e_ehrs 	= this.options.external_ehrs;
+		var p_ehr 	= this.options.primary_ehr;
+		var view 	= new App.Views.SingleHospitalElement({ model : hospitalElement, m_id: m_id,p_id:p_id, external_ehrs: e_ehrs, primary_ehr:p_ehr});		
 		this.$el.find('#hospital-elements tbody').append(view.render().el);		
 	},
 	
@@ -96,9 +95,13 @@ App.Views.HospitalElements = Backbone.View.extend({
 		var markAsComplete = $('#markAsComplete').is(":checked");
 		
 		this.saveHospitalElementDetails();		
+
 		var m_id = this.options.m_id;
 		var product_id = this.options.product_id;
-		_.each(this.collection.models, function(model) {
+		
+		// TODO: check for consistency
+		
+		_.each(App.hospitalElements.models/*this.collection.models*/, function(model) {
 			  model.set({markAsComplete: markAsComplete});	 
 			  model.set({m_id: m_id});
 			  model.set({p_id: product_id});
@@ -172,7 +175,16 @@ App.Views.SingleHospitalElement = Backbone.View
 	},
 	
 	changeVal : function(e) {
-		this.model.attributes[e.target.name] = $(e.target).val();		
+		var _targetName = e.target.name
+		var _val = $(e.target).val();
+		var _id = this.model.attributes.id;
+		
+		this.model.attributes[e.target.name] = _val;
+		
+		_.each(App.hospitalElements.models, function (m){
+			if (m.attributes.id == _id)
+				m.attributes[_targetName] = _val;
+		}) 
 	},
 	
 	changeCh : function(e) {
@@ -187,7 +199,16 @@ App.Views.SingleHospitalElement = Backbone.View
 	},
 	
 	changeSlc : function(e) {
-		this.model.attributes[e.target.name].name = e.target.value;
+		var _targetName = e.target.name
+		var _val = e.target.value;
+		var _id = this.model.attributes.id;
+		
+		this.model.attributes[e.target.name] = _val;
+		
+		_.each(App.hospitalElements.models, function (m){
+			if (m.attributes.id == _id)
+				m.attributes[_targetName] = _val;
+		}) 
 	},
 	
 	selectRow: function(event) {				
@@ -279,6 +300,7 @@ App.Views.SingleHospitalElement = Backbone.View
 		App.hospitalElements = new App.Collections.HospitalElements();		
 		App.hospitalElements.fetch({data:{id: m_id, defaults: true, he_id: id}}).then(function(){			
 			var hospitalElement = App.hospitalElements.get(id);
+
 									
 			$.each(["version","location","source","sourceEHR","valueType"], function(index,ael){
 				//curhospitalElement[ael] = hospitalElement[ael]; 
@@ -291,6 +313,8 @@ App.Views.SingleHospitalElement = Backbone.View
 			
 			var cur_row = $('#hospital-elements td#'+hospitalElement.id).closest('tr');
 			var view = new App.Views.SingleHospitalElement({ model : curhospitalElement, m_id: m_id, external_ehrs: e_ehrs, primary_ehr:p_ehr});			
+
+			//App.Views.HospitalElements
 			$(cur_row).replaceWith(view.render().el);	
 			$('#hospital-elements td#'+hospitalElement.id).closest('tr').find('.slc_row').click();			
 		});				
