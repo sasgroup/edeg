@@ -58,7 +58,7 @@ App.Routers.Administrator = Backbone.Router.extend({
 	    
 	    'product$' : function() {
 	    	if (window.console) console.log("before go to product");	    		    	
-	    	if (App.viewHospital.isModified) App.viewHospital.showConfirm();
+	    	if (App.viewHospital.isModified) App.viewHospital.showConfirm();	    	
 	     },
 	     
 	     'measure$' : function() {

@@ -291,7 +291,7 @@ App.Views.Hospital = Backbone.View.extend({
 		if (this.isModified) {							
 			bootbox.confirm("Save the changes?", function(result) {
 					if (result) {
-						 this_hospital.submCloseHospital(e);
+						 this_hospital.submCloseHospital(e);						
 					} else {
 						 Backbone.history.navigate("/hospital", true);
 					}
@@ -329,6 +329,7 @@ App.Views.Hospital = Backbone.View.extend({
 			bootbox.confirm("Save the changes?", function(result) {
 					if (result) {
 						 this_hospital.saveAndClose();
+						 App.viewHospital.isModified = false;
 					} 
 			}); 	
 		}		
@@ -459,14 +460,14 @@ App.Views.SingleHospitalMeasure = Backbone.View
 				}
 				
 			 App.ho.set('products', App.hospital_products);		
-			/* App.ho.save(this.attributes,{
+			 App.ho.save(this.attributes,{
 			        success: function (model, response) {
 			           if (window.console) console.log(response);			           	           
 			        },
 			        error: function (model, response) {			 
 			           if (window.console) console.log(response);
 			        }
-			});*/
+			});
 			},
 									
 			goToDataElements : function(e) {				
