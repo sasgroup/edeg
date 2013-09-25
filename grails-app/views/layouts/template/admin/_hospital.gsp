@@ -46,7 +46,7 @@
              </tr>	
 			 <tr>
                 <td>Email</td>
-                <td><input name="email" type="text" value="{{ email }}" id="email" placeholder="email@example.com;"/></td>               
+                <td><input name="email" type="text" value="{{ email }}" id="email" placeholder="email@example.com,"/></td>               
              </tr>		
 			 
 			<tr>
