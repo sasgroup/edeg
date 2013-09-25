@@ -47,19 +47,19 @@
               <tbody>
               <tr>
                 <td>ID<span class="required">*</span></td>
-                <td><input name="code" type="text" value="{{ code }}" id="code"></td>
+                <td><input name="code" type="text" value="{{ code }}" id="code" maxlength="250"></td>
                 <td rowspan="2">
                   Description<br />
                   <a id="btnHelp" href="javascript:;" >Help <i class="icon-question-sign"></i></a>
                 </td>
                 <td rowspan="2" colspan="2">
-                  <textarea rows="3" name="notes" id="notes">{{ notes }}</textarea>                  
+                  <textarea rows="3" name="notes" id="notes" maxlength="1000">{{ notes }}</textarea>                  
                 </td>                            
               </tr>      
               <tr>
                 <td>Name<span class="required">*</span></td>
                 <td>
-                  <input name="name" type="text" value="{{ name }}" id="name">
+                  <input name="name" type="text" value="{{ name }}" id="name" maxlength="250">
                 </td>                             
               </tr>                                    
               </tbody>

@@ -41,11 +41,11 @@
 					IHM Notes			
 				</td>
                 <td rowspan="2" colspan="2">
-                	<textarea name="notes" rows="2" id="notes">{{ notes }}</textarea>					
+                	<textarea name="notes" rows="2" id="notes" maxlength="1000">{{ notes }}</textarea>					
                 </td>				
              </tr>	
 			 <tr>
-                <td>Email<span class="required">*</span></td>
+                <td>Email</td>
                 <td><input name="email" type="text" value="{{ email }}" id="email" placeholder="email@example.com;"/></td>               
              </tr>		
 			 
