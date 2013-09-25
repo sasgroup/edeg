@@ -12,6 +12,7 @@ App.Views.Measures = Backbone.View.extend({
 		}));
 		this.collection.each(this.appendMeasure, this);
 				
+		$('.helpAreaMeasure').wysihtml5();
 		return this;
 	},
 
@@ -218,7 +219,7 @@ App.Views.Measure = Backbone.View.extend({
 	
 	editMeasure : function(e) {
 		e.preventDefault();
-		this.model.attributes.help = $('.helpArea').val();	
+		this.model.attributes.help = $('.helpAreaMeasure').val();	
 		this.model.set({code:this.$el.find('#code').val()});
 		this.model.set({"measureCategory":{"id": this.$el.find('#measureCategory').val()} });
 		
@@ -246,8 +247,8 @@ App.Views.Measure = Backbone.View.extend({
 	},
 	
 	showHelpDialog : function(){
-		if (! $('.helpArea').data("wysihtml5") )
-			$('.helpArea').wysihtml5();
+		if (! $('.helpAreaMeasure').data("wysihtml5") )
+			$('.helpAreaMeasure').wysihtml5();
 		$('#myHelp').appendTo($("body")).modal('show');
 	}
 });	

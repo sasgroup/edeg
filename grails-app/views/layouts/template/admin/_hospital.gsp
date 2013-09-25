@@ -86,7 +86,7 @@
     		</div>
 			
     		<div class="modal-body">
-    			<textarea rows="8" name="externalEHRs" id="txtEHRs" class="helpArea">{{ externalEHRs }}</textarea>
+    			<textarea rows="8" name="externalEHRs" id="txtEHRs" class="helpArea helpAreaHospital">{{ externalEHRs }}</textarea>
     		</div>
 		</div>
 

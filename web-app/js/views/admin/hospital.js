@@ -43,7 +43,8 @@ App.Views.Hospital = Backbone.View.extend({
 		
 		App.products.forEach(this.appendProductOption,this);
 		App.ehrs.forEach(this.appendEhrOption,this);	
-						
+				
+		$('.helpAreaHospital').wysihtml5();
 		return this;
 	},
 		
@@ -242,7 +243,9 @@ App.Views.Hospital = Backbone.View.extend({
 	submHospital : function(e) {
 		e.preventDefault();		
 		if (window.console) console.log('submHospital');
-                                
+
+		this.model.attributes.externalEHRs = $('#txtEHRs').val();
+		
         this.model.set("products" , App.hospital_products);
         
         this.model.save(this.attributes,{
@@ -332,7 +335,7 @@ App.Views.Hospital = Backbone.View.extend({
 	},
 	
 	showExternalEHRs : function(){
-		$('#divExternalEHRs').modal('show');
+		$('#divExternalEHRs').appendTo($("body")).modal('show');
 	}
 
 });

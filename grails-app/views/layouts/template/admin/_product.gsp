@@ -72,7 +72,7 @@
     					<h3>Help for Product [ {{ name }} ]</h3>
     				</div>
     				<div class="modal-body">
-    					<textarea rows="8" name="help" id="help" class="helpArea">{{ help }}</textarea>
+    					<textarea rows="8" name="help" id="help" class="helpArea helpAreaProduct">{{ help }}</textarea>
     				</div>
     			</div>
                 <ul id="myTab" class="nav nav-tabs">
