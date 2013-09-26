@@ -583,25 +583,26 @@ App.Routers.Administrator = Backbone.Router.extend({
 	// check code uniqueness
 	checkCode : function(model_to_check, collection_to_check, value) {
 	    	var cur_code = '';
-			var new_code = value;
+			var new_code = value.toUpperCase();
 			var codes = [];
 			 		
 			if (model_to_check.toJSON().id) {
 				cur_code = model_to_check.get('code');
+				cur_code = cur_code.toUpperCase();
 			};
 			
 			collection_to_check.forEach(function(model){			
-				codes.push(model.get('code'));
+				var c = model.get('code');
+				c = c.toUpperCase();
+				codes.push(c);
 			});
 			
-			//var index = codes.indexOf(cur_code);			
 			var index = _.indexOf(codes, cur_code)
 			
 			if (index!=-1) {
 				codes.splice(index, 1);
 			}
 						
-			//if (codes.indexOf(new_code)!=-1) {
 			if (_.indexOf(codes, new_code)!=-1) {
 				return false;
 			}		
