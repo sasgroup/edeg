@@ -193,8 +193,7 @@ table.dataTable tr.odd {
 div#message-box {
 	margin-left: 12px;
     margin-top: 3px;
-   /* color: #0088CC;*/
-
+	z-index: 10;   
 	display: none;
 	position:absolute;
 	width: 900px;

@@ -157,11 +157,14 @@ App.Views.HospitalMeasure = Backbone.View
 				App.ho.save(null,{
 			        success: function (model, response) {
 			           if (window.console) console.log(response);
-			           $('div#message-box').text("").append(response.message).fadeIn(500).delay(1500).fadeOut(500);
-		               //Backbone.history.navigate("hospital", true);	           
+			           //$('div#message-box').text("").append(response.message).fadeIn(500).delay(1500).fadeOut(500);
+			           $('div#message-box').text("").append(response.message).removeClass().addClass('alert').addClass('alert-success').fadeIn(10).delay(2000).fadeOut(50);
+			           //Backbone.history.navigate("hospital", true);	           
 			        },
 			        error: function (model, response) {
-			        	$('div#message-box').text("").append(response.message).fadeIn(500).delay(1500).fadeOut(500);
+			        	//$('div#message-box').text("").append(response.message).fadeIn(500).delay(1500).fadeOut(500);
+			        	var btn = '<button type="button" class="close">&times;</button>';
+				        $('div#message-box').text("").append(btn).append(response.responseText).removeClass().addClass('alert').addClass('alert-error').show();
 			            //Backbone.history.navigate("hospital", true);	        	
 			        }
 			    });
