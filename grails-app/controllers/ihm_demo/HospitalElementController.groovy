@@ -25,9 +25,11 @@ class HospitalElementController {
 		//instance.source = param.sourceEHR ? instance.hospital.ehr.code : param.source		
 		instance.source = param.source
 		
-		if (instance.valueType != ValueType.valueOf(param.valueType.name))
+		def vType = param.valueType.name
+		
+		if (instance.valueType != ValueType.valueOf(vType))
 			modificationDetected = true
-		instance.valueType = ValueType.valueOf(param.valueType.name)
+		instance.valueType = ValueType.valueOf(vType)
 		
 		if (instance.valueSet != param.valueSet)
 			modificationDetected = true
