@@ -37,7 +37,9 @@ class EhrController {
 			def result = Ehr.get(params.id)
 			def hospitalList = Hospital.list().findAll { it.ehr.id == result.id } 
 			def dataElementDefaultsList = DataElementDefaults.list().findAll{it.ehr.id.findAll{it == result.id}.size() >= 1}
-			
+			println dataElementDefaultsList
+			dataElementDefaultsList = dataElementDefaultsList.sort{it.dataElement.name}
+			println dataElementDefaultsList
 			render(contentType: "text/json") {
 				version = result.version
 				code =result.code
