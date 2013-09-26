@@ -210,7 +210,7 @@ App.Views.SingleHospitalElement = Backbone.View
 				m.attributes[_targetName] = _val;
 		});
 		
-		App.viewHospitalElements.isModified = true; //NEW
+		App.viewHospitalElements.isModified = true;
 	},
 	
 	changeCh : function(e) {
@@ -222,6 +222,7 @@ App.Views.SingleHospitalElement = Backbone.View
 			this.$el.find('#source').val('').removeAttr('disabled');
 			this.model.attributes["source"]="";
 		}
+		App.viewHospitalElements.isModified = true;
 	},
 	
 	changeSlc : function(e) {
@@ -234,7 +235,9 @@ App.Views.SingleHospitalElement = Backbone.View
 		_.each(App.hospitalElements.models, function (m){
 			if (m.attributes.id == _id)
 				m.attributes[_targetName] = _val;
-		}) 
+		});
+		
+		App.viewHospitalElements.isModified = true;
 	},
 	
 	selectRow: function(event) {				

@@ -292,7 +292,7 @@ App.Routers.Administrator = Backbone.Router.extend({
 				
 				jQuery.validator.addMethod("unique", (function(value, element) {										
 					return App.route.checkCode(productModel, App.products, value );					
-					}), "This code name already exists in the system."
+					}), "This ID already exists in the system."
 				);
 				
 				$('form#product-edit').validate({
@@ -304,7 +304,7 @@ App.Routers.Administrator = Backbone.Router.extend({
 				     },
 				     messages: {
 				       	 code: {required: "ID is required.",
-				       	    	unique  : "This code name already exists in the system."			       	    	
+				       	    	unique  : "This ID already exists in the system."			       	    	
 				       	       },
 				         name: {required: "Name is required."}
 				     }
@@ -322,7 +322,7 @@ App.Routers.Administrator = Backbone.Router.extend({
 				
 				jQuery.validator.addMethod("unique", (function(value, element) {										
 					return App.route.checkCode(ehrModel, App.ehrs, value );					
-					}), "This code name already exists in the system."
+					}), "This ID already exists in the system."
 				);
 				
 				$('form#ehr-edit').validate({
@@ -334,7 +334,7 @@ App.Routers.Administrator = Backbone.Router.extend({
 				     },
 				     messages: {
 				       	 code: {required: "ID is required.",
-				       	        unique  : "This code name already exists in the system."			       	    	
+				       	        unique  : "This ID already exists in the system."			       	    	
 				       	       },
 				         name: {required: "Name and version are required."}
 				     }
@@ -358,7 +358,7 @@ App.Routers.Administrator = Backbone.Router.extend({
 				
 				jQuery.validator.addMethod("unique", (function(value, element) {										
 					return App.route.checkCode(measureModel, App.measures, value );					
-					}), "This code name already exists in the system."
+					}), "This ID already exists in the system."
 				);
 				
 				$('form#measure-edit').validate({
@@ -370,7 +370,7 @@ App.Routers.Administrator = Backbone.Router.extend({
 				     },
 				     messages: {
 				       	 code: {required: "ID is required.",
-				       	    	unique  : "This code name already exists in the system."			       	    	
+				       	    	unique  : "This ID already exists in the system."			       	    	
 				       	       },
 				         name: {required: "Name is required."}
 				     }
@@ -389,7 +389,7 @@ App.Routers.Administrator = Backbone.Router.extend({
 				
 				jQuery.validator.addMethod("unique", (function(value, element) {										
 					return App.route.checkCode(dataElement, App.dataElements, value );					
-					}), "This code name already exists in the system."
+					}), "This ID already exists in the system."
 				);
 				
 				$('form#element-edit').validate({
@@ -401,7 +401,7 @@ App.Routers.Administrator = Backbone.Router.extend({
 				     },
 				     messages: {
 				       	 code: {required: "ID is required.",
-				       	    	unique  : "This code name already exists in the system."			       	    	
+				       	    	unique  : "This ID already exists in the system."			       	    	
 				       	       },
 				         name: {required: "Name is required."}
 				     }
