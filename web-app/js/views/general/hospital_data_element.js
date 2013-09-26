@@ -2,6 +2,10 @@
 App.Views.HospitalElements = Backbone.View.extend({
 	template : _.template($('#hospital_data_element-form').html()),
 	
+	initialize : function() {		
+		this.isModified = false;
+	},
+	
 	events : {		
 		'click button#cancel' 			: 'returnToProduct' ,
 		'click #save-btn'     			: 'saveHospitalElements',
@@ -46,8 +50,8 @@ App.Views.HospitalElements = Backbone.View.extend({
 	},
 	
 	
-	returnToProduct : function(){
-		//Backbone.history.navigate("product/" + this.options.product_id, true);
+	returnToProduct : function(){		
+		App.viewHospitalElements.isModified = false;
 		window.history.back();
 	},
 	
@@ -91,6 +95,14 @@ App.Views.HospitalElements = Backbone.View.extend({
 	},
 	
 	saveHospitalElements : function() {
+		this.saveHospitalElementsOnly();
+		
+		App.viewHospitalElements.isModified = false;
+		window.history.back();		
+		
+	},
+	
+	saveHospitalElementsOnly : function() {
 		var errorMessage="";
 		var markAsComplete = $('#markAsComplete').is(":checked");
 		
@@ -101,7 +113,7 @@ App.Views.HospitalElements = Backbone.View.extend({
 		
 		// TODO: check for consistency
 		
-		_.each(App.hospitalElements.models/*this.collection.models*/, function(model) {
+		_.each(/*App.hospitalElements.models*/this.collection.models, function(model) {
 			  model.set({markAsComplete: markAsComplete});	 
 			  model.set({m_id: m_id});
 			  model.set({p_id: product_id});
@@ -133,8 +145,20 @@ App.Views.HospitalElements = Backbone.View.extend({
 		        }		      
 			  });
 		});	
-		window.history.back();		
-	}	
+		
+	},
+	
+	showConfirm: function() {
+		this_he = this;
+		if (App.viewHospitalElements.isModified) {							
+			bootbox.confirm("Save the changes?", function(result) {
+					if (result) {
+						App.viewHospitalElements.saveHospitalElementsOnly();						 
+					} 
+					App.viewHospitalElements.isModified = false;
+			}); 	
+		}		
+	}
 		
 });
 
@@ -184,7 +208,9 @@ App.Views.SingleHospitalElement = Backbone.View
 		_.each(App.hospitalElements.models, function (m){
 			if (m.attributes.id == _id)
 				m.attributes[_targetName] = _val;
-		}) 
+		});
+		
+		App.viewHospitalElements.isModified = true; //NEW
 	},
 	
 	changeCh : function(e) {

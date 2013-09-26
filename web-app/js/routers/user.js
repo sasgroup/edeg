@@ -8,6 +8,16 @@ App.Routers.User = Backbone.Router.extend({
 	initialize: function(options){
 		App.hospitals = new App.Collections.Hospitals();		
 		App.route = this;
+		App.viewHospitalElements = new App.Views.HospitalElements({isModified:false});
+	},
+	
+	before: {	   		 
+		 'hospital/' : function() {
+			 if (window.console) console.log("before go to hospital/:id/product/:id/");	
+			 console.log(App.viewHospitalElements.isModified);
+			 if (App.viewHospitalElements.isModified) App.viewHospitalElements.showConfirm();
+			 App.viewHospitalElements.isModified = false;
+		 }			 
 	},
 		
 	home : function(h_id){

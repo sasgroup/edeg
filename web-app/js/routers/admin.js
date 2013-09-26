@@ -46,16 +46,7 @@ App.Routers.Administrator = Backbone.Router.extend({
 		App.viewHospital = new App.Views.Hospital({isModified:false});
 	},
 	
-	before: {
-	   /* 'hospital' : function() {
-	        alert("bla");
-	    },
-	    
-	    'product' : function() {
-	        alert("before go to product");
-	        return false;
-	    }	*/ 
-	    
+	before: {	    
 	    'product$' : function() {
 	    	if (window.console) console.log("before go to product");	    		    	
 	    	if (App.viewHospital.isModified) App.viewHospital.showConfirm();	    	
