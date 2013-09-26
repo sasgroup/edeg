@@ -19,6 +19,7 @@
 							<option value="3">Hospital ~ Products</option>
 							<option value="4">Hospital ~ Measures</option>
 							<option value="5">Hospital ~ Data Elements</option>
+							<option value="6">Hospital ~ Filtered Data Elements</option>
 						</select>
 
 						<label for="slcHospital" >Hospital</label>

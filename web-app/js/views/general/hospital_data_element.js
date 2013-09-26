@@ -172,7 +172,7 @@ App.Views.SingleHospitalElement = Backbone.View
 		'click  #reset'                     		   : 'resetToDefault',
 		'change .source, .location'       			   : 'changeVal',
 		'change .sourceEHR'                            : 'changeCh',
-		'change .slcValueType' 		   				   : 'changeSlc',
+		'change .slcValueType' 		   				   : 'changeSlcVType',
 		'click .show_info'                			   : 'showInfo'				
 	},
 					
@@ -238,6 +238,19 @@ App.Views.SingleHospitalElement = Backbone.View
 		});
 		
 		App.viewHospitalElements.isModified = true;
+	},
+	
+	changeSlcVType : function(e) {
+		var _targetName = e.target.name
+		var _val = e.target.value;
+		var _id = this.model.attributes.id;
+		
+		this.model.attributes[e.target.name] = {"name":_val};
+		
+		_.each(App.hospitalElements.models, function (m){
+			if (m.attributes.id == _id)
+				m.attributes[_targetName] = {"name":_val};
+		}) 
 	},
 	
 	selectRow: function(event) {				

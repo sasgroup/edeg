@@ -62,5 +62,7 @@ grails.project.dependency.resolution = {
         compile ':cache:1.0.1'
 		
 		compile ":mail:1.0.1"
+		
+		compile ":asynchronous-mail:1.0-RC5"
     }
 }

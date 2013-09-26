@@ -24,9 +24,16 @@ class ProductController {
 	
 	def save() {
 		def productInstance  = saveInstance(new Product(), params)
-		render(contentType: "text/json") {
-					resp = "ok"
-					message = "Product ${productInstance.code} has been successfully created"
+		if (productInstance)
+			render(contentType: "text/json") {
+						resp = "ok"
+						message = "Product ${productInstance.code} has been successfully created"
+			}
+		else{
+			render(contentType: "text/json") {
+				resp = "error"
+				message = "Validation Error ID filed should be Unique..."
+			}
 		}
 	}
 

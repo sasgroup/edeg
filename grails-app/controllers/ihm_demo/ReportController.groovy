@@ -182,6 +182,51 @@ class ReportController {
 					}
 				}
 			}
+			else if (params.id == "6"){ // data element report
+				def hProducts = null
+				if (params.hospital != "0"){
+					def hospital = Hospital.get(params.hospital)
+					hProducts = HospitalProduct.findAllByHospital(hospital)
+				}
+				else{
+					hProducts = HospitalProduct.list()
+				}
+				
+				
+				render(contentType: "text/json") {
+					report = "Hospital ~ Filtered Data Elements"
+					rid = 6
+					data = array {
+						for (hp in hProducts){
+							if (params.product == "0" || params.product == hp.product.id.toString()){
+								for (hpm in hp.hospitalProductMeasures){
+									if (params.measure == "0" || params.measure == hpm.hospitalMeasure.measure.id.toString()){
+										if (hpm.included){
+											for (hme in hpm.hospitalMeasure.hospitalMeasureElements){
+												if (params.element == "0" || params.element == hme.hospitalElement.dataElement.id.toString()){
+													element pid : hp.product.id,
+													pcode 		: hp.product.code,
+													pname 		: hp.product.name,
+													mid 		: hpm.hospitalMeasure.id,
+													mcode 		: hpm.hospitalMeasure.measure.code,
+													mname 		: hpm.hospitalMeasure.measure.name,
+													eid			: hme.hospitalElement.id,
+													location 	: hme.hospitalElement.location,
+													source 		: hme.hospitalElement.source,
+													valueType	: hme.hospitalElement.valueType.toString(),
+													ecode		: hme.hospitalElement.dataElement.code,
+													ename		: hme.hospitalElement.dataElement.name,
+													hname		: hme.hospitalElement.hospital.name
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
 			else{
 				render(contentType: "text/json") {
 					rtype = "No Report"

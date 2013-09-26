@@ -123,11 +123,18 @@ class HospitalController {
 
 						def defaultSetting = DataElementDefaults.findByDataElementAndEhr(de, hospital.ehr)
 						if (defaultSetting) {
-							if (hospitalElement.sourceEHR || isNew){
+							if (isNew){
 								hospitalElement.sourceEHR = true
 								hospitalElement.source = hospital.ehr.code
 								hospitalElement.location = defaultSetting.location
 								hospitalElement.valueType = defaultSetting.valueType
+								//hospitalElement.codeType = defaultSetting.codeType
+							}
+							else if (hospitalElement.sourceEHR){
+								hospitalElement.sourceEHR = true
+								hospitalElement.source = hospital.ehr.code
+								//hospitalElement.location = defaultSetting.location
+								//hospitalElement.valueType = defaultSetting.valueType
 								//hospitalElement.codeType = defaultSetting.codeType
 							}
 						}
@@ -260,13 +267,24 @@ class HospitalController {
 private Hospital saveHospital (Hospital hospitalInstance, GrailsParameterMap params) {
 		def modificationDetected = false
 		
-		if (!hospitalInstance.email && params?.email != "" &&   hospitalInstance.email 				!= params?.email)				modificationDetected = true; 	hospitalInstance.email 				= params?.email
+		if (!hospitalInstance.email && params?.email != "" &&   hospitalInstance.email != params?.email)				
+			modificationDetected = true 	
+		hospitalInstance.email = params?.email
 		
-		if (!hospitalInstance.externalEHRs && params?.externalEHRs != "" && hospitalInstance.externalEHRs 		!= params?.externalEHRs)		modificationDetected = true; 	hospitalInstance.externalEHRs 		= params?.externalEHRs
+		if (!hospitalInstance.externalEHRs && params?.externalEHRs != "" && hospitalInstance.externalEHRs != params?.externalEHRs)
+			modificationDetected = true 	
+		hospitalInstance.externalEHRs = params?.externalEHRs
 		
-		if (!hospitalInstance.populationMethod && params?.populationMethod != "" && hospitalInstance.populationMethod 	!= params?.populationMethod)	modificationDetected = true; 	hospitalInstance.populationMethod 	= params?.populationMethod
+		if (!hospitalInstance.populationMethod && params?.populationMethod != "" && hospitalInstance.populationMethod != params?.populationMethod)
+			modificationDetected = true 	
+		hospitalInstance.populationMethod 	= params?.populationMethod
 		
-		if (!hospitalInstance.ehr && params?.ehr_id != "" && hospitalInstance.ehr 	!= Ehr.get(params?.ehr_id))	modificationDetected = true; 	hospitalInstance.ehr = Ehr.get(params?.ehr_id)
+		if (params.apply){
+			def ehrID = (params?.ehr_id) ? params?.ehr_id : params.ehr.id 
+			if (!hospitalInstance.ehr && ehrID != "" && hospitalInstance.ehr 	!= Ehr.get(ehrID))	
+				modificationDetected = true 	
+			hospitalInstance.ehr = Ehr.get(ehrID)
+		}
 		
 		
 		if (modificationDetected) { 

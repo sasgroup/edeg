@@ -40,7 +40,8 @@ App.Views.Reports = Backbone.View.extend({
 			['Hospital', 'Product', 'Measure', 'Measure Name', 'Comp', 'Accp', 'NRev', 'Verf'],
 			['Hospital', 'Product'],
 			['Hospital', 'Product', 'Measure', 'Measure Name', 'Comp', 'Accp', 'NRev', 'Verf'],
-			['Hospital', 'Code', 'Data Element', 'Location', 'EHR', 'Vtype']
+			['Hospital', 'Code', 'Data Element', 'Location', 'EHR', 'Vtype'],
+			['Hospital', 'Product', 'Measure', 'Code', 'Data Element', 'Location', 'EHR', 'Vtype']
 		];
 		var _colModels = [
 			[	{name:'hname',		index:'hname', 		width:100},
@@ -76,6 +77,15 @@ App.Views.Reports = Backbone.View.extend({
 			[	{name:'hname',		index:'hname', 		width:100},
 			 	{name:'ecode',		index:'ecode', 		width:60}, 
 			 	{name:'ename',		index:'ename'}, 
+			 	{name:'location',	index:'location', 	width:120},
+			 	//{name:'sourceEHR',	index:'sourceEHR', 	width:30, formatter: "checkbox"},
+			 	{name:'source',		index:'source', 	width:80},
+			 	{name:'valueType',	index:'valueType', 	width:60} 		],
+		 	[	{name:'hname',		index:'hname', 		width:100},
+		 	 	{name:'pcode',		index:'pcode', 		width:50},
+		 	 	{name:'mcode',		index:'mcode', 		width:50},
+			 	{name:'ecode',		index:'ecode', 		width:60}, 
+			 	{name:'ename',		index:'ename'				}, 
 			 	{name:'location',	index:'location', 	width:120},
 			 	//{name:'sourceEHR',	index:'sourceEHR', 	width:30, formatter: "checkbox"},
 			 	{name:'source',		index:'source', 	width:80},
