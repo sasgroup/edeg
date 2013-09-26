@@ -62,8 +62,19 @@ $(function() {
 			    return 0;
 			});
 
-			for(var index in output) {
-				$('ul#hospital-list-dropdown').append('<li data-id='+ output[index].id +' class="hospital" id='+ output[index].id+'><a href="#">' + output[index].name+ '</a></li>');	
+			if (output.length > 1) {
+				for(var index in output) {
+					$('ul#hospital-list-dropdown').append('<li data-id='+ output[index].id +' class="hospital" id='+ output[index].id+'><a href="#">' + output[index].name+ '</a></li>');	
+					$("a.btn.dropdown-toggle").removeAttr('disabled');
+				}
+			} else {
+				//show hospital-name		
+				if (output.length == 1) { 
+					$('h3.hospital-name').text(output[0].name);
+				}	
+				
+				$("a.btn.dropdown-toggle").attr('disabled','disabled');
+				$("#hospital-list-dropdown").hide();
 			}
 		});   
 							

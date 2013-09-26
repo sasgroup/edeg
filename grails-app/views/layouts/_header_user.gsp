@@ -6,19 +6,10 @@
 			<div id="loginHeader" class="pull-right">
 				<g:loginControl />				
 			</div>
-
-		  <!--  <div class="hospital-dropdown btn-group">
-				<button type="button" class="btn btn-default" style="background-color:background-image: none;border-color:rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1)">Select Hospital</button>
-				<button type="button" class="btn btn-default dropdown-toggle"
-					data-toggle="dropdown" style="background-color:  background-image: none;border-color:rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1); margin-right:0;">
-					<span class="caret"></span>
-				</button>
-				<ul class="dropdown-menu pull-right" id="hospital-list-dropdown">
-				</ul>
-			</div> -->
+	 
 			
 			<div class="hospital-dropdown btn-group">
-			  <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+			  <a class="btn dropdown-toggle" data-toggle="dropdown" href="#" disabled="disabled">
 			    Select Hospital
 			    <span class="caret"></span>
 			  </a>
@@ -26,8 +17,7 @@
 			    <!-- dropdown menu links -->
 			  </ul>
 			</div>
-						
-			
+								
 			<nav id="products-nav" class="header-nav"></nav>
 
 		</header>
