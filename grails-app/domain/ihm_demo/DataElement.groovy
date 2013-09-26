@@ -12,7 +12,7 @@ class DataElement {
 	static belongsTo = [Measure]
 	
     static constraints = {
-		code(blank:false,unique:true)
+		code(blank:false,/*unique:true,*/validator:{return !Product.findByCodeIlike(it)})
 		name(blank:false)
 		notes(maxSize:5000)
 		help(nullable: true,maxSize:5000)

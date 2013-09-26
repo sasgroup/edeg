@@ -6,7 +6,7 @@ class Ehr {
 	String notes
    
 	 static constraints = {
-		code(blank:false,unique:true)
+		code(blank:false,/*unique:true,*/validator:{return !Product.findByCodeIlike(it)})
 		name(blank:false)
 		notes(maxSize:5000)
     }

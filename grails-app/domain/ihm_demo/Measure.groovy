@@ -15,7 +15,7 @@ class Measure {
 	static belongsTo = [Product]
 	
     static constraints = {
-		code(blank:false,unique:true)
+		code(blank:false,/*unique:true,*/validator:{return !Product.findByCodeIlike(it)})
 		name(blank:false)
 		notes(nullable: true,maxSize:5000)
 		help(nullable: true,maxSize:5000)
