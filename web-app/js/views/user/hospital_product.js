@@ -166,20 +166,24 @@ App.Views.HospitalMeasure = Backbone.View
 			    });
 			},
 			
-			showInfo: function(evt) {
-				var _mid = $(evt.target).attr('mid');
-				var _help = this.model.get('help');
-				var _code = this.model.get('code');
-				var _show = $('.show_info[mid='+_mid+']').hasClass('show');
-
-				$('.show').removeClass('show').popover('hide');
+			showInfo: function(evt) {							
+				if (!($(evt.target).closest('a').hasClass('disabled'))) {
+					
+					var _mid = $(evt.target).attr('mid');
+					var _help = this.model.get('help');
+					var _code = this.model.get('code');			
 				
-				if (!_show){
-					$('.show_info[mid='+_mid+']').addClass('show')
-					.popover({html:true,placement:'left',title:'Instructions for ['+_code+']',content:_help||"No Instructions were supplied..."}).popover('show');
-					this.adjustPopover();
+					var _show = $('.show_info[mid='+_mid+']').hasClass('show');
+	
+					$('.show').removeClass('show').popover('hide');
+					
+					if (!_show){
+						$('.show_info[mid='+_mid+']').addClass('show')
+						.popover({html:true,placement:'left',title:'Instructions for ['+_code+']',content:_help||"No Instructions were supplied..."}).popover('show');
+						this.adjustPopover();
+					}
+					evt.stopPropagation();
 				}
-				evt.stopPropagation();
 			},
 			
 			adjustPopover:function(){
