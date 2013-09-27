@@ -25,6 +25,7 @@ App.Views.Hospital = Backbone.View.extend({
 
 	initialize : function() {		
 		this.isModified = false;
+		this.xEhrsShown = false;
 	},
 	
 	events : {
@@ -43,8 +44,7 @@ App.Views.Hospital = Backbone.View.extend({
 		
 		App.products.forEach(this.appendProductOption,this);
 		App.ehrs.forEach(this.appendEhrOption,this);	
-				
-		$('.helpAreaHospital').wysihtml5();
+		
 		return this;
 	},
 		
@@ -336,7 +336,20 @@ App.Views.Hospital = Backbone.View.extend({
 	},
 	
 	showExternalEHRs : function(){
-		$('#divExternalEHRs').appendTo($("body")).modal('show');
+		var len = $('.helpAreaHospital').length;
+		for (var i=1; i<len; i++){
+			$('.helpAreaHospital:eq(1)').remove();
+		}
+		
+		if (!this.xEhrsShown){
+			$('#divExternalEHRs')
+			//.appendTo($("body"))
+			.modal('show');
+			this.xEhrsShown = true;
+		}
+		else{
+			$('#divExternalEHRs').modal('show');
+		}
 	}
 
 });
