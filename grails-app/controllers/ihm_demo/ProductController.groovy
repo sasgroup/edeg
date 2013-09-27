@@ -18,8 +18,9 @@ class ProductController {
 		for (measure in param.measures) {
 			instance.addToMeasures(Measure.get(measure.mid))
 		}
-	
-		return instance.save(flush :true)
+		instance.save(flush :true)
+		
+		return instance
 	}
 	
 	def save() {

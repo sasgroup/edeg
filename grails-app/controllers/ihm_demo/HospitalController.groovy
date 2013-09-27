@@ -138,6 +138,10 @@ class HospitalController {
 								//hospitalElement.codeType = defaultSetting.codeType
 							}
 						}
+						else{
+							// TODO need client verification
+							hospitalElement.source = hospital.ehr.code
+						}
 						hospitalElement.save(flush:true)
 
 						def hospitalMeasureElement 	= HospitalMeasureElement.findByHospitalMeasureAndHospitalElement(hospitalMeasure, hospitalElement)
