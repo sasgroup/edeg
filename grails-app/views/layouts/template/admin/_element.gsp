@@ -47,7 +47,7 @@
               <tbody>
               <tr>
                 <td>ID<span class="required">*</span></td>
-                <td><input name="code" type="text" value="{{ code }}" id="code" maxlength="250"></td>
+                <td><input name="code" type="text" value="{{ code }}" id="code" maxlength="255"></td>
                 <td rowspan="2">
                   Description<br />
                   <a id="btnHelp" href="javascript:;" >Help <i class="icon-question-sign"></i></a>
@@ -59,7 +59,7 @@
               <tr>
                 <td>Name<span class="required">*</span></td>
                 <td>
-                  <input name="name" type="text" value="{{ name }}" id="name" maxlength="250">
+                  <input name="name" type="text" value="{{ name }}" id="name" maxlength="255">
                 </td>                             
               </tr>                                    
               </tbody>

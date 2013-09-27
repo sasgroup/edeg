@@ -46,7 +46,7 @@
               <tbody>
                 <tr>
                   <td>ID<span class="required">*</span></td>
-                  <td><input name="code" type="text" value="{{ code }}" id="code" maxlength="250"></td>
+                  <td><input name="code" type="text" value="{{ code }}" id="code" maxlength="255"></td>
                   <td rowspan="2">
                     Description
                   </td>
@@ -57,7 +57,7 @@
                 <tr>
                   <td>Name and Version<span class="required">*</span></td>
                     <td>
-                      <input name="name" type="text" value="{{ name }}" id="name" maxlength="250">
+                      <input name="name" type="text" value="{{ name }}" id="name" maxlength="255">
                     </td>                             
                 </tr>                                    
               </tbody>
