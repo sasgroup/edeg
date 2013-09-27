@@ -11,7 +11,7 @@ class Product {
 
 			
 	static constraints = {
-		code(blank:false,/*unique:true,*/validator:{return !Product.findByCodeIlike(it)})
+		code(blank:false,unique:true)
 		name(blank:false)
 		notes(maxSize:5000)
 		help(nullable: true,maxSize:5000)
