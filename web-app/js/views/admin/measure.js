@@ -249,7 +249,9 @@ App.Views.Measure = Backbone.View.extend({
 	showHelpDialog : function(){
 		if (! $('.helpAreaMeasure').data("wysihtml5") )
 			$('.helpAreaMeasure').wysihtml5();
-		$('#myHelp').appendTo($("body")).modal('show');
+		$('#myHelp')
+		//.appendTo($("body"))
+		.modal('show');
 	}
 });	
 

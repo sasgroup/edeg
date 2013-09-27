@@ -169,7 +169,9 @@ App.Views.Product = Backbone.View.extend({
 	showHelpDialog : function(){
 		if (! $('.helpAreaProduct').data("wysihtml5") )
 			$('.helpAreaProduct').wysihtml5();
-		$('#myHelp').appendTo($("body")).modal('show');
+		$('#myHelp')
+		//.appendTo($("body"))
+		.modal('show');
 	}
 	
 });
