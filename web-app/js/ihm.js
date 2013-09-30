@@ -11,7 +11,8 @@ window.App = {
 };
 
 
-$(function() {  
+$(function() {
+		
 	App.userRole = $('#app').data('role');
 	
 	if (App.userRole == 'admin') {
@@ -113,5 +114,11 @@ $(function() {
 	$('.alert .close').live("click", function(e) {
 	    $(this).parent().hide();
 	});
+	
+	function goToLoginPage() {
+		window.location = "user/logout";
+	}
+	
+	setInterval(goToLoginPage, 180000); 
 	
 });
