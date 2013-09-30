@@ -74,7 +74,7 @@ App.Routers.User = Backbone.Router.extend({
 			"bPaginate": false,
 			"bSortClasses": false,
 			"bFilter": true,
-			"sScrollY": "548px",			
+			"sScrollY": "528px",			
 			"bSort": true,
 			"bInfo": false,
 			"aaSorting": [[0, 'asc'], [3, 'asc']],			

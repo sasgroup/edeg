@@ -396,7 +396,7 @@ form#product-edit div#myTabContent, form#element-edit div#myTabContent, form#ehr
 
 form#measure-edit div#myTabContent  {
 	display:block;
-	height: 339px;
+	height: 328px;
 	width:100%;
 	overflow: auto;   
 }
