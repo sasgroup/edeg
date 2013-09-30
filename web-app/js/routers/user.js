@@ -95,16 +95,8 @@ App.Routers.User = Backbone.Router.extend({
 		
 		$('.dataTables_scrollHeadInner').css('width', '899px');
 		$('.hospitalMeasureTable.dataTable').css('width', '899px');
-		/*$('.hospitalMeasureTable.dataTable td:eq(0), .hospitalMeasureTable.dataTable th:eq(0)').css('width', '30px');
-		$('.hospitalMeasureTable.dataTable td:eq(1), .hospitalMeasureTable.dataTable th:eq(1)').css('width', '50px');
-		$('.hospitalMeasureTable.dataTable td:eq(2), .hospitalMeasureTable.dataTable th:eq(2)').css('width', '260px');
-		$('.hospitalMeasureTable.dataTable td:eq(3), .hospitalMeasureTable.dataTable th:eq(3)').css('width', '70px');
-		$('.hospitalMeasureTable.dataTable td:eq(4), .hospitalMeasureTable.dataTable th:eq(4)').css('width', '70px');
-		$('.hospitalMeasureTable.dataTable td:eq(5), .hospitalMeasureTable.dataTable th:eq(5)').css('width', '95px');
-		$('.hospitalMeasureTable.dataTable td:eq(6), .hospitalMeasureTable.dataTable th:eq(6)').css('width', '60px');	*/  
-		
-		
-		 $(".btn show_info").tooltip({
+				
+		$(".btn show_info").tooltip({
              'selector': '',
              'placement': 'left'
            });

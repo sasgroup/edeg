@@ -270,6 +270,10 @@ td div.title {
 }
 
 
+#hosp-user-measure-table td div.title {
+	width: 260px;    
+}
+
 .hospitalMeasureTable td div.code {
 	display: block;
     height: 20px;

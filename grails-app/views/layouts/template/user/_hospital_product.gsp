@@ -1,6 +1,6 @@
 <!-- user-hospital-measure_table -->
 <script type="text/template" class="template" id="user-hospital-measure_table">
-<table class="hospitalMeasureTable table table-striped table-condensed">
+<table class="hospitalMeasureTable table table-striped table-condensed" id="hosp-user-measure-table">
 	<thead><tr>
 		    <th>Use</th>
 			<th>Category</th>		
