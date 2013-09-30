@@ -18,7 +18,8 @@
 		<g:else>
     		<meta name="layout" content="login">
 		</g:else>	
-		<link rel="icon" type="image/x-icon" href="/ihm/static/images/favicon.ico">	
+		<!-- <link rel="icon" type="image/x-icon" href="/ihm/static/images/favicon.ico">	-->
+		<link rel="icon" type="image/x-icon" href="data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAwAAAABMLAAATCwAAEAAAAAAAAACc73QA3OBRAIuGCgDT1ksAs7MuANTkWgCZlhkAxsg/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYiIiIiIiIiJiIiIiIiIiImIiIiIiIiIiYiIiIiIiIiI0RiIiIiIiIlERN0ZiIiIiURERERN0YiJRERERERETdBERERERERERUREREREREREABREREREREQAABVERERERAAAAAFEREREAAAAAAFUREQAAAAAAAAURAAAAAAAAAAAAAExzAAAAAQAAamMAAAABAAAAAAAAc2wAAGUAAAASAAAAB3MAAGNlAABsbwAAAAAAAAAAAAAAAAAAAAAAAAwA">
 	</head>
 	<body>	    
 	    	<div class="page-content">

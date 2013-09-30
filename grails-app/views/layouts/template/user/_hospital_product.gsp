@@ -2,7 +2,8 @@
 <script type="text/template" class="template" id="user-hospital-measure_table">
 <table class="hospitalMeasureTable table table-striped table-condensed">
 	<thead><tr>
-		    <th>Use</th>			
+		    <th>Use</th>
+			<th>Category</th>		
 			<th>ID</th>
 		    <th>Name</th>				    				  
 		    <th>Complete</th>		    
@@ -22,6 +23,8 @@
  <td>
 	<input type="checkbox" name="included" id="{{id}}" disabled="disabled" {{included}} {{included? "": "title='Contact IHM customer support to change selected measures'"}}>
  </td>
+
+<td><div>{{ measureCategory }}</div></td>
  <td><div class='code' title="{{notes}}">{{ code }}</div></td>
  <td><div class='title' title="{{name}}"><a {{included? "id='customLink' href='#modalDataElements'": "class='disable'"}} role="button" data-toggle="modal">{{ name }}</a></div></td>
  <td>

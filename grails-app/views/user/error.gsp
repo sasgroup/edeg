@@ -2,7 +2,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <head>
     <meta name="layout" content="main" />
-    <title>Login</title>         
+    <title>Login</title>
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAwAAAABMLAAATCwAAEAAAAAAAAACc73QA3OBRAIuGCgDT1ksAs7MuANTkWgCZlhkAxsg/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYiIiIiIiIiJiIiIiIiIiImIiIiIiIiIiYiIiIiIiIiI0RiIiIiIiIlERN0ZiIiIiURERERN0YiJRERERERETdBERERERERERUREREREREREABREREREREQAABVERERERAAAAAFEREREAAAAAAFUREQAAAAAAAAURAAAAAAAAAAAAAExzAAAAAQAAamMAAAABAAAAAAAAc2wAAGUAAAASAAAAB3MAAGNlAABsbwAAAAAAAAAAAAAAAAAAAAAAAAwA">         
   </head>
   <body>
     <div class="body" style="width: 425px; height: 325px; border: 1px solid #006E86; margin: 150px auto 0 auto">    
