@@ -132,28 +132,33 @@ App.Views.Hospital = Backbone.View.extend({
 			"sScrollY": "272px",			
 			"bSort": true,
 			"bInfo": false,
-			"aaSorting": [[0, 'asc'], [1, 'asc']],
+			"aaSorting": [[0, 'asc'], [3, 'asc']],			
+			"bAutoWidth": false,
 			"aoColumns": [
 				  			{ "sSortDataType": "dom-checkbox" },
 				  			null,
-				  			null,
-				  			{ "sSortDataType": "dom-checkbox" },
-				  			{ "sSortDataType": "dom-checkbox" },
-				  			{ "sSortDataType": "dom-checkbox" },
-				  			{ "sSortDataType": "dom-checkbox" }
+				  			{"sWidth": "73px" },
+				  			{"sWidth": "336px" },
+				  			{ "sSortDataType": "dom-checkbox", "sWidth": "60px" },
+				  			{ "sSortDataType": "dom-checkbox", "sWidth": "60px" },
+				  			{ "sSortDataType": "dom-checkbox", "sWidth": "50px" },
+				  			{ "sSortDataType": "dom-checkbox", "sWidth": "50px" }
 				  		]			
 		 });	
+		
+		
+		
 	
-	    //new FixedColumns( oTable, {"sHeightMatch": "none"} );		
+	    new FixedColumns( oTable, {"sHeightMatch": "none"} );		
 		$(slcTab + ' .dataTables_scrollHeadInner').css('width', '934px');
 		$(slcTab + ' .hospitalMeasureTable.dataTable').css('width', '934px');
-		$(slcTab + ' .hospitalMeasureTable.dataTable td:eq(0), ' + slcTab + ' .hospitalMeasureTable.dataTable th:eq(0)').css('width', '30px');
-		$(slcTab + ' .hospitalMeasureTable.dataTable td:eq(1), ' + slcTab + ' .hospitalMeasureTable.dataTable th:eq(1)').css('width', '73px');
-		$(slcTab + ' .hospitalMeasureTable.dataTable td:eq(2), ' + slcTab + ' .hospitalMeasureTable.dataTable th:eq(2)').css('width', '336px');
-		$(slcTab + ' .hospitalMeasureTable.dataTable td:eq(3), ' + slcTab + ' .hospitalMeasureTable.dataTable th:eq(3)').css('width', '83px');
-		$(slcTab + ' .hospitalMeasureTable.dataTable td:eq(4), ' + slcTab + ' .hospitalMeasureTable.dataTable th:eq(4)').css('width', '72px');
-		$(slcTab + ' .hospitalMeasureTable.dataTable td:eq(5), ' + slcTab + ' .hospitalMeasureTable.dataTable th:eq(5)').css('width', '90px');
-		$(slcTab + ' .hospitalMeasureTable.dataTable td:eq(6), ' + slcTab + ' .hospitalMeasureTable.dataTable th:eq(6)').css('width', '63px');	
+				
+		$(slcTab + ' .hospitalMeasureTable.dataTable td:eq(2), ' + slcTab + ' .hospitalMeasureTable.dataTable th:eq(2)').css('width', '73px');
+		$(slcTab + ' .hospitalMeasureTable.dataTable td:eq(3), ' + slcTab + ' .hospitalMeasureTable.dataTable th:eq(3)').css('width', '336px');
+		$(slcTab + ' .hospitalMeasureTable.dataTable td:eq(4), ' + slcTab + ' .hospitalMeasureTable.dataTable th:eq(4)').css('width', '60px');
+		$(slcTab + ' .hospitalMeasureTable.dataTable td:eq(5), ' + slcTab + ' .hospitalMeasureTable.dataTable th:eq(5)').css('width', '60px');
+		$(slcTab + ' .hospitalMeasureTable.dataTable td:eq(6), ' + slcTab + ' .hospitalMeasureTable.dataTable th:eq(6)').css('width', '50px');
+		$(slcTab + ' .hospitalMeasureTable.dataTable td:eq(7), ' + slcTab + ' .hospitalMeasureTable.dataTable th:eq(7)').css('width', '50px');
 	},
 		
 	// append HospitalMeasureTable to Tab
@@ -177,7 +182,8 @@ App.Views.Hospital = Backbone.View.extend({
 																		"verified" :measure.verified,
 																		"p_index"  :p_index,
 																		"m_index"  :m_index,
-																		"product_id" : product.id
+																		"product_id" : product.id,
+																		"measureCategory":measure.measureCategory
 																		});				
 				
 				var view = new App.Views.SingleHospitalMeasure({ model : hospitalMeasure });				
@@ -398,7 +404,8 @@ App.Views.SingleHospitalMeasure = Backbone.View
 											 completed:ch_completed,
 											 confirmed:ch_confirmed,
 											 accepted:ch_accepted,
-											 verified:ch_verified
+											 verified:ch_verified,
+											 measureCategory:this.model.get("measureCategory")
 											}));
 				//this.$el.html(this.template(this.model.toJSON()));
 				
