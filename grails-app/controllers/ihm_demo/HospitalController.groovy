@@ -240,6 +240,7 @@ class HospitalController {
 						measures : array {
 							for (hpm in hp.hospitalProductMeasures){
 								measure id : hpm.hospitalMeasure.id,
+								measureCategory :  hpm.hospitalMeasure?.measure?.measureCategory?.name,
 								code : hpm.hospitalMeasure.measure.code,
 								name : hpm.hospitalMeasure.measure.name,
 								accepted : hpm.hospitalMeasure.accepted,
