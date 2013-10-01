@@ -1,7 +1,7 @@
 package ihm_demo
 
 class Hospital {
-
+	static auditable = true
 	String name
 	String email
 	String notes

@@ -28,7 +28,14 @@ grails.mime.types = [
     text:          'text/plain',
     xml:           ['text/xml', 'application/xml']
 ]
+//audit
+auditLog.verbose = true
 
+auditLog {
+	actorClosure = { request, session ->
+		session.user?.login
+	}
+  }
 // URL Mapping Cache Max Size, defaults to 5000
 //grails.urlmapping.cache.maxsize = 1000
 

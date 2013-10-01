@@ -1,7 +1,7 @@
 package ihm_demo
 
 class HospitalMeasure {
-	
+	static auditable = true
 	Boolean accepted
 	Boolean completed
 	Boolean confirmed

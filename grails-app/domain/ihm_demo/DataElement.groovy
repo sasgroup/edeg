@@ -1,7 +1,7 @@
 package ihm_demo
 
 class DataElement {
-	
+	static auditable = true
 	String code
 	String name
 	String notes
