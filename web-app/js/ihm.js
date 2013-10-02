@@ -122,7 +122,7 @@ $(function() {
 	$.ajaxSetup({
 		complete: function (xhr) {
 			if (xhr.responseText.indexOf('<title>Login</title>') > 0) {
-				console.log('expired')
+				//console.log('expired')
 				goToLoginPage();
 		    }
 		}
