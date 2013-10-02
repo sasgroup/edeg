@@ -1,13 +1,18 @@
 package ihm_demo
 
 import java.util.Date;
+import java.util.Map;
 
 import grails.converters.JSON
 import org.codehaus.groovy.grails.web.servlet.mvc.GrailsParameterMap
 import org.springframework.dao.DataIntegrityViolationException
 
 class HospitalController {
+	
 	def sendMailService
+	def securityService
+	
+	
 	def update(Long id, Long version) {
 		if (!params.apply) {
 			def hospitalInstance = Hospital.get(id)
@@ -257,8 +262,22 @@ class HospitalController {
 			}
 		}
 		else {
-			def results = Hospital.list([sort: 'name', order:'asc'])
+			
+			// IMPORTANT
+			// here we are expecting to get the whole list of Hospitals
+			// and if we detect any new hospital we just add it to our list
+			// The question here is: should we remove hospital on eDEG side if we don't get it from ihmSecurity call?
+			Map<String, String> allHospitals = securityService.getHospitalNameMap(request.getRemoteUser())
+			allHospitals.each { key, value  ->
+				def h = Hospital.findByName(value)
+				if (!h){
+					h = new Hospital(name:value, ehr:Ehr.findByCode("MEDITECH 6.2"), notes:"", populationMethod: "ED-ALL", externalEHRs:"")
+					h.save(flush: true)
+				}
+			}
 
+			// from this point forward we should get 'sync'ed list of available hospitals			
+			def results = Hospital.list([sort: 'name', order:'asc'])
 			render(contentType: "text/json") {
 				hospitals = array {
 					for (p in results) {

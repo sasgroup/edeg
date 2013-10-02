@@ -1,7 +1,7 @@
 package ihm_demo
 
 class HospitalProduct {
-
+	static auditable = true
 	Hospital hospital
 	Product product
 

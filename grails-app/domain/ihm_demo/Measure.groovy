@@ -1,7 +1,7 @@
 package ihm_demo
 
 class Measure {
-	
+	static auditable = true
 	String code
 	String name
 	String notes
@@ -26,5 +26,4 @@ class Measure {
 	String toString() {
 		"$code, $name"
 	}
-	
 }

@@ -1,7 +1,7 @@
 package ihm_demo
 
 class HospitalElement {
-	
+	static auditable = true
 	String internalNotes
 	String location
 	String notes
