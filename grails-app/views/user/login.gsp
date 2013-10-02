@@ -43,6 +43,6 @@
 	</div>	
     
     </div>
-    <div style="width: 425px; margin: 2px auto 0 auto; font-size: 12px;">Version 1.0 – Copyright 2011-2013, IHM Services Company, All Rights Reserved.</div>   
+    <div style="width: 425px; margin: 2px auto 0 auto; font-size: 12px; text-align: center">Version 1.0 – Copyright 2011-<g:formatDate format="yyyy" date="${new Date()}"/>, IHM Services Company, All Rights Reserved.</div>   
   </body>
 </html>
