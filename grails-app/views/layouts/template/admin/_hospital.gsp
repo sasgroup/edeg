@@ -72,9 +72,14 @@
 					</select>	
 					<a id="btnExternalEHRs" href="javascript:;" >Additional EHRs <i class="icon-th-list"></i></a>				
 				</td>	
-				<td></td>
-				<td></td>	
-				<td></td>		
+				<td>Hospital</td>
+				<td>
+					<select id="slcHospitals">						
+					</select>
+				</td>	
+				<td>
+					<button id="btnCloneHospital" class="btn btn-info pull-right">Clone from</button>
+				</td>		
 			</tr>	
         </tbody>
     </table>   

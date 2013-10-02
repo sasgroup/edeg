@@ -46,7 +46,7 @@ div#hospitals label {
 	cursor: default !important;
 }
 
-button#btnApplyHospitalOptions {
+button#btnApplyHospitalOptions, button#btnCloneHospital {
 	width: 100px;
 	padding: 2px 0px 2px 0px;
 }
@@ -67,8 +67,8 @@ textarea.txt-message {
 	width: 100px;
 }
 
-#slcProducts {
-	width: 310px;
+#slcProducts, #slcHospitals {
+	width: 310px;	
 }
 
 #slcEHRs{

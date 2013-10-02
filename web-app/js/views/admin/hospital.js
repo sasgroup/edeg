@@ -33,6 +33,7 @@ App.Views.Hospital = Backbone.View.extend({
 		'click #submit-close-btn' 		 							: 'submCloseHospital',
 		'click button#cancel' 			 							: 'returnOnMain', 
 		'click #btnApplyHospitalOptions' 							: 'applyHospitalOptions',
+		'click #btnCloneHospital' 									: 'cloneHospital',
 		'click a[data-toggle="tab"]'	 							: 'changeTab',
 		'change #notes, #email,  #txtEHRs' 	                        : 'changeVal',
 		'click #btnExternalEHRs' 		 							: 'showExternalEHRs',
@@ -41,10 +42,13 @@ App.Views.Hospital = Backbone.View.extend({
 
 	render : function() {		
 		this.$el.html(this.template(this.model.toJSON()));
-		
+				
 		App.products.forEach(this.appendProductOption,this);
 		App.ehrs.forEach(this.appendEhrOption,this);	
 		
+		this.$el.find('#slcHospitals').append("<option value=''>-Select-</option>");
+		App.hospitals.forEach(this.appendHospitalOption,this);			
+						
 		return this;
 	},
 		
@@ -53,10 +57,17 @@ App.Views.Hospital = Backbone.View.extend({
 		this.$el.find('#slcProducts').append(temp({id:product.get('id'),code:product.get('code')+"-"+product.get('name')}));		
 	},
 	
-	appendEhrOption: function(ehr) {	
-		if (window.console) console.log(ehr.code);
+	appendEhrOption: function(ehr) {		
 		var temp = _.template($('#product-option').html());
 		this.$el.find('#slcEHRs').append(temp({id:ehr.get('id'),code:ehr.get('name')}));		
+	},
+	
+	appendHospitalOption: function(h) {	
+		var temp = _.template($('#product-option').html());
+		
+		if (h.get('id')!=this.model.get('id')) {		
+			this.$el.find('#slcHospitals').append(temp({id:h.get('id'),code:h.get('name')}));
+		}
 	},
 	
 			
@@ -228,6 +239,45 @@ App.Views.Hospital = Backbone.View.extend({
 	    
 	    return false;
 	},
+	
+	// cloneHospital
+	cloneHospital : function(){		
+				
+    	//parameters
+		var h_id = this.model.get('id');		
+		var hosp_id = $( "#slcHospitals").multiselect('getChecked').val();	
+		var hosp_name = $( "#slcHospitals option:selected" ).text().trim();
+				
+		if (hosp_id!='') {			
+			bootbox.confirm("You are going to clone all settings from  [" + hosp_name + "] to current hospital. Continue?", function(result) {
+				if (result) {
+					/*this.model.set({clone: true});	
+					
+					this.model.attributes.id = h_id;
+					this.model.attributes.src_id = hosp_id;
+							
+					var view = this;
+					$('#loading').show();
+					
+					this.model.save(null, {
+				        success: function (model, response) {
+				        	$('#loading').hide();
+				        	Backbone.history.navigate("reload/"+h_id, true);	           
+				        },
+				        
+				        error: function (model,xhr) {
+				        	$('#loading').hide();
+				        	$('#app').html("clone error");
+				        	//Backbone.history.navigate("reload/"+h_id, true);	
+				        }
+				    }, {wait:true});			*/	
+				} 
+			}); 
+		}	
+					    
+	    return false;
+	},
+	
 
 	changeVal : function(e) {
 		//HOSPITAL IS MODIFIED

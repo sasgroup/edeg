@@ -421,7 +421,9 @@ App.Routers.Administrator = Backbone.Router.extend({
     
     hospital  : function (hospital) {
 		App.products.fetch().then(function(){	
-		 App.ehrs.fetch().then(function(){		 
+		 App.ehrs.fetch().then(function(){			 
+		  App.hospitals.fetch().then(function(){			 
+			 
 			App.viewHospital = new App.Views.Hospital({model: hospital});		
 			$('#app').html(App.viewHospital.render().el);			
 				
@@ -458,6 +460,15 @@ App.Routers.Administrator = Backbone.Router.extend({
 			        noneSelectedText : "Select",
 			        selectedList : 1,
 			        height: "auto",
+			        minWidth: "300px"
+			    });	
+				
+				$( "#slcHospitals").multiselect({
+			        multiple : false,
+			        header : false,
+			        noneSelectedText : "Select",
+			        selectedList : 1,
+			        height: "370px",
 			        minWidth: "300px"
 			    });	
 				
@@ -511,7 +522,7 @@ App.Routers.Administrator = Backbone.Router.extend({
 					 });				
 								
 					new FixedColumns( oTable, {"sHeightMatch": "none"} );
-					$(slcTab + ' .dataTables_scrollHeadInner').css('width', '934px');
+					/*$(slcTab + ' .dataTables_scrollHeadInner').css('width', '934px');
 					$(slcTab + ' .hospitalMeasureTable.dataTable').css('width', '934px');
 										
 					$(slcTab + ' .hospitalMeasureTable.dataTable td:eq(2), ' + slcTab + ' .hospitalMeasureTable.dataTable th:eq(2)').css('width', '73px');
@@ -519,11 +530,12 @@ App.Routers.Administrator = Backbone.Router.extend({
 					$(slcTab + ' .hospitalMeasureTable.dataTable td:eq(4), ' + slcTab + ' .hospitalMeasureTable.dataTable th:eq(4)').css('width', '60px');
 					$(slcTab + ' .hospitalMeasureTable.dataTable td:eq(5), ' + slcTab + ' .hospitalMeasureTable.dataTable th:eq(5)').css('width', '60px');
 					$(slcTab + ' .hospitalMeasureTable.dataTable td:eq(6), ' + slcTab + ' .hospitalMeasureTable.dataTable th:eq(6)').css('width', '50px');
-					$(slcTab + ' .hospitalMeasureTable.dataTable td:eq(7), ' + slcTab + ' .hospitalMeasureTable.dataTable th:eq(7)').css('width', '50px');
+					$(slcTab + ' .hospitalMeasureTable.dataTable td:eq(7), ' + slcTab + ' .hospitalMeasureTable.dataTable th:eq(7)').css('width', '50px');*/
 				}	
-				
+		 });		
 		});	
-	  });	 
+	  });	
+		
     },
 	// ------- NEW ------------
     // new product
