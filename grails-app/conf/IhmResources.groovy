@@ -1,6 +1,6 @@
 modules = {
 	ihm {
-		dependsOn 'jquery, json3, underscore, modernizr, backbone, bootstrap, jqgrid, jqmultiselect, datatable, html5shiv, wysihtml5, upload, bootbox, jqcookie, backbonefilter'
+		dependsOn 'jquery, json3, underscore, modernizr, backbone, bootstrap, jqgrid, jqmultiselect, datatable, html5shiv, wysihtml5, upload, bootbox, jqcookie, backbonefilter, datepicker'
 		resource url: 'css/ihm.css'		
 		resource url: 'js/ihm.js'
 		resource url: 'js/models.js'
@@ -46,6 +46,11 @@ modules = {
 	bootstrap{
 		resource url: 'css/bootstrap.css'
 		resource url: 'js/bootstrap.js'
+	}
+	
+	datepicker{
+		resource url: 'css/datepicker.css'
+		resource url: 'js/bootstrap-datepicker.js'
 	}
 	
 		
