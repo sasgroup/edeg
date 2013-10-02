@@ -119,6 +119,23 @@ $(function() {
 		window.location = "user/logout";
 	}
 	
-	setInterval(goToLoginPage, 180000); 
+	/*
+	$(document)
+	.ajaxSuccess(function(evt, request, settings){
+		if (request.responseText.indexOf('<title>Login</title>') != -1)
+			goToLoginPage();
+	});
+	*/
+	
+	$.ajaxSetup({
+		complete: function (xhr) {
+			if (xhr.responseText.indexOf('<title>Login</title>') > 0) {
+				console.log('expired')
+				goToLoginPage();
+		    }
+		}
+	});
+	
+	//setInterval(goToLoginPage, 180000); 
 	
 });
