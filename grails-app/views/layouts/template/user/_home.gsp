@@ -23,7 +23,7 @@
 			</tr>
 			<tr>
 				<td><strong>Primary EHR: </strong>{{pr_ehr}} </td>
-				<td class="column2"><strong>Meaningful Use Population Methode: </strong>{{pop_methode}}</td>
+				<td class="column2"><strong>Meaningful Use Population Method: </strong>{{pop_methode}}</td>
 			</tr>
 			<tr>
 				<td><strong>{{add_ehrs==""? "": "Additional EHRs:"}} </strong>{{add_ehrs}}</td>

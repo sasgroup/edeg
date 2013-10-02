@@ -141,7 +141,7 @@ App.Views.Hospital = Backbone.View.extend({
 			"sScrollY": "272px",			
 			"bSort": true,
 			"bInfo": false,
-			"aaSorting": [[0, 'asc'], [3, 'asc']],			
+			"aaSorting": [[0, 'asc'], [1, 'asc'], [3, 'asc']],			
 			"bAutoWidth": false,
 			"aoColumns": [
 				  			{ "sSortDataType": "dom-checkbox" },

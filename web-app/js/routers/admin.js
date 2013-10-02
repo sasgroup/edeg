@@ -507,7 +507,7 @@ App.Routers.Administrator = Backbone.Router.extend({
 						"sScrollY": "272px",			
 						"bSort": true,
 						"bInfo": false,
-						"aaSorting": [[0, 'asc'], [3, 'asc']],
+						"aaSorting": [[0, 'asc'], [1, 'asc'], [3, 'asc']],
 						"bAutoWidth": false,
 						"aoColumns": [
 							  			{ "sSortDataType": "dom-checkbox" },
@@ -521,16 +521,7 @@ App.Routers.Administrator = Backbone.Router.extend({
 							  		]						 
 					 });				
 								
-					new FixedColumns( oTable, {"sHeightMatch": "none"} );
-					/*$(slcTab + ' .dataTables_scrollHeadInner').css('width', '934px');
-					$(slcTab + ' .hospitalMeasureTable.dataTable').css('width', '934px');
-										
-					$(slcTab + ' .hospitalMeasureTable.dataTable td:eq(2), ' + slcTab + ' .hospitalMeasureTable.dataTable th:eq(2)').css('width', '73px');
-					$(slcTab + ' .hospitalMeasureTable.dataTable td:eq(3), ' + slcTab + ' .hospitalMeasureTable.dataTable th:eq(3)').css('width', '336px');
-					$(slcTab + ' .hospitalMeasureTable.dataTable td:eq(4), ' + slcTab + ' .hospitalMeasureTable.dataTable th:eq(4)').css('width', '60px');
-					$(slcTab + ' .hospitalMeasureTable.dataTable td:eq(5), ' + slcTab + ' .hospitalMeasureTable.dataTable th:eq(5)').css('width', '60px');
-					$(slcTab + ' .hospitalMeasureTable.dataTable td:eq(6), ' + slcTab + ' .hospitalMeasureTable.dataTable th:eq(6)').css('width', '50px');
-					$(slcTab + ' .hospitalMeasureTable.dataTable td:eq(7), ' + slcTab + ' .hospitalMeasureTable.dataTable th:eq(7)').css('width', '50px');*/
+					new FixedColumns( oTable, {"sHeightMatch": "none"} );				
 				}	
 		 });		
 		});	
