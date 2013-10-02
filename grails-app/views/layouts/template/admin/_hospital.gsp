@@ -74,7 +74,8 @@
 				</td>	
 				<td>Hospital</td>
 				<td>
-					<select id="slcHospitals">						
+					<select id="slcHospitals">
+						<option value=''>Select</option>						
 					</select>
 				</td>	
 				<td>

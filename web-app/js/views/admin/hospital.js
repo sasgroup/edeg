@@ -44,9 +44,7 @@ App.Views.Hospital = Backbone.View.extend({
 		this.$el.html(this.template(this.model.toJSON()));
 				
 		App.products.forEach(this.appendProductOption,this);
-		App.ehrs.forEach(this.appendEhrOption,this);	
-		
-		this.$el.find('#slcHospitals').append("<option value=''>-Select-</option>");
+		App.ehrs.forEach(this.appendEhrOption,this);		
 		App.hospitals.forEach(this.appendHospitalOption,this);			
 						
 		return this;
