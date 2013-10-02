@@ -119,14 +119,6 @@ $(function() {
 		window.location = "user/logout";
 	}
 	
-	/*
-	$(document)
-	.ajaxSuccess(function(evt, request, settings){
-		if (request.responseText.indexOf('<title>Login</title>') != -1)
-			goToLoginPage();
-	});
-	*/
-	
 	$.ajaxSetup({
 		complete: function (xhr) {
 			if (xhr.responseText.indexOf('<title>Login</title>') > 0) {
