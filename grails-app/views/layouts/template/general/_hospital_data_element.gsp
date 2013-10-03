@@ -7,7 +7,7 @@
 	  <thead><tr>
  				<th class="data-element-column">Data Element</th>    
 		    	<th>Location</th>           
-				<th title="SourceEHR" class="ihm_hidden">EHR</th>
+				<!--<th title="SourceEHR" class="ihm_hidden">EHR</th>-->
 				<th>Source EHR</th>				
 		    	<th>Values Type</th>
 				<th class="r-btn">Reset</th>
@@ -73,7 +73,7 @@
 <script type="text/template" class="template" id="hospital_data_element">
  <td id="{{id}}" class="slc_row" title="{{element_notes}}">{{dataElement}}</td>
  <td><div class='code'><input type="text" class="location" name="location" id="location" value="{{location}}"></div></td>
-<td class="ihm_hidden"><input type="checkbox" class="sourceEHR" name="sourceEHR" id="sourceEHR" value={{sourceEHR}} {{sourceEHR ? "checked": ""}}></td>
+ <!--<td class="ihm_hidden"><input type="checkbox" class="sourceEHR" name="sourceEHR" id="sourceEHR" value={{sourceEHR}} {{sourceEHR ? "checked": ""}}></td>-->
  <td>
 	<select id="source" name="source" class="source">
 	</select>
