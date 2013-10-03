@@ -76,20 +76,32 @@ input#txtValueSet {
 	padding: 0 !important;
 }
 
-input.location, input.source {
-	height: 20px ;
-	line-height: 20px;
+
+#hospital-elements td div.code{	
+    overflow: hidden;  
+    width: 180px;
+}
+
+
+#extra-table td div.code {
+	overflow: hidden;  
+    width: 250px;
+}
+
+input.location {
 	width: 90%;
 }
+
 
 select{
 	height: 30px;
 	/* In IE7, the height of the select element cannot be changed by height, only font-size */
-	*margin-top: 4px;
+	margin-top: 4px;
 	/* For IE7, add top margin to align select with labels */
 	line-height: 30px;
 	font-size: 16px;
 	width: auto !important;
+	min-width: 100%;
 }
 
 
