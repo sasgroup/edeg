@@ -7,7 +7,7 @@
 	  <thead><tr>
  				<th class="data-element-column">Data Element</th>    
 		    	<th>Location</th>           
-				<th title="SourceEHR" class="ihm_hidden">EHR</th>
+				<!--<th title="SourceEHR" class="ihm_hidden">EHR</th>-->
 				<th>Source EHR</th>				
 		    	<th>Values Type</th>
 				<th class="r-btn">Reset</th>
@@ -72,8 +72,8 @@
 <!-- hospital_data_element -->
 <script type="text/template" class="template" id="hospital_data_element">
  <td id="{{id}}" class="slc_row" title="{{element_notes}}">{{dataElement}}</td>
- <td><input type="text" class="location" name="location" id="location" value="{{location}}"></td>
-<td class="ihm_hidden"><input type="checkbox" class="sourceEHR" name="sourceEHR" id="sourceEHR" value={{sourceEHR}} {{sourceEHR ? "checked": ""}}></td>
+ <td><div class='code'><input type="text" class="location" name="location" id="location" value="{{location}}"></div></td>
+ <!--<td class="ihm_hidden"><input type="checkbox" class="sourceEHR" name="sourceEHR" id="sourceEHR" value={{sourceEHR}} {{sourceEHR ? "checked": ""}}></td>-->
  <td>
 	<select id="source" name="source" class="source">
 	</select>
@@ -94,7 +94,7 @@
 
 <!--extra-elements -->
 <script type="text/template" class="template" id="extra-elements">
- <td><input type="text" class="location" id="location" value="{{location}}" placeholder="Enter Location"></td>
+ <td><div class='code'><input type="text" class="location" id="location" value="{{location}}" placeholder="Enter Location"></div></td>
  <!--<td class="ihm_hidden"><input type="checkbox" class="sourceEHR" id="sourceEHR" value="{{sourceEHR}}" {{sourceEHR ? "checked": ""}}></td>-->
  <td>
 	<select id="source" name="source" class="source">

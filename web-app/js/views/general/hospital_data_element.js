@@ -78,7 +78,8 @@ App.Views.HospitalElements = Backbone.View.extend({
 			elementExtraLocation = [];
 			$('table#extra-table tr').not(':first').each(function( ) {
 				var _location = $(this).find('input#location').val();
-				var _sourceEHR = $(this).find('input#sourceEHR').is(':checked');
+				//var _sourceEHR = $(this).find('input#sourceEHR').is(':checked');
+				var _sourceEHR = hospital_element_to_save.get("sourceEHR");
 				var _source = $(this).find('select#source').val();				
 				var _valueType = $(this).find('select.slcValueType').val();
 						
@@ -171,7 +172,7 @@ App.Views.SingleHospitalElement = Backbone.View
 		'click .slc_row'                   			   : 'selectRow',
 		'click  #reset'                     		   : 'resetToDefault',
 		'change .source, .location'       			   : 'changeVal',
-		'change .sourceEHR'                            : 'changeCh',
+		//'change .sourceEHR'                            : 'changeCh',
 		'change .slcValueType' 		   				   : 'changeSlcVType',
 		'click .show_info'                			   : 'showInfo'				
 	},
@@ -188,7 +189,8 @@ App.Views.SingleHospitalElement = Backbone.View
 				_el.find('#source').append("<option class='opt2' value='"+ex+"' >"+ex+"</option>")	
 		});
 		
-		if (this.$el.find('#sourceEHR').is(':checked')) {
+		//if (this.$el.find('#sourceEHR').is(':checked')) {
+		if (this.model.get('#sourceEHR')) {
 			this.$el.find('#source').val(this.options.primary_ehr);
 		}
 		else{
@@ -213,7 +215,7 @@ App.Views.SingleHospitalElement = Backbone.View
 		App.viewHospitalElements.isModified = true;
 	},
 	
-	changeCh : function(e) {
+	/*changeCh : function(e) {
 		this.model.attributes[e.target.name] = $(e.target).is(':checked');	
 		if (this.$el.find('#sourceEHR').is(':checked')) {
 			this.restoreSourceValue(e);
@@ -223,7 +225,7 @@ App.Views.SingleHospitalElement = Backbone.View
 			this.model.attributes["source"]="";
 		}
 		App.viewHospitalElements.isModified = true;
-	},
+	},*/
 	
 	changeSlc : function(e) {
 		var _targetName = e.target.name
@@ -284,7 +286,8 @@ App.Views.SingleHospitalElement = Backbone.View
 			elementExtraLocation = [];
 			$('table#extra-table tr').not(':first').each(function( ) {
 				var _location = $(this).find('input#location').val();
-				var _sourceEHR = $(this).find('input#sourceEHR').is(':checked');
+				/*var _sourceEHR = $(this).find('input#sourceEHR').is(':checked');*/
+				var _sourceEHR = hospital_element_to_save.get("sourceEHR");
 				var _source = $(this).find('select#source').val();				
 				var _valueType = $(this).find('select.slcValueType').val();
 						
@@ -625,7 +628,8 @@ App.Views.ExtraDataElement = Backbone.View
 				_el.find('#source').append("<option class='opt2' value='"+ex+"' >"+ex+"</option>")	
 		});
 		
-		if (this.$el.find('#sourceEHR').is(':checked')) {
+		//if (this.$el.find('#sourceEHR').is(':checked')) {
+		if (this.model.get('#sourceEHR')) {
 			this.$el.find('#source').val(this.options.primary_ehr);
 		}
 		else{
