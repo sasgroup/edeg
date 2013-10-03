@@ -85,6 +85,9 @@ class HospitalController {
 				message = "Hospital ${hospitalInstance.name} has been successfully updated"
 			}
 		}
+		//else if (!params.clone){
+			// TODO: clone action
+		//}
 		else if (params.ehr_id) {
 			// update Hospital set EHR
 			def hospital = Hospital.get(params.id)
@@ -115,8 +118,10 @@ class HospitalController {
 					if (!hospitalMeasure)
 						hospitalMeasure 	= new HospitalMeasure(hospital: hospital, measure: measure, accepted: false, completed: false, confirmed: false, verified: false).save(flush:true)
 					def hospitalProductMeasure 	= HospitalProductMeasure.findByHospitalProductAndHospitalMeasure(hospitalProduct, hospitalMeasure)
-					if (!hospitalProductMeasure)
-						hospitalProductMeasure 	= new HospitalProductMeasure(hospitalProduct:hospitalProduct, hospitalMeasure:hospitalMeasure, included:false).save(flush:true)
+					if (!hospitalProductMeasure){
+						def _included = measure.measureCategory.name == "CORE" 
+						hospitalProductMeasure 	= new HospitalProductMeasure(hospitalProduct:hospitalProduct, hospitalMeasure:hospitalMeasure, included:_included).save(flush:true)
+					}
 
 					for (de in measure.dataElements) {
 						def hospitalElement = HospitalElement.findByHospitalAndDataElement(hospital, de)

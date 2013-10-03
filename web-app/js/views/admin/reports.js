@@ -15,6 +15,54 @@ App.Views.Reports = Backbone.View.extend({
 		var pme = _.template($('#reports-pme-template').html());
 		this.$el.html(this.template(this.model.H.toJSON()));
 		var _el = this.$el; 
+		
+		_el.find('#slcReportType').change(function(){
+			var _val = _el.find('#slcReportType').val();
+			_el.find('label[hideFor], select[hideFor], div[hideFor]').each(function(i, e){
+				if ($(e).attr('hideFor').indexOf(_val) != -1)
+					$(e).hide();
+				else
+					$(e).show();
+			})
+		});
+		
+		var _model = this.model;
+		_el.find('#slcEntityType').change(function(){
+			var _val = _el.find('#slcEntityType').val();
+			switch (_val){
+				case "P": 
+					_el.find('#slcEntity').html("<option value='-'> -Select - </option>");
+					$(_model.P.toJSON()).each(function(i, m){ _el.find('#slcEntity').append(pme({name:m.name,id:m.id,code:m.code})); }); break;
+				
+				case "M": 
+					_el.find('#slcEntity').html("<option value='-'> -Select - </option>");
+					$(_model.M.toJSON()).each(function(i, m){ _el.find('#slcEntity').append(pme({name:m.name,id:m.id,code:m.code})); }); break;
+				
+				case "E": 
+					_el.find('#slcEntity').html("<option value='-'> -Select - </option>"); 
+					$(_model.E.toJSON()).each(function(i, m){ _el.find('#slcEntity').append(pme({name:m.name,id:m.id,code:m.code})); }); break;
+				
+				case "H": 
+					_el.find('#slcHospital, label[for=slcHospital]').show(); 
+					_el.find('#slcEntity').html("<option value='-'> -Select - </option>"); break;
+					
+				case "HP": 
+					_el.find('#slcHospital, label[for=slcHospital]').show();
+					_el.find('#slcEntity').html("<option value='-'> -Select - </option>");
+					$(_model.P.toJSON()).each(function(i, m){ _el.find('#slcEntity').append(pme({name:m.name,id:m.id,code:m.code})); }); break;
+				
+				case "HM": 
+					_el.find('#slcHospital, label[for=slcHospital]').show();
+					_el.find('#slcEntity').html("<option value='-'> -Select - </option>");
+					$(_model.M.toJSON()).each(function(i, m){ _el.find('#slcEntity').append(pme({name:m.name,id:m.id,code:m.code})); }); break;
+				
+				case "HE": 
+					_el.find('#slcHospital, label[for=slcHospital]').show();
+					_el.find('#slcEntity').html("<option value=''> -Select - </option>");					
+					$(_model.E.toJSON()).each(function(i, m){ _el.find('#slcEntity').append(pme({name:m.name,id:m.id,code:m.code})); }); break;
+			}
+		});
+		
 		//var _json = this.model.toJSON(); 
 		$(this.model.H.toJSON()).each(function(i, m){
 			_el.find('#slcHospital').append(temp({name:m.name,id:m.id}));	
@@ -29,6 +77,9 @@ App.Views.Reports = Backbone.View.extend({
 			_el.find('#slcElement').append(pme({name:m.name,id:m.id,code:m.code}));	
 		});
 		
+		
+		_el.find('label[hideFor="1,2,3,4,5,6"], select[hideFor="1,2,3,4,5,6"], div[hideFor="1,2,3,4,5,6"]').hide();
+		_el.find('#dpFrom, #dpTill').datepicker({format:'mm/dd/yy'});
 		return this;
 	},
 
@@ -41,7 +92,8 @@ App.Views.Reports = Backbone.View.extend({
 			['Hospital', 'Product'],
 			['Hospital', 'Product', 'Measure', 'Measure Name', 'Comp', 'Accp', 'NRev', 'Verf'],
 			['Hospital', 'Code', 'Data Element', 'Location', 'EHR', 'Vtype'],
-			['Hospital', 'Product', 'Measure', 'Code', 'Data Element', 'Location', 'EHR', 'Vtype']
+			['Hospital', 'Product', 'Measure', 'Code', 'Data Element', 'Location', 'EHR', 'Vtype'],
+			['Date', 'User', 'Event', 'EntityType', 'Property', 'New', 'Old', 'OID']
 		];
 		var _colModels = [
 			[	{name:'hname',		index:'hname', 		width:100},
@@ -89,7 +141,20 @@ App.Views.Reports = Backbone.View.extend({
 			 	{name:'location',	index:'location', 	width:120},
 			 	//{name:'sourceEHR',	index:'sourceEHR', 	width:30, formatter: "checkbox"},
 			 	{name:'source',		index:'source', 	width:80},
-			 	{name:'valueType',	index:'valueType', 	width:60} 		]
+			 	{name:'valueType',	index:'valueType', 	width:60} 		],
+			 	
+			[	{name:'updated',	index:'updated', 	width:60},
+		 	 	{name:'actor',		index:'actor', 		width:70},
+		 	 	{name:'event',		index:'event', 		width:50},
+			 	{name:'entity',		index:'entity', 	width:60}, 
+			 	{name:'property',	index:'property',	width:60}, 
+			 	{name:'nvalue',		index:'nvalue'				},
+			 	{name:'ovalue',		index:'ovalue'				},
+			 	{name:'poid',		index:'poid', 		width:30} 		]
+			
+			
+			
+			//['Date', 'User', 'Event', 'EntityType', 'Property', 'New', 'Old', 'OID']
 		];
 		
 		//this.reportData = "";
@@ -102,6 +167,10 @@ App.Views.Reports = Backbone.View.extend({
 				product	:$("#slcProduct").val(),
 				measure	:$("#slcMeasure").val(),
 				element	:$("#slcElement").val(),
+				etype	:$("#slcEntityType").val(),
+				entity	:$("#slcEntity").val(),
+				dpFrom	:$("#dpFrom").val(),
+				dpTill	:$("#dpTill").val(),
 				ts		:(new Date()).getTime()
 			},
 			error: function(req, err){

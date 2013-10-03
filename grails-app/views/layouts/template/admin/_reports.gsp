@@ -20,33 +20,62 @@
 							<option value="4">Hospital ~ Measures</option>
 							<option value="5">Hospital ~ Data Elements</option>
 							<option value="6">Hospital ~ Filtered Data Elements</option>
+							<option value="7">Audit Log</option>
 						</select>
 
-						<label for="slcHospital" >Hospital</label>
-						<select id="slcHospital" class="input-block-level">
+						<label for="slcHospital" 							hideFor="7">Hospital</label>
+						<select id="slcHospital" class="input-block-level"	hideFor="7">
 							<option value="0"> - All Hospitals - </option>
 						</select>
+
 					</div>
-					<div class="span3">
-						<label for="slcProduct">Product</label>
-						<select id="slcProduct" class="input-block-level">
+					<div class="span4">
+						<label for="slcProduct" 								hideFor="7">Product</label>
+						<select id="slcProduct" class="input-block-level" 		hideFor="7">
 							<option value="0"> - All Products - </option>
 						</select>
 
-						<label for="slcMeasure">Measure</label>
-						<select id="slcMeasure" class="input-block-level">
+						<label for="slcEntityType" 								hideFor="1,2,3,4,5,6">Entity Type</label>
+						<select id="slcEntityType" class="input-block-level"	hideFor="1,2,3,4,5,6">
+							<option value="-"> - All Entity Types - </option>
+							<option value="P">Products</option>
+							<option value="M">Measures</option>
+							<option value="E">Data Elements</option>
+							<option value="H">Hospitals</option>
+							<option value="HP">Hospital Products</option>
+							<option value="HM">Hospital Measures</option>
+							<option value="HE">Hospital Data Elements</option>
+						</select>
+
+						<label for="slcMeasure"								hideFor="7">Measure</label>
+						<select id="slcMeasure" class="input-block-level"	hideFor="7">
 							<option value="0"> - All Measures - </option>
 						</select>
+
+
+						<label for="dtpDateRange" 							hideFor="1,2,3,4,5,6">Date Range</label>
+						<div id="dtpDateRange"								hideFor="1,2,3,4,5,6">
+							<input type="text" id="dpFrom" data-date-format="mm/dd/yy" value="" class="span4"> ~ 
+							<input type="text" id="dpTill" data-date-format="mm/dd/yy" value="" class="span4">
+						</div>
+
 					</div>
-					<div class="span4">
-						<label for="slcElement">Data Element</label>
-						<select id="slcElement" class="input-block-level">
+					<div class="span3">
+						<label for="slcElement"								hideFor="7">Data Element</label>
+						<select id="slcElement" class="input-block-level"	hideFor="7">
 							<option value="0"> - All Elements - </option>
 						</select>
+
+						<label for="slcEntity"								hideFor="1,2,3,4,5,6">Entity</label>
+						<select id="slcEntity" class="input-block-level"	hideFor="1,2,3,4,5,6">
+							<option value="-"> - All Entities - </option>
+						</select>
+
+
 						<label for="slcElement">&nbsp;</label>
 						<div class="pull-right">						
 							<button type="button" class="btn btn-mini" id="btnGenerateReports">Generate Reports</button>
-							<button type="button" class="btn btn-mini" id="btnGenerateExcel">Generate Excel</button>
+							<button type="button" class="btn btn-mini" id="btnGenerateExcel">Export to Excel</button>
 						</div>
 					</div>
 				</div>
