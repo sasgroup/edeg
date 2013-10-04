@@ -4,7 +4,8 @@ App.Views.HospitalMeasureBreadcrumb = Backbone.View.extend({
 	
 	events : {				
 		'click .show-help'                : 'showHelp',
-		'click .show-notes'               : 'showNotes'
+		'click .show-notes'               : 'showNotes',
+		'click .edit-notes'               : 'editNotes'
 	},
 	
 	render : function() {
@@ -54,6 +55,23 @@ App.Views.HospitalMeasureBreadcrumb = Backbone.View.extend({
 			
 			$('#breadcrumb-box .popover').css('top','0px');
 			
+			this.adjustPopover();
+		}
+		evt.stopPropagation();		
+	},
+	
+	editNotes : function(evt){		
+		var _my_content = _.template($('#edit-notes-temp').html());
+				
+		var _code = this.model.code;
+		var _show = $('.edit-notes').hasClass('show');
+
+		$('.show').removeClass('show').popover('hide');
+		
+		if (!_show){
+			$('.edit-notes').addClass('show')
+			.popover({html:true,placement:'left',title:'Notes for [' + _code + ']',content:_my_content||"No notes were supplied..."}).popover('show');
+			$('#breadcrumb-box .popover').css('top','0px');
 			this.adjustPopover();
 		}
 		evt.stopPropagation();		
