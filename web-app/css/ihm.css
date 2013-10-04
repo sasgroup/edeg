@@ -55,6 +55,10 @@ textarea.txt-message {
 	overflow: hidden;
 }	
 
+div.popover-content textarea.txt-message {
+	width: 618px;
+}
+
 .ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active {
 	color: #2e6e9e;
 }
@@ -133,20 +137,23 @@ div.txt-qa {
 	width:934px
 }
 
-a.show-help, a.show-notes, a.show-help-product {
+a.show-help, a.show-notes, a.show-help-product, a.edit-notes {
 	display: block;
 	position: absolute;
 	top: 3px;	
-}
-
-a.show-notes {
-	right: 132px;
 }
 
 a.show-help {
 	right: 65px;
 }
 
+a.show-notes {
+	right: 132px;
+}
+
+a.edit-notes {
+	right: 199px;
+}
 
 th.resetAll {
 	text-align: center;
@@ -719,10 +726,11 @@ ul.wysihtml5-commands-disabled .dropdown-menu {
 }
 
 .popover{
-	width:750px;
+	width:720px;
 	max-width: 800px;
 	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.75);
 }
+
 
 #breadcrumb-box .popover{
 	top: 0;

@@ -499,6 +499,8 @@ deleteFile : function() {
 		}).done(function( data ) {
 			var arg = data.split(';')
 			resp    = arg[0];
+			version = arg[2];
+			
 			if (resp=="ok") { 
 				//reload model
 				$('form#uploadForm a').remove();
@@ -506,6 +508,7 @@ deleteFile : function() {
 				$('input#upload').addClass('hide');
 				$('input#del').addClass('hide');
 				he.set({"valueSetFile":''});
+				he.set({"version": version});
 			}
 		});		
 },
