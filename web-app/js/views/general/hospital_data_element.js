@@ -490,27 +490,6 @@ render : function() {
   return this;
 },
 
-/*deleteFile : function() {	
-	var he = this.model;
-	var id = this.model.get('id');
-	$.ajax({
-		  type: "DELETE",
-		  //url: "/ihm/api/file?currentHospitalElement="+$("#currentHospitalElement").val()
-		  url: "/ihm/api/file?currentHospitalElement="+id
-		}).done(function( data ) {
-		  //reload model
-			if (data.resp=="ok") {        			
-				$('form#uploadForm a').remove();
-				$('input#fileToUpload').removeClass('hide');
-				$('input#upload').addClass('hide');
-				$('input#del').addClass('hide');
-				he.set({"valueSetFile":''});
-				he.set({"version":data.version});
-			}
-		});		
-},*/
-
-
 deleteFile : function() {	
 	var he = this.model;
 	var id = this.model.get('id');
@@ -530,8 +509,6 @@ deleteFile : function() {
 			}
 		});		
 },
-
-
 
 changeFile : function() {
 	$('input#fileToUpload').addClass('hide');
