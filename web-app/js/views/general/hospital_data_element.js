@@ -531,7 +531,7 @@ render : function() {
   return this;
 },
 
-deleteFile : function() {	
+/*deleteFile : function() {	
 	var he = this.model;
 	var id = this.model.get('id');
 	$.ajax({
@@ -549,7 +549,27 @@ deleteFile : function() {
 				he.set({"version":data.version});
 			}
 		});		
+},*/
+
+
+deleteFile : function() {	
+	var he = this.model;
+	var id = this.model.get('id');
+	$.ajax({
+		  type: "DELETE",
+		  //url: "/ihm/api/file?currentHospitalElement="+$("#currentHospitalElement").val()
+		  url: "/ihm/api/file?currentHospitalElement="+id
+		}).done(function( msg ) {
+		  //reload model
+			$('form#uploadForm a').remove();
+			$('input#fileToUpload').removeClass('hide');
+			$('input#upload').addClass('hide');
+			$('input#del').addClass('hide');
+			he.set({"valueSetFile":''});
+		});		
 },
+
+
 
 changeFile : function() {
 	$('input#fileToUpload').addClass('hide');
@@ -564,7 +584,7 @@ upload : function(){
 	var he = this.model;
 	$('#uploadForm').ajaxSubmit({
         target: '#output2',
-        success:  function afterSuccess(data){
+       /* success:  function afterSuccess(data){
         				$('#uploadForm').resetForm();  // reset form
         				
         				if (data.resp=="ok") {        				
@@ -583,7 +603,24 @@ upload : function(){
 	        				var path = "/ihm/api/file?currentHospitalElement=" + he_id;	        				
 	        				$('form#uploadForm span').replaceWith('<a href= "' + path + '">' + name +'</a>');     
         				}
-				 }
+				 }*/
+        success:  function afterSuccess(url){
+			$('#uploadForm').resetForm();  // reset form	  
+			var str = url;
+			var name = str.substr(str.lastIndexOf('/')+1);
+			he.set({"valueSetFile":name});
+			
+			var name = name.substr(name.indexOf('_')+1);
+			        					        				
+			$('input#fileToUpload').addClass('hide');
+			$('input#upload').addClass('hide');
+			$('input#del').removeClass('hide');	        				    				
+				        				
+			//hardcode
+			var he_id = $('tr.row_selected td:first').prop("id");	        				
+			var path = "/ihm/api/file?currentHospitalElement=" + he_id;	        				
+			$('form#uploadForm span').replaceWith('<a href= "' + path + '">' + name +'</a>');        				
+	 }
     }); 		
 }
 
