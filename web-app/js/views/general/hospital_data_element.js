@@ -40,8 +40,7 @@ App.Views.HospitalElements = Backbone.View.extend({
 		var qa_view = new App.Views.QA({ model : App.cur_measure});  
 		var _my_content =  qa_view.render().el; 
 				
-		//var _code = this.model.code;
-		var _code = "#111";
+		var _code = this.options.measure_code;
 		var _show = $('.admin-edit-notes').hasClass('show');
 
 		$('.show').removeClass('show').popover('hide');
