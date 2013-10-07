@@ -78,9 +78,9 @@
     </servlet-mapping>
 
     <session-config>
-        <!-- 30 minutes -->
+        <!-- 20 minutes -->
         <!-- in medical software as HIPAA regulations require, session expiration should be maximum 20 minutes -->
-        <session-timeout>200</session-timeout>
+        <session-timeout>20</session-timeout>
     </session-config>
 
     <welcome-file-list>

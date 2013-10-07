@@ -5,17 +5,12 @@ class HospitalMeasure {
 	Boolean accepted
 	Boolean completed
 	Boolean confirmed
-	//Boolean included
 	Boolean verified
 	Measure measure
 	
 	//new addition
 	Hospital hospital
 
-	//static hasMany = [hospitalProducts : HospitalProduct,
-	//				  hospitalElements : HospitalElement]
-	
-	//static belongsTo = [HospitalProduct]
 	
 	static hasMany = [hospitalProductMeasures : HospitalProductMeasure,
 					  hospitalMeasureElements : HospitalMeasureElement]

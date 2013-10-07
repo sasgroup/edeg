@@ -37,7 +37,8 @@ App.Views.Hospital = Backbone.View.extend({
 		'click a[data-toggle="tab"]'	 							: 'changeTab',
 		'change #notes, #email,  #txtEHRs' 	                        : 'changeVal',
 		'click #btnExternalEHRs' 		 							: 'showExternalEHRs',
-		'change #slcPopulationMethod'								: 'changeSlcVal'
+		'change #slcPopulationMethod'								: 'changeSlcVal',
+		'click .admin-edit-notes'       							: 'adminEditNotes'
 	},
 
 	render : function() {		
@@ -45,9 +46,57 @@ App.Views.Hospital = Backbone.View.extend({
 				
 		App.products.forEach(this.appendProductOption,this);
 		App.ehrs.forEach(this.appendEhrOption,this);		
-		App.hospitals.forEach(this.appendHospitalOption,this);			
+		App.hospitals.forEach(this.appendHospitalOption,this);	
+		
+		$('body')
+		.unbind('mousedown')
+		.mousedown(function(){
+			$('.show')
+			.removeClass('show')
+			.popover('destroy');	
+		});
 						
 		return this;
+	},
+	
+	adminEditNotes : function(evt){		
+	    var this_hosp = this;
+	    
+		if ($('#myTab li').length>0) {
+				
+			var p_id = $('#myTab li.active a').attr("href").replace('#t','');			
+			var product = $('#myTab li.active a').text();
+			
+			App.cur_product = new App.Models.Product();
+			
+			App.cur_product.fetch({data:{id: p_id}}).then(function(){
+				var qa_view = new App.Views.QA({ model : App.cur_product});  
+				var _my_content =  qa_view.render().el; 
+						
+				var _code = App.cur_product.get('code');
+				var _show = $('.admin-edit-notes').hasClass('show');
+	
+				$('.show').removeClass('show').popover('destroy');
+				
+				if (!_show){
+					$('.admin-edit-notes').addClass('show')
+					.popover({html:true,placement:'right',title:'Notes for [' + _code + ']',content:_my_content||"No notes were supplied..."}).popover('show');
+					$('#breadcrumb-box .popover').css('top','0px');
+					this_hosp.adjustPopover();
+				}
+				 
+			});	
+			
+			evt.stopPropagation();		
+	   }	
+	},
+	
+	adjustPopover:function(){
+		$('.popover')
+		.unbind('mousedown')
+		.mousedown(function(e){
+			e.stopPropagation();
+		})
 	},
 		
 	appendProductOption: function(product) {		
@@ -89,8 +138,8 @@ App.Views.Hospital = Backbone.View.extend({
 	
 	createTabs : function(){
 		// set first option false
-		$("#slcProducts").multiselect("widget").find(":checkbox").eq(0).click();		
-
+		$("#slcProducts").multiselect("widget").find(":checkbox").eq(0).click();
+		
 		//get assigned products
 		var products = App.ho.get('products');
 		$.each( products, function( i, product ) { 	

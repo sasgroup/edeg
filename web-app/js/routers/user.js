@@ -40,8 +40,11 @@ App.Routers.User = Backbone.Router.extend({
 	},
 
 	productn : function(h_id,p_id) {		
-		App.ho = new App.Models.Hospital();		
+		App.ho = new App.Models.Hospital();	
+		App.cur_product = new App.Models.Product();
+		
 		App.ho.fetch({data:{id: h_id}}).then(function(){
+		  App.cur_product.fetch({data:{id: p_id}}).then(function(){			 	
 		
 		  App.hospital_products =  App.ho.get('products');	
 		  App.route.tabs(h_id);	
@@ -77,7 +80,7 @@ App.Routers.User = Backbone.Router.extend({
 			"sScrollY": "528px",			
 			"bSort": true,
 			"bInfo": false,
-			"aaSorting": [[0, 'asc'], [1, 'asc'], [3, 'asc']],			
+			"aaSorting": [[0, 'asc'], [1, 'asc'], [2, 'asc']],			
 			"aoColumns": [
 			  			{ "sSortDataType": "dom-checkbox" },
 			  			null,
@@ -101,13 +104,18 @@ App.Routers.User = Backbone.Router.extend({
              'placement': 'left'
            });
 		 
-		});	 
+		});	
+	  });	
 	},
 			
 
-	elements : function(h_id, p_id, m_id){		
+	elements : function(h_id, p_id, m_id){	
+		App.ho = new App.Models.Hospital();	
+		App.cur_measure = new App.Models.Measure();
+		
 		App.ho = new App.Models.Hospital();		
 		App.ho.fetch({data:{id: h_id}}).then(function(){
+		 App.cur_measure.fetch({data:{id: m_id}}).then(function(){		
 		
 		App.hospital_products =  App.ho.get('products');	
 		App.route.tabs(h_id);		
@@ -164,5 +172,7 @@ App.Routers.User = Backbone.Router.extend({
 	    });		
 		
 		});
+	 });	
+		
 	}	
 });

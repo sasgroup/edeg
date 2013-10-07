@@ -245,7 +245,7 @@ class HospitalController {
 						product id : hp.product.id,
 						name : hp.product.name,
 						code : hp.product.code,
-						help : hp.product.help,
+						help : hp.product.help,						
 						notes : hp.product.notes,
 						measures : array {
 							for (hpm in hp.hospitalProductMeasures){

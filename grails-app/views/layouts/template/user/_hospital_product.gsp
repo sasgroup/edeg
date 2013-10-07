@@ -49,7 +49,14 @@
     <li class="active">{{ product_code }}:</li>
 	<li class="active">Measures</li>
 
+	<li class="pull-right"><a class="btn edit-notes" rel="tooltip" title=""><i class="icon-edit"></i></a></li>
     <li class="pull-right"><a class="btn show-help" rel="tooltip" title=""><i class="icon-info-sign"></i></a></li>
 	<li class="pull-right"><a class="btn show-notes" rel="tooltip" title=""><i class="icon-comment"></i></a></li>	
 </ul>
+</script>
+
+
+<script type="text/template" class="template" id="edit-notes-temp">
+  <div rows="3" class="txt-qa input-xlarge" placeholder="Click on the Data Element to view its details"><p>{{qa}}</p></div>					
+  <textarea rows="1" class="txt-message input-xlarge"></textarea><td class="f-btn"><a class= "btn send-btn" title="Add"><i class="icon-share"></i></a> 
 </script>

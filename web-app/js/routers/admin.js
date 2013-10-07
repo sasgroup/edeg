@@ -85,7 +85,9 @@ App.Routers.Administrator = Backbone.Router.extend({
 	
 	elements : function(h_id,p_id, m_id){	
 		App.ho = new App.Models.Hospital();		
+		App.cur_measure = new App.Models.Measure();
 		App.ho.fetch({data:{id: h_id}}).then(function(){
+		  App.cur_measure.fetch({data:{id: m_id}}).then(function(){			
 		
 			var measure_code='';
 			var external_ehrs = [];
@@ -138,7 +140,8 @@ App.Routers.Administrator = Backbone.Router.extend({
 				
 		    });		
 			
-		});			
+		});	
+	});
 	},
 	
 	// ------- LIST ------------

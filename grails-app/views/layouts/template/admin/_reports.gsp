@@ -37,7 +37,7 @@
 
 						<label for="slcEntityType" 								hideFor="1,2,3,4,5,6">Entity Type</label>
 						<select id="slcEntityType" class="input-block-level"	hideFor="1,2,3,4,5,6">
-							<option value="-"> - All Entity Types - </option>
+							<option value="0"> - All Entity Types - </option>
 							<option value="P">Products</option>
 							<option value="M">Measures</option>
 							<option value="E">Data Elements</option>
@@ -68,7 +68,7 @@
 
 						<label for="slcEntity"								hideFor="1,2,3,4,5,6">Entity</label>
 						<select id="slcEntity" class="input-block-level"	hideFor="1,2,3,4,5,6">
-							<option value="-"> - All Entities - </option>
+							<option value="0"> - All Entities - </option>
 						</select>
 
 

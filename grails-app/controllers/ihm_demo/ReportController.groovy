@@ -16,37 +16,150 @@ class ReportController {
 		def _where = " Where 1=1"
 		
 		if (params.etype != "-"){
-			def etype = "ihm_demo."
-			switch(params.etype){
-				case "P": etype += "Product"; break;
-				case "M": etype += "Measure"; break;
-				case "E": etype += "DataElement"; break;
-				case "H": etype += "Hospital"; break;
-				case "HP": etype += "HospitalProduct"; break;
-				case "HM": etype += "HospitalMeasure"; break;
-				case "HE": etype += "HospitalElement"; break;
-			}
-			_where += " and CLASS_NAME = '$etype'"
-		
-			
+			def assembly = "ihm_demo"
 			def oid = params.entity
-			if (params.entity != "-")
-				_where += " and PERSISTED_OBJECT_ID = $oid"
+			def hid = params.hospital
+			def etype = params.etype
 			
+			switch(etype){
+				case "P": 
+					_where += " and CLASS_NAME = '${assembly}.Product'"
+					if (oid != "0")
+						_where += " and PERSISTED_OBJECT_ID = $oid"
+					break;
+					
+				case "M": 
+					_where += " and CLASS_NAME = '${assembly}.Measure'"
+					if (oid != "0")
+						_where += " and PERSISTED_OBJECT_ID = $oid"
+					break;
+				
+				case "E": 
+					_where += " and CLASS_NAME = '${assembly}.DataElement'"
+					if (oid != "0")
+						_where += " and PERSISTED_OBJECT_ID = $oid"
+					break;
+				
+				case "H": 
+					_where += " and CLASS_NAME = '${assembly}.Hospital'"
+					if (hid != "0")
+						_where += " and PERSISTED_OBJECT_ID = $hid"
+					break;
+
+										
+				case "HP": 
+					_where += " and CLASS_NAME = '${assembly}.HospitalProduct'"
+					_where += derivePersistedObjectIDs(hid,oid,etype)
+					break;
+				case "HM": 
+					_where += " and CLASS_NAME = '${assembly}.HospitalMeasure'"
+					_where += derivePersistedObjectIDs(hid,oid,etype)
+					break;
+				case "HE": 
+					_where += " and CLASS_NAME = '${assembly}.HospitalElement'"
+					_where += derivePersistedObjectIDs(hid,oid,etype)
+					break;
+			}
+
 		}
 		
-		def dpFrom = (new Date()).format("dd/MM/yy")
-		def dpTill = (new Date()).format("dd/MM/yy")
+		
+		
+		
+		
+		def dpFrom = (new Date()).format("yyyy-MM-dd")
+		def dpTill = (new Date()).format("yyyy-MM-dd") + " 23:59:0.000"
 		
 		if (params.dpFrom)
-			dpFrom = params.dpFrom
+			dpFrom = (Date.parse("MM/dd/yy", params.dpFrom)).format("yyyy-MM-dd")
 		
 		if (params.dpTill)
-			dpTill = params.dpTill
+			dpTill = (Date.parse("MM/dd/yy", params.dpTill)).format("yyyy-MM-dd") + " 23:59:0.000"
 			
-		//_where += " and LAST_UPDATED between '$dpFrom' and '$dpTill'"
+		_where += " and LAST_UPDATED between '$dpFrom' and '$dpTill'"
 		
 		return res + _where
+	}
+	
+	private String derivePersistedObjectIDs(hid,oid,etype){
+		def hospital = Hospital.get(hid)
+		def product  = Product.get(oid)
+		def measure  = Measure.get(oid)
+		def element  = DataElement.get(oid)
+		List<Long> _ids = new ArrayList<Long>()
+		_ids.add(0)
+		def res = ""
+		def poids = ""
+		
+		switch (etype){
+			case "HP": 
+				if (null != hospital && null != product){
+					def hospitalProduct = HospitalProduct.findByHospitalAndProduct(hospital, product)
+					if (hospitalProduct)
+						_ids.add(hospitalProduct.id)
+				}
+				else if (null != hospital){
+					def hospitalProducts = HospitalProduct.findAllByHospital(hospital)
+					for (hp in hospitalProducts)
+						_ids.add(hp.id)
+				}
+				else if (null != product){
+					def hospitalProducts = HospitalProduct.findAllByProduct(product)
+					for (hp in hospitalProducts)
+						_ids.add(hp.id)
+				}
+				else{
+					_ids.remove(0)
+				}
+				break;
+			case "HM": 
+				if (null != hospital && null != measure){
+					def hospitalMeasure = HospitalMeasure.findByHospitalAndMeasure(hospital, measure)
+					if (hospitalMeasure)
+						_ids.add(hospitalMeasure.id)
+				}
+				else if (null != hospital){
+					def hospitalMeasures = HospitalMeasure.findAllByHospital(hospital)
+					for (hm in hospitalMeasures)
+						_ids.add(hm.id)
+				}
+				else if (null != measure){
+					def hospitalMeasures = HospitalMeasure.findAllByMeasure(measure)
+					for (hm in hospitalMeasures)
+						_ids.add(hm.id)
+				}
+				else{
+					_ids.remove(0)
+				}
+				break;
+			case "HE": 
+				if (null != hospital && null != element){
+					def hospitalElement = HospitalElement.findByHospitalAndDataElement(hospital, element)
+					if (hospitalElement)
+						_ids.add(hospitalElement.id)
+				}
+				else if (null != hospital){
+					def hospitalElements = HospitalElement.findAllByHospital(hospital)
+					for (he in hospitalElements)
+						_ids.add(he.id)
+				}
+				else if (null != element){
+					def hospitalElements = HospitalElement.findAllByDataElement(element)
+					for (he in hospitalElements)
+						_ids.add(he.id)
+				}
+				else{
+					_ids.remove(0)
+				}
+				break;
+		}
+		
+		if (_ids.size()>0){
+			poids = _ids.join(",")
+			res = " and PERSISTED_OBJECT_ID in (${poids})"
+		}
+		
+		return res
 	}
 				
 	def show() {
@@ -306,7 +419,7 @@ class ReportController {
 					data = array {
 						for (r in results){
 							row id			: r.get('ID'), 
-								updated		: ((Date)r.get('LAST_UPDATED')).format('dd/MM/yy'),
+								updated		: ((Date)r.get('LAST_UPDATED')).format('dd/MM/yy HH:mm'),
 								actor		: r.get('ACTOR'),
 								event		: r.get('EVENT_NAME'),
 								entity		: ((String)r.get('CLASS_NAME')).substring(9),
@@ -314,7 +427,7 @@ class ReportController {
 								nvalue		: r.get('NEW_VALUE'),
 								ovalue		: r.get('OLD_VALUE'),
 								
-								created		: ((Date)r.get('DATE_CREATED')).format('dd/MM/yy'),
+								created		: ((Date)r.get('DATE_CREATED')).format('dd/MM/yy HH:mm'),
 								poid		: r.get('PERSISTED_OBJECT_ID'),
 								povers		: r.get('PERSISTED_OBJECT_VERSION'),
 								uri			: r.get('URI')
