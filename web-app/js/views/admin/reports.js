@@ -31,35 +31,42 @@ App.Views.Reports = Backbone.View.extend({
 			var _val = _el.find('#slcEntityType').val();
 			switch (_val){
 				case "P": 
-					_el.find('#slcEntity').html("<option value='-'> -Select - </option>");
+					_el.find('#slcHospital, label[for=slcHospital]').hide();
+					_el.find('#slcEntity').html("<option value='0'> -Select - </option>");
 					$(_model.P.toJSON()).each(function(i, m){ _el.find('#slcEntity').append(pme({name:m.name,id:m.id,code:m.code})); }); break;
 				
 				case "M": 
-					_el.find('#slcEntity').html("<option value='-'> -Select - </option>");
+					_el.find('#slcHospital, label[for=slcHospital]').hide();
+					_el.find('#slcEntity').html("<option value='0'> -Select - </option>");
 					$(_model.M.toJSON()).each(function(i, m){ _el.find('#slcEntity').append(pme({name:m.name,id:m.id,code:m.code})); }); break;
 				
 				case "E": 
-					_el.find('#slcEntity').html("<option value='-'> -Select - </option>"); 
+					_el.find('#slcHospital, label[for=slcHospital]').hide();
+					_el.find('#slcEntity').html("<option value='0'> -Select - </option>"); 
 					$(_model.E.toJSON()).each(function(i, m){ _el.find('#slcEntity').append(pme({name:m.name,id:m.id,code:m.code})); }); break;
 				
 				case "H": 
 					_el.find('#slcHospital, label[for=slcHospital]').show(); 
-					_el.find('#slcEntity').html("<option value='-'> -Select - </option>"); break;
+					_el.find('#slcEntity').html("<option value='0'> -Select - </option>"); break;
 					
 				case "HP": 
 					_el.find('#slcHospital, label[for=slcHospital]').show();
-					_el.find('#slcEntity').html("<option value='-'> -Select - </option>");
+					_el.find('#slcEntity').html("<option value='0'> -Select - </option>");
 					$(_model.P.toJSON()).each(function(i, m){ _el.find('#slcEntity').append(pme({name:m.name,id:m.id,code:m.code})); }); break;
 				
 				case "HM": 
 					_el.find('#slcHospital, label[for=slcHospital]').show();
-					_el.find('#slcEntity').html("<option value='-'> -Select - </option>");
+					_el.find('#slcEntity').html("<option value='0'> -Select - </option>");
 					$(_model.M.toJSON()).each(function(i, m){ _el.find('#slcEntity').append(pme({name:m.name,id:m.id,code:m.code})); }); break;
 				
 				case "HE": 
 					_el.find('#slcHospital, label[for=slcHospital]').show();
-					_el.find('#slcEntity').html("<option value=''> -Select - </option>");					
+					_el.find('#slcEntity').html("<option value='0'> -Select - </option>");					
 					$(_model.E.toJSON()).each(function(i, m){ _el.find('#slcEntity').append(pme({name:m.name,id:m.id,code:m.code})); }); break;
+				
+				case "0": 
+					_el.find('#slcHospital, label[for=slcHospital]').hide();
+					_el.find('#slcEntity').html("<option value='0'> -Select - </option>"); break;
 			}
 		});
 		
@@ -93,7 +100,7 @@ App.Views.Reports = Backbone.View.extend({
 			['Hospital', 'Product', 'Measure', 'Measure Name', 'Comp', 'Accp', 'NRev', 'Verf'],
 			['Hospital', 'Code', 'Data Element', 'Location', 'EHR', 'Vtype'],
 			['Hospital', 'Product', 'Measure', 'Code', 'Data Element', 'Location', 'EHR', 'Vtype'],
-			['Date', 'User', 'Event', 'EntityType', 'Property', 'New', 'Old', 'OID']
+			['Date', 'User', 'Event', 'Entity Type', 'Property', 'Old Value', 'New Value', 'OID']
 		];
 		var _colModels = [
 			[	{name:'hname',		index:'hname', 		width:100},
@@ -144,12 +151,12 @@ App.Views.Reports = Backbone.View.extend({
 			 	{name:'valueType',	index:'valueType', 	width:60} 		],
 			 	
 			[	{name:'updated',	index:'updated', 	width:60},
-		 	 	{name:'actor',		index:'actor', 		width:70},
-		 	 	{name:'event',		index:'event', 		width:50},
-			 	{name:'entity',		index:'entity', 	width:60}, 
-			 	{name:'property',	index:'property',	width:60}, 
-			 	{name:'nvalue',		index:'nvalue'				},
+		 	 	{name:'actor',		index:'actor', 		width:50},
+		 	 	{name:'event',		index:'event', 		width:30},
+			 	{name:'entity',		index:'entity', 	width:65}, 
+			 	{name:'property',	index:'property',	width:70}, 
 			 	{name:'ovalue',		index:'ovalue'				},
+			 	{name:'nvalue',		index:'nvalue'				},
 			 	{name:'poid',		index:'poid', 		width:30} 		]
 			
 			
@@ -177,21 +184,32 @@ App.Views.Reports = Backbone.View.extend({
 				
 			},
 			success: function(resp){
+				
 				tRepData = resp;
 				_el.find("#tblReportResults").jqGrid('GridUnload');
 				_el.find("#tblReportResults").jqGrid({ 
 					datatype: "local",
+					data: resp.data,
 					height: 450, 
 					width: 920,
 					colNames:_colNames[resp.rid - 1], 
 					colModel:_colModels[resp.rid - 1], 
 					multiselect: false, 
 					caption: resp.report,
+					gridview: true,
+					ignoreCase: true,
+					rownumbers: true,
 					loadonce: true,
+					rowNum : 100000,
 					viewrecords: true,
 					loadComplete : function () {
 						return;
 					}
+					//,groupingView : { 
+					//	groupField : ['poid'], 
+					//	groupColumnShow : [false], 
+					//	groupText : ['<b>OID: {0}</b>']
+					//}
 				});
 				
 				tRepData ="<tr>";
@@ -210,9 +228,22 @@ App.Views.Reports = Backbone.View.extend({
 				
 				_el.find("#divRepData").text(tRepData);
 				
-				for(var i=0;i<=resp.data.length;i++) 
-					_el.find("#tblReportResults").jqGrid('addRowData',i+1,resp.data[i]);
-				_el.find("#tblReportResults").jqGrid('setGridWidth', 920, true);
+				//for(var i=0;i<=resp.data.length;i++) 
+				//	_el.find("#tblReportResults").jqGrid('addRowData',i+1,resp.data[i]);
+				//_el.find("#tblReportResults").jqGrid('setGridWidth', 920, true);
+				
+				if (resp.rid == 7){
+					_el.find("#tblReportResults").jqGrid('groupingGroupBy', 'poid',{
+						groupOrder : ['asc'],
+                        groupColumnShow: [false],
+                        groupText : ['<b>OID: {0}</b>'],
+                        groupCollapse: false
+					});
+				//	$("#tblReportResults").jqGrid('setGridWidth', 940, true);
+				}
+				
+				$("#tblReportResults").jqGrid('setGridWidth', 940, true);
+					
 			}
 		});
 	},

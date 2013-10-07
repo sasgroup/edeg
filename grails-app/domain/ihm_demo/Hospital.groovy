@@ -18,7 +18,7 @@ class Hospital {
     }
 	
 	String toString(){
-		"$name, $notes"
+		"$name"
 	}
 
 }
