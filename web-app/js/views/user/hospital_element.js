@@ -61,7 +61,8 @@ App.Views.HospitalMeasureBreadcrumb = Backbone.View.extend({
 	},
 	
 	editNotes : function(evt){		
-		var _my_content = _.template($('#edit-notes-temp').html());
+		var qa_view = new App.Views.QA({ model : App.cur_measure});  
+		var _my_content =  qa_view.render().el; 
 				
 		var _code = this.model.code;
 		var _show = $('.edit-notes').hasClass('show');

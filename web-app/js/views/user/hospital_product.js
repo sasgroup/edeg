@@ -89,8 +89,9 @@ App.Views.HospitalProductBreadcrumb = Backbone.View.extend({
 		evt.stopPropagation();		
 	},
 	
-	editNotes : function(evt){		
-		var _my_content = _.template($('#edit-notes-temp').html());
+	editNotes : function(evt){			
+		var qa_view = new App.Views.QA({ model : App.cur_product});  
+		var _my_content =  qa_view.render().el;  
 				
 		var _code = this.model.code;
 		var _show = $('.edit-notes').hasClass('show');

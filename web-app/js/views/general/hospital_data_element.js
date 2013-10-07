@@ -9,11 +9,12 @@ App.Views.HospitalElements = Backbone.View.extend({
 	events : {		
 		'click button#cancel' 			: 'returnToProduct' ,
 		'click #save-btn'     			: 'saveHospitalElements',
-		'click a[data-toggle="tab"]'	: 'changeTab'
+		'click a[data-toggle="tab"]'	: 'changeTab',
+		'click .admin-edit-notes'       : 'adminEditNotes'
 	},
 
 	render : function() {		
-		this.$el.html(this.template({ hospitals : this.collection, measure_completed: this.options.measure_completed}));
+		this.$el.html(this.template({ hospitals : this.collection, measure_completed: this.options.measure_completed, role: App.userRole}));
 		this.collection.each(this.appendHospitalElement, this);
 
 		if (App.userRole == 'admin') {
@@ -35,6 +36,33 @@ App.Views.HospitalElements = Backbone.View.extend({
 		return this;
 	},
 
+	adminEditNotes : function(evt){		
+		var qa_view = new App.Views.QA({ model : App.cur_measure});  
+		var _my_content =  qa_view.render().el; 
+				
+		//var _code = this.model.code;
+		var _code = "#111";
+		var _show = $('.admin-edit-notes').hasClass('show');
+
+		$('.show').removeClass('show').popover('hide');
+		
+		if (!_show){
+			$('.admin-edit-notes').addClass('show')
+			.popover({html:true,placement:'right',title:'Notes for [' + _code + ']',content:_my_content||"No notes were supplied..."}).popover('show');
+			$('#breadcrumb-box .popover').css('top','0px');
+			this.adjustPopover();
+		}
+		evt.stopPropagation();		
+	},
+	
+	adjustPopover:function(){
+		$('.popover')
+		.unbind('mousedown')
+		.mousedown(function(e){
+			e.stopPropagation();
+		})
+	},
+	
 	changeTab: function (e){		
 		 $('div#tab-qa2 .txt-qa').scrollTop($('div#tab-qa2 .txt-qa')[0].scrollHeight);
 		 $('div#tab-qa3 .txt-qa').scrollTop($('div#tab-qa3 .txt-qa')[0].scrollHeight);
@@ -674,7 +702,7 @@ App.Views.HospitalSpecific =  Backbone.View
 
 
 //QA
-App.Views.QADataElement = Backbone.View
+/*App.Views.QADataElement = Backbone.View
 .extend({ 
   template: _.template($('#qa').html()),      
   
@@ -739,4 +767,4 @@ App.Views.QADataElement = Backbone.View
     }
   }
   }
-});
+});*/

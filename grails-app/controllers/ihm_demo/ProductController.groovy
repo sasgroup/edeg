@@ -10,7 +10,8 @@ class ProductController {
 		instance.code = param.code
 		instance.notes = param.notes
 		instance.help = param.help
-		
+		instance.qa   = param.qa
+				
 		if (instance.id) {
 			instance.measures.clear()
 		}
@@ -49,6 +50,7 @@ class ProductController {
 						name = pr.name 
 						notes = pr.notes
 						help = pr.help
+						qa   = pr.qa
 				measures =  array {
 					for (m in pr?.measures) {
 						measure  mname: m.name, mid: m.id, mcode: m.code 

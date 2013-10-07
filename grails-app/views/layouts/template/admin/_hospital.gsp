@@ -102,7 +102,8 @@
     </div>
 
 	<div class="form-actions">
-                    <button type="submit" id="submit-close-btn" class="btn btn-info pull-right">Save&Close</button>
+                    <button class="btn pull-left admin-edit-notes"><i class="icon-edit"></i></button> 
+					<button type="submit" id="submit-close-btn" class="btn btn-info pull-right">Save&Close</button>
 					<button type="submit" id="submit-btn" class="btn btn-info pull-right">Save Hospital</button>
 					<button id="cancel" class="btn btn-info pull-right">Cancel</button>
 					
