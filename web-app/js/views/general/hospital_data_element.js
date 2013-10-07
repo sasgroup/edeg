@@ -30,7 +30,7 @@ App.Views.HospitalElements = Backbone.View.extend({
 		.mousedown(function(){
 			$('.show')
 			.removeClass('show')
-			.popover('hide');	
+			.popover('destroy');	
 		});
 
 		return this;
@@ -43,7 +43,7 @@ App.Views.HospitalElements = Backbone.View.extend({
 		var _code = this.options.measure_code;
 		var _show = $('.admin-edit-notes').hasClass('show');
 
-		$('.show').removeClass('show').popover('hide');
+		$('.show').removeClass('show').popover('destroy');
 		
 		if (!_show){
 			$('.admin-edit-notes').addClass('show')
@@ -450,7 +450,7 @@ App.Views.SingleHospitalElement = Backbone.View
 		var _code = this.model.get('dataElement');
 		var _show = $('.show_info[did='+_did+']').hasClass('show');
 
-		$('.show').removeClass('show').popover('hide');
+		$('.show').removeClass('show').popover('destroy');
 
 		if (!_show){
 			$('.show_info[did='+_did+']').addClass('show')

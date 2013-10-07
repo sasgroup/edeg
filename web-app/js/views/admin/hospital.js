@@ -53,7 +53,7 @@ App.Views.Hospital = Backbone.View.extend({
 		.mousedown(function(){
 			$('.show')
 			.removeClass('show')
-			.popover('hide');	
+			.popover('destroy');	
 		});
 						
 		return this;
@@ -76,7 +76,7 @@ App.Views.Hospital = Backbone.View.extend({
 				var _code = App.cur_product.get('code');
 				var _show = $('.admin-edit-notes').hasClass('show');
 	
-				$('.show').removeClass('show').popover('hide');
+				$('.show').removeClass('show').popover('destroy');
 				
 				if (!_show){
 					$('.admin-edit-notes').addClass('show')

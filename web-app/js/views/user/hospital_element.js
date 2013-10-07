@@ -16,7 +16,7 @@ App.Views.HospitalMeasureBreadcrumb = Backbone.View.extend({
 		.mousedown(function(){
 			$('.show')
 			.removeClass('show')
-			.popover('hide');	
+			.popover('destroy');	
 		});
 		
 		return this;
@@ -27,7 +27,7 @@ App.Views.HospitalMeasureBreadcrumb = Backbone.View.extend({
 		var _show = $('.show-help').hasClass('show');
 		var _code = this.model.code;
 
-		$('.show').removeClass('show').popover('hide');
+		$('.show').removeClass('show').popover('destroy');
 		
 		if (!_show){
 			$('.show-help').addClass('show')
@@ -45,7 +45,7 @@ App.Views.HospitalMeasureBreadcrumb = Backbone.View.extend({
 
 		$('.show-notes.show')
 		.removeClass('show')
-		.popover('hide');
+		.popover('destroy');
 		
 		if (!_show){
 			$('.show-notes')
@@ -67,7 +67,7 @@ App.Views.HospitalMeasureBreadcrumb = Backbone.View.extend({
 		var _code = this.model.code;
 		var _show = $('.edit-notes').hasClass('show');
 
-		$('.show').removeClass('show').popover('hide');
+		$('.show').removeClass('show').popover('destroy');
 		
 		if (!_show){
 			$('.edit-notes').addClass('show')
