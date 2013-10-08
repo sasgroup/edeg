@@ -19,8 +19,7 @@ App.Views.HospitalProduct = Backbone.View.extend({
 	},
 	
 	renderHospitalMeasureTable: function(measures, cur_hospital_product){		
-		// sort measures
-		sorted_measures = [];
+		var sorted_measures = [];
 		
 		$.each( measures, function( m_index, measure ){			
 			var sortcode = -10;
