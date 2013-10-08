@@ -111,7 +111,7 @@ App.Routers.User = Backbone.Router.extend({
 
 	elements : function(h_id, p_id, m_id){	
 		App.ho = new App.Models.Hospital();	
-		App.cur_measure = new App.Models.Measure();
+		App.cur_measure = new App.Models.HospitalMeasure();
 		
 		App.ho = new App.Models.Hospital();		
 		App.ho.fetch({data:{id: h_id}}).then(function(){

@@ -64,16 +64,18 @@ App.Views.Hospital = Backbone.View.extend({
 	    
 		if ($('#myTab li').length>0) {
 				
-			var p_id = $('#myTab li.active a').attr("href").replace('#t','');			
+			var p_id = $('#myTab li.active a').attr("href").replace('#t','');	
 			var product = $('#myTab li.active a').text();
 			
-			App.cur_product = new App.Models.Product();
+			var h_id = this.model.get('id');
 			
-			App.cur_product.fetch({data:{id: p_id}}).then(function(){
+			App.cur_product = new App.Models.HospitalProduct();
+			
+			App.cur_product.fetch({data:{p_id:p_id, h_id:h_id}}).then(function(){
 				var qa_view = new App.Views.QA({ model : App.cur_product});  
 				var _my_content =  qa_view.render().el; 
 						
-				var _code = App.cur_product.get('code');
+				var _code = product;
 				var _show = $('.admin-edit-notes').hasClass('show');
 	
 				$('.show').removeClass('show').popover('destroy');
