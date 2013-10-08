@@ -1,10 +1,10 @@
 <!-- LIST -->
 <script type="text/template" class="template" id="vtypes-list-template">
 <div class="container">
+    <div class="row">  
 	<h3>List of Values Types</h3>
-    <div id="input_form"></div>       
- 	<form method="post" class="form-horizontal" id="product-list" accept-charset="utf-8">
-		<table id="table_items" class="table table-striped" >
+    <div id="input_form"></div>
+ 		<table id="table_items" class="table table-striped" >
 			<thead>
                   <tr>                     
                      <th>Name</th>
@@ -15,8 +15,8 @@
              </thead>
              <tbody>
             </tbody>                    
-        </table>                
-     </form>             
+       </table>           
+	</div>
 </div>
 </script>
 
@@ -30,6 +30,7 @@
 
 <!-- New/Edit ValuesType -->
 <script type="text/template" class="template" id="vtype-template">
+<form method="post" class="form-horizontal" id="vtype-edit" accept-charset="utf-8">
 <table class="table" id="fields">
                       <tbody>
                           <tr>
@@ -40,8 +41,9 @@
                             <td>
                                 <input name="description" type="text"  id="description" maxlength="255">
                             </td>
-							<td><button class="btn pull-right" id="create_vtype">Add New</button></td>               
+							<td><button type="submit" class="btn pull-right">Add New</button></td>               
                          </tr>                                    
                      </tbody>
 </table> 
+</form>
 </script>

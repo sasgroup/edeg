@@ -22,7 +22,7 @@ App.Views.ValuesType = Backbone.View.extend({
 	template : _.template($('#vtype-template').html()),
 
 	events : {
-		'click #create_vtype' : 'saveValuesType'		
+		'submit' : 'saveValuesType'		
 	},
 	
 	render : function() {			
