@@ -112,8 +112,8 @@
     <auth-method>FORM</auth-method>
     <realm-name>Authentication</realm-name>
     <form-login-config>
-      <form-login-page>/user/login</form-login-page>
-      <form-error-page>/user/error</form-error-page>
+      <form-login-page>/login.gsp</form-login-page>
+      <form-error-page>/error.gsp</form-error-page>
     </form-login-config>
   </login-config>
 
