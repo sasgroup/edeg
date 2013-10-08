@@ -95,6 +95,12 @@ App.Models.HospitalElement = Backbone.Model.extend({
 });
 
 
+App.Models.ValuesType = Backbone.Model.extend({
+	urlRoot: '/ihm/api/values_type'	
+});
+
+
+
 //ExtraDataElement
 App.Models.ExtraDataElement = Backbone.Model.extend({
 });

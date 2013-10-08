@@ -14,7 +14,7 @@ class ValuesTypeController {
 		def valuesType = saveInstance (new ValuesType(), params)
 		render(contentType: "text/json") {
 			resp = "ok"
-			message = "EHR ${valuesType.code} has been successfully created"
+			message = "valuesType ${valuesType} has been successfully created"
 		}
 	}
    
@@ -25,7 +25,7 @@ class ValuesTypeController {
 			render(contentType: "text/json") {
 				version = result.version
 				name =result.name
-				notes=result.description
+				description=result.description
 				id   = result.id	
 			}
 		}

@@ -75,10 +75,8 @@ App.Collections.CqmDomains = Backbone.Collection.extend({
 
 
 App.Collections.ProductMeasures = Backbone.Collection.extend({
-	model:App.Models.CqmDomain,
-	
+	model:App.Models.CqmDomain,	
 	url: '/ihm/api/product_measure'	
-	
 });
 
 
@@ -97,4 +95,12 @@ App.Collections.HospitalElements = Backbone.Collection.extend({
 App.Collections.HospitalElementsReset = Backbone.Collection.extend({
 	model:App.Models.HospitalElement,	
 	url: '/ihm/api/hospital_element'	
+});
+
+App.Collections.ValuesTypes = Backbone.Collection.extend({
+	model:App.Models.ValuesType,	
+	url: '/ihm/api/values_type',
+	parse: function(resp) {
+		   return resp["valuesType"];
+	}			
 });

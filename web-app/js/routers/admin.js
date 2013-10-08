@@ -292,15 +292,22 @@ App.Routers.Administrator = Backbone.Router.extend({
 	},	
 	
 	// vtypes
-	vtypes : function() {	
-		/*App.viewValueTypes = new App.Views.ValueTypes({collection:''});
-		$('#app').html(App.viewValueTypes.render().el);		*/
-		
-		App.products.fetch().then(function(){
-			App.viewValueTypes = new App.Views.ValueTypes({collection:''});
-			$('#app').html(App.viewValueTypes.render().el);		
+	vtypes : function() {
 			
-			/*var oTable = $('#table_items').dataTable( 
+		App.valuesTypes = new App.Collections.ValuesTypes();
+		App.valuesType  = new App.Models.ValuesType();
+		
+		App.valuesTypes.fetch().then(function(){			
+						
+			App.viewValuesTypes = new App.Views.ValuesTypes({collection:App.valuesTypes});
+			$('#app').html(App.viewValuesTypes.render().el);		
+			
+			//input-form
+			
+			App.viewValuesType = new App.Views.ValuesType({model:App.valuesType});
+			$('#input_form').html(App.viewValuesType.render().el);
+			
+			var oTable = $('#table_items').dataTable( 
 					{
 						"bPaginate": false,
 						"bFilter": false,
@@ -309,13 +316,13 @@ App.Routers.Administrator = Backbone.Router.extend({
 			 			"bInfo": false,
 			 			"bAutoWidth": false,
 			 			"aoColumnDefs": [
-			 							{ 'bSortable': false, 'aTargets': [ 2,3,4 ] }
+			 							{ 'bSortable': false, 'aTargets': [ 2,3 ] }
 			 						 ],
 						"bScrollCollapse": true,
 						"bPaginate": false
 					} );
-		   new FixedColumns( oTable,
-					{ "sHeightMatch": "none"} );	*/					
+		    new FixedColumns( oTable,
+					{ "sHeightMatch": "none"} );						
 		});			
 		
 	},	
