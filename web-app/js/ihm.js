@@ -116,7 +116,7 @@ $(function() {
 	});
 	
 	function goToLoginPage() {
-		window.location = "user/logout";
+		window.location = "/ihm/";
 	}
 	
 	$.ajaxSetup({

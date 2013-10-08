@@ -63,6 +63,10 @@ class UrlMappings {
 			action = [ GET: "show", POST: "save", DELETE:"delete" ]
 		}
 		
+		"/api/values_type/$id?"(controller: "valuesType") {
+			action = [ GET: "show", POST: "save", DELETE:"delete" ]
+		}
+		
 		"/"(view:"/index")
 
 		"500"(view:'/error')

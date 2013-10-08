@@ -46,4 +46,21 @@ class FileUploadService {
 			}
 		}	
     }
+	
+	def duplicateFile(String srcName, String dstName, String destinationDirectory){
+		def servletContext = ServletContextHolder.servletContext
+		def storagePath = servletContext.getRealPath(destinationDirectory)
+		
+		File srcFile = new File("${storagePath}/${srcName}")
+		File dstFile = new File("${storagePath}/${dstName}")
+		
+		def input = srcFile.newDataInputStream()
+		def output = dstFile.newDataOutputStream()
+ 
+		output << input
+ 
+		input.close()
+		output.close()
+	}
+
 }
