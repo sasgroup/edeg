@@ -39,7 +39,6 @@ class SendMailService {
 		while (sendTo.indexOf(",,")>=0)
 			sendTo = sendTo.replaceAll(",,", ",")
 		
-		println sendTo
 		sendMail(sendTo,"Hospital Configuration Has Been Updated","The hospital configuration for <b>$hospitalName</b> has been updated on <b>$updateDate</b>")
 	}
 	
