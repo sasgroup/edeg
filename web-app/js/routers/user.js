@@ -41,10 +41,10 @@ App.Routers.User = Backbone.Router.extend({
 
 	productn : function(h_id,p_id) {		
 		App.ho = new App.Models.Hospital();	
-		App.cur_product = new App.Models.Product();
+		App.cur_hosp_product = new App.Models.HospitalProduct();
 		
 		App.ho.fetch({data:{id: h_id}}).then(function(){
-		  App.cur_product.fetch({data:{id: p_id}}).then(function(){			 	
+		  App.cur_hosp_product.fetch({data:{p_id:p_id, h_id:h_id}}).then(function(){			 	
 		
 		  App.hospital_products =  App.ho.get('products');	
 		  App.route.tabs(h_id);	

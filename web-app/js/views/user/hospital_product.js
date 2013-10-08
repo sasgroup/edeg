@@ -143,7 +143,7 @@ App.Views.HospitalProductBreadcrumb = Backbone.View.extend({
 	},
 	
 	editNotes : function(evt){			
-		var qa_view = new App.Views.QA({ model : App.cur_product});  
+		var qa_view = new App.Views.QA({ model : App.cur_hosp_product});  
 		var _my_content =  qa_view.render().el;  
 				
 		var _code = this.model.code;

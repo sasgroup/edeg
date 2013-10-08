@@ -18,7 +18,7 @@ class HospitalProductController {
 		}
 	}
 
-	def show() {
+	/*def show() {
 		if (HospitalProduct.exists(params.id)) {
 				HospitalProduct hospitalProduct = HospitalProduct.get(params.id)
 				
@@ -29,7 +29,27 @@ class HospitalProductController {
 					qa = hospitalProduct.qa
 				}
 			}	
-	}
+	}*/
+	
+	def show() {
+	  println(params)	
+	  if(Hospital.exists(params?.h_id) && Product.exist(params?.p_id)) {
+	  
+	   Hospital  hospitalInstance = Hospital.get(params?.h_id)
+	   Product product = Product.get(params?.p_id)
+	   
+	   if (HospitalProduct.findByHospitalAndProduct(hospitalInstance, product)) {
+	    HospitalProduct hospitalProduct = HospitalProduct.findByHospitalAndProduct(hospitalInstance, product)
+	 
+	    render(contentType: "text/json") {
+	     id = hospitalProduct.id
+	     hospital = hospitalProduct.hospital.name
+	     product = hospitalProduct.product.name
+	     qa = hospitalProduct.qa
+	    }
+	   }
+	  }  
+	 }
 
 	def update(Long id, Long version) {
 		def hospitalProductInstance = HospitalProduct.get(id)
