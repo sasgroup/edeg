@@ -115,7 +115,7 @@ App.Routers.User = Backbone.Router.extend({
 		
 		App.ho = new App.Models.Hospital();		
 		App.ho.fetch({data:{id: h_id}}).then(function(){
-		 App.cur_measure.fetch({data:{id: m_id}}).then(function(){		
+		 App.cur_measure.fetch({data:{id: m_id,hm: true}}).then(function(){		
 		
 		App.hospital_products =  App.ho.get('products');	
 		App.route.tabs(h_id);		
