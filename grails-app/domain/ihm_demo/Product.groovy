@@ -6,7 +6,6 @@ class Product {
 	String name
 	String notes
 	String help
-	String qa
 	
 	static hasMany = [measures : Measure]
 
@@ -16,7 +15,6 @@ class Product {
 		name(blank:false)
 		notes(maxSize:5000)
 		help(nullable: true,maxSize:5000)
-		qa(nullable: true, maxSize:5000)
 	}
 
 	String toString() {
