@@ -14,6 +14,7 @@ modules = {
 		resource url: 'js/views/admin/measure.js'
 		resource url: 'js/views/admin/product.js'
 		resource url: 'js/views/admin/reports.js'
+		resource url: 'js/views/admin/vtype.js'
 		
 		
 		resource url: 'js/views/user/hospital_element.js'

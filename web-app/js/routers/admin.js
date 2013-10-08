@@ -7,7 +7,7 @@ App.Routers.Administrator = Backbone.Router.extend({
 		'hospital'        : 'hospitals',
 		'ehr'        	  : 'ehrs',
 		'reports'         : 'reports',
-		'types'           : 'types',
+		'types'           : 'vtypes',
 		
 		'product/:new'    : 'newProduct',
 		'measure/:new'    : 'newMeasure',
@@ -291,9 +291,33 @@ App.Routers.Administrator = Backbone.Router.extend({
 		});
 	},	
 	
-	// types
-	types : function() {	
-		$('#app').html("<div>Values Types</div>");		
+	// vtypes
+	vtypes : function() {	
+		/*App.viewValueTypes = new App.Views.ValueTypes({collection:''});
+		$('#app').html(App.viewValueTypes.render().el);		*/
+		
+		App.products.fetch().then(function(){
+			App.viewValueTypes = new App.Views.ValueTypes({collection:''});
+			$('#app').html(App.viewValueTypes.render().el);		
+			
+			/*var oTable = $('#table_items').dataTable( 
+					{
+						"bPaginate": false,
+						"bFilter": false,
+						"sScrollY": "528px",
+						"bSort": true,
+			 			"bInfo": false,
+			 			"bAutoWidth": false,
+			 			"aoColumnDefs": [
+			 							{ 'bSortable': false, 'aTargets': [ 2,3,4 ] }
+			 						 ],
+						"bScrollCollapse": true,
+						"bPaginate": false
+					} );
+		   new FixedColumns( oTable,
+					{ "sHeightMatch": "none"} );	*/					
+		});			
+		
 	},	
 	
 	// ----- display Edit/New 
