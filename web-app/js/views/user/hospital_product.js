@@ -72,9 +72,7 @@ App.Views.HospitalProduct = Backbone.View.extend({
 		    if(a.sortcode > b.sortcode) return 1;
 		    return 0;
 		});
-		
-		console.log(sorted_measures);
-		
+				
 		$.each( sorted_measures, function( m_index, measure ) {			
 			var hospitalMeasure	 =  new App.Models.HospitalMeasure({"id"		: measure.id,
 																"code"			: measure.code,

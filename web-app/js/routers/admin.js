@@ -7,6 +7,7 @@ App.Routers.Administrator = Backbone.Router.extend({
 		'hospital'        : 'hospitals',
 		'ehr'        	  : 'ehrs',
 		'reports'         : 'reports',
+		'types'           : 'types',
 		
 		'product/:new'    : 'newProduct',
 		'measure/:new'    : 'newMeasure',
@@ -73,6 +74,11 @@ App.Routers.Administrator = Backbone.Router.extend({
 		 },
 		 
 		 'reports$' : function() {
+			 if (window.console) console.log("before go to reports");
+			 if (App.viewHospital.isModified) App.viewHospital.showConfirm();
+		 },
+		 
+		 'types' : function() {
 			 if (window.console) console.log("before go to reports");
 			 if (App.viewHospital.isModified) App.viewHospital.showConfirm();
 		 }
@@ -283,6 +289,11 @@ App.Routers.Administrator = Backbone.Router.extend({
 				});
 			});
 		});
+	},	
+	
+	// types
+	types : function() {	
+		$('#app').html("<div>Values Types</div>");		
 	},	
 	
 	// ----- display Edit/New 

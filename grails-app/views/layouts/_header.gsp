@@ -9,6 +9,7 @@
 	            <a href="#hospital">Hospitals</a>
 	            <a href="#ehr">EHR</a>
 	            <a href="#reports">Reports</a>
+	            <a href="#types">Values Types</a>
 	        </nav>
 	        <div id="loginHeader" class="pull-right">
 					<g:loginControl />							
