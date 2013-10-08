@@ -50,6 +50,7 @@ class HospitalController {
 							hospitalMeasure.completed = msr.completed
 							hospitalMeasure.confirmed = msr.confirmed
 							hospitalMeasure.verified = msr.verified
+							
 							hospitalMeasure.save(flush:true)
 							
 							if (oldValueC != hospitalMeasure.completed && hospitalMeasure.completed)
@@ -71,7 +72,7 @@ class HospitalController {
 							hospitalProductMeasure.included	= msr.included
 						hospitalProductMeasure.save(flush:true)
 						if (oldIncludedo != hospitalProductMeasure.included && hospitalProductMeasure.included)
-						sendMailService.includeMeasureIntoHospitalProduct(hospitalInstance?.email, hospitalInstance?.name, product?.name, msr?.name, new Date())
+							sendMailService.includeMeasureIntoHospitalProduct(hospitalInstance?.email, hospitalInstance?.name, product?.name, msr?.name, new Date())
 							
 							
 					}
@@ -99,7 +100,7 @@ class HospitalController {
 				def product = Product.get(prId)
 				def hospitalProduct = HospitalProduct.findByHospitalAndProduct(hospital, product)
 				if (!hospitalProduct) {
-					hospitalProduct = new HospitalProduct(hospital:hospital, product:product).save(flush:true)
+					hospitalProduct = new HospitalProduct(hospital:hospital, product:product, qa:"").save(flush:true)
 					sendMailService.assignProductToHospital(hospital?.email, hospital?.name, product?.name, new Date())
 				}		
 
@@ -116,7 +117,7 @@ class HospitalController {
 				for (measure in product?.measures) {
 					def hospitalMeasure 	= HospitalMeasure.findByHospitalAndMeasure(hospital, measure)
 					if (!hospitalMeasure)
-						hospitalMeasure 	= new HospitalMeasure(hospital: hospital, measure: measure, accepted: false, completed: false, confirmed: false, verified: false).save(flush:true)
+						hospitalMeasure 	= new HospitalMeasure(hospital: hospital, measure: measure, accepted: false, completed: false, confirmed: false, verified: false, qa:"").save(flush:true)
 					def hospitalProductMeasure 	= HospitalProductMeasure.findByHospitalProductAndHospitalMeasure(hospitalProduct, hospitalMeasure)
 					if (!hospitalProductMeasure){
 						def _included = measure.measureCategory.name == "CORE" 

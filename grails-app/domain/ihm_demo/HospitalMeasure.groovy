@@ -7,6 +7,7 @@ class HospitalMeasure {
 	Boolean confirmed
 	Boolean verified
 	Measure measure
+	String qa
 	
 	//new addition
 	Hospital hospital
@@ -20,8 +21,13 @@ class HospitalMeasure {
 		completed()
 		confirmed()
 		//included()
+		qa(nullable: true, maxSize:5000)
     }
 
+	static mapping = {
+		qa defaultValue: "''"
+	}
+	
 	String toString(){
 		"$hospital.name, $measure.name"
 	}

@@ -8,7 +8,6 @@ class Measure {
 	MeasureCategory measureCategory
 	CqmDomain cqmDomain
 	String help
-	String qa
 	
 	static hasMany = [products : Product,
 					  dataElements : DataElement]
@@ -22,7 +21,6 @@ class Measure {
 		help(nullable: true,maxSize:5000)
 		measureCategory(nullable: true)
 		cqmDomain(nullable: true)
-		qa(nullable: true, maxSize:5000)
     }
 	
 	String toString() {
