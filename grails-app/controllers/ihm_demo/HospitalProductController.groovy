@@ -5,7 +5,7 @@ import ihm_demo.HospitalMeasure;
 class HospitalProductController {
 
 	private HospitalProduct saveInstance (HospitalProduct instance, def param) {
-		instance.properties = param
+		instance.qa = param.qa
 		return instance.save(flush :true)
 	}
 
@@ -18,25 +18,11 @@ class HospitalProductController {
 		}
 	}
 
-	/*def show() {
-		if (HospitalProduct.exists(params.id)) {
-				HospitalProduct hospitalProduct = HospitalProduct.get(params.id)
-				
-				render(contentType: "text/json") {
-					id = hospitalProduct.id
-					hospital = hospitalProduct.hospital.name
-					product = hospitalProduct.product.name
-					qa = hospitalProduct.qa
-				}
-			}	
-	}*/
-	
 	def show() {
-	  println(params)	
-	  if(Hospital.exists(params?.h_id) && Product.exist(params?.p_id)) {
+	  if(Hospital.exists(params?.h_id) && Product.exists(params?.p_id)) {
 	  
-	   Hospital  hospitalInstance = Hospital.get(params?.h_id)
-	   Product product = Product.get(params?.p_id)
+	   def  hospitalInstance = Hospital.get(params?.h_id)
+	   def  product = Product.get(params?.p_id)
 	   
 	   if (HospitalProduct.findByHospitalAndProduct(hospitalInstance, product)) {
 	    HospitalProduct hospitalProduct = HospitalProduct.findByHospitalAndProduct(hospitalInstance, product)
@@ -52,6 +38,7 @@ class HospitalProductController {
 	 }
 
 	def update(Long id, Long version) {
+
 		def hospitalProductInstance = HospitalProduct.get(id)
 
 		if  (!hospitalProductInstance) {
