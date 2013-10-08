@@ -20,7 +20,7 @@ class HospitalMeasureController {
 
 	def show() {
 		if(!params?.hm){
-			println "1"
+			//println "1"
 			if (params.id && Hospital.exists(params.id)) {
 				def  result = Hospital.get(params.id)
 				def hospitalProducts = HospitalProduct.findAllByHospital(result)

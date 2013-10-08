@@ -10,16 +10,11 @@ class HospitalElement {
 	String valueSet
 	String valueSetFile
 	ValueType valueType
-	//CodeType codeType
 	DataElement dataElement
 	
 	//new addition
 	Hospital hospital
 	
-	
-	//static hasMany = [hospitalMeasures : HospitalMeasure]
-	
-	//static belongsTo = [HospitalMeasure]
 	
 	static hasMany = [hospitalMeasureElements : HospitalMeasureElement]
 		

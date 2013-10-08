@@ -62,7 +62,7 @@
 </div>
 
 <div class="form-actions">                  
-{{role=='admin'? '<button class="btn pull-left admin-edit-notes"><i class="icon-edit"></i></button>': ''}} 
+{{role=='admin'? '<button class="btn pull-left admin-edit-notes"><i class="icon-edit"></i>Client Measure Notes</button>': ''}} 
 <button type="reset" id="cancel" class="btn btn-info pull-right">Cancel</button>
 <button id="save-btn" class="btn btn-info pull-right">Save</button>			
 </div>
