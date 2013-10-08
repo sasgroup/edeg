@@ -46,11 +46,12 @@ class UrlMappings {
 			action = [GET: "show"]
 		}
 		
-		"/api/hospital_measure/$id?"(resource: "hospitalMeasure") {
+		"/api/hospital_element/$id?"(resource: "hospitalElement") {
 			action = [GET: "show", PUT: "update", DELETE: "delete", POST: "save"]
 		}
+				
 		
-		"/api/hospital_element/$id?"(resource: "hospitalElement") {
+		"/api/hospital_product/$id?"(resource: "hospitalProduct") {
 			action = [GET: "show", PUT: "update", DELETE: "delete", POST: "save"]
 		}
 		
@@ -59,6 +60,10 @@ class UrlMappings {
 		}
 		
 		"/api/file"(controller: "file") {
+			action = [ GET: "show", POST: "save", DELETE:"delete" ]
+		}
+		
+		"/api/values_type/$id?"(controller: "valuesType") {
 			action = [ GET: "show", POST: "save", DELETE:"delete" ]
 		}
 		

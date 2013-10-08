@@ -64,16 +64,18 @@ App.Views.Hospital = Backbone.View.extend({
 	    
 		if ($('#myTab li').length>0) {
 				
-			var p_id = $('#myTab li.active a').attr("href").replace('#t','');			
+			var p_id = $('#myTab li.active a').attr("href").replace('#t','');	
 			var product = $('#myTab li.active a').text();
 			
-			App.cur_product = new App.Models.Product();
+			var h_id = this.model.get('id');
 			
-			App.cur_product.fetch({data:{id: p_id}}).then(function(){
+			App.cur_product = new App.Models.HospitalProduct();
+			
+			App.cur_product.fetch({data:{p_id:p_id, h_id:h_id}}).then(function(){
 				var qa_view = new App.Views.QA({ model : App.cur_product});  
 				var _my_content =  qa_view.render().el; 
 						
-				var _code = App.cur_product.get('code');
+				var _code = product;
 				var _show = $('.admin-edit-notes').hasClass('show');
 	
 				$('.show').removeClass('show').popover('destroy');
@@ -290,23 +292,26 @@ App.Views.Hospital = Backbone.View.extend({
 	// cloneHospital
 	cloneHospital : function(){		
 				
-    	//parameters
+		//parameters
 		var h_id = this.model.get('id');		
 		var hosp_id = $( "#slcHospitals").multiselect('getChecked').val();	
 		var hosp_name = $( "#slcHospitals option:selected" ).text().trim();
+		
+		var this_model = this.model;
 				
 		if (hosp_id!='') {			
 			bootbox.confirm("You are going to clone all settings from  [" + hosp_name + "] to current hospital. Continue?", function(result) {
 				if (result) {
-					/*this.model.set({clone: true});	
+					///*
+					this_model.set({clone: true});	
 					
-					this.model.attributes.id = h_id;
-					this.model.attributes.src_id = hosp_id;
+					this_model.attributes.id = h_id;
+					this_model.attributes.src_id = hosp_id;
 							
 					var view = this;
 					$('#loading').show();
 					
-					this.model.save(null, {
+					this_model.save(null, {
 				        success: function (model, response) {
 				        	$('#loading').hide();
 				        	Backbone.history.navigate("reload/"+h_id, true);	           
@@ -315,9 +320,9 @@ App.Views.Hospital = Backbone.View.extend({
 				        error: function (model,xhr) {
 				        	$('#loading').hide();
 				        	$('#app').html("clone error");
-				        	//Backbone.history.navigate("reload/"+h_id, true);	
 				        }
-				    }, {wait:true});			*/	
+				    }, {wait:true});
+					//*/
 				} 
 			}); 
 		}	
@@ -350,6 +355,7 @@ App.Views.Hospital = Backbone.View.extend({
 		this.model.attributes.externalEHRs = $('#txtEHRs').val();
 		
         this.model.set("products" , App.hospital_products);
+        this.model.set({submit: true});
         
         this.model.save(this.attributes,{
 	        success: function (model, response) {
@@ -366,6 +372,7 @@ App.Views.Hospital = Backbone.View.extend({
 	submCloseHospital : function(e) {
 		e.preventDefault();		
 		this.model.set("products" , App.hospital_products);
+		this.model.set({submit: true});
         
         this.model.save(this.attributes,{
 	        success: function (model, response) {
@@ -408,6 +415,7 @@ App.Views.Hospital = Backbone.View.extend({
 	// for FILTER
 	saveAndClose : function() {
 		this.model.set("products", App.hospital_products);
+		this.model.set({submit: true});
 		
         this.model.save(this.attributes,{
 	        success: function (model, response) {
@@ -589,6 +597,9 @@ App.Views.SingleHospitalMeasure = Backbone.View
 									
 			goToDataElements : function(e) {				
 				e.preventDefault();	
+				
+				App.ho.set({submit: true});
+				
 				App.ho.save(this.attributes,{
 				        success: function (model, response) {
 				           if (window.console) console.log(response);			           	           

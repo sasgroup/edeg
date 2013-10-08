@@ -19,27 +19,45 @@ class HospitalMeasureController {
 	}
 
 	def show() {
-		if (params.id && Hospital.exists(params.id)) {
-			def  result = Hospital.get(params.id)
+		if(!params?.hm){
+			//println "1"
+			if (params.id && Hospital.exists(params.id)) {
+				def  result = Hospital.get(params.id)
+				def hospitalProducts = HospitalProduct.findAllByHospital(result)
 
-			def hospitalProducts = HospitalProduct.findAllByHospital(result)
-			render(contentType: "text/json") {
-				measures = array {
-					for (hp in hospitalProducts) {
-						for (hpm in hp.hospitalProductMeasures){
-							measure id : hpm.hospitalMeasure.id,
-							code : hpm.hospitalMeasure.measure.code,
-							name : hpm.hospitalMeasure.measure.name,
-							accepted : hpm.hospitalMeasure.accepted,
-							completed : hpm.hospitalMeasure.completed,
-							confirmed : hpm.hospitalMeasure.confirmed,
-							included : hpm.included,
-							verified : hpm.hospitalMeasure.verified
+				render(contentType: "text/json") {
+					measures = array {
+						for (hp in hospitalProducts) {
+							for (hpm in hp.hospitalProductMeasures){
+								measure id : hpm.hospitalMeasure.id,
+								code : hpm.hospitalMeasure.measure.code,
+								name : hpm.hospitalMeasure.measure.name,
+								accepted : hpm.hospitalMeasure.accepted,
+								completed : hpm.hospitalMeasure.completed,
+								confirmed : hpm.hospitalMeasure.confirmed,
+								included : hpm.included,
+								verified : hpm.hospitalMeasure.verified
+							}
 						}
 					}
 				}
-			}
-		}
+			} 
+		} else {
+			if (HospitalMeasure.exists(params.id)) {
+				HospitalMeasure hospitalMeasure = HospitalMeasure.get(params.id)
+				
+				render(contentType: "text/json") {
+					id = hospitalMeasure.id
+					code = hospitalMeasure.measure.code
+					name = hospitalMeasure.measure.name
+					accepted = hospitalMeasure.accepted
+					completed = hospitalMeasure.completed
+					confirmed = hospitalMeasure.confirmed
+					verified = hospitalMeasure.verified
+					qa = hospitalMeasure.qa
+				}
+			}	
+		}	
 	}
 
 	def update(Long id, Long version) {

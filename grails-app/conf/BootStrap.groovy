@@ -96,12 +96,12 @@ class BootStrap {
 			["London Bridge Hospital",									"MEDITECH 6.0","","ED-ALL"]
 			]
 		for(_h in _hospitals){
-			def _hospital = new Hospital(name:_h[0], ehr:Ehr.findByCode(_h[1]), notes:_h[2], populationMethod: _h[3], externalEHRs:"")
-			if (!_hospital.save()){
-				_hospital.errors.allErrors.each{error ->
-					println "An error occured with event1: ${error}"
-				}
-			}
+			//def _hospital = new Hospital(name:_h[0], ehr:Ehr.findByCode(_h[1]), notes:_h[2], populationMethod: _h[3], externalEHRs:"")
+			//if (!_hospital.save()){
+			//	_hospital.errors.allErrors.each{error ->
+			//		println "An error occured with event1: ${error}"
+			//	}
+			//}
 		}
 
 		//-----------PRODUCTs-----------

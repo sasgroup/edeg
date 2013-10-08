@@ -19,7 +19,60 @@ App.Views.HospitalProduct = Backbone.View.extend({
 	},
 	
 	renderHospitalMeasureTable: function(measures, cur_hospital_product){		
-		$.each( measures, function( m_index, measure ) {			
+		var sorted_measures = [];
+		
+		$.each( measures, function( m_index, measure ){			
+			var sortcode = -10;
+			switch(measure.measureCategory)
+			{
+			case 'CORE':
+				sortcode = 0;
+			  break;
+			case 'MENU':
+				sortcode = 1;
+			  break;
+			case 'CQM':
+				sortcode = 2;
+			  break;
+			}
+						
+			sorted_measures.push({
+				"id"		    : measure.id,
+				"code"			: measure.code,
+				"name"			: measure.name,
+				"accepted" 		: measure.accepted,
+				"completed"		: measure.completed,
+				"confirmed"		: measure.confirmed,
+				"included" 		: measure.included,
+				"verified" 		: measure.verified,																
+				"h_id"     		: cur_hospital_product.options.h_id,
+				"product_code"	: cur_hospital_product.model.code,
+				"product_id"	: cur_hospital_product.model.id,
+				"notes"       	: measure.notes,
+				"help"			: measure.help,
+				"measureCategory":measure.measureCategory,
+				"sortcode"       :sortcode});			
+		});	
+		
+		sorted_measures.sort(function(a, b){
+			
+			if (a.included == b.included){
+				if (a.sortcode == b.sortcode){
+					return a.code.toLowerCase() < b.code.toLowerCase() ? -1:1;
+				}
+				else
+					return a.sortcode - b.sortcode;
+			}
+			else
+				return a.included ? -1 : 1;
+						
+			//CORE-0 MENU-1 CQM-2			
+		    if(a.sortcode < b.sortcode) return -1;
+		    if(a.sortcode > b.sortcode) return 1;
+		    return 0;
+		});
+				
+		$.each( sorted_measures, function( m_index, measure ) {			
 			var hospitalMeasure	 =  new App.Models.HospitalMeasure({"id"		: measure.id,
 																"code"			: measure.code,
 																"name"			: measure.name,
@@ -90,7 +143,7 @@ App.Views.HospitalProductBreadcrumb = Backbone.View.extend({
 	},
 	
 	editNotes : function(evt){			
-		var qa_view = new App.Views.QA({ model : App.cur_product});  
+		var qa_view = new App.Views.QA({ model : App.cur_hosp_product});  
 		var _my_content =  qa_view.render().el;  
 				
 		var _code = this.model.code;

@@ -18,7 +18,7 @@ class SendMailService {
 	
 	private ArrayList transferToList(String emails){
 		String trimEmail = emails.trim()
-		String [] sendTo  = trimEmail?.tokenize(";").toArray()
+		String [] sendTo  = trimEmail?.tokenize(",").toArray()
 		ArrayList st = Arrays.asList(sendTo);
 		st.add(grailsApplication.mainContext.servletContext.getInitParameter("adminEmail"))
 		return st
@@ -33,6 +33,12 @@ class SendMailService {
 	}	
 	
 	def updateHospitalConfig (String sendTo, String hospitalName, Date updateDate) {
+		while (sendTo.indexOf("  ")>=0)
+			sendTo = sendTo.replaceAll("  ", " ")
+		sendTo = sendTo.replaceAll(" ", ",")
+		while (sendTo.indexOf(",,")>=0)
+			sendTo = sendTo.replaceAll(",,", ",")
+		
 		sendMail(sendTo,"Hospital Configuration Has Been Updated","The hospital configuration for <b>$hospitalName</b> has been updated on <b>$updateDate</b>")
 	}
 	

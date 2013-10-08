@@ -7,6 +7,7 @@ App.Routers.Administrator = Backbone.Router.extend({
 		'hospital'        : 'hospitals',
 		'ehr'        	  : 'ehrs',
 		'reports'         : 'reports',
+		'types'           : 'vtypes',
 		
 		'product/:new'    : 'newProduct',
 		'measure/:new'    : 'newMeasure',
@@ -75,6 +76,11 @@ App.Routers.Administrator = Backbone.Router.extend({
 		 'reports$' : function() {
 			 if (window.console) console.log("before go to reports");
 			 if (App.viewHospital.isModified) App.viewHospital.showConfirm();
+		 },
+		 
+		 'types' : function() {
+			 if (window.console) console.log("before go to reports");
+			 if (App.viewHospital.isModified) App.viewHospital.showConfirm();
 		 }
 	},
 
@@ -85,9 +91,9 @@ App.Routers.Administrator = Backbone.Router.extend({
 	
 	elements : function(h_id,p_id, m_id){	
 		App.ho = new App.Models.Hospital();		
-		App.cur_measure = new App.Models.Measure();
+		App.cur_measure = new App.Models.HospitalMeasure();
 		App.ho.fetch({data:{id: h_id}}).then(function(){
-		  App.cur_measure.fetch({data:{id: m_id}}).then(function(){			
+		  App.cur_measure.fetch({data:{id: m_id,hm: true}}).then(function(){			
 		
 			var measure_code='';
 			var external_ehrs = [];
@@ -283,6 +289,35 @@ App.Routers.Administrator = Backbone.Router.extend({
 				});
 			});
 		});
+	},	
+	
+	// vtypes
+	vtypes : function() {	
+		/*App.viewValueTypes = new App.Views.ValueTypes({collection:''});
+		$('#app').html(App.viewValueTypes.render().el);		*/
+		
+		App.products.fetch().then(function(){
+			App.viewValueTypes = new App.Views.ValueTypes({collection:''});
+			$('#app').html(App.viewValueTypes.render().el);		
+			
+			/*var oTable = $('#table_items').dataTable( 
+					{
+						"bPaginate": false,
+						"bFilter": false,
+						"sScrollY": "528px",
+						"bSort": true,
+			 			"bInfo": false,
+			 			"bAutoWidth": false,
+			 			"aoColumnDefs": [
+			 							{ 'bSortable': false, 'aTargets': [ 2,3,4 ] }
+			 						 ],
+						"bScrollCollapse": true,
+						"bPaginate": false
+					} );
+		   new FixedColumns( oTable,
+					{ "sHeightMatch": "none"} );	*/					
+		});			
+		
 	},	
 	
 	// ----- display Edit/New 
