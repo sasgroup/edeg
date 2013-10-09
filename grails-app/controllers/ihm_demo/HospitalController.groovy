@@ -54,7 +54,7 @@ class HospitalController {
 				def product = Product.get(prId)
 				def hospitalProduct = HospitalProduct.findByHospitalAndProduct(hospital, product)
 				if (!hospitalProduct) {
-					hospitalProduct = new HospitalProduct(hospital:hospital, product:product, qa:"").save(flush:true)
+					hospitalProduct = new HospitalProduct(hospital:hospital, product:product, qa:"", notifyAdmin : false, notifyUser : false).save(flush:true)
 					sendMailService.assignProductToHospital(hospital?.email, hospital?.name, product?.name, new Date())
 				}
 
@@ -71,7 +71,7 @@ class HospitalController {
 				for (measure in product?.measures) {
 					def hospitalMeasure 	= HospitalMeasure.findByHospitalAndMeasure(hospital, measure)
 					if (!hospitalMeasure)
-						hospitalMeasure 	= new HospitalMeasure(hospital: hospital, measure: measure, accepted: false, completed: false, confirmed: false, verified: false, qa:"").save(flush:true)
+						hospitalMeasure 	= new HospitalMeasure(hospital: hospital, measure: measure, accepted: false, completed: false, confirmed: false, verified: false, qa:"", notifyAdmin : false, notifyUser : false).save(flush:true)
 					def hospitalProductMeasure 	= HospitalProductMeasure.findByHospitalProductAndHospitalMeasure(hospitalProduct, hospitalMeasure)
 					if (!hospitalProductMeasure){
 						def _included = measure.measureCategory.name == "CORE"
@@ -371,6 +371,8 @@ class HospitalController {
 		for (srcHP in shProducts) {
 			def currHP = new HospitalProduct(hospital:curr, product:srcHP.product)
 			currHP.qa = srcHP.qa
+                        currHP.notifyAdmin = srcHP.notifyAdmin
+                        currHP.notifyUser = srcHP.notifyUser
 			currHP.save(flush:true)
 		}
 		// clone HospitalMeasures
@@ -381,6 +383,8 @@ class HospitalController {
 			currHM.confirmed = srcHM.confirmed
 			currHM.verified = srcHM.verified
 			currHM.qa = srcHM.qa
+                        currHM.notifyAdmin = srcHM.notifyAdmin
+                        currHM.notifyUser = srcHM.notifyUser
 			currHM.save(flush:true)
 		}
 		// clone HospitalElements
@@ -393,6 +397,7 @@ class HospitalController {
 			currHE.sourceEHR 		= srcHE.sourceEHR
 			currHE.valueSet 		= srcHE.valueSet
 			currHE.valueType 		= srcHE.valueType
+			currHE.valuesType 		= srcHE.valuesType
 			currHE.valueSetFile		= ""
 			currHE.save(flush:true)
 			if (srcHE.valueSetFile){
@@ -408,6 +413,7 @@ class HospitalController {
 				currXL.source		= srcXL.source
 				currXL.sourceEHR	= srcXL.sourceEHR
 				currXL.valueType	= srcXL.valueType
+				currXL.valuesType	= srcXL.valuesType
 				currXL.save(flush:true)
 			}
 			// clone HospitalValueSet

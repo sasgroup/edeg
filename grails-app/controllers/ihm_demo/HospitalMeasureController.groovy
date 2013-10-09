@@ -55,6 +55,8 @@ class HospitalMeasureController {
 					confirmed = hospitalMeasure.confirmed
 					verified = hospitalMeasure.verified
 					qa = hospitalMeasure.qa
+					notifyAdmin = hospitalMeasure.notifyAdmin
+					notifyUser  = hospitalMeasure.notifyUser
 				}
 			}	
 		}	

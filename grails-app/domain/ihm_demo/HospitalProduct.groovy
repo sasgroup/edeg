@@ -5,6 +5,8 @@ class HospitalProduct {
 	Hospital hospital
 	Product product
 	String qa
+	Boolean notifyAdmin
+	Boolean notifyUser
 	
 	//static hasMany = [hospitalMeasures : HospitalMeasure]
 	
