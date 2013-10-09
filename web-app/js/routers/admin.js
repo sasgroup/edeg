@@ -293,7 +293,11 @@ App.Routers.Administrator = Backbone.Router.extend({
 	
 	// vtypes
 	vtypes : function() {
-			
+		/*App.valuesType  = new App.Models.ValuesType();
+		App.viewValuesType = new App.Views.ValuesType({model:App.valuesType});
+		$('#app').html(App.viewValuesType.render().el);*/
+		
+		
 		App.valuesTypes = new App.Collections.ValuesTypes();
 		App.valuesType  = new App.Models.ValuesType();
 		

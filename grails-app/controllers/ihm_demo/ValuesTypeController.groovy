@@ -11,6 +11,7 @@ class ValuesTypeController {
 	}
 	
 	def save() {
+		println params
 		def valuesType = saveInstance (new ValuesType(), params)
 		render(contentType: "text/json") {
 			resp = "ok"

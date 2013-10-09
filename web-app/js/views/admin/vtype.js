@@ -2,6 +2,11 @@
 App.Views.ValuesTypes = Backbone.View.extend({
 	template : _.template($('#vtypes-list-template').html()),
 	
+	initialize : function() {		
+		//this.collection.on('add', this.appendValuesType, this);
+		this.collection.on('add', this.render, this);
+	},
+	
 	render : function() {		
 		this.$el.html(this.template());
 		
@@ -32,15 +37,18 @@ App.Views.ValuesType = Backbone.View.extend({
 	
 	saveValuesType : function(e) {		
 		e.preventDefault();
-		/*this.model.set({name:"SomeName"});		
-		this.model.set({description:"SomeDescription"});		
-		this.model.save();*/
+		
 		this.model.set({name:this.$el.find('#name').val()});
 		this.model.set({description:this.$el.find('#description').val()});
+		
+				
 		this.model.save(this.attributes,{
+	      //this.model.collection.create(this.attributes,{ 
 	        success: function (model, response) {
 	        	if (response.resp=="ok") {	        	   
-		        	   $('div#message-box').text("").append(response.message).removeClass().addClass('alert').addClass('alert-success').fadeIn(10).delay(2000).fadeOut(50);	           
+		        	   $('div#message-box').text("").append(response.message).removeClass().addClass('alert').addClass('alert-success').fadeIn(10).delay(2000).fadeOut(50);
+		        	   //Backbone.history.navigate("types", true);
+		        	  
 		        	   
 		           } else if (response.resp=="error") {
 						var btn = '<button type="button" class="close">&times;</button>';
@@ -63,7 +71,7 @@ App.Views.SingleValuesType = Backbone.View
 			tagName : 'tr',
 			template: _.template($('#single-vtype').html()),		
 			events : {
-				//'click #edit'    : 'goToEdit',
+				'click #edit'    : 'goToEdit',
 				'click #destroy' : 'destroy'
 			},
 
@@ -72,11 +80,13 @@ App.Views.SingleValuesType = Backbone.View
 				return this;
 			},
 			
-			/*goToEdit : function() {
-				if (window.console) console.log(this.model);
+			goToEdit : function() {
+				/*if (window.console) console.log(this.model);
 				if (window.console) console.log("goToEdit",this.model.get('id'));							
-				Backbone.history.navigate("product/"+this.model.get('id')+'/edit', true);
-			},*/
+				Backbone.history.navigate("product/"+this.model.get('id')+'/edit', true);*/
+				$('#name').val(this.model.get('name'));
+				$('#description').val(this.model.get('description'));
+			},
 			
 			destroy : function(e){				
 				e.preventDefault();

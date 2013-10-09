@@ -41,7 +41,8 @@
                             <td>
                                 <input name="description" type="text"  id="description" maxlength="255">
                             </td>
-							<td><button type="submit" class="btn pull-right">Add New</button></td>               
+							<td><button type="submit" class="btn pull-right">Save/Update</button></td>           
+							
                          </tr>                                    
                      </tbody>
 </table> 
