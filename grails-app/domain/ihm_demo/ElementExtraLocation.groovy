@@ -7,6 +7,7 @@ class ElementExtraLocation {
 	//CodeType codeType
 	HospitalElement hospitalElement
 	ValueType valueType
+	ValuesType valuesType
 	
     static constraints = {
 		location()

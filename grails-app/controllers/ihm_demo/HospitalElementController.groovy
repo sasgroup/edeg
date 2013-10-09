@@ -84,7 +84,7 @@ class HospitalElementController {
 		if (param.elementExtraLocation)
 			for (e in param.elementExtraLocation){
 				if (e.valueType.name)
-					new ElementExtraLocation(location:e.location, source:e.source, sourceEHR:(ehrCode==e.source), valueType: ValueType.valueOf(e.valueType.name), hospitalElement:instance).save()
+					new ElementExtraLocation(location:e.location, source:e.source, sourceEHR:(ehrCode==e.source), valueType: ValueType.valueOf(e.valueType.name), hospitalElement:instance, valuesType : ValuesType.get(1)).save()
 			}
 		return instance.save(flush :true)	
 	}
