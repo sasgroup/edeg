@@ -20,10 +20,11 @@ class DataElementController {
 		DataElementDefaults.executeUpdate("delete DataElementDefaults ded where ded.dataElement=?", [instance])
 
 		//create new
+		//TODO ids for ValuesType
 		def dataElementsDefaults = param?.dataElementDefaults
 		for (dataElementsDefault in dataElementsDefaults) {
 			if (dataElementsDefault.location)
-				new DataElementDefaults(location:dataElementsDefault.location, valueType:dataElementsDefault.valueType.name,dataElement : instance, ehr : Ehr.get(dataElementsDefault.linkId)).save(flush:true)
+				new DataElementDefaults(location:dataElementsDefault.location, valueType:dataElementsDefault.valueType.name,dataElement : instance, ehr : Ehr.get(dataElementsDefault.linkId), ids : "").save(flush:true)
 		}
 
 		return instance

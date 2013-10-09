@@ -8,6 +8,8 @@ class HospitalMeasure {
 	Boolean verified
 	Measure measure
 	String qa
+	Boolean notifyAdmin
+	Boolean notifyUser
 	
 	//new addition
 	Hospital hospital

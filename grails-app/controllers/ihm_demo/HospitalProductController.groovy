@@ -6,6 +6,8 @@ class HospitalProductController {
 
 	private HospitalProduct saveInstance (HospitalProduct instance, def param) {
 		instance.qa = param.qa
+		instance.notifyAdmin = param.notifyAdmin
+		instance.notifyUser = param.notifyUser
 		return instance.save(flush :true)
 	}
 
@@ -32,6 +34,8 @@ class HospitalProductController {
 	     hospital = hospitalProduct.hospital.name
 	     product = hospitalProduct.product.name
 	     qa = hospitalProduct.qa
+	     notifyAdmin = hospitalMeasure.notifyAdmin
+             notifyUser  = hospitalMeasure.notifyUser
 	    }
 	   }
 	  }  
