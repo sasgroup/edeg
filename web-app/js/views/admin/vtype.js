@@ -32,9 +32,28 @@ App.Views.ValuesType = Backbone.View.extend({
 	
 	saveValuesType : function(e) {		
 		e.preventDefault();
-		this.model.set({name:"SomeName"});		
+		/*this.model.set({name:"SomeName"});		
 		this.model.set({description:"SomeDescription"});		
-		this.model.save();
+		this.model.save();*/
+		this.model.set({name:this.$el.find('#name').val()});
+		this.model.set({description:this.$el.find('#description').val()});
+		this.model.save(this.attributes,{
+	        success: function (model, response) {
+	        	if (response.resp=="ok") {	        	   
+		        	   $('div#message-box').text("").append(response.message).removeClass().addClass('alert').addClass('alert-success').fadeIn(10).delay(2000).fadeOut(50);	           
+		        	   
+		           } else if (response.resp=="error") {
+						var btn = '<button type="button" class="close">&times;</button>';
+				    	$('div#message-box').text("").append(btn).append(response.message).removeClass().addClass('alert').addClass('alert-error').show();
+			        	
+		           }              
+	        },
+	        error: function (model, response) {
+	        	var btn = '<button type="button" class="close">&times;</button>';
+		    	$('div#message-box').text("").append(btn).append(response.message).removeClass().addClass('alert').addClass('alert-error').show();
+	            
+	        }
+	    });
 	}	
 });
 
