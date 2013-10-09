@@ -5,6 +5,7 @@ class DataElementDefaults {
 	ValueType valueType
 	DataElement dataElement
 	Ehr ehr
+	String ids
 
 	
     static constraints = {
