@@ -31,7 +31,19 @@ class BootStrap {
 				}
 			}
 		}
-
+		//-----------VALUES_TYPE-----------
+		def _valuesType = [
+			["c1", 	"cd1"],
+			["c2", 	"cd2"]
+			]
+		for(_v in _valuesType){
+			def _valueType = new ValuesType(name:_v[0], description:_v[1])
+			if (!_valueType.save()){
+				_valueType.errors.allErrors.each{error ->
+					println "An error occured with event1: ${error}"
+				}
+			}
+		}
 		//-----------CQM_DOMAINs-----------
 		def _cqmDomains = [
 			["Patient and Family Engagement", 			"Patient and Family Engagement"],

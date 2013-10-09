@@ -82,7 +82,7 @@ class HospitalController {
 						def hospitalElement = HospitalElement.findByHospitalAndDataElement(hospital, de)
 						def isNew = false
 						if (!hospitalElement){
-							hospitalElement = new HospitalElement(hospital: hospital, dataElement: de, internalNotes : "", notes:"", location : "", source : "", sourceEHR : false, valueSet : "", valueSetFile : "", valueType : ValueType.NotApplicable)
+							hospitalElement = new HospitalElement(hospital: hospital, dataElement: de, internalNotes : "", notes:"", location : "", source : "", sourceEHR : false, valueSet : "", valueSetFile : "", valueType : ValueType.NotApplicable, valuesType : ValuesType.get(1))
 							isNew = true
 						}
 

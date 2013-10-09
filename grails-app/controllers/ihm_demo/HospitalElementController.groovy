@@ -47,6 +47,10 @@ class HospitalElementController {
 		if (instance.notes != param.notes)
 			modificationDetected = true
 		instance.notes = param.notes
+		
+		if (instance.valuesType != ValuesType.get(param?.valuesTypeId))
+			modificationDetected = true
+		instance.valuesType = ValuesType.get(param?.valuesTypeId)
 				
 		if (param.markAsComplete){
 			def mid = param.m_id as Long
@@ -59,8 +63,6 @@ class HospitalElementController {
 					println param
 					if (oldValueC != hm.completed && hm.completed)
 						sendMailService.markMeasureAsComplete(instance?.hospital.email, instance?.hospital.name, Product.get(param?.p_id)?.name, HospitalMeasure.get(param?.m_id)?.measure.name, new Date(), session?.user.login)
-					
-
 				}
 			}	
 		}
