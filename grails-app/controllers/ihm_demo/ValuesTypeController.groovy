@@ -16,6 +16,7 @@ class ValuesTypeController {
 		render(contentType: "text/json") {
 			resp = "ok"
 			message = "valuesType ${valuesType} has been successfully created"
+			id= valuesType.id
 		}
 	}
    
@@ -67,6 +68,8 @@ class ValuesTypeController {
 		render(contentType: "text/json") {
 			resp = "ok"
 			message = "EHR ${valuesType} has been successfully updated"
+			id= valuesType.id
+			
 		}
 	}
 	

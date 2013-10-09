@@ -299,13 +299,16 @@ App.Routers.Administrator = Backbone.Router.extend({
 		var temp = _.template($('#vtype-template').html());
 		$('#app').html(temp);
 		
+		App.valuesType  = new App.Models.ValuesType();
+		App.valuesTypes = new App.Collections.ValuesTypes();
+				
 		App.viewValuesType = new App.Views.ValuesType({model:App.valuesType});
 		$('#input_form').html(App.viewValuesType.render().el);
 		
 		App.valuesTypes.fetch().then(function(){
 						
 			App.viewValuesTypes = new App.Views.ValuesTypes({collection:App.valuesTypes});
-			$('#app').append(App.viewValuesTypes.render().el);		
+			$('#list_form').html(App.viewValuesTypes.render().el);		
 			
 			var oTable = $('#table_items').dataTable( 
 					{	"bDestroy": true,

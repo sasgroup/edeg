@@ -1,3 +1,14 @@
+<!-- FORM TEMPLATE -->
+<script type="text/template" class="template" id="vtype-template">
+<div class="container">
+  <div class="row">  
+    <h3>List of Values Types</h3>
+    <div id="input_form"></div>
+    <div id="list_form"></div>
+  </div>
+</div>
+</script>
+
 <!-- LIST -->
 <script type="text/template" class="template" id="vtypes-list-template">
 <table id="table_items" class="table table-striped" >
@@ -20,17 +31,6 @@
  <td><div class='notes'>{{ description }}</div></td> 
  <td class="f-btn"><div id="edit" class= "btn"><i class="icon-edit"></i></div></td>
  <td class="f-btn"><div id="destroy" class= "btn"><i class="icon-trash"></i></div></td> 
-</script>
-
-
-<script type="text/template" class="template" id="vtype-template">
-<div class="container">
-  <div class="row">  
-    <h3>List of Values Types</h3>
-    <div id="input_form">    
-    </div>
-  </div>
-</div>
 </script>
 
 <!-- New/Edit ValuesType -->

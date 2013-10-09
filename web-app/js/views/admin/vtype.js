@@ -5,6 +5,7 @@ App.Views.ValuesTypes = Backbone.View.extend({
 	initialize : function() {		
 		this.collection.on('add', this.render, this);
 		this.collection.on('change', this.render, this);
+		this.collection.on('destroy', this.render, this);
 	},
 	
 	render : function() {		
@@ -56,14 +57,15 @@ App.Views.ValuesType = Backbone.View.extend({
 		
 		this.model.set({name:this.$el.find('#name').val()});
 		this.model.set({description:this.$el.find('#description').val()});
-		
-		var isNewValuesType = this.model.toJSON().id? false : true; 
 				
-		if (isNewValuesType) {
+		if (this.model.isNew()) {
 	      App.valuesTypes.create(this.model.attributes,{ 
 	        success: function (model, response) {
 	        	if (response.resp=="ok") {	        	   
-		        	   $('div#message-box').text("").append(response.message).removeClass().addClass('alert').addClass('alert-success').fadeIn(10).delay(2000).fadeOut(50);		        	  		        	  
+		        	   $('div#message-box').text("").append(response.message).removeClass().addClass('alert').addClass('alert-success').fadeIn(10).delay(2000).fadeOut(50);	
+		        	   //clear fields
+		        	   $('#name').val('');
+					   $('#description').val('');
 		        	   
 		           } else if (response.resp=="error") {
 						var btn = '<button type="button" class="close">&times;</button>';
@@ -73,15 +75,34 @@ App.Views.ValuesType = Backbone.View.extend({
 	        },
 	        error: function (model, response) {
 	        	var btn = '<button type="button" class="close">&times;</button>';
-		    	$('div#message-box').text("").append(btn).append(response.message).removeClass().addClass('alert').addClass('alert-error').show();
-	            
+		    	$('div#message-box').text("").append(btn).append(response.message).removeClass().addClass('alert').addClass('alert-error').show();	            
 	        }
 	      });
-		} else {
-			App.valuesTypes.get(this.model.get('id'));
-		}  
-		
-		//App.valuesTypes.add(this.model);
+		} else {	
+			//clear fields
+        	$('#name').val('');
+			$('#description').val('');
+			
+			var thisModel = App.valuesTypes.get(this.model.get('id'));
+			thisModel.save({
+			//this.model.save({
+				success: function (model, response) {					
+		        	if (response.resp=="ok") {	        	   
+			        	   $('div#message-box').text("").append(response.message).removeClass().addClass('alert').addClass('alert-success').fadeIn(10).delay(2000).fadeOut(50);	
+			        	  
+			        	   
+			           } else if (response.resp=="error") {
+							var btn = '<button type="button" class="close">&times;</button>';
+					    	$('div#message-box').text("").append(btn).append(response.message).removeClass().addClass('alert').addClass('alert-error').show();
+				        	
+			           }              
+		        },
+		        error: function (model, response) {
+		        	var btn = '<button type="button" class="close">&times;</button>';
+			    	$('div#message-box').text("").append(btn).append(response.message).removeClass().addClass('alert').addClass('alert-error').show();	            
+		        }
+			});
+		}		
 	}	
 });
 
@@ -101,25 +122,27 @@ App.Views.SingleValuesType = Backbone.View
 			},
 			
 			goToEdit : function() {				
-				/*$('#name').val(this.model.get('name'));
-				$('#description').val(this.model.get('description'));*/
-				
 				var viewValuesType = new App.Views.ValuesType({model:this.model});
 				$('#input_form').html(viewValuesType.render().el);
 			},
 			
-			destroy : function(e){				
+			destroy : function(e){	
+				if (window.console) console.log("destroy");
 				e.preventDefault();
 				var el = this.$el;
 				var thisVType = this.model;
 				
 				bootbox.confirm("Are you sure you want to delete this Values Type?", function(result) {					
-					if (result) {
+					if (result) {						
 						thisVType.destroy({
 								wait: true,
-							    success: function(model, response){							    	
-							    	$('div#message-box').text("").append(response.message).removeClass().addClass('alert').addClass('alert-success').fadeIn(10).delay(2000).fadeOut(50);    
-						    		el.remove();							    	
+							    success: function(model, response){	
+							    	if (response.resp=="success") {	
+							    	$('div#message-box').text("").append(response.message).removeClass().addClass('alert').addClass('alert-success').fadeIn(10).delay(2000).fadeOut(50);
+							    	} else {
+							    		var btn = '<button type="button" class="close">&times;</button>';
+								    	 $('div#message-box').text("").append(btn).append(response.responseText).removeClass().addClass('alert').addClass('alert-error').show();		
+							    	}
 							     },
 							     error: function (model, response) {
 							    	 if (window.console) console.log(response);							    	 
