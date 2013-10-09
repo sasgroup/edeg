@@ -45,6 +45,9 @@ App.Routers.Administrator = Backbone.Router.extend({
 		App.hospitalMeasures = new App.Collections.HospitalMeasures();	
 		
 		App.viewHospital = new App.Views.Hospital({isModified:false});
+		
+		App.valuesTypes = new App.Collections.ValuesTypes();
+		App.valuesType  = new App.Models.ValuesType();
 	},
 	
 	before: {	    
@@ -293,26 +296,19 @@ App.Routers.Administrator = Backbone.Router.extend({
 	
 	// vtypes
 	vtypes : function() {
-		/*App.valuesType  = new App.Models.ValuesType();
+		var temp = _.template($('#vtype-template').html());
+		$('#app').html(temp);
+		
 		App.viewValuesType = new App.Views.ValuesType({model:App.valuesType});
-		$('#app').html(App.viewValuesType.render().el);*/
+		$('#input_form').html(App.viewValuesType.render().el);
 		
-		
-		App.valuesTypes = new App.Collections.ValuesTypes();
-		App.valuesType  = new App.Models.ValuesType();
-		
-		App.valuesTypes.fetch().then(function(){			
+		App.valuesTypes.fetch().then(function(){
 						
 			App.viewValuesTypes = new App.Views.ValuesTypes({collection:App.valuesTypes});
-			$('#app').html(App.viewValuesTypes.render().el);		
-			
-			//input-form
-			
-			App.viewValuesType = new App.Views.ValuesType({model:App.valuesType});
-			$('#input_form').html(App.viewValuesType.render().el);
+			$('#app').append(App.viewValuesTypes.render().el);		
 			
 			var oTable = $('#table_items').dataTable( 
-					{
+					{	"bDestroy": true,
 						"bPaginate": false,
 						"bFilter": false,
 						"sScrollY": "528px",
@@ -327,7 +323,7 @@ App.Routers.Administrator = Backbone.Router.extend({
 					} );
 		    new FixedColumns( oTable,
 					{ "sHeightMatch": "none"} );						
-		});			
+		});	
 		
 	},	
 	

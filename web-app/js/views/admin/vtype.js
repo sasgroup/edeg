@@ -3,14 +3,29 @@ App.Views.ValuesTypes = Backbone.View.extend({
 	template : _.template($('#vtypes-list-template').html()),
 	
 	initialize : function() {		
-		//this.collection.on('add', this.appendValuesType, this);
 		this.collection.on('add', this.render, this);
+		this.collection.on('change', this.render, this);
 	},
 	
 	render : function() {		
 		this.$el.html(this.template());
 		
 		this.collection.each(this.appendValuesType, this);
+		
+		var oTable = $('#table_items').dataTable( 
+				{	"bDestroy": true,
+					"bPaginate": false,
+					"bFilter": false,
+					"sScrollY": "528px",
+					"bSort": true,
+		 			"bInfo": false,
+		 			"bAutoWidth": false,
+		 			"aoColumnDefs": [
+		 							{ 'bSortable': false, 'aTargets': [ 2,3 ] }
+		 						 ],
+					"bScrollCollapse": true,
+					"bPaginate": false
+				} );
 		return this;
 	},
 	
@@ -24,14 +39,15 @@ App.Views.ValuesTypes = Backbone.View.extend({
 
 //New/Edit ValuesType
 App.Views.ValuesType = Backbone.View.extend({
-	template : _.template($('#vtype-template').html()),
+	template : _.template($('#vtype-edit').html()),
 
 	events : {
 		'submit' : 'saveValuesType'		
 	},
 	
-	render : function() {			
-		this.$el.html(this.template());				
+	render : function() {		
+		var state = (this.model.toJSON().id)? "Edit " : "Add New "; 
+		this.$el.html(this.template(this.model.toJSON()));			
 		return this;
 	},
 	
@@ -41,14 +57,13 @@ App.Views.ValuesType = Backbone.View.extend({
 		this.model.set({name:this.$el.find('#name').val()});
 		this.model.set({description:this.$el.find('#description').val()});
 		
+		var isNewValuesType = this.model.toJSON().id? false : true; 
 				
-		this.model.save(this.attributes,{
-	      //this.model.collection.create(this.attributes,{ 
+		if (isNewValuesType) {
+	      App.valuesTypes.create(this.model.attributes,{ 
 	        success: function (model, response) {
 	        	if (response.resp=="ok") {	        	   
-		        	   $('div#message-box').text("").append(response.message).removeClass().addClass('alert').addClass('alert-success').fadeIn(10).delay(2000).fadeOut(50);
-		        	   //Backbone.history.navigate("types", true);
-		        	  
+		        	   $('div#message-box').text("").append(response.message).removeClass().addClass('alert').addClass('alert-success').fadeIn(10).delay(2000).fadeOut(50);		        	  		        	  
 		        	   
 		           } else if (response.resp=="error") {
 						var btn = '<button type="button" class="close">&times;</button>';
@@ -61,7 +76,12 @@ App.Views.ValuesType = Backbone.View.extend({
 		    	$('div#message-box').text("").append(btn).append(response.message).removeClass().addClass('alert').addClass('alert-error').show();
 	            
 	        }
-	    });
+	      });
+		} else {
+			App.valuesTypes.get(this.model.get('id'));
+		}  
+		
+		//App.valuesTypes.add(this.model);
 	}	
 });
 
@@ -80,12 +100,12 @@ App.Views.SingleValuesType = Backbone.View
 				return this;
 			},
 			
-			goToEdit : function() {
-				/*if (window.console) console.log(this.model);
-				if (window.console) console.log("goToEdit",this.model.get('id'));							
-				Backbone.history.navigate("product/"+this.model.get('id')+'/edit', true);*/
-				$('#name').val(this.model.get('name'));
-				$('#description').val(this.model.get('description'));
+			goToEdit : function() {				
+				/*$('#name').val(this.model.get('name'));
+				$('#description').val(this.model.get('description'));*/
+				
+				var viewValuesType = new App.Views.ValuesType({model:this.model});
+				$('#input_form').html(viewValuesType.render().el);
 			},
 			
 			destroy : function(e){				
