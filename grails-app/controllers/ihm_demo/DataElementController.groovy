@@ -20,6 +20,7 @@ class DataElementController {
 		DataElementDefaults.executeUpdate("delete DataElementDefaults ded where ded.dataElement=?", [instance])
 
 		//create new
+		//TODO ids for ValuesType
 		def dataElementsDefaults = param?.dataElementDefaults
 		for (dataElementsDefault in dataElementsDefaults) {
 			if (dataElementsDefault.location)

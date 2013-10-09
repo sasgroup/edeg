@@ -77,7 +77,7 @@ class HospitalController {
 						def _included = measure.measureCategory.name == "CORE"
 						hospitalProductMeasure 	= new HospitalProductMeasure(hospitalProduct:hospitalProduct, hospitalMeasure:hospitalMeasure, included:_included).save(flush:true)
 					}
-
+					//TODO ValyesType for HospitalElement
 					for (de in measure.dataElements) {
 						def hospitalElement = HospitalElement.findByHospitalAndDataElement(hospital, de)
 						def isNew = false

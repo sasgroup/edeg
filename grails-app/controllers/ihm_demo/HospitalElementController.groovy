@@ -47,7 +47,8 @@ class HospitalElementController {
 		if (instance.notes != param.notes)
 			modificationDetected = true
 		instance.notes = param.notes
-		
+
+		//TODO correct ValuesType
 		if (instance.valuesType != ValuesType.get(param?.valuesTypeId))
 			modificationDetected = true
 		instance.valuesType = ValuesType.get(param?.valuesTypeId)
@@ -83,6 +84,7 @@ class HospitalElementController {
 		
 		if (param.elementExtraLocation)
 			for (e in param.elementExtraLocation){
+				//TODO correct ValuesType
 				if (e.valueType.name)
 					new ElementExtraLocation(location:e.location, source:e.source, sourceEHR:(ehrCode==e.source), valueType: ValueType.valueOf(e.valueType.name), hospitalElement:instance, valuesType : ValuesType.get(1)).save()
 			}
