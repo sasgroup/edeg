@@ -40,7 +40,7 @@
     <table class="table" id="fields">
       <tbody>
         <tr>							
-          <td>Name</td>
+          <td>Name<span class="required">*</span></td>
           <td><input name="name" type="text"  id="name" maxlength="255" value="{{ name }}"></td>                                       
           <td class="pull-right">Description</td>
           <td><input name="description" type="text" id="description" maxlength="1000" value="{{ description }}"></td>
