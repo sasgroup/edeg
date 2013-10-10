@@ -371,8 +371,8 @@ class HospitalController {
 		for (srcHP in shProducts) {
 			def currHP = new HospitalProduct(hospital:curr, product:srcHP.product)
 			currHP.qa = srcHP.qa
-                        currHP.notifyAdmin = srcHP.notifyAdmin
-                        currHP.notifyUser = srcHP.notifyUser
+            currHP.notifyAdmin = srcHP.notifyAdmin
+            currHP.notifyUser = srcHP.notifyUser
 			currHP.save(flush:true)
 		}
 		// clone HospitalMeasures
@@ -383,8 +383,8 @@ class HospitalController {
 			currHM.confirmed = srcHM.confirmed
 			currHM.verified = srcHM.verified
 			currHM.qa = srcHM.qa
-                        currHM.notifyAdmin = srcHM.notifyAdmin
-                        currHM.notifyUser = srcHM.notifyUser
+            currHM.notifyAdmin = srcHM.notifyAdmin
+            currHM.notifyUser = srcHM.notifyUser
 			currHM.save(flush:true)
 		}
 		// clone HospitalElements
@@ -445,6 +445,8 @@ class HospitalController {
 				currME.save(flush:true)
 			}
 		}
+		
+		sendMailService.hospitalOptionsCloned(curr?.email, curr.name, srch.name, new Date(), session?.user.login)
 	
 		render(contentType: "text/json") {
 			resp = "ok"

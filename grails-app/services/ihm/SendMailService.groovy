@@ -8,8 +8,15 @@ class SendMailService {
 	AsynchronousMailService asyncMailService
 	
 	private void sendMail(String sendTo, String subjectM, String bodyM){
+		def recipients = sendTo 
+		while (recipients.indexOf("  ")>=0)
+			recipients = recipients.replaceAll("  ", " ")
+		recipients = recipients.replaceAll(" ", ",")
+		while (recipients.indexOf(",,")>=0)
+			recipients = recipients.replaceAll(",,", ",")
+		
 		asyncMailService.sendMail {
-		    to transferToList(sendTo).toArray()
+		    to transferToList(recipients).toArray()
 		    subject "$subjectM"
 			html "$bodyM"
 		}
@@ -33,12 +40,6 @@ class SendMailService {
 	}	
 	
 	def updateHospitalConfig (String sendTo, String hospitalName, Date updateDate) {
-		while (sendTo.indexOf("  ")>=0)
-			sendTo = sendTo.replaceAll("  ", " ")
-		sendTo = sendTo.replaceAll(" ", ",")
-		while (sendTo.indexOf(",,")>=0)
-			sendTo = sendTo.replaceAll(",,", ",")
-		
 		sendMail(sendTo,"Hospital Configuration Has Been Updated","The hospital configuration for <b>$hospitalName</b> has been updated on <b>$updateDate</b>")
 	}
 	
@@ -69,5 +70,17 @@ class SendMailService {
 	def attachFile (String sendTo, String hospitalName, String dataElement, String measureName, Date updateDate, String userName) {
 		sendMail (sendTo, "File Attached to Data Element", "<b>$userName</b> has attached a file for the <b>$dataElement</b> data element within <b>$measureName</b> for <b>$hospitalName</b> on <b>$updateDate</b>.")
 	}
+	
+	def hospitalProductNotesUpdated (String sendTo, String hospitalName, productName, Date updateDate, String userName) {
+		sendMail (sendTo, "New Product Comments", "<b>$userName</b> has commented on the <b>$productName</b> product for hospital <b>$hospitalName</b> on <b>$updateDate</b>.")
+	}
+	def hospitalMeasureNotesUpdated (String sendTo, String hospitalName, measureName, Date updateDate, String userName) {
+		sendMail (sendTo, "New Measure Comments", "<b>$userName</b> has commented on the <b>$measureName</b> measure for hospital <b>$hospitalName</b> on <b>$updateDate</b>.")
+	}
+	def hospitalOptionsCloned (String sendTo, String hospitalName, String srcHospitalName, Date updateDate, String userName) {
+		sendMail (sendTo, "Hospital Configuration Cloned", "Configuration for <b>$hospitalName</b> has been copied from <b>$srcHospitalName</b> on <b>$updateDate</b> by <b>$userName</b>.")
+		
+	}
+	
 	
 }
