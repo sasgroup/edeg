@@ -96,6 +96,13 @@ App.Views.Ehr = Backbone.View.extend({
 			$(dataElementDefaultRow).find(".slcParent").val("e"+dataElementDefault.linkId);	
 			
 			$(dataElementDefaultRow).find('.slcValuesType').append(vtypesList); //new
+			
+			var de_ids = dataElementDefault.ids;
+			var ids=de_ids.split(";");			
+			for (var i = 0; i < ids.length; i++) {	
+				$(dataElementDefaultRow).find('.slcValuesType option[value='+ids[i]+']').attr("selected","selected") ;
+			}		
+			
 		  });	
 		}
 				

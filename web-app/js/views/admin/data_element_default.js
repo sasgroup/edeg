@@ -45,7 +45,7 @@ App.Views.DataElementsDefault = Backbone.View
 							cur_ids = cur_ids.substring(1);
 						}
 						
-						//alert('changeValuesType: ' + cur_ids);
+						alert('changeValuesType: ' + cur_ids);
 						dataElementDefault.ids = cur_ids;
 					};	
 				});

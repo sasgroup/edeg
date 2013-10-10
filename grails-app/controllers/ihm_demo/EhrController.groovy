@@ -18,7 +18,7 @@ class EhrController {
 		def dataElementsDefaults = param?.dataElementDefaults
 		for (dataElementsDefault in dataElementsDefaults) {
 			if (dataElementsDefault.location)
-			 new DataElementDefaults(location:dataElementsDefault.location, valueType:dataElementsDefault.valueType.name, dataElement : DataElement.get(dataElementsDefault.linkId), ehr : instance).save(flush:true)
+			 new DataElementDefaults(location:dataElementsDefault.location, valueType:dataElementsDefault.valueType.name, dataElement : DataElement.get(dataElementsDefault.linkId), ehr : instance, ids : dataElementsDefault.ids).save(flush:true)
 		}
 		
 		return instance
@@ -56,7 +56,9 @@ class EhrController {
 						dataElementDefault  id : d.id,
 											location : d.location,
 											valueType : d.valueType,
-											linkId : d.dataElement.id
+											linkId : d.dataElement.id,
+											ids : d.ids
+											
 					}
 				}
 				
