@@ -50,6 +50,17 @@ App.Views.DataElementsDefault = Backbone.View
 				return html;
 			},
 			
+			valuesTypeOptions: function() {
+				var temp = _.template($('#default-element-option').html());
+				var html= '';	
+				
+				App.valuesTypes.each(function(vtype) {
+						html = html + temp({id:vtype.get('id'), code:vtype.get('name')}); 
+				});			
+				
+				return html;
+			},
+			
 			addRow : function (){
 				if (window.console) console.log(App[this.model.parent].get('dataElementDefaults'));
 				var timeId = parseInt(App[this.model.parent].timeId);
@@ -61,8 +72,11 @@ App.Views.DataElementsDefault = Backbone.View
 				var view = new App.Views.DataElementsDefault({ model : emptyDataElementDefault, default_element: this.options.default_element, parent:this.options.parent});
 				var ehrtbody = this.$el.closest('tbody');
 				$(ehrtbody).append(view.render().el);					
-				$(view.render().el).find('.slcParent').append(this.defaultElementOptions());
+				
+				var el = view.render().el;
+				$(el).find('.slcParent').append(this.defaultElementOptions());
 				if (window.console) console.log(App[this.model.parent].get('dataElementDefaults'));
+				$(el).find('.slcValuesType').append(this.valuesTypeOptions());
 			},
 			
 			removeRow : function (e){

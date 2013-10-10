@@ -431,6 +431,7 @@ App.Routers.Administrator = Backbone.Router.extend({
     dataElement  : function (dataElement) {
 		App.measures.fetch().then(function(){	
 			App.ehrs.fetch().then(function(){
+				App.valuesTypes.fetch().then(function(){	
 				var view = new App.Views.DataElement({model: dataElement});		
 				$('#app').html(view.render().el);
 				
@@ -461,7 +462,7 @@ App.Routers.Administrator = Backbone.Router.extend({
 					"bInfo": false,
 					"bAutoWidth": false
 				 });			
-				
+			  });	
 			});
 		});	
     },
