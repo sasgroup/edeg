@@ -364,6 +364,7 @@ App.Routers.Administrator = Backbone.Router.extend({
     ehr : function (ehrModel) {
 		App.hospitals.fetch().then(function(){	
 			App.dataElements.fetch().then(function(){
+			  App.valuesTypes.fetch().then(function(){	
 				var view = new App.Views.Ehr({model:ehrModel});
 				$('#app').html(view.render().el);				
 				
@@ -394,7 +395,16 @@ App.Routers.Administrator = Backbone.Router.extend({
 					"bInfo": false,
 					"bAutoWidth": false
 				});		
-			});	
+				
+				$( ".slcValuesType").multiselect({
+			        multiple : true,
+			        header : true,
+			        noneSelectedText : "Select",
+			        selectedList : 1,
+			        height: "auto"			        
+			    });	
+			 });
+		  });	
 		});		
     },
     measure : function (measureModel) {
@@ -461,7 +471,18 @@ App.Routers.Administrator = Backbone.Router.extend({
 					"bSort": false,
 					"bInfo": false,
 					"bAutoWidth": false
-				 });			
+				});	
+				
+				$( ".slcValuesType").multiselect({
+			        multiple : true,
+			        header : true,
+			        noneSelectedText : "Select",
+			        selectedList : 1,
+			        height: "auto"			        
+			    });				
+				
+				view.setValuesType();
+				
 			  });	
 			});
 		});	

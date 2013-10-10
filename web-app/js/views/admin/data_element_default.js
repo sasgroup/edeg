@@ -10,7 +10,8 @@ App.Views.DataElementsDefault = Backbone.View
 			},
 						
 			render : function() {	
-				this.$el.html(this.template({loc:this.model.location, value_type: this.model.valueType.name, ehr: this.model.linkId}));				
+				this.$el.html(this.template({loc:this.model.location, value_type: this.model.valueType.name, ehr: this.model.linkId}));		
+				this.$el.attr("id", "d"+this.model.id);
 				return this;
 			},
 			changeVal : function(e){
@@ -76,7 +77,18 @@ App.Views.DataElementsDefault = Backbone.View
 				var el = view.render().el;
 				$(el).find('.slcParent').append(this.defaultElementOptions());
 				if (window.console) console.log(App[this.model.parent].get('dataElementDefaults'));
-				$(el).find('.slcValuesType').append(this.valuesTypeOptions());
+				
+				$(el).find('.slcValuesType').append(this.valuesTypeOptions()); //new
+				
+				$(el).find('.slcValuesType').multiselect({
+			        multiple : true,
+			        header : true,
+			        noneSelectedText : "Select",
+			        selectedList : 1,
+			        height: "auto"			       
+			    });		
+				
+				$(el).find('.slcValuesType').multiselect("uncheckAll");
 			},
 			
 			removeRow : function (e){

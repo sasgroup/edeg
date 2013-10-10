@@ -61,6 +61,23 @@ App.Views.DataElement = Backbone.View.extend({
 				
 		return this;
 	},
+	
+	setValuesType : function() {		
+		console.log('show dataElementDefaults', this.model.get('dataElementDefaults'));
+		var dataElementDefaults = this.model.get('dataElementDefaults');
+		
+		$.each( dataElementDefaults, function( i, dataElementDefault ) {				
+			//get list of valueTypes ids   
+			//dataElementDefault.v_ids;
+			//set valueTypes for this dataElementDefault
+		});	  
+		
+		$('.slcValuesType').multiselect("uncheckAll");
+		// hard-code
+		$('tr#d2 .slcValuesType').multiselect("widget").find(":checkbox").each(function(){
+		   this.click();
+		});
+	},
 		
 	ehrOptions: function() {
 		var temp = _.template($('#default-element-option').html());
@@ -145,6 +162,31 @@ App.Views.DataElement = Backbone.View.extend({
 			$(dataElementDefaultRow).find(".slcParent").val("e"+dataElementDefault.linkId);
 			
 			$(dataElementDefaultRow).find('.slcValuesType').append(vtypesList); //new
+			
+			/*var data="1,3";
+			var dataarray=data.split(",");*/
+
+			/*var el = $(dataElementDefaultRow).find('.slcValuesType');
+			$(el).val(dataarray);		*/
+			
+			//$(el).multiselect('refresh');
+			
+			/*$('.slcValuesType').multiselect("widget").find(":checkbox").each(function(){
+				   this.click();
+			});*/
+			
+			/*var data="1,3";
+			var dataarray=data.split(",");
+			
+			$.each( dataarray, function( i, p ) { 	
+				// set checkboxes for assigned products
+				$(".slcValuesType").multiselect("widget").find('input[value='+ p +']').click();			
+			});*/
+			
+			/*$(dataElementDefaultRow).find('.slcValuesType').multiselect("widget").find(":checkbox").each(function(){
+				   this.click();
+			});*/
+			
 		  });	
 		}
 				
