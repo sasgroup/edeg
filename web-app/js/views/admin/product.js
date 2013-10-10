@@ -8,7 +8,7 @@ App.Views.Products = Backbone.View.extend({
 
 	initialize : function() {		
 		this.collection.on('add', this.appendProduct, this);
-		this.collection.on('change', this.render, this);
+		this.collection.on('change', this.render, this);		
 	},
 
 	render : function() {

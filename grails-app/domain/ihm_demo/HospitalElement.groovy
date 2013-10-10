@@ -11,6 +11,7 @@ class HospitalElement {
 	String valueSetFile
 	ValueType valueType
 	DataElement dataElement
+	ValuesType valuesType
 	
 	//new addition
 	Hospital hospital

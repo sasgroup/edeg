@@ -45,6 +45,9 @@ App.Routers.Administrator = Backbone.Router.extend({
 		App.hospitalMeasures = new App.Collections.HospitalMeasures();	
 		
 		App.viewHospital = new App.Views.Hospital({isModified:false});
+		
+		App.valuesTypes = new App.Collections.ValuesTypes();
+		App.valuesType  = new App.Models.ValuesType();
 	},
 	
 	before: {	    
@@ -292,16 +295,23 @@ App.Routers.Administrator = Backbone.Router.extend({
 	},	
 	
 	// vtypes
-	vtypes : function() {	
-		/*App.viewValueTypes = new App.Views.ValueTypes({collection:''});
-		$('#app').html(App.viewValueTypes.render().el);		*/
+	vtypes : function() {
+		var temp = _.template($('#vtype-template').html());
+		$('#app').html(temp);
 		
-		App.products.fetch().then(function(){
-			App.viewValueTypes = new App.Views.ValueTypes({collection:''});
-			$('#app').html(App.viewValueTypes.render().el);		
+		App.valuesType  = new App.Models.ValuesType();
+		App.valuesTypes = new App.Collections.ValuesTypes();
+				
+		App.viewValuesType = new App.Views.ValuesType({model:App.valuesType});
+		$('#input_form').html(App.viewValuesType.render().el);
+		
+		App.valuesTypes.fetch().then(function(){
+						
+			App.viewValuesTypes = new App.Views.ValuesTypes({collection:App.valuesTypes});
+			$('#list_form').html(App.viewValuesTypes.render().el);		
 			
-			/*var oTable = $('#table_items').dataTable( 
-					{
+			var oTable = $('#table_items').dataTable( 
+					{	"bDestroy": true,
 						"bPaginate": false,
 						"bFilter": false,
 						"sScrollY": "528px",
@@ -309,14 +319,14 @@ App.Routers.Administrator = Backbone.Router.extend({
 			 			"bInfo": false,
 			 			"bAutoWidth": false,
 			 			"aoColumnDefs": [
-			 							{ 'bSortable': false, 'aTargets': [ 2,3,4 ] }
+			 							{ 'bSortable': false, 'aTargets': [ 2,3 ] }
 			 						 ],
 						"bScrollCollapse": true,
 						"bPaginate": false
 					} );
-		   new FixedColumns( oTable,
-					{ "sHeightMatch": "none"} );	*/					
-		});			
+		    new FixedColumns( oTable,
+					{ "sHeightMatch": "none"} );						
+		});	
 		
 	},	
 	

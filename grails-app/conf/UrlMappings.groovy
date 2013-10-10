@@ -63,8 +63,8 @@ class UrlMappings {
 			action = [ GET: "show", POST: "save", DELETE:"delete" ]
 		}
 		
-		"/api/values_type/$id?"(controller: "valuesType") {
-			action = [ GET: "show", POST: "save", DELETE:"delete" ]
+		"/api/values_type/$id?"(resource: "valuesType") {
+			action = [ GET: "show", PUT: "update", DELETE:"delete", POST: "save"]
 		}
 		
 		"/"(view:"/index")

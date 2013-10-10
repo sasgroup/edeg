@@ -1,16 +1,5 @@
   <div class="page-footer">
-  <footer>
-	  <!-- <nav class="footer-nav">
-	       <a href="#" class="logo">	               
-	              <img src="/ihm/static/css/images/footer_logo.png" border="0">	                  
-	       </a>
-	       <a href="#product">Products</a>
-	       <a href="#measure">Measures</a>
-	       <a href="#element">Data Elements</a>
-	       <a href="#hospital">Hospitals</a>
-	       <a href="#ehr">EHR</a>
-	       
-	  </nav> -->
+  <footer>	  
 	  <a href="#" class="logo">	               
 	       <img src="/ihm/static/css/images/footer_logo.png" border="0">	                  
 	  </a>

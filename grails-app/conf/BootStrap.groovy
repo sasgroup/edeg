@@ -31,7 +31,19 @@ class BootStrap {
 				}
 			}
 		}
-
+		//-----------VALUES_TYPE-----------
+		def _valuesType = [
+			["c1", 	"cd1"],
+			["c2", 	"cd2"]
+			]
+		for(_v in _valuesType){
+			def _valueType = new ValuesType(name:_v[0], description:_v[1])
+			if (!_valueType.save()){
+				_valueType.errors.allErrors.each{error ->
+					println "An error occured with event1: ${error}"
+				}
+			}
+		}
 		//-----------CQM_DOMAINs-----------
 		def _cqmDomains = [
 			["Patient and Family Engagement", 			"Patient and Family Engagement"],
@@ -431,7 +443,7 @@ class BootStrap {
 			}
 
 			for(_ehr in _el[4]){
-				def dataElementDefaults = new DataElementDefaults(location:_el[2], valueType:_el[3], dataElement:_element, ehr:Ehr.findByCode(_ehr))
+				def dataElementDefaults = new DataElementDefaults(location:_el[2], valueType:_el[3], dataElement:_element, ehr:Ehr.findByCode(_ehr), ids : "1")
 				if (!dataElementDefaults.save()){
 					dataElementDefaults.errors.allErrors.each{error ->
 						println "An error occured with event1: ${error}"
@@ -591,7 +603,7 @@ class BootStrap {
 			}
 
 			for(_ehr in _el[5]){
-				def dataElementDefaults = new DataElementDefaults(location:_el[2], valueType:_el[3], dataElement:_element, ehr : Ehr.findByCode(_ehr))
+				def dataElementDefaults = new DataElementDefaults(location:_el[2], valueType:_el[3], dataElement:_element, ehr : Ehr.findByCode(_ehr), ids : "1;2")
 				if (!dataElementDefaults.save()){
 					dataElementDefaults.errors.allErrors.each{error ->
 						println "An error occured with event1: ${error}"
