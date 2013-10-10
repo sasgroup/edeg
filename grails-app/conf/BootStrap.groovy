@@ -443,7 +443,7 @@ class BootStrap {
 			}
 
 			for(_ehr in _el[4]){
-				def dataElementDefaults = new DataElementDefaults(location:_el[2], valueType:_el[3], dataElement:_element, ehr:Ehr.findByCode(_ehr), ids : "")
+				def dataElementDefaults = new DataElementDefaults(location:_el[2], valueType:_el[3], dataElement:_element, ehr:Ehr.findByCode(_ehr), ids : "1")
 				if (!dataElementDefaults.save()){
 					dataElementDefaults.errors.allErrors.each{error ->
 						println "An error occured with event1: ${error}"
@@ -603,7 +603,7 @@ class BootStrap {
 			}
 
 			for(_ehr in _el[5]){
-				def dataElementDefaults = new DataElementDefaults(location:_el[2], valueType:_el[3], dataElement:_element, ehr : Ehr.findByCode(_ehr), ids : "")
+				def dataElementDefaults = new DataElementDefaults(location:_el[2], valueType:_el[3], dataElement:_element, ehr : Ehr.findByCode(_ehr), ids : "1;2")
 				if (!dataElementDefaults.save()){
 					dataElementDefaults.errors.allErrors.each{error ->
 						println "An error occured with event1: ${error}"
