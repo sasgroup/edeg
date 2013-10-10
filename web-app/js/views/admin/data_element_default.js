@@ -6,7 +6,8 @@ App.Views.DataElementsDefault = Backbone.View
 			events : {
 				'click #plus-btn' : 'addRow',
 				'click #minus-btn': 'removeRow',
-				'change .slcValueType, .slcParent, #location' : 'changeVal'
+				'change .slcValueType, .slcParent, #location' : 'changeVal',
+				'change .slcValuesType'                       : 'changeValuesType'
 			},
 						
 			render : function() {	
@@ -25,6 +26,27 @@ App.Views.DataElementsDefault = Backbone.View
 							dataElementDefault.valueType.name = e.target.value;
 						if (e.currentTarget.className == "slcParent")
 							dataElementDefault.linkId = e.target.value.replace('e','');
+					};	
+				});
+				App[this.model.parent].set("dataElementDefaults" , dataElementDefaults);
+			},
+			
+			changeValuesType : function(e){				
+				var curId = this.model.id
+				var dataElementDefaults = App[this.model.parent].get('dataElementDefaults');
+				 dataElementDefaults.forEach(function( dataElementDefault ){
+					var cur_ids='';
+					if (dataElementDefault.id == curId){						
+						$(e.target).multiselect('getChecked').each(function( index ) {  					
+							cur_ids = cur_ids + ';'  + $(this).val();
+						});	
+						
+						if (cur_ids.substring(0, 1) == ';') { 
+							cur_ids = cur_ids.substring(1);
+						}
+						
+						//alert('changeValuesType: ' + cur_ids);
+						dataElementDefault.ids = cur_ids;
 					};	
 				});
 				App[this.model.parent].set("dataElementDefaults" , dataElementDefaults);
@@ -52,7 +74,7 @@ App.Views.DataElementsDefault = Backbone.View
 			},
 			
 			valuesTypeOptions: function() {
-				var temp = _.template($('#default-element-option').html());
+				var temp = _.template($('#multiple-default-element-option').html());
 				var html= '';	
 				
 				App.valuesTypes.each(function(vtype) {

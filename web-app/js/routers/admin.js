@@ -481,6 +481,7 @@ App.Routers.Administrator = Backbone.Router.extend({
 					"bInfo": false,
 					"bAutoWidth": false
 				});	
+										
 				
 				$( ".slcValuesType").multiselect({
 			        multiple : true,
@@ -489,8 +490,6 @@ App.Routers.Administrator = Backbone.Router.extend({
 			        selectedList : 1,
 			        height: "auto"			        
 			    });				
-				
-				view.setValuesType();
 				
 			  });	
 			});

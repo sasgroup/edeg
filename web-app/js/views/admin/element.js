@@ -61,24 +61,7 @@ App.Views.DataElement = Backbone.View.extend({
 				
 		return this;
 	},
-	
-	setValuesType : function() {		
-		console.log('show dataElementDefaults', this.model.get('dataElementDefaults'));
-		var dataElementDefaults = this.model.get('dataElementDefaults');
-		
-		$.each( dataElementDefaults, function( i, dataElementDefault ) {				
-			//get list of valueTypes ids   
-			//dataElementDefault.v_ids;
-			//set valueTypes for this dataElementDefault
-		});	  
-		
-		$('.slcValuesType').multiselect("uncheckAll");
-		// hard-code
-		$('tr#d2 .slcValuesType').multiselect("widget").find(":checkbox").each(function(){
-		   this.click();
-		});
-	},
-		
+			
 	ehrOptions: function() {
 		var temp = _.template($('#default-element-option').html());
 		var html= '';		
@@ -89,7 +72,7 @@ App.Views.DataElement = Backbone.View.extend({
 	},
 	
 	vtypeOptions: function() {
-		var temp = _.template($('#default-element-option').html());
+		var temp = _.template($('#multiple-default-element-option').html());
 		var html= '';		
 		App.valuesTypes.each(function(vtype) {
 			html = html + temp({id:vtype.get('id'), code:vtype.get('name')});
@@ -161,31 +144,15 @@ App.Views.DataElement = Backbone.View.extend({
 			$(dataElementDefaultRow).find('.slcParent').append(optionsList);			
 			$(dataElementDefaultRow).find(".slcParent").val("e"+dataElementDefault.linkId);
 			
-			$(dataElementDefaultRow).find('.slcValuesType').append(vtypesList); //new
+			$(dataElementDefaultRow).find('.slcValuesType').append(vtypesList); //new	
 			
-			/*var data="1,3";
-			var dataarray=data.split(",");*/
-
-			/*var el = $(dataElementDefaultRow).find('.slcValuesType');
-			$(el).val(dataarray);		*/
+			var de_ids = dataElementDefault.ids;
+			var ids=de_ids.split(";");
 			
-			//$(el).multiselect('refresh');
-			
-			/*$('.slcValuesType').multiselect("widget").find(":checkbox").each(function(){
-				   this.click();
-			});*/
-			
-			/*var data="1,3";
-			var dataarray=data.split(",");
-			
-			$.each( dataarray, function( i, p ) { 	
-				// set checkboxes for assigned products
-				$(".slcValuesType").multiselect("widget").find('input[value='+ p +']').click();			
-			});*/
-			
-			/*$(dataElementDefaultRow).find('.slcValuesType').multiselect("widget").find(":checkbox").each(function(){
-				   this.click();
-			});*/
+			for (var i = 0; i < ids.length; i++) {	
+				$(dataElementDefaultRow).find('.slcValuesType option[value='+ids[i]+']').attr("selected","selected") ;
+			}		
+				
 			
 		  });	
 		}
@@ -236,10 +203,9 @@ App.Views.DataElement = Backbone.View.extend({
 	
 	editDataElement : function(e) {
 		e.preventDefault();	
-		this.model.attributes.help = $('.helpAreaElement').val();
-		
+		this.model.attributes.help = $('.helpAreaElement').val();		
 		this.model.set({code:this.$el.find('#code').val()});
-		
+			
 		this.model.save(null,{
 	        success: function (model, response) {
 	           if (window.console) console.log(response);
