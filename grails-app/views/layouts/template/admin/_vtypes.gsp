@@ -35,7 +35,7 @@
 
 <!-- New/Edit ValuesType -->
 <script type="text/template" class="template" id="vtype-edit">
-<form method="post" class="form-horizontal" id="vtype-edit" accept-charset="utf-8">
+<form method="post" class="form-horizontal" id="form-vtype-edit" accept-charset="utf-8">
   <input type="hidden" name="id" value="">
     <table class="table" id="fields">
       <tbody>
@@ -43,7 +43,7 @@
           <td>Name</td>
           <td><input name="name" type="text"  id="name" maxlength="255" value="{{ name }}"></td>                                       
           <td class="pull-right">Description</td>
-          <td><input name="description" type="text" id="description" maxlength="255" value="{{ description }}"></td>
+          <td><input name="description" type="text" id="description" maxlength="1000" value="{{ description }}"></td>
 		  <td><button type="submit" class="btn pull-right">Save/Update</button></td>           
         </tr>                                    
       </tbody>

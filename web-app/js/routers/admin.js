@@ -14,7 +14,7 @@ App.Routers.Administrator = Backbone.Router.extend({
 		'element/:new'    : 'newDataElement',
 		'ehr/:new'        : 'newEhr',		
 		
-		'hospital/:id/edit': 'edithospital',
+		'hospital/:id/edit':'edithospital',
 		'product/:id/edit': 'editProduct',
 		'measure/:id/edit': 'editMeasure',
 		'element/:id/edit': 'editDataElement',
@@ -304,6 +304,15 @@ App.Routers.Administrator = Backbone.Router.extend({
 				
 		App.viewValuesType = new App.Views.ValuesType({model:App.valuesType});
 		$('#input_form').html(App.viewValuesType.render().el);
+		
+		$('form#form-vtype-edit').validate({
+		     rules: {		   	    
+		         name: { required: true }	               
+		     },
+		     messages: {		       	 
+		         name: {required: "Name is required."}
+		     }
+		});		
 		
 		App.valuesTypes.fetch().then(function(){
 						
