@@ -6,7 +6,9 @@ class HospitalMeasureController {
 
 	private HospitalMeasure saveInstance (HospitalMeasure instance, def param) {
 		instance.properties = param
-		return instance.save(flush :true)
+		instance.save(flush :true)
+		sendMailService.hospitalMeasureNotesUpdated(instance.hospital?.email, instance.hospital.name, instance.measure.name, new Date(), session?.user.login)
+		return instance
 	}
 
 	def save() {
@@ -55,8 +57,8 @@ class HospitalMeasureController {
 					confirmed = hospitalMeasure.confirmed
 					verified = hospitalMeasure.verified
 					qa = hospitalMeasure.qa
-					notifyAdmin = hospitalMeasure.notifyAdmin
-					notifyUser  = hospitalMeasure.notifyUser
+					notifyAdmin = hospitalMeasure?.notifyAdmin
+					notifyUser  = hospitalMeasure?.notifyUser
 				}
 			}	
 		}	

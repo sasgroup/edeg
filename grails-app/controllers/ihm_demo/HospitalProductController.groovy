@@ -6,9 +6,13 @@ class HospitalProductController {
 
 	private HospitalProduct saveInstance (HospitalProduct instance, def param) {
 		instance.qa = param.qa
+		// TODO: set the flags
 		instance.notifyAdmin = param.notifyAdmin
 		instance.notifyUser = param.notifyUser
-		return instance.save(flush :true)
+		
+		instance.save(flush :true)
+		sendMailService.hospitalProductNotesUpdated(instance.hospital?.email, instance.hospital.name, instance.product.name, new Date(), session?.user.login)
+		return instance 
 	}
 
 	def save() {
@@ -34,8 +38,8 @@ class HospitalProductController {
 	     hospital = hospitalProduct.hospital.name
 	     product = hospitalProduct.product.name
 	     qa = hospitalProduct.qa
-	     notifyAdmin = hospitalMeasure.notifyAdmin
-             notifyUser  = hospitalMeasure.notifyUser
+	     notifyAdmin = hospitalMeasure?.notifyAdmin
+         notifyUser  = hospitalMeasure?.notifyUser
 	    }
 	   }
 	  }  
