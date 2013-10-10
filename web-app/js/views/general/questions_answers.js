@@ -119,6 +119,14 @@ App.Views.QA = Backbone.View
     this.$el.find(".txt-message").val('');    
         
     this.model.set({"qa":txt});
+        
+    if (App.userRole == 'admin') {
+    	this.model.set({"notifyUser":true});
+	}
+	else if (App.userRole == 'user') {
+		this.model.set({"notifyAdmin":true});
+	}
+       
     this.model.save();    
     
   }

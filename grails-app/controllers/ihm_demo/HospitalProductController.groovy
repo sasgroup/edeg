@@ -34,8 +34,8 @@ class HospitalProductController {
 	     hospital = hospitalProduct.hospital.name
 	     product = hospitalProduct.product.name
 	     qa = hospitalProduct.qa
-	     notifyAdmin = hospitalMeasure.notifyAdmin
-             notifyUser  = hospitalMeasure.notifyUser
+	     notifyAdmin = hospitalProduct?.notifyAdmin
+         notifyUser  = hospitalProduct?.notifyUser
 	    }
 	   }
 	  }  
