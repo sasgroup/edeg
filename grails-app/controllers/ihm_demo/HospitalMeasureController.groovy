@@ -4,6 +4,8 @@ import org.springframework.dao.DataIntegrityViolationException
 
 class HospitalMeasureController {
 
+	def sendMailService
+	
 	private HospitalMeasure saveInstance (HospitalMeasure instance, def param) {
 		instance.properties = param
 		instance.save(flush :true)

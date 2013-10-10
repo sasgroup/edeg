@@ -4,6 +4,8 @@ import ihm_demo.HospitalMeasure;
 
 class HospitalProductController {
 
+	def sendMailService
+	
 	private HospitalProduct saveInstance (HospitalProduct instance, def param) {
 		instance.qa = param.qa
 		// TODO: set the flags
