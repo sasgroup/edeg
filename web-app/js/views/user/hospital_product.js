@@ -143,9 +143,7 @@ App.Views.HospitalProductBreadcrumb = Backbone.View.extend({
 	},
 	
 	editNotes : function(evt){			
-		if (this.options.notifyUser){
-			$('.edit-notes').removeClass('btn-info');			
-		}
+		$('.edit-notes').removeClass('btn-info');	
 		
 		var thisHospProduct = this;
 		var h_id = this.options.h_id;
@@ -153,8 +151,7 @@ App.Views.HospitalProductBreadcrumb = Backbone.View.extend({
 			
 		App.cur_product = new App.Models.HospitalProduct();
 		
-		App.cur_product.fetch({data:{p_id:p_id, h_id:h_id}}).then(function(){
-					
+		App.cur_product.fetch({data:{p_id:p_id, h_id:h_id}}).then(function(){					
 			// mark as read
 			App.cur_product.set({"notifyUser":false});   
 			App.cur_product.save();

@@ -35,24 +35,39 @@ App.Views.HospitalElements = Backbone.View.extend({
 
 		return this;
 	},
-
-	adminEditNotes : function(evt){		
-		var qa_view = new App.Views.QA({ model : App.cur_measure});  
-		var _my_content =  qa_view.render().el; 
-				
-		var _code = this.options.measure_code;
-		var _show = $('.admin-edit-notes').hasClass('show');
-
-		$('.show').removeClass('show').popover('destroy');
+	
+	adminEditNotes : function(evt){
+		// mark as read
+		$('.admin-edit-notes').removeClass('btn-info');	
+		var thisHospMeasure = this;
+		var m_id = this.options.m_id;
 		
-		if (!_show){
-			$('.admin-edit-notes').addClass('show')
-			.popover({html:true,placement:'right',title:'Notes for [' + _code + ']',content:_my_content||"No notes were supplied..."}).popover('show');
-			$('#breadcrumb-box .popover').css('top','0px');
-			this.adjustPopover();
-		}
+		App.cur_measure = new App.Models.HospitalMeasure();
+		App.cur_measure.fetch({data:{id: m_id,hm: true}}).then(function(){	
+			
+			// mark as read
+			App.cur_measure.set({"notifyAdmin":false});   
+			App.cur_measure.save();
+		
+			var qa_view = new App.Views.QA({ model : App.cur_measure});  
+			var _my_content =  qa_view.render().el; 
+					
+			var _code = thisHospMeasure.options.measure_code;
+			var _show = $('.admin-edit-notes').hasClass('show');
+		
+			$('.show').removeClass('show').popover('destroy');
+			
+			if (!_show){
+				$('.admin-edit-notes').addClass('show')
+				.popover({html:true,placement:'right',title:'Notes for [' + _code + ']',content:_my_content||"No notes were supplied..."}).popover('show');
+				$('#breadcrumb-box .popover').css('top','0px');
+				thisHospMeasure.adjustPopover();
+			}
+		
+		});
+		
 		evt.stopPropagation();		
-	},
+	}, 
 	
 	adjustPopover:function(){
 		$('.popover')
