@@ -106,7 +106,7 @@ App.Views.HospitalProductBreadcrumb = Backbone.View.extend({
 	},
 	
 	render : function() {					
-		this.$el.html(this.template({product_code:this.model.code, notes:this.model.notes, h_id:this.options.h_id}));		
+		this.$el.html(this.template({product_code:this.model.code, notes:this.model.notes, h_id:this.options.h_id, notifyUser:this.options.notifyUser}));		
 		return this;
 	},
 	
@@ -145,6 +145,8 @@ App.Views.HospitalProductBreadcrumb = Backbone.View.extend({
 	editNotes : function(evt){			
 		var qa_view = new App.Views.QA({ model : App.cur_hosp_product});  
 		var _my_content =  qa_view.render().el;  
+		
+		//this.model.set({"notifyUser":false});
 				
 		var _code = this.model.code;
 		var _show = $('.edit-notes').hasClass('show');

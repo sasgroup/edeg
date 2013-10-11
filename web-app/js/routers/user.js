@@ -44,7 +44,9 @@ App.Routers.User = Backbone.Router.extend({
 		App.cur_hosp_product = new App.Models.HospitalProduct();
 		
 		App.ho.fetch({data:{id: h_id}}).then(function(){
-		  App.cur_hosp_product.fetch({data:{p_id:p_id, h_id:h_id}}).then(function(){			 	
+		  App.cur_hosp_product.fetch({data:{p_id:p_id, h_id:h_id}}).then(function(){	
+			  
+		  var notifyUser = App.cur_hosp_product.get('notifyUser'); 	  
 		
 		  App.hospital_products =  App.ho.get('products');	
 		  App.route.tabs(h_id);	
@@ -52,7 +54,7 @@ App.Routers.User = Backbone.Router.extend({
 		  $.each(App.ho.get('products'), function( i, product ) { 	
 			if (product.id==p_id) {				
 				//breadcrumb							
-				var viewProductBreadcrumb = new App.Views.HospitalProductBreadcrumb({model: product, h_id:h_id});		
+				var viewProductBreadcrumb = new App.Views.HospitalProductBreadcrumb({model: product, h_id:h_id, notifyUser:notifyUser});		
 				$('#breadcrumb-box').html(viewProductBreadcrumb.render().el);
                 
 				//content 																			
