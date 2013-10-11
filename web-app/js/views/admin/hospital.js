@@ -59,7 +59,10 @@ App.Views.Hospital = Backbone.View.extend({
 		return this;
 	},
 	
-	adminEditNotes : function(evt){		
+	adminEditNotes : function(evt){
+		// mark as read
+		$('.admin-edit-notes').removeClass('btn-info');			
+				
 	    var this_hosp = this;
 	    
 		if ($('#myTab li').length>0) {
@@ -72,6 +75,10 @@ App.Views.Hospital = Backbone.View.extend({
 			App.cur_product = new App.Models.HospitalProduct();
 			
 			App.cur_product.fetch({data:{p_id:p_id, h_id:h_id}}).then(function(){
+				// mark as read
+				App.cur_product.set({"notifyAdmin":false});   
+				App.cur_product.save();
+				
 				var qa_view = new App.Views.QA({ model : App.cur_product});  
 				var _my_content =  qa_view.render().el; 
 						
@@ -163,10 +170,26 @@ App.Views.Hospital = Backbone.View.extend({
 		// set active tab
 		$('div#myTabContent div').first().addClass('active in');
 		$('ul#myTab li').first().addClass('active');
-				
+						
 		// create and fill in HospitalMeasures for all checked products 
 		this.appendHospitalMeasureTable();	
-		$('#loading').hide();		
+		$('#loading').hide();
+		
+		//new
+		//active p_id
+		if ($('ul#myTab li.active a').attr('href') != undefined) {
+			var p_id = $('ul#myTab li.active a').attr('href').replace('#t','');
+			var h_id = this.model.get('id');
+			
+			App.cur_hosp_product = new App.Models.HospitalProduct();
+			App.cur_hosp_product.fetch({data:{p_id:p_id, h_id:h_id}}).then(function(){
+				  var notifyAdmin = App.cur_hosp_product.get('notifyAdmin'); 
+				  if (notifyAdmin){
+					  $('.admin-edit-notes').addClass('btn-info');
+				  }	  
+			});	  
+		}	
+		//
 	},
 
 	changeTab: function (e){		
@@ -205,10 +228,7 @@ App.Views.Hospital = Backbone.View.extend({
 				  			{ "sSortDataType": "dom-checkbox", "sWidth": "50px" }
 				  		]			
 		 });	
-		
-		
-		
-	
+				
 	    new FixedColumns( oTable, {"sHeightMatch": "none"} );		
 		$(slcTab + ' .dataTables_scrollHeadInner').css('width', '934px');
 		$(slcTab + ' .hospitalMeasureTable.dataTable').css('width', '934px');
@@ -219,6 +239,20 @@ App.Views.Hospital = Backbone.View.extend({
 		$(slcTab + ' .hospitalMeasureTable.dataTable td:eq(5), ' + slcTab + ' .hospitalMeasureTable.dataTable th:eq(5)').css('width', '60px');
 		$(slcTab + ' .hospitalMeasureTable.dataTable td:eq(6), ' + slcTab + ' .hospitalMeasureTable.dataTable th:eq(6)').css('width', '50px');
 		$(slcTab + ' .hospitalMeasureTable.dataTable td:eq(7), ' + slcTab + ' .hospitalMeasureTable.dataTable th:eq(7)').css('width', '50px');
+		
+		var p_id = product_id;
+		var h_id = this.model.get('id');
+		
+		$('.admin-edit-notes').removeClass('btn-info');
+		
+		App.cur_hosp_product = new App.Models.HospitalProduct();
+		App.cur_hosp_product.fetch({data:{p_id:p_id, h_id:h_id}}).then(function(){
+			  var notifyAdmin = App.cur_hosp_product.get('notifyAdmin'); 
+			  if (notifyAdmin){
+				  $('.admin-edit-notes').addClass('btn-info');
+			  }	  
+		});	  		
+		
 	},
 		
 	// append HospitalMeasureTable to Tab

@@ -154,9 +154,7 @@ App.Views.HospitalProductBreadcrumb = Backbone.View.extend({
 		App.cur_product = new App.Models.HospitalProduct();
 		
 		App.cur_product.fetch({data:{p_id:p_id, h_id:h_id}}).then(function(){
-			//var qa_view = new App.Views.QA({ model : App.cur_product});  
-			//var _my_content =  qa_view.render().el; 
-			
+					
 			// mark as read
 			App.cur_product.set({"notifyUser":false});   
 			App.cur_product.save();
