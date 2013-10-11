@@ -350,7 +350,6 @@ App.Views.Hospital = Backbone.View.extend({
 	
 	submHospital : function(e) {
 		e.preventDefault();		
-		if (window.console) console.log('submHospital');
 
 		this.model.attributes.externalEHRs = $('#txtEHRs').val();
 		
@@ -367,6 +366,8 @@ App.Views.Hospital = Backbone.View.extend({
 		    	$('div#message-box').text("").append(btn).append(response.message).removeClass().addClass('alert').addClass('alert-error').show();	           
 	        }
 	    });
+        
+        App.viewHospital.isModified = false;
 	},
 	
 	submCloseHospital : function(e) {
@@ -392,6 +393,8 @@ App.Views.Hospital = Backbone.View.extend({
 	            Backbone.history.navigate("hospital", true);	        	
 	        }
 	    });        
+        
+        App.viewHospital.isModified = false;
 	},
 		
 	returnOnMain: function (e) {
