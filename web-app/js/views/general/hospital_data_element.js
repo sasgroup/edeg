@@ -131,13 +131,16 @@ App.Views.HospitalElements = Backbone.View.extend({
 		var errorMessage="";
 		var markAsComplete = $('#markAsComplete').is(":checked");
 		
+		App.cur_measure.set({completed: markAsComplete});
+		App.cur_measure.save();
+		
 		this.saveHospitalElementDetails();		
 
 		var m_id = this.options.m_id;
 		var product_id = this.options.product_id;	
 
 		_.each(/*App.hospitalElements.models*/this.collection.models, function(model) {
-			  model.set({markAsComplete: markAsComplete});	 
+			 // model.set({markAsComplete: markAsComplete});	 
 			  model.set({m_id: m_id});
 			  model.set({p_id: product_id});
 
