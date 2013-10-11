@@ -305,12 +305,20 @@ App.Routers.Administrator = Backbone.Router.extend({
 		App.viewValuesType = new App.Views.ValuesType({model:App.valuesType});
 		$('#input_form').html(App.viewValuesType.render().el);
 		
+		
+		jQuery.validator.addMethod("unique", (function(value, element) {										
+			return App.route.checkName(App.valuesType, App.valuesTypes, value );					
+			}), "This Name already exists in the system."
+		);
+		
 		$('form#form-vtype-edit').validate({
 		     rules: {		   	    
-		         name: { required: true }	               
+		         name: { required: true,
+		        	     unique  : true }	               
 		     },
 		     messages: {		       	 
-		         name: {required: "Name is required."}
+		         name: {required: "Name is required.",
+		        	    unique  : "This Name already exists in the system."}
 		     }
 		});		
 		
@@ -698,6 +706,34 @@ App.Routers.Administrator = Backbone.Router.extend({
 				return false;
 			}		
 			return true;		
+	 },
+	 
+	// check name uniqueness
+	checkName : function(model_to_check, collection_to_check, value) {
+		    	var cur_name = '';
+				var new_name = value.toUpperCase();
+				var names = [];
+				 		
+				if (model_to_check.toJSON().id) {
+					cur_name = model_to_check.get('name');
+					cur_name = cur_name.toUpperCase();
+				};
+				
+				collection_to_check.forEach(function(model){			
+					var c = model.get('name');
+					c = c.toUpperCase();
+					names.push(c);
+				});
+				
+				var index = _.indexOf(names, cur_name)
+				
+				if (index!=-1) {
+					names.splice(index, 1);
+				}
+							
+				if (_.indexOf(names, new_name)!=-1) {
+					return false;
+				}		
+				return true;		
 	 }
-
 });

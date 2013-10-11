@@ -43,7 +43,8 @@ App.Views.ValuesType = Backbone.View.extend({
 	template : _.template($('#vtype-edit').html()),
 
 	events : {
-		'submit' : 'saveValuesType'		
+		'submit' : 'saveValuesType',
+		'change #name, #description' : 'changeVal'	
 	},
 	
 	render : function() {		
@@ -52,16 +53,39 @@ App.Views.ValuesType = Backbone.View.extend({
 		return this;
 	},
 	
+	changeVal : function(e) {		
+		this.model.attributes[e.target.name] = $(e.target).val();		
+	},
+	
+	validateForm : function() {
+		jQuery.validator.addMethod("unique", (function(value, element) {										
+			return App.route.checkName(App.valuesType, App.valuesTypes, value );					
+			}), "This Name already exists in the system."
+		);
+		
+		$('form#form-vtype-edit').validate({
+		     rules: {		   	    
+		         name: { required: true,
+		        	     unique  : true }	               
+		     },
+		     messages: {		       	 
+		         name: {required: "Name is required.",
+		        	    unique  : "This Name already exists in the system."}
+		     }
+		});		
+	},
+	
 	saveValuesType : function(e) {		
 		e.preventDefault();
 		
-		this.model.set({name:this.$el.find('#name').val()});
-		this.model.set({description:this.$el.find('#description').val()});
+		//this.model.set({name:this.$el.find('#name').val()});
+		//this.model.set({description:this.$el.find('#description').val()});
 		
 		//update view
-		var valuesTypeModel  = new App.Models.ValuesType();								
-		var viewValuesTypeView = new App.Views.ValuesType({model:valuesTypeModel});
+		App.valuesType  = new App.Models.ValuesType();								
+		var viewValuesTypeView = new App.Views.ValuesType({model:App.valuesType});
 		$('#input_form').html(viewValuesTypeView.render().el);
+		this.validateForm();		
 				
 		if (this.model.isNew()) {
 	      App.valuesTypes.create(this.model.attributes,{ 
@@ -113,8 +137,10 @@ App.Views.SingleValuesType = Backbone.View
 			},
 			
 			goToEdit : function() {				
-				var viewValuesType = new App.Views.ValuesType({model:this.model});
+				App.valuesType  = this.model;	
+				var viewValuesType = new App.Views.ValuesType({model:App.valuesType});
 				$('#input_form').html(viewValuesType.render().el);
+				this.validateForm();
 			},
 			
 			destroy : function(e){	
