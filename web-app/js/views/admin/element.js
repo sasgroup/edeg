@@ -61,12 +61,21 @@ App.Views.DataElement = Backbone.View.extend({
 				
 		return this;
 	},
-		
+			
 	ehrOptions: function() {
 		var temp = _.template($('#default-element-option').html());
 		var html= '';		
 		App.ehrs.each(function(ehr) {
 			html = html + temp({id:'e'+ehr.get('id'), code:ehr.get('code')});
+		});			
+		return html;
+	},
+	
+	vtypeOptions: function() {
+		var temp = _.template($('#multiple-default-element-option').html());
+		var html= '';		
+		App.valuesTypes.each(function(vtype) {
+			html = html + temp({id:vtype.get('id'), code:vtype.get('name')});
 		});			
 		return html;
 	},
@@ -120,6 +129,8 @@ App.Views.DataElement = Backbone.View.extend({
 		if (window.console) console.log("dataElementDefaults " + dataElementDefaults);
 		
 		var optionsList = this.ehrOptions();
+		
+		var vtypesList = this.vtypeOptions(); //new
 				
 		if (dataElementDefaults !== undefined) {
 		  $.each( dataElementDefaults, function( i, dataElementDefault ) {				
@@ -131,7 +142,16 @@ App.Views.DataElement = Backbone.View.extend({
 			$(dataElementDefaultRow).find(".slcValueType").val(dataElementDefault.valueType.name);
 			
 			$(dataElementDefaultRow).find('.slcParent').append(optionsList);			
-			$(dataElementDefaultRow).find(".slcParent").val("e"+dataElementDefault.linkId);			
+			$(dataElementDefaultRow).find(".slcParent").val("e"+dataElementDefault.linkId);
+			
+			$(dataElementDefaultRow).find('.slcValuesType').append(vtypesList); //new	
+			
+			var de_ids = dataElementDefault.ids;
+			var ids=de_ids.split(";");			
+			for (var i = 0; i < ids.length; i++) {	
+				$(dataElementDefaultRow).find('.slcValuesType option[value='+ids[i]+']').attr("selected","selected") ;
+			}				
+			
 		  });	
 		}
 				
@@ -149,6 +169,8 @@ App.Views.DataElement = Backbone.View.extend({
 			$(ehrtbody).append(dataElementDefaultRow);	
 			$(dataElementDefaultRow).find('.slcParent').append(optionsList);			
 			$(dataElementDefaultRow).find(".slcParent").val("e"+emptyDataElementDefault.linkId);	
+			
+			$(dataElementDefaultRow).find('.slcValuesType').append(vtypesList); //new
 		}		
 	},
 	
@@ -179,10 +201,9 @@ App.Views.DataElement = Backbone.View.extend({
 	
 	editDataElement : function(e) {
 		e.preventDefault();	
-		this.model.attributes.help = $('.helpAreaElement').val();
-		
+		this.model.attributes.help = $('.helpAreaElement').val();		
 		this.model.set({code:this.$el.find('#code').val()});
-		
+			
 		this.model.save(null,{
 	        success: function (model, response) {
 	           if (window.console) console.log(response);

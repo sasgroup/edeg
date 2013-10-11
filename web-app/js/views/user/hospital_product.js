@@ -106,7 +106,7 @@ App.Views.HospitalProductBreadcrumb = Backbone.View.extend({
 	},
 	
 	render : function() {					
-		this.$el.html(this.template({product_code:this.model.code, notes:this.model.notes, h_id:this.options.h_id}));		
+		this.$el.html(this.template({product_code:this.model.code, notes:this.model.notes, h_id:this.options.h_id, notifyUser:this.options.notifyUser}));		
 		return this;
 	},
 	
@@ -143,21 +143,40 @@ App.Views.HospitalProductBreadcrumb = Backbone.View.extend({
 	},
 	
 	editNotes : function(evt){			
-		var qa_view = new App.Views.QA({ model : App.cur_hosp_product});  
-		var _my_content =  qa_view.render().el;  
-				
-		var _code = this.model.code;
-		var _show = $('.edit-notes').hasClass('show');
-
-		$('.show').removeClass('show').popover('destroy');
-		
-		if (!_show){
-			$('.edit-notes').addClass('show')
-			.popover({html:true,placement:'left',title:'Notes for [' + _code + ']',content:_my_content||"No notes were supplied..."}).popover('show');
-			$('#breadcrumb-box .popover').css('top','0px');
-			this.adjustPopover();
+		if (this.options.notifyUser){
+			$('.edit-notes').removeClass('btn-info');			
 		}
-		evt.stopPropagation();		
+		
+		var thisHospProduct = this;
+		var h_id = this.options.h_id;
+		var p_id = this.model.id;
+			
+		App.cur_product = new App.Models.HospitalProduct();
+		
+		App.cur_product.fetch({data:{p_id:p_id, h_id:h_id}}).then(function(){
+					
+			// mark as read
+			App.cur_product.set({"notifyUser":false});   
+			App.cur_product.save();
+				
+			var qa_view = new App.Views.QA({ model : App.cur_product});  
+			var _my_content =  qa_view.render().el;  
+										
+			var _code = thisHospProduct.model.code;
+			var _show = $('.edit-notes').hasClass('show');
+	
+			$('.show').removeClass('show').popover('destroy');
+			
+			if (!_show){
+				$('.edit-notes').addClass('show')
+				.popover({html:true,placement:'left',title:'Notes for [' + _code + ']',content:_my_content||"No notes were supplied..."}).popover('show');
+				$('#breadcrumb-box .popover').css('top','0px');
+				thisHospProduct.adjustPopover();
+			}	
+					
+		});
+		
+		evt.stopPropagation();
 	},
 	
 	

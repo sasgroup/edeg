@@ -6,11 +6,13 @@ App.Views.DataElementsDefault = Backbone.View
 			events : {
 				'click #plus-btn' : 'addRow',
 				'click #minus-btn': 'removeRow',
-				'change .slcValueType, .slcParent, #location' : 'changeVal'
+				'change .slcValueType, .slcParent, #location' : 'changeVal',
+				'change .slcValuesType'                       : 'changeValuesType'
 			},
 						
 			render : function() {	
-				this.$el.html(this.template({loc:this.model.location, value_type: this.model.valueType.name, ehr: this.model.linkId}));				
+				this.$el.html(this.template({loc:this.model.location, value_type: this.model.valueType.name, ehr: this.model.linkId}));		
+				this.$el.attr("id", "d"+this.model.id);
 				return this;
 			},
 			changeVal : function(e){
@@ -24,6 +26,27 @@ App.Views.DataElementsDefault = Backbone.View
 							dataElementDefault.valueType.name = e.target.value;
 						if (e.currentTarget.className == "slcParent")
 							dataElementDefault.linkId = e.target.value.replace('e','');
+					};	
+				});
+				App[this.model.parent].set("dataElementDefaults" , dataElementDefaults);
+			},
+			
+			changeValuesType : function(e){				
+				var curId = this.model.id
+				var dataElementDefaults = App[this.model.parent].get('dataElementDefaults');
+				 dataElementDefaults.forEach(function( dataElementDefault ){
+					var cur_ids='';
+					if (dataElementDefault.id == curId){						
+						$(e.target).multiselect('getChecked').each(function( index ) {  					
+							cur_ids = cur_ids + ';'  + $(this).val();
+						});	
+						
+						if (cur_ids.substring(0, 1) == ';') { 
+							cur_ids = cur_ids.substring(1);
+						}
+						
+						//alert('changeValuesType: ' + cur_ids);
+						dataElementDefault.ids = cur_ids;
 					};	
 				});
 				App[this.model.parent].set("dataElementDefaults" , dataElementDefaults);
@@ -50,6 +73,17 @@ App.Views.DataElementsDefault = Backbone.View
 				return html;
 			},
 			
+			valuesTypeOptions: function() {
+				var temp = _.template($('#multiple-default-element-option').html());
+				var html= '';	
+				
+				App.valuesTypes.each(function(vtype) {
+						html = html + temp({id:vtype.get('id'), code:vtype.get('name')}); 
+				});			
+				
+				return html;
+			},
+			
 			addRow : function (){
 				if (window.console) console.log(App[this.model.parent].get('dataElementDefaults'));
 				var timeId = parseInt(App[this.model.parent].timeId);
@@ -61,8 +95,22 @@ App.Views.DataElementsDefault = Backbone.View
 				var view = new App.Views.DataElementsDefault({ model : emptyDataElementDefault, default_element: this.options.default_element, parent:this.options.parent});
 				var ehrtbody = this.$el.closest('tbody');
 				$(ehrtbody).append(view.render().el);					
-				$(view.render().el).find('.slcParent').append(this.defaultElementOptions());
+				
+				var el = view.render().el;
+				$(el).find('.slcParent').append(this.defaultElementOptions());
 				if (window.console) console.log(App[this.model.parent].get('dataElementDefaults'));
+				
+				$(el).find('.slcValuesType').append(this.valuesTypeOptions()); //new
+				
+				$(el).find('.slcValuesType').multiselect({
+			        multiple : true,
+			        header : true,
+			        noneSelectedText : "Select",
+			        selectedList : 1,
+			        height: "auto"			       
+			    });		
+				
+				$(el).find('.slcValuesType').multiselect("uncheckAll");
 			},
 			
 			removeRow : function (e){

@@ -14,7 +14,7 @@ App.Routers.Administrator = Backbone.Router.extend({
 		'element/:new'    : 'newDataElement',
 		'ehr/:new'        : 'newEhr',		
 		
-		'hospital/:id/edit': 'edithospital',
+		'hospital/:id/edit':'edithospital',
 		'product/:id/edit': 'editProduct',
 		'measure/:id/edit': 'editMeasure',
 		'element/:id/edit': 'editDataElement',
@@ -305,6 +305,8 @@ App.Routers.Administrator = Backbone.Router.extend({
 		App.viewValuesType = new App.Views.ValuesType({model:App.valuesType});
 		$('#input_form').html(App.viewValuesType.render().el);
 		
+		App.route.validateValuesTypeForm();		
+		
 		App.valuesTypes.fetch().then(function(){
 						
 			App.viewValuesTypes = new App.Views.ValuesTypes({collection:App.valuesTypes});
@@ -364,6 +366,7 @@ App.Routers.Administrator = Backbone.Router.extend({
     ehr : function (ehrModel) {
 		App.hospitals.fetch().then(function(){	
 			App.dataElements.fetch().then(function(){
+			  App.valuesTypes.fetch().then(function(){	
 				var view = new App.Views.Ehr({model:ehrModel});
 				$('#app').html(view.render().el);				
 				
@@ -394,7 +397,16 @@ App.Routers.Administrator = Backbone.Router.extend({
 					"bInfo": false,
 					"bAutoWidth": false
 				});		
-			});	
+				
+				$( ".slcValuesType").multiselect({
+			        multiple : true,
+			        header : true,
+			        noneSelectedText : "Select",
+			        selectedList : 1,
+			        height: "auto"			        
+			    });	
+			 });
+		  });	
 		});		
     },
     measure : function (measureModel) {
@@ -431,6 +443,7 @@ App.Routers.Administrator = Backbone.Router.extend({
     dataElement  : function (dataElement) {
 		App.measures.fetch().then(function(){	
 			App.ehrs.fetch().then(function(){
+				App.valuesTypes.fetch().then(function(){	
 				var view = new App.Views.DataElement({model: dataElement});		
 				$('#app').html(view.render().el);
 				
@@ -460,8 +473,18 @@ App.Routers.Administrator = Backbone.Router.extend({
 					"bSort": false,
 					"bInfo": false,
 					"bAutoWidth": false
-				 });			
+				});	
+										
 				
+				$( ".slcValuesType").multiselect({
+			        multiple : true,
+			        header : true,
+			        noneSelectedText : "Select",
+			        selectedList : 1,
+			        height: "auto"			        
+			    });				
+				
+			  });	
 			});
 		});	
     },
@@ -668,6 +691,52 @@ App.Routers.Administrator = Backbone.Router.extend({
 				return false;
 			}		
 			return true;		
+	 },
+	 
+	// check name uniqueness
+	checkName : function(model_to_check, collection_to_check, value) {
+		    	var cur_name = '';
+				var new_name = value.toUpperCase();
+				var names = [];
+				 		
+				if (model_to_check.toJSON().id) {
+					cur_name = model_to_check.get('name');
+					cur_name = cur_name.toUpperCase();
+				};
+				
+				collection_to_check.forEach(function(model){			
+					var c = model.get('name');
+					c = c.toUpperCase();
+					names.push(c);
+				});
+				
+				var index = _.indexOf(names, cur_name)
+				
+				if (index!=-1) {
+					names.splice(index, 1);
+				}
+							
+				if (_.indexOf(names, new_name)!=-1) {
+					return false;
+				}		
+				return true;		
+	 },
+	 
+	 validateValuesTypeForm : function() {
+			jQuery.validator.addMethod("unique", (function(value, element) {										
+				return App.route.checkName(App.valuesType, App.valuesTypes, value );					
+				}), "This Name already exists in the system."
+			);
+			
+			$('form#form-vtype-edit').validate({
+			     rules: {		   	    
+			         name: { required: true,
+			        	     unique  : true }	               
+			     },
+			     messages: {		       	 
+			         name: {required: "Name is required.",
+			        	    unique  : "This Name already exists in the system."}
+			     }
+			});		
 	 }
-
 });

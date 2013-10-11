@@ -49,11 +49,11 @@ class HospitalElementController {
 		instance.notes = param.notes
 
 		//TODO correct ValuesType
-		if (instance.valuesType != ValuesType.get(param?.valuesTypeId))
-			modificationDetected = true
-		instance.valuesType = ValuesType.get(param?.valuesTypeId)
+		//if (instance.valuesType != ValuesType.get(param?.valuesTypeId))
+		//	modificationDetected = true
+		instance.valuesType = ValuesType.list().get(0)
 				
-		if (param.markAsComplete){
+		/*if (param.markAsComplete){
 			def mid = param.m_id as Long
 			for(def hme in instance.hospitalMeasureElements){
 				def hm = hme.hospitalMeasure
@@ -67,11 +67,13 @@ class HospitalElementController {
 				}
 			}	
 		}
+		*/
 		
 		instance.save(flush :true)
 		if (modificationDetected)
 			sendMailService.updateDataElement(instance?.hospital.email, instance?.hospital.name, instance?.dataElement.name, HospitalMeasure.get(param?.m_id)?.measure.name, new Date(), session?.user.login)
-			instance.hospitalMeasureElements
+		instance.hospitalMeasureElements
+		
 		// TODO remove all hospital value sets
 		HospitalValueSet.executeUpdate("delete HospitalValueSet hvs where hvs.hospitalElement=?", [instance])
 		ElementExtraLocation.executeUpdate("delete ElementExtraLocation eel where eel.hospitalElement=?", [instance])

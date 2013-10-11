@@ -65,6 +65,8 @@ grails.project.dependency.resolution = {
 		
 		compile ":asynchronous-mail:1.0-RC5"
 		
+		compile ":excel-export:0.1.7"
+		
 		//compile ":audit-logging:0.5.4"
     }
 }

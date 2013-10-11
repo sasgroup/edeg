@@ -5,16 +5,16 @@ import ihm_demo.HospitalMeasure;
 class HospitalProductController {
 
 	def sendMailService
-	
+
 	private HospitalProduct saveInstance (HospitalProduct instance, def param) {
 		instance.qa = param.qa
 		// TODO: set the flags
 		instance.notifyAdmin = param.notifyAdmin
 		instance.notifyUser = param.notifyUser
-		
+
 		instance.save(flush :true)
 		sendMailService.hospitalProductNotesUpdated(instance.hospital?.email, instance.hospital.name, instance.product.name, new Date(), session?.user.login)
-		return instance 
+		return instance
 	}
 
 	def save() {
@@ -33,18 +33,18 @@ class HospitalProductController {
 	   def  product = Product.get(params?.p_id)
 
 	   if (HospitalProduct.findByHospitalAndProduct(hospitalInstance, product)) {
-	    HospitalProduct hospitalProduct = HospitalProduct.findByHospitalAndProduct(hospitalInstance, product)
+		HospitalProduct hospitalProduct = HospitalProduct.findByHospitalAndProduct(hospitalInstance, product)
 
-	    render(contentType: "text/json") {
-	     id = hospitalProduct.id
-	     hospital = hospitalProduct.hospital.name
-	     product = hospitalProduct.product.name
-	     qa = hospitalProduct.qa
-	     notifyAdmin = hospitalMeasure?.notifyAdmin
-         notifyUser  = hospitalMeasure?.notifyUser
-	    }
+		render(contentType: "text/json") {
+		 id = hospitalProduct.id
+		 hospital = hospitalProduct.hospital.name
+		 product = hospitalProduct.product.name
+		 qa = hospitalProduct.qa
+		 notifyAdmin = hospitalProduct?.notifyAdmin
+		 notifyUser  = hospitalProduct?.notifyUser
+		}
 	   }
-	  }  
+	  }
 	 }
 
 	def update(Long id, Long version) {

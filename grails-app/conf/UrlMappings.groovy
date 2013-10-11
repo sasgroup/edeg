@@ -15,6 +15,10 @@ class UrlMappings {
 			action = [GET: "show"]
 		}
 		
+		"/api/excel/$id?"(resource: "excel") {
+			action = [GET: "show"]
+		}
+		
 		"/api/measure/$id?"(resource: "measure") {
 			action = [GET: "show", PUT: "update", DELETE: "delete", POST: "save"]
 		}

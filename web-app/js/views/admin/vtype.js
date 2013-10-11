@@ -43,7 +43,8 @@ App.Views.ValuesType = Backbone.View.extend({
 	template : _.template($('#vtype-edit').html()),
 
 	events : {
-		'submit' : 'saveValuesType'		
+		'submit' : 'saveValuesType',
+		'change #name, #description' : 'changeVal'	
 	},
 	
 	render : function() {		
@@ -52,25 +53,31 @@ App.Views.ValuesType = Backbone.View.extend({
 		return this;
 	},
 	
+	changeVal : function(e) {		
+		this.model.attributes[e.target.name] = $(e.target).val();		
+	},
+		
+	
 	saveValuesType : function(e) {		
 		e.preventDefault();
 		
-		this.model.set({name:this.$el.find('#name').val()});
-		this.model.set({description:this.$el.find('#description').val()});
+		//this.model.set({name:this.$el.find('#name').val()});
+		//this.model.set({description:this.$el.find('#description').val()});
+		
+		//update view
+		App.valuesType  = new App.Models.ValuesType();								
+		var viewValuesTypeView = new App.Views.ValuesType({model:App.valuesType});
+		$('#input_form').html(viewValuesTypeView.render().el);
+		App.route.validateValuesTypeForm();		
 				
 		if (this.model.isNew()) {
 	      App.valuesTypes.create(this.model.attributes,{ 
 	        success: function (model, response) {
 	        	if (response.resp=="ok") {	        	   
-		        	   $('div#message-box').text("").append(response.message).removeClass().addClass('alert').addClass('alert-success').fadeIn(10).delay(2000).fadeOut(50);	
-		        	   //clear fields
-		        	   $('#name').val('');
-					   $('#description').val('');
-		        	   
+		        	   $('div#message-box').text("").append(response.message).removeClass().addClass('alert').addClass('alert-success').fadeIn(10).delay(2000).fadeOut(50);      	   
 		           } else if (response.resp=="error") {
 						var btn = '<button type="button" class="close">&times;</button>';
-				    	$('div#message-box').text("").append(btn).append(response.message).removeClass().addClass('alert').addClass('alert-error').show();
-			        	
+				    	$('div#message-box').text("").append(btn).append(response.message).removeClass().addClass('alert').addClass('alert-error').show();			        	
 		           }              
 	        },
 	        error: function (model, response) {
@@ -78,23 +85,14 @@ App.Views.ValuesType = Backbone.View.extend({
 		    	$('div#message-box').text("").append(btn).append(response.message).removeClass().addClass('alert').addClass('alert-error').show();	            
 	        }
 	      });
-		} else {	
-			//clear fields
-        	$('#name').val('');
-			$('#description').val('');
-			
-			var thisModel = App.valuesTypes.get(this.model.get('id'));
-			thisModel.save({
-			//this.model.save({
+		} else {			
+			this.model.save(this.model.attributes, {
 				success: function (model, response) {					
 		        	if (response.resp=="ok") {	        	   
-			        	   $('div#message-box').text("").append(response.message).removeClass().addClass('alert').addClass('alert-success').fadeIn(10).delay(2000).fadeOut(50);	
-			        	  
-			        	   
+			        	   $('div#message-box').text("").append(response.message).removeClass().addClass('alert').addClass('alert-success').fadeIn(10).delay(2000).fadeOut(50);        	   
 			           } else if (response.resp=="error") {
 							var btn = '<button type="button" class="close">&times;</button>';
-					    	$('div#message-box').text("").append(btn).append(response.message).removeClass().addClass('alert').addClass('alert-error').show();
-				        	
+					    	$('div#message-box').text("").append(btn).append(response.message).removeClass().addClass('alert').addClass('alert-error').show();			        	
 			           }              
 		        },
 		        error: function (model, response) {
@@ -120,10 +118,12 @@ App.Views.SingleValuesType = Backbone.View
 				this.$el.html(this.template(this.model.toJSON()));
 				return this;
 			},
-			
+							
 			goToEdit : function() {				
-				var viewValuesType = new App.Views.ValuesType({model:this.model});
+				App.valuesType  = this.model;	
+				var viewValuesType = new App.Views.ValuesType({model:App.valuesType});
 				$('#input_form').html(viewValuesType.render().el);
+				App.route.validateValuesTypeForm();		
 			},
 			
 			destroy : function(e){	

@@ -16,6 +16,10 @@ class HospitalProduct {
 		qa defaultValue: "''"
 	}
 	
+	static constraints = {		
+		qa(nullable: true, maxSize:5000)
+	}
+	
 	String toString(){
 		"$hospital.name, $product.name"
 	}

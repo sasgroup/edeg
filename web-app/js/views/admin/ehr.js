@@ -66,6 +66,15 @@ App.Views.Ehr = Backbone.View.extend({
 		return html;
 	},
 	
+	vtypeOptions: function() {
+		var temp = _.template($('#default-element-option').html());
+		var html= '';		
+		App.valuesTypes.each(function(vtype) {
+			html = html + temp({id:vtype.get('id'), code:vtype.get('name')});
+		});			
+		return html;
+	},
+	
 	appendDataElementsDefault: function(){
 		var table_template = _.template($('#data-elements-default-table').html());		
 		this.$el.find('div#elements').append(table_template({ehr_element:"Data Element"}));			
@@ -73,6 +82,7 @@ App.Views.Ehr = Backbone.View.extend({
 		var dataElementDefaults = this.model.get('dataElementDefaults');
 		var ehrtbody = this.$el.find('div#elements .ehrTable tbody');
 		var optionsList = this.elementOptions();
+		var vtypesList = this.vtypeOptions(); //new
 				
 		if (dataElementDefaults !== undefined) {
 		  $.each( dataElementDefaults, function( i, dataElementDefault ) {
@@ -83,7 +93,16 @@ App.Views.Ehr = Backbone.View.extend({
 			$(dataElementDefaultRow).find(".slcValueType").val(dataElementDefault.valueType.name);
 						
 			$(dataElementDefaultRow).find('.slcParent').append(optionsList);			
-			$(dataElementDefaultRow).find(".slcParent").val("e"+dataElementDefault.linkId);			
+			$(dataElementDefaultRow).find(".slcParent").val("e"+dataElementDefault.linkId);	
+			
+			$(dataElementDefaultRow).find('.slcValuesType').append(vtypesList); //new
+			
+			var de_ids = dataElementDefault.ids;
+			var ids=de_ids.split(";");			
+			for (var i = 0; i < ids.length; i++) {	
+				$(dataElementDefaultRow).find('.slcValuesType option[value='+ids[i]+']').attr("selected","selected") ;
+			}		
+			
 		  });	
 		}
 				
@@ -100,7 +119,9 @@ App.Views.Ehr = Backbone.View.extend({
 			
 			$(ehrtbody).append(dataElementDefaultRow);
 			$(dataElementDefaultRow).find('.slcParent').append(optionsList);			
-			$(dataElementDefaultRow).find(".slcParent").val("e"+emptyDataElementDefault.linkId);		
+			$(dataElementDefaultRow).find(".slcParent").val("e"+emptyDataElementDefault.linkId);	
+			
+			$(dataElementDefaultRow).find('.slcValuesType').append(vtypesList); //new
 		}		
 	},
 	
