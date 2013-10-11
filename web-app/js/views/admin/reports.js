@@ -137,16 +137,15 @@ App.Views.Reports = Backbone.View.extend({
 			 	{name:'ecode',		index:'ecode', 		width:60}, 
 			 	{name:'ename',		index:'ename'}, 
 			 	{name:'location',	index:'location', 	width:120},
-			 	//{name:'sourceEHR',	index:'sourceEHR', 	width:30, formatter: "checkbox"},
 			 	{name:'source',		index:'source', 	width:80},
 			 	{name:'valueType',	index:'valueType', 	width:60} 		],
-		 	[	{name:'hname',		index:'hname', 		width:100},
+		 	
+			 [	{name:'hname',		index:'hname', 		width:100},
 		 	 	{name:'pcode',		index:'pcode', 		width:50},
 		 	 	{name:'mcode',		index:'mcode', 		width:50},
 			 	{name:'ecode',		index:'ecode', 		width:60}, 
 			 	{name:'ename',		index:'ename'				}, 
 			 	{name:'location',	index:'location', 	width:120},
-			 	//{name:'sourceEHR',	index:'sourceEHR', 	width:30, formatter: "checkbox"},
 			 	{name:'source',		index:'source', 	width:80},
 			 	{name:'valueType',	index:'valueType', 	width:60} 		],
 			 	
@@ -158,14 +157,7 @@ App.Views.Reports = Backbone.View.extend({
 			 	{name:'ovalue',		index:'ovalue'				},
 			 	{name:'nvalue',		index:'nvalue'				},
 			 	{name:'poid',		index:'poid', 		width:30} 		]
-			
-			
-			
-			//['Date', 'User', 'Event', 'EntityType', 'Property', 'New', 'Old', 'OID']
 		];
-		
-		//this.reportData = "";
-		var tRepData = "";
 		
 		$.ajax({
 			url: "/ihm/api/report/"+$("#slcReportType").val(),
@@ -185,7 +177,6 @@ App.Views.Reports = Backbone.View.extend({
 			},
 			success: function(resp){
 				
-				tRepData = resp;
 				_el.find("#tblReportResults").jqGrid('GridUnload');
 				_el.find("#tblReportResults").jqGrid({ 
 					datatype: "local",
@@ -205,32 +196,7 @@ App.Views.Reports = Backbone.View.extend({
 					loadComplete : function () {
 						return;
 					}
-					//,groupingView : { 
-					//	groupField : ['poid'], 
-					//	groupColumnShow : [false], 
-					//	groupText : ['<b>OID: {0}</b>']
-					//}
 				});
-				
-				tRepData ="<tr>";
-				for(var i=0; i< _colNames[resp.rid - 1].length;i++)
-					tRepData +="<th>"+_colNames[resp.rid - 1][i]+"</th>";
-				tRepData +="</tr>";
-				for(var j=0; j < resp.data.length;j++){
-					tRepData +="<tr>";
-					for(var i=0; i < _colModels[resp.rid - 1].length; i++)
-						if ("checkbox" == (_colModels[resp.rid - 1][i]).formatter)
-							tRepData +="<td>"+( resp.data[j][ ((_colModels[resp.rid - 1][i]).name) ] ? "Yes" : "No")+"</td>";
-						else
-							tRepData +="<td>"+resp.data[j][ ((_colModels[resp.rid - 1][i]).name) ]+"</td>";
-					tRepData +="</tr>";
-				}
-				
-				_el.find("#divRepData").text(tRepData);
-				
-				//for(var i=0;i<=resp.data.length;i++) 
-				//	_el.find("#tblReportResults").jqGrid('addRowData',i+1,resp.data[i]);
-				//_el.find("#tblReportResults").jqGrid('setGridWidth', 920, true);
 				
 				if (resp.rid == 7){
 					_el.find("#tblReportResults").jqGrid('groupingGroupBy', 'poid',{
@@ -239,7 +205,6 @@ App.Views.Reports = Backbone.View.extend({
                         groupText : ['<b>OID: {0}</b>'],
                         groupCollapse: false
 					});
-				//	$("#tblReportResults").jqGrid('setGridWidth', 940, true);
 				}
 				
 				$("#tblReportResults").jqGrid('setGridWidth', 940, true);
@@ -250,17 +215,16 @@ App.Views.Reports = Backbone.View.extend({
 	
 	
 	generateExcel : function(){
-		var _el = this.$el; 
-		var _html = _el.find("#divRepData").text();
-		var uri = 'data:application/vnd.ms-excel;base64,'
-			 , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>'
-			 , base64 = function(s) { return window.btoa(unescape(encodeURIComponent(s))) }
-			 , format = function(s, c) { return s.replace(/{(\w+)}/g, function(m, p) { return c[p]; }) }
-			 
-			 
-		 var ctx = {worksheet: name || 'Worksheet', table: _html}
-		 window.location.href = uri + base64(format(template, ctx))
-			 
+		window.location.href = "/ihm/api/excel/"+$("#slcReportType").val() +
+								"?hospital="+$("#slcHospital").val() +
+								"&product="+$("#slcProduct").val()+
+								"&measure="+$("#slcMeasure").val()+
+								"&element="+$("#slcElement").val()+
+								"&etype="+$("#slcEntityType").val()+
+								"&entity="+$("#slcEntity").val()+
+								"&dpFrom="+$("#dpFrom").val()+
+								"&dpTill="+$("#dpTill").val()+
+								"&ts="+(new Date()).getTime()
 	},
 	
 	returnOnMain: function () {		
@@ -268,7 +232,3 @@ App.Views.Reports = Backbone.View.extend({
 	}
 	
 });
-
-
-
-
