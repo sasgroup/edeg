@@ -146,7 +146,11 @@ App.Views.HospitalProductBreadcrumb = Backbone.View.extend({
 		var qa_view = new App.Views.QA({ model : App.cur_hosp_product});  
 		var _my_content =  qa_view.render().el;  
 		
-		//this.model.set({"notifyUser":false});
+		if (this.options.notifyUser){
+			$('.edit-notes').removeClass('btn-info');
+		}
+			//this.model.set({"notifyUser":false});
+		//btn-info
 				
 		var _code = this.model.code;
 		var _show = $('.edit-notes').hasClass('show');
