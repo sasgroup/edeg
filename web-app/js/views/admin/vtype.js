@@ -56,24 +56,7 @@ App.Views.ValuesType = Backbone.View.extend({
 	changeVal : function(e) {		
 		this.model.attributes[e.target.name] = $(e.target).val();		
 	},
-	
-	validateForm : function() {
-		jQuery.validator.addMethod("unique", (function(value, element) {										
-			return App.route.checkName(App.valuesType, App.valuesTypes, value );					
-			}), "This Name already exists in the system."
-		);
 		
-		$('form#form-vtype-edit').validate({
-		     rules: {		   	    
-		         name: { required: true,
-		        	     unique  : true }	               
-		     },
-		     messages: {		       	 
-		         name: {required: "Name is required.",
-		        	    unique  : "This Name already exists in the system."}
-		     }
-		});		
-	},
 	
 	saveValuesType : function(e) {		
 		e.preventDefault();
@@ -85,7 +68,7 @@ App.Views.ValuesType = Backbone.View.extend({
 		App.valuesType  = new App.Models.ValuesType();								
 		var viewValuesTypeView = new App.Views.ValuesType({model:App.valuesType});
 		$('#input_form').html(viewValuesTypeView.render().el);
-		this.validateForm();		
+		App.route.validateValuesTypeForm();		
 				
 		if (this.model.isNew()) {
 	      App.valuesTypes.create(this.model.attributes,{ 
@@ -135,12 +118,12 @@ App.Views.SingleValuesType = Backbone.View
 				this.$el.html(this.template(this.model.toJSON()));
 				return this;
 			},
-			
+							
 			goToEdit : function() {				
 				App.valuesType  = this.model;	
 				var viewValuesType = new App.Views.ValuesType({model:App.valuesType});
 				$('#input_form').html(viewValuesType.render().el);
-				this.validateForm();
+				App.route.validateValuesTypeForm();		
 			},
 			
 			destroy : function(e){	

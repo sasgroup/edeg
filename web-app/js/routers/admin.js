@@ -305,22 +305,7 @@ App.Routers.Administrator = Backbone.Router.extend({
 		App.viewValuesType = new App.Views.ValuesType({model:App.valuesType});
 		$('#input_form').html(App.viewValuesType.render().el);
 		
-		
-		jQuery.validator.addMethod("unique", (function(value, element) {										
-			return App.route.checkName(App.valuesType, App.valuesTypes, value );					
-			}), "This Name already exists in the system."
-		);
-		
-		$('form#form-vtype-edit').validate({
-		     rules: {		   	    
-		         name: { required: true,
-		        	     unique  : true }	               
-		     },
-		     messages: {		       	 
-		         name: {required: "Name is required.",
-		        	    unique  : "This Name already exists in the system."}
-		     }
-		});		
+		App.route.validateValuesTypeForm();		
 		
 		App.valuesTypes.fetch().then(function(){
 						
@@ -735,5 +720,23 @@ App.Routers.Administrator = Backbone.Router.extend({
 					return false;
 				}		
 				return true;		
+	 },
+	 
+	 validateValuesTypeForm : function() {
+			jQuery.validator.addMethod("unique", (function(value, element) {										
+				return App.route.checkName(App.valuesType, App.valuesTypes, value );					
+				}), "This Name already exists in the system."
+			);
+			
+			$('form#form-vtype-edit').validate({
+			     rules: {		   	    
+			         name: { required: true,
+			        	     unique  : true }	               
+			     },
+			     messages: {		       	 
+			         name: {required: "Name is required.",
+			        	    unique  : "This Name already exists in the system."}
+			     }
+			});		
 	 }
 });
