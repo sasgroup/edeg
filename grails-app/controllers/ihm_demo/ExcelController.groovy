@@ -188,7 +188,7 @@ class ExcelController {
 				def storagePath = servletContext.getRealPath("excelTemplates/HospitalMeasureReport.xlsx")
 				
 				WebXlsxExporter exporter = new WebXlsxExporter(storagePath)
-				exporter.setResponseHeaders(response, "MeasureGapReport_(" + new Date().format('MM.dd.yy_HH.mm')+")")
+				exporter.setResponseHeaders(response, "MeasureGapReport_(" + new Date().format('MM.dd.yy_HH.mm')+").xlsx")
 				exporter.fillRow(["MEASURE GAP REPORT ("+ rightNow +")","","","","","","",""], 0)
 				
 				for (hp in hProducts){
@@ -230,7 +230,7 @@ class ExcelController {
 				def storagePath = servletContext.getRealPath("excelTemplates/HospitalMeasureReport.xlsx")
 				
 				WebXlsxExporter exporter = new WebXlsxExporter(storagePath)
-				exporter.setResponseHeaders(response, "MeasureCompletenessReport_(" + new Date().format('MM.dd.yy_HH.mm')+")")
+				exporter.setResponseHeaders(response, "MeasureCompletenessReport_(" + new Date().format('MM.dd.yy_HH.mm')+").xlsx")
 				exporter.fillRow(["MEASURE COMPLETENESS REPORT ("+ rightNow +")","","","","","","",""], 0)
 				
 				for (hp in hProducts){
@@ -272,7 +272,7 @@ class ExcelController {
 				def storagePath = servletContext.getRealPath("excelTemplates/HospitalProductReport.xlsx")
 				
 				WebXlsxExporter exporter = new WebXlsxExporter(storagePath)
-				exporter.setResponseHeaders(response, "Hospital_ProductReport_(" + new Date().format('MM.dd.yy_HH.mm')+")")
+				exporter.setResponseHeaders(response, "Hospital_ProductReport_(" + new Date().format('MM.dd.yy_HH.mm')+").xlsx")
 				exporter.fillRow(["HOSPITAL PRODUCT REPORT ("+ rightNow +")","",""], 0)
 				
 				for (hp in hProducts){
@@ -303,7 +303,7 @@ class ExcelController {
 				def storagePath = servletContext.getRealPath("excelTemplates/HospitalMeasureReport.xlsx")
 				
 				WebXlsxExporter exporter = new WebXlsxExporter(storagePath)
-				exporter.setResponseHeaders(response, "Hospital_MeasureReport_(" + new Date().format('MM.dd.yy_HH.mm')+")")
+				exporter.setResponseHeaders(response, "Hospital_MeasureReport_(" + new Date().format('MM.dd.yy_HH.mm')+").xlsx")
 				exporter.fillRow(["HOSPITAL MEASURE REPORT ("+ rightNow +")","","","","","","",""], 0)
 				
 				
@@ -346,7 +346,7 @@ class ExcelController {
 				def storagePath = servletContext.getRealPath("excelTemplates/HospitalElementReport.xlsx")
 				
 				WebXlsxExporter exporter = new WebXlsxExporter(storagePath)
-				exporter.setResponseHeaders(response, "Hospital_DataElements_(" + new Date().format('MM.dd.yy_HH.mm')+")")
+				exporter.setResponseHeaders(response, "Hospital_DataElements_(" + new Date().format('MM.dd.yy_HH.mm')+").xlsx")
 				exporter.fillRow(["HOSPITAL ELEMENTS REPORT ("+ rightNow +")","","","","",""], 0)
 				
 				for (he in hElements){
@@ -380,7 +380,7 @@ class ExcelController {
 				def storagePath = servletContext.getRealPath("excelTemplates/FilteredElementReport.xlsx")
 				
 				WebXlsxExporter exporter = new WebXlsxExporter(storagePath)
-				exporter.setResponseHeaders(response, "Hospital_FilteredDataElements_(" + new Date().format('MM.dd.yy_HH.mm')+")")
+				exporter.setResponseHeaders(response, "Hospital_FilteredDataElements_(" + new Date().format('MM.dd.yy_HH.mm')+").xlsx")
 				exporter.fillRow(["HOSPITAL FILTERED ELEMENTS REPORT ("+ rightNow +")","","","","","","",""], 0)
 				
 				for (hp in hProducts){
@@ -420,7 +420,7 @@ class ExcelController {
 				def storagePath = servletContext.getRealPath("excelTemplates/AuditLogReport.xlsx")
 				
 				WebXlsxExporter exporter = new WebXlsxExporter(storagePath)
-				exporter.setResponseHeaders(response, "AuditLog_(" + new Date().format('MM.dd.yy_HH.mm')+")")
+				exporter.setResponseHeaders(response, "AuditLog_(" + new Date().format('MM.dd.yy_HH.mm')+").xlsx")
 				exporter.fillRow(["AUDIT LOG REPORT ("+ rightNow +")","","","","","","",""], 0)
 				
 				for (r in results){
