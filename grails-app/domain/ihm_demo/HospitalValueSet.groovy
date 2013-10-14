@@ -6,8 +6,8 @@ class HospitalValueSet {
 	HospitalElement hospitalElement
 	 
     static constraints = {
-		code()
-		mnemonic(maxSize:1000)
+		code(nullable:true)
+		mnemonic(nullable:true,maxSize:4000)
 		hospitalElement()
     }
 	String toString() {

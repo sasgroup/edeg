@@ -8,14 +8,14 @@ class BootStrap {
 			password: "admin",
 			role:"admin")
 
-		admin.save()
+		admin.save(flush:true)
 
 		def hospital_user = new User(
 			login:"user",
 			password: "user",
 			role:"user")
 
-		hospital_user.save()
+		hospital_user.save(flush:true)
 
 		//-----------MEASURE_CATEGORYs-----------
 		def _measureCategories = [
@@ -25,7 +25,7 @@ class BootStrap {
 			]
 		for(_c in _measureCategories){
 			def _measureCategory = new MeasureCategory(name:_c[0], description:_c[1])
-			if (!_measureCategory.save()){
+			if (!_measureCategory.save(flush:true)){
 				_measureCategory.errors.allErrors.each{error ->
 					println "An error occured with event1: ${error}"
 				}
@@ -38,7 +38,7 @@ class BootStrap {
 			]
 		for(_v in _valuesType){
 			def _valueType = new ValuesType(name:_v[0], description:_v[1])
-			if (!_valueType.save()){
+			if (!_valueType.save(flush:true)){
 				_valueType.errors.allErrors.each{error ->
 					println "An error occured with event1: ${error}"
 				}
@@ -54,7 +54,7 @@ class BootStrap {
 			]
 		for(_c in _cqmDomains){
 			def _cqmDomain = new CqmDomain(name:_c[0], notes:_c[1])
-			if (!_cqmDomain.save()){
+			if (!_cqmDomain.save(flush:true)){
 				_cqmDomain.errors.allErrors.each{error ->
 					println "An error occured with event1: ${error}"
 				}
@@ -70,7 +70,7 @@ class BootStrap {
 			]
 		for(_e in _ehrs){
 			def _ehr = new Ehr(code:_e[0], name:_e[1], notes:_e[2])
-			if (!_ehr.save()){
+			if (!_ehr.save(flush:true)){
 				_ehr.errors.allErrors.each{error ->
 					println "An error occured with event1: ${error}"
 				}
@@ -109,7 +109,7 @@ class BootStrap {
 			]
 		for(_h in _hospitals){
 			//def _hospital = new Hospital(name:_h[0], ehr:Ehr.findByCode(_h[1]), notes:_h[2], populationMethod: _h[3], externalEHRs:"")
-			//if (!_hospital.save()){
+			//if (!_hospital.save(flush:true)){
 			//	_hospital.errors.allErrors.each{error ->
 			//		println "An error occured with event1: ${error}"
 			//	}
@@ -141,7 +141,7 @@ class BootStrap {
 			]
 		for(_p in _products){
 			def _product = new Product(code:_p[0], name:_p[1], notes:_p[2], help:_p[3])
-			if (!_product.save()){
+			if (!_product.save(flush:true)){
 				_product.errors.allErrors.each{error ->
 					println "An error occured with event1: ${error}"
 				}
@@ -408,7 +408,7 @@ class BootStrap {
 			for(_p in _m[6])
 				_measure.addToProducts(Product.findByCode(_p))
 
-			if (!_measure.save()){
+			if (!_measure.save(flush:true)){
 				_measure.errors.allErrors.each{error ->
 					println "An error occured with event1: ${error}"
 				}
@@ -433,7 +433,7 @@ class BootStrap {
 			for (m in Measure.list())
 				_element.addToMeasures(m)
 
-			if (!_element.save()){
+			if (!_element.save(flush:true)){
 				_element.errors.allErrors.each{error ->
 					println "An error occured with event1: ${error}"
 				}
@@ -444,7 +444,7 @@ class BootStrap {
 
 			for(_ehr in _el[4]){
 				def dataElementDefaults = new DataElementDefaults(location:_el[2], valueType:_el[3], dataElement:_element, ehr:Ehr.findByCode(_ehr), ids : "1")
-				if (!dataElementDefaults.save()){
+				if (!dataElementDefaults.save(flush:true)){
 					dataElementDefaults.errors.allErrors.each{error ->
 						println "An error occured with event1: ${error}"
 					}
@@ -593,7 +593,7 @@ class BootStrap {
 				else
 					_element.addToMeasures(Measure.findByCode(_msr))
 			}
-			if (!_element.save()){
+			if (!_element.save(flush:true)){
 				_element.errors.allErrors.each{error ->
 					println "An error occured with event1: ${error}"
 				}
@@ -604,7 +604,7 @@ class BootStrap {
 
 			for(_ehr in _el[5]){
 				def dataElementDefaults = new DataElementDefaults(location:_el[2], valueType:_el[3], dataElement:_element, ehr : Ehr.findByCode(_ehr), ids : "1;2")
-				if (!dataElementDefaults.save()){
+				if (!dataElementDefaults.save(flush:true)){
 					dataElementDefaults.errors.allErrors.each{error ->
 						println "An error occured with event1: ${error}"
 					}

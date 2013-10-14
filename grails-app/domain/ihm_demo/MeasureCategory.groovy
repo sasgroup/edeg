@@ -7,7 +7,7 @@ class MeasureCategory {
 	
     static constraints = {
 		name()
-		description()
+		description(nullable:true)
     }
 	
 	String toString(){

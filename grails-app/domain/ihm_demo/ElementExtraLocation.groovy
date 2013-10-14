@@ -10,11 +10,11 @@ class ElementExtraLocation {
 	ValuesType valuesType
 	
     static constraints = {
-		location()
-		source()
+		location(nullable: true)
+		source(nullable: true)
 		//codeType()
 		hospitalElement()
-		valueType()
+		valueType(nullable: true)
     }
 	
 	String toString(){

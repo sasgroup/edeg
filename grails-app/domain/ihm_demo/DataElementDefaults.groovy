@@ -9,8 +9,8 @@ class DataElementDefaults {
 
 	
     static constraints = {
-		location()
-		valueType()
+		location(nullable: true)
+		ids(nullable: true)
     }
 	
 	String toString() {

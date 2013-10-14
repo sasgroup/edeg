@@ -17,4 +17,7 @@ class User {
 	String toString(){
 		"$login, $role"
 	}
+	static mapping = {
+		table 'Users'
+	}	
 }

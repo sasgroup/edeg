@@ -9,7 +9,7 @@ App.Views.HospitalMeasureBreadcrumb = Backbone.View.extend({
 	},
 	
 	render : function() {
-		this.$el.html(this.template({product_code:this.options.product_code, product_id:this.options.product_id, hospital_id:this.options.hospital_id, measure_code:this.model.code}));
+		this.$el.html(this.template({product_code:this.options.product_code, product_id:this.options.product_id, hospital_id:this.options.hospital_id, measure_code:this.model.code, notifyUser:this.options.notifyUser}));
 		
 		$('body')
 		.unbind('mousedown')
@@ -61,10 +61,26 @@ App.Views.HospitalMeasureBreadcrumb = Backbone.View.extend({
 	},
 	
 	editNotes : function(evt){		
-		var qa_view = new App.Views.QA({ model : App.cur_measure});  
-		var _my_content =  qa_view.render().el; 
+		$('.edit-notes').removeClass('btn-info');
+		
+		var thisHospMeasure= this;
+		var m_id = this.model.id;
 				
-		var _code = this.model.code;
+		App.cur_measure = new App.Models.HospitalMeasure();
+		
+		App.cur_measure.fetch({data:{id: m_id,hm: true}}).then(function(){		
+		
+		//var qa_view = new App.Views.QA({ model : App.cur_measure});  
+		//var _my_content =  qa_view.render().el; 
+			
+		// mark as read
+		App.cur_measure.set({"notifyUser":false});   
+		App.cur_measure.save();
+				
+		var qa_view = new App.Views.QA({ model : App.cur_measure});  
+		var _my_content =  qa_view.render().el;  	
+				
+		var _code = thisHospMeasure.model.code;
 		var _show = $('.edit-notes').hasClass('show');
 
 		$('.show').removeClass('show').popover('destroy');
@@ -73,8 +89,10 @@ App.Views.HospitalMeasureBreadcrumb = Backbone.View.extend({
 			$('.edit-notes').addClass('show')
 			.popover({html:true,placement:'left',title:'Notes for [' + _code + ']',content:_my_content||"No notes were supplied..."}).popover('show');
 			$('#breadcrumb-box .popover').css('top','0px');
-			this.adjustPopover();
+			thisHospMeasure.adjustPopover();
 		}
+		
+		});
 		evt.stopPropagation();		
 	},
 	

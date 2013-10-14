@@ -119,27 +119,29 @@ App.Routers.User = Backbone.Router.extend({
 		App.ho.fetch({data:{id: h_id}}).then(function(){
 		 App.cur_measure.fetch({data:{id: m_id,hm: true}}).then(function(){		
 		
-		App.hospital_products =  App.ho.get('products');	
-		App.route.tabs(h_id);		
-		
-		var external_ehrs = [];
-		var primary_ehr="";
-		var measure_completed=false;
-		
-		$.each( App.ho.get('products'), function( i, product ) { 	
-			if (product.id==p_id) {				
-				$.each(product.measures, function( i, measure ){
-					if (measure.id==m_id) {
-						measure_completed = measure.completed;
-						external_ehrs = App.ho.get('externalEHRs').split('\n');
-						primary_ehr = App.ho.get('ehr').code;
-						//breadcrumb
-						var viewMeasureBreadcrumb = new App.Views.HospitalMeasureBreadcrumb({model: measure, product_code:product.code, product_id:p_id, hospital_id:h_id});		
-						$('#breadcrumb-box').html(viewMeasureBreadcrumb.render().el);
-					}				
-				});				
-			}						       
-		});	
+			var notifyUser = App.cur_measure.get('notifyUser');
+			 
+			App.hospital_products =  App.ho.get('products');	
+			App.route.tabs(h_id);		
+			
+			var external_ehrs = [];
+			var primary_ehr="";
+			var measure_completed=false;
+			
+			$.each( App.ho.get('products'), function( i, product ) { 	
+				if (product.id==p_id) {				
+					$.each(product.measures, function( i, measure ){
+						if (measure.id==m_id) {
+							measure_completed = measure.completed;
+							external_ehrs = App.ho.get('externalEHRs').split('\n');
+							primary_ehr = App.ho.get('ehr').code;
+							//breadcrumb
+							var viewMeasureBreadcrumb = new App.Views.HospitalMeasureBreadcrumb({model: measure, product_code:product.code, product_id:p_id, hospital_id:h_id, notifyUser:notifyUser});		
+							$('#breadcrumb-box').html(viewMeasureBreadcrumb.render().el);
+						}				
+					});				
+				}						       
+			});	
 						
 		App.hospitalElements = new App.Collections.HospitalElements();
 		

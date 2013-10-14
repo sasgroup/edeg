@@ -102,6 +102,7 @@ App.Routers.Administrator = Backbone.Router.extend({
 			var external_ehrs = [];
 			var primary_ehr="";
 			var measure_completed=false;
+			
 			//get measure_code
 			$.each( App.ho.get('products'), function( i, product ) { 	
 				if (product.id==p_id) {
@@ -142,10 +143,13 @@ App.Routers.Administrator = Backbone.Router.extend({
 					    {"sWidth": "20px"},
 					    null]					
 				});				
-				
-				
-			
+							
 				new FixedColumns( oTable, {"sHeightMatch": "none"} );			
+								
+				var notifyAdmin = App.cur_measure.get('notifyAdmin'); 
+				if (notifyAdmin){
+						  $('.admin-edit-notes').addClass('btn-info');
+				}						
 				
 		    });		
 			

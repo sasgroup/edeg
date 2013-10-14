@@ -22,7 +22,7 @@ class ProductMeasure {
 	 static constraints = {
 		code()
 		name()
-		notes(maxSize:5000)
+		notes(nullable:true,maxSize:4000)
 	}
 	 
 	String toString() {
