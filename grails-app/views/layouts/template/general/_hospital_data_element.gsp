@@ -10,6 +10,7 @@
 				<!--<th title="SourceEHR" class="ihm_hidden">EHR</th>-->
 				<th>Source EHR</th>				
 		    	<th>Values Type</th>
+				<th>Values Type*</th>
 				<th class="r-btn">Reset</th>
 				<th>Help</th>	    		    
 			 </tr>
@@ -86,7 +87,8 @@
 				<option value="StandardCode" {{valueType.name=="StandardCode"? "selected": ""}}>StandardCode</option>
 				<option value="ValueSet" {{valueType.name=="ValueSet"? "selected": ""}}>ValueSet</option>
      </select>
- </td>
+</td>
+<td><select class="slcValuesType"></select></td>
 <td class="r-btn"><div id="reset" class= "btn" title="Reset the data element location to default in accordance with the current EHR version"><i class="icon-refresh"></i></div></td>
 <td><a class="btn show_info" rel="tooltip" did="{{id}}" title=""><i class="icon-info-sign" did="{{id}}"></i></a></td>
 </script>

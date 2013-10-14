@@ -93,10 +93,12 @@ class HospitalController {
 								hospitalElement.source = hospital.ehr.code
 								hospitalElement.location = defaultSetting.location
 								hospitalElement.valueType = defaultSetting.valueType
+								hospitalElement.valuesType = deriveValuesType(defaultSetting) 
 							}
 							else if (hospitalElement.sourceEHR){
 								hospitalElement.sourceEHR = true
 								hospitalElement.source = hospital.ehr.code
+								hospitalElement.valuesType = deriveValuesType(defaultSetting)
 							}
 						}
 						else{
@@ -213,6 +215,18 @@ class HospitalController {
 	}
 
 	
+	private ValuesType deriveValuesType(DataElementDefaults defaultSetting){
+		if (defaultSetting.ids){
+			String[] _ids = ((String)defaultSetting.ids).split(';') 
+			def valuesTypes = ValuesType.list()
+			for (vt in valuesTypes){
+				if (_ids.contains(vt.id.toString()))
+					return vt
+			}
+		}
+		else
+			return ValuesType.list().first()
+	}
 	
 	
 	def unlinkProductAndMeasure(Long hp_id, Long hm_id){

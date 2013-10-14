@@ -49,9 +49,10 @@ class HospitalElementController {
 		instance.notes = param.notes
 
 		//TODO correct ValuesType
-		//if (instance.valuesType != ValuesType.get(param?.valuesTypeId))
-		//	modificationDetected = true
-		instance.valuesType = ValuesType.list().get(0)
+		if (instance.valuesType != ValuesType.get(param?.valuesTypeId))
+			modificationDetected = true
+		instance.valuesType = ValuesType.get(param?.valuesTypeId)
+		
 				
 		/*if (param.markAsComplete){
 			def mid = param.m_id as Long
@@ -153,10 +154,15 @@ class HospitalElementController {
 						sourceEHR : hme.hospitalElement.sourceEHR,
 						valueSet : hme.hospitalElement.valueSet,
 						valueSetFile : hme.hospitalElement.valueSetFile,
-						valueType : hme.hospitalElement.valueType,						
+						valueType : hme.hospitalElement.valueType,
+						
+						valuesTypeId : hme.hospitalElement.valuesType.id,
+						
 						dataElement : hme.hospitalElement.dataElement.code,
 						element_notes:hme.hospitalElement.dataElement.notes,
 						help:hme.hospitalElement.dataElement.help,
+						
+						ids : deriveIds(hme.hospitalElement),
 						
 						hospitalValueSet : array {
 							for (hvs in HospitalValueSet.findAllByHospitalElement(hme.hospitalElement)){
@@ -173,6 +179,7 @@ class HospitalElementController {
 									 valueType : e.valueType
 							}
 						}
+						
 					}
 				}
 			}
@@ -208,5 +215,15 @@ class HospitalElementController {
 	def delete(Long id) {
 		println "Delete"
 	}
+	
+	
+	private String deriveIds(HospitalElement hElement){
+		def defSettings = DataElementDefaults.findByDataElementAndEhr(hElement.dataElement, hElement.hospital.ehr)
+		if (defSettings) {
+			return defSettings.ids
+		}
+		return ""
+	}
+	
 }
 
