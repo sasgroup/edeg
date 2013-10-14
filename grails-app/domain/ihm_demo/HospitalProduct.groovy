@@ -8,8 +8,6 @@ class HospitalProduct {
 	Boolean notifyAdmin
 	Boolean notifyUser
 	
-	//static hasMany = [hospitalMeasures : HospitalMeasure]
-	
 	static hasMany = [hospitalProductMeasures : HospitalProductMeasure]
 	
 	static mapping = {
@@ -17,7 +15,7 @@ class HospitalProduct {
 	}
 	
 	static constraints = {		
-		qa(nullable: true, maxSize:5000)
+		qa(nullable:true)
 	}
 	
 	String toString(){

@@ -116,7 +116,7 @@ $(function() {
 	});
 	
 	function goToLoginPage() {
-		window.location = "/ihm/";
+		window.location.reload();
 	}
 	
 	$.ajaxSetup({

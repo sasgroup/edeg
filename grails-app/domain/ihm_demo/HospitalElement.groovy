@@ -20,10 +20,14 @@ class HospitalElement {
 	static hasMany = [hospitalMeasureElements : HospitalMeasureElement]
 		
     static constraints = {
-		notes(maxSize:5000)
-		internalNotes(maxSize:5000)
-		location()
-		valueSet()
+		notes(nullable:true,maxSize:4000)
+		internalNotes(nullable:true,maxSize:4000)
+		location(nullable:true)
+		notes(nullable:true)
+		source(nullable:true)
+		valueSet(nullable:true)
+		valueSetFile(nullable:true)
+		
     }
 	
 	String toString(){

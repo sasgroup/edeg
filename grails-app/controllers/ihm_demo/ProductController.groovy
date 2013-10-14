@@ -8,8 +8,10 @@ class ProductController {
 	private Product saveInstance (Product instance, def param) {
 		instance.name = param.name
 		instance.code = param.code
+		if (param.notes)
 		instance.notes = param.notes
-		instance.help = param.help
+		if (param.help)
+			instance.help = param?.help
 				
 		if (instance.id) {
 			instance.measures.clear()

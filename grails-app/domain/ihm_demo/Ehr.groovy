@@ -8,11 +8,10 @@ class Ehr {
 	 static constraints = {
 		code(blank:false,unique:true)
 		name(blank:false)
-		notes(maxSize:5000)
+		notes(nullable: true,maxSize:4000)
     }
 	 
 	String toString(){
 		"$code, $name"
 	}
-	 
 }

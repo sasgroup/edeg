@@ -82,7 +82,7 @@ class HospitalController {
 						def hospitalElement = HospitalElement.findByHospitalAndDataElement(hospital, de)
 						def isNew = false
 						if (!hospitalElement){
-							hospitalElement = new HospitalElement(hospital: hospital, dataElement: de, internalNotes : "", notes:"", location : "", source : "", sourceEHR : false, valueSet : "", valueSetFile : "", valueType : ValueType.NotApplicable, valuesType : ValuesType.get(1))
+							hospitalElement = new HospitalElement(hospital: hospital, dataElement: de, internalNotes : "", notes:"", location : "", source : "", sourceEHR : false, valueSet : "", valueSetFile : "", valueType : ValueType.NotApplicable, valuesType : ValuesType.findByName("c1")).save(flush:true)
 							isNew = true
 						}
 
@@ -221,8 +221,8 @@ class HospitalController {
 		def hpm = HospitalProductMeasure.findByHospitalProductAndHospitalMeasure(hp, hm);
 		def hsize = hm.hospitalProductMeasures.size()
 
-		hm.removeFromHospitalProductMeasures(hpm).save()
-		hp.removeFromHospitalProductMeasures(hpm).save()
+		hm.removeFromHospitalProductMeasures(hpm).save(flush:true)
+		hp.removeFromHospitalProductMeasures(hpm).save(flush:true)
 		hpm.hospitalProduct = null
 		hpm.hospitalMeasure = null
 		hpm.delete(flush:true)
@@ -243,8 +243,8 @@ class HospitalController {
 		def hme = HospitalMeasureElement.findByHospitalMeasureAndHospitalElement(hm, he);
 		def hsize = he.hospitalMeasureElements.size()
 
-		hm.removeFromHospitalMeasureElements(hme).save()
-		he.removeFromHospitalMeasureElements(hme).save()
+		hm.removeFromHospitalMeasureElements(hme).save(flush:true)
+		he.removeFromHospitalMeasureElements(hme).save(flush:true)
 		hme.hospitalElement = null
 		hme.hospitalMeasure = null
 		hme.delete(flush:true)

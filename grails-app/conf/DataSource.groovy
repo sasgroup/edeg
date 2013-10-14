@@ -9,6 +9,23 @@ hibernate {
     cache.use_query_cache = false
     cache.region.factory_class = 'net.sf.ehcache.hibernate.EhCacheRegionFactory'
 }
+//ORACLE
+/*
+ * environments {
+    development {
+       dataSource {
+		   pooled = true
+		   dialect = org.hibernate.dialect.Oracle11gDialect
+		   driverClassName = 'oracle.jdbc.OracleDriver'
+		   username = 'sys as sysdba'
+		   password = 'sys'
+		   url = 'jdbc:oracle:thin:@127.0.0.1:1521:IHM'
+		   dbCreate = 'create-drop'
+		   //logSql = true
+       }   
+    }
+ */
+
 // environment specific settings
 environments {
     development {
