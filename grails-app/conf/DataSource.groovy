@@ -10,8 +10,7 @@ hibernate {
     cache.region.factory_class = 'net.sf.ehcache.hibernate.EhCacheRegionFactory'
 }
 //ORACLE
-/*
- * environments {
+environments {
     development {
        dataSource {
 		   pooled = true
@@ -19,48 +18,34 @@ hibernate {
 		   driverClassName = 'oracle.jdbc.OracleDriver'
 		   username = 'sys as sysdba'
 		   password = 'sys'
-		   url = 'jdbc:oracle:thin:@127.0.0.1:1521:IHM'
+		   url = 'jdbc:oracle:thin:@localhost:1521:IHM'
 		   dbCreate = 'create-drop'
 		   //logSql = true
-       }   
-    }
- */
-
-// environment specific settings
-environments {
-    development {
-        dataSource {
-            dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
-            url = "jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000"
-        }
-    }
+       } 
+    }   
     test {
-        dataSource {
-            dbCreate = "create-drop"
-            url = "jdbc:h2:mem:testDb;MVCC=TRUE;LOCK_TIMEOUT=10000"
+      dataSource {
+           pooled = true
+		   dialect = org.hibernate.dialect.Oracle11gDialect
+		   driverClassName = 'oracle.jdbc.OracleDriver'
+		   username = 'sys as sysdba'
+		   password = 'sys'
+		   url = 'jdbc:oracle:thin:@localhost:1521:IHM'
+		   dbCreate = 'create-drop'
+		   //logSql = true
         }
     }
-    production {
-        /*
+    production { 
 		dataSource {
-            dbCreate = "create-drop"
-            url = "jdbc:h2:prodDb;MVCC=TRUE;LOCK_TIMEOUT=10000"
-            pooled = true
-            properties {
-               maxActive = -1
-               minEvictableIdleTimeMillis=1800000
-               timeBetweenEvictionRunsMillis=1800000
-               numTestsPerEvictionRun=3
-               testOnBorrow=true
-               testWhileIdle=true
-               testOnReturn=true
-               validationQuery="SELECT 1"
-            }
+           pooled = true
+		   dialect = org.hibernate.dialect.Oracle11gDialect
+		   driverClassName = 'oracle.jdbc.OracleDriver'
+		   username = 'sys as sysdba'
+		   password = 'sys'
+		   url = 'jdbc:oracle:thin:@localhost:1521:IHM'
+		   dbCreate = 'create-drop'
+		   //logSql = true
         }
-        */
-		dataSource {
-			dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
-			url = "jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000"
-		}
-    }
+    }  
 }
+ 
