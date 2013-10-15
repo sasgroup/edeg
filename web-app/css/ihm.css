@@ -794,28 +794,23 @@ optgroup option{
 	height: 24px;
 }
 
-/* **/
-table#extra-table input[type=text], table#hospital-specific-table input[type=text],
-table#extra-table select, table#hospital-specific-table select{
+/* .ehrTable **/ 
+table#extra-table input[type=text], table#hospital-specific-table input[type=text], table.ehrTable input[type=text],
+table#extra-table select, table#hospital-specific-table select, table.ehrTable select{
 	padding: 1px 8px;
 }
 
-table#extra-table .btn, table#hospital-specific-table .btn{
+table#extra-table .btn, table#hospital-specific-table .btn, table.ehrTable .btn{
 	padding: 1px 8px;
 }
 
-table#extra-table select, table#hospital-specific-table select{
+table#extra-table select, table#hospital-specific-table select, table.ehrTable select{
 	height: 24px;
 }
 
 select, input[type="file"] {
 	line-height: 20px !important;	
 }
-
-/*input#txtValueSet {
-	height: 20px !important;
-	line-height: 20px !important;	
-}*/
 
 /*#main_table table.dataTable td{
     padding-right: 20px;

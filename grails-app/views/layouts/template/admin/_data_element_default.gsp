@@ -28,8 +28,8 @@
  </td>-->
  <td><select class="slcValuesType" multiple="multiple"></select></td>
  <td><select class="slcParent"></select></td>
- <td><div id="plus-btn" class="btn btn-mini"><i class="icon-plus"></i></div></td>
- <td><div id="minus-btn" class="btn btn-mini"><i class="icon-minus"></i></div></td>
+ <td class='f-btn'><div id="plus-btn" class="btn"><i class="icon-plus"></i></div></td>
+ <td class='f-btn'><div id="minus-btn" class="btn"><i class="icon-minus"></i></div></td>
 </script>
 
 <!-- default-element Option -->
