@@ -201,6 +201,16 @@ App.Views.DataElement = Backbone.View.extend({
 	
 	editDataElement : function(e) {
 		e.preventDefault();	
+		
+		var emptyValuesType = _.pluck(this.model.get('dataElementDefaults'),"ids").indexOf('');
+		
+		if (emptyValuesType!=-1) 		{
+			bootbox.alert("Please specify Values Type for [" + this.model.get('dataElementDefaults')[emptyValuesType].location + "] location.", function() {
+			});
+			
+			return;			
+		}	
+		
 		this.model.attributes.help = $('.helpAreaElement').val();		
 		this.model.set({code:this.$el.find('#code').val()});
 			
