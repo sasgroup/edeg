@@ -120,11 +120,11 @@ App.Views.HospitalElements = Backbone.View.extend({
 				var _location = $(this).find('input#location').val();			
 				var _sourceEHR = hospital_element_to_save.get("sourceEHR");
 				var _source = $(this).find('select#source').val();				
-				var _valueType = $(this).find('select.slcValueType').val();
+				//var _valueType = $(this).find('select.slcValueType').val();
 				var _valuesTypeId = $(this).find('select.slcValuesType').val();
 
-				if ((_location!="")||(_source!="")||(_valueType!="")) {
-					var extraloc = {"location":_location, "source":_source, "sourceEHR":_sourceEHR, "valueType":{name:_valueType}, "valuesTypeId": _valuesTypeId};					
+				if ((_location!="")||(_source!="")||(_valuesTypeId!="")) {
+					var extraloc = {"location":_location, "source":_source, "sourceEHR":_sourceEHR, "valueType":{name:''}, "valuesTypeId": _valuesTypeId};					
 					elementExtraLocation.push(extraloc);				
 				}				
 			});
@@ -213,7 +213,7 @@ App.Views.SingleHospitalElement = Backbone.View
 		'click  #reset'                     		   : 'resetToDefault',
 		'change .location'       			   		   : 'changeVal',
 		'change .source'       			   			   : 'changeSource',
-		'change .slcValueType' 		   				   : 'changeSlcVType',
+		//'change .slcValueType' 		   				   : 'changeSlcVType',
 		'click .show_info'                			   : 'showInfo',
 		'change .slcValuesType'                        : 'changeValuesType'
 	},
@@ -401,11 +401,11 @@ App.Views.SingleHospitalElement = Backbone.View
 				var _location = $(this).find('input#location').val();				
 				var _sourceEHR = hospital_element_to_save.get("sourceEHR");
 				var _source = $(this).find('select#source').val();				
-				var _valueType = $(this).find('select.slcValueType').val();
+				//var _valueType = $(this).find('select.slcValueType').val();
 				var _valuesTypeId = $(this).find('select.slcValuesType').val();
 
-				if ((_location!="")||(_source!="")||(_valueType!="")) {
-					var extraloc = {"location":_location, "source":_source, "sourceEHR":_sourceEHR, "valueType":{name:_valueType}, "valuesTypeId": _valuesTypeId};					
+				if ((_location!="")||(_source!="")||(_valuesTypeId!="")) {
+					var extraloc = {"location":_location, "source":_source, "sourceEHR":_sourceEHR, "valueType":{name:''}, "valuesTypeId": _valuesTypeId};					
 					elementExtraLocation.push(extraloc);				
 				}				
 			});

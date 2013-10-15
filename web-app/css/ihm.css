@@ -76,9 +76,10 @@ div.popover-content textarea.txt-message {
 }
 
 
-.slcValuesType {
-	width: 250px;	
+table.ehrTable .slcValuesType {
+	width: 275px;	
 }
+
 
 #slcEHRs{
 	width:250px;
@@ -137,6 +138,9 @@ div.txt-qa {
     border-radius: 4px;
 }
 
+div#detailsTabContent div.txt-qa {
+	height: 120px;
+}
 
 .hospitalMeasureTable.dataTable {
 	width:934px
@@ -443,7 +447,7 @@ div#modalDataElements {
 }
 
 div#deatails {
-	margin-top: 30px;
+	margin-top: 10px;
 }
 
 #detailsTabContent {
@@ -782,7 +786,6 @@ optgroup option{
 	padding: 1px 8px;
 }
 
-
 .dataTables_scroll .btn{
 	padding: 1px 8px;
 }
@@ -791,9 +794,28 @@ optgroup option{
 	height: 24px;
 }
 
+/* **/
+table#extra-table input[type=text], table#hospital-specific-table input[type=text],
+table#extra-table select, table#hospital-specific-table select{
+	padding: 1px 8px;
+}
+
+table#extra-table .btn, table#hospital-specific-table .btn{
+	padding: 1px 8px;
+}
+
+table#extra-table select, table#hospital-specific-table select{
+	height: 24px;
+}
+
 select, input[type="file"] {
 	line-height: 20px !important;	
 }
+
+/*input#txtValueSet {
+	height: 20px !important;
+	line-height: 20px !important;	
+}*/
 
 /*#main_table table.dataTable td{
     padding-right: 20px;

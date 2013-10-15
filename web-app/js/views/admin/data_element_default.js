@@ -4,10 +4,10 @@ App.Views.DataElementsDefault = Backbone.View
 			template: _.template($('#single-data-elements-default').html()),			
 			
 			events : {
-				'click #plus-btn' : 'addRow',
-				'click #minus-btn': 'removeRow',
-				'change .slcValueType, .slcParent, #location' : 'changeVal',
-				'change .slcValuesType'                       : 'changeValuesType'
+				'click #plus-btn' 				: 'addRow',
+				'click #minus-btn'				: 'removeRow',
+				'change .slcParent, #location'  : 'changeVal',
+				'change .slcValuesType'         : 'changeValuesType'
 			},
 						
 			render : function() {	
@@ -22,8 +22,8 @@ App.Views.DataElementsDefault = Backbone.View
 					if (dataElementDefault.id == curId){
 						if (e.currentTarget.className == "location")
 							dataElementDefault.location = e.target.value;					
-						if (e.currentTarget.className == "slcValueType")
-							dataElementDefault.valueType.name = e.target.value;
+						/*if (e.currentTarget.className == "slcValueType")
+							dataElementDefault.valueType.name = e.target.value;*/
 						if (e.currentTarget.className == "slcParent")
 							dataElementDefault.linkId = e.target.value.replace('e','');
 					};	
@@ -44,8 +44,7 @@ App.Views.DataElementsDefault = Backbone.View
 						if (cur_ids.substring(0, 1) == ';') { 
 							cur_ids = cur_ids.substring(1);
 						}
-						
-						//alert('changeValuesType: ' + cur_ids);
+												
 						dataElementDefault.ids = cur_ids;
 					};	
 				});

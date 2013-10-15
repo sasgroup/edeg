@@ -212,7 +212,7 @@ App.Views.Hospital = Backbone.View.extend({
 			"bPaginate": false,
 			"bSortClasses": false,
 			"bFilter": false,
-			"sScrollY": "272px",			
+			"sScrollY": "292px",			
 			"bSort": true,
 			"bInfo": false,
 			"aaSorting": [[0, 'asc'], [1, 'asc'], [3, 'asc']],			
