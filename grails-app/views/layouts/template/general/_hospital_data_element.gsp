@@ -94,7 +94,7 @@
 </script>
 
 
-<!--extra-elements -->
+<!--extra-elements/additional location -->
 <script type="text/template" class="template" id="extra-elements">
  <td><div class='code'><input type="text" class="location" id="location" value="{{location}}" placeholder="Enter Location"></div></td>
  <!--<td class="ihm_hidden"><input type="checkbox" class="sourceEHR" id="sourceEHR" value="{{sourceEHR}}" {{sourceEHR ? "checked": ""}}></td>-->
@@ -112,6 +112,7 @@
 				<option value="ValueSet" {{valueType.name=="ValueSet"? "selected": ""}}>ValueSet</option>
      </select>
  </td>
+ <td><select class="slcValuesType"></select></td>
  <td><div id="plus-btn" class="btn btn-mini"><i class="icon-plus"></i></div></td>
  <td><div id="minus-btn" class="btn btn-mini"><i class="icon-minus"></i></div></td>
 </script>
@@ -175,7 +176,8 @@
             			<th>Location</th>           
 						<!--<th title="SourceEHR" class="ihm_hidden">EHR</th>-->
 						<th>Source EHR</th>						
-		    			<th>Values Type</th>		
+		    			<th>Values Type</th>
+						<th>Values Type*</th>		
 						<th></th>
 						<th></th>			
         			</tr>					

@@ -81,15 +81,24 @@ class HospitalElementController {
 		
 		if (param.hospitalValueSet)																
 			for (hvs in param.hospitalValueSet){
-				new HospitalValueSet(code:hvs.code, mnemonic:hvs.mnemonic, hospitalElement:instance).save()
+				new HospitalValueSet(code:hvs.code, mnemonic:hvs.mnemonic, hospitalElement:instance).save(flush:true)
 			}
 			
 		
 		if (param.elementExtraLocation)
 			for (e in param.elementExtraLocation){
 				//TODO correct ValuesType
-				if (e.valueType.name)
-					new ElementExtraLocation(location:e.location, source:e.source, sourceEHR:(ehrCode==e.source), valueType: ValueType.valueOf(e.valueType.name), hospitalElement:instance, valuesType : ValuesType.get(1)).save()
+				if (e.valueType.name){
+					ElementExtraLocation xl = new ElementExtraLocation(	location:e.location, 
+												source:e.source, 
+												sourceEHR:(ehrCode==e.source), 
+												valueType: ValueType.valueOf(e.valueType.name), 
+												hospitalElement:instance, 
+												valuesType : ValuesType.get(e.valuesTypeId)
+											)
+					xl.save(flush:true)
+					println xl
+				}
 			}
 		return instance.save(flush :true)	
 	}
@@ -176,7 +185,8 @@ class HospitalElementController {
 								elem location  : e.location,
 									 source    : e.source,
 									 sourceEHR : e.sourceEHR,									
-									 valueType : e.valueType
+									 valueType : e.valueType,
+									 valuesTypeId : e.valuesType.id
 							}
 						}
 						
