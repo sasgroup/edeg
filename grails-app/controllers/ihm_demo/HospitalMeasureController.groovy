@@ -7,9 +7,11 @@ class HospitalMeasureController {
 	def sendMailService
 	
 	private HospitalMeasure saveInstance (HospitalMeasure instance, def param) {
+		def oldQA = instance.qa
 		instance.properties = param
 		instance.save(flush :true)
-		sendMailService.hospitalMeasureNotesUpdated(instance.hospital?.email, instance.hospital.name, instance.measure.name, new Date(), session?.user.login)
+		if (param.qa!="" && oldQA != param.qa)
+			sendMailService.hospitalMeasureNotesUpdated(instance.hospital?.email, instance.hospital.name, instance.measure.name, new Date(), session?.user.login)
 		return instance
 	}
 
@@ -58,7 +60,7 @@ class HospitalMeasureController {
 					completed = hospitalMeasure.completed
 					confirmed = hospitalMeasure.confirmed
 					verified = hospitalMeasure.verified
-					qa = hospitalMeasure.qa
+					qa = isNULL(hospitalMeasure.qa,"")
 					notifyAdmin = hospitalMeasure?.notifyAdmin
 					notifyUser  = hospitalMeasure?.notifyUser
 				}
@@ -95,5 +97,9 @@ class HospitalMeasureController {
 
 	def delete(Long id) {
 		println "Delete"
+	}
+	
+	private String isNULL(String str, String dfl){
+		return (null!=str)?str:dfl
 	}
 }

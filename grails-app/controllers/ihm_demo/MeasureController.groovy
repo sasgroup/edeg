@@ -8,10 +8,8 @@ class MeasureController {
 	private Measure saveInstance (Measure instance, def param) {
 		instance.name = param.name
 		instance.code = param.code
-		instance.help = param.help
-		
-		if (param.notes)
-			instance.notes = param.notes
+		instance.help = isNULL(param?.help,"")
+		instance.notes = isNULL(param?.notes,"")
 			
 		if (param.measureCategory)
 			instance.measureCategory = MeasureCategory.get (param.measureCategory.id)
@@ -49,19 +47,23 @@ class MeasureController {
 				version = result.version
 				code = result.code
 				name = result.name
-				notes= result.notes
-				help = result.help
+				notes= isNULL(result.notes,"")
+				help = isNULL(result.help,"")
 				id   = result.id
 				measureCategory = result?.measureCategory
 				cqmDomain = result?.cqmDomain
 				products =  array {
 					for (p in result?.products) {
-						product  pname: p.name, pid: p.id, pcode: p.code
+						product  	pname: p.name, 
+									pid: p.id, 
+									pcode: p.code
 					}
 				}
 				dataElements =  array {
 					for (d in result?.dataElements) {
-						dataElement  dname: d.name, did: d.id, dcode: d.code
+						dataElement  	dname: d.name, 
+										did: d.id, 
+										dcode: d.code
 					}
 				}
 			}
@@ -128,4 +130,8 @@ class MeasureController {
 			}
 		}
     }
+	
+	private String isNULL(String str, String dfl){
+		return (null!=str)?str:dfl
+	}
 }

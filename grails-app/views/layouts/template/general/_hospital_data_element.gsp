@@ -7,9 +7,8 @@
 	  <thead><tr>
  				<th class="data-element-column">Data Element</th>    
 		    	<th>Location</th>           
-				<!--<th title="SourceEHR" class="ihm_hidden">EHR</th>-->
 				<th>Source EHR</th>				
-		    	<th>Values Type</th>
+				<th>Values Type*</th>
 				<th class="r-btn">Reset</th>
 				<th>Help</th>	    		    
 			 </tr>
@@ -73,53 +72,34 @@
 <script type="text/template" class="template" id="hospital_data_element">
  <td id="{{id}}" class="slc_row" title="{{element_notes}}">{{dataElement}}</td>
  <td><div class='code'><input type="text" class="location" name="location" id="location" value="{{location}}"></div></td>
- <!--<td class="ihm_hidden"><input type="checkbox" class="sourceEHR" name="sourceEHR" id="sourceEHR" value={{sourceEHR}} {{sourceEHR ? "checked": ""}}></td>-->
  <td>
 	<select id="source" name="source" class="source">
 	</select>
- <td>
-    <select class="slcValueType" name="valueType">			
-				<option value="NotApplicable" {{valueType.name=="NotApplicable"? "selected": ""}}>NotApplicable</option>	     
-                <option value="IMO_Code" {{valueType.name=="IMO_Code"? "selected": ""}}>IMO_Code</option>                
-				<option value="Query_Mnemonic" {{valueType.name=="Query_Mnemonic"? "selected": ""}}>Query/Mnemonic</option>
-				<option value="HospitalSpecific" {{valueType.name=="HospitalSpecific"? "selected": ""}}>HospitalSpecific</option>
-				<option value="StandardCode" {{valueType.name=="StandardCode"? "selected": ""}}>StandardCode</option>
-				<option value="ValueSet" {{valueType.name=="ValueSet"? "selected": ""}}>ValueSet</option>
-     </select>
- </td>
+</td>
+<td><select class="slcValuesType"></select></td>
 <td class="r-btn"><div id="reset" class= "btn" title="Reset the data element location to default in accordance with the current EHR version"><i class="icon-refresh"></i></div></td>
 <td><a class="btn show_info" rel="tooltip" did="{{id}}" title=""><i class="icon-info-sign" did="{{id}}"></i></a></td>
 </script>
 
 
-<!--extra-elements -->
+<!--extra-elements/additional location -->
 <script type="text/template" class="template" id="extra-elements">
  <td><div class='code'><input type="text" class="location" id="location" value="{{location}}" placeholder="Enter Location"></div></td>
- <!--<td class="ihm_hidden"><input type="checkbox" class="sourceEHR" id="sourceEHR" value="{{sourceEHR}}" {{sourceEHR ? "checked": ""}}></td>-->
  <td>
 	<select id="source" name="source" class="source">
 	</select>
  </td>
- <td>
-    <select class="slcValueType" name="valueType">				
-				<option value="NotApplicable" {{valueType.name=="NotApplicable"? "selected": ""}}>NotApplicable</option>	     
-                <option value="IMO_Code" {{valueType.name=="IMO_Code"? "selected": ""}}>IMO_Code</option>                
-				<option value="Query_Mnemonic" {{valueType.name=="Query_Mnemonic"? "selected": ""}}>Query/Mnemonic</option>
-				<option value="HospitalSpecific" {{valueType.name=="HospitalSpecific"? "selected": ""}}>HospitalSpecific</option>
-				<option value="StandardCode" {{valueType.name=="StandardCode"? "selected": ""}}>StandardCode</option>
-				<option value="ValueSet" {{valueType.name=="ValueSet"? "selected": ""}}>ValueSet</option>
-     </select>
- </td>
- <td><div id="plus-btn" class="btn btn-mini"><i class="icon-plus"></i></div></td>
- <td><div id="minus-btn" class="btn btn-mini"><i class="icon-minus"></i></div></td>
+ <td><select class="slcValuesType"></select></td>
+ <td class='f-btn'><div id="plus-btn" class="btn"><i class="icon-plus"></i></div></td>
+ <td class='f-btn'><div id="minus-btn" class="btn"><i class="icon-minus"></i></div></td>
 </script>
 
 <!-- hospital-specific -->
 <script type="text/template" class="template" id="hospital-specific">
  <td><input type="text" class="code" id="code" value="{{code}}" placeholder="Enter Code"></td> 
  <td><input type="text" class="mnemonic" id="mnemonic" value="{{mnemonic}}" placeholder="Enter Description"></td>
- <td><div id="plus-btn" class="btn btn-mini"><i class="icon-plus"></i></div></td>
- <td><div id="minus-btn" class="btn btn-mini"><i class="icon-minus"></i></div></td>
+ <td class='f-btn'><div id="plus-btn" class="btn"><i class="icon-plus"></i></div></td>
+ <td class='f-btn'><div id="minus-btn" class="btn"><i class="icon-minus"></i></div></td>
 </script>
 
 <!-- qa -->
@@ -129,7 +109,7 @@
 </script>
 
 <script type="text/template" class="template" id="hosp-spec-table">
-<table id="hospital-specific-table" class="table table-bordered table-condensed">				
+<table id="hospital-specific-table" class="table table-condensed">				
 <thead>
 	<tr>
 		<th>
@@ -167,13 +147,12 @@
 </script>	
 
 <script type="text/template" class="template" id="extra-table-temp">
-<table id="extra-table" class="table table-condensed table-bordered">				
+<table id="extra-table" class="table table-condensed">				
 				<thead>
         			<tr>
             			<th>Location</th>           
-						<!--<th title="SourceEHR" class="ihm_hidden">EHR</th>-->
 						<th>Source EHR</th>						
-		    			<th>Values Type</th>		
+						<th>Values Type*</th>		
 						<th></th>
 						<th></th>			
         			</tr>					

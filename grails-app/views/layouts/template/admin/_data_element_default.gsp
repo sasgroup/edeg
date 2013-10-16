@@ -3,8 +3,8 @@
 <table class="ehrTable table table-striped ">
 	<thead><tr>
 		    <th>Location</th>		
-		    <th>Values Type</th>		
-			<th>Values Type*</th>    
+		    <!--<th>Values Type</th>-->		
+			<th>Values Type<span class="required">*</span></th>    
 		    <th>{{ehr_element}}</th>
 			<th class="f-btn"></th>
 			<th class="f-btn"></th>
@@ -17,7 +17,7 @@
 <!-- data-elements-default -->
 <script type="text/template" class="template" id="single-data-elements-default">
  <td><input type="text" class="location" id="location" value="{{loc}}"></td>
- <td><select class="slcValueType">				
+ <!--<td><select class="slcValueType">				
 				<option value="NotApplicable">NotApplicable</option>				  
                 <option value="IMO_Code">IMO_Code</option>                
 				<option value="Query_Mnemonic">Query/Mnemonic</option>
@@ -25,11 +25,11 @@
 				<option value="StandardCode">StandardCode</option>
 				<option value="ValueSet">ValueSet</option>
      </select>
- </td>
+ </td>-->
  <td><select class="slcValuesType" multiple="multiple"></select></td>
  <td><select class="slcParent"></select></td>
- <td><div id="plus-btn" class="btn btn-mini"><i class="icon-plus"></i></div></td>
- <td><div id="minus-btn" class="btn btn-mini"><i class="icon-minus"></i></div></td>
+ <td class='f-btn'><div id="plus-btn" class="btn"><i class="icon-plus"></i></div></td>
+ <td class='f-btn'><div id="minus-btn" class="btn"><i class="icon-minus"></i></div></td>
 </script>
 
 <!-- default-element Option -->

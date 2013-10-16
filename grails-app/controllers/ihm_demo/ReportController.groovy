@@ -12,7 +12,7 @@ class ReportController {
 	
 	private String prepSQL(GrailsParameterMap params){
 		
-		def res = "SELECT * from Audit_Log"
+		def res = "SELECT id, TO_CHAR(last_updated, 'mm/dd/yy HH24:MI') last_updated, actor, event_name, class_name, property_name, new_value, old_value, TO_CHAR(date_created, 'mm/dd/yy HH24:MI') date_created, persisted_object_id FROM Audit_Log "
 		def _where = " Where 1=1"
 		
 		if (params.etype != "-"){
@@ -59,26 +59,30 @@ class ReportController {
 					_where += " and CLASS_NAME = '${assembly}.HospitalElement'"
 					_where += derivePersistedObjectIDs(hid,oid,etype)
 					break;
+				case "XL":
+					_where += " and CLASS_NAME = '${assembly}.ElementExtraLocation'"
+					_where += deriveNestedObjectIDs(hid,oid,etype)
+					break;
+				case "VS":
+					_where += " and CLASS_NAME = '${assembly}.HospitalValueSet'"
+					_where += deriveNestedObjectIDs(hid,oid,etype)
+					break;
 			}
 
 		}
 		
-		
-		
-		
-		
-		def dpFrom = (new Date()).format("yyyy-MM-dd")
-		def dpTill = (new Date()).format("yyyy-MM-dd") + " 23:59:0.000"
+		def dpFrom = (new Date()).format("yyyy-MM-dd") + " 00:00:00"
+		def dpTill = (new Date()).format("yyyy-MM-dd") + " 23:59:59"
 		
 		if (params.dpFrom)
-			dpFrom = (Date.parse("MM/dd/yy", params.dpFrom)).format("yyyy-MM-dd")
+			dpFrom = (Date.parse("MM/dd/yy", params.dpFrom)).format("yyyy-MM-dd") + " 00:00:00"
 		
 		if (params.dpTill)
-			dpTill = (Date.parse("MM/dd/yy", params.dpTill)).format("yyyy-MM-dd") + " 23:59:0.000"
+			dpTill = (Date.parse("MM/dd/yy", params.dpTill)).format("yyyy-MM-dd") + " 23:59:59"
 			
-		_where += " and LAST_UPDATED between '$dpFrom' and '$dpTill'"
+		_where += " and  LAST_UPDATED between to_timestamp('$dpFrom', 'yyyy-mm-dd hh24:mi:ss') and to_timestamp('$dpTill', 'yyyy-mm-dd hh24:mi:ss') "
 		
-		return res + _where
+		return res + _where + " order by persisted_object_id asc, last_updated asc"
 	}
 	
 	private String derivePersistedObjectIDs(hid,oid,etype){
@@ -161,6 +165,91 @@ class ReportController {
 		
 		return res
 	}
+	
+	private String deriveNestedObjectIDs(hid,oid,etype){
+		def hospital = Hospital.get(hid)
+		def product  = Product.get(oid)
+		def measure  = Measure.get(oid)
+		def element  = DataElement.get(oid)
+		List<Long> _ids = new ArrayList<Long>()
+		_ids.add(0)
+		def res = ""
+		def poids = ""
+		
+		switch (etype){
+			case "XL":
+				if (null != hospital && null != element){
+					def hospitalElement = HospitalElement.findByHospitalAndDataElement(hospital, element)
+					if (hospitalElement){
+						def extraLocations = ElementExtraLocation.findAllByHospitalElement(hospitalElement)
+						for (xl in extraLocations)
+							_ids.add(xl.id)
+					}
+				}
+				else if (null != hospital){
+					def hospitalElements = HospitalElement.findAllByHospital(hospital)
+					for (he in hospitalElements){
+						def extraLocations = ElementExtraLocation.findAllByHospitalElement(he)
+						for (xl in extraLocations)
+							_ids.add(xl.id)
+					}
+				}
+				else if (null != element){
+					def hospitalElements = HospitalElement.findAllByDataElement(element)
+					for (he in hospitalElements){
+						def extraLocations = ElementExtraLocation.findAllByHospitalElement(he)
+						for (xl in extraLocations)
+							_ids.add(xl.id)
+					}
+				}
+				else{
+					_ids.remove(0)
+				}
+				break;
+			case "VS":
+				if (null != hospital && null != element){
+					def hospitalElement = HospitalElement.findByHospitalAndDataElement(hospital, element)
+					if (hospitalElement){
+						def valueSets = HospitalValueSet.findAllByHospitalElement(hospitalElement)
+						for (vs in valueSets)
+							_ids.add(vs.id)
+					}
+				}
+				else if (null != hospital){
+					def hospitalElements = HospitalElement.findAllByHospital(hospital)
+					for (he in hospitalElements){
+						def valueSets = HospitalValueSet.findAllByHospitalElement(he)
+						for (vs in valueSets)
+							_ids.add(vs.id)
+					}
+				}
+				else if (null != element){
+					def hospitalElements = HospitalElement.findAllByDataElement(element)
+					for (he in hospitalElements){
+						def valueSets = HospitalValueSet.findAllByHospitalElement(he)
+						for (vs in valueSets)
+							_ids.add(vs.id)
+					}
+				}
+				else{
+					_ids.remove(0)
+				}
+				break;
+		}
+		
+		if (_ids.size()>0){
+			poids = _ids.join(",")
+			res = " and PERSISTED_OBJECT_ID in (${poids})"
+		}
+		
+		return res
+	}
+	
+	
+	
+	
+	
+	
 				
 	def show() {
 		
@@ -350,7 +439,8 @@ class ReportController {
 								sourceEHR 		: he.sourceEHR,
 								valueSet 		: he.valueSet,
 								valueSetFile 	: he.valueSetFile,
-								valueType 		: he.valueType.toString()
+								valueType 		: he.valuesType.name
+								//valueType 		: he.valueType.toString()
 							}
 					}
 				}
@@ -390,7 +480,8 @@ class ReportController {
 													eid			: hme.hospitalElement.id,
 													location 	: hme.hospitalElement.location,
 													source 		: hme.hospitalElement.source,
-													valueType	: hme.hospitalElement.valueType.toString(),
+													valueType	: hme.hospitalElement.valuesType.name,
+													//valueType	: hme.hospitalElement.valueType.toString(),
 													ecode		: hme.hospitalElement.dataElement.code,
 													ename		: hme.hospitalElement.dataElement.name,
 													hname		: hme.hospitalElement.hospital.name
@@ -411,7 +502,7 @@ class ReportController {
 			else if (params.id == "7"){ // data element report
 				def sql = new Sql(dataSource)
 				def results = sql.rows(prepSQL(params))
-				
+				def assembly = "ihm_demo"
 				
 				render(contentType: "text/json") {
 					report = "Audit Log"
@@ -419,18 +510,16 @@ class ReportController {
 					data = array {
 						for (r in results){
 							row id			: r.get('ID'), 
-								updated		: ((Date)r.get('LAST_UPDATED')).format('dd/MM/yy HH:mm'),
+								updated		: r.get('LAST_UPDATED'), //((Date)r.get('LAST_UPDATED')).format('dd/MM/yy HH:mm'),
 								actor		: r.get('ACTOR'),
 								event		: r.get('EVENT_NAME'),
-								entity		: ((String)r.get('CLASS_NAME')).substring(9),
+								entity		: ((String)r.get('CLASS_NAME')).substring(assembly.length()+1),
 								property	: r.get('PROPERTY_NAME'),
 								nvalue		: r.get('NEW_VALUE'),
 								ovalue		: r.get('OLD_VALUE'),
 								
-								created		: ((Date)r.get('DATE_CREATED')).format('dd/MM/yy HH:mm'),
-								poid		: r.get('PERSISTED_OBJECT_ID'),
-								povers		: r.get('PERSISTED_OBJECT_VERSION'),
-								uri			: r.get('URI')
+								created		: r.get('DATE_CREATED'), //((Date)r.get('DATE_CREATED')).format('dd/MM/yy HH:mm'),
+								poid		: r.get('PERSISTED_OBJECT_ID')
 								
 						}
 					}

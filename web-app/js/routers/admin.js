@@ -96,7 +96,8 @@ App.Routers.Administrator = Backbone.Router.extend({
 		App.ho = new App.Models.Hospital();		
 		App.cur_measure = new App.Models.HospitalMeasure();
 		App.ho.fetch({data:{id: h_id}}).then(function(){
-		  App.cur_measure.fetch({data:{id: m_id,hm: true}}).then(function(){			
+		  App.cur_measure.fetch({data:{id: m_id,hm: true}}).then(function(){
+		   App.valuesTypes.fetch().then(function(){	 
 		
 			var measure_code='';
 			var external_ehrs = [];
@@ -129,30 +130,30 @@ App.Routers.Administrator = Backbone.Router.extend({
 					"bDestroy": true, 
 					"bPaginate": false,
 					"bFilter": false,
-					"sScrollY": "220px",			
+					"sScrollY": "246px",			
 					"bSort": true,
 					"bInfo": false,
 					"aaSorting": [[0, 'asc']],
 					"aoColumnDefs": [{'bSortable': false, 'aTargets': [ 1,2,3,4,5 ] }],					
 					"bAutoWidth": false,
 					"aoColumns" : [
-					    null,
-					    null,					   
-					    null,
-					    null,
-					    {"sWidth": "20px"},
-					    null]					
+					    {"sWidth": "20%"},
+					    {"sWidth": "25%"},				   
+					    {"sWidth": "20%"},	
+					    {"sWidth": "25%"},
+					    {"sWidth": "5%"},
+					    {"sWidth": "5%"}]					
 				});				
 							
-				new FixedColumns( oTable, {"sHeightMatch": "none"} );			
-								
+				new FixedColumns( oTable, {"sHeightMatch": "none"} );
+												
 				var notifyAdmin = App.cur_measure.get('notifyAdmin'); 
 				if (notifyAdmin){
 						  $('.admin-edit-notes').addClass('btn-info');
 				}						
 				
 		    });		
-			
+		   });		
 		});	
 	});
 	},
@@ -399,7 +400,14 @@ App.Routers.Administrator = Backbone.Router.extend({
 					"bFilter": false,					
 					"bSort": false,
 					"bInfo": false,
-					"bAutoWidth": false
+					"bAutoWidth": false,
+					"aoColumns": [
+					              { "sWidth": "30%" },
+					              { "sWidth": "30%" },
+					              { "sWidth": "30%" },
+					              { "sWidth": "5%" },
+					              { "sWidth": "5%" }
+					          ]
 				});		
 				
 				$( ".slcValuesType").multiselect({
@@ -476,7 +484,14 @@ App.Routers.Administrator = Backbone.Router.extend({
 					"bFilter": false,					
 					"bSort": false,
 					"bInfo": false,
-					"bAutoWidth": false
+					"bAutoWidth": false,
+					"aoColumns": [
+					              { "sWidth": "30%" },
+					              { "sWidth": "30%" },
+					              { "sWidth": "30%" },
+					              { "sWidth": "5%" },
+					              { "sWidth": "5%" }
+					          ]
 				});	
 										
 				
@@ -578,7 +593,7 @@ App.Routers.Administrator = Backbone.Router.extend({
 						"bPaginate": false,
 						"bSortClasses": false,
 						"bFilter": false,
-						"sScrollY": "272px",			
+						"sScrollY": "292px",			
 						"bSort": true,
 						"bInfo": false,
 						"aaSorting": [[0, 'asc'], [1, 'asc'], [3, 'asc']],

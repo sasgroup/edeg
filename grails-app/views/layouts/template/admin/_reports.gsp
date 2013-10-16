@@ -45,6 +45,8 @@
 							<option value="HP">Hospital Products</option>
 							<option value="HM">Hospital Measures</option>
 							<option value="HE">Hospital Data Elements</option>
+							<option value="XL">Elements Extra Location</option>
+							<option value="VS">Elements Value Sets</option>
 						</select>
 
 						<label for="slcMeasure"								hideFor="7">Measure</label>

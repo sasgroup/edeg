@@ -17,7 +17,7 @@ class ExcelController {
 	
 	private String prepSQL(GrailsParameterMap params){
 		
-		def res = "SELECT * from Audit_Log"
+		def res = "SELECT id, TO_CHAR(last_updated, 'mm/dd/yy HH24:MI') last_updated, actor, event_name, class_name, property_name, new_value, old_value, TO_CHAR(date_created, 'mm/dd/yy HH24:MI') date_created, persisted_object_id FROM Audit_Log "
 		def _where = " Where 1=1"
 		
 		if (params.etype != "-"){
@@ -64,26 +64,29 @@ class ExcelController {
 					_where += " and CLASS_NAME = '${assembly}.HospitalElement'"
 					_where += derivePersistedObjectIDs(hid,oid,etype)
 					break;
+				case "XL":
+					_where += " and CLASS_NAME = '${assembly}.ElementExtraLocation'"
+					_where += deriveNestedObjectIDs(hid,oid,etype)
+					break;
+				case "VS":
+					_where += " and CLASS_NAME = '${assembly}.HospitalValueSet'"
+					_where += deriveNestedObjectIDs(hid,oid,etype)
+					break;
 			}
-
 		}
 		
-		
-		
-		
-		
-		def dpFrom = (new Date()).format("yyyy-MM-dd")
-		def dpTill = (new Date()).format("yyyy-MM-dd") + " 23:59:0.000"
+		def dpFrom = (new Date()).format("yyyy-MM-dd") + " 00:00:00"
+		def dpTill = (new Date()).format("yyyy-MM-dd") + " 23:59:59"
 		
 		if (params.dpFrom)
-			dpFrom = (Date.parse("MM/dd/yy", params.dpFrom)).format("yyyy-MM-dd")
+			dpFrom = (Date.parse("MM/dd/yy", params.dpFrom)).format("yyyy-MM-dd") + " 00:00:00"
 		
 		if (params.dpTill)
-			dpTill = (Date.parse("MM/dd/yy", params.dpTill)).format("yyyy-MM-dd") + " 23:59:0.000"
+			dpTill = (Date.parse("MM/dd/yy", params.dpTill)).format("yyyy-MM-dd") + " 23:59:59"
 			
-		_where += " and LAST_UPDATED between '$dpFrom' and '$dpTill'"
+		_where += " and  LAST_UPDATED between to_timestamp('$dpFrom', 'yyyy-mm-dd hh24:mi:ss') and to_timestamp('$dpTill', 'yyyy-mm-dd hh24:mi:ss') "
 		
-		return res + _where + " Order by PERSISTED_OBJECT_ID asc"
+		return res + _where + " order by persisted_object_id asc, last_updated asc"
 	}
 	
 	private String derivePersistedObjectIDs(hid,oid,etype){
@@ -166,6 +169,86 @@ class ExcelController {
 		
 		return res
 	}
+	
+	private String deriveNestedObjectIDs(hid,oid,etype){
+		def hospital = Hospital.get(hid)
+		def product  = Product.get(oid)
+		def measure  = Measure.get(oid)
+		def element  = DataElement.get(oid)
+		List<Long> _ids = new ArrayList<Long>()
+		_ids.add(0)
+		def res = ""
+		def poids = ""
+		
+		switch (etype){
+			case "XL":
+				if (null != hospital && null != element){
+					def hospitalElement = HospitalElement.findByHospitalAndDataElement(hospital, element)
+					if (hospitalElement){
+						def extraLocations = ElementExtraLocation.findAllByHospitalElement(hospitalElement)
+						for (xl in extraLocations)
+							_ids.add(xl.id)
+					}
+				}
+				else if (null != hospital){
+					def hospitalElements = HospitalElement.findAllByHospital(hospital)
+					for (he in hospitalElements){
+						def extraLocations = ElementExtraLocation.findAllByHospitalElement(he)
+						for (xl in extraLocations)
+							_ids.add(xl.id)
+					}
+				}
+				else if (null != element){
+					def hospitalElements = HospitalElement.findAllByDataElement(element)
+					for (he in hospitalElements){
+						def extraLocations = ElementExtraLocation.findAllByHospitalElement(he)
+						for (xl in extraLocations)
+							_ids.add(xl.id)
+					}
+				}
+				else{
+					_ids.remove(0)
+				}
+				break;
+			case "VS":
+				if (null != hospital && null != element){
+					def hospitalElement = HospitalElement.findByHospitalAndDataElement(hospital, element)
+					if (hospitalElement){
+						def valueSets = HospitalValueSet.findAllByHospitalElement(hospitalElement)
+						for (vs in valueSets)
+							_ids.add(vs.id)
+					}
+				}
+				else if (null != hospital){
+					def hospitalElements = HospitalElement.findAllByHospital(hospital)
+					for (he in hospitalElements){
+						def valueSets = HospitalValueSet.findAllByHospitalElement(he)
+						for (vs in valueSets)
+							_ids.add(vs.id)
+					}
+				}
+				else if (null != element){
+					def hospitalElements = HospitalElement.findAllByDataElement(element)
+					for (he in hospitalElements){
+						def valueSets = HospitalValueSet.findAllByHospitalElement(he)
+						for (vs in valueSets)
+							_ids.add(vs.id)
+					}
+				}
+				else{
+					_ids.remove(0)
+				}
+				break;
+		}
+		
+		if (_ids.size()>0){
+			poids = _ids.join(",")
+			res = " and PERSISTED_OBJECT_ID in (${poids})"
+		}
+		
+		return res
+	}
+	
 				
 	def show() {
 		
@@ -357,7 +440,8 @@ class ExcelController {
 							he.dataElement.name,
 							he.location,
 							he.source,
-							he.valueType.toString()
+							he.valuesType.name
+							//he.valueType.toString()
 							], rowNum++)
 					}
 				}
@@ -398,7 +482,8 @@ class ExcelController {
 												hme.hospitalElement.dataElement.name,
 												hme.hospitalElement.location,
 												hme.hospitalElement.source,
-												hme.hospitalElement.valueType.toString()
+												hme.hospitalElement.valuesType.name
+												//hme.hospitalElement.valueType.toString()
 												], rowNum++)
 										}
 									}
@@ -416,6 +501,7 @@ class ExcelController {
 			else if (params.id == "7"){ 
 				def sql = new Sql(dataSource)
 				def results = sql.rows(prepSQL(params))
+				def assembly = "ihm_demo"
 				
 				def storagePath = servletContext.getRealPath("excelTemplates/AuditLogReport.xlsx")
 				
@@ -426,10 +512,10 @@ class ExcelController {
 				for (r in results){
 					exporter.fillRow([
 						r.get('PERSISTED_OBJECT_ID'),
-						((Date)r.get('LAST_UPDATED')).format('dd/MM/yy HH:mm'), 
+						r.get('LAST_UPDATED'), 
 						r.get('ACTOR'),
 						r.get('EVENT_NAME'),
-						((String)r.get('CLASS_NAME')).substring(9),
+						((String)r.get('CLASS_NAME')).substring(assembly.length()+1),
 						r.get('PROPERTY_NAME'),
 						r.get('OLD_VALUE'),
 						r.get('NEW_VALUE')], rowNum++)

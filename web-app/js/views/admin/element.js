@@ -139,7 +139,7 @@ App.Views.DataElement = Backbone.View.extend({
 			var view = new App.Views.DataElementsDefault({ model : dataElementDefault, default_element: "ehr", parent:"element"});		
 			var dataElementDefaultRow = view.render().el;
 			$(ehrtbody).append(dataElementDefaultRow);			
-			$(dataElementDefaultRow).find(".slcValueType").val(dataElementDefault.valueType.name);
+			//$(dataElementDefaultRow).find(".slcValueType").val(dataElementDefault.valueType.name);
 			
 			$(dataElementDefaultRow).find('.slcParent').append(optionsList);			
 			$(dataElementDefaultRow).find(".slcParent").val("e"+dataElementDefault.linkId);
@@ -156,7 +156,9 @@ App.Views.DataElement = Backbone.View.extend({
 		}
 				
 		if ((dataElementDefaults == undefined)||(dataElementDefaults.length == 0)) { 	
-			var emptyDataElementDefault = {"id":"-1","linkId":"1","location":"","valueType":{"enumType":"","name":"NotApplicable"}};
+			var linkId = App.ehrs.at(0).get('id');
+			
+			var emptyDataElementDefault = {"id":"-1","linkId":linkId,"location":"" /*,"valueType":{"enumType":"","name":"NotApplicable"} */};
 			emptyDataElementDefault.parent = "element";
 			this.model.timeId = -2;
 			var dataElementDefaults = this.model.get('dataElementDefaults');
@@ -201,6 +203,16 @@ App.Views.DataElement = Backbone.View.extend({
 	
 	editDataElement : function(e) {
 		e.preventDefault();	
+		
+		var emptyValuesType = _.pluck(this.model.get('dataElementDefaults'),"ids").indexOf('');
+		
+		if (emptyValuesType!=-1) 		{
+			bootbox.alert("Please specify Values Type for [" + this.model.get('dataElementDefaults')[emptyValuesType].location + "] location.", function() {
+			});
+			
+			return;			
+		}	
+		
 		this.model.attributes.help = $('.helpAreaElement').val();		
 		this.model.set({code:this.$el.find('#code').val()});
 			

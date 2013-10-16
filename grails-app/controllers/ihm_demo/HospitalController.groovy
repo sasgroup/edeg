@@ -82,7 +82,18 @@ class HospitalController {
 						def hospitalElement = HospitalElement.findByHospitalAndDataElement(hospital, de)
 						def isNew = false
 						if (!hospitalElement){
-							hospitalElement = new HospitalElement(hospital: hospital, dataElement: de, internalNotes : "", notes:"", location : "", source : "", sourceEHR : false, valueSet : "", valueSetFile : "", valueType : ValueType.NotApplicable, valuesType : ValuesType.findByName("c1")).save(flush:true)
+							hospitalElement = new HospitalElement(	hospital: hospital, 
+																	dataElement: de, 
+																	internalNotes : "", 
+																	notes:"", 
+																	location : "", 
+																	source : "", 
+																	sourceEHR : false, 
+																	valueSet : "", 
+																	valueSetFile : "", 
+																	//valueType : ValueType.NotApplicable, 
+																	valuesType : ValuesType.findByName("NotApplicable")
+																	).save(flush:true)
 							isNew = true
 						}
 
@@ -92,11 +103,13 @@ class HospitalController {
 								hospitalElement.sourceEHR = true
 								hospitalElement.source = hospital.ehr.code
 								hospitalElement.location = defaultSetting.location
-								hospitalElement.valueType = defaultSetting.valueType
+								//hospitalElement.valueType = defaultSetting.valueType
+								hospitalElement.valuesType = deriveValuesType(defaultSetting)
 							}
 							else if (hospitalElement.sourceEHR){
 								hospitalElement.sourceEHR = true
 								hospitalElement.source = hospital.ehr.code
+								hospitalElement.valuesType = deriveValuesType(defaultSetting)
 							}
 						}
 						else{
@@ -213,6 +226,18 @@ class HospitalController {
 	}
 
 	
+	private ValuesType deriveValuesType(DataElementDefaults defaultSetting){
+		if (defaultSetting.ids){
+			String[] _ids = ((String)defaultSetting.ids).split(';') 
+			def valuesTypes = ValuesType.list()
+			for (vt in valuesTypes){
+				if (_ids.contains(vt.id.toString()))
+					return vt
+			}
+		}
+		else
+			return ValuesType.list().first()
+	}
 	
 	
 	def unlinkProductAndMeasure(Long hp_id, Long hm_id){
@@ -221,8 +246,8 @@ class HospitalController {
 		def hpm = HospitalProductMeasure.findByHospitalProductAndHospitalMeasure(hp, hm);
 		def hsize = hm.hospitalProductMeasures.size()
 
-		hm.removeFromHospitalProductMeasures(hpm).save(flush:true)
-		hp.removeFromHospitalProductMeasures(hpm).save(flush:true)
+		hm.removeFromHospitalProductMeasures(hpm).save(/*flush:true*/)
+		hp.removeFromHospitalProductMeasures(hpm).save(/*flush:true*/)
 		hpm.hospitalProduct = null
 		hpm.hospitalMeasure = null
 		hpm.delete(flush:true)
@@ -243,8 +268,8 @@ class HospitalController {
 		def hme = HospitalMeasureElement.findByHospitalMeasureAndHospitalElement(hm, he);
 		def hsize = he.hospitalMeasureElements.size()
 
-		hm.removeFromHospitalMeasureElements(hme).save(flush:true)
-		he.removeFromHospitalMeasureElements(hme).save(flush:true)
+		hm.removeFromHospitalMeasureElements(hme).save(/*flush:true*/)
+		he.removeFromHospitalMeasureElements(hme).save(/*flush:true*/)
 		hme.hospitalElement = null
 		hme.hospitalMeasure = null
 		hme.delete(flush:true)
@@ -267,10 +292,10 @@ class HospitalController {
 			//def productList	=  hospitalProducts.collect{it.product}
 			render(contentType: "text/json") {
 				name = result.name
-				email = (result.email)?result.email:""
-				notes= result.notes
-				externalEHRs = (result.externalEHRs)?result.externalEHRs:""
-				populationMethod = result.populationMethod
+				email = isNULL(result.email, "")
+				notes= isNULL(result.notes,"")
+				externalEHRs = isNULL(result.externalEHRs,"")
+				populationMethod = isNULL(result.populationMethod,"ED-ALL")
 				id   = result.id
 				ehr = result.ehr
 				products = array {
@@ -278,8 +303,8 @@ class HospitalController {
 						product id : hp.product.id,
 						name : hp.product.name,
 						code : hp.product.code,
-						help : hp.product.help,
-						notes : hp.product.notes,
+						help : isNULL(hp.product.help,""),
+						notes : isNULL(hp.product.notes,""),
 						measures : array {
 							for (hpm in hp.hospitalProductMeasures){
 								measure id : hpm.hospitalMeasure.id,
@@ -291,8 +316,8 @@ class HospitalController {
 								confirmed : hpm.hospitalMeasure.confirmed,
 								included : hpm.included,
 								verified : hpm.hospitalMeasure.verified,
-								notes : hpm.hospitalMeasure.measure.notes,
-								help : hpm.hospitalMeasure.measure.help
+								notes : isNULL(hpm.hospitalMeasure.measure.notes,""),
+								help : isNULL(hpm.hospitalMeasure.measure.help,"")
 							}
 						}
 					}
@@ -324,7 +349,10 @@ class HospitalController {
 			render(contentType: "text/json") {
 				hospitals = array {
 					for (p in results) {
-						hospital name: p.name, notes: p.notes,email: p.email, id: p.id
+						hospital 	name: p.name, 
+									notes: isNULL(p.notes,""),
+									email: isNULL(p.email,""), 
+									id: p.id
 					}
 				}
 			}
@@ -396,7 +424,7 @@ class HospitalController {
 			currHE.source 			= srcHE.source
 			currHE.sourceEHR 		= srcHE.sourceEHR
 			currHE.valueSet 		= srcHE.valueSet
-			currHE.valueType 		= srcHE.valueType
+			//currHE.valueType 		= srcHE.valueType
 			currHE.valuesType 		= srcHE.valuesType
 			currHE.valueSetFile		= ""
 			currHE.save(flush:true)
@@ -412,7 +440,7 @@ class HospitalController {
 				currXL.location 	= srcXL.location
 				currXL.source		= srcXL.source
 				currXL.sourceEHR	= srcXL.sourceEHR
-				currXL.valueType	= srcXL.valueType
+				//currXL.valueType	= srcXL.valueType
 				currXL.valuesType	= srcXL.valuesType
 				currXL.save(flush:true)
 			}
@@ -496,5 +524,8 @@ class HospitalController {
 		return hospitalInstance
 	}
 	
+	private String isNULL(String str, String dfl){
+		return (null!=str)?str:dfl
+	}
 	
 }

@@ -9,6 +9,9 @@ App.Routers.User = Backbone.Router.extend({
 		App.hospitals = new App.Collections.Hospitals();		
 		App.route = this;
 		App.viewHospitalElements = new App.Views.HospitalElements({isModified:false});
+		
+		App.valuesTypes = new App.Collections.ValuesTypes();
+		App.valuesType  = new App.Models.ValuesType();
 	},
 	
 	before: {	   		 
@@ -117,7 +120,8 @@ App.Routers.User = Backbone.Router.extend({
 		
 		App.ho = new App.Models.Hospital();		
 		App.ho.fetch({data:{id: h_id}}).then(function(){
-		 App.cur_measure.fetch({data:{id: m_id,hm: true}}).then(function(){		
+		 App.cur_measure.fetch({data:{id: m_id,hm: true}}).then(function(){	
+		  App.valuesTypes.fetch().then(function(){	 	 
 		
 			var notifyUser = App.cur_measure.get('notifyUser');
 			 
@@ -161,22 +165,23 @@ App.Routers.User = Backbone.Router.extend({
 				"bSort": true,
 				"bInfo": false,
 				"aaSorting": [[0, 'asc']],
-				"aoColumnDefs": [{'bSortable': false, 'aTargets': [ 1,2,3,4,5 ] }],
+				"aoColumnDefs": [{'bSortable': false, 'aTargets': [ 1,2,3,4,5 ] }],					
 				"bAutoWidth": false,
 				"aoColumns" : [
-							    null,
-							    null,							   
-							    null,
-							    null,
-							    {"sWidth": "20px"},
-							    null]		
+				    {"sWidth": "20%"},
+				    {"sWidth": "25%"},				   
+				    {"sWidth": "20%"},	
+				    {"sWidth": "25%"},
+				    {"sWidth": "5%"},
+				    {"sWidth": "5%"}]		
 			});				
 			
 			new FixedColumns( oTable, {"sHeightMatch": "none"} );				
 	    });		
 		
 		});
-	 });	
+	 });
+   });	 
 		
 	}	
 });

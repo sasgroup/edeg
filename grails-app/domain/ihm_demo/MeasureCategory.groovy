@@ -6,7 +6,7 @@ class MeasureCategory {
 	String description
 	
     static constraints = {
-		name()
+		name(maxSize:1000)
 		description(nullable:true)
     }
 	

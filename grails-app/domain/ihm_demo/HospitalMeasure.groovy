@@ -23,7 +23,7 @@ class HospitalMeasure {
 		completed()
 		confirmed()
 		//included()
-		qa(nullable: true, maxSize:4000)
+		qa(nullable: true,maxSize:4000)
     }
 
 	static mapping = {

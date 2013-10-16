@@ -11,19 +11,16 @@ class ProductMeasure {
 	String code
 	String name
 	String notes
-	//static hasMany = [measures : Measure, hospitals : Hospital]
-	//static belongsTo = Measure
-	
-	/*static mapping = {
-		measures cascade: 'all-delete-orphan'
-		hospitals cascade: 'all-delete-orphan'
-	}*/
-	
-	 static constraints = {
+		
+	static constraints = {
 		code()
-		name()
+		name(maxSize:1000)
 		notes(nullable:true,maxSize:4000)
 	}
+	 
+	 static mapping = {
+		 notes defaultValue: "''"
+	 }
 	 
 	String toString() {
 		"$code, $name"

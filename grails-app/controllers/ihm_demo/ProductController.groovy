@@ -8,10 +8,8 @@ class ProductController {
 	private Product saveInstance (Product instance, def param) {
 		instance.name = param.name
 		instance.code = param.code
-		if (param.notes)
-		instance.notes = param.notes
-		if (param.help)
-			instance.help = param?.help
+		instance.notes = isNULL(param?.notes,"")
+		instance.help = isNULL(param?.help,"")
 				
 		if (instance.id) {
 			instance.measures.clear()
@@ -45,20 +43,23 @@ class ProductController {
 			def  pr = Product.get(params.id)
 
 			render(contentType: "text/json") {
-						version = pr.version
-						id   = pr.id
-						code = pr.code 
-						name = pr.name 
-						notes = pr.notes
-						help = pr.help
+				version = pr.version
+				id   = pr.id
+				code = pr.code 
+				name = pr.name 
+				notes = isNULL(pr.notes,"")
+				help = isNULL(pr.help,"")
 				measures =  array {
 					for (m in pr?.measures) {
-						measure  mname: m.name, mid: m.id, mcode: m.code 
+						measure  	mname: m.name, 
+									mid: m.id, 
+									mcode: m.code 
 					}
 				}
 				hospitals = array {
 					for (h in HospitalProduct.findAllByProduct(pr)) {
-						hospital  hname: h.hospital.name, hid: h.hospital.id
+						hospital  	hname: h.hospital.name, 
+									hid: h.hospital.id
 					}
 				}
 			}
@@ -72,7 +73,7 @@ class ProductController {
 						product version: p.version,
 								code: p.code, 
 								name: p.name, 
-								notes: p.notes, 
+								notes: isNULL(p.notes,""), 
 								id: p.id
 					}
 				}
@@ -128,5 +129,8 @@ class ProductController {
 			}
 		}
 	}
-	
+
+	private String isNULL(String str, String dfl){
+		return (null!=str)?str:dfl
+	}
 }

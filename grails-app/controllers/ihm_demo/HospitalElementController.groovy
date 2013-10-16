@@ -25,12 +25,6 @@ class HospitalElementController {
 		//instance.source = param.sourceEHR ? instance.hospital.ehr.code : param.source		
 		instance.source = param.source
 		
-		def vType = param.valueType.name
-		
-		if (instance.valueType != ValueType.valueOf(vType))
-			modificationDetected = true
-		instance.valueType = ValueType.valueOf(vType)
-		
 		if (instance.valueSet != param.valueSet)
 			modificationDetected = true
 		instance.valueSet = param.valueSet
@@ -49,9 +43,10 @@ class HospitalElementController {
 		instance.notes = param.notes
 
 		//TODO correct ValuesType
-		//if (instance.valuesType != ValuesType.get(param?.valuesTypeId))
-		//	modificationDetected = true
-		instance.valuesType = ValuesType.list().get(0)
+		if (instance.valuesType != ValuesType.get(param?.valuesTypeId))
+			modificationDetected = true
+		instance.valuesType = ValuesType.get(param?.valuesTypeId)
+		
 				
 		/*if (param.markAsComplete){
 			def mid = param.m_id as Long
@@ -80,15 +75,22 @@ class HospitalElementController {
 		
 		if (param.hospitalValueSet)																
 			for (hvs in param.hospitalValueSet){
-				new HospitalValueSet(code:hvs.code, mnemonic:hvs.mnemonic, hospitalElement:instance).save()
+				new HospitalValueSet(code:hvs.code, mnemonic:hvs.mnemonic, hospitalElement:instance).save(flush:true)
 			}
 			
 		
 		if (param.elementExtraLocation)
 			for (e in param.elementExtraLocation){
 				//TODO correct ValuesType
-				if (e.valueType.name)
-					new ElementExtraLocation(location:e.location, source:e.source, sourceEHR:(ehrCode==e.source), valueType: ValueType.valueOf(e.valueType.name), hospitalElement:instance, valuesType : ValuesType.get(1)).save()
+				if (e.valuesTypeId){
+					ElementExtraLocation xl = new ElementExtraLocation(	location:e.location, 
+																		source:e.source, 
+																		sourceEHR:(ehrCode==e.source), 
+																		//valueType: ValueType.valueOf(e.valueType.name), 
+																		hospitalElement:instance, 
+																		valuesType : ValuesType.get(e.valuesTypeId))
+					xl.save(flush:true)
+				}
 			}
 		return instance.save(flush :true)	
 	}
@@ -112,7 +114,8 @@ class HospitalElementController {
 						def defSettings = DataElementDefaults.findByDataElementAndEhr(hElement.dataElement, hElement.hospital.ehr)
 						if (defSettings && hElement.sourceEHR) {
 							hElement.location = defSettings.location
-							hElement.valueType = defSettings.valueType							
+							// TODO: correct for values Type
+							//hElement.valueType = defSettings.valueType							
 						}
 						hElement.save(flush:true)
 					}
@@ -128,7 +131,8 @@ class HospitalElementController {
 								def defSettings = DataElementDefaults.findByDataElementAndEhr(hElement.dataElement, hElement.hospital.ehr)
 								if (defSettings) {
 									hElement.location = defSettings.location
-									hElement.valueType = defSettings.valueType									
+									// TODO: correct for ValuesType
+									//hElement.valueType = defSettings.valueType									
 								}
 								hElement.save(flush:true)
 							}
@@ -146,17 +150,19 @@ class HospitalElementController {
 					for (hme in hospitalElements) {
 						hospitalElement id : hme.hospitalElement.id,
 						version : hme.hospitalElement.version,
-						internalNotes : hme.hospitalElement.internalNotes,
-						location : hme.hospitalElement.location,
-						notes : hme.hospitalElement.notes,
-						source : hme.hospitalElement.source,
+						internalNotes : isNULL(hme.hospitalElement.internalNotes,""),
+						location : isNULL(hme.hospitalElement.location,""),
+						notes : isNULL(hme.hospitalElement.notes,""),
+						source : isNULL(hme.hospitalElement.source,""),
 						sourceEHR : hme.hospitalElement.sourceEHR,
-						valueSet : hme.hospitalElement.valueSet,
-						valueSetFile : hme.hospitalElement.valueSetFile,
-						valueType : hme.hospitalElement.valueType,						
+						valueSet : isNULL(hme.hospitalElement.valueSet,""),
+						valueSetFile : isNULL(hme.hospitalElement.valueSetFile,""),
+						//valueType : hme.hospitalElement.valueType,
+						valuesTypeId : hme.hospitalElement.valuesType.id,
 						dataElement : hme.hospitalElement.dataElement.code,
 						element_notes:hme.hospitalElement.dataElement.notes,
-						help:hme.hospitalElement.dataElement.help,
+						help:isNULL(hme.hospitalElement.dataElement.help,""),
+						ids : deriveIds(hme.hospitalElement),
 						
 						hospitalValueSet : array {
 							for (hvs in HospitalValueSet.findAllByHospitalElement(hme.hospitalElement)){
@@ -170,7 +176,8 @@ class HospitalElementController {
 								elem location  : e.location,
 									 source    : e.source,
 									 sourceEHR : e.sourceEHR,									
-									 valueType : e.valueType
+									 //valueType : e.valueType,
+									 valuesTypeId : e.valuesType.id
 							}
 						}
 					}
@@ -207,6 +214,19 @@ class HospitalElementController {
 
 	def delete(Long id) {
 		println "Delete"
+	}
+	
+	
+	private String deriveIds(HospitalElement hElement){
+		def defSettings = DataElementDefaults.findByDataElementAndEhr(hElement.dataElement, hElement.hospital.ehr)
+		if (defSettings) {
+			return defSettings.ids
+		}
+		return ""
+	}
+	
+	private String isNULL(String str, String dfl){
+		return (null!=str)?str:dfl
 	}
 }
 

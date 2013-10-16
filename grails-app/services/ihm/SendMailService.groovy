@@ -8,7 +8,9 @@ class SendMailService {
 	AsynchronousMailService asyncMailService
 	
 	private void sendMail(String sendTo, String subjectM, String bodyM){
-		def recipients = sendTo 
+		def recipients = sendTo
+		if (sendTo == null)
+			recipients = ""
 		while (recipients.indexOf("  ")>=0)
 			recipients = recipients.replaceAll("  ", " ")
 		recipients = recipients.replaceAll(" ", ",")

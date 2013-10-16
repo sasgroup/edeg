@@ -32,14 +32,18 @@ class BootStrap {
 			}
 		}
 		//-----------VALUES_TYPE-----------
-		def _valuesType = [
-			["c1", 	"cd1"],
-			["c2", 	"cd2"]
+		def _valuesTypes = [
+			["NotApplicable", 		"N/A. Please don't delete this Value Type"],
+			["IMOCode", 			"IMO Code"],
+			["QueryMnemonic", 		"Query Mnemonic"],
+			["HospitalSpecific", 	"Hospital Specific"],
+			["StandardCode", 		"Standard Code"],
+			["ValueSet", 			"Value Set"]
 			]
-		for(_v in _valuesType){
-			def _valueType = new ValuesType(name:_v[0], description:_v[1])
-			if (!_valueType.save(flush:true)){
-				_valueType.errors.allErrors.each{error ->
+		for(_v in _valuesTypes){
+			def _valuesType = new ValuesType(name:_v[0], description:_v[1])
+			if (!_valuesType.save(flush:true)){
+				_valuesType.errors.allErrors.each{error ->
 					println "An error occured with event1: ${error}"
 				}
 			}
@@ -419,6 +423,9 @@ class BootStrap {
 		}
 
 		//-----------DATA_ELEMENTs-----------
+		def _vt = ValuesType.findByName("NotApplicable")
+		def _ids = _vt.id.toString()
+			
 		def _elementsAllMeasures = [	
 			["AdmsDate", 	"Admission Date", 					"ADM.PAT.admit.date", 		"StandardCode", ["MEDITECH 6.0", "MEDITECH 6.1"], "", ""],
 			["AdmsTime", 	"Admission Time", 					"ADM.PAT.admit.time", 		"StandardCode", ["MEDITECH 6.0", "MEDITECH 6.1"], "", ""],
@@ -443,7 +450,7 @@ class BootStrap {
 			}
 
 			for(_ehr in _el[4]){
-				def dataElementDefaults = new DataElementDefaults(location:_el[2], valueType:_el[3], dataElement:_element, ehr:Ehr.findByCode(_ehr), ids : "1")
+				def dataElementDefaults = new DataElementDefaults(location:_el[2], valueType:_el[3], dataElement:_element, ehr:Ehr.findByCode(_ehr), ids : _ids)
 				if (!dataElementDefaults.save(flush:true)){
 					dataElementDefaults.errors.allErrors.each{error ->
 						println "An error occured with event1: ${error}"
@@ -603,7 +610,7 @@ class BootStrap {
 			}
 
 			for(_ehr in _el[5]){
-				def dataElementDefaults = new DataElementDefaults(location:_el[2], valueType:_el[3], dataElement:_element, ehr : Ehr.findByCode(_ehr), ids : "1;2")
+				def dataElementDefaults = new DataElementDefaults(location:_el[2], valueType:_el[3], dataElement:_element, ehr : Ehr.findByCode(_ehr), ids : _ids)
 				if (!dataElementDefaults.save(flush:true)){
 					dataElementDefaults.errors.allErrors.each{error ->
 						println "An error occured with event1: ${error}"
