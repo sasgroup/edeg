@@ -41,7 +41,7 @@ class HospitalProductController {
 		 id = hospitalProduct.id
 		 hospital = hospitalProduct.hospital.name
 		 product = hospitalProduct.product.name
-		 qa = hospitalProduct.qa
+		 qa = isNULL(hospitalProduct.qa,"")
 		 notifyAdmin = hospitalProduct?.notifyAdmin
 		 notifyUser  = hospitalProduct?.notifyUser
 		}
@@ -79,5 +79,9 @@ class HospitalProductController {
 
 	def delete(Long id) {
 		println "Delete"
+	}
+	
+	private String isNULL(String str, String dfl){
+		return (null!=str)?str:dfl
 	}
 }
