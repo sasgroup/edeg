@@ -91,7 +91,7 @@ class HospitalController {
 																	sourceEHR : false, 
 																	valueSet : "", 
 																	valueSetFile : "", 
-																	valueType : ValueType.NotApplicable, 
+																	//valueType : ValueType.NotApplicable, 
 																	valuesType : ValuesType.findByName("NotApplicable")
 																	).save(flush:true)
 							isNew = true
@@ -103,7 +103,7 @@ class HospitalController {
 								hospitalElement.sourceEHR = true
 								hospitalElement.source = hospital.ehr.code
 								hospitalElement.location = defaultSetting.location
-								hospitalElement.valueType = defaultSetting.valueType
+								//hospitalElement.valueType = defaultSetting.valueType
 								hospitalElement.valuesType = deriveValuesType(defaultSetting)
 							}
 							else if (hospitalElement.sourceEHR){
@@ -424,7 +424,7 @@ class HospitalController {
 			currHE.source 			= srcHE.source
 			currHE.sourceEHR 		= srcHE.sourceEHR
 			currHE.valueSet 		= srcHE.valueSet
-			currHE.valueType 		= srcHE.valueType
+			//currHE.valueType 		= srcHE.valueType
 			currHE.valuesType 		= srcHE.valuesType
 			currHE.valueSetFile		= ""
 			currHE.save(flush:true)
@@ -440,7 +440,7 @@ class HospitalController {
 				currXL.location 	= srcXL.location
 				currXL.source		= srcXL.source
 				currXL.sourceEHR	= srcXL.sourceEHR
-				currXL.valueType	= srcXL.valueType
+				//currXL.valueType	= srcXL.valueType
 				currXL.valuesType	= srcXL.valuesType
 				currXL.save(flush:true)
 			}

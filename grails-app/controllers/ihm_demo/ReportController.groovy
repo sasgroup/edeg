@@ -439,7 +439,8 @@ class ReportController {
 								sourceEHR 		: he.sourceEHR,
 								valueSet 		: he.valueSet,
 								valueSetFile 	: he.valueSetFile,
-								valueType 		: he.valueType.toString()
+								valueType 		: he.valuesType.name
+								//valueType 		: he.valueType.toString()
 							}
 					}
 				}
@@ -479,7 +480,8 @@ class ReportController {
 													eid			: hme.hospitalElement.id,
 													location 	: hme.hospitalElement.location,
 													source 		: hme.hospitalElement.source,
-													valueType	: hme.hospitalElement.valueType.toString(),
+													valueType	: hme.hospitalElement.valuesType.name,
+													//valueType	: hme.hospitalElement.valueType.toString(),
 													ecode		: hme.hospitalElement.dataElement.code,
 													ename		: hme.hospitalElement.dataElement.name,
 													hname		: hme.hospitalElement.hospital.name

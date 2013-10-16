@@ -165,15 +165,15 @@ App.Routers.User = Backbone.Router.extend({
 				"bSort": true,
 				"bInfo": false,
 				"aaSorting": [[0, 'asc']],
-				"aoColumnDefs": [{'bSortable': false, 'aTargets': [ 1,2,3,4,5,6 ] }],
+				"aoColumnDefs": [{'bSortable': false, 'aTargets': [ 1,2,3,4,5 ] }],					
 				"bAutoWidth": false,
 				"aoColumns" : [
-							    null,
-							    null,							   
-							    null,
-							    null,
-							    {"sWidth": "20px"},
-							    null]		
+				    {"sWidth": "20%"},
+				    {"sWidth": "25%"},				   
+				    {"sWidth": "20%"},	
+				    {"sWidth": "25%"},
+				    {"sWidth": "5%"},
+				    {"sWidth": "5%"}]		
 			});				
 			
 			new FixedColumns( oTable, {"sHeightMatch": "none"} );				

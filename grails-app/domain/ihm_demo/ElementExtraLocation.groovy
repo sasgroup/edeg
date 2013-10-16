@@ -7,7 +7,7 @@ class ElementExtraLocation {
 	Boolean sourceEHR
 	//CodeType codeType
 	HospitalElement hospitalElement
-	ValueType valueType
+	//ValueType valueType
 	ValuesType valuesType
 	
     static constraints = {
@@ -15,7 +15,7 @@ class ElementExtraLocation {
 		source(nullable: true)
 		//codeType()
 		hospitalElement()
-		valueType(nullable: true)
+		//valueType(nullable: true)
 		valuesType(nullable: true)
     }
 	

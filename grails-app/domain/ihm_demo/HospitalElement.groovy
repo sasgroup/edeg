@@ -9,7 +9,7 @@ class HospitalElement {
 	Boolean sourceEHR
 	String valueSet
 	String valueSetFile
-	ValueType valueType
+	//ValueType valueType
 	DataElement dataElement
 	ValuesType valuesType
 	

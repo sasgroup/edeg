@@ -25,7 +25,7 @@ class DataElementController {
 		for (dataElementsDefault in dataElementsDefaults) {
 			if (dataElementsDefault.location){
 				DataElementDefaults ded = new DataElementDefaults(location:dataElementsDefault.location, 
-																	valueType:dataElementsDefault.valueType.name,
+																	//valueType:dataElementsDefault.valueType.name,
 																	dataElement : instance, 
 																	ehr : Ehr.get(dataElementsDefault.linkId), 
 																	ids : dataElementsDefault.ids)
@@ -64,7 +64,7 @@ class DataElementController {
 					for (d in dataElementDefaultsList) {
 						dataElementDefault	id : d.id,
 						location : isNULL(d.location,""),
-						valueType : d.valueType,
+						//valueType : d.valueType,
 						linkId : d.ehr.id,
 						ids : d.ids
 					}

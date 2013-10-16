@@ -4,14 +4,14 @@ App.Views.DataElementsDefault = Backbone.View
 			template: _.template($('#single-data-elements-default').html()),			
 			
 			events : {
-				'click #plus-btn' : 'addRow',
-				'click #minus-btn': 'removeRow',
-				'change .slcValueType, .slcParent, #location' : 'changeVal',
-				'change .slcValuesType'                       : 'changeValuesType'
+				'click #plus-btn' 				: 'addRow',
+				'click #minus-btn'				: 'removeRow',
+				'change .slcParent, #location'  : 'changeVal',
+				'change .slcValuesType'         : 'changeValuesType'
 			},
 						
 			render : function() {	
-				this.$el.html(this.template({loc:this.model.location, value_type: this.model.valueType.name, ehr: this.model.linkId}));		
+				this.$el.html(this.template({loc:this.model.location, /*value_type: this.model.valueType.name,*/ ehr: this.model.linkId}));		
 				this.$el.attr("id", "d"+this.model.id);
 				return this;
 			},
@@ -22,8 +22,8 @@ App.Views.DataElementsDefault = Backbone.View
 					if (dataElementDefault.id == curId){
 						if (e.currentTarget.className == "location")
 							dataElementDefault.location = e.target.value;					
-						if (e.currentTarget.className == "slcValueType")
-							dataElementDefault.valueType.name = e.target.value;
+						/*if (e.currentTarget.className == "slcValueType")
+							dataElementDefault.valueType.name = e.target.value;*/
 						if (e.currentTarget.className == "slcParent")
 							dataElementDefault.linkId = e.target.value.replace('e','');
 					};	
@@ -44,8 +44,7 @@ App.Views.DataElementsDefault = Backbone.View
 						if (cur_ids.substring(0, 1) == ';') { 
 							cur_ids = cur_ids.substring(1);
 						}
-						
-						//alert('changeValuesType: ' + cur_ids);
+												
 						dataElementDefault.ids = cur_ids;
 					};	
 				});
@@ -102,22 +101,15 @@ App.Views.DataElementsDefault = Backbone.View
 			addRow : function (){
 				if (window.console) console.log(App[this.model.parent].get('dataElementDefaults'));
 				var timeId = parseInt(App[this.model.parent].timeId);
-				
-				
-				//var linkId = $(el).find('.slcParent').val().substring(1);
 				var linkId = this.getFirstDefaultElementOptions();
-				
-				var emptyDataElementDefault = {"id":timeId, "linkId":linkId, "parent":this.options.parent, "location":"", "valueType":{"enumType":"","name":"NotApplicable"}};
-				
+				var emptyDataElementDefault = {"id":timeId, "linkId":linkId, "parent":this.options.parent, "location":"" /*, "valueType":{"enumType":"","name":"NotApplicable"} */};
 				var dataElementDefaults = App[this.model.parent].get('dataElementDefaults');
 				dataElementDefaults.push(emptyDataElementDefault);
 				App[this.model.parent].set("dataElementDefaults" , dataElementDefaults);
 				App[this.model.parent].timeId = parseInt(timeId-1);
-				
 				var view = new App.Views.DataElementsDefault({ model : emptyDataElementDefault, default_element: this.options.default_element, parent:this.options.parent});
 				var ehrtbody = this.$el.closest('tbody');
 				$(ehrtbody).append(view.render().el);					
-				
 				
 				var el = view.render().el;
 				$(el).find('.slcParent').append(this.defaultElementOptions());

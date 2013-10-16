@@ -20,7 +20,7 @@ class EhrController {
 			if (dataElementsDefault.location){
 			 DataElementDefaults ded = new DataElementDefaults(	
 				 						location:dataElementsDefault.location, 
-				 						valueType:dataElementsDefault.valueType.name, 
+				 						//valueType:dataElementsDefault.valueType.name, 
 										dataElement : DataElement.get(dataElementsDefault.linkId), 
 										ehr : instance, 
 										ids : dataElementsDefault.ids)
@@ -62,7 +62,7 @@ class EhrController {
 					for (d in dataElementDefaultsList) {
 						dataElementDefault  id : d.id,
 											location : isNULL(d.location,""),
-											valueType : d.valueType,
+											//valueType : d.valueType,
 											linkId : d.dataElement.id,
 											ids : d.ids
 											

@@ -440,7 +440,8 @@ class ExcelController {
 							he.dataElement.name,
 							he.location,
 							he.source,
-							he.valueType.toString()
+							he.valuesType.name
+							//he.valueType.toString()
 							], rowNum++)
 					}
 				}
@@ -481,7 +482,8 @@ class ExcelController {
 												hme.hospitalElement.dataElement.name,
 												hme.hospitalElement.location,
 												hme.hospitalElement.source,
-												hme.hospitalElement.valueType.toString()
+												hme.hospitalElement.valuesType.name
+												//hme.hospitalElement.valueType.toString()
 												], rowNum++)
 										}
 									}

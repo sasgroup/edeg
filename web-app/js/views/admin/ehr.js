@@ -90,7 +90,7 @@ App.Views.Ehr = Backbone.View.extend({
 			var view = new App.Views.DataElementsDefault({ model : dataElementDefault, default_element: "element", parent:"ehr"});		
 			var dataElementDefaultRow = view.render().el;
 			$(ehrtbody).append(dataElementDefaultRow);			
-			$(dataElementDefaultRow).find(".slcValueType").val(dataElementDefault.valueType.name);
+			//$(dataElementDefaultRow).find(".slcValueType").val(dataElementDefault.valueType.name);
 						
 			$(dataElementDefaultRow).find('.slcParent').append(optionsList);			
 			$(dataElementDefaultRow).find(".slcParent").val("e"+dataElementDefault.linkId);	
@@ -139,6 +139,15 @@ App.Views.Ehr = Backbone.View.extend({
 		
 	editEhr : function(e) {
 		e.preventDefault();	
+		
+		var emptyValuesType = _.pluck(this.model.get('dataElementDefaults'),"ids").indexOf('');
+		
+		if (emptyValuesType!=-1) 		{
+			bootbox.alert("Please specify Values Type for [" + this.model.get('dataElementDefaults')[emptyValuesType].location + "] location.", function() {
+			});			
+			return;			
+		}	
+				
 		this.model.set({code:this.$el.find('#code').val()});
 		this.model.save(this.attributes,{
 	        success: function (model, response) {

@@ -2,7 +2,7 @@ package ihm_demo
 
 class DataElementDefaults {
 	String location
-	ValueType valueType
+	//ValueType valueType
 	DataElement dataElement
 	Ehr ehr
 	String ids

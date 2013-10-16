@@ -32,7 +32,7 @@ class BootStrap {
 			}
 		}
 		//-----------VALUES_TYPE-----------
-		def _valuesType = [
+		def _valuesTypes = [
 			["NotApplicable", 		"N/A. Please don't delete this Value Type"],
 			["IMOCode", 			"IMO Code"],
 			["QueryMnemonic", 		"Query Mnemonic"],
@@ -40,10 +40,10 @@ class BootStrap {
 			["StandardCode", 		"Standard Code"],
 			["ValueSet", 			"Value Set"]
 			]
-		for(_v in _valuesType){
-			def _valueType = new ValuesType(name:_v[0], description:_v[1])
-			if (!_valueType.save(flush:true)){
-				_valueType.errors.allErrors.each{error ->
+		for(_v in _valuesTypes){
+			def _valuesType = new ValuesType(name:_v[0], description:_v[1])
+			if (!_valuesType.save(flush:true)){
+				_valuesType.errors.allErrors.each{error ->
 					println "An error occured with event1: ${error}"
 				}
 			}
