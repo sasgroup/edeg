@@ -12,12 +12,13 @@ hibernate {
 //ORACLE
 environments {
     development {
-        /*
+        
 		dataSource {
 			dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
 			url = "jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000"
 		}
-		*/
+		
+		/*
 		
 		dataSource {
 		   pooled = true
@@ -28,7 +29,7 @@ environments {
 		   url = 'jdbc:oracle:thin:@localhost:1521:IHM'
 		   dbCreate = 'create-drop'
 		   //logSql = true
-       }
+       }*/
 		
     }   
     test {

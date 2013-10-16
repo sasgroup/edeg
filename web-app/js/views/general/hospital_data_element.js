@@ -119,8 +119,11 @@ App.Views.HospitalElements = Backbone.View.extend({
 			$('table#extra-table tr').not(':first').each(function( ) {
 				var _location = $(this).find('input#location').val();			
 				var _sourceEHR = hospital_element_to_save.get("sourceEHR");
+				
+				var isAdditionEHR = $(this).find('option:selected').hasClass('opt2');
+				(isAdditionEHR) ? _sourceEHR = false : _sourceEHR = true;
+				
 				var _source = $(this).find('select#source').val();				
-				//var _valueType = $(this).find('select.slcValueType').val();
 				var _valuesTypeId = $(this).find('select.slcValuesType').val();
 
 				if ((_location!="")||(_source!="")||(_valuesTypeId!="")) {
@@ -212,8 +215,7 @@ App.Views.SingleHospitalElement = Backbone.View
 		'click .slc_row'                   			   : 'selectRow',
 		'click  #reset'                     		   : 'resetToDefault',
 		'change .location'       			   		   : 'changeVal',
-		'change .source'       			   			   : 'changeSource',
-		//'change .slcValueType' 		   				   : 'changeSlcVType',
+		'change .source'       			   			   : 'changeSource',		
 		'click .show_info'                			   : 'showInfo',
 		'change .slcValuesType'                        : 'changeValuesType'
 	},
@@ -345,20 +347,7 @@ App.Views.SingleHospitalElement = Backbone.View
 
 		App.viewHospitalElements.isModified = true;
 	},
-
-	changeSlcVType : function(e) {
-		var _targetName = e.target.name;
-		var _val = e.target.value;
-		var _id = this.model.attributes.id;
-
-		this.model.attributes[e.target.name] = {"name":_val};
-
-		_.each(App.hospitalElements.models, function (m){
-			if (m.attributes.id == _id)
-				m.attributes[_targetName] = {"name":_val};
-		}) 
-	},
-	
+		
 	changeValuesType : function(e){	
 		var _targetName = e.target.name;
 		var _id = this.model.attributes.id;
@@ -400,8 +389,11 @@ App.Views.SingleHospitalElement = Backbone.View
 			$('table#extra-table tr').not(':first').each(function( ) {
 				var _location = $(this).find('input#location').val();				
 				var _sourceEHR = hospital_element_to_save.get("sourceEHR");
+				
+				var isAdditionEHR = $(this).find('option:selected').hasClass('opt2');
+				(isAdditionEHR) ? _sourceEHR = false : _sourceEHR = true;
+				
 				var _source = $(this).find('select#source').val();				
-				//var _valueType = $(this).find('select.slcValueType').val();
 				var _valuesTypeId = $(this).find('select.slcValuesType').val();
 
 				if ((_location!="")||(_source!="")||(_valuesTypeId!="")) {
@@ -531,9 +523,6 @@ App.Views.SingleHospitalElement = Backbone.View
 
 		var view = new App.Views.ExtraTable({collection : elementExtraLocation, external_ehrs:external_ehrs, primary_ehr:primary_ehr});			
 		$('div#extra-location').html(view.render().el);  
-
-		var elementExtraLocation = slc_hospital_element.get('elementExtraLocation');
-
 
 		if (elementExtraLocation.length==0){	
 		  //add empty row	
@@ -741,8 +730,7 @@ App.Views.ExtraDataElement = Backbone.View
 				
 		if (this.model.get('sourceEHR')) {
 			this.$el.find('#source').val(this.options.primary_ehr);
-			//appendList of available ValuesType
-			//this.$el.find('.slcValuesType').find('option').remove().end().append(this.vtypeOptions());	
+			//appendList of available ValuesType			
 			if (this.options.ids=='') {
 				this.$el.find('.slcValuesType').find('option').remove().end().append(this.vtypeAllOptions());	
 			} else {
@@ -836,12 +824,15 @@ App.Views.ExtraDataElement = Backbone.View
 			this.$el.find('.slcValuesType').find('option').remove().end().append(this.vtypeAllOptions());			
 			var ids_array = _.pluck(App.valuesTypes.models, 'id');	
 			var _ids = ids_array.join(";");
+			this.model.attributes.sourceEHR = false;
 			
 		} else {
 			this.$el.find('.slcValuesType').find('option').remove().end().append(this.vtypeOptions());
+			this.model.attributes.sourceEHR = true;
 		}
 				
 		this.model.attributes[e.target.name] = _val;
+		
 				
 	}
 });
