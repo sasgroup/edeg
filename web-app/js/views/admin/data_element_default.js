@@ -82,9 +82,8 @@ App.Views.DataElementsDefault = Backbone.View
 				} else 
 				
 				if (default_element_option=="element") {				
-					   return App.dataElements.at(0).get('id');	
+					   return App.dataElements.at(0).get('id');
 				}
-								
 			},
 			
 			

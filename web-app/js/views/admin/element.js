@@ -157,6 +157,7 @@ App.Views.DataElement = Backbone.View.extend({
 				
 		if ((dataElementDefaults == undefined)||(dataElementDefaults.length == 0)) { 	
 			var linkId = App.ehrs.at(0).get('id');
+			
 			var emptyDataElementDefault = {"id":"-1","linkId":linkId,"location":"","valueType":{"enumType":"","name":"NotApplicable"}};
 			emptyDataElementDefault.parent = "element";
 			this.model.timeId = -2;

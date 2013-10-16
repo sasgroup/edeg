@@ -233,7 +233,6 @@ App.Views.HospitalMeasure = Backbone.View
 						if (measure.id == m_id ){
 							measure.completed = sl_val;
 						}
-							
 					});	
 				
 				});					
