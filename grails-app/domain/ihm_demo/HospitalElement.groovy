@@ -22,13 +22,19 @@ class HospitalElement {
     static constraints = {
 		notes(nullable:true,maxSize:4000)
 		internalNotes(nullable:true,maxSize:4000)
-		location(nullable:true)
-		notes(nullable:true)
-		source(nullable:true)
+		location(nullable:true,maxSize:1000)
+		notes(nullable:true,maxSize:4000)
+		source(nullable:true,maxSize:1000)
 		valueSet(nullable:true)
-		valueSetFile(nullable:true)
+		valueSetFile(nullable:true,maxSize:1000)
 		
     }
+	
+	static mapping = {
+		notes defaultValue: "''"
+		location defaultValue: "''"
+		internalNotes defaultValue: "''"
+	}
 	
 	String toString(){
 		"$hospital.name, $dataElement.name, $location"

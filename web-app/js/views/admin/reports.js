@@ -63,6 +63,17 @@ App.Views.Reports = Backbone.View.extend({
 					_el.find('#slcHospital, label[for=slcHospital]').show();
 					_el.find('#slcEntity').html("<option value='0'> -Select - </option>");					
 					$(_model.E.toJSON()).each(function(i, m){ _el.find('#slcEntity').append(pme({name:m.name,id:m.id,code:m.code})); }); break;
+					
+				case "XL": 
+					_el.find('#slcHospital, label[for=slcHospital]').show();
+					_el.find('#slcEntity').html("<option value='0'> -Select - </option>");					
+					$(_model.E.toJSON()).each(function(i, m){ _el.find('#slcEntity').append(pme({name:m.name,id:m.id,code:m.code})); }); break;
+					
+				case "VS": 
+					_el.find('#slcHospital, label[for=slcHospital]').show();
+					_el.find('#slcEntity').html("<option value='0'> -Select - </option>");					
+					$(_model.E.toJSON()).each(function(i, m){ _el.find('#slcEntity').append(pme({name:m.name,id:m.id,code:m.code})); }); break;
+				
 				
 				case "0": 
 					_el.find('#slcHospital, label[for=slcHospital]').hide();
