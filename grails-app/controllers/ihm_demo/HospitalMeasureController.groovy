@@ -7,9 +7,11 @@ class HospitalMeasureController {
 	def sendMailService
 	
 	private HospitalMeasure saveInstance (HospitalMeasure instance, def param) {
+		def oldQA = instance.qa
 		instance.properties = param
 		instance.save(flush :true)
-		sendMailService.hospitalMeasureNotesUpdated(instance.hospital?.email, instance.hospital.name, instance.measure.name, new Date(), session?.user.login)
+		if (param.qa!="" && oldQA != param.qa)
+			sendMailService.hospitalMeasureNotesUpdated(instance.hospital?.email, instance.hospital.name, instance.measure.name, new Date(), session?.user.login)
 		return instance
 	}
 

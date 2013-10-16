@@ -3,11 +3,12 @@ package ihm_demo
 class ValuesTypeController {
 
    private ValuesType saveInstance (ValuesType instance, def param) {
-		instance.name = param.name
-		instance.description = param.description
-		instance.save(flush :true)
-		
-		return instance
+	   if (instance.name != "NotApplicable"){
+		   instance.name = param.name
+		   instance.description = isNULL(param.description,"")
+		   instance.save(flush :true)
+	   }
+	   return instance
 	}
 	
 	def save() {
@@ -27,7 +28,7 @@ class ValuesTypeController {
 			render(contentType: "text/json") {
 				version = result.version
 				name =result.name
-				description=result.description
+				description=isNULL(result.description,"")
 				id   = result.id	
 			}
 		}
@@ -37,7 +38,9 @@ class ValuesTypeController {
 			render(contentType: "text/json") {
 				valuesType = array {
 					for (v in results) {
-						valuesType name: v.name, description: v.description, id: v.id
+						valuesType 	name: v.name, 
+									description: isNULL(v.description,""), 
+									id: v.id
 					}
 				}
 			}
@@ -75,14 +78,23 @@ class ValuesTypeController {
 
 	def delete(Long id) {
 		def valuesType = ValuesType.findById(id)
-		
-		
+		if (valuesType.name != "NotApplicable"){
 			valuesType?.delete(flush: true)
 			render(contentType: "text/json") {
 				resp = "success"
 				message = "ValuesType ${valuesType} has been successfully deleted"
 			}
-		
+		}
+		else{
+			render(contentType: "text/json") {
+				resp = "error"
+				message = "Can't delete [NotApplicable] value type."
+			}
+		}
+	}
+
+	private String isNULL(String str, String dfl){
+		return (null!=str)?str:dfl
 	}
 }
 

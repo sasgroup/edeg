@@ -8,8 +8,8 @@ class DataElementController {
 	private DataElement saveInstance (DataElement instance, def param) {
 		instance.name = param.name
 		instance.code = param.code
-		instance.notes = param.notes
-		instance.help = param.help
+		instance.notes = isNULL(param?.notes,"")
+		instance.help = isNULL(param?.help,"")
 
 		Measure.list().each { it.removeFromDataElements(instance) }
 		for (measure in param.measures) {
@@ -23,8 +23,14 @@ class DataElementController {
 		//TODO ids for ValuesType
 		def dataElementsDefaults = param?.dataElementDefaults
 		for (dataElementsDefault in dataElementsDefaults) {
-			if (dataElementsDefault.location)
-				new DataElementDefaults(location:dataElementsDefault.location, valueType:dataElementsDefault.valueType.name,dataElement : instance, ehr : Ehr.get(dataElementsDefault.linkId), ids : dataElementsDefault.ids).save(flush:true)
+			if (dataElementsDefault.location){
+				DataElementDefaults ded = new DataElementDefaults(location:dataElementsDefault.location, 
+																	valueType:dataElementsDefault.valueType.name,
+																	dataElement : instance, 
+																	ehr : Ehr.get(dataElementsDefault.linkId), 
+																	ids : dataElementsDefault.ids)
+				ded.save(flush:true)
+			}
 		}
 
 		return instance
@@ -47,8 +53,8 @@ class DataElementController {
 				id   = de.id
 				code = de.code
 				name = de.name
-				notes = de.notes
-				help = de.help
+				notes = isNULL(de.notes,"")
+				help = isNULL(de.help,"")
 				measures =  array {
 					for (m in de?.measures) {
 						measure  mname: m.name, mid: m.id
@@ -57,7 +63,7 @@ class DataElementController {
 				dataElementDefaults = array {
 					for (d in dataElementDefaultsList) {
 						dataElementDefault	id : d.id,
-						location : d.location,
+						location : isNULL(d.location,""),
 						valueType : d.valueType,
 						linkId : d.ehr.id,
 						ids : d.ids
@@ -71,7 +77,10 @@ class DataElementController {
 			render(contentType: "text/json") {
 				elements = array {
 					for (p in results) {
-						dataElement code: p.code, name: p.name, notes: p.notes, id: p.id
+						dataElement 	code: p.code, 
+										name: p.name, 
+										notes: isNULL(p.notes,""), 
+										id: p.id
 					}
 				}
 			}
@@ -129,4 +138,9 @@ class DataElementController {
 			}
 		}
 	}
+	
+	private String isNULL(String str, String dfl){
+		return (null!=str)?str:dfl
+	}
+
 }

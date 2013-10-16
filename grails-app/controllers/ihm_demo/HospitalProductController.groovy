@@ -7,13 +7,15 @@ class HospitalProductController {
 	def sendMailService
 
 	private HospitalProduct saveInstance (HospitalProduct instance, def param) {
+		def oldQA = instance.qa 
 		instance.qa = param.qa
 		// TODO: set the flags
 		instance.notifyAdmin = param.notifyAdmin
 		instance.notifyUser = param.notifyUser
 
 		instance.save(flush :true)
-		sendMailService.hospitalProductNotesUpdated(instance.hospital?.email, instance.hospital.name, instance.product.name, new Date(), session?.user.login)
+		if (param.qa!="" && oldQA != param.qa)
+			sendMailService.hospitalProductNotesUpdated(instance.hospital?.email, instance.hospital.name, instance.product.name, new Date(), session?.user.login)
 		return instance
 	}
 
