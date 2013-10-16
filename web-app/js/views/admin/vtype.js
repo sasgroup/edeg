@@ -121,7 +121,15 @@ App.Views.SingleValuesType = Backbone.View
 							
 			goToEdit : function() {				
 				App.valuesType  = this.model;	
+				
+				if (this.model.get('name')== 'NotApplicable') {
+					bootbox.alert("You can not modify reserved Values Type.", function() {
+					});
+					return;
+				} 
+								
 				var viewValuesType = new App.Views.ValuesType({model:App.valuesType});
+								
 				$('#input_form').html(viewValuesType.render().el);
 				App.route.validateValuesTypeForm();		
 			},
@@ -131,6 +139,12 @@ App.Views.SingleValuesType = Backbone.View
 				e.preventDefault();
 				var el = this.$el;
 				var thisVType = this.model;
+				
+				if (this.model.get('name')== 'NotApplicable') {
+					bootbox.alert("You can not delete reserved Values Type.", function() {
+					});
+					return;
+				} 
 				
 				bootbox.confirm("Are you sure you want to delete this Values Type?", function(result) {					
 					if (result) {						
