@@ -6,7 +6,7 @@ class CqmDomain {
     
 	static constraints = {
 		name()
-		notes(maxSize:5000)
+		notes(maxSize:4000)
     }
 	
 	String toString(){

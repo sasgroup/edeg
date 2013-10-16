@@ -23,6 +23,11 @@ class Measure {
 		cqmDomain(nullable: true)
     }
 	
+	static mapping = {
+		notes defaultValue: "''"
+		help defaultValue: "''"
+	}
+	
 	String toString() {
 		"$code, $name"
 	}

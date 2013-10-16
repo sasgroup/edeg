@@ -1,6 +1,7 @@
 package ihm_demo
 
 class HospitalValueSet {
+	static auditable = true
 	String code
 	String mnemonic
 	HospitalElement hospitalElement
@@ -10,6 +11,11 @@ class HospitalValueSet {
 		mnemonic(nullable:true,maxSize:4000)
 		hospitalElement()
     }
+	
+	static mapping = {
+		mnemonic defaultValue: "''"
+	}
+	
 	String toString() {
 		"$code, $mnemonic"
 	}

@@ -15,7 +15,7 @@ class HospitalProduct {
 	}
 	
 	static constraints = {		
-		qa(nullable:true)
+		qa(nullable:true,maxSize:4000)
 	}
 	
 	String toString(){
