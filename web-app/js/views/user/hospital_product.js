@@ -231,10 +231,6 @@ App.Views.HospitalMeasure = Backbone.View
 				$.each( App.ho.get('products') , function(p_index, product ) {					
 					$.each( product.measures, function(m_index, measure ) {
 						if (measure.id == m_id ){
-							/*console.log(p_index + ": " + product.id);
-							console.log(m_index + ": " + measure.id);
-							console.log(JSON.stringify(measure));
-							console.log("sl_val: " + sl_val);			*/				
 							measure.completed = sl_val;
 						}
 							
@@ -243,7 +239,8 @@ App.Views.HospitalMeasure = Backbone.View
 				});					
 				
 				App.ho.set({products : App.ho.get('products')});		        
-			    
+				App.ho.set({submit : true});
+				
 				App.ho.save(null,{
 			        success: function (model, response) {
 			           if (window.console) console.log(response);			          

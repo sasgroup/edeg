@@ -96,7 +96,8 @@ App.Routers.Administrator = Backbone.Router.extend({
 		App.ho = new App.Models.Hospital();		
 		App.cur_measure = new App.Models.HospitalMeasure();
 		App.ho.fetch({data:{id: h_id}}).then(function(){
-		  App.cur_measure.fetch({data:{id: m_id,hm: true}}).then(function(){			
+		  App.cur_measure.fetch({data:{id: m_id,hm: true}}).then(function(){
+		   App.valuesTypes.fetch().then(function(){	 
 		
 			var measure_code='';
 			var external_ehrs = [];
@@ -133,7 +134,7 @@ App.Routers.Administrator = Backbone.Router.extend({
 					"bSort": true,
 					"bInfo": false,
 					"aaSorting": [[0, 'asc']],
-					"aoColumnDefs": [{'bSortable': false, 'aTargets': [ 1,2,3,4,5 ] }],					
+					"aoColumnDefs": [{'bSortable': false, 'aTargets': [ 1,2,3,4,5,6 ] }],					
 					"bAutoWidth": false,
 					"aoColumns" : [
 					    null,
@@ -144,15 +145,15 @@ App.Routers.Administrator = Backbone.Router.extend({
 					    null]					
 				});				
 							
-				new FixedColumns( oTable, {"sHeightMatch": "none"} );			
-								
+				new FixedColumns( oTable, {"sHeightMatch": "none"} );
+												
 				var notifyAdmin = App.cur_measure.get('notifyAdmin'); 
 				if (notifyAdmin){
 						  $('.admin-edit-notes').addClass('btn-info');
 				}						
 				
 		    });		
-			
+		   });		
 		});	
 	});
 	},

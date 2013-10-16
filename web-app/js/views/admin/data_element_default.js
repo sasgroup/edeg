@@ -73,6 +73,22 @@ App.Views.DataElementsDefault = Backbone.View
 				return html;
 			},
 			
+			
+			getFirstDefaultElementOptions: function() {			
+				var default_element_option = this.options.default_element;
+				
+				if (default_element_option=="ehr") {				
+						return App.ehrs.at(0).get('id');	
+				} else 
+				
+				if (default_element_option=="element") {				
+					   return App.dataElements.at(0).get('id');	
+				}
+								
+			},
+			
+			
+			
 			valuesTypeOptions: function() {
 				var temp = _.template($('#multiple-default-element-option').html());
 				var html= '';	
@@ -87,14 +103,22 @@ App.Views.DataElementsDefault = Backbone.View
 			addRow : function (){
 				if (window.console) console.log(App[this.model.parent].get('dataElementDefaults'));
 				var timeId = parseInt(App[this.model.parent].timeId);
-				var emptyDataElementDefault = {"id":timeId,"linkId":"1","parent":this.options.parent,"location":"","linkId":"1","valueType":{"enumType":"","name":"NotApplicable"}};
+				
+				
+				//var linkId = $(el).find('.slcParent').val().substring(1);
+				var linkId = this.getFirstDefaultElementOptions();
+				
+				var emptyDataElementDefault = {"id":timeId, "linkId":linkId, "parent":this.options.parent, "location":"", "valueType":{"enumType":"","name":"NotApplicable"}};
+				
 				var dataElementDefaults = App[this.model.parent].get('dataElementDefaults');
 				dataElementDefaults.push(emptyDataElementDefault);
 				App[this.model.parent].set("dataElementDefaults" , dataElementDefaults);
 				App[this.model.parent].timeId = parseInt(timeId-1);
+				
 				var view = new App.Views.DataElementsDefault({ model : emptyDataElementDefault, default_element: this.options.default_element, parent:this.options.parent});
 				var ehrtbody = this.$el.closest('tbody');
 				$(ehrtbody).append(view.render().el);					
+				
 				
 				var el = view.render().el;
 				$(el).find('.slcParent').append(this.defaultElementOptions());
