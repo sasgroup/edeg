@@ -1,8 +1,9 @@
 import ihm_demo.*
 
 class BootStrap {
-
-    def init = { servletContext ->
+    def init = { 
+	/*
+	servletContext ->
 		def admin = new User(
 			login:"admin",
 			password: "admin",
@@ -621,7 +622,7 @@ class BootStrap {
 				}
 			}
 		}
-
+*/
 		//---
     }
     def destroy = {
