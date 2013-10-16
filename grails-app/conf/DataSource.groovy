@@ -23,8 +23,8 @@ environments {
 		   pooled = true
 		   dialect = org.hibernate.dialect.Oracle11gDialect
 		   driverClassName = 'oracle.jdbc.OracleDriver'
-		   username = 'sys as sysdba'
-		   password = 'sys'
+		   username = 'edeg'
+		   password = 'Test123'
 		   url = 'jdbc:oracle:thin:@localhost:1521:IHM'
 		   dbCreate = 'create-drop'
 		   //logSql = true
@@ -36,8 +36,8 @@ environments {
            pooled = true
 		   dialect = org.hibernate.dialect.Oracle11gDialect
 		   driverClassName = 'oracle.jdbc.OracleDriver'
-		   username = 'sys as sysdba'
-		   password = 'sys'
+		   username = 'edeg'
+		   password = 'Test123'
 		   url = 'jdbc:oracle:thin:@localhost:1521:IHM'
 		   dbCreate = 'create-drop'
 		   //logSql = true
@@ -48,8 +48,8 @@ environments {
            pooled = true
 		   dialect = org.hibernate.dialect.Oracle11gDialect
 		   driverClassName = 'oracle.jdbc.OracleDriver'
-		   username = 'sys as sysdba'
-		   password = 'sys'
+		   username = 'edeg'
+		   password = 'Test123'
 		   url = 'jdbc:oracle:thin:@localhost:1521:IHM'
 		   dbCreate = 'create-drop'
 		   //logSql = true
