@@ -15,26 +15,30 @@ App.Views.DataElementsDefault = Backbone.View
 				this.$el.attr("id", "d"+this.model.id);
 				return this;
 			},
+			
 			changeVal : function(e){
 				var curId = this.model.id
 				var dataElementDefaults = App[this.model.parent].get('dataElementDefaults');
-				 dataElementDefaults.forEach(function( dataElementDefault ){
+				
+				_.each(dataElementDefaults, function( dataElementDefault ){
 					if (dataElementDefault.id == curId){
 						if (e.currentTarget.className == "location")
 							dataElementDefault.location = e.target.value;					
-						/*if (e.currentTarget.className == "slcValueType")
-							dataElementDefault.valueType.name = e.target.value;*/
 						if (e.currentTarget.className == "slcParent")
 							dataElementDefault.linkId = e.target.value.replace('e','');
 					};	
 				});
+				
+				
 				App[this.model.parent].set("dataElementDefaults" , dataElementDefaults);
 			},
 			
 			changeValuesType : function(e){				
 				var curId = this.model.id
 				var dataElementDefaults = App[this.model.parent].get('dataElementDefaults');
-				 dataElementDefaults.forEach(function( dataElementDefault ){
+				
+				
+				_.each(dataElementDefaults, function(dataElementDefault){
 					var cur_ids='';
 					if (dataElementDefault.id == curId){						
 						$(e.target).multiselect('getChecked').each(function( index ) {  					
@@ -48,6 +52,7 @@ App.Views.DataElementsDefault = Backbone.View
 						dataElementDefault.ids = cur_ids;
 					};	
 				});
+								
 				App[this.model.parent].set("dataElementDefaults" , dataElementDefaults);
 			},
 			
