@@ -515,7 +515,7 @@ class ExcelController {
 						r.get('LAST_UPDATED'), 
 						r.get('ACTOR'),
 						r.get('EVENT_NAME'),
-						((String)r.get('CLASS_NAME')).substring(assembly.length()),
+						((String)r.get('CLASS_NAME')).substring(assembly.length()+1),
 						r.get('PROPERTY_NAME'),
 						r.get('OLD_VALUE'),
 						r.get('NEW_VALUE')], rowNum++)

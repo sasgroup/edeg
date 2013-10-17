@@ -513,7 +513,7 @@ class ReportController {
 								updated		: r.get('LAST_UPDATED'), //((Date)r.get('LAST_UPDATED')).format('dd/MM/yy HH:mm'),
 								actor		: r.get('ACTOR'),
 								event		: r.get('EVENT_NAME'),
-								entity		: ((String)r.get('CLASS_NAME')).substring(assembly.length()),
+								entity		: ((String)r.get('CLASS_NAME')).substring(assembly.length()+1),
 								property	: r.get('PROPERTY_NAME'),
 								nvalue		: r.get('NEW_VALUE'),
 								ovalue		: r.get('OLD_VALUE'),

@@ -60,7 +60,7 @@ class HospitalMeasureController {
 					completed = hospitalMeasure.completed
 					confirmed = hospitalMeasure.confirmed
 					verified = hospitalMeasure.verified
-					qa = hospitalMeasure.qa
+					qa = isNULL(hospitalMeasure.qa,"")
 					notifyAdmin = hospitalMeasure?.notifyAdmin
 					notifyUser  = hospitalMeasure?.notifyUser
 				}
@@ -97,5 +97,9 @@ class HospitalMeasureController {
 
 	def delete(Long id) {
 		println "Delete"
+	}
+	
+	private String isNULL(String str, String dfl){
+		return (null!=str)?str:dfl
 	}
 }
