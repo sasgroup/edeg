@@ -434,7 +434,12 @@ App.Views.SingleHospitalElement = Backbone.View
 	},
 
 	resetToDefault : function(event) {		
-		this.restoreValues(event);		
+		var _this = this;
+		bootbox.confirm("This action cannot be reverted. Continue?", function(result) {
+			if (result) {
+				_this.restoreValues(event);	
+			}		 
+		}); 				
 	},
 
 	restoreValues : function(event) {
