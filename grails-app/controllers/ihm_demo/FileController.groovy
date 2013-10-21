@@ -45,14 +45,13 @@ class FileController {
 	//println params
 	if (params?.currentHospitalElement && HospitalElement.exists(params.currentHospitalElement)) {
    def multiRequest = request.getFile("fileToUpload")
-   println multiRequest.getClass()
+
    if (!multiRequest.isEmpty()) {
 	String fileName="${multiRequest?.fileItem?.name}"
-
-	if (fileName.contains("\\")  ||  fileName.contains("/") )
-	 fileName = fileName.find(~/\w*\.\w*/)
-	
 	fileName = fileName.replaceAll(" ", "_")
+	fileName = fileName.replaceAll("-", "_")
+	if (fileName.contains("\\")  ||  fileName.contains("/") )
+		fileName = fileName.find(~/\w*\.\w*/)
 	def hospitalElement = HospitalElement.get(params.currentHospitalElement)
 	def hospitalElementId = params?.currentHospitalElement
 
