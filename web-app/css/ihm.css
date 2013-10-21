@@ -10,6 +10,11 @@ body {
     background: url("images/bg.png") repeat-y center;   
 }
 
+a.inactive {
+   pointer-events: none;
+   cursor: default;
+}
+
 img.icon_pdf {
 	padding-right: 4px;
 }	

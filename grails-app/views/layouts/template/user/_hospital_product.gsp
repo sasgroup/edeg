@@ -58,5 +58,5 @@
 
 <script type="text/template" class="template" id="edit-notes-temp">
   <div rows="3" class="txt-qa input-xlarge" placeholder="Click on the Data Element to view its details"><p>{{qa}}</p></div>					
-  <textarea rows="1" class="txt-message input-xlarge" maxlength="4900"></textarea><td class="f-btn"><a class= "btn send-btn" title="Add"><i class="icon-share"></i></a> 
+  <textarea rows="1" class="txt-message input-xlarge" maxlength="3900"></textarea><td class="f-btn"><a class= "btn send-btn" title="Add"><i class="icon-share"></i></a> 
 </script>
