@@ -41,7 +41,7 @@
 					IHM Notes			
 				</td>
                 <td rowspan="2" colspan="2">
-                	<textarea name="notes" rows="2" id="notes" maxlength="1000">{{ notes }}</textarea>					
+                	<textarea name="notes" rows="2" id="notes" maxlength="4000">{{ notes }}</textarea>					
                 </td>				
              </tr>	
 			 <tr>

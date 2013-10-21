@@ -55,7 +55,7 @@
                               <a id="btnHelp" href="javascript:;" >Help <i class="icon-question-sign"></i></a>
                             </td>
                             <td rowspan="2" colspan="2">
-                                <textarea rows="3" name="notes" id="notes" maxlength="1000">{{ notes }}</textarea>                  
+                                <textarea rows="3" name="notes" id="notes" maxlength="4000">{{ notes }}</textarea>                  
                             </td>                            
                          </tr>      
 
