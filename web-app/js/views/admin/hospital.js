@@ -67,7 +67,10 @@ App.Views.Hospital = Backbone.View.extend({
 	    
 		if ($('#myTab li').length>0) {
 				
-			var p_id = $('#myTab li.active a').attr("href").replace('#t','');	
+			var link = $('#myTab li.active a').prop("href");
+			var p_id = link.substr(link.indexOf('#')).replace('#t','');
+			//var p_id = $('#myTab li.active a').attr("href").replace('#t','');	
+			
 			var product = $('#myTab li.active a').text();
 			
 			var h_id = this.model.get('id');
@@ -90,7 +93,7 @@ App.Views.Hospital = Backbone.View.extend({
 				if (!_show){
 					$('.admin-edit-notes').addClass('show')
 					.popover({html:true,placement:'right',title:'Notes for [' + _code + ']',content:_my_content||"No notes were supplied..."}).popover('show');
-					$('#breadcrumb-box .popover').css('top','0px');
+					if (navigator.appVersion.indexOf("MSIE 7.") != -1) $('.popover').css('top','550px');
 					this_hosp.adjustPopover();
 				}
 				 
@@ -193,7 +196,11 @@ App.Views.Hospital = Backbone.View.extend({
 	},
 
 	changeTab: function (e){		
-		var product_id = $(e.target).attr('href').replace('#t','');				
+		//var product_id = $(e.target).attr('href').replace('#t','');			
+		
+		var link = $(e.target).prop("href");
+		var product_id  = link.substr(link.indexOf('#')).replace('#t','');
+				
 		var slcTab = '#myTabContent div#t' + product_id;	
 		
 		$.cookie("active_tab", product_id);

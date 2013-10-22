@@ -55,6 +55,11 @@ textarea.txt-message {
 	overflow: hidden;
 }	
 
+#data-element-page div.popover-content textarea.txt-message {
+	width: 618px;
+}
+
+
 div.popover-content textarea.txt-message {
 	width: 618px;
 }
@@ -139,7 +144,7 @@ div.txt-qa {
 }
 
 div#detailsTabContent div.txt-qa {
-	height: 120px;
+	height: 155px;
 }
 
 .hospitalMeasureTable.dataTable {
@@ -441,6 +446,9 @@ div#modalDataElements {
 	resize: none;
 }
 
+form#hospital-edit textarea{
+	resize: none;
+}
 
 .modal-body button.btn {
     margin-left: 0;
@@ -451,7 +459,7 @@ div#deatails {
 }
 
 #detailsTabContent {
-    height: 190px;
+    height: 225px;
     overflow: auto;
 }
 
@@ -602,36 +610,6 @@ footer a:hover {
     text-decoration: underline;
 }
 
-/*nav.footer-nav {
-    width: 100%;
-    display: block;
-    position: absolute;
-    text-align: center;
-    background-color: #58727F;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-}
-
-nav.footer-nav a {
-    color: #fff;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 1.1em;
-    margin: 10px 0px 10px 50px ;
-}
-
-nav.footer-nav a:hover {
-    color: #EEE;
-    text-decoration: underline;
-}
-
-nav.footer-nav a.logo {
-    display: inline-block;    
-    position: relative;
-    bottom: 10px;   
-}
-*/
-
-
 
 select.ui-pg-selbox{
 	padding:0 !important;	
@@ -741,7 +719,6 @@ ul.wysihtml5-commands-disabled .dropdown-menu {
 	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.75);
 }
 
-
 #breadcrumb-box .popover{
 	top: 0;
 }
@@ -752,8 +729,13 @@ ul.wysihtml5-commands-disabled .dropdown-menu {
 
 .popover-content{
 	max-height:150px;
-	overflow:auto;
+	overflow:auto;	
 }
+
+#breadcrumb-box .popover-content{
+	padding-bottom: 0px;
+}
+
 #slcPopulationMethod{
 	padding:0px; 
 	height: 20px; 

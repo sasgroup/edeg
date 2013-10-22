@@ -1,6 +1,7 @@
 <!-- hospital_data_element-form -->
 <script type="text/template" class="template" id="hospital_data_element-form">
-<div id="data-element-page">  
+<div class="container" >
+<div id="data-element-page" class="row">  
     <h3></h3>
  	<div id="main_table">
 	 <table class="table table-condensed" id="hospital-elements">
@@ -65,6 +66,8 @@
 <button type="reset" id="cancel" class="btn btn-info pull-right">Cancel</button>
 <button id="save-btn" class="btn btn-info pull-right">Save</button>			
 </div>
+</div>
+
 </div>
 </script>
 

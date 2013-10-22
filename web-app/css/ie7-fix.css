@@ -115,8 +115,12 @@ div#main_table select{
 	width:255px !important;
 }
 
+#slcHospitals{
+	width:323px !important;
+}
+
 #btnExternalEHRs {
-	padding-left: 53px;
+	padding-left: 38px;
 }
 
 table#extra-table input[type='text'] {
@@ -126,4 +130,3 @@ table#extra-table input[type='text'] {
 table td {
 	padding-bottom: 0 !important;
 }
-

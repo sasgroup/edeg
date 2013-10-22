@@ -60,7 +60,12 @@ App.Views.HospitalElements = Backbone.View.extend({
 			if (!_show){
 				$('.admin-edit-notes').addClass('show')
 				.popover({html:true,placement:'right',title:'Notes for [' + _code + ']',content:_my_content||"No notes were supplied..."}).popover('show');
-				$('#breadcrumb-box .popover').css('top','0px');
+				
+				if (App.userRole == 'admin') {
+					$('.popover').css('top','570px');
+				}else {
+					$('#breadcrumb-box .popover').css('top','0px');
+				}
 				thisHospMeasure.adjustPopover();
 			}
 		
