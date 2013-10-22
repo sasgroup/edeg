@@ -18,7 +18,7 @@ $(function() {
 	if (App.userRole == 'admin') {
 		new App.Routers.Administrator();		
 		Backbone.history.start();
-		Backbone.history.navigate("/product", true);		
+		//Backbone.history.navigate("/product", true);		
 	}
 	else if (App.userRole == 'user') {
 		new App.Routers.User();	
@@ -115,19 +115,15 @@ $(function() {
 	    $(this).parent().hide();
 	});
 	
-	function goToLoginPage() {
-		window.location.reload();
-	}
-	
+		
 	$.ajaxSetup({
 		complete: function (xhr) {
 			if (xhr.responseText.indexOf('<title>Login</title>') > 0) {
 				//console.log('expired')
-				goToLoginPage();
+				window.location.reload();
 		    }
 		}
 	});
 	
-	//setInterval(goToLoginPage, 180000); 
 	
 });
