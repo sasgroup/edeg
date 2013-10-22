@@ -1,3 +1,4 @@
+/*
 dataSource {
     pooled = true
     driverClassName = "org.h2.Driver"
@@ -12,15 +13,6 @@ hibernate {
 //ORACLE
 environments {
     development {
-        
-		/*
-		dataSource {
-			dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
-			url = "jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000"
-		}
-		*/
-		
-		
 		dataSource {
 		  pooled = true
 		   dialect = org.hibernate.dialect.Oracle11gDialect
@@ -58,4 +50,34 @@ environments {
         }
     }  
 }
+*/
  
+dataSource {
+    pooled = true
+    driverClassName = "oracle.jdbc.driver.OracleDriver"       
+    jndiName = "java:comp/env/jdbc/EDEG"
+    dialect = org.hibernate.dialect.OracleDialect   
+}
+hibernate {
+    cache.use_second_level_cache = true
+    cache.use_query_cache = true
+    cache.provider_class = 'net.sf.ehcache.hibernate.EhCacheProvider'
+}
+// environment specific settings
+environments {
+    development {
+        dataSource {
+            dbCreate = "create-drop" // one of 'create', 'create-drop','update'
+        }
+    }
+    test {
+        dataSource {
+            dbCreate = "update"
+        }
+    }
+    production {
+        dataSource {
+            dbCreate = "update"
+        }
+    }
+}
