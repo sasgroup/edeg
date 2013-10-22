@@ -68,7 +68,7 @@ App.Routers.Administrator = Backbone.Router.extend({
 		 
 		 'hospital$' : function() {
 			 if (window.console) console.log("before go to hospital");	
-			 //if (App.viewHospital.isModified) App.viewHospital.showConfirm();
+			 if (App.viewHospital.isModified) App.viewHospital.showConfirm();
 		 },
 		 
 		 'ehr$' : function() {

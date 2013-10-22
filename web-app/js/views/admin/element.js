@@ -206,7 +206,9 @@ App.Views.DataElement = Backbone.View.extend({
 		
 		var emptyValuesType = _.pluck(this.model.get('dataElementDefaults'),"ids").indexOf('');
 		
-		if (emptyValuesType!=-1) 		{
+		var emptyVtype = _.find(emptyValuesType, function(ids){ return ids == ''; })
+				
+		if (emptyVtype!==undefined) 		{
 			bootbox.alert("Please specify Values Type for [" + this.model.get('dataElementDefaults')[emptyValuesType].location + "] location.", function() {
 			});
 			
