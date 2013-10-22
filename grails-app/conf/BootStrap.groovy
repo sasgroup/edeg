@@ -3,6 +3,11 @@ import ihm_demo.*
 class BootStrap {
 
     def init = { servletContext ->
+		
+		
+		/*
+		
+		
 		def admin = new User(
 			login:"admin",
 			password: "admin",
@@ -81,45 +86,7 @@ class BootStrap {
 			}
 		}
 
-		//-----------HOSPITALs-----------
-		def _hospitals = [
-			["Community Hospital",										"MEDITECH 6.0","","ED-ALL"],
-			["Massachusetts General Hospital",							"MEDITECH 6.0","","ED-ALL"],
-			["Lindemann Mental Health Center",							"MEDITECH 6.0","","ED-ALL"],
-			["Hebrew Rehabilitation Center for the Aged",				"MEDITECH 6.0","","ED-OBS"],
-			//["Faulkner Hospital",										"MEDITECH 6.0","","ED-ALL"],
-			//["Carney Hospital",										"MEDITECH 6.0","","ED-ALL"],
-			["Franciscan Children's Hospital and Rehabilitation Center","MEDITECH 6.0","","ED-ALL"],
-			["Tufts Medical Center",									"MEDITECH 6.0","","ED-ALL"],
-			["Lowell General Hospital",									"MEDITECH 6.0","","ED-ALL"],
-			["Hospital Corporation of America (HCA)",					"MEDITECH 6.1","","ED-OBS"],
-			["United States Marine Hospital",							"MEDITECH 6.1","","ED-OBS"],
-			["Chicago Hospital for Women and Children",					"MEDITECH 6.1","","ED-OBS"],
-			["Louis A. Weiss Memorial Hospital",						"MEDITECH 6.1","","ED-OBS"],
-			["Lurie Children's Hospital",								"MEDITECH 6.1","","ED-OBS"],
-			["Mercy Hospital and Medical Center",						"MEDITECH 6.2","","ED-OBS"],
-			["Michael Reese Hospital",									"MEDITECH 6.3","","ED-OBS"],
-			["Northwestern Memorial Hospital",							"MEDITECH 6.2","","ED-OBS"],
-			["Rehabilitation Institute of Chicago",						"MEDITECH 6.2","","ED-OBS"],
-			["Ruth M. Rothstein CORE Center",							"MEDITECH 6.2","","ED-OBS"],
-			["University of Chicago Medical Center",					"MEDITECH 6.3","","ED-OBS"],
-			["Swedish Covenant Hospital",								"MEDITECH 6.3","","ED-OBS"],
-			["Fawcett Memorial Hospital",								"MEDITECH 6.3","","ED-OBS"],
-			["HealthONE Colorado",										"MEDITECH 6.3","","ED-OBS"],
-			["Tulane Medical Center",									"MEDITECH 6.2","","ED-OBS"],
-			["Wellington Hospital, London",								"MEDITECH 6.2","","ED-OBS"],
-			["Spotsylvania Regional Medical Center",					"MEDITECH 6.0","","ED-ALL"],
-			["London Bridge Hospital",									"MEDITECH 6.0","","ED-ALL"]
-			]
-		for(_h in _hospitals){
-			//def _hospital = new Hospital(name:_h[0], ehr:Ehr.findByCode(_h[1]), notes:_h[2], populationMethod: _h[3], externalEHRs:"")
-			//if (!_hospital.save(flush:true)){
-			//	_hospital.errors.allErrors.each{error ->
-			//		println "An error occured with event1: ${error}"
-			//	}
-			//}
-		}
-
+		
 		//-----------PRODUCTs-----------
 		def _products = [
 			["MU1",	"Meaningful Use Solution 2014 Stage 1",	
@@ -133,15 +100,7 @@ class BootStrap {
 				""],
 			["QA",	"Quality Alert",
 				"", 
-				""],
-			
-			// TEST
-			["NP1",	"New Product 1",							
-				"Notes for New Product 1",
-				"<b>Help</b> <i> for New Product 1</i>"],
-			["NP2",	"New Product 2",
-				"Notes for New Product 2",
-				"<b>Help</b> <i> for New Product 2</i>"]
+				""]
 			]
 		for(_p in _products){
 			def _product = new Product(code:_p[0], name:_p[1], notes:_p[2], help:_p[3])
@@ -397,14 +356,7 @@ class BootStrap {
 			["PN-6b", "PN-6b:  Initial Antibiotic Selection for CAP-Non ICU", 
 				"Immunocompetent patients with Community-Acquired Pneumonia who receive an initial antibiotic regimen during the first 24 hours that is consistent with current guidelines (Population 1) Immunocompetent ICU patients with Community-Acquired Pneumonia who receive an initial antibiotic regimen during the first 24 hours that is consistent with current guidelines (Population 2) Immunocompetent non-Intensive Care Unit (ICU) patients with Community-Acquired Pneumonia who receive an initial antibiotic regimen during the first 24 hours that is consistent with current guidelines", 
 				"<br><a rel=\"nofollow\" target=\"_blank\" href=\"http://lantanagroup.com/especnavigator2013/#home\">From eSpec Navigator</a>", 
-				"CQM", "Efficient Use of Healthcare Resources", ["MU1","MU2"]],
-			
-			// TEST
-			["NM1", "New Measure 1", "", "", "CORE", "", ["NP1"]],
-			["NM2", "New Measure 2", "", "", "MENU", "", ["NP1","NP2"]],
-			["NM3", "New Measure 3", "", "", "CORE", "", ["NP1","NP2"]],
-			["NM4", "New Measure 4", "", "", "MENU", "", ["NP2"]]
-
+				"CQM", "Efficient Use of Healthcare Resources", ["MU1","MU2"]]
 			]
 		for(_m in _measures){
 			def _measure = new Measure(code:_m[0], name:_m[1], notes:_m[2], help:_m[3], measureCategory:MeasureCategory.findByName(_m[4]), cqmDomain:CqmDomain.findByName(_m[5]))
@@ -576,19 +528,8 @@ class BootStrap {
 				"Please specify query that identifies that a summary of care document was completed"],
 			["SmrCareDocSentE", "Flag that the Summary of care document was sent electronically to another provider", "", "HospitalSpecific", [],["MEDITECH 6.0", "MEDITECH 6.1"], 
 				"", 
-				"Please specify query that identifies that a summary of care document was electronically sent to another provider"],
+				"Please specify query that identifies that a summary of care document was electronically sent to another provider"]
 
-			// TEST
-			["NDE1", "New Data Element 1", "Loc.1.1.1", "StandardCode", ["NM1","NM2"],["MEDITECH 6.0", "MEDITECH 6.1"], "", ""],
-			["NDE2", "New Data Element 2", "Loc.1.1.2", "StandardCode", ["NM3","NM2"],["MEDITECH 6.0", "MEDITECH 6.1"], "", ""],
-			["NDE3", "New Data Element 3", "Loc.1.1.3", "StandardCode", ["NM3","NM4"],["MEDITECH 6.0", "MEDITECH 6.1"], "", ""],
-			["NDE4", "New Data Element 4", "Loc.1.1.4", "StandardCode", ["NM1","NM4"],["MEDITECH 6.0", "MEDITECH 6.1"], "", ""],
-			["NDE5", "New Data Element 5", "Loc.1.1.5", "StandardCode", ["NM1","NM2"],["MEDITECH 6.0", "MEDITECH 6.1"], "", ""],
-			["NDE6", "New Data Element 6", "Loc.1.1.6", "StandardCode", ["NM1","NM3"],["MEDITECH 6.0", "MEDITECH 6.1"], "", ""],
-			["NDE7", "New Data Element 7", "Loc.1.1.7", "StandardCode", ["NM1","NM4"],["MEDITECH 6.0", "MEDITECH 6.1"], "", ""],
-			["NDE8", "New Data Element 8", "Loc.1.1.8", "StandardCode", ["NM4","NM2"],["MEDITECH 6.0", "MEDITECH 6.1"], "", ""],
-			["NDE9", "New Data Element 9", "Loc.1.1.9", "StandardCode", ["NM3","NM2"],["MEDITECH 6.0", "MEDITECH 6.1"], "", ""],
-			["NDE0", "New Data Element 0", "Loc.1.1.0", "StandardCode", ["NM4"],["MEDITECH 6.0", "MEDITECH 6.1"], "", ""]
 		]
 		for(_el in _elements){
 			def _element = new DataElement(code:_el[0], name:_el[1], notes:_el[6], help:_el[7])
@@ -623,6 +564,8 @@ class BootStrap {
 		}
 
 		//---
+		
+		*/
     }
     def destroy = {
     }

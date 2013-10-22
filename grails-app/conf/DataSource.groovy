@@ -13,23 +13,24 @@ hibernate {
 environments {
     development {
         
+		/*
 		dataSource {
 			dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
 			url = "jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000"
 		}
+		*/
 		
-		/*
 		
 		dataSource {
-		   pooled = true
+		  pooled = true
 		   dialect = org.hibernate.dialect.Oracle11gDialect
 		   driverClassName = 'oracle.jdbc.OracleDriver'
 		   username = 'sys as sysdba'
 		   password = 'sys'
 		   url = 'jdbc:oracle:thin:@localhost:1521:IHM'
-		   dbCreate = 'create-drop'
+		   dbCreate = 'validate'
 		   //logSql = true
-       }*/
+       }
 		
     }   
     test {
@@ -40,7 +41,7 @@ environments {
 		   username = 'sys as sysdba'
 		   password = 'sys'
 		   url = 'jdbc:oracle:thin:@localhost:1521:IHM'
-		   dbCreate = 'create-drop'
+		   dbCreate = 'validate'
 		   //logSql = true
         }
     }
@@ -52,7 +53,7 @@ environments {
 		   username = 'sys as sysdba'
 		   password = 'sys'
 		   url = 'jdbc:oracle:thin:@localhost:1521:IHM'
-		   dbCreate = 'create-drop'
+		   dbCreate = 'validate'
 		   //logSql = true
         }
     }  
