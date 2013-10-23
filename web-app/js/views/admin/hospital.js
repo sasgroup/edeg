@@ -284,7 +284,8 @@ App.Views.Hospital = Backbone.View.extend({
 																		"p_index"  :p_index,
 																		"m_index"  :m_index,
 																		"product_id" : product.id,
-																		"measureCategory":measure.measureCategory
+																		"measureCategory":measure.measureCategory,
+																		"path"			 : '#hospital/' + App.ho.get('id') + '/product/' + product.id + '/measure/' + measure.id
 																		});				
 				
 				var view = new App.Views.SingleHospitalMeasure({ model : hospitalMeasure });				
@@ -554,7 +555,8 @@ App.Views.SingleHospitalMeasure = Backbone.View
 											 confirmed:ch_confirmed,
 											 accepted:ch_accepted,
 											 verified:ch_verified,
-											 measureCategory:this.model.get("measureCategory")
+											 measureCategory:this.model.get("measureCategory"),
+											 path:this.model.get('path')
 											}));
 				//this.$el.html(this.template(this.model.toJSON()));
 				

@@ -86,9 +86,10 @@ App.Views.HospitalProduct = Backbone.View.extend({
 																"product_id"	: cur_hospital_product.model.id,
 																"notes"       	: measure.notes,
 																"help"			: measure.help,
-																"measureCategory":measure.measureCategory
+																"measureCategory":measure.measureCategory,
+																"path"			 : '#hospital/' + cur_hospital_product.options.h_id + '/product/' + cur_hospital_product.model.id + '/measure/' + measure.id																
 																});	
-					
+								
 			var view = new App.Views.HospitalMeasure({ model : hospitalMeasure });					
 			cur_hospital_product.$el.find('.hospitalMeasureTable tbody').append(view.render().el);
 		});		
@@ -214,7 +215,8 @@ App.Views.HospitalMeasure = Backbone.View
 											 confirmed:ch_confirmed,
 											 accepted:ch_accepted,
 											 verified:ch_verified,
-											 measureCategory:this.model.get('measureCategory') 
+											 measureCategory:this.model.get('measureCategory'),
+											 path:this.model.get('path')
 											}));				
 				
 				this.$el.attr("id", "m"+this.model.get('id'));				
