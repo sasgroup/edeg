@@ -196,8 +196,7 @@ App.Views.Hospital = Backbone.View.extend({
 	},
 
 	changeTab: function (e){		
-		//var product_id = $(e.target).attr('href').replace('#t','');			
-		
+				
 		var link = $(e.target).prop("href");
 		var product_id  = link.substr(link.indexOf('#')).replace('#t','');
 				
