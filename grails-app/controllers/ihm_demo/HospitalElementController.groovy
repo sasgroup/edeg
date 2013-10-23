@@ -12,38 +12,38 @@ class HospitalElementController {
 		// TODO: check here for possible changes to be reported via Email Notification
 		def modificationDetected = false
 		
-		if (instance.location != param.location) 
+		if ((instance.location && param.location!='') && instance.location != param.location) 
 			modificationDetected = true 
 		instance.location = param.location
 		
-		if (instance.sourceEHR != (ehrCode == param.source))
+		if (instance.sourceEHR && param.source!='' && instance.sourceEHR != (ehrCode == param.source))
 			modificationDetected = true
 		instance.sourceEHR = (ehrCode == param.source)
 		
-		if (instance.source != param.source)
+		if (instance.source && param.source!='' && instance.source != param.source)
 			modificationDetected = true
 		//instance.source = param.sourceEHR ? instance.hospital.ehr.code : param.source		
 		instance.source = param.source
 		
-		if (instance.valueSet != param.valueSet)
+		if (instance.valueSet && param.valueSet!='' && instance.valueSet != param.valueSet)
 			modificationDetected = true
 		instance.valueSet = param.valueSet
 
-		if (instance.valueSetFile != param.valueSetFile)
+		if (instance.valueSetFile && param.valueSetFile!='' && instance.valueSetFile != param.valueSetFile)
 			modificationDetected = true
 		instance.valueSetFile = param.valueSetFile
 		// TODO append notes info
 		
-		if (instance.internalNotes != param.internalNotes)
+		if (instance.internalNotes && param.internalNotes!='' && instance.internalNotes != param.internalNotes)
 			modificationDetected = true
 		instance.internalNotes = param.internalNotes
 
-		if (instance.notes != param.notes)
+		if (instance.notes && param.notes!='' && instance.notes != param.notes)
 			modificationDetected = true
 		instance.notes = param.notes
 
 		//TODO correct ValuesType
-		if (instance.valuesType != ValuesType.get(param?.valuesTypeId))
+		if (instance.valuesTypeId && param.valuesTypeId!='' && instance.valuesType != ValuesType.get(param?.valuesTypeId))
 			modificationDetected = true
 		instance.valuesType = ValuesType.get(param?.valuesTypeId)
 		
