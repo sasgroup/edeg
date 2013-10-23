@@ -194,7 +194,7 @@ App.Views.HospitalMeasure = Backbone.View
 			tagName : 'tr',
 			template: _.template($('#user-hospital_measure').html()),			
 			events : {				
-				'click a#customLink'       	      : 'goToDataElements',
+				//'click a#customLink'       	      : 'goToDataElements',
 				'change input[name="completed"]'  : 'changeVal',
 				'click .show_info'                : 'showInfo'	
 			},
@@ -282,8 +282,8 @@ App.Views.HospitalMeasure = Backbone.View
 				})
 			},
 			
-			goToDataElements : function(e) {
+			/*goToDataElements : function(e) {
 				e.preventDefault();				
 				Backbone.history.navigate("/hospital/" +  this.model.get('h_id')+ "/product/" + this.model.get('product_id')+ "/measure/" + this.model.get('id'), true);		
-			}	
+			}	*/
 		});
