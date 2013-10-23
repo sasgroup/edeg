@@ -11,7 +11,7 @@ class FileController {
  def show= {
   
   def file
-  
+  println params
   if (params?.currentHospitalElement && HospitalElement.exists(params.currentHospitalElement)) {
    def hospitalElement = HospitalElement.get(params.currentHospitalElement)
    //find hospitalElement and get file name
@@ -50,14 +50,23 @@ class FileController {
 	String fileName="${multiRequest?.fileItem?.name}"
 	fileName = fileName.replaceAll(" ", "_")
 	fileName = fileName.replaceAll("-", "_")
-	if (fileName.contains("\\")  ||  fileName.contains("/") )
-		fileName = fileName.find(~/\w*\.\w*/)
+	if (fileName.contains("\\")  ||  fileName.contains("/") ) {
+		//fileName = fileName.find(~/\w*\.\w*/)
+		println fileName
+		def firstIndex = fileName.findLastIndexOf {
+			it == "\\"
+		}
+		
+		fileName = fileName.substring(firstIndex+1)
+		
+	}	
+	println fileName
 	def hospitalElement = HospitalElement.get(params.currentHospitalElement)
 	def hospitalElementId = params?.currentHospitalElement
 
 	def path = fileUploadService.uploadFile(multiRequest, "${hospitalElementId}_${fileName}", "uploadFiles",false)
 	if (path) {
-	 if (params?.currentHospitalElement && HospitalMeasure.exists(params.currentHospitalElement)) {
+	 if (params?.currentHospitalElement && HospitalElement.exists(params.currentHospitalElement)) {
 	  hospitalElement = HospitalElement.get(params.currentHospitalElement)
 	  hospitalElement.valueSetFile = "${hospitalElementId}_${fileName}"
 	  hospitalElement.save(flush :true)
