@@ -1,7 +1,7 @@
 App.Routers.Administrator = Backbone.Router.extend({
 	routes : {		
 		
-		''		      	  : 'home',
+		''		      	  : 'index',
 		'product'		  : 'products',
 		'measure'         : 'measures',
 		'element'         : 'dataElements',
@@ -93,7 +93,7 @@ App.Routers.Administrator = Backbone.Router.extend({
 		Backbone.history.navigate("hospital/"+id+'/edit', true);		
 	},
 	
-	home : function(){
+	index : function(){
 		Backbone.history.navigate("/product", true);		
 	},
 	

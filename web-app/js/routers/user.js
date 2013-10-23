@@ -1,6 +1,7 @@
 App.Routers.User = Backbone.Router.extend({
 	routes : {
-		"home/:h_id"     	                           : 'home',		
+		''											   : 'index',	
+		'home/:h_id'     	                           : 'home',		
 		'hospital/:h_id/product/:p_id/measure/:m_id'   : 'elements',
 		'hospital/:h_id/product/:p_id'                 : 'productn'
 	},
@@ -22,6 +23,59 @@ App.Routers.User = Backbone.Router.extend({
 			 App.viewHospitalElements.isModified = false;
 		 }			 
 	},
+	
+	index : function(){
+		App.security = new App.Models.Security();		
+		App.security.fetch().then(function(){		
+			var hospital_id = App.security.get('curHospitalId');			
+			var curHospital = App.security.get('curHospital');
+			//show hospital-name		
+			$('h3.hospital-name').text(curHospital).attr("data-id",hospital_id);			
+			
+			var first_product = "";
+			//generate tabs
+			App.ho = new App.Models.Hospital();		
+			App.ho.fetch({data:{id: hospital_id}}).then(function(){		
+				var products = App.ho.get('products');				
+				$('nav#products-nav').empty();
+				$.each( products, function( i, product ) {								
+					$('nav#products-nav').append('<a href="#hospital/' + hospital_id + '/product/'+ product.id+ '">' + product.code + '</a>');					
+				});	
+
+				//$('.hospital#'+hospital_id).hide();
+				
+				Backbone.history.navigate('/home/' + hospital_id , true);
+			});	  
+							
+			App.availableHospitals = App.security.get('availableHospitals');			
+			var output = new Array();
+
+			$.each(App.availableHospitals, function(key, value) {
+				output.push({id: key, name: value});
+			});
+			output.sort(function(a,b) {
+
+			    if(a.name > b.name) return 1;
+			    if(a.name < b.name) return -1;
+			    return 0;
+			});
+
+			if (output.length > 1) {
+				for(var index in output) {
+					$('ul#hospital-list-dropdown').append('<li data-id='+ output[index].id +' class="hospital" id='+ output[index].id+'><a href="#home/' + output[index].id + '">' + output[index].name+ '</a></li>');	
+					$("a.btn.dropdown-toggle").removeAttr('disabled');
+				}
+			} else {
+				//show hospital-name		
+				if (output.length == 1) { 
+					$('h3.hospital-name').text(output[0].name);
+				}	
+				
+				$("a.btn.dropdown-toggle").attr('disabled','disabled');
+				$("#hospital-list-dropdown").hide();
+			}
+		});   
+	},
 		
 	home : function(h_id){
 		$('#breadcrumb-box').empty();
@@ -30,7 +84,17 @@ App.Routers.User = Backbone.Router.extend({
 		var ho = new App.Models.Hospital();		
 		ho.fetch({data:{id: h_id}}).then(function(){
 			var viewHome = new App.Views.Home({model:ho});
-			$('#app').html(viewHome.render().el);			
+			$('#app').html(viewHome.render().el);
+			
+			// set hospital name
+			$('h3.hospital-name').text(ho.get('name')).attr("data-id",h_id);	
+			
+			// set tabs
+			var products = ho.get('products');
+			$('nav#products-nav').empty();
+			$.each( products, function( i, product ) {		           
+				$('nav#products-nav').append('<a href="#hospital/' + h_id + '/product/'+ product.id+ '">' + product.code + '</a>');					
+			});		
 		});		
 	},
 		

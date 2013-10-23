@@ -24,7 +24,7 @@ $(function() {
 		new App.Routers.User();	
 		Backbone.history.start();
 				
-		App.security = new App.Models.Security();		
+		/*App.security = new App.Models.Security();		
 		App.security.fetch().then(function(){		
 			var hospital_id = App.security.get('curHospitalId');			
 			var curHospital = App.security.get('curHospital');
@@ -38,14 +38,10 @@ $(function() {
 				var products = App.ho.get('products');				
 				$('nav#products-nav').empty();
 				$.each( products, function( i, product ) {								
-					$('nav#products-nav').append('<a href="#hospital/' + hospital_id + '/product/'+ product.id+ '">' + product.code + '</a>');
-					/*if (first_product=="") {
-					    first_product = '/hospital/' + hospital_id + '/product/'+ product.id;					    	
-						Backbone.history.navigate(first_product, true);
-					}	*/	
+					$('nav#products-nav').append('<a href="#hospital/' + hospital_id + '/product/'+ product.id+ '">' + product.code + '</a>');					
 				});	
 
-				$('.hospital#'+hospital_id).hide();
+				//$('.hospital#'+hospital_id).hide();
 				
 				Backbone.history.navigate('/home/' + hospital_id , true);
 			});	  
@@ -65,7 +61,7 @@ $(function() {
 
 			if (output.length > 1) {
 				for(var index in output) {
-					$('ul#hospital-list-dropdown').append('<li data-id='+ output[index].id +' class="hospital" id='+ output[index].id+'><a href="#">' + output[index].name+ '</a></li>');	
+					$('ul#hospital-list-dropdown').append('<li data-id='+ output[index].id +' class="hospital" id='+ output[index].id+'><a href="#home/' + output[index].id + '">' + output[index].name+ '</a></li>');	
 					$("a.btn.dropdown-toggle").removeAttr('disabled');
 				}
 			} else {
@@ -79,7 +75,7 @@ $(function() {
 			}
 		});   
 							
-		$('#hospital-list-dropdown li').live('click', function(){	 
+		/*$('#hospital-list-dropdown li').live('click', function(){	 
 			var hospital_name = $(this).find('a').text(); 
 			var hospital_id = $(this).data('id');
 			$('.hospital').show()
@@ -102,7 +98,7 @@ $(function() {
 								
 				Backbone.history.navigate('/home/' + hospital_id , true);
 			})	    
-		});
+		});*/
 	}
 		
 			
