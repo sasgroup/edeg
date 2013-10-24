@@ -1,6 +1,7 @@
 package ihm_demo
 
 class DataElementDefaults {
+	static auditable = true
 	String location
 	//ValueType valueType
 	DataElement dataElement

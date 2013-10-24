@@ -16,6 +16,6 @@ class Ehr {
 	 }
 	 
 	String toString(){
-		"$code, $name"
+		"$code"
 	}
 }

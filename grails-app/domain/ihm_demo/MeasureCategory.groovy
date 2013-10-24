@@ -11,7 +11,7 @@ class MeasureCategory {
     }
 	
 	String toString(){
-		"$name, $description"
+		"$name"
 	}
 	
 }
