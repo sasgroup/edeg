@@ -100,7 +100,7 @@ App.Views.HospitalElements = Backbone.View.extend({
 	returnToProduct : function(){		
 		App.viewHospitalElements.isModified = false;
 		
-		if (window.history.length==1) {
+		if (window.history.length<=1) {
 			window.close();
 		} else {
 			window.history.back();		
@@ -152,8 +152,8 @@ App.Views.HospitalElements = Backbone.View.extend({
 		this.saveHospitalElementsOnly();
 
 		App.viewHospitalElements.isModified = false;
-						
-		if (window.history.length==1) {
+				
+		if (window.history.length<=1) {
 			window.close();
 		} else {
 			window.history.back();		
