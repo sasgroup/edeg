@@ -12,7 +12,7 @@ class ReportController {
 	
 	private String prepSQL(GrailsParameterMap params){
 		
-		def res = "SELECT id, TO_CHAR(last_updated, 'mm/dd/yy HH24:MI') last_updated, actor, event_name, class_name, property_name, new_value, old_value, TO_CHAR(date_created, 'mm/dd/yy HH24:MI') date_created, persisted_object_id FROM Audit_Log "
+		def res = "SELECT id, TO_CHAR(last_updated, 'mm/dd/yy HH24:MI:SS') last_updated, actor, event_name, class_name, property_name, new_value, old_value, TO_CHAR(date_created, 'mm/dd/yy HH24:MI:SS') date_created, persisted_object_id FROM Audit_Log "
 		def _where = " Where 1=1"
 		
 		if (params.etype != "-"){
@@ -82,7 +82,7 @@ class ReportController {
 			
 		_where += " and  LAST_UPDATED between to_timestamp('$dpFrom', 'yyyy-mm-dd hh24:mi:ss') and to_timestamp('$dpTill', 'yyyy-mm-dd hh24:mi:ss') "
 		
-		return res + _where + " order by persisted_object_id asc, last_updated asc"
+		return res + _where + " order by persisted_object_id asc, last_updated desc"
 	}
 	
 	private String derivePersistedObjectIDs(hid,oid,etype){

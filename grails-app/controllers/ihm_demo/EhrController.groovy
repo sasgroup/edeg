@@ -2,8 +2,18 @@ package ihm_demo
 
 import grails.converters.JSON
 import org.springframework.dao.DataIntegrityViolationException
+import groovy.sql.Sql
 
 class EhrController {
+	
+	def dataSource
+	
+	private LogDeleteEvent(DataElement instance){
+		def sql = new Sql(dataSource)
+		def results = sql.rows("Insert into AUDIT_LOG (ID,ACTOR,CLASS_NAME,DATE_CREATED,EVENT_NAME,LAST_UPDATED,NEW_VALUE,OLD_VALUE,PERSISTED_OBJECT_ID,PERSISTED_OBJECT_VERSION,PROPERTY_NAME,URI)"
+								+
+								"values (HIBERNATE_SEQUENCE.nextVal,'"+request.getRemoteUser()+"','"+instance.getClass().getSimpleName()+"',SYSTIMESTAMP,'DELETE',SYSTIMESTAMP,null,'"+instance.toString()+"','"+instance.id+"',null,'dataElementDefaults',null)")
+	}
 	
 	private Ehr saveInstance (Ehr instance, def param) {
 		instance.name = param.name
@@ -12,6 +22,7 @@ class EhrController {
 		
 		instance.save(flush :true)
 	
+		//LogDeleteEvent(instance)
 		DataElementDefaults.executeUpdate("delete DataElementDefaults ded where ded.ehr=?", [instance])
 		
 		//create new
