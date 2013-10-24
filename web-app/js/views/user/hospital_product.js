@@ -87,7 +87,7 @@ App.Views.HospitalProduct = Backbone.View.extend({
 																"notes"       	: measure.notes,
 																"help"			: measure.help,
 																"measureCategory":measure.measureCategory,
-																"path"			 : '#hospital%2F' + cur_hospital_product.options.h_id + '%2Fproduct%2F' + cur_hospital_product.model.id + '%2Fmeasure%2F' + measure.id																
+																"path"			 : '#hospital/' + cur_hospital_product.options.h_id + '/product/' + cur_hospital_product.model.id + '/measure/' + measure.id																
 																});	
 								
 			var view = new App.Views.HospitalMeasure({ model : hospitalMeasure });					
@@ -194,7 +194,7 @@ App.Views.HospitalMeasure = Backbone.View
 			tagName : 'tr',
 			template: _.template($('#user-hospital_measure').html()),			
 			events : {				
-				//'click a#customLink'       	      : 'goToDataElements',
+				'click a#customLink'       	      : 'goToDataElements',
 				'change input[name="completed"]'  : 'changeVal',
 				'click .show_info'                : 'showInfo'	
 			},
@@ -281,8 +281,8 @@ App.Views.HospitalMeasure = Backbone.View
 				})
 			},
 			
-			/*goToDataElements : function(e) {
-				e.preventDefault();				
-				Backbone.history.navigate("/hospital/" +  this.model.get('h_id')+ "/product/" + this.model.get('product_id')+ "/measure/" + this.model.get('id'), true);		
-			}	*/
+			goToDataElements : function(e) {				
+				e.stopPropagation();
+				//Backbone.history.navigate("/hospital/" +  this.model.get('h_id')+ "/product/" + this.model.get('product_id')+ "/measure/" + this.model.get('id'), true);		
+			}	
 		});

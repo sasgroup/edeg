@@ -13,14 +13,14 @@ hibernate {
 environments {
     development {
         
-		/*
+		
 		dataSource {
 			dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
 			url = "jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000"
 		}
-		*/
 		
 		
+		/*
 		dataSource {
 		  pooled = true
 		   dialect = org.hibernate.dialect.Oracle11gDialect
@@ -31,6 +31,7 @@ environments {
 		   dbCreate = 'validate' // 'create-drop' // 
 		   //logSql = true
        }
+       */
 		
     }   
     test {

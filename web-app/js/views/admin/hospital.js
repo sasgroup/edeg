@@ -284,7 +284,7 @@ App.Views.Hospital = Backbone.View.extend({
 																		"m_index"  :m_index,
 																		"product_id" : product.id,
 																		"measureCategory":measure.measureCategory,
-																		"path"			 : '#hospital%2F' + App.ho.get('id') + '%2Fproduct%2F' + product.id + '%2Fmeasure%2F' + measure.id
+																		"path"			 : '#hospital/' + App.ho.get('id') + '/product/' + product.id + '/measure/' + measure.id
 																		});				
 				
 				var view = new App.Views.SingleHospitalMeasure({ model : hospitalMeasure });				
@@ -628,8 +628,8 @@ App.Views.SingleHospitalMeasure = Backbone.View
 			},
 									
 			goToDataElements : function(e) {				
-				e.preventDefault();	
-				
+				e.stopPropagation();
+							
 				App.ho.set({submit: true});
 				
 				App.ho.save(this.attributes,{
@@ -638,7 +638,7 @@ App.Views.SingleHospitalMeasure = Backbone.View
 				        error: function (model, response) {				           
 				        }
 				});
-				Backbone.history.navigate("hospital/"+ App.ho.get('id') +"/product/" + this.model.get('product_id')+ "/measure/" + this.model.get('id'), true);
+				//Backbone.history.navigate("hospital/"+ App.ho.get('id') +"/product/" + this.model.get('product_id')+ "/measure/" + this.model.get('id'), true);
 			}			
 		});
 
