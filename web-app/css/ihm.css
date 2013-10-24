@@ -797,3 +797,8 @@ select, input[type="file"] {
 /*#main_table table.dataTable td{
     padding-right: 20px;
 }*/
+
+
+.ui-search-oper{
+	display:none;
+}
