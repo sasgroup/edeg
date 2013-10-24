@@ -1,6 +1,7 @@
 App.Routers.Administrator = Backbone.Router.extend({
 	routes : {		
 		
+		''		      	  : 'index',
 		'product'		  : 'products',
 		'measure'         : 'measures',
 		'element'         : 'dataElements',
@@ -51,38 +52,31 @@ App.Routers.Administrator = Backbone.Router.extend({
 	},
 	
 	before: {	    
-	    'product$' : function() {
-	    	if (window.console) console.log("before go to product");	    		    	
+	    'product$' : function() {	    		    		    	
 	    	if (App.viewHospital.isModified) App.viewHospital.showConfirm();	    	
 	     },
 	     
-	     'measure$' : function() {
-	    	 if (window.console) console.log("before go to measure");
+	     'measure$' : function() {	    	
 	    	 if (App.viewHospital.isModified) App.viewHospital.showConfirm();
 		 },
 		 
-		 'element$' : function() {
-			 if (window.console) console.log("before go to element");
+		 'element$' : function() {			 
 			 if (App.viewHospital.isModified) App.viewHospital.showConfirm();
 		 },
 		 
-		 'hospital$' : function() {
-			 if (window.console) console.log("before go to hospital");	
-			 //if (App.viewHospital.isModified) App.viewHospital.showConfirm();
-		 },
-		 
-		 'ehr$' : function() {
-			 if (window.console) console.log("before go to ehr");
+		 'hospital$' : function() {			 	
 			 if (App.viewHospital.isModified) App.viewHospital.showConfirm();
 		 },
 		 
-		 'reports$' : function() {
-			 if (window.console) console.log("before go to reports");
+		 'ehr$' : function() {			 
 			 if (App.viewHospital.isModified) App.viewHospital.showConfirm();
 		 },
 		 
-		 'types' : function() {
-			 if (window.console) console.log("before go to reports");
+		 'reports$' : function() {			 
+			 if (App.viewHospital.isModified) App.viewHospital.showConfirm();
+		 },
+		 
+		 'types' : function() {			
 			 if (App.viewHospital.isModified) App.viewHospital.showConfirm();
 		 }
 	},
@@ -90,6 +84,10 @@ App.Routers.Administrator = Backbone.Router.extend({
 		
 	reopenHospital : function(id) {		
 		Backbone.history.navigate("hospital/"+id+'/edit', true);		
+	},
+	
+	index : function(){
+		Backbone.history.navigate("/product", true);		
 	},
 	
 	elements : function(h_id,p_id, m_id){	

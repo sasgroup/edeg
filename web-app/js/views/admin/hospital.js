@@ -196,8 +196,7 @@ App.Views.Hospital = Backbone.View.extend({
 	},
 
 	changeTab: function (e){		
-		//var product_id = $(e.target).attr('href').replace('#t','');			
-		
+				
 		var link = $(e.target).prop("href");
 		var product_id  = link.substr(link.indexOf('#')).replace('#t','');
 				
@@ -284,7 +283,8 @@ App.Views.Hospital = Backbone.View.extend({
 																		"p_index"  :p_index,
 																		"m_index"  :m_index,
 																		"product_id" : product.id,
-																		"measureCategory":measure.measureCategory
+																		"measureCategory":measure.measureCategory,
+																		"path"			 : '#hospital/' + App.ho.get('id') + '/product/' + product.id + '/measure/' + measure.id
 																		});				
 				
 				var view = new App.Views.SingleHospitalMeasure({ model : hospitalMeasure });				
@@ -374,19 +374,14 @@ App.Views.Hospital = Backbone.View.extend({
 
 	changeVal : function(e) {
 		//HOSPITAL IS MODIFIED
-		this.isModified = true;
-		if (window.console) console.log(e.target.name);
-		this.model.attributes[e.target.name] = $(e.target).val();
-		if (window.console) console.log(this.model.attributes);
+		this.isModified = true;		
+		this.model.attributes[e.target.name] = $(e.target).val();		
 	},
 	
 	changeSlcVal : function(e) {
 		//HOSPITAL IS MODIFIED
 		this.isModified = true;
-		//console.log(this.model);
-		if (window.console) console.log(e.target.name);
-		this.model.attributes[e.target.name] =  $(e.target).multiselect('getChecked').val();
-		if (window.console) console.log(this.model.attributes);
+		this.model.attributes[e.target.name] =  $(e.target).multiselect('getChecked').val();		
 	},
 	
 	submHospital : function(e) {
@@ -398,8 +393,7 @@ App.Views.Hospital = Backbone.View.extend({
         this.model.set({submit: true});
         
         this.model.save(this.attributes,{
-	        success: function (model, response) {
-	           if (window.console) console.log(response);
+	        success: function (model, response) {	           
 	           $('div#message-box').text("").append(response.message).removeClass().addClass('alert').addClass('alert-success').fadeIn(10).delay(2000).fadeOut(50);              
 	        },
 	        error: function (model, response) {
@@ -417,8 +411,7 @@ App.Views.Hospital = Backbone.View.extend({
 		this.model.set({submit: true});
         
         this.model.save(this.attributes,{
-	        success: function (model, response) {
-	           if (window.console) console.log(response);
+	        success: function (model, response) {	          
 	           if (response.resp=="ok") {	       
 	        	   $('div#message-box').text("").append(response.message).removeClass().addClass('alert').addClass('alert-success').fadeIn(10).delay(2000).fadeOut(50);    	  
 	        	   Backbone.history.navigate("hospital", true);
@@ -462,8 +455,7 @@ App.Views.Hospital = Backbone.View.extend({
 		this.model.set({submit: true});
 		
         this.model.save(this.attributes,{
-	        success: function (model, response) {
-	           if (window.console) console.log(response);
+	        success: function (model, response) {	           
 	           if (response.resp=="ok") {	       
 	        	   $('div#message-box').text("").append(response.message).removeClass().addClass('alert').addClass('alert-success').fadeIn(10).delay(2500).fadeOut(50);	        	   
 	           } else if (response.resp=="error") {
@@ -554,7 +546,8 @@ App.Views.SingleHospitalMeasure = Backbone.View
 											 confirmed:ch_confirmed,
 											 accepted:ch_accepted,
 											 verified:ch_verified,
-											 measureCategory:this.model.get("measureCategory")
+											 measureCategory:this.model.get("measureCategory"),
+											 path:this.model.get('path')
 											}));
 				//this.$el.html(this.template(this.model.toJSON()));
 				
@@ -569,18 +562,15 @@ App.Views.SingleHospitalMeasure = Backbone.View
 			changeVal: function(e) {		
 				//HOSPITAL IS MODIFIED
 				App.viewHospital.isModified = true;
-				if (window.console) console.log("checkbox "+e.target.name+ ":", $(e.target).is(':checked'));
-				
+							
 				if (e.target.name!="included") {
 					var ch_slc = 'input[name="' + e.target.name + '"]';
 					var tr_slc = 'tr#' + $(e.target).closest('tr').attr('id');
 					var sl = tr_slc + ' ' + ch_slc;
 					var sl_val = $(e.target).is(':checked');					
 					$(sl).attr('checked', sl_val);
-
 							
-					$(tr_slc).each(function( index ) {
-						//console.log( index + ": " + $(this).text() );
+					$(tr_slc).each(function( index ) {						
 						$(this).attr('checked', sl_val);
 						var p_index = $(this).data("product");
 						var m_index = $(this).data("measure");
@@ -630,29 +620,25 @@ App.Views.SingleHospitalMeasure = Backbone.View
 				
 			 App.ho.set('products', App.hospital_products);		
 			 /*App.ho.save(this.attributes,{
-			        success: function (model, response) {
-			           if (window.console) console.log(response);			           	           
+			        success: function (model, response) {			           			           	           
 			        },
-			        error: function (model, response) {			 
-			           if (window.console) console.log(response);
+			        error: function (model, response) {			           
 			        }
 			});*/
 			},
 									
 			goToDataElements : function(e) {				
-				e.preventDefault();	
-				
+				e.stopPropagation();
+							
 				App.ho.set({submit: true});
 				
 				App.ho.save(this.attributes,{
-				        success: function (model, response) {
-				           if (window.console) console.log(response);			           	           
+				        success: function (model, response) {				           			           	           
 				        },
-				        error: function (model, response) {			 
-				           if (window.console) console.log(response);
+				        error: function (model, response) {				           
 				        }
 				});
-				Backbone.history.navigate("hospital/"+ App.ho.get('id') +"/product/" + this.model.get('product_id')+ "/measure/" + this.model.get('id'), true);
+				//Backbone.history.navigate("hospital/"+ App.ho.get('id') +"/product/" + this.model.get('product_id')+ "/measure/" + this.model.get('id'), true);
 			}			
 		});
 

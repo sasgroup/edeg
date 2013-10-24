@@ -157,7 +157,7 @@
  </td> 
  <td><div>{{ measureCategory }}</div></td>
  <td><div class='code'>{{ code }}</div></td>
- <td><div class='title' title="{{name}}"><a id="customLink" href="#modalDataElements" role="button" data-toggle="modal">{{ name }}</a></div></td>
+ <td><div class='title' title="{{name}}"><a id="customLink" href='{{path}}' role="button" data-toggle="modal">{{ name }}</a></div></td>
  <td>
     <input type="checkbox" name="completed" id="{{id}}" {{completed}}>
  </td> 

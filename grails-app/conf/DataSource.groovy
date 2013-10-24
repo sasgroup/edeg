@@ -13,6 +13,18 @@ hibernate {
 //ORACLE
 environments {
     development {
+<<<<<<< HEAD
+=======
+        
+		
+		/*dataSource {
+			dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
+			url = "jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000"
+		}*/
+		
+		
+		
+>>>>>>> 6d375940d956b629924e7e4dc473980218d592ff
 		dataSource {
 		  pooled = true
 		   dialect = org.hibernate.dialect.Oracle11gDialect
@@ -20,9 +32,10 @@ environments {
 		   username = 'sys as sysdba'
 		   password = 'sys'
 		   url = 'jdbc:oracle:thin:@localhost:1521:IHM'
-		   dbCreate = 'validate'
+		   dbCreate = 'validate' // 'create-drop' // 
 		   //logSql = true
        }
+       
 		
     }   
     test {

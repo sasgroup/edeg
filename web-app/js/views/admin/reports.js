@@ -160,13 +160,13 @@ App.Views.Reports = Backbone.View.extend({
 			 	{name:'source',		index:'source', 	width:80},
 			 	{name:'valueType',	index:'valueType', 	width:60} 		],
 			 	
-			[	{name:'updated',	index:'updated', 	width:60},
-		 	 	{name:'actor',		index:'actor', 		width:50},
-		 	 	{name:'event',		index:'event', 		width:30},
-			 	{name:'entity',		index:'entity', 	width:65}, 
-			 	{name:'property',	index:'property',	width:70}, 
-			 	{name:'ovalue',		index:'ovalue'				},
-			 	{name:'nvalue',		index:'nvalue'				},
+			[	{name:'updated',	index:'updated', 	width:70,	search:false},
+		 	 	{name:'actor',		index:'actor', 		width:50,	search:true, 	sorttype:'string', searchoptions:{sopt:['cn']}},
+		 	 	{name:'event',		index:'event', 		width:30,	search:false},
+			 	{name:'entity',		index:'entity', 	width:65,	search:false}, 
+			 	{name:'property',	index:'property',	width:70,	search:true, 	sorttype:'string', searchoptions:{sopt:['cn']}}, 
+			 	{name:'ovalue',		index:'ovalue'				,	search:true, 	sorttype:'string', searchoptions:{sopt:['cn']}},
+			 	{name:'nvalue',		index:'nvalue'				,	search:true, 	sorttype:'string', searchoptions:{sopt:['cn']}},
 			 	{name:'poid',		index:'poid', 		width:30} 		]
 		];
 		
@@ -219,6 +219,7 @@ App.Views.Reports = Backbone.View.extend({
 				}
 				
 				$("#tblReportResults").jqGrid('setGridWidth', 940, true);
+				$("#tblReportResults").jqGrid('filterToolbar',{searchOperators : true});
 					
 			}
 		});

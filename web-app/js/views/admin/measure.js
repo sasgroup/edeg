@@ -23,8 +23,7 @@ App.Views.Measures = Backbone.View.extend({
 		this.$el.find('#table_items tbody').append(view.render().el);
 	},
 
-	createMeasure : function() {
-		if (window.console) console.log("createMeasure");
+	createMeasure : function() {		
 		Backbone.history.navigate("measure/new", true)
 	}
 });
@@ -176,16 +175,13 @@ App.Views.Measure = Backbone.View.extend({
 		this.model.attributes[e.target.name] = $(e.target).val();
 	},
 	
-	changeCh : function(e) {
-		if (window.console) console.log(e.target.value + ' ' + e.target.id + ' ' + e.target.checked+ ' '+e.target.name);
+	changeCh : function(e) {		
 		if (e.target.name == 'product' ) {
-			if ( e.target.checked ) {
-				if (window.console) console.log("Push products");
+			if ( e.target.checked ) {				
 				var products = this.model.get("products");
 				products.push({"pid" : e.target.id, "pname" : e.target.value});
 				this.model.set("products" , products);
-			} else {
-				if (window.console) console.log("Remove products");
+			} else {				
 				var products = this.model.get("products");
 				var removeIndex; 
 				for (var i = 0; i < products.length; i++) {
@@ -197,13 +193,11 @@ App.Views.Measure = Backbone.View.extend({
 			}
 		};
 		if (e.target.name == 'element' ) {
-			if ( e.target.checked ) {
-				if (window.console) console.log("Push dataElements");
+			if ( e.target.checked ) {				
 				var dataElements = this.model.get("dataElements");
 				dataElements.push({"did" : e.target.id, "dname" : e.target.value});
 				this.model.set("dataElements" , dataElements);
-			} else {
-				if (window.console) console.log("Remove dataElements");
+			} else {				
 				var dataElements = this.model.get("dataElements");
 				var removeIndex; 
 				for (var i = 0; i < dataElements.length; i++) {
@@ -213,8 +207,7 @@ App.Views.Measure = Backbone.View.extend({
 				}
 				dataElements.splice(removeIndex,1);
 			};
-		};	
-		if (window.console) console.log(this.model);
+		};		
 	},
 	
 	editMeasure : function(e) {
@@ -274,8 +267,7 @@ App.Views.SingleMeasure = Backbone.View
 				Backbone.history.navigate("measure/"+this.model.get('id')+'/edit', true);
 			},
 			
-			destroy : function(e){
-				if (window.console) console.log("destroy");
+			destroy : function(e){				
 				e.preventDefault();
 				
 				var el = this.$el;
@@ -290,8 +282,7 @@ App.Views.SingleMeasure = Backbone.View
 					    		el.remove();
 						    	Backbone.history.navigate("measure", true);
 						     },
-						     error: function (model, response) {
-						    	 if (window.console) console.log(response);							    	 
+						     error: function (model, response) {						    								    	 
 						    	 var btn = '<button type="button" class="close">&times;</button>';
 						    	 $('div#message-box').text("").append(btn).append(response.responseText).removeClass().addClass('alert').addClass('alert-error').show();
 						    	 Backbone.history.navigate("measure", true);

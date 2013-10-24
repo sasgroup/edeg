@@ -87,8 +87,8 @@ class HospitalController {
 																	internalNotes : "", 
 																	notes:"", 
 																	location : "", 
-																	source : "", 
-																	sourceEHR : false, 
+																	source : hospital.ehr.code, 
+																	sourceEHR : true, 
 																	valueSet : "", 
 																	valueSetFile : "", 
 																	//valueType : ValueType.NotApplicable, 
@@ -109,11 +109,12 @@ class HospitalController {
 							else if (hospitalElement.sourceEHR){
 								hospitalElement.sourceEHR = true
 								hospitalElement.source = hospital.ehr.code
-								hospitalElement.valuesType = deriveValuesType(defaultSetting)
+								//hospitalElement.valuesType = deriveValuesType(defaultSetting)
 							}
 						}
-						else{
+						else if (hospitalElement.sourceEHR){
 							// TODO need client verification
+							hospitalElement.sourceEHR = true
 							hospitalElement.source = hospital.ehr.code
 						}
 						hospitalElement.save(flush:true)
@@ -236,7 +237,7 @@ class HospitalController {
 			}
 		}
 		else
-			return ValuesType.list().first()
+			return ValuesType.findByName("NotApplicable")
 	}
 	
 	
@@ -337,9 +338,13 @@ class HospitalController {
 			def firstEHR = Ehr.list().first()
 			Map<String, String> allHospitals = securityService.getHospitalNameMap(request.getRemoteUser())
 			allHospitals.each { key, value  ->
-				def h = Hospital.findByName(value)
+				def h = Hospital.findByIhmid(key)
 				if (!h){
-					h = new Hospital(name:value, ehr:firstEHR, notes:"", populationMethod: "ED-ALL", externalEHRs:"")
+					h = new Hospital(name:value, ehr:firstEHR, notes:"", populationMethod: "ED-ALL", externalEHRs:"", ihmid:key)
+					h.save(flush: true)
+				}
+				else if (h.name != value ){
+					h.name = value
 					h.save(flush: true)
 				}
 			}
@@ -349,10 +354,12 @@ class HospitalController {
 			render(contentType: "text/json") {
 				hospitals = array {
 					for (p in results) {
-						hospital 	name: p.name, 
-									notes: isNULL(p.notes,""),
-									email: isNULL(p.email,""), 
-									id: p.id
+						if (allHospitals[p.ihmid]){
+							hospital 	name: p.name, 
+										notes: isNULL(p.notes,""),
+										email: isNULL(p.email,""), 
+										id: p.id
+						}
 					}
 				}
 			}

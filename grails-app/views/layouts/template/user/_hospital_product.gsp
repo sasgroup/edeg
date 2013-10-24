@@ -24,8 +24,8 @@
 	<input type="checkbox" name="included" id="{{id}}" disabled="disabled" {{included}} {{included? "": "title='Contact IHM customer support to change selected measures'"}}>
  </td>
  <td><div>{{ measureCategory }}</div></td>
- <td><div class='code' title="">{{ code }}</div></td> 
- <td><div class='title' title="{{name}}"><a {{included? "id='customLink' href='#modalDataElements'": "class='disable'"}} role="button" data-toggle="modal">{{ name }}</a></div></td>
+ <td><div class='code' title="">{{ code }}</div></td>
+ <td><div class='title' title="{{name}}"><a {{included? "id='customLink'": "class='disable'"}}  href='{{path}}' role="button" data-toggle="modal">{{ name }}</a></div></td>
  <td>
     <input type="checkbox" name="completed" id="{{id}}" {{completed}} {{included? "": 'disabled="disabled"'}}>
  </td>

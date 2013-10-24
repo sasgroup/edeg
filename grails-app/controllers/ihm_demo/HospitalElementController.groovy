@@ -143,8 +143,12 @@ class HospitalElementController {
 
 			def  result = HospitalMeasure.get(params.id)
 
-			def hospitalElements =  result.hospitalMeasureElements //HospitalElement.list().findAll{it?.hospitalMeasure.findAll{it.id == result.id}.size() >= 1}
-
+			HospitalProduct hospitalProduct = HospitalProduct.findByHospitalAndProduct(Hospital.get(params.h_id), Product.get(params.p_id))
+			HospitalProductMeasure hospitalProductMeasure 	= HospitalProductMeasure.findByHospitalProductAndHospitalMeasure(hospitalProduct, result)
+			def hospitalElements = new ArrayList()
+			//TODO verify permission to view HospitalMeasure
+			if (session.user.role.equals("user") && hospitalProductMeasure.included) 			
+				hospitalElements =  result.hospitalMeasureElements //HospitalElement.list().findAll{it?.hospitalMeasure.findAll{it.id == result.id}.size() >= 1}
 			render(contentType: "text/json") {
 				hospitalElements = array {
 					for (hme in hospitalElements) {
@@ -229,4 +233,10 @@ class HospitalElementController {
 		return (null!=str)?str:dfl
 	}
 }
+
+
+
+
+
+
 

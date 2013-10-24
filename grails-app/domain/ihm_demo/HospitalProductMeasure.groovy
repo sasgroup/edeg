@@ -7,7 +7,7 @@ class HospitalProductMeasure {
 	static belongsTo = [hospitalProduct: HospitalProduct, hospitalMeasure: HospitalMeasure]
 
 	String toString(){
-		"$hospitalProduct.product.name, $hospitalMeasure.measure.name"
+		"$hospitalProduct?.product?.code, $hospitalMeasure?.measure?.code"
 	}
 
 }

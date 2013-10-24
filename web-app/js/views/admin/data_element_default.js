@@ -103,8 +103,7 @@ App.Views.DataElementsDefault = Backbone.View
 				return html;
 			},
 			
-			addRow : function (){
-				if (window.console) console.log(App[this.model.parent].get('dataElementDefaults'));
+			addRow : function (){				
 				var timeId = parseInt(App[this.model.parent].timeId);
 				var linkId = this.getFirstDefaultElementOptions();
 				var emptyDataElementDefault = {"id":timeId, "linkId":linkId, "parent":this.options.parent, "location":"" /*, "valueType":{"enumType":"","name":"NotApplicable"} */};
@@ -118,8 +117,7 @@ App.Views.DataElementsDefault = Backbone.View
 				
 				var el = view.render().el;
 				$(el).find('.slcParent').append(this.defaultElementOptions());
-				if (window.console) console.log(App[this.model.parent].get('dataElementDefaults'));
-				
+								
 				$(el).find('.slcValuesType').append(this.valuesTypeOptions()); //new
 				
 				$(el).find('.slcValuesType').multiselect({

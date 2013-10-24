@@ -3,6 +3,7 @@ package ihm_demo
 class Hospital {
 	static auditable = true
 	String name
+	String ihmid
 	String email
 	String notes
 	String externalEHRs
@@ -10,6 +11,7 @@ class Hospital {
 	Ehr ehr
 		
     static constraints = {
+		ihmid()
 		name()
 		notes(nullable:true,maxSize:4000)
 		externalEHRs(nullable:true,maxSize:4000)

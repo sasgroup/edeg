@@ -24,6 +24,6 @@ class ElementExtraLocation {
 	}
 	
 	String toString(){
-		"$location, $source"
+		"$location"
 	}
 }

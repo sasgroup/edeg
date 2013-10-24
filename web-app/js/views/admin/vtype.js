@@ -134,8 +134,7 @@ App.Views.SingleValuesType = Backbone.View
 				App.route.validateValuesTypeForm();		
 			},
 			
-			destroy : function(e){	
-				if (window.console) console.log("destroy");
+			destroy : function(e){				
 				e.preventDefault();
 				var el = this.$el;
 				var thisVType = this.model;
@@ -158,8 +157,7 @@ App.Views.SingleValuesType = Backbone.View
 								    	 $('div#message-box').text("").append(btn).append(response.responseText).removeClass().addClass('alert').addClass('alert-error').show();		
 							    	}
 							     },
-							     error: function (model, response) {
-							    	 if (window.console) console.log(response);							    	 
+							     error: function (model, response) {							    	 							    	 
 							    	 var btn = '<button type="button" class="close">&times;</button>';
 							    	 $('div#message-box').text("").append(btn).append(response.responseText).removeClass().addClass('alert').addClass('alert-error').show();							    	 
 							     }
