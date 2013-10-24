@@ -564,8 +564,8 @@ class BootStrap {
 		}
 
 		//---
+*/		
 		
-		*/
     }
     def destroy = {
     }

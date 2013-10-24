@@ -28,7 +28,7 @@ environments {
 		   username = 'sys as sysdba'
 		   password = 'sys'
 		   url = 'jdbc:oracle:thin:@localhost:1521:IHM'
-		   dbCreate = 'validate'
+		   dbCreate = 'validate' // 'create-drop' // 
 		   //logSql = true
        }
 		
