@@ -87,8 +87,8 @@ class HospitalController {
 																	internalNotes : "", 
 																	notes:"", 
 																	location : "", 
-																	source : "", 
-																	sourceEHR : false, 
+																	source : hospital.ehr.code, 
+																	sourceEHR : true, 
 																	valueSet : "", 
 																	valueSetFile : "", 
 																	//valueType : ValueType.NotApplicable, 
@@ -109,11 +109,12 @@ class HospitalController {
 							else if (hospitalElement.sourceEHR){
 								hospitalElement.sourceEHR = true
 								hospitalElement.source = hospital.ehr.code
-								hospitalElement.valuesType = deriveValuesType(defaultSetting)
+								//hospitalElement.valuesType = deriveValuesType(defaultSetting)
 							}
 						}
-						else{
+						else if (hospitalElement.sourceEHR){
 							// TODO need client verification
+							hospitalElement.sourceEHR = true
 							hospitalElement.source = hospital.ehr.code
 						}
 						hospitalElement.save(flush:true)
@@ -236,7 +237,7 @@ class HospitalController {
 			}
 		}
 		else
-			return ValuesType.list().first()
+			return ValuesType.findByName("NotApplicable")
 	}
 	
 	
