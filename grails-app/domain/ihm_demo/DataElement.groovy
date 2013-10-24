@@ -24,6 +24,6 @@ class DataElement {
 	}
 	
 	String toString() {
-		"$code, $name"
+		"$code"
 	}
 }

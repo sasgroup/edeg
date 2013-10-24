@@ -10,6 +10,6 @@ class CqmDomain {
     }
 	
 	String toString(){
-		"$name, $notes"
+		"$name"
 	}
 }

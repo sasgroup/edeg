@@ -29,6 +29,6 @@ class Measure {
 	}
 	
 	String toString() {
-		"$code, $name"
+		"$code"
 	}
 }

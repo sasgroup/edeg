@@ -22,6 +22,6 @@ class Product {
 	}
 
 	String toString() {
-		"$code, $name"
+		"$code"
 	}
 }
