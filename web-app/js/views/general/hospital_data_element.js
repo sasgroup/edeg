@@ -180,7 +180,7 @@ App.Views.HospitalElements = Backbone.View.extend({
 			    wait: true,
 			    success: function (m, response) {			       
 			           if (response.resp=="ok") {	   
-			        	   //if (window.console) console.log(response.message);			        	   
+			        	   			        	   
 			           } else if (response.resp=="error") {			        	  
 			        	   if (errorMessage=="") {
 			        		   var btn = '<button type="button" class="close">&times;</button>';
@@ -197,13 +197,13 @@ App.Views.HospitalElements = Backbone.View.extend({
 			        	   }
 
 			           } 
-			    },
-			    error: function (m, response) {
-			    	if (window.console) console.log("error");	          
-		        }		      
+			    }	      
 			  });
 		});	
-
+		
+		if (errorMessage=="") {
+			$('div#message-box').text("").append('Hospital Elements have been successfully updated.').removeClass().addClass('alert').addClass('alert-success').fadeIn(10).delay(2000).fadeOut(50);
+		}
 	},
 
 	showConfirm: function() {
@@ -800,7 +800,6 @@ App.Views.ExtraDataElement = Backbone.View
 	},
 
 	addRow : function (event){		
-		if (window.console) console.log("add extra row");
 		var valuesTypeId = this.model.get('valuesTypeId');
 		var sourceEHR = this.model.get("sourceEHR");
 		var source = this.model.get('source');
@@ -822,12 +821,10 @@ App.Views.ExtraDataElement = Backbone.View
 
 		var extra_tbody = $('#extra-table tbody');
 		var extra_row = extra_view.render().el;
-		$(extra_tbody).append(extra_row);				
-
+		$(extra_tbody).append(extra_row);	
 	},
 
-	removeRow : function (event){
-		if (window.console) console.log("remove extra row");
+	removeRow : function (event){		
 		$(event.target).closest('tr').remove();
 	},
 	
@@ -874,8 +871,6 @@ App.Views.HospitalSpecific =  Backbone.View
 	},
 
 	addRow : function (event){		
-		if (window.console) console.log("add extra row");
-
 		var hospital_specific_tbody = $('#hospital-specific-table tbody');
 
 		var hospitalSpecific =	{
@@ -889,8 +884,7 @@ App.Views.HospitalSpecific =  Backbone.View
 		$(hospital_specific_tbody).append(hospital_specific_row);	
 	},
 
-	removeRow : function (event){
-		if (window.console) console.log("remove extra row");
+	removeRow : function (event){		
 		$(event.target).closest('tr').remove();
 	}
 });

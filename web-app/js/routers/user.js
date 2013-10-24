@@ -16,9 +16,7 @@ App.Routers.User = Backbone.Router.extend({
 	},
 	
 	before: {	   		 
-		 'hospital/' : function() {
-			 if (window.console) console.log("before go to hospital/:id/product/:id/");	
-			 if (window.console) console.log(App.viewHospitalElements.isModified);
+		 'hospital/' : function() {			 
 			 if (App.viewHospitalElements.isModified) App.viewHospitalElements.showConfirm();
 			 App.viewHospitalElements.isModified = false;
 		 }			 
@@ -42,8 +40,7 @@ App.Routers.User = Backbone.Router.extend({
 					$('nav#products-nav').append('<a href="#hospital/' + hospital_id + '/product/'+ product.id+ '">' + product.code + '</a>');					
 				});	
 
-				//$('.hospital#'+hospital_id).hide();
-				
+				//$('.hospital#'+hospital_id).hide();				
 				Backbone.history.navigate('/home/' + hospital_id , true);
 			});	  
 							

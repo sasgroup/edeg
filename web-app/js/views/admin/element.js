@@ -88,8 +88,7 @@ App.Views.DataElement = Backbone.View.extend({
 		var mids = _.pluck(this.model.get('measures'), 'mid');					
 		var measure_ids = App.measures.pluck('id');
 				
-		App.measures.forEach(function(m){			
-			if (window.console) console.log(m);		
+		App.measures.forEach(function(m){					
 			if (_.contains(mids, m.get('id'))) {				
 				checked.push({name:m.get('name'),id:m.get('id')});
 			} else {
@@ -126,8 +125,7 @@ App.Views.DataElement = Backbone.View.extend({
 		
 		var dataElementDefaults = this.model.get('dataElementDefaults');
 		var ehrtbody = this.$el.find('div#ehrs .ehrTable tbody');
-		if (window.console) console.log("dataElementDefaults " + dataElementDefaults);
-		
+				
 		var optionsList = this.ehrOptions();
 		
 		var vtypesList = this.vtypeOptions(); //new
@@ -180,15 +178,12 @@ App.Views.DataElement = Backbone.View.extend({
 		this.model.attributes[e.target.name] = $(e.target).val();
 	},
 	changeCh : function(e) {
-		if (window.console) console.log(e.target.value + ' ' + e.target.id + ' ' + e.target.checked+ ' '+e.target.name);
 		if (e.target.name == 'measure' ) {
-			if ( e.target.checked ) {
-				if (window.console) console.log("Push measure");
+			if ( e.target.checked ) {				
 				var measures = this.model.get("measures");
 				measures.push({"mid" : e.target.id, "mname" : e.target.value});
 				this.model.set("measures" , measures);
-			} else {
-				if (window.console) console.log("Remove measures");
+			} else {				
 				var measures = this.model.get("measures");
 				var removeIndex; 
 				for (var i = 0; i < measures.length; i++) {
@@ -219,8 +214,7 @@ App.Views.DataElement = Backbone.View.extend({
 		this.model.set({code:this.$el.find('#code').val()});
 			
 		this.model.save(null,{
-	        success: function (model, response) {
-	           if (window.console) console.log(response);
+	        success: function (model, response) {	           
 	           if (response.resp=="ok") {	        	   
 	        	   $('div#message-box').text("").append(response.message).removeClass().addClass('alert').addClass('alert-success').fadeIn(10).delay(2000).fadeOut(50);              	           
 	        	   Backbone.history.navigate("element", true);
@@ -269,14 +263,11 @@ App.Views.SingleDataElement = Backbone.View
 				return this;
 			},
 
-			goToEdit : function() {
-				if (window.console) console.log(this.model);
-				if (window.console) console.log("goToEdit",this.model.get('id'));							
+			goToEdit : function() {											
 				Backbone.history.navigate("element/"+this.model.get('id')+'/edit', true);
 			},
 			
-			destroy : function(e){
-				if (window.console) console.log("destroy");
+			destroy : function(e){				
 				e.preventDefault();
 								
 				var el = this.$el;
@@ -291,8 +282,7 @@ App.Views.SingleDataElement = Backbone.View
 						    		el.remove();
 							    	Backbone.history.navigate("element", true);
 							     },
-							     error: function (model, response) {
-							    	 if (window.console) console.log(response);							    	 
+							     error: function (model, response) {							    	 							    	 
 							    	 var btn = '<button type="button" class="close">&times;</button>';
 							    	 $('div#message-box').text("").append(btn).append(response.responseText).removeClass().addClass('alert').addClass('alert-error').show();
 							    	 Backbone.history.navigate("element", true);

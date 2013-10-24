@@ -21,8 +21,7 @@ App.Views.Ehrs = Backbone.View.extend({
 		this.$el.find('#table_items tbody').append(view.render().el);
 	},
 
-	createEhr : function() {
-		if (window.console) console.log("create EHR");
+	createEhr : function() {		
 		Backbone.history.navigate("ehr/new", true)
 	}
 });
@@ -192,14 +191,11 @@ App.Views.SingleEhr = Backbone.View
 				return this;
 			},
 
-			goToEdit : function() {				
-				if (window.console) console.log(this.model);
-				if (window.console) console.log("goToEdit",this.model.get('id'));							
+			goToEdit : function() {											
 				Backbone.history.navigate("ehr/"+this.model.get('id')+'/edit', true);
 			},
 			
-			destroy : function(e){
-				if (window.console) console.log("destroy");
+			destroy : function(e){				
 				e.preventDefault();
 					
 				var el = this.$el;
@@ -214,8 +210,7 @@ App.Views.SingleEhr = Backbone.View
 						    		el.remove();
 							    	Backbone.history.navigate("ehr", true);
 							     },
-							     error: function (model, response) {
-							    	 if (window.console) console.log(response);							    	 
+							     error: function (model, response) {							    	 							    	 
 							    	 var btn = '<button type="button" class="close">&times;</button>';
 							    	 $('div#message-box').text("").append(btn).append(response.responseText).removeClass().addClass('alert').addClass('alert-error').show();
 							    	 Backbone.history.navigate("ehr", true);

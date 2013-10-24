@@ -8,8 +8,7 @@ App.Views.QADataElement = Backbone.View
     'keypress .txt-message': 'sendOnEnter'
   },
           
-  render : function() {
-    //console.log(this.model.toJSON());        
+  render : function() {           
         
     if (this.options.tab=="tab-qa2") {
       this.$el.html(this.template({notes:this.model.get('notes')}));    
@@ -76,11 +75,9 @@ App.Views.QA = Backbone.View
     'keypress .txt-message' : 'sendOnEnter'
   },
           
-  render : function() {
-    //console.log(this.model.toJSON());        
+  render : function() {     
         
     this.$el.html(this.template({qa:this.model.get('qa')}));    
-    
     
     return this;
   },

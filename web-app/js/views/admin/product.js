@@ -72,8 +72,7 @@ App.Views.Product = Backbone.View.extend({
 		var mids = _.pluck(this.model.get('measures'), 'mid');					
 		var measure_ids = App.measures.pluck('id');
 				
-		App.measures.forEach(function(m){			
-			if (window.console) console.log(m);		
+		App.measures.forEach(function(m){					
 			if (_.contains(mids, m.get('id'))) {				
 				checked.push({name:m.get('name'),id:m.get('id')});
 			} else {
@@ -109,16 +108,13 @@ App.Views.Product = Backbone.View.extend({
 		this.$el.find('div#hospitals').append(temp({name:product_hospital.hname}));		
 	},
 	
-	changeCh : function(e) {
-		if (window.console) console.log(e.target.value + ' ' + e.target.id + ' ' + e.target.checked+ ' '+e.target.name);		
+	changeCh : function(e) {				
 		if (e.target.name == 'measure' ) {
-			if ( e.target.checked ) {
-				if (window.console) console.log("Push measure");
+			if ( e.target.checked ) {				
 				var measures = this.model.get("measures");
 				measures.push({"mid" : e.target.id, "mname" : e.target.value});
 				this.model.set("measures" , measures);
-			} else {
-				if (window.console) console.log("Remove measures");
+			} else {				
 				var measures = this.model.get("measures");
 				var removeIndex; 
 				for (var i = 0; i < measures.length; i++) {
@@ -132,10 +128,8 @@ App.Views.Product = Backbone.View.extend({
 		};	
 	},
 	
-	changeVal : function(e) {
-		if (window.console) console.log(e.target.name);
-		this.model.attributes[e.target.name] = $(e.target).val();
-		if (window.console) console.log(this.model.attributes);
+	changeVal : function(e) {		
+		this.model.attributes[e.target.name] = $(e.target).val();		
 	},
 	
 	submProduct : function(e) {
@@ -143,8 +137,7 @@ App.Views.Product = Backbone.View.extend({
 		this.model.attributes.help = $('.helpAreaProduct').val();			
 		this.model.set({code:this.$el.find('#code').val()});		
 		this.model.save(this.attributes,{
-	        success: function (model, response) {
-	        if (window.console) console.log(response);
+	        success: function (model, response) {	        
 	           if (response.resp=="ok") {	        	   
 	        	   $('div#message-box').text("").append(response.message).removeClass().addClass('alert').addClass('alert-success').fadeIn(10).delay(2000).fadeOut(50);              	           
 	        	   Backbone.history.navigate("product", true);
@@ -192,13 +185,10 @@ App.Views.SingleProduct = Backbone.View
 			},
 			
 			goToEdit : function() {
-				if (window.console) console.log(this.model);
-				if (window.console) console.log("goToEdit",this.model.get('id'));							
 				Backbone.history.navigate("product/"+this.model.get('id')+'/edit', true);
 			},
 			
-			destroy : function(e){
-				if (window.console) console.log("destroy");
+			destroy : function(e){				
 				e.preventDefault();
 				
 				var el = this.$el;
@@ -213,8 +203,7 @@ App.Views.SingleProduct = Backbone.View
 						    		el.remove();
 							    	Backbone.history.navigate("product", true);
 							     },
-							     error: function (model, response) {
-							    	 if (window.console) console.log(response);							    	 
+							     error: function (model, response) {							    	 							    	 
 							    	 var btn = '<button type="button" class="close">&times;</button>';
 							    	 $('div#message-box').text("").append(btn).append(response.responseText).removeClass().addClass('alert').addClass('alert-error').show();
 							    	 Backbone.history.navigate("product", true);
@@ -234,8 +223,7 @@ App.Views.ProductMeasure = Backbone.View
 			className: 'checkbox',
 			template: _.template($('#single-product-measure').html()),		
 			
-			render : function() {
-				if (window.console) console.log("name:" + this.name);
+			render : function() {				
 				this.$el.html(this.template());
 				return this;
 			}			
