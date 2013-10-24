@@ -86,9 +86,10 @@ App.Views.HospitalProduct = Backbone.View.extend({
 																"product_id"	: cur_hospital_product.model.id,
 																"notes"       	: measure.notes,
 																"help"			: measure.help,
-																"measureCategory":measure.measureCategory
+																"measureCategory":measure.measureCategory,
+																"path"			 : '#hospital/' + cur_hospital_product.options.h_id + '/product/' + cur_hospital_product.model.id + '/measure/' + measure.id																
 																});	
-					
+								
 			var view = new App.Views.HospitalMeasure({ model : hospitalMeasure });					
 			cur_hospital_product.$el.find('.hospitalMeasureTable tbody').append(view.render().el);
 		});		
@@ -214,7 +215,8 @@ App.Views.HospitalMeasure = Backbone.View
 											 confirmed:ch_confirmed,
 											 accepted:ch_accepted,
 											 verified:ch_verified,
-											 measureCategory:this.model.get('measureCategory') 
+											 measureCategory:this.model.get('measureCategory'),
+											 path:this.model.get('path')
 											}));				
 				
 				this.$el.attr("id", "m"+this.model.get('id'));				
@@ -241,8 +243,7 @@ App.Views.HospitalMeasure = Backbone.View
 				App.ho.set({submit : true});
 				
 				App.ho.save(null,{
-			        success: function (model, response) {
-			           if (window.console) console.log(response);			          
+			        success: function (model, response) {			           			          
 			           $('div#message-box').text("").append(response.message).removeClass().addClass('alert').addClass('alert-success').fadeIn(10).delay(2000).fadeOut(50);			           
 			        },
 			        error: function (model, response) {			        	
@@ -280,8 +281,8 @@ App.Views.HospitalMeasure = Backbone.View
 				})
 			},
 			
-			goToDataElements : function(e) {
-				e.preventDefault();				
-				Backbone.history.navigate("/hospital/" +  this.model.get('h_id')+ "/product/" + this.model.get('product_id')+ "/measure/" + this.model.get('id'), true);		
+			goToDataElements : function(e) {				
+				e.stopPropagation();
+				//Backbone.history.navigate("/hospital/" +  this.model.get('h_id')+ "/product/" + this.model.get('product_id')+ "/measure/" + this.model.get('id'), true);		
 			}	
 		});
