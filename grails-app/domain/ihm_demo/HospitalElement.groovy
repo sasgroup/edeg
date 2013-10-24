@@ -37,6 +37,6 @@ class HospitalElement {
 	}
 	
 	String toString(){
-		"$hospital?.name, $dataElement?.code, $location"
+		"$hospital, $dataElement, $location"
 	}
 }

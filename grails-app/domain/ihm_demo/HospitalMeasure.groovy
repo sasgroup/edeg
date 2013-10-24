@@ -1,7 +1,7 @@
 package ihm_demo
 
 class HospitalMeasure {
-	static auditable = [ignore:['notifyUser','notifyAdmin','hospitalProductMeasures']]
+	static auditable = true
 	Boolean accepted
 	Boolean completed
 	Boolean confirmed
@@ -31,6 +31,6 @@ class HospitalMeasure {
 	}
 	
 	String toString(){
-		"$hospital?.name, $measure?.code"
+		"$hospital, $measure"
 	}
 }
