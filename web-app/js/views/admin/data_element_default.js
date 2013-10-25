@@ -106,7 +106,7 @@ App.Views.DataElementsDefault = Backbone.View
 			addRow : function (){				
 				var timeId = parseInt(App[this.model.parent].timeId);
 				var linkId = this.getFirstDefaultElementOptions();
-				var emptyDataElementDefault = {"id":timeId, "linkId":linkId, "parent":this.options.parent, "location":"" /*, "valueType":{"enumType":"","name":"NotApplicable"} */};
+				var emptyDataElementDefault = {"id":timeId, "linkId":linkId, "parent":this.options.parent, "location":""};
 				var dataElementDefaults = App[this.model.parent].get('dataElementDefaults');
 				dataElementDefaults.push(emptyDataElementDefault);
 				App[this.model.parent].set("dataElementDefaults" , dataElementDefaults);

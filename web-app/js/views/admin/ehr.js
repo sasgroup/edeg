@@ -138,12 +138,10 @@ App.Views.Ehr = Backbone.View.extend({
 		
 	editEhr : function(e) {
 		e.preventDefault();	
-		
-		//var emptyValuesType = _.pluck(this.model.get('dataElementDefaults'),"ids").indexOf('');
-		
+			
 		var emptyValuesType = _.indexOf(_.pluck(this.model.get('dataElementDefaults'),"ids"), '');
 		
-		if (emptyValuesType!=-1) 		{
+		if ((emptyValuesType!=-1)&&(this.model.get('dataElementDefaults')[emptyValuesType].location!='')){
 			bootbox.alert("Please specify Values Type for [" + this.model.get('dataElementDefaults')[emptyValuesType].location + "] location.", function() {
 			});			
 			return;			
