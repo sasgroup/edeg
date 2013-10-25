@@ -162,6 +162,7 @@ App.Views.HospitalElements = Backbone.View.extend({
 
 	saveHospitalElementsOnly : function() {
 		var errorMessage="";
+		var successRecordCounter=this.collection.length;
 		var markAsComplete = $('#markAsComplete').is(":checked");
 		
 		App.cur_measure.set({completed: markAsComplete});
@@ -171,7 +172,7 @@ App.Views.HospitalElements = Backbone.View.extend({
 
 		var m_id = this.options.m_id;
 		var product_id = this.options.product_id;	
-
+						
 		_.each(this.collection.models, function(model) {			 	 
 			  model.set({m_id: m_id});
 			  model.set({p_id: product_id});
@@ -179,8 +180,11 @@ App.Views.HospitalElements = Backbone.View.extend({
 			  model.save(null,{
 			    wait: true,
 			    success: function (m, response) {			       
-			           if (response.resp=="ok") {	   
-			        	   			        	   
+			           if (response.resp=="ok") {
+			        	   successRecordCounter = successRecordCounter - 1;
+			        	   if (successRecordCounter==0) { 
+			        		   $('div#message-box').text("").append('Hospital Elements have been successfully updated.').removeClass().addClass('alert').addClass('alert-success').fadeIn(10).delay(2000).fadeOut(50);
+			        	   }	   
 			           } else if (response.resp=="error") {			        	  
 			        	   if (errorMessage=="") {
 			        		   var btn = '<button type="button" class="close">&times;</button>';
@@ -199,11 +203,7 @@ App.Views.HospitalElements = Backbone.View.extend({
 			           } 
 			    }	      
 			  });
-		});	
-		
-		if (errorMessage=="") {
-			$('div#message-box').text("").append('Hospital Elements have been successfully updated.').removeClass().addClass('alert').addClass('alert-success').fadeIn(10).delay(2000).fadeOut(50);
-		}
+		});		
 	},
 
 	showConfirm: function() {
