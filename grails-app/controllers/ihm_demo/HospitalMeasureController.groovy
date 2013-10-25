@@ -8,13 +8,13 @@ class HospitalMeasureController {
 	
 	private HospitalMeasure saveInstance (HospitalMeasure instance, def param) {
 		def oldQA = instance.qa
-		def odlCompleted = instance.completed
+		boolean odlCompleted = instance.completed
 		instance.properties = param
 		instance.save(flush :true)
 		if (param.qa!="" && oldQA != param.qa)
 			sendMailService.hospitalMeasureNotesUpdated(instance.hospital?.email, instance.hospital.name, instance.measure.name, new Date(), session?.user.login)
 		
-		if (instance.completed)
+		if (!odlCompleted &&instance.completed)
 			sendMailService.markMeasureAsComplete(instance?.hospital.email, instance?.hospital.name, Product.get(param?.p_id)?.name, instance.measure.name, new Date(), session?.user.login)
 		return instance
 	}
