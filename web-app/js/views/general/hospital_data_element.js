@@ -166,46 +166,45 @@ App.Views.HospitalElements = Backbone.View.extend({
 		var markAsComplete = $('#markAsComplete').is(":checked");
 		
 		App.cur_measure.set({completed: markAsComplete, p_id:this.options.product_id});
-		App.cur_measure.save( {wait: true,
-			    success: function (m, response) {
+		App.cur_measure.save();
 		
-			this.saveHospitalElementDetails();		
-	
-			var m_id = this.options.m_id;
-			var product_id = this.options.product_id;	
-							
-			_.each(this.collection.models, function(model) {			 	 
-				  model.set({m_id: m_id});
-				  model.set({p_id: product_id});
-	
-				  model.save(null,{
-				    wait: true,
-				    success: function (m, response) {			       
-				           if (response.resp=="ok") {
-				        	   successRecordCounter = successRecordCounter - 1;
-				        	   if (successRecordCounter==0) { 
-				        		   $('div#message-box').text("").append('Hospital Elements have been successfully updated.').removeClass().addClass('alert').addClass('alert-success').fadeIn(10).delay(2000).fadeOut(50);
-				        	   }	   
-				           } else if (response.resp=="error") {			        	  
-				        	   if (errorMessage=="") {
-				        		   var btn = '<button type="button" class="close">&times;</button>';
-				        		   $('div#message-box').text("").append(btn).append(response.message).removeClass().addClass('alert').addClass('alert-error').show();
-				        		   errorMessage = response.message;
-				        		   errorMessage = errorMessage.replace("[","");
-				        		   errorMessage = errorMessage.replace("]","");			        		   
-				        	   }else {
-				        		   var btn = '<button type="button" class="close">&times;</button>';
-				        		   var message = response.message;
-				        		   errorMessage = errorMessage.substring(0, errorMessage.length - 1);
-				        		   errorMessage = errorMessage + ', ' + message.substr(message.indexOf('[')+1,message.indexOf(']')-message.indexOf('[')-1)
-				        		   $('div#message-box').text("").append(btn).append(errorMessage);
-				        	   }
-	
-				           } 
-				    }	      
-				  });
-			});	
-		}});	
+		this.saveHospitalElementDetails();		
+
+		var m_id = this.options.m_id;
+		var product_id = this.options.product_id;	
+						
+		_.each(this.collection.models, function(model) {			 	 
+			  model.set({m_id: m_id});
+			  model.set({p_id: product_id});
+
+			  model.save(null,{
+			    wait: true,
+			    success: function (m, response) {			       
+			           if (response.resp=="ok") {
+			        	   successRecordCounter = successRecordCounter - 1;
+			        	   if (successRecordCounter==0) { 
+			        		   $('div#message-box').text("").append('Hospital Elements have been successfully updated.').removeClass().addClass('alert').addClass('alert-success').fadeIn(10).delay(2000).fadeOut(50);
+			        	   }	   
+			           } else if (response.resp=="error") {			        	  
+			        	   if (errorMessage=="") {
+			        		   var btn = '<button type="button" class="close">&times;</button>';
+			        		   $('div#message-box').text("").append(btn).append(response.message).removeClass().addClass('alert').addClass('alert-error').show();
+			        		   errorMessage = response.message;
+			        		   errorMessage = errorMessage.replace("[","");
+			        		   errorMessage = errorMessage.replace("]","");			        		   
+			        	   }else {
+			        		   var btn = '<button type="button" class="close">&times;</button>';
+			        		   var message = response.message;
+			        		   errorMessage = errorMessage.substring(0, errorMessage.length - 1);
+			        		   errorMessage = errorMessage + ', ' + message.substr(message.indexOf('[')+1,message.indexOf(']')-message.indexOf('[')-1)
+			        		   $('div#message-box').text("").append(btn).append(errorMessage);
+			        	   }
+
+			           } 
+			    }	      
+			  });
+		});	
+			
 	},
 
 	showConfirm: function() {

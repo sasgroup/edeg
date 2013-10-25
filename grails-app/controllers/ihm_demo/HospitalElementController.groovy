@@ -154,7 +154,7 @@ class HospitalElementController {
 					for (hme in hospitalElements) {
 						hospitalElement id : hme.hospitalElement.id,
 						version : hme.hospitalElement.version,
-						internalNotes : isNULL(hme.hospitalElement.internalNotes,""),
+						internalNotes : isNULL(availableForUser(hme.hospitalElement.internalNotes),""),
 						location : isNULL(hme.hospitalElement.location,""),
 						notes : isNULL(hme.hospitalElement.notes,""),
 						source : isNULL(hme.hospitalElement.source,""),
@@ -231,6 +231,12 @@ class HospitalElementController {
 	
 	private String isNULL(String str, String dfl){
 		return (null!=str)?str:dfl
+	}
+	
+	private String availableForUser (String value) {
+		if (session.user.role.equals("user"))
+			return null
+		return value
 	}
 }
 
