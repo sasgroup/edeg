@@ -210,7 +210,7 @@ App.Routers.User = Backbone.Router.extend({
 						
 		App.hospitalElements = new App.Collections.HospitalElements();
 		
-		App.hospitalElements.fetch({data:{id: m_id}}).then(function(){			                          
+		App.hospitalElements.fetch({data:{id: m_id, h_id:h_id,p_id:p_id}}).then(function(){			                          
 			
 			App.viewHospitalElements = new App.Views.HospitalElements ({collection:App.hospitalElements, m_id: m_id,product_id: p_id, external_ehrs:external_ehrs, primary_ehr:primary_ehr, measure_completed:measure_completed});
 			$('#app').html(App.viewHospitalElements.render().el);	
