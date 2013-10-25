@@ -2,7 +2,7 @@ dataSource {
     pooled = true
     driverClassName = "oracle.jdbc.driver.OracleDriver"       
     jndiName = "java:comp/env/jdbc/EDEG"
-    dialect = org.hibernate.dialect.OracleDialect   
+       dialect = org.hibernate.dialect.OracleDialect   
 }
 hibernate {
     cache.use_second_level_cache = true
