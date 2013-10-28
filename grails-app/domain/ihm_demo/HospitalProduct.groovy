@@ -1,7 +1,7 @@
 package ihm_demo
 
 class HospitalProduct {
-	static auditable = [ignore:['notifyUser','notifyAdmin','hospitalProductMeasures']]
+	static auditable = true
 	Hospital hospital
 	Product product
 	String qa
@@ -18,7 +18,8 @@ class HospitalProduct {
 		qa(nullable:true,maxSize:4000)
 	}
 	
+	
 	String toString(){
-		"$hospital?.name, $product?.code"
+		"$product, $hospital"
 	}
 }

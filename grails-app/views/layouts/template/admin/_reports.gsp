@@ -38,15 +38,16 @@
 						<label for="slcEntityType" 								hideFor="1,2,3,4,5,6">Entity Type</label>
 						<select id="slcEntityType" class="input-block-level"	hideFor="1,2,3,4,5,6">
 							<option value="0"> - All Entity Types - </option>
-							<option value="P">Products</option>
-							<option value="M">Measures</option>
-							<option value="E">Data Elements</option>
-							<option value="H">Hospitals</option>
-							<option value="HP">Hospital Products</option>
-							<option value="HM">Hospital Measures</option>
-							<option value="HE">Hospital Data Elements</option>
-							<option value="XL">Elements Extra Location</option>
-							<option value="VS">Elements Value Sets</option>
+							<option value="P"  >Products</option>
+							<option value="M"  >Measures</option>
+							<option value="E"  >Data Elements</option>
+							<option value="H"  >Hospitals</option>
+							<option value="HP" >Hospital Products</option>
+							<option value="HPM">Hospital Products:Measures</option>
+							<option value="HM" >Hospital Measures</option>
+							<option value="HE" >Hospital Data Elements</option>
+							<option value="XL" >Elements Extra Location</option>
+							<option value="VS" >Elements Value Sets</option>
 						</select>
 
 						<label for="slcMeasure"								hideFor="7">Measure</label>

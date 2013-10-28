@@ -1,7 +1,7 @@
 package ihm_demo
 
 class HospitalMeasure {
-	static auditable = [ignore:['notifyUser','notifyAdmin','hospitalProductMeasures']]
+	static auditable = true
 	Boolean accepted
 	Boolean completed
 	Boolean confirmed
@@ -10,8 +10,6 @@ class HospitalMeasure {
 	String qa
 	Boolean notifyAdmin
 	Boolean notifyUser
-	
-	//new addition
 	Hospital hospital
 
 	
@@ -22,7 +20,6 @@ class HospitalMeasure {
 		accepted()
 		completed()
 		confirmed()
-		//included()
 		qa(nullable: true,maxSize:4000)
     }
 
@@ -31,6 +28,6 @@ class HospitalMeasure {
 	}
 	
 	String toString(){
-		"$hospital?.name, $measure?.code"
+		"$measure, $hospital"
 	}
 }

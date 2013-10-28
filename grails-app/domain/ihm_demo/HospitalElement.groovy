@@ -9,11 +9,8 @@ class HospitalElement {
 	Boolean sourceEHR
 	String valueSet
 	String valueSetFile
-	//ValueType valueType
 	DataElement dataElement
 	ValuesType valuesType
-	
-	//new addition
 	Hospital hospital
 	
 	
@@ -37,6 +34,6 @@ class HospitalElement {
 	}
 	
 	String toString(){
-		"$hospital?.name, $dataElement?.code, $location"
+		"$dataElement, $location, $hospital"
 	}
 }
