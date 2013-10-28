@@ -66,6 +66,22 @@ class HospitalElementController {
 			}	
 		}
 		
+		def test = ElementExtraLocation.findAllByHospitalElement(instance)
+		//check if new ExtraLocation detected
+		if (!(param.elementExtraLocation.empty && ElementExtraLocation.findAllByHospitalElement(instance).empty)) {
+			if (param.elementExtraLocation.size() != ElementExtraLocation.findAllByHospitalElement(instance).size()) {
+				modificationDetected = true
+			} else {
+				ElementExtraLocation [] elementExtraLocation = ElementExtraLocation.findAllByHospitalElement(instance)
+				for (inst in elementExtraLocation){
+					boolean isElementExtraLocation = false
+						for (eel in param.elementExtraLocation){
+							if ((isNULL(inst.location,"") == eel.location) && isNULL(inst.source,"") == eel.source && inst.valuesType.id == eel.valuesTypeId) {isElementExtraLocation = true; break;}
+						}
+					if (!isElementExtraLocation) 	{modificationDetected = true; break}
+				}
+			}
+		}
 
 		
 		if (modificationDetected)
