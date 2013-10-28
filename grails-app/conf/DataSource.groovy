@@ -14,14 +14,14 @@ environments {
     development {
         
 		
-		/*dataSource {
+		dataSource {
 			dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
 			url = "jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000"
-		}*/
+		}
 		
 		
 		
-	   dataSource {
+		/*dataSource {
 		  pooled = true
 		   dialect = org.hibernate.dialect.Oracle11gDialect
 		   driverClassName = 'oracle.jdbc.OracleDriver'
@@ -30,7 +30,7 @@ environments {
 		   url = 'jdbc:oracle:thin:@localhost:1521:IHM'
 		   dbCreate = 'validate' // 'create-drop' // 
 		   //logSql = true
-       }
+       }*/
        
 		
     }   

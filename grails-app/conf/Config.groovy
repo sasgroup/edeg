@@ -35,7 +35,7 @@ auditLog {
 	actorClosure = { request, session ->
 		session.user?.login
 	}
-	TRUNCATE_LENGTH = 4000 //255  
+	TRUNCATE_LENGTH = 255 //4000 
   }
 // URL Mapping Cache Max Size, defaults to 5000
 //grails.urlmapping.cache.maxsize = 1000
