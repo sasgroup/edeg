@@ -12,62 +12,66 @@ class HospitalElementController {
 		// TODO: check here for possible changes to be reported via Email Notification
 		def modificationDetected = false
 		
-		if ((instance.location && param.location!='') && instance.location != param.location) 
+		if (isNULL(instance.location, "") != param.location) 
 			modificationDetected = true 
 		instance.location = param.location
 		
-		if (instance.sourceEHR && param.source!='' && instance.sourceEHR != (ehrCode == param.source))
+		if (instance.sourceEHR != (ehrCode == param.source))
 			modificationDetected = true
 		instance.sourceEHR = (ehrCode == param.source)
 		
-		if (instance.source && param.source!='' && instance.source != param.source)
+		if (isNULL(instance.source, "") != param.source)
 			modificationDetected = true
 		//instance.source = param.sourceEHR ? instance.hospital.ehr.code : param.source		
 		instance.source = param.source
 		
-		if (instance.valueSet && param.valueSet!='' && instance.valueSet != param.valueSet)
+		if (isNULL(instance.valueSet, "") != param.valueSet)
 			modificationDetected = true
 		instance.valueSet = param.valueSet
 
-		if (instance.valueSetFile && param.valueSetFile!='' && instance.valueSetFile != param.valueSetFile)
+		if (isNULL(instance.valueSetFile, "") != param.valueSetFile)
 			modificationDetected = true
 		instance.valueSetFile = param.valueSetFile
 		// TODO append notes info
 		
-		if (instance.internalNotes && param.internalNotes!='' && instance.internalNotes != param.internalNotes)
+		if (isNULL(instance.internalNotes, "") != param.internalNotes)
 			modificationDetected = true
 		instance.internalNotes = param.internalNotes
 
-		if (instance.notes && param.notes!='' && instance.notes != param.notes)
+		if (isNULL(instance.notes, "") != param.notes)
 			modificationDetected = true
 		instance.notes = param.notes
 
 		//TODO correct ValuesType
-		if (instance.valuesTypeId && param.valuesTypeId!='' && instance.valuesType != ValuesType.get(param?.valuesTypeId))
+		if (instance.valuesType != ValuesType.get(param?.valuesTypeId))
 			modificationDetected = true
 		instance.valuesType = ValuesType.get(param?.valuesTypeId)
 		
 				
-		/*if (param.markAsComplete){
-			def mid = param.m_id as Long
-			for(def hme in instance.hospitalMeasureElements){
-				def hm = hme.hospitalMeasure
-				if (hm.id == mid){
-					boolean oldValueC = hm.completed
-					hm.completed = true
-					hm.save(flush :true)
-					println param
-					if (oldValueC != hm.completed && hm.completed)
-						sendMailService.markMeasureAsComplete(instance?.hospital.email, instance?.hospital.name, Product.get(param?.p_id)?.name, HospitalMeasure.get(param?.m_id)?.measure.name, new Date(), session?.user.login)
+		instance.save(flush :true)
+		
+		//check if new ValueSet detected
+		if (!(param.hospitalValueSet.empty && HospitalValueSet.findAllByHospitalElement(instance).empty)) {
+			if (param.hospitalValueSet.size() != HospitalValueSet.findAllByHospitalElement(instance).size()) {
+				modificationDetected = true
+			} else {
+				HospitalValueSet [] hospitalElements = HospitalValueSet.findAllByHospitalElement(instance)
+				for (inst in hospitalElements){
+					boolean isHospitalValueSet = false
+						for (hvs in param.hospitalValueSet){
+							if (inst.code == hvs.code && inst.mnemonic == hvs.mnemonic) {isHospitalValueSet = true; break;}
+						}
+					if (!isHospitalValueSet) 	{modificationDetected = true; break}
 				}
 			}	
 		}
-		*/
 		
-		instance.save(flush :true)
+
+		
 		if (modificationDetected)
 			sendMailService.updateDataElement(instance?.hospital.email, instance?.hospital.name, instance?.dataElement.name, HospitalMeasure.get(param?.m_id)?.measure.name, new Date(), session?.user.login)
-		instance.hospitalMeasureElements
+	
+	
 		
 		// TODO remove all hospital value sets
 		HospitalValueSet.executeUpdate("delete HospitalValueSet hvs where hvs.hospitalElement=?", [instance])
@@ -86,7 +90,6 @@ class HospitalElementController {
 					ElementExtraLocation xl = new ElementExtraLocation(	location:e.location, 
 																		source:e.source, 
 																		sourceEHR:(ehrCode==e.source), 
-																		//valueType: ValueType.valueOf(e.valueType.name), 
 																		hospitalElement:instance, 
 																		valuesType : ValuesType.get(e.valuesTypeId))
 					xl.save(flush:true)
