@@ -137,6 +137,8 @@ class HospitalElementController {
 							//hElement.valueType = defSettings.valueType							
 						}
 						hElement.save(flush:true)
+						
+						sendMailService.updateDataElement(hElement?.hospital.email, hElement?.hospital.name, hElement?.dataElement.name, HospitalMeasure.get(params?.id)?.measure.name, new Date(), session?.user.login)
 					}
 				}
 				else{
@@ -154,6 +156,7 @@ class HospitalElementController {
 									//hElement.valueType = defSettings.valueType									
 								}
 								hElement.save(flush:true)
+								sendMailService.updateDataElement(hElement?.hospital.email, hElement?.hospital.name, hElement?.dataElement.name, hMeasure?.measure.name, new Date(), session?.user.login)
 							}
 						}
 					}
