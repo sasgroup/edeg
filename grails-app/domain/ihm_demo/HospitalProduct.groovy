@@ -18,7 +18,8 @@ class HospitalProduct {
 		qa(nullable:true,maxSize:4000)
 	}
 	
+	
 	String toString(){
-		"$hospital, $product"
+		"$product, $hospital"
 	}
 }

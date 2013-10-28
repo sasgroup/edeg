@@ -10,8 +10,6 @@ class HospitalMeasure {
 	String qa
 	Boolean notifyAdmin
 	Boolean notifyUser
-	
-	//new addition
 	Hospital hospital
 
 	
@@ -22,7 +20,6 @@ class HospitalMeasure {
 		accepted()
 		completed()
 		confirmed()
-		//included()
 		qa(nullable: true,maxSize:4000)
     }
 
@@ -31,6 +28,6 @@ class HospitalMeasure {
 	}
 	
 	String toString(){
-		"$hospital, $measure"
+		"$measure, $hospital"
 	}
 }
