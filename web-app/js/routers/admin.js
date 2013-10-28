@@ -91,6 +91,66 @@ App.Routers.Administrator = Backbone.Router.extend({
 	},
 	
 	elements : function(h_id,p_id, m_id){	
+		App.hpm = new App.Models.HospitalProductMeasure();	
+		App.cur_measure = new App.Models.HospitalMeasure();
+					 
+		App.hpm.fetch({data:{h_id:h_id, p_id:p_id, m_id:m_id}}).then(function(){
+		  App.cur_measure.fetch({data:{id: m_id,hm: true}}).then(function(){			
+		    App.valuesTypes.fetch().then(function(){	 	  
+		
+			var measure_code='';
+			var external_ehrs = [];
+			var primary_ehr="";
+			var measure_completed=false;
+						
+			var product =  App.hpm.get('products')[0];
+		    var measure =  product.measures[0];
+		    measure_completed = measure.completed;
+		    measure_code = measure.code;
+			external_ehrs = App.hpm.get('externalEHRs').split('\n');
+			primary_ehr = App.hpm.get('ehr').code;
+			
+			App.hospitalElements = new App.Collections.HospitalElements();
+		
+			App.hospitalElements.fetch({data:{id: m_id}}).then(function(){			
+				App.viewHospitalElements = new App.Views.HospitalElements ({collection:App.hospitalElements, m_id: m_id, product_id: p_id, measure_code: measure_code, external_ehrs:external_ehrs, primary_ehr:primary_ehr, measure_completed:measure_completed});
+				$('#app').html(App.viewHospitalElements.render().el);	
+
+				$('#deatails *').attr('disabled','disabled');
+			
+				var oTable = $('#hospital-elements').dataTable({		
+					"bDestroy": true, 
+					"bPaginate": false,
+					"bFilter": false,
+					"sScrollY": "246px",			
+					"bSort": true,
+					"bInfo": false,
+					"aaSorting": [[0, 'asc']],
+					"aoColumnDefs": [{'bSortable': false, 'aTargets': [ 1,2,3,4,5 ] }],					
+					"bAutoWidth": false,
+					"aoColumns" : [
+					    {"sWidth": "20%"},
+					    {"sWidth": "25%"},				   
+					    {"sWidth": "20%"},	
+					    {"sWidth": "25%"},
+					    {"sWidth": "5%"},
+					    {"sWidth": "5%"}]					
+				});				
+							
+				new FixedColumns( oTable, {"sHeightMatch": "none"} );
+												
+				var notifyAdmin = App.cur_measure.get('notifyAdmin'); 
+				if (notifyAdmin){
+						  $('.admin-edit-notes').addClass('btn-info');
+				}						
+				
+		    });		
+		   });		
+		});	
+	});
+	},
+	
+	elementsOLD : function(h_id,p_id, m_id){	
 		App.ho = new App.Models.Hospital();		
 		App.cur_measure = new App.Models.HospitalMeasure();
 		App.ho.fetch({data:{id: h_id}}).then(function(){

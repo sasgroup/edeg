@@ -176,6 +176,69 @@ App.Routers.User = Backbone.Router.extend({
 			
 
 	elements : function(h_id, p_id, m_id){	
+	  App.hpm = new App.Models.HospitalProductMeasure();	
+	  App.cur_measure = new App.Models.HospitalMeasure();
+				 
+	  App.hpm.fetch({data:{h_id:h_id, p_id:p_id, m_id:m_id}}).then(function(){
+	    App.cur_measure.fetch({data:{id: m_id,hm: true}}).then(function(){			
+		  App.valuesTypes.fetch().then(function(){	 	 
+		
+			var notifyUser = App.cur_measure.get('notifyUser');
+						
+			App.route.tabs(h_id);		
+			
+			var external_ehrs = [];
+			var primary_ehr="";
+			var measure_completed=false;
+			
+			var product =  App.hpm.get('products')[0];
+		    var measure =  product.measures[0];
+		    measure_completed = measure.completed;			
+			external_ehrs = App.hpm.get('externalEHRs').split('\n');
+			primary_ehr = App.hpm.get('ehr').code;
+			//breadcrumb
+			var viewMeasureBreadcrumb = new App.Views.HospitalMeasureBreadcrumb({model: measure, product_code:product.code, product_id:p_id, hospital_id:h_id, notifyUser:notifyUser});		
+			$('#breadcrumb-box').html(viewMeasureBreadcrumb.render().el);
+						
+			App.hospitalElements = new App.Collections.HospitalElements();
+			
+			App.hospitalElements.fetch({data:{id: m_id, h_id:h_id,p_id:p_id}}).then(function(){			                          
+				
+				App.viewHospitalElements = new App.Views.HospitalElements ({collection:App.hospitalElements, m_id: m_id,product_id: p_id, external_ehrs:external_ehrs, primary_ehr:primary_ehr, measure_completed:measure_completed});
+				$('#app').html(App.viewHospitalElements.render().el);	
+				
+				$('#deatails *').attr('disabled','disabled');
+				
+				var oTable = $('#hospital-elements').dataTable({		
+					"bDestroy": true, 
+					"bPaginate": false,
+					"bFilter": false,
+					//"sScrollY": "262px",			
+					"sScrollY": "220px",
+					"bSort": true,
+					"bInfo": false,
+					"aaSorting": [[0, 'asc']],
+					"aoColumnDefs": [{'bSortable': false, 'aTargets': [ 1,2,3,4,5 ] }],					
+					"bAutoWidth": false,
+					"aoColumns" : [
+					    {"sWidth": "20%"},
+					    {"sWidth": "25%"},				   
+					    {"sWidth": "20%"},	
+					    {"sWidth": "25%"},
+					    {"sWidth": "5%"},
+					    {"sWidth": "5%"}]		
+				});				
+				
+				new FixedColumns( oTable, {"sHeightMatch": "none"} );				
+		    });	
+		
+	   });
+	  });
+	 });		
+		
+	},
+	
+	elementsOLD : function(h_id, p_id, m_id){	
 		App.ho = new App.Models.Hospital();	
 		App.cur_measure = new App.Models.HospitalMeasure();
 		
