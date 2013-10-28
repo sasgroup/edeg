@@ -54,6 +54,11 @@ App.Views.Reports = Backbone.View.extend({
 					_el.find('#slcEntity').html("<option value='0'> -Select - </option>");
 					$(_model.P.toJSON()).each(function(i, m){ _el.find('#slcEntity').append(pme({name:m.name,id:m.id,code:m.code})); }); break;
 				
+				case "HPM": 
+					_el.find('#slcHospital, label[for=slcHospital]').show();
+					_el.find('#slcEntity').html("<option value='0'> -Select - </option>");
+					$(_model.M.toJSON()).each(function(i, m){ _el.find('#slcEntity').append(pme({name:m.name,id:m.id,code:m.code})); }); break;
+					
 				case "HM": 
 					_el.find('#slcHospital, label[for=slcHospital]').show();
 					_el.find('#slcEntity').html("<option value='0'> -Select - </option>");
@@ -170,6 +175,7 @@ App.Views.Reports = Backbone.View.extend({
 			 	{name:'poid',		index:'poid', 		width:30} 		]
 		];
 		
+		$("#load_tblReportResults").show();
 		$.ajax({
 			url: "/ihm/api/report/"+$("#slcReportType").val(),
 			data:{

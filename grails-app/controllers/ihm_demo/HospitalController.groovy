@@ -204,9 +204,7 @@ class HospitalController {
 							hospitalProductMeasure.included	= msr.included
 						hospitalProductMeasure.save(flush:true)
 						if (oldIncluded != hospitalProductMeasure.included && hospitalProductMeasure.included)
-						sendMailService.includeMeasureIntoHospitalProduct(hospitalInstance?.email, hospitalInstance?.name, product?.name, msr?.name, new Date())
-							
-							
+							sendMailService.includeMeasureIntoHospitalProduct(hospitalInstance?.email, hospitalInstance?.name, product?.name, msr?.name, new Date())
 					}
 				}
 			}
