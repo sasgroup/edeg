@@ -16,59 +16,61 @@ class ReportController {
 		def _where = " Where 1=1"
 		
 		if (params.etype != "-"){
-			def assembly = "ihm_demo"
 			def oid = params.entity
 			def hid = params.hospital
 			def etype = params.etype
 			
 			switch(etype){
 				case "P": 
-					_where += " and CLASS_NAME = '${assembly}.Product'"
+					_where += " and CLASS_NAME = '"+Product.class.getName()+"'"
 					if (oid != "0")
 						_where += " and PERSISTED_OBJECT_ID = $oid"
 					break;
 					
 				case "M": 
-					_where += " and CLASS_NAME = '${assembly}.Measure'"
+					_where += " and CLASS_NAME = '"+Measure.class.getName()+"'"
 					if (oid != "0")
 						_where += " and PERSISTED_OBJECT_ID = $oid"
 					break;
 				
 				case "E": 
-					_where += " and CLASS_NAME = '${assembly}.DataElement'"
+					_where += " and CLASS_NAME = '"+DataElement.class.getName()+"'"
 					if (oid != "0")
 						_where += " and PERSISTED_OBJECT_ID = $oid"
 					break;
 				
 				case "H": 
-					_where += " and CLASS_NAME = '${assembly}.Hospital'"
+					_where += " and CLASS_NAME = '"+Hospital.class.getName()+"'"
 					if (hid != "0")
 						_where += " and PERSISTED_OBJECT_ID = $hid"
 					break;
 
 										
 				case "HP": 
-					_where += " and CLASS_NAME = '${assembly}.HospitalProduct'"
+					_where += " and CLASS_NAME = '"+HospitalProduct.class.getName()+"'"
 					_where += derivePersistedObjectIDs(hid,oid,etype)
 					break;
-				case "HM": 
-					_where += " and CLASS_NAME = '${assembly}.HospitalMeasure'"
+				case "HPM": 
+					_where += " and CLASS_NAME = '"+HospitalProductMeasure.class.getName()+"'"
+					_where += derivePersistedObjectIDs(hid,oid,etype)
+					break;
+				case "HM":
+					_where += " and CLASS_NAME = '"+HospitalMeasure.class.getName()+"'"
 					_where += derivePersistedObjectIDs(hid,oid,etype)
 					break;
 				case "HE": 
-					_where += " and CLASS_NAME = '${assembly}.HospitalElement'"
+					_where += " and CLASS_NAME = '"+HospitalElement.class.getName()+"'"
 					_where += derivePersistedObjectIDs(hid,oid,etype)
 					break;
 				case "XL":
-					_where += " and CLASS_NAME = '${assembly}.ElementExtraLocation'"
+					_where += " and CLASS_NAME = '"+ElementExtraLocation.class.getName()+"'"
 					_where += deriveNestedObjectIDs(hid,oid,etype)
 					break;
 				case "VS":
-					_where += " and CLASS_NAME = '${assembly}.HospitalValueSet'"
+					_where += " and CLASS_NAME = '"+HospitalValueSet.class.getName()+"'"
 					_where += deriveNestedObjectIDs(hid,oid,etype)
 					break;
 			}
-
 		}
 		
 		def dpFrom = (new Date()).format("yyyy-MM-dd") + " 00:00:00"
@@ -111,6 +113,35 @@ class ReportController {
 					def hospitalProducts = HospitalProduct.findAllByProduct(product)
 					for (hp in hospitalProducts)
 						_ids.add(hp.id)
+				}
+				else{
+					_ids.remove(0)
+				}
+				break;
+			case "HPM":
+				if (null != hospital && null != measure){
+					def hospitalMeasure = HospitalMeasure.findByHospitalAndMeasure(hospital, measure)
+					if (hospitalMeasure){
+						def hospitalProductMeasures = HospitalProductMeasure.findAllByHospitalMeasure(hospitalMeasure)
+						for (hpm in hospitalProductMeasures)
+							_ids.add(hpm.id)
+					}
+				}
+				else if (null != hospital){
+					def hospitalMeasures = HospitalMeasure.findAllByHospital(hospital)
+					for (hm in hospitalMeasures){
+						def hospitalProductMeasures = HospitalProductMeasure.findAllByHospitalMeasure(hm)
+						for (hpm in hospitalProductMeasures)
+							_ids.add(hpm.id)
+					}
+				}
+				else if (null != measure){
+					def hospitalMeasures = HospitalMeasure.findAllByMeasure(measure)
+					for (hm in hospitalMeasures){
+						def hospitalProductMeasures = HospitalProductMeasure.findAllByHospitalMeasure(hm)
+						for (hpm in hospitalProductMeasures)
+							_ids.add(hpm.id)
+					}
 				}
 				else{
 					_ids.remove(0)
