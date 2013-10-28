@@ -21,12 +21,14 @@ environments {
 		
 		
 		
+
 		/*dataSource {
-		  pooled = true
+
+		   pooled = true
 		   dialect = org.hibernate.dialect.Oracle11gDialect
 		   driverClassName = 'oracle.jdbc.OracleDriver'
-		   username = 'sys as sysdba'
-		   password = 'sys'
+		   username = 'EDEG'
+		   password = 'ihmedeg'
 		   url = 'jdbc:oracle:thin:@localhost:1521:IHM'
 		   dbCreate = 'validate' // 'create-drop' // 
 		   //logSql = true
@@ -39,8 +41,8 @@ environments {
            pooled = true
 		   dialect = org.hibernate.dialect.Oracle11gDialect
 		   driverClassName = 'oracle.jdbc.OracleDriver'
-		   username = 'sys as sysdba'
-		   password = 'sys'
+		   username = 'TEST'
+		   password = 'ihmedeg'
 		   url = 'jdbc:oracle:thin:@localhost:1521:IHM'
 		   dbCreate = 'validate'
 		   //logSql = true
@@ -51,8 +53,8 @@ environments {
            pooled = true
 		   dialect = org.hibernate.dialect.Oracle11gDialect
 		   driverClassName = 'oracle.jdbc.OracleDriver'
-		   username = 'sys as sysdba'
-		   password = 'sys'
+		   username = 'EDEG'
+		   password = 'ihmedeg'
 		   url = 'jdbc:oracle:thin:@localhost:1521:IHM'
 		   dbCreate = 'validate'
 		   //logSql = true

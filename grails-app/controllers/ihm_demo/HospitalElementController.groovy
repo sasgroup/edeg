@@ -147,14 +147,14 @@ class HospitalElementController {
 			HospitalProductMeasure hospitalProductMeasure 	= HospitalProductMeasure.findByHospitalProductAndHospitalMeasure(hospitalProduct, result)
 			def hospitalElements = new ArrayList()
 			//TODO verify permission to view HospitalMeasure
-			if (session.user.role.equals("user") && hospitalProductMeasure.included) 			
+			if ((session.user.role.equals("user") && hospitalProductMeasure.included)||session.user.role.equals("admin")) 			
 				hospitalElements =  result.hospitalMeasureElements //HospitalElement.list().findAll{it?.hospitalMeasure.findAll{it.id == result.id}.size() >= 1}
 			render(contentType: "text/json") {
 				hospitalElements = array {
 					for (hme in hospitalElements) {
 						hospitalElement id : hme.hospitalElement.id,
 						version : hme.hospitalElement.version,
-						internalNotes : isNULL(hme.hospitalElement.internalNotes,""),
+						internalNotes : isNULL(availableForUser(hme.hospitalElement.internalNotes),""),
 						location : isNULL(hme.hospitalElement.location,""),
 						notes : isNULL(hme.hospitalElement.notes,""),
 						source : isNULL(hme.hospitalElement.source,""),
@@ -231,6 +231,12 @@ class HospitalElementController {
 	
 	private String isNULL(String str, String dfl){
 		return (null!=str)?str:dfl
+	}
+	
+	private String availableForUser (String value) {
+		if (session.user.role.equals("user"))
+			return null
+		return value
 	}
 }
 

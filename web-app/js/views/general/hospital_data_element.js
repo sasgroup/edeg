@@ -165,7 +165,7 @@ App.Views.HospitalElements = Backbone.View.extend({
 		var successRecordCounter=this.collection.length;
 		var markAsComplete = $('#markAsComplete').is(":checked");
 		
-		App.cur_measure.set({completed: markAsComplete});
+		App.cur_measure.set({completed: markAsComplete, p_id:this.options.product_id});
 		App.cur_measure.save();
 		
 		this.saveHospitalElementDetails();		
@@ -203,7 +203,8 @@ App.Views.HospitalElements = Backbone.View.extend({
 			           } 
 			    }	      
 			  });
-		});		
+		});	
+			
 	},
 
 	showConfirm: function() {
