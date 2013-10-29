@@ -135,7 +135,6 @@ App.Views.HospitalElements = Backbone.View.extend({
 				
 				var _source = $(this).find('select#source').val();				
 				var _valuesTypeId = $(this).find('select.slcValuesType').val();
-				console.log("test");
 				
 				if (_location!="") {
 					var extraloc = {"location":_location, "source":_source, "sourceEHR":_sourceEHR, "valueType":{name:''}, "valuesTypeId": _valuesTypeId};					
