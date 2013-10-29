@@ -1,8 +1,8 @@
 dataSource {
-    pooled = true
-    driverClassName = "oracle.jdbc.driver.OracleDriver"       
+    //pooled = true
+    //driverClassName = "oracle.jdbc.driver.OracleDriver"       
     jndiName = "java:comp/env/jdbc/EDEG"
-       dialect = org.hibernate.dialect.OracleDialect   
+    //dialect = org.hibernate.dialect.Oracle11gDialect   
 }
 hibernate {
     cache.use_second_level_cache = true
@@ -14,16 +14,19 @@ environments {
     development {
         dataSource {
             dbCreate = "create-drop" // one of 'create', 'create-drop','update'
+			//loggingSql=true
         }
     }
     test {
         dataSource {
             dbCreate = "update"
+			//loggingSql=true
         }
     }
     production {
         dataSource {
             dbCreate = "update"
+			//loggingSql=true
         }
     }
 }
