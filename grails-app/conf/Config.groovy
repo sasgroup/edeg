@@ -49,8 +49,8 @@ grails {
 	  port = 25
 	  //username = "ihm.edeg@gmail.com"
 	  //password = "swuzabra"
-	  props = ["mail.smtp.auth":"false",
-			   /*"mail.smtp.socketFactory.port":"25",
+	  props = ["mail.smtp.auth":"false" /*,
+			   "mail.smtp.socketFactory.port":"25",
 			   "mail.smtp.socketFactory.class":"javax.net.ssl.SSLSocketFactory",
 			   "mail.smtp.socketFactory.fallback":"false"*/]
 	}
