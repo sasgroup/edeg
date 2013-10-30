@@ -494,15 +494,15 @@ class HospitalController {
 	private Hospital saveHospital (Hospital hospitalInstance, GrailsParameterMap params) {
 		def modificationDetected = false
 		
-		if (hospitalInstance.email!="" && params?.email != "" &&   hospitalInstance.email != params?.email)				
+		if (isNULL(hospitalInstance.email,"")!="" && params?.email != "" &&   hospitalInstance.email != params?.email)				
 			modificationDetected = true 	
 		hospitalInstance.email = params?.email
 		
-		if (hospitalInstance.externalEHRs !="" && params?.externalEHRs != "" && hospitalInstance.externalEHRs != params?.externalEHRs)
+		if (isNULL(hospitalInstance.externalEHRs,"") !="" && params?.externalEHRs != "" && hospitalInstance.externalEHRs != params?.externalEHRs)
 			modificationDetected = true 	
 		hospitalInstance.externalEHRs = params?.externalEHRs
 		
-		if (hospitalInstance.populationMethod != "" && params?.populationMethod != "" && hospitalInstance.populationMethod != params?.populationMethod)
+		if (isNULL(hospitalInstance.populationMethod,"") != "" && params?.populationMethod != "" && hospitalInstance.populationMethod != params?.populationMethod)
 			modificationDetected = true 	
 		hospitalInstance.populationMethod 	= params?.populationMethod
 		
@@ -520,7 +520,7 @@ class HospitalController {
 			sendMailService.updateHospitalConfig(hospitalInstance?.email, hospitalInstance.name, new Date())
 		} 
 		
-		if (!modificationDetected && hospitalInstance.notes != params?.notes){
+		if (!modificationDetected && isNULL(hospitalInstance.notes,"") != params?.notes){
 			hospitalInstance.notes = params?.notes
 			hospitalInstance.save(flush:true)
 			sendMailService.updateHospitalConfig("", hospitalInstance.name, new Date())

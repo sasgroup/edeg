@@ -181,7 +181,10 @@ App.Views.Hospital = Backbone.View.extend({
 		//new
 		//active p_id
 		if ($('ul#myTab li.active a').attr('href') != undefined) {
-			var p_id = $('ul#myTab li.active a').attr('href').replace('#t','');
+			var link = $('#myTab li.active a').prop("href");
+			var p_id = link.substr(link.indexOf('#')).replace('#t','');
+			//var p_id = $('ul#myTab li.active a').prop('href').replace('#t','');
+			
 			var h_id = this.model.get('id');
 			
 			App.cur_hosp_product = new App.Models.HospitalProduct();
