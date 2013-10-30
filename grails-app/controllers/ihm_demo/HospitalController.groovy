@@ -147,7 +147,7 @@ class HospitalController {
 			}
 		}
 		
-		else if (params.submit) {
+		else if (params.submit) { //if just save
 			def hospitalInstance = Hospital.get(id)
 			if  (!hospitalInstance) {
 				render(contentType: "text/json") {
@@ -172,7 +172,7 @@ class HospitalController {
 					for (msr in prod.measures){
 						def hospitalMeasure = HospitalMeasure.get(msr.id)
 						if (hospitalMeasure){
-
+							//check for changing
 							boolean oldValueC = hospitalMeasure.completed
 							boolean oldValueA = hospitalMeasure.accepted
 							boolean oldValueV = hospitalMeasure.verified
@@ -288,7 +288,7 @@ class HospitalController {
 			def  result = Hospital.get(params.id)
 
 			def hospitalProducts = HospitalProduct.findAllByHospital(result)
-			//def productList	=  hospitalProducts.collect{it.product}
+			
 			render(contentType: "text/json") {
 				name = result.name
 				email = isNULL(result.email, "")
@@ -493,16 +493,16 @@ class HospitalController {
 
 	private Hospital saveHospital (Hospital hospitalInstance, GrailsParameterMap params) {
 		def modificationDetected = false
-		
-		if (isNULL(hospitalInstance.email,"")!="" && params?.email != "" &&   hospitalInstance.email != params?.email)				
+		//save and checks for Notification
+		if (isNULL(hospitalInstance.email,"") != params?.email)				
 			modificationDetected = true 	
 		hospitalInstance.email = params?.email
 		
-		if (isNULL(hospitalInstance.externalEHRs,"") !="" && params?.externalEHRs != "" && hospitalInstance.externalEHRs != params?.externalEHRs)
+		if (isNULL(hospitalInstance.externalEHRs,"") != params?.externalEHRs)
 			modificationDetected = true 	
 		hospitalInstance.externalEHRs = params?.externalEHRs
 		
-		if (isNULL(hospitalInstance.populationMethod,"") != "" && params?.populationMethod != "" && hospitalInstance.populationMethod != params?.populationMethod)
+		if (isNULL(hospitalInstance.populationMethod,"") !=  params?.populationMethod)
 			modificationDetected = true 	
 		hospitalInstance.populationMethod 	= params?.populationMethod
 		
