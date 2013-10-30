@@ -104,9 +104,9 @@ App.Routers.Administrator = Backbone.Router.extend({
 	                var measure_completed=false;
 	                                        
 	                var product = App.hpm.get('products')[0];
-	         var measure = product.measures[0];
-	         measure_completed = measure.completed;
-	         measure_code = measure.code;
+			        var measure = product.measures[0];
+			        measure_completed = measure.completed;
+			        measure_code = measure.code;
 	                external_ehrs = App.hpm.get('externalEHRs').split('\n');
 	                primary_ehr = App.hpm.get('ehr').code;
 	                
