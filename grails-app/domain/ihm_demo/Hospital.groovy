@@ -14,8 +14,6 @@ class Hospital {
 		ihmid()
 		name()
 		notes(nullable:true,maxSize:4000)
-		externalEHRs(nullable:true,maxSize:4000)
-		//populationMethod()
 		email(nullable:true,maxSize:1000)
 		externalEHRs(nullable:true,maxSize:1000)
 		populationMethod(nullable:true)
