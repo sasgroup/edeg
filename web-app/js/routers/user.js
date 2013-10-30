@@ -60,29 +60,12 @@ App.Routers.User = Backbone.Router.extend({
 		App.security = new App.Models.Security();		
 		App.security.fetch().then(function(){
 			App.route.getListOfHospitals();
-			var hospital_id = App.security.get('curHospitalId');			
-			var curHospital = App.security.get('curHospital');
-			//show hospital-name		
-			$('h3.hospital-name').text(curHospital).attr("data-id",hospital_id);			
-			
-			var first_product = "";
-			//generate tabs
-			App.ho = new App.Models.Hospital();		
-			App.ho.fetch({data:{id: hospital_id}}).then(function(){		
-				var products = App.ho.get('products');				
-				$('nav#products-nav').empty();
-				$.each( products, function( i, product ) {								
-					$('nav#products-nav').append('<a href="#hospital/' + hospital_id + '/product/'+ product.id+ '">' + product.code + '</a>');					
-				});	
-
-				//$('.hospital#'+hospital_id).hide();				
-				Backbone.history.navigate('/home/' + hospital_id , true);
-			});						
+			var hospital_id = App.security.get('curHospitalId');		
+			Backbone.history.navigate('/home/' + hospital_id , true);						
 		});   
 	},
 		
-	home : function(h_id){
-		
+	home : function(h_id){		
 		 App.security.fetch().then(function(){						 
 			App.route.getListOfHospitals();	 
 				
@@ -107,39 +90,19 @@ App.Routers.User = Backbone.Router.extend({
 		
 		});	
 	},
-	
-	homeOLD : function(h_id){		
-		$('#breadcrumb-box').empty();
-		$('#app').empty();
-				
-		var ho = new App.Models.Hospital();		
-		ho.fetch({data:{id: h_id}}).then(function(){
-			var viewHome = new App.Views.Home({model:ho});
-			$('#app').html(viewHome.render().el);
 			
-			// set hospital name
-			$('h3.hospital-name').text(ho.get('name')).attr("data-id",h_id);	
-			
-			// set tabs
-			var products = ho.get('products');
-			$('nav#products-nav').empty();
-			$.each( products, function( i, product ) {		           
-				$('nav#products-nav').append('<a href="#hospital/' + h_id + '/product/'+ product.id+ '">' + product.code + '</a>');					
-			});		
-		});		
-	},
-		
 	tabs: function(h_id){		
-		//App.hosp_products = new App.Models.HospitalProduct();
-		//App.hosp_products.fetch({data:{h_id:h_id}}).then(function(){	
+		App.hosp_products = new App.Models.HospitalProduct();
+		App.hosp_products.fetch({data:{h_id:h_id}}).then(function(){	
 		
+			var products = App.hosp_products.get('products');
 			//generate tabs					
 			$('nav#products-nav').empty();		
-			$.each( App.hospital_products, function( i, product ) {		           
+			$.each( products, function( i, product ) {		           
 				$('nav#products-nav').append('<a href="#hospital/' + h_id + '/product/'+ product.id+ '">' + product.code + '</a>');
 			});			
 		
-		//});
+		});
 	},
 
 	productn : function(h_id,p_id) {		
@@ -230,7 +193,7 @@ App.Routers.User = Backbone.Router.extend({
                
                        var notifyUser = App.cur_measure.get('notifyUser');
                                                
-                       //App.route.tabs(h_id);                
+                       App.route.tabs(h_id);                
                        
                        var external_ehrs = [];
                        var primary_ehr="";
@@ -241,15 +204,17 @@ App.Routers.User = Backbone.Router.extend({
                        measure_completed = measure.completed;                        
                        external_ehrs = App.hpm.get('externalEHRs').split('\n');
                        primary_ehr = App.hpm.get('ehr').code;
-                       //breadcrumb
-                       //var viewMeasureBreadcrumb = new App.Views.HospitalMeasureBreadcrumb({model: measure, product_code:product.code, product_id:p_id, hospital_id:h_id, notifyUser:notifyUser});                
-                       //$('#breadcrumb-box').html(viewMeasureBreadcrumb.render().el);
+                      
                                                
                        App.hospitalElements = new App.Collections.HospitalElements();
                        
-                       App.hospitalElements.fetch({data:{id: m_id, h_id:h_id,p_id:p_id}}).then(function(){                        
+                       App.hospitalElements.fetch({data:{id: m_id, h_id:h_id,p_id:p_id}}).then(function(){    
+                    	      
+                    	   	   var accessAllowed = App.hospitalElements.at(0).get('id');
+                    	   	   if (typeof accessAllowed != 'undefined') {                    	        
                                
-                               App.viewHospitalElements = new App.Views.HospitalElements ({collection:App.hospitalElements, m_id: m_id,product_id: p_id, external_ehrs:external_ehrs, primary_ehr:primary_ehr, measure_completed:measure_completed});
+                               App.viewHospitalElements = new App.Views.HospitalElements ({collection:App.hospitalElements, m_id: m_id,product_id: p_id, external_ehrs:external_ehrs, primary_ehr:primary_ehr, measure_completed:measure_completed});                            
+                               
                                $('#app').html(App.viewHospitalElements.render().el);
                               
                                var viewMeasureBreadcrumb = new App.Views.HospitalMeasureBreadcrumb({model: measure, product_code:product.code, product_id:p_id, hospital_id:h_id, notifyUser:notifyUser});                
@@ -278,7 +243,11 @@ App.Routers.User = Backbone.Router.extend({
                                         {"sWidth": "5%"}]                
                                });                                
                                
-                               new FixedColumns( oTable, {"sHeightMatch": "none"} );                                
+                               new FixedColumns( oTable, {"sHeightMatch": "none"} );   
+                               
+                       }      else {                     	   		
+                    	   		Backbone.history.navigate('hospital/' + h_id + '/product/'+ p_id, true);				
+                       }
                 });        
                
         });
