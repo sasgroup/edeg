@@ -173,7 +173,7 @@ class HospitalElementController {
                         HospitalProductMeasure hospitalProductMeasure         = HospitalProductMeasure.findByHospitalProductAndHospitalMeasure(hospitalProduct, result)
                         def hospitalElements = new ArrayList()
                         //TODO verify permission to view HospitalMeasure
-                        if ((session.user.role.equals("user") && hospitalProductMeasure.included)||session.user.role.equals("admin")) {                        
+                        if ((session.user.role.equals("user") && params.defaults)||(session.user.role.equals("user") && hospitalProductMeasure.included)||session.user.role.equals("admin")) {                        
                                 hospitalElements =  result.hospitalMeasureElements //HospitalElement.list().findAll{it?.hospitalMeasure.findAll{it.id == result.id}.size() >= 1}
                                 render(contentType: "text/json") {
                                         hospitalElements = array {
