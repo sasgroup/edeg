@@ -185,15 +185,15 @@ App.Routers.User = Backbone.Router.extend({
                
                        var notifyUser = App.cur_measure.get('notifyUser');
                                                
-                       App.route.tabs(h_id);                
+                       //App.route.tabs(h_id);                
                        
                        var external_ehrs = [];
                        var primary_ehr="";
                        var measure_completed=false;
                        
                        var product = App.hpm.get('products')[0];
-                var measure = product.measures[0];
-                measure_completed = measure.completed;                        
+                       var measure = product.measures[0];
+                       measure_completed = measure.completed;                        
                        external_ehrs = App.hpm.get('externalEHRs').split('\n');
                        primary_ehr = App.hpm.get('ehr').code;
                        //breadcrumb
