@@ -14,13 +14,15 @@ class DataElementController {
 								+
 								"values (HIBERNATE_SEQUENCE.nextVal,'"+request.getRemoteUser()+"','"+instance.getClass().getSimpleName()+"',SYSTIMESTAMP,'DELETE',SYSTIMESTAMP,null,'"+instance.toString()+"','"+instance.id+"',null,'dataElementDefaults',null)")
 	}
-	
+
+	//Save DataElement
 	private DataElement saveInstance (DataElement instance, def param) {
 		instance.name = param.name
 		instance.code = param.code
 		instance.notes = isNULL(param?.notes,"")
 		instance.help = isNULL(param?.help,"")
-
+		
+		//Remove DataElement from all Measures and add only to Measures from request 
 		Measure.list().each { it.removeFromDataElements(instance) }
 		for (measure in param.measures) {
 			instance.addToMeasures(Measure.get(measure.mid))
@@ -31,7 +33,7 @@ class DataElementController {
 		DataElementDefaults.executeUpdate("delete DataElementDefaults ded where ded.dataElement=?", [instance])
 		
 
-		//create new
+		//create new DataElementDefaults
 		//TODO ids for ValuesType
 		def dataElementsDefaults = param?.dataElementDefaults
 		for (dataElementsDefault in dataElementsDefaults) {
@@ -67,7 +69,7 @@ class DataElementController {
 	}
 
 	def show() {
-		if (params.id && DataElement.exists(params.id)) {
+		if (params.id && DataElement.exists(params.id)) {//display only 1 DataElement by ID
 			def  de = DataElement.get(params.id)
 			def dataElementDefaultsList = DataElementDefaults.list().findAll{it.dataElement.id.findAll{it == de.id}.size() >= 1}
 			render(contentType: "text/json") {
@@ -92,7 +94,7 @@ class DataElementController {
 				}
 			}
 		}
-		else {
+		else {//display all DataElement
 			def results = DataElement.list()
 
 			render(contentType: "text/json") {
@@ -138,11 +140,10 @@ class DataElementController {
 
 	def delete(Long id) {
 		def de = DataElement.findById(params.id)
-
+		//delete all depend links
 		def measuresDep = de.measures ? true : false
 		def hasDataElementDefaultsList = DataElementDefaults.list().findAll{it.dataElement.id.findAll{it == de.id}.size() >= 1} ? true : false
 		def hospitalElementDep = HospitalElement.findByDataElement(de) ? true : false
-		
 		
 		String code = de.code
 		String code2 = de.code
