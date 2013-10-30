@@ -36,11 +36,11 @@ class DataElementController {
 		def dataElementsDefaults = param?.dataElementDefaults
 		for (dataElementsDefault in dataElementsDefaults) {
 			if (dataElementsDefault.location){
-				DataElementDefaults ded = new DataElementDefaults(location:dataElementsDefault.location, 
-																	//valueType:dataElementsDefault.valueType.name,
-																	dataElement : instance, 
-																	ehr : Ehr.get(dataElementsDefault.linkId), 
-																	ids : defaultIds(dataElementsDefault.ids))
+				DataElementDefaults ded = new DataElementDefaults(
+												location:dataElementsDefault.location, 
+												dataElement : instance, 
+												ehr : Ehr.get(dataElementsDefault.linkId), 
+												ids : defaultIds(dataElementsDefault.ids))
 				ded.save(flush:true)
 			}
 		}
@@ -86,7 +86,6 @@ class DataElementController {
 					for (d in dataElementDefaultsList) {
 						dataElementDefault	id : d.id,
 						location : isNULL(d.location,""),
-						//valueType : d.valueType,
 						linkId : d.ehr.id,
 						ids : isNULL(d.ids,"")
 					}

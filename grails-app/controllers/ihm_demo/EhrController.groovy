@@ -31,15 +31,24 @@ class EhrController {
 			if (dataElementsDefault.location){
 			 DataElementDefaults ded = new DataElementDefaults(	
 				 						location:dataElementsDefault.location, 
-				 						//valueType:dataElementsDefault.valueType.name, 
 										dataElement : DataElement.get(dataElementsDefault.linkId), 
 										ehr : instance, 
-										ids : dataElementsDefault.ids)
+										ids : defaultIds(dataElementsDefault.ids))
 			 ded.save(flush:true)
 			}
 		}
 		
 		return instance
+	}
+	
+	private String defaultIds(String ids){
+		if (ids && ids.length()>0)
+			return ids
+		else{
+			def _vt = ValuesType.findByName("NotApplicable")
+			def _ids = _vt.id.toString()
+			return _ids
+		}
 	}
 	
 	def save() {

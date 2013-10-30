@@ -127,7 +127,7 @@ class HospitalElementController {
 			
 			if (params.defaults){
 				if (params.he_id){
-					println "reset to default settings only required HospitalElement"
+					// println "reset to default settings only required HospitalElement"
 					def hElement = HospitalElement.get(params.he_id)
 					if (hElement && hElement.sourceEHR){
 						def defSettings = DataElementDefaults.findByDataElementAndEhr(hElement.dataElement, hElement.hospital.ehr)
@@ -137,12 +137,11 @@ class HospitalElementController {
 							//hElement.valueType = defSettings.valueType							
 						}
 						hElement.save(flush:true)
-						
 						sendMailService.updateDataElement(hElement?.hospital.email, hElement?.hospital.name, hElement?.dataElement.name, HospitalMeasure.get(params?.id)?.measure.name, new Date(), session?.user.login)
 					}
 				}
 				else{
-					println "reset all hospital element to default settings"
+					// println "reset all hospital element to default settings"
 					def hMeasure = HospitalMeasure.get(params.id)
 					if (hMeasure){
 						def hElementIds =  hMeasure.hospitalMeasureElements.collect{it.hospitalElement.id}
