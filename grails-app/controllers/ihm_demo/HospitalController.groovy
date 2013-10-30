@@ -494,15 +494,15 @@ class HospitalController {
 	private Hospital saveHospital (Hospital hospitalInstance, GrailsParameterMap params) {
 		def modificationDetected = false
 		
-		if (isNULL(hospitalInstance.email,"")!="" && params?.email != "" &&   hospitalInstance.email != params?.email)				
+		if (isNULL(hospitalInstance.email,"") != params?.email)				
 			modificationDetected = true 	
 		hospitalInstance.email = params?.email
 		
-		if (isNULL(hospitalInstance.externalEHRs,"") !="" && params?.externalEHRs != "" && hospitalInstance.externalEHRs != params?.externalEHRs)
+		if (isNULL(hospitalInstance.externalEHRs,"") != params?.externalEHRs)
 			modificationDetected = true 	
 		hospitalInstance.externalEHRs = params?.externalEHRs
 		
-		if (isNULL(hospitalInstance.populationMethod,"") != "" && params?.populationMethod != "" && hospitalInstance.populationMethod != params?.populationMethod)
+		if (isNULL(hospitalInstance.populationMethod,"") !=  params?.populationMethod)
 			modificationDetected = true 	
 		hospitalInstance.populationMethod 	= params?.populationMethod
 		
