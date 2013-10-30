@@ -130,6 +130,8 @@ class HospitalElementController {
 		if (params.id && HospitalMeasure.exists(params.id)) {
 			
 			if (params.defaults){
+				def hMeasure = HospitalMeasure.get(params.id)
+				
 				if (params.he_id){
 					println "reset to default settings only required HospitalElement"
 					def hElement = HospitalElement.get(params.he_id)
@@ -137,17 +139,55 @@ class HospitalElementController {
 						def defSettings = DataElementDefaults.findByDataElementAndEhr(hElement.dataElement, hElement.hospital.ehr)
 						if (defSettings && hElement.sourceEHR) {
 							hElement.location = defSettings.location
-							// TODO: correct for values Type
-							//hElement.valueType = defSettings.valueType							
 						}
 						hElement.save(flush:true)
-						
 						sendMailService.updateDataElement(hElement?.hospital.email, hElement?.hospital.name, hElement?.dataElement.name, HospitalMeasure.get(params?.id)?.measure.name, new Date(), session?.user.login)
 					}
+					
+					
+					def hospitalElements =  hMeasure.hospitalMeasureElements
+					render(contentType: "text/json") {
+							hospitalElements = array {
+								for (hme in hospitalElements) {
+									if (hme.hospitalElement.id == hElement.id){
+										hospitalElement 	id : hme.hospitalElement.id,
+															version : hme.hospitalElement.version,
+															internalNotes : isNULL(availableForUser(hme.hospitalElement.internalNotes), ""),
+															location : isNULL(hme.hospitalElement.location,""),
+															notes : isNULL(hme.hospitalElement.notes,""),
+															source : isNULL(hme.hospitalElement.source,""),
+															sourceEHR : hme.hospitalElement.sourceEHR,
+															valueSet : isNULL(hme.hospitalElement.valueSet,""),
+															valueSetFile : isNULL(hme.hospitalElement.valueSetFile,""),
+															valuesTypeId : hme.hospitalElement.valuesType.id,
+															dataElement : hme.hospitalElement.dataElement.code,
+															element_notes:hme.hospitalElement.dataElement.notes,
+															help:isNULL(hme.hospitalElement.dataElement.help,""),
+															ids : deriveIds(hme.hospitalElement),
+													
+															hospitalValueSet : array {
+																for (hvs in HospitalValueSet.findAllByHospitalElement(hme.hospitalElement)){
+																	hvset code : hvs.code,
+																	mnemonic : hvs.mnemonic
+																}
+															},
+												
+															elementExtraLocation : array {
+																for (e in ElementExtraLocation.findAllByHospitalElement(hme.hospitalElement)){
+																	elem location  : e.location,
+																		 source    : e.source,
+																		 sourceEHR : e.sourceEHR,
+																		 valuesTypeId : e.valuesType.id
+																}
+															}
+									}
+								}
+							}
+						}
 				}
+				
 				else{
 					println "reset all hospital element to default settings"
-					def hMeasure = HospitalMeasure.get(params.id)
 					if (hMeasure){
 						def hElementIds =  hMeasure.hospitalMeasureElements.collect{it.hospitalElement.id}
 						for (hElementId in hElementIds){
@@ -156,69 +196,107 @@ class HospitalElementController {
 								def defSettings = DataElementDefaults.findByDataElementAndEhr(hElement.dataElement, hElement.hospital.ehr)
 								if (defSettings) {
 									hElement.location = defSettings.location
-									// TODO: correct for ValuesType
-									//hElement.valueType = defSettings.valueType									
 								}
 								hElement.save(flush:true)
 								sendMailService.updateDataElement(hElement?.hospital.email, hElement?.hospital.name, hElement?.dataElement.name, hMeasure?.measure.name, new Date(), session?.user.login)
 							}
 						}
+						
+						def hospitalElements =  hMeasure.hospitalMeasureElements
+						render(contentType: "text/json") {
+								hospitalElements = array {
+									for (hme in hospitalElements) {
+										hospitalElement 	id : hme.hospitalElement.id,
+															version : hme.hospitalElement.version,
+															internalNotes : isNULL(availableForUser(hme.hospitalElement.internalNotes), ""),
+															location : isNULL(hme.hospitalElement.location,""),
+															notes : isNULL(hme.hospitalElement.notes,""),
+															source : isNULL(hme.hospitalElement.source,""),
+															sourceEHR : hme.hospitalElement.sourceEHR,
+															valueSet : isNULL(hme.hospitalElement.valueSet,""),
+															valueSetFile : isNULL(hme.hospitalElement.valueSetFile,""),
+															valuesTypeId : hme.hospitalElement.valuesType.id,
+															dataElement : hme.hospitalElement.dataElement.code,
+															element_notes:hme.hospitalElement.dataElement.notes,
+															help:isNULL(hme.hospitalElement.dataElement.help,""),
+															ids : deriveIds(hme.hospitalElement),
+													
+															hospitalValueSet : array {
+																for (hvs in HospitalValueSet.findAllByHospitalElement(hme.hospitalElement)){
+																	hvset code : hvs.code,
+																	mnemonic : hvs.mnemonic
+																}
+															},
+												
+															elementExtraLocation : array {
+																for (e in ElementExtraLocation.findAllByHospitalElement(hme.hospitalElement)){
+																	elem location  : e.location,
+																		 source    : e.source,
+																		 sourceEHR : e.sourceEHR,
+																		 valuesTypeId : e.valuesType.id
+																}
+															}
+									}
+								}
+							}
 					}
 				}
+				
+				
 			}
+			else{
+				def  result = HospitalMeasure.get(params.id)
+				HospitalProduct hospitalProduct = HospitalProduct.findByHospitalAndProduct(Hospital.get(params.h_id), Product.get(params.p_id))
+				HospitalProductMeasure hospitalProductMeasure 	= HospitalProductMeasure.findByHospitalProductAndHospitalMeasure(hospitalProduct, result)
+				def hospitalElements = new ArrayList()
 
-			def  result = HospitalMeasure.get(params.id)
-
-			HospitalProduct hospitalProduct = HospitalProduct.findByHospitalAndProduct(Hospital.get(params.h_id), Product.get(params.p_id))
-			HospitalProductMeasure hospitalProductMeasure 	= HospitalProductMeasure.findByHospitalProductAndHospitalMeasure(hospitalProduct, result)
-			def hospitalElements = new ArrayList()
-			//TODO verify permission to view HospitalMeasure
-			if ((session.user.role.equals("user") && hospitalProductMeasure.included)||session.user.role.equals("admin")) {			
-				hospitalElements =  result.hospitalMeasureElements //HospitalElement.list().findAll{it?.hospitalMeasure.findAll{it.id == result.id}.size() >= 1}
-				render(contentType: "text/json") {
-					hospitalElements = array {
-						for (hme in hospitalElements) {
-							hospitalElement id : hme.hospitalElement.id,
-							version : hme.hospitalElement.version,
-							internalNotes : isNULL(availableForUser(hme.hospitalElement.internalNotes),""),
-							location : isNULL(hme.hospitalElement.location,""),
-							notes : isNULL(hme.hospitalElement.notes,""),
-							source : isNULL(hme.hospitalElement.source,""),
-							sourceEHR : hme.hospitalElement.sourceEHR,
-							valueSet : isNULL(hme.hospitalElement.valueSet,""),
-							valueSetFile : isNULL(hme.hospitalElement.valueSetFile,""),
-							//valueType : hme.hospitalElement.valueType,
-							valuesTypeId : hme.hospitalElement.valuesType.id,
-							dataElement : hme.hospitalElement.dataElement.code,
-							element_notes:hme.hospitalElement.dataElement.notes,
-							help:isNULL(hme.hospitalElement.dataElement.help,""),
-							ids : deriveIds(hme.hospitalElement),
-							
-							hospitalValueSet : array {
-								for (hvs in HospitalValueSet.findAllByHospitalElement(hme.hospitalElement)){
-									hvset code : hvs.code,
-									mnemonic : hvs.mnemonic								
-								}
-							},
-						
-							elementExtraLocation : array {
-								for (e in ElementExtraLocation.findAllByHospitalElement(hme.hospitalElement)){
-									elem location  : e.location,
-										 source    : e.source,
-										 sourceEHR : e.sourceEHR,									
-										 //valueType : e.valueType,
-										 valuesTypeId : e.valuesType.id
-								}
+				//TODO verify permission to view HospitalMeasure
+				if ((session.user.role.equals("user") && hospitalProductMeasure?.included)||session.user.role.equals("admin")) {
+					hospitalElements =  result.hospitalMeasureElements
+					render(contentType: "text/json") {
+						hospitalElements = array {
+							for (hme in hospitalElements) {
+								hospitalElement 	id : hme.hospitalElement.id,
+													version : hme.hospitalElement.version,
+													internalNotes : isNULL(availableForUser(hme.hospitalElement.internalNotes), ""),
+													location : isNULL(hme.hospitalElement.location,""),
+													notes : isNULL(hme.hospitalElement.notes,""),
+													source : isNULL(hme.hospitalElement.source,""),
+													sourceEHR : hme.hospitalElement.sourceEHR,
+													valueSet : isNULL(hme.hospitalElement.valueSet,""),
+													valueSetFile : isNULL(hme.hospitalElement.valueSetFile,""),
+													valuesTypeId : hme.hospitalElement.valuesType.id,
+													dataElement : hme.hospitalElement.dataElement.code,
+													element_notes:hme.hospitalElement.dataElement.notes,
+													help:isNULL(hme.hospitalElement.dataElement.help,""),
+													ids : deriveIds(hme.hospitalElement),
+											
+													hospitalValueSet : array {
+														for (hvs in HospitalValueSet.findAllByHospitalElement(hme.hospitalElement)){
+															hvset code : hvs.code,
+															mnemonic : hvs.mnemonic
+														}
+													},
+										
+													elementExtraLocation : array {
+														for (e in ElementExtraLocation.findAllByHospitalElement(hme.hospitalElement)){
+															elem location  : e.location,
+																 source    : e.source,
+																 sourceEHR : e.sourceEHR,
+																 valuesTypeId : e.valuesType.id
+														}
+													}
 							}
 						}
 					}
+				} 
+				else {
+					render(contentType: "text/json") {
+						resp = "false"
+						message = "Some porblems with permissions"
+					}
 				}
-			} else {
-				render(contentType: "text/json") {
-					resp = "false"
-					message = "Some porblems with permissions"
-				}
-			}	
+			}
 		}
 	}
 
