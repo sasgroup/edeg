@@ -130,11 +130,16 @@ App.Routers.User = Backbone.Router.extend({
 	},
 		
 	tabs: function(h_id){		
-		//generate tabs					
-		$('nav#products-nav').empty();		
-		$.each( App.hospital_products, function( i, product ) {		           
-			$('nav#products-nav').append('<a href="#hospital/' + h_id + '/product/'+ product.id+ '">' + product.code + '</a>');
-		});			
+		//App.hosp_products = new App.Models.HospitalProduct();
+		//App.hosp_products.fetch({data:{h_id:h_id}}).then(function(){	
+		
+			//generate tabs					
+			$('nav#products-nav').empty();		
+			$.each( App.hospital_products, function( i, product ) {		           
+				$('nav#products-nav').append('<a href="#hospital/' + h_id + '/product/'+ product.id+ '">' + product.code + '</a>');
+			});			
+		
+		//});
 	},
 
 	productn : function(h_id,p_id) {		
@@ -219,8 +224,8 @@ App.Routers.User = Backbone.Router.extend({
                              
         App.security.fetch().then(function(){						 
 			App.route.getListOfHospitals();	 
-        App.hpm.fetch({data:{h_id:h_id, p_id:p_id, m_id:m_id}}).then(function(){
-        App.cur_measure.fetch({data:{id: m_id,hm: true}}).then(function(){                        
+			App.hpm.fetch({data:{h_id:h_id, p_id:p_id, m_id:m_id}}).then(function(){
+            App.cur_measure.fetch({data:{id: m_id,hm: true}}).then(function(){                        
                 App.valuesTypes.fetch().then(function(){                 
                
                        var notifyUser = App.cur_measure.get('notifyUser');
