@@ -29,25 +29,43 @@ class HospitalProductController {
 	}
 
 	def show() {
-	  if(Hospital.exists(params?.h_id) && Product.exists(params?.p_id)) {
+		if(Hospital.exists(params?.h_id) && Product.exists(params?.p_id)) {
 
-	   def  hospitalInstance = Hospital.get(params?.h_id)
-	   def  product = Product.get(params?.p_id)
+			def  hospitalInstance = Hospital.get(params?.h_id)
+			def  product = Product.get(params?.p_id)
 
-	   if (HospitalProduct.findByHospitalAndProduct(hospitalInstance, product)) {
-		HospitalProduct hospitalProduct = HospitalProduct.findByHospitalAndProduct(hospitalInstance, product)
+			if (HospitalProduct.findByHospitalAndProduct(hospitalInstance, product)) {
+				HospitalProduct hospitalProduct = HospitalProduct.findByHospitalAndProduct(hospitalInstance, product)
 
-		render(contentType: "text/json") {
-		 id = hospitalProduct.id
-		 hospital = hospitalProduct.hospital.name
-		 product = hospitalProduct.product.name
-		 qa = isNULL(hospitalProduct.qa,"")
-		 notifyAdmin = hospitalProduct?.notifyAdmin
-		 notifyUser  = hospitalProduct?.notifyUser
+				render(contentType: "text/json") {
+					id = hospitalProduct.id
+					hospital = hospitalProduct.hospital.name
+					product = hospitalProduct.product.name
+					qa = isNULL(hospitalProduct.qa,"")
+					notifyAdmin = hospitalProduct?.notifyAdmin
+					notifyUser  = hospitalProduct?.notifyUser
+				}
+			}
 		}
-	   }
-	  }
-	 }
+		else if(Hospital.exists(params?.h_id)) {
+			def hospital = Hospital.get(params?.h_id)
+			def hospitalProducts = HospitalProduct.findAllByHospital(hospital)
+			render(contentType: "text/json") {
+				products = array {
+					for (hp in hospitalProducts) {
+						product 	id : hp.product.id,
+									name : hp.product.name,
+									code : hp.product.code
+					}
+				}
+			}
+		}
+		else
+			render(contentType: "text/json") {
+				products = array {
+				}
+			}
+	}
 
 	def update(Long id, Long version) {
 
