@@ -144,7 +144,6 @@ class HospitalElementController {
 						sendMailService.updateDataElement(hElement?.hospital.email, hElement?.hospital.name, hElement?.dataElement.name, HospitalMeasure.get(params?.id)?.measure.name, new Date(), session?.user.login)
 					}
 					
-					
 					def hospitalElements =  hMeasure.hospitalMeasureElements
 					render(contentType: "text/json") {
 							hospitalElements = array {
