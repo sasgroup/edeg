@@ -117,6 +117,9 @@ table.ehrTable .slcValuesType {
 a.disable {
 	text-decoration : none;
 	color: inherit;
+	
+	pointer-events: none;
+    cursor: default;
 }
 
 th.data-element-column{

@@ -197,15 +197,19 @@ App.Routers.User = Backbone.Router.extend({
                        external_ehrs = App.hpm.get('externalEHRs').split('\n');
                        primary_ehr = App.hpm.get('ehr').code;
                        //breadcrumb
-                       var viewMeasureBreadcrumb = new App.Views.HospitalMeasureBreadcrumb({model: measure, product_code:product.code, product_id:p_id, hospital_id:h_id, notifyUser:notifyUser});                
-                       $('#breadcrumb-box').html(viewMeasureBreadcrumb.render().el);
+                       //var viewMeasureBreadcrumb = new App.Views.HospitalMeasureBreadcrumb({model: measure, product_code:product.code, product_id:p_id, hospital_id:h_id, notifyUser:notifyUser});                
+                       //$('#breadcrumb-box').html(viewMeasureBreadcrumb.render().el);
                                                
                        App.hospitalElements = new App.Collections.HospitalElements();
                        
                        App.hospitalElements.fetch({data:{id: m_id, h_id:h_id,p_id:p_id}}).then(function(){                        
                                
                                App.viewHospitalElements = new App.Views.HospitalElements ({collection:App.hospitalElements, m_id: m_id,product_id: p_id, external_ehrs:external_ehrs, primary_ehr:primary_ehr, measure_completed:measure_completed});
-                               $('#app').html(App.viewHospitalElements.render().el);        
+                               $('#app').html(App.viewHospitalElements.render().el);
+                              
+                               var viewMeasureBreadcrumb = new App.Views.HospitalMeasureBreadcrumb({model: measure, product_code:product.code, product_id:p_id, hospital_id:h_id, notifyUser:notifyUser});                
+                               $('#breadcrumb-box').html(viewMeasureBreadcrumb.render().el);
+                              
                                
                                $('#deatails *').attr('disabled','disabled');
                                
