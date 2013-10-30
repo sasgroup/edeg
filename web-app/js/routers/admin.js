@@ -90,13 +90,13 @@ App.Routers.Administrator = Backbone.Router.extend({
 		Backbone.history.navigate("/product", true);		
 	},
 	
-	elements : function(h_id,p_id, m_id){        
+	elements : function(h_id,p_id, m_id){		
 	        App.hpm = new App.Models.HospitalProductMeasure();        
 	        App.cur_measure = new App.Models.HospitalMeasure();
 	                                
 	        App.hpm.fetch({data:{h_id:h_id, p_id:p_id, m_id:m_id}}).then(function(){
 	         App.cur_measure.fetch({data:{id: m_id,hm: true}}).then(function(){                        
-	         App.valuesTypes.fetch().then(function(){                 
+	           App.valuesTypes.fetch().then(function(){                 
 	        
 	                var measure_code='';
 	                var external_ehrs = [];
