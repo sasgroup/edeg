@@ -67,7 +67,7 @@ App.Views.DataElementsDefault = Backbone.View.extend({
 				
 				if (default_element_option=="ehr") {				
 					App.ehrs.each(function(ehr) {
-						html = html + temp({id:'e'+ehr.get('id'), code:ehr.get('code')}); //replace name to code
+						html = html + temp({id:'e'+ehr.get('id'), code:ehr.get('code')}); 
 					});			
 				} else 
 				
@@ -92,6 +92,7 @@ App.Views.DataElementsDefault = Backbone.View.extend({
 				}
 			},
 						
+			// show existing valuesTypes
 			valuesTypeOptions: function() {
 				var temp = _.template($('#multiple-default-element-option').html());
 				var html= '';	
