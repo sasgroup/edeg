@@ -1,32 +1,32 @@
 // List of DataElements
 App.Views.DataElements = Backbone.View.extend({
+	//template for the view
 	template : _.template($('#element-list-template').html()),
-
+	//listen for events
 	events : {
 		'click #create_dataElement' : 'createDataElement'
 	},
-
+	//listen for collections events
 	initialize : function() {		
 		this.collection.on('add', this.appendDataElement, this);
 		this.collection.on('change', this.render, this);
 		$('.helpAreaElement').wysihtml5();
 	},
 
+	//render view for List of DataElements
 	render : function() {		
-		this.$el.html(this.template({
-			dataElements : this.collection
-		}));
+		this.$el.html(this.template({dataElements : this.collection}));
 		this.collection.each(this.appendDataElement, this);
 		return this;
 	},
 
+	//render single DataElement in the table of DataElements
 	appendDataElement : function(dataElement) {
-		var view = new App.Views.SingleDataElement({
-			model : dataElement
-		});
+		var view = new App.Views.SingleDataElement({model : dataElement});
 		this.$el.find('#table_items tbody').append(view.render().el);
 	},
 
+	//redirect to DataElement:New page
 	createDataElement : function() {
 		Backbone.history.navigate("element/new", true)
 	}
@@ -35,16 +35,17 @@ App.Views.DataElements = Backbone.View.extend({
 
 // Edit/New DataElement
 App.Views.DataElement = Backbone.View.extend({
+	//template for the view
 	template : _.template($('#element-template').html()),
-	
+	//listen for events
 	events : {
-		'submit' : 'editDataElement',
-		'click button#cancel' : 'returnOnMain', 
+		'submit' 			    : 'editDataElement',
+		'click button#cancel'   : 'returnOnMain', 
 		'change  #name, #notes' : 'changeVal',		
-		'change .checkbox' : 'changeCh',
-		'click #btnHelp' : 'showHelpDialog'		
+		'change .checkbox'      : 'changeCh',
+		'click #btnHelp'        : 'showHelpDialog'		
 	},
-	
+	//render view for DataElement:(New/Edit) form
 	render : function() {	
 		var state = (this.model.isNew())? "Add New Data Element":"Edit Data Element"; 
 		this.model.set("state", state);
@@ -62,6 +63,7 @@ App.Views.DataElement = Backbone.View.extend({
 		return this;
 	},
 			
+	//show existing ehrs
 	ehrOptions: function() {
 		var temp = _.template($('#default-element-option').html());
 		var html= '';		
@@ -71,6 +73,7 @@ App.Views.DataElement = Backbone.View.extend({
 		return html;
 	},
 	
+	//show existing valueTypes
 	vtypeOptions: function() {
 		var temp = _.template($('#multiple-default-element-option').html());
 		var html= '';		
@@ -80,6 +83,7 @@ App.Views.DataElement = Backbone.View.extend({
 		return html;
 	},
 		
+	//render Measures referred to the DataElement 
 	appendMeasures : function(){
 		var temp = _.template($('#single-element-measure').html());	
 		checked = [];
@@ -118,7 +122,8 @@ App.Views.DataElement = Backbone.View.extend({
 			this.$el.find('div#measures').append(temp({name:measure.name,id:measure.id,ch:''}));					
 		}		
 	},	
-	
+
+	//render tab for Default Locations
 	appendDataElementsDefault: function(){
 		var table_template = _.template($('#data-elements-default-table').html());		
 		this.$el.find('div#ehrs').append(table_template({ehr_element:"EHR"}));			
@@ -126,10 +131,10 @@ App.Views.DataElement = Backbone.View.extend({
 		var dataElementDefaults = this.model.get('dataElementDefaults');
 		var ehrtbody = this.$el.find('div#ehrs .ehrTable tbody');
 				
-		var optionsList = this.ehrOptions();
-		
-		var vtypesList = this.vtypeOptions(); //new
+		var optionsList = this.ehrOptions();		
+		var vtypesList = this.vtypeOptions(); 
 				
+		// dataElementDefaults defined
 		if (dataElementDefaults !== undefined) {
 		  $.each( dataElementDefaults, function( i, dataElementDefault ) {				
 			  dataElementDefault.parent = "element";
@@ -150,7 +155,8 @@ App.Views.DataElement = Backbone.View.extend({
 			
 		  });	
 		}
-				
+	
+		// dataElementDefaults not defined
 		if ((dataElementDefaults == undefined)||(dataElementDefaults.length == 0)) { 	
 			var linkId = App.ehrs.at(0).get('id');
 			
@@ -172,9 +178,12 @@ App.Views.DataElement = Backbone.View.extend({
 		}		
 	},
 	
+	//set model attributes 
 	changeVal : function(e) {
 		this.model.attributes[e.target.name] = $(e.target).val();
 	},
+	
+	//save a checkbox state
 	changeCh : function(e) {
 		if (e.target.name == 'measure' ) {
 			if ( e.target.checked ) {				
@@ -194,14 +203,14 @@ App.Views.DataElement = Backbone.View.extend({
 		};	
 	},
 	
+	//save DataElement
 	editDataElement : function(e) {
 		e.preventDefault();					
 		var emptyValuesType = _.indexOf(_.pluck(this.model.get('dataElementDefaults'),"ids"), '');
 		
 		if ((emptyValuesType!=-1)&&(this.model.get('dataElementDefaults')[emptyValuesType].location!='')) 		{
 			bootbox.alert("Please specify Values Type for [" + this.model.get('dataElementDefaults')[emptyValuesType].location + "] location.", function() {
-			});
-			
+			});			
 			return;			
 		}	
 		
@@ -227,41 +236,44 @@ App.Views.DataElement = Backbone.View.extend({
 	    });
 	},
 	
+	//redirect to the list of DataElements
 	returnOnMain: function () {		
 		Backbone.history.navigate("/element", true);				
 	},
 	
+	//show help
 	showHelpDialog : function(){
 		if (! $('.helpAreaElement').data("wysihtml5") )
 			$('.helpAreaElement').wysihtml5();
 		$('#myHelp')
 		//.appendTo($("body"))
 		.modal('show');
-	}
-	
+	}	
 });
 
 
-//Single DataElement
-App.Views.SingleDataElement = Backbone.View
-		.extend({
+//render Single DataElement in the table of DataElements
+App.Views.SingleDataElement = Backbone.View.extend({
 			tagName : 'tr',
 			template: _.template($('#single-element').html()),			
+			//listen for events
 			events : {
-				'click #edit' : 'goToEdit',
+				'click #edit'    : 'goToEdit',
 				'click #destroy' : 'destroy'
 			},
 
+			//render a single row
 			render : function() {
-				this.$el.html(this.template(this.model.toJSON()));			
-				
+				this.$el.html(this.template(this.model.toJSON()));				
 				return this;
 			},
 
+			//redirect to the DataElement:Edit page
 			goToEdit : function() {											
 				Backbone.history.navigate("element/"+this.model.get('id')+'/edit', true);
 			},
 			
+			//delete a DataElement
 			destroy : function(e){				
 				e.preventDefault();
 								
@@ -287,4 +299,4 @@ App.Views.SingleDataElement = Backbone.View
 					 }
 				});				
 			}
-		});
+});
