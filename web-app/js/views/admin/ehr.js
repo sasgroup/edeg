@@ -1,26 +1,26 @@
 // List of Ehrs
 App.Views.Ehrs = Backbone.View.extend({
+	//template for the view
 	template : _.template($('#ehr-list-template').html()),
-
+	//listen for events
 	events : {
 		'click #create_ehr' : 'createEhr'
 	},
-
+	
+	//render view for List of EHRs
 	render : function() {		
-		this.$el.html(this.template({
-			ehrs : this.collection
-		}));
+		this.$el.html(this.template({ehrs : this.collection}));
 		this.collection.each(this.appendEhr, this);
 		return this;
 	},
 
+	//render single EHR in the table of EHRs
 	appendEhr : function(ehr) {
-		var view = new App.Views.SingleEhr({
-			model : ehr
-		});
+		var view = new App.Views.SingleEhr({model : ehr});
 		this.$el.find('#table_items tbody').append(view.render().el);
 	},
 
+	//redirect to EHR:New page
 	createEhr : function() {		
 		Backbone.history.navigate("ehr/new", true)
 	}
@@ -29,13 +29,16 @@ App.Views.Ehrs = Backbone.View.extend({
 
 // Edit/New Ehr
 App.Views.Ehr = Backbone.View.extend({
+	//template for the view
 	template : _.template($('#ehr-template').html()),
+	//listen for events
 	events : {
-		'submit' : 'editEhr',
-		'click button#cancel' : 'returnOnMain', 
-		'change #name, #notes' : 'changeVal'		
+		'submit' 				: 'editEhr',
+		'click button#cancel'   : 'returnOnMain', 
+		'change #name, #notes'  : 'changeVal'		
 	},
-		
+	
+	//render view for EHR:(New/Edit) form
 	render : function() {	
 		var state = (this.model.isNew())? "Add New EHR":"Edit EHR"; 
 		this.model.set("state", state);
@@ -55,6 +58,7 @@ App.Views.Ehr = Backbone.View.extend({
 		return this;
 	},
 		
+	//show existing DataElements
 	elementOptions: function() {
 		var temp = _.template($('#default-element-option').html());
 		var html= '';		
@@ -64,6 +68,7 @@ App.Views.Ehr = Backbone.View.extend({
 		return html;
 	},
 	
+	//show existing valueTypes
 	vtypeOptions: function() {
 		var temp = _.template($('#default-element-option').html());
 		var html= '';		
@@ -73,6 +78,7 @@ App.Views.Ehr = Backbone.View.extend({
 		return html;
 	},
 	
+	//render tab for Default Locations
 	appendDataElementsDefault: function(){
 		var table_template = _.template($('#data-elements-default-table').html());		
 		this.$el.find('div#elements').append(table_template({ehr_element:"Data Element"}));			
@@ -82,6 +88,7 @@ App.Views.Ehr = Backbone.View.extend({
 		var optionsList = this.elementOptions();
 		var vtypesList = this.vtypeOptions(); //new
 				
+		// dataElementDefaults defined
 		if (dataElementDefaults !== undefined) {
 		  $.each( dataElementDefaults, function( i, dataElementDefault ) {
 			dataElementDefault.parent = "ehr";
@@ -103,6 +110,7 @@ App.Views.Ehr = Backbone.View.extend({
 		  });	
 		}
 				
+		// dataElementDefaults not defined
 		if ((dataElementDefaults == undefined)||(dataElementDefaults.length == 0)) { 
 			var linkId = App.dataElements.at(0).get('id');
 			
@@ -124,21 +132,22 @@ App.Views.Ehr = Backbone.View.extend({
 		}		
 	},
 	
-	
+	//set model attributes 
 	changeVal : function(e) {
 		this.model.attributes[e.target.name] = $(e.target).val();
 	},
 	
+	//render Hospitals, which use this EHR 
 	appendHospital : function(ehr_hospital){
 		var temp = _.template($('#single-ehr-hospital').html());
 		this.$el.find('div#hospitals').append(temp({name:ehr_hospital.hname}));		
 	},
 		
+	// save EHR
 	editEhr : function(e) {
 		e.preventDefault();	
 			
-		var emptyValuesType = _.indexOf(_.pluck(this.model.get('dataElementDefaults'),"ids"), '');
-		
+		var emptyValuesType = _.indexOf(_.pluck(this.model.get('dataElementDefaults'),"ids"), '');		
 		if ((emptyValuesType!=-1)&&(this.model.get('dataElementDefaults')[emptyValuesType].location!='')){
 			bootbox.alert("Please specify Values Type for [" + this.model.get('dataElementDefaults')[emptyValuesType].location + "] location.", function() {
 			});			
@@ -165,6 +174,7 @@ App.Views.Ehr = Backbone.View.extend({
 	    });
 	},
 	
+	//redirect to the list of EHRs
 	returnOnMain: function () {		
 		Backbone.history.navigate("/ehr", true);				
 	}
@@ -172,25 +182,28 @@ App.Views.Ehr = Backbone.View.extend({
 });
 
 
-//Single Ehr
-App.Views.SingleEhr = Backbone.View
-		.extend({
+//render Single EHR in the table of EHRs
+App.Views.SingleEhr = Backbone.View.extend({
 			tagName : 'tr',
-			template: _.template($('#single-ehr').html()),			
+			template: _.template($('#single-ehr').html()),	
+			//listen for events
 			events : {
-				'click #edit' : 'goToEdit',
+				'click #edit'    : 'goToEdit',
 				'click #destroy' : 'destroy'
 			},
 
+			//render a single row
 			render : function() {
 				this.$el.html(this.template(this.model.toJSON()));
 				return this;
 			},
 
+			//redirect to the EHR:Edit page
 			goToEdit : function() {											
 				Backbone.history.navigate("ehr/"+this.model.get('id')+'/edit', true);
 			},
 			
+			//delete an EHR
 			destroy : function(e){				
 				e.preventDefault();
 					
@@ -217,4 +230,4 @@ App.Views.SingleEhr = Backbone.View
 				});		
 				  
 			}
-		});
+});

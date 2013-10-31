@@ -1,8 +1,10 @@
-App.Views.DataElementsDefault = Backbone.View
-		.extend({
+//view for Default Locations
+App.Views.DataElementsDefault = Backbone.View.extend({	
 			tagName : 'tr',
+			//template for the view
 			template: _.template($('#single-data-elements-default').html()),			
 			
+			//listen for events
 			events : {
 				'click #plus-btn' 				: 'addRow',
 				'click #minus-btn'				: 'removeRow',
@@ -10,12 +12,14 @@ App.Views.DataElementsDefault = Backbone.View
 				'change .slcValuesType'         : 'changeValuesType'
 			},
 						
+			//render Default Locations
 			render : function() {	
-				this.$el.html(this.template({loc:this.model.location, /*value_type: this.model.valueType.name,*/ ehr: this.model.linkId}));		
+				this.$el.html(this.template({loc:this.model.location, ehr: this.model.linkId}));		
 				this.$el.attr("id", "d"+this.model.id);
 				return this;
 			},
 			
+			//set model attributes
 			changeVal : function(e){
 				var curId = this.model.id
 				var dataElementDefaults = App[this.model.parent].get('dataElementDefaults');
@@ -27,16 +31,15 @@ App.Views.DataElementsDefault = Backbone.View
 						if (e.currentTarget.className == "slcParent")
 							dataElementDefault.linkId = e.target.value.replace('e','');
 					};	
-				});
-				
+				});		
 				
 				App[this.model.parent].set("dataElementDefaults" , dataElementDefaults);
 			},
 			
+			//set model attributes
 			changeValuesType : function(e){				
 				var curId = this.model.id
-				var dataElementDefaults = App[this.model.parent].get('dataElementDefaults');
-				
+				var dataElementDefaults = App[this.model.parent].get('dataElementDefaults');				
 				
 				_.each(dataElementDefaults, function(dataElementDefault){
 					var cur_ids='';
@@ -76,8 +79,7 @@ App.Views.DataElementsDefault = Backbone.View
 				
 				return html;
 			},
-			
-			
+						
 			getFirstDefaultElementOptions: function() {			
 				var default_element_option = this.options.default_element;
 				
@@ -89,9 +91,7 @@ App.Views.DataElementsDefault = Backbone.View
 					   return App.dataElements.at(0).get('id');
 				}
 			},
-			
-			
-			
+						
 			valuesTypeOptions: function() {
 				var temp = _.template($('#multiple-default-element-option').html());
 				var html= '';	
@@ -103,6 +103,7 @@ App.Views.DataElementsDefault = Backbone.View
 				return html;
 			},
 			
+			//add new row to the table "Defaults Locations" 
 			addRow : function (){				
 				var timeId = parseInt(App[this.model.parent].timeId);
 				var linkId = this.getFirstDefaultElementOptions();
@@ -131,8 +132,8 @@ App.Views.DataElementsDefault = Backbone.View
 				$(el).find('.slcValuesType').multiselect("uncheckAll");
 			},
 			
+			//delete row from the table "Defaults Locations" 
 			removeRow : function (e){
-
 				var dataElementDefaults = App[this.model.parent].get('dataElementDefaults');
 				for (var i = 0; i < dataElementDefaults.length; i++) {
 					if (dataElementDefaults[i].id == this.model.id) {
@@ -145,8 +146,5 @@ App.Views.DataElementsDefault = Backbone.View
 				if (App[this.model.parent].get('dataElementDefaults').length == 0)
 					this.addRow();				
 				this.$el.remove();
-
-			}
-			
-		});
-;
+			}			
+});
