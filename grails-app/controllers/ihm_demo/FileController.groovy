@@ -9,22 +9,19 @@ class FileController {
 	def fileUploadService
 
 	def show= {
-
 		def file
-		//println params
-		if (params?.currentHospitalElement && HospitalElement.exists(params.currentHospitalElement)) {
-			def hospitalElement = HospitalElement.get(params.currentHospitalElement)
+		if (params?.currentHospitalElement && HospitalElement.exists(params.currentHospitalElement)) {//check if HospitalElement available 
 			//find hospitalElement and get file name
+			def hospitalElement = HospitalElement.get(params.currentHospitalElement)
 			def fileName = hospitalElement.valueSetFile
-			//println fileName
 			file = grailsAttributes.getApplicationContext().getResource("uploadFiles/${fileName}").getFile()
 		}
 
-		if (params?.fileName) {
+		if (params?.fileName) {//load file from folder
 			file = grailsAttributes.getApplicationContext().getResource("uploadFiles/${params.fileName}").getFile()
 		}
 
-		if (file && file.exists()) {
+		if (file && file.exists()) {//send file in response
 			def os = response.outputStream
 			response.setHeader("Content-disposition", "attachment;filename=${file.name}")
 			def bytes = file.bytes
@@ -38,30 +35,25 @@ class FileController {
 	}
 
 	def save= {
-		//println("go")
-		if (!(request instanceof MultipartHttpServletRequest)) {
+		if (!(request instanceof MultipartHttpServletRequest)) {//check if correct request
 			println("no multipart")
 		}
-		//println params
-		if (params?.currentHospitalElement && HospitalElement.exists(params.currentHospitalElement)) {
+		if (params?.currentHospitalElement && HospitalElement.exists(params.currentHospitalElement)) {//check if HospitalElement available
 			def multiRequest = request.getFile("fileToUpload")
-
+			//check file param
 			if (!multiRequest.isEmpty()) {
 				String fileName="${multiRequest?.fileItem?.name}"
+				//replace all "bad" char
 				fileName = fileName.replaceAll(" ", "_")
 				fileName = fileName.replaceAll("-", "_")
 				if (fileName.contains("\\")  ||  fileName.contains("/") ) {
-					//fileName = fileName.find(~/\w*\.\w*/)
-					//println fileName
 					def firstIndex = fileName.findLastIndexOf { it == "\\" }
-
 					fileName = fileName.substring(firstIndex+1)
 
 				}
-				//println fileName
 				def hospitalElement = HospitalElement.get(params.currentHospitalElement)
 				def hospitalElementId = params?.currentHospitalElement
-
+				//upload FIle to system
 				def path = fileUploadService.uploadFile(multiRequest, "${hospitalElementId}_${fileName}", "uploadFiles",false)
 				if (path) {
 					if (params?.currentHospitalElement && HospitalElement.exists(params.currentHospitalElement)) {
@@ -80,7 +72,6 @@ class FileController {
 	}
 
 	def delete= {
-		//println "delete"
 		if (params?.currentHospitalElement && HospitalElement.exists(params.currentHospitalElement)) {
 			def hospitalElement = HospitalElement.get(params.currentHospitalElement)
 			// find hospitalElement and get file name
@@ -92,7 +83,6 @@ class FileController {
 			//for IE7(but need render as JSON)
 			render "ok;$res;$hospitalElement.version"
 		} else {
-			//render "some errror"
 			render "error;some error;"
 		}
 	}
