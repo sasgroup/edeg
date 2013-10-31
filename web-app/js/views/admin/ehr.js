@@ -35,10 +35,9 @@ App.Views.Ehr = Backbone.View.extend({
 		'click button#cancel' : 'returnOnMain', 
 		'change #name, #notes' : 'changeVal'		
 	},
-	
-	
+		
 	render : function() {	
-		var state = (this.model.toJSON().id)? "Edit EHR" : "Add New EHR"; 
+		var state = (this.model.isNew())? "Add New EHR":"Edit EHR"; 
 		this.model.set("state", state);
 		
 		this.model.timeId = -1;
@@ -89,8 +88,7 @@ App.Views.Ehr = Backbone.View.extend({
 			var view = new App.Views.DataElementsDefault({ model : dataElementDefault, default_element: "element", parent:"ehr"});		
 			var dataElementDefaultRow = view.render().el;
 			$(ehrtbody).append(dataElementDefaultRow);			
-			//$(dataElementDefaultRow).find(".slcValueType").val(dataElementDefault.valueType.name);
-						
+									
 			$(dataElementDefaultRow).find('.slcParent').append(optionsList);			
 			$(dataElementDefaultRow).find(".slcParent").val("e"+dataElementDefault.linkId);	
 			

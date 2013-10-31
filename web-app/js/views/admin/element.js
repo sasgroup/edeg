@@ -46,7 +46,7 @@ App.Views.DataElement = Backbone.View.extend({
 	},
 	
 	render : function() {	
-		var state = (this.model.toJSON().id)? "Edit Data Element" : "Add New Data Element"; 
+		var state = (this.model.isNew())? "Add New Data Element":"Edit Data Element"; 
 		this.model.set("state", state);
 		
 		this.$el.html(this.template(this.model.toJSON()));		

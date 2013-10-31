@@ -45,7 +45,7 @@ App.Views.Product = Backbone.View.extend({
 	},
 	
 	render : function() {
-		var state = (this.model.toJSON().id)? "Edit Product" : "Add New Product"; 
+		var state = (this.model.isNew())? "Add New Product":"Edit Product"; 
 		this.model.set("state", state);
 				
 		this.$el.html(this.template(this.model.toJSON()));

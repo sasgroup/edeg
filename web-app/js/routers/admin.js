@@ -39,10 +39,8 @@ App.Routers.Administrator = Backbone.Router.extend({
 		
 		App.cqmDomains         = new App.Collections.CqmDomains();
 		App.cqmDomains.fetch();
-		
-		
-		App.productMeasures = new App.Collections.ProductMeasures();	
-		
+				
+		App.productMeasures = new App.Collections.ProductMeasures();		
 		App.hospitalMeasures = new App.Collections.HospitalMeasures();	
 		
 		App.viewHospital = new App.Views.Hospital({isModified:false});
@@ -51,6 +49,7 @@ App.Routers.Administrator = Backbone.Router.extend({
 		App.valuesType  = new App.Models.ValuesType();
 	},
 	
+	// before redirection from Hospital page to another page
 	before: {	    
 	    'product$' : function() {	    		    		    	
 	    	if (App.viewHospital.isModified) App.viewHospital.showConfirm();	    	
@@ -81,21 +80,22 @@ App.Routers.Administrator = Backbone.Router.extend({
 		 }
 	},
 
-		
 	reopenHospital : function(id) {		
 		Backbone.history.navigate("hospital/"+id+'/edit', true);		
 	},
 	
+	// initial route, redirect to the products page
 	index : function(){
 		Backbone.history.navigate("/product", true);		
 	},
 	
+	// render form for hospitalElements
 	elements : function(h_id,p_id, m_id){		
-	        App.hpm = new App.Models.HospitalProductMeasure();        
-	        App.cur_measure = new App.Models.HospitalMeasure();
+	    App.hpm = new App.Models.HospitalProductMeasure();        
+	    App.cur_measure = new App.Models.HospitalMeasure();
 	                                
-	        App.hpm.fetch({data:{h_id:h_id, p_id:p_id, m_id:m_id}}).then(function(){
-	         App.cur_measure.fetch({data:{id: m_id,hm: true}}).then(function(){                        
+	    App.hpm.fetch({data:{h_id:h_id, p_id:p_id, m_id:m_id}}).then(function(){
+	    	App.cur_measure.fetch({data:{id: m_id,hm: true}}).then(function(){                        
 	           App.valuesTypes.fetch().then(function(){                 
 	        
 	                var measure_code='';
@@ -141,7 +141,7 @@ App.Routers.Administrator = Backbone.Router.extend({
 	                                                                                        
 	                        var notifyAdmin = App.cur_measure.get('notifyAdmin');
 	                        if (notifyAdmin){
-	                                         $('.admin-edit-notes').addClass('btn-info');
+	                               $('.admin-edit-notes').addClass('btn-info');
 	                        }                                                
 	                        
 	         });                
@@ -149,73 +149,7 @@ App.Routers.Administrator = Backbone.Router.extend({
 	        });        
 	});
 	},
-	
-	elementsOLD : function(h_id,p_id, m_id){        
-	        App.ho = new App.Models.Hospital();                
-	        App.cur_measure = new App.Models.HospitalMeasure();
-	        App.ho.fetch({data:{id: h_id}}).then(function(){
-	         App.cur_measure.fetch({data:{id: m_id,hm: true}}).then(function(){
-	         App.valuesTypes.fetch().then(function(){        
-	        
-	                var measure_code='';
-	                var external_ehrs = [];
-	                var primary_ehr="";
-	                var measure_completed=false;
-	                
-	                //get measure_code
-	                $.each( App.ho.get('products'), function( i, product ) {         
-	                        if (product.id==p_id) {
-	                                $.each(product.measures, function( i, measure ){
-	                                        if (measure.id==m_id) {
-	                                                 measure_code = measure.code;
-	                                                 measure_completed = measure.completed;
-	                                                 external_ehrs = App.ho.get('externalEHRs').split('\n');
-	                                                 primary_ehr = App.ho.get('ehr').code;
-	                                        }
-	                                });
-	                        }
-	                });
-	                
-	                App.hospitalElements = new App.Collections.HospitalElements();
-	        
-	                App.hospitalElements.fetch({data:{id: m_id}}).then(function(){                        
-	                        App.viewHospitalElements = new App.Views.HospitalElements ({collection:App.hospitalElements, m_id: m_id, product_id: p_id, measure_code: measure_code, external_ehrs:external_ehrs, primary_ehr:primary_ehr, measure_completed:measure_completed});
-	                        $('#app').html(App.viewHospitalElements.render().el);        
-	
-	                        $('#deatails *').attr('disabled','disabled');
-	                
-	                        var oTable = $('#hospital-elements').dataTable({                
-	                                "bDestroy": true,
-	                                "bPaginate": false,
-	                                "bFilter": false,
-	                                "sScrollY": "246px",                        
-	                                "bSort": true,
-	                                "bInfo": false,
-	                                "aaSorting": [[0, 'asc']],
-	                                "aoColumnDefs": [{'bSortable': false, 'aTargets': [ 1,2,3,4,5 ] }],                                        
-	                                "bAutoWidth": false,
-	                                "aoColumns" : [
-	                                 {"sWidth": "20%"},
-	                                 {"sWidth": "25%"},                                
-	                                 {"sWidth": "20%"},        
-	                                 {"sWidth": "25%"},
-	                                 {"sWidth": "5%"},
-	                                 {"sWidth": "5%"}]                                        
-	                        });                                
-	                                                
-	                        new FixedColumns( oTable, {"sHeightMatch": "none"} );
-	                                                                                        
-	                        var notifyAdmin = App.cur_measure.get('notifyAdmin');
-	                        if (notifyAdmin){
-	                                         $('.admin-edit-notes').addClass('btn-info');
-	                        }                                                
-	                        
-	         });                
-	         });                
-	        });        
-	});
-	},
-	
+		
 	// ------- LIST ------------
 	// list of products
 	products : function() {
@@ -357,7 +291,7 @@ App.Routers.Administrator = Backbone.Router.extend({
 		});
 	},	
 	
-	// vtypes
+	// values types
 	vtypes : function() {
 		var temp = _.template($('#vtype-template').html());
 		$('#app').html(temp);
@@ -395,7 +329,7 @@ App.Routers.Administrator = Backbone.Router.extend({
 		
 	},	
 	
-	// ----- display Edit/New 
+	// ----- Product Form (Edit/New) 
     product : function (productModel) {
 		App.measures.fetch().then(function(){			
 			App.hospitals.fetch().then(function(){
@@ -426,6 +360,7 @@ App.Routers.Administrator = Backbone.Router.extend({
 		});		
     },
     
+    // ----- EHR Form (Edit/New) 
     ehr : function (ehrModel) {
 		App.hospitals.fetch().then(function(){	
 			App.dataElements.fetch().then(function(){
@@ -479,6 +414,8 @@ App.Routers.Administrator = Backbone.Router.extend({
 		  });	
 		});		
     },
+    
+    // ----- Measure Form (Edit/New) 
     measure : function (measureModel) {
 		App.products.fetch().then(function(){			
 			App.dataElements.fetch().then(function(){
@@ -510,6 +447,7 @@ App.Routers.Administrator = Backbone.Router.extend({
 		});		
     },
           
+    // ----- DataElement Form (Edit/New) 
     dataElement  : function (dataElement) {
 		App.measures.fetch().then(function(){	
 			App.ehrs.fetch().then(function(){
@@ -566,6 +504,7 @@ App.Routers.Administrator = Backbone.Router.extend({
 		});	
     },
     
+    // ----- Hospital Form
     hospital  : function (hospital) {
 		App.products.fetch().then(function(){	
 		 App.ehrs.fetch().then(function(){			 
@@ -709,8 +648,7 @@ App.Routers.Administrator = Backbone.Router.extend({
 	},
 	// edit product
 	editProduct : function(id) {
-		App.pr = new App.Models.Product();
-		
+		App.pr = new App.Models.Product();		
 		App.pr.fetch({data:{id: id}}).then(function(){			 
 			App.route.product(App.pr);
 		})
@@ -719,8 +657,7 @@ App.Routers.Administrator = Backbone.Router.extend({
 	 // edit measure
 	editMeasure : function(id) {
 		App.me = new App.Models.Measure();
-		App.me.fetch({data:{id: id}}).then(function(){
-			
+		App.me.fetch({data:{id: id}}).then(function(){			
 			App.route.measure(App.me);
 		})
 	},
@@ -799,6 +736,7 @@ App.Routers.Administrator = Backbone.Router.extend({
 				return true;		
 	 },
 	 
+	 // validate Form for ValuesTypes
 	 validateValuesTypeForm : function() {
 			jQuery.validator.addMethod("unique", (function(value, element) {										
 				return App.route.checkName(App.valuesType, App.valuesTypes, value );					

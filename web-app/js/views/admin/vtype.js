@@ -56,14 +56,9 @@ App.Views.ValuesType = Backbone.View.extend({
 	changeVal : function(e) {		
 		this.model.attributes[e.target.name] = $(e.target).val();		
 	},
-		
-	
+			
 	saveValuesType : function(e) {		
-		e.preventDefault();
-		
-		//this.model.set({name:this.$el.find('#name').val()});
-		//this.model.set({description:this.$el.find('#description').val()});
-		
+		e.preventDefault();			
 		//update view
 		App.valuesType  = new App.Models.ValuesType();								
 		var viewValuesTypeView = new App.Views.ValuesType({model:App.valuesType});
@@ -104,7 +99,7 @@ App.Views.ValuesType = Backbone.View.extend({
 	}	
 });
 
-//Single ValuesType
+//render a single row in the table of ValuesTypes  
 App.Views.SingleValuesType = Backbone.View
 		.extend({
 			tagName : 'tr',

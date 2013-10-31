@@ -43,7 +43,7 @@ App.Views.Measure = Backbone.View.extend({
 	},
 	
 	render : function() {		
-		var state = (this.model.toJSON().id)? "Edit Measure" : "Add New Measure"; 
+		var state = (this.model.isNew())? "Add New Measure":"Edit Measure"; 
 		this.model.set("state", state);
 		
 		this.$el.html(this.template(this.model.toJSON()));
