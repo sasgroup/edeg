@@ -625,7 +625,7 @@ App.Views.SingleHospitalMeasure = Backbone.View.extend({
 			});*/
 			},
 					
-			// open DataElements form
+			// open Hospital DataElements form
 			goToDataElements : function(e) {				
 				e.stopPropagation();
 							

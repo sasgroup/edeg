@@ -8,7 +8,7 @@ App.Views.Products = Backbone.View.extend({
 		'click #create_product' : 'createProduct'
 	},
 	
-	//listen for collections events
+	//listen for collections' events
 	initialize : function() {		
 		this.collection.on('add', this.appendProduct, this);
 		this.collection.on('change', this.render, this);		
@@ -168,7 +168,7 @@ App.Views.Product = Backbone.View.extend({
 		Backbone.history.navigate("/product", true);				
 	},
 	
-	//show help
+	//show help dialog
 	showHelpDialog : function(){
 		if (! $('.helpAreaProduct').data("wysihtml5") )
 			$('.helpAreaProduct').wysihtml5();
@@ -179,7 +179,7 @@ App.Views.Product = Backbone.View.extend({
 });
 
 //render Single Product in the table of Products
-App.Views.SingleProduct = Backbone.View	.extend({
+App.Views.SingleProduct = Backbone.View.extend({
 			tagName : 'tr',
 			template: _.template($('#single-product').html()),	
 			//listen for events

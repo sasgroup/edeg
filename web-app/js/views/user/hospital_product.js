@@ -1,7 +1,8 @@
 //Hospital Product
 App.Views.HospitalProduct = Backbone.View.extend({	
+	//template for the view
 	template :  _.template($('#user-hospital-measure_table').html()),
-
+	// render view with hospitalMeasures
 	render : function() {					
 		this.$el.html(this.template());		
 		var measures = this.model.measures;			
@@ -17,7 +18,7 @@ App.Views.HospitalProduct = Backbone.View.extend({
 		
 		return this;
 	},
-	
+	//render table and sort hospitalMeasures 
 	renderHospitalMeasureTable: function(measures, cur_hospital_product){		
 		var sorted_measures = [];
 		
@@ -98,19 +99,21 @@ App.Views.HospitalProduct = Backbone.View.extend({
 
 //Hospital Product Breadcrumb
 App.Views.HospitalProductBreadcrumb = Backbone.View.extend({	
+	//template for the view
 	template :  _.template($('#user-hospital-breadcrumb').html()),
-	
+	//listen for events
 	events : {				
 		'click .show-help'                : 'showHelp',
 		'click .show-notes'               : 'showNotes',
 		'click .edit-notes'               : 'editNotes'
 	},
-	
+	// render Breadcrumb
 	render : function() {					
 		this.$el.html(this.template({product_code:this.model.code, notes:this.model.notes, h_id:this.options.h_id, notifyUser:this.options.notifyUser}));		
 		return this;
 	},
 	
+	// show help
 	showHelp : function(evt){		
 		var _help = this.model.help;
 		var _code = this.model.code;
@@ -126,7 +129,7 @@ App.Views.HospitalProductBreadcrumb = Backbone.View.extend({
 		}
 		evt.stopPropagation();		
 	},
-	
+	//open popup with Notes
 	showNotes : function(evt){		
 		var _help = this.model.notes;
 		var _code = this.model.code;
@@ -142,7 +145,8 @@ App.Views.HospitalProductBreadcrumb = Backbone.View.extend({
 		}
 		evt.stopPropagation();		
 	},
-	
+
+	//open popup for Client Notes
 	editNotes : function(evt){			
 		$('.edit-notes').removeClass('btn-info');	
 		
@@ -176,8 +180,7 @@ App.Views.HospitalProductBreadcrumb = Backbone.View.extend({
 		
 		evt.stopPropagation();
 	},
-	
-	
+		
 	adjustPopover:function(){
 		$('.popover')
 		.unbind('mousedown')
@@ -189,16 +192,18 @@ App.Views.HospitalProductBreadcrumb = Backbone.View.extend({
 });	
 
 //Hospital_Measure
-App.Views.HospitalMeasure = Backbone.View
-		.extend({
+App.Views.HospitalMeasure = Backbone.View.extend({
 			tagName : 'tr',
-			template: _.template($('#user-hospital_measure').html()),			
+			//template for the view
+			template: _.template($('#user-hospital_measure').html()),	
+			//listen for events
 			events : {				
 				'click a#customLink'       	      : 'goToDataElements',
 				'change input[name="completed"]'  : 'changeVal',
 				'click .show_info'                : 'showInfo'	
 			},
 
+			//render single row
 			render : function() {						
 				var ch_included  = (this.model.get('included'))  ? "checked" : "";
 				var ch_completed = (this.model.get('completed')) ? "checked" : "";
@@ -222,7 +227,7 @@ App.Views.HospitalMeasure = Backbone.View
 				this.$el.attr("id", "m"+this.model.get('id'));				
 				return this;
 			},
-			
+			//set model attributes
 			changeVal: function (e){			
 				// measure value
 				var sl_val = $(e.target).is(':checked');				
@@ -252,7 +257,7 @@ App.Views.HospitalMeasure = Backbone.View
 			        }
 			    });
 			},
-			
+			// show help
 			showInfo: function(evt) {							
 				if (!($(evt.target).closest('a').hasClass('disabled'))) {
 					
@@ -281,8 +286,8 @@ App.Views.HospitalMeasure = Backbone.View
 				})
 			},
 			
+			// open Hospital DataElements
 			goToDataElements : function(e) {				
-				e.stopPropagation();
-				//Backbone.history.navigate("/hospital/" +  this.model.get('h_id')+ "/product/" + this.model.get('product_id')+ "/measure/" + this.model.get('id'), true);		
+				e.stopPropagation();						
 			}	
-		});
+});
