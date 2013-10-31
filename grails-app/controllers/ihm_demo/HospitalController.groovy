@@ -188,7 +188,7 @@ class HospitalController {
 							if (oldValueC != hospitalMeasure.completed && hospitalMeasure.completed)
 								sendMailService.markMeasureAsComplete(hospitalInstance?.email, hospitalInstance?.name, product?.name, msr?.name, new Date(), session?.user.login)
 								
-							if (oldValueA != hospitalMeasure.accepted && hospitalMeasure.completed && hospitalMeasure.accepted)
+							if (oldValueA != hospitalMeasure.accepted && hospitalMeasure.accepted)
 								sendMailService.asseptMeasureThatCompleted(hospitalInstance?.email, hospitalInstance?.name, product?.name, msr?.name, new Date(), session?.user.login)
 								
 							if (oldValueV != hospitalMeasure.verified && hospitalMeasure.verified)
