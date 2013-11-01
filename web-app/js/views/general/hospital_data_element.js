@@ -478,6 +478,8 @@ App.Views.SingleHospitalElement = Backbone.View.extend({
 		var e_ehrs = this.options.external_ehrs;
 		var p_ehr = this.options.primary_ehr;
 		var id = $(event.target).closest('tr').prop('id');
+		var p_id = this.options.p_id;
+		var h_id = App.h_id;
 
 		var curhospitalElement =this.model.collection.get(id);
 
