@@ -60,7 +60,7 @@ App.Routers.User = Backbone.Router.extend({
 	index : function(){
 		App.security = new App.Models.Security();		
 		App.security.fetch().then(function(){
-			App.route.getListOfHospitals();
+			//App.route.getListOfHospitals();
 			var hospital_id = App.security.get('curHospitalId');		
 			Backbone.history.navigate('/home/' + hospital_id , true);						
 		});   
@@ -180,6 +180,7 @@ App.Routers.User = Backbone.Router.extend({
 	elements : function(h_id, p_id, m_id){        
         App.hpm = new App.Models.HospitalProductMeasure();        
         App.cur_measure = new App.Models.HospitalMeasure();
+        App.h_id = h_id;
                              
         App.security.fetch().then(function(){						 
 			App.route.getListOfHospitals();	 

@@ -102,11 +102,20 @@ App.Views.HospitalElements = Backbone.View.extend({
 	},
 
 	// redirect to hospitalProduct page
-	returnToProduct : function(){		
+	returnToProduct : function(){	
+		var p_id = this.options.product_id;
+		var h_id = App.h_id;
+		
 		App.viewHospitalElements.isModified = false;
 		
-		if (window.history.length<=1) {
-			window.close();
+		if (window.history.length<=1) {	
+			if (App.userRole == 'user') {
+				Backbone.history.navigate('/hospital/' + h_id + '/product/' + p_id, true);
+			} 
+			
+			if (App.userRole == 'admin') {
+				Backbone.history.navigate('/hospital/' + h_id + '/edit', true);
+			}		
 		} else {
 			window.history.back();		
 		}	
@@ -156,12 +165,22 @@ App.Views.HospitalElements = Backbone.View.extend({
 
 	//saveHospitalElements
 	saveHospitalElements : function() {
+		var p_id = this.options.product_id;
+		var h_id = App.h_id;
+		
 		this.saveHospitalElementsOnly();
 
 		App.viewHospitalElements.isModified = false;
 				
 		if (window.history.length<=1) {
-			window.close();
+			if (App.userRole == 'user') {
+				Backbone.history.navigate('/hospital/' + h_id + '/product/' + p_id, true);
+			} 
+			
+			if (App.userRole == 'admin') {
+				Backbone.history.navigate('/hospital/' + h_id + '/edit', true);
+			}
+			//window.close();
 		} else {
 			window.history.back();		
 		}		

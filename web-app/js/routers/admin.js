@@ -90,7 +90,8 @@ App.Routers.Administrator = Backbone.Router.extend({
 	},
 	
 	// render form for hospitalElements
-	elements : function(h_id,p_id, m_id){		
+	elements : function(h_id,p_id, m_id){	
+		App.h_id = h_id;
 	    App.hpm = new App.Models.HospitalProductMeasure();        
 	    App.cur_measure = new App.Models.HospitalMeasure();
 	                                
