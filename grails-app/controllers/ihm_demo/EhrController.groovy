@@ -25,7 +25,7 @@ class EhrController {
 		//LogDeleteEvent(instance)
 		DataElementDefaults.executeUpdate("delete DataElementDefaults ded where ded.ehr=?", [instance])
 		
-		//create new
+		//create new DataElementsDefaults
 		def dataElementsDefaults = param?.dataElementDefaults
 		for (dataElementsDefault in dataElementsDefaults) {
 			if (dataElementsDefault.location){
@@ -60,8 +60,9 @@ class EhrController {
 	}
    
 	def show() {
-		if (params.id && Ehr.exists(params.id)) {
+		if (params.id && Ehr.exists(params.id)) {//display only 1 EHR by ID
 			def result = Ehr.get(params.id)
+			//get all required depending
 			def hospitalList = Hospital.list().findAll { it.ehr.id == result.id } 
 			def dataElementDefaultsList = DataElementDefaults.list().findAll{it.ehr.id.findAll{it == result.id}.size() >= 1}
 			//println dataElementDefaultsList
@@ -91,7 +92,7 @@ class EhrController {
 				
 			}
 		}
-		else {
+		else {//display all EHR
 			def results = Ehr.list()
 			
 			render(contentType: "text/json") {
@@ -137,7 +138,7 @@ class EhrController {
 
 	def delete(Long id) {
 		def ehr = Ehr.findById(id)
-		
+		//remove all depending links
 		def hasHospitals = Hospital.list().findAll { it.ehr.id == ehr.id } ? true : false
 		def hasDataElementDefaultsList = DataElementDefaults.list().findAll{it.ehr.id.findAll{it == ehr.id}.size() >= 1} ? true : false
 		
