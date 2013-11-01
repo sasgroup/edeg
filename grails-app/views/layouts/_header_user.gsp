@@ -5,9 +5,7 @@
 			<h3 class="hospital-name"></h3>
 			<div id="loginHeader" class="pull-right">
 				<g:loginControl />				
-			</div>
-	 
-			
+			</div>			
 			<div class="hospital-dropdown btn-group">
 			  <a class="btn dropdown-toggle" data-toggle="dropdown" href="#" disabled="disabled">
 			    Select Hospital
@@ -16,9 +14,7 @@
 			  <ul class="dropdown-menu pull-right" id="hospital-list-dropdown">
 			    <!-- dropdown menu links -->
 			  </ul>
-			</div>
-								
+			</div>								
 			<nav id="products-nav" class="header-nav"></nav>
-
 		</header>
 	</div>

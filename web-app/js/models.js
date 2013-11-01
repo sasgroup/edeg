@@ -103,8 +103,6 @@ App.Models.ValuesType = Backbone.Model.extend({
 	  }
 });
 
-
-
 //ExtraDataElement
 App.Models.ExtraDataElement = Backbone.Model.extend({
 });
@@ -117,7 +115,6 @@ App.Models.HospitalSpecific = Backbone.Model.extend({
 App.Models.Security = Backbone.Model.extend({
 	urlRoot: '/ihm/api/security'	
 });
-
 
 //HospitalProductMeasure
 App.Models.HospitalProductMeasure = Backbone.Model.extend({

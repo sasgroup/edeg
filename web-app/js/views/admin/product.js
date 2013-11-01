@@ -1,32 +1,33 @@
 // List of Products
 App.Views.Products = Backbone.View.extend({
+	//template for the view
 	template : _.template($('#product-list-template').html()),
-
+    
+	//listen for events
 	events : {
 		'click #create_product' : 'createProduct'
 	},
-
+	
+	//listen for collections' events
 	initialize : function() {		
 		this.collection.on('add', this.appendProduct, this);
 		this.collection.on('change', this.render, this);		
 	},
 
-	render : function() {
-		//this.$el.empty();
-		this.$el.html(this.template({
-			products : this.collection
-		}));
+	//render view for List of Products
+	render : function() {		
+		this.$el.html(this.template({products : this.collection}));
 		this.collection.each(this.appendProduct, this);
 		return this;
 	},
 
+	//render single product in the table of products
 	appendProduct : function(product) {
-		var view = new App.Views.SingleProduct({
-			model : product
-		});
+		var view = new App.Views.SingleProduct({model : product});
 		this.$el.find('#table_items tbody').append(view.render().el);
 	},
 
+	//redirect to Product:New page
 	createProduct : function() {
 		Backbone.history.navigate("product/new", true);
 	}
@@ -34,20 +35,22 @@ App.Views.Products = Backbone.View.extend({
 
 // New/Edit Product
 App.Views.Product = Backbone.View.extend({
+	//template for the view
 	template : _.template($('#product-template').html()),
-
+	
+	//listen for events
 	events : {
-		'submit' : 'submProduct',
-		'click button#cancel' : 'returnOnMain',       
+		'submit' 			   : 'submProduct',
+		'click button#cancel'  : 'returnOnMain',       
 		'change #name, #notes' : 'changeVal',
-		'change .checkbox' : 'changeCh',
-		'click #btnHelp' : 'showHelpDialog'
+		'change .checkbox'     : 'changeCh',
+		'click #btnHelp'       : 'showHelpDialog'
 	},
 	
+	//render view for Product:New(Edit) form
 	render : function() {
-		var state = (this.model.toJSON().id)? "Edit Product" : "Add New Product"; 
-		this.model.set("state", state);
-				
+		var state = (this.model.isNew())? "Add New Product":"Edit Product"; 
+		this.model.set("state", state);				
 		this.$el.html(this.template(this.model.toJSON()));
 				
 		//append Measures				
@@ -63,12 +66,13 @@ App.Views.Product = Backbone.View.extend({
 		return this;
 	},
 
-
+	// render Measures assigned to the Product
 	appendProductMeasures : function(){
 		var temp = _.template($('#single-product-measure').html());		
 		var checked = [];
 		var unchecked = [];
-				
+		
+		//sort list of measures: checked - first 
 		var mids = _.pluck(this.model.get('measures'), 'mid');					
 		var measure_ids = App.measures.pluck('id');
 				
@@ -103,11 +107,13 @@ App.Views.Product = Backbone.View.extend({
 		}	
 	},
 		
+	// render Hospital assigned to the Product
 	appendHospital : function(product_hospital){
 		var temp = _.template($('#single-product-hospital').html());
 		this.$el.find('div#hospitals').append(temp({name:product_hospital.hname}));		
 	},
 	
+	//save a checkbox state
 	changeCh : function(e) {				
 		if (e.target.name == 'measure' ) {
 			if ( e.target.checked ) {				
@@ -128,10 +134,12 @@ App.Views.Product = Backbone.View.extend({
 		};	
 	},
 	
+	//set model attributes 
 	changeVal : function(e) {		
 		this.model.attributes[e.target.name] = $(e.target).val();		
 	},
 	
+	//save Product
 	submProduct : function(e) {
 		e.preventDefault();
 		this.model.attributes.help = $('.helpAreaProduct').val();			
@@ -155,39 +163,43 @@ App.Views.Product = Backbone.View.extend({
 	    });
 	},
 	
+	//redirect to the list of products
 	returnOnMain: function () {		
 		Backbone.history.navigate("/product", true);				
 	},
 	
+	//show help dialog
 	showHelpDialog : function(){
 		if (! $('.helpAreaProduct').data("wysihtml5") )
 			$('.helpAreaProduct').wysihtml5();
 		$('#myHelp')
 		//.appendTo($("body"))
 		.modal('show');
-	}
-	
+	}	
 });
 
-//Single Product
-App.Views.SingleProduct = Backbone.View
-		.extend({
+//render Single Product in the table of Products
+App.Views.SingleProduct = Backbone.View.extend({
 			tagName : 'tr',
-			template: _.template($('#single-product').html()),		
+			template: _.template($('#single-product').html()),	
+			//listen for events
 			events : {
 				'click #edit'    : 'goToEdit',
 				'click #destroy' : 'destroy'
 			},
 
+			//render a single row
 			render : function() {
 				this.$el.html(this.template(this.model.toJSON()));
 				return this;
 			},
 			
+			//redirect to the Product:Edit page
 			goToEdit : function() {
 				Backbone.history.navigate("product/"+this.model.get('id')+'/edit', true);
 			},
 			
+			//delete a Product
 			destroy : function(e){				
 				e.preventDefault();
 				
@@ -213,23 +225,4 @@ App.Views.SingleProduct = Backbone.View
 					 }
 				});							
 			}
-		});
-
-
-//Single ProductMeasure (assigned Measures)
-App.Views.ProductMeasure = Backbone.View
-		.extend({			
-			tagName : 'label',
-			className: 'checkbox',
-			template: _.template($('#single-product-measure').html()),		
-			
-			render : function() {				
-				this.$el.html(this.template());
-				return this;
-			}			
-			
-		});
-
-
-
-
+});

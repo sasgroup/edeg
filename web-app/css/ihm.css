@@ -14,9 +14,7 @@ img.icon_pdf {
 	padding-right: 4px;
 }	
 
-div.my-frame {
-	/*border: solid 2px rgb(87, 92, 122);
-	border-radius: 5px;*/
+div.my-frame {	
 	padding-left: 20px;	
 	margin-bottom: 20px;	
 	height: 350px;
@@ -117,6 +115,9 @@ table.ehrTable .slcValuesType {
 a.disable {
 	text-decoration : none;
 	color: inherit;
+	
+	pointer-events: none;
+    cursor: default;
 }
 
 th.data-element-column{
@@ -431,9 +432,7 @@ div#modalDataElements {
 	height: 600px;
     left: auto;
     margin-left: auto;
-    margin-right: auto;
-    /*position: relative;*/    
-    /*right: auto;*/
+    margin-right: auto;    
     width: 900px;
 }
 
@@ -793,10 +792,6 @@ table#extra-table select, table#hospital-specific-table select, table.ehrTable s
 select, input[type="file"] {
 	line-height: 20px !important;	
 }
-
-/*#main_table table.dataTable td{
-    padding-right: 20px;
-}*/
 
 
 .ui-search-oper{

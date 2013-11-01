@@ -74,7 +74,9 @@
                               CQM Domain                              
                             </td>
                             <td>
-                                <select id="cqmDomain" cqmDomain">                  
+                                <select id="cqmDomain" cqmDomain">
+									<option></option>
+								</select>                  
                             </td>                            
                          </tr>
                     </tbody>

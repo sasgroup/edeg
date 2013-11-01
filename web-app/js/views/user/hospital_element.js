@@ -1,13 +1,14 @@
 //Hospital Measure Breadcrumb
 App.Views.HospitalMeasureBreadcrumb = Backbone.View.extend({	
 	template :  _.template($('#user-measure-breadcrumb').html()),
-	
+	//listen for events
 	events : {				
 		'click .show-help'                : 'showHelp',
 		'click .show-notes'               : 'showNotes',
 		'click .edit-notes'               : 'editNotes'
 	},
 	
+	//render Breadcrumb
 	render : function() {
 		this.$el.html(this.template({product_code:this.options.product_code, product_id:this.options.product_id, hospital_id:this.options.hospital_id, measure_code:this.model.code, notifyUser:this.options.notifyUser}));
 		
@@ -17,11 +18,11 @@ App.Views.HospitalMeasureBreadcrumb = Backbone.View.extend({
 			$('.show')
 			.removeClass('show')
 			.popover('destroy');	
-		});
-		
+		});		
 		return this;
 	},
-	
+
+	// show help
 	showHelp : function(evt){		
 		var _help = this.model.help;
 		var _show = $('.show-help').hasClass('show');
@@ -38,6 +39,7 @@ App.Views.HospitalMeasureBreadcrumb = Backbone.View.extend({
 		evt.stopPropagation();		
 	},
 	
+	//open popup with Notes
 	showNotes : function(evt){		
 		var _help = this.model.notes;
 		var _show = $('.show-notes').hasClass('show');
@@ -60,19 +62,16 @@ App.Views.HospitalMeasureBreadcrumb = Backbone.View.extend({
 		evt.stopPropagation();		
 	},
 	
+	//open popup for Client Notes
 	editNotes : function(evt){		
 		$('.edit-notes').removeClass('btn-info');
 		
 		var thisHospMeasure= this;
 		var m_id = this.model.id;
 				
-		App.cur_measure = new App.Models.HospitalMeasure();
-		
+		App.cur_measure = new App.Models.HospitalMeasure();		
 		App.cur_measure.fetch({data:{id: m_id,hm: true}}).then(function(){		
-		
-		//var qa_view = new App.Views.QA({ model : App.cur_measure});  
-		//var _my_content =  qa_view.render().el; 
-			
+					
 		// mark as read
 		App.cur_measure.set({"notifyUser":false});   
 		App.cur_measure.save();

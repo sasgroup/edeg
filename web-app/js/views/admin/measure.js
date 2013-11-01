@@ -1,28 +1,29 @@
 // List of Measures
 App.Views.Measures = Backbone.View.extend({
+	//template for the view
 	template : _.template($('#measure-list-template').html()),
 
+	//listen for events
 	events : {
 		'click #create_measure' : 'createMeasure'
 	},
 
+	//render view for List of Measures
 	render : function() {		
-		this.$el.html(this.template({
-			measures : this.collection
-		}));
+		this.$el.html(this.template({measures : this.collection}));
 		this.collection.each(this.appendMeasure, this);
 				
 		$('.helpAreaMeasure').wysihtml5();
 		return this;
 	},
 
+	//render single measure in the table of measures
 	appendMeasure : function(measure) {
-		var view = new App.Views.SingleMeasure({
-			model : measure
-		});
+		var view = new App.Views.SingleMeasure({model : measure});
 		this.$el.find('#table_items tbody').append(view.render().el);
 	},
 
+	//redirect to Measure:New page
 	createMeasure : function() {		
 		Backbone.history.navigate("measure/new", true)
 	}
@@ -31,19 +32,22 @@ App.Views.Measures = Backbone.View.extend({
 
 // Edit/New Measure
 App.Views.Measure = Backbone.View.extend({
+	//template for the view
 	template : _.template($('#measure-template').html()),
 
+	//listen for events
 	events : {
-		'submit' : 'editMeasure',
-		'click button#cancel' : 'returnOnMain', 
-		'change #name, #notes' : 'changeVal',
+		'submit' 			  				  : 'editMeasure',
+		'click button#cancel' 				  : 'returnOnMain', 
+		'change #name, #notes' 				  : 'changeVal',
 		'change #measureCategory, #cqmDomain' : 'changeDr',
-		'change .checkbox' : 'changeCh',
-		'click #btnHelp' : 'showHelpDialog'
+		'change .checkbox' 					  : 'changeCh',
+		'click #btnHelp' 					  : 'showHelpDialog'
 	},
 	
+	//render view for Measure:New(Edit) form
 	render : function() {		
-		var state = (this.model.toJSON().id)? "Edit Measure" : "Add New Measure"; 
+		var state = (this.model.isNew())? "Add New Measure":"Edit Measure"; 
 		this.model.set("state", state);
 		
 		this.$el.html(this.template(this.model.toJSON()));
@@ -59,10 +63,7 @@ App.Views.Measure = Backbone.View.extend({
 		App.measureCategories.each(function( measure_category){
 			this_measure.appendMeasureCategory(measure_category);			
 		});
-		
-		
-		this.$el.find('#cqmDomain').append('<option></option>');
-				
+						
 		//append CqmDomains
 		App.cqmDomains.each(function(cqm_domain){
 			this_measure.appendCqmDomain(cqm_domain);			
@@ -71,6 +72,7 @@ App.Views.Measure = Backbone.View.extend({
 		return this;
 	},
 			
+	// render Products referred to the measure
 	appendProducts : function(){
 		var temp = _.template($('#single-measure-product').html());		
 		var checked = [];
@@ -109,6 +111,7 @@ App.Views.Measure = Backbone.View.extend({
 		}	
 	},
 	
+	//render DataElements assigned to the Measure
 	appendDataElements : function(){
 		var temp = _.template($('#single-measure-element').html());
 		var checked = [];
@@ -148,6 +151,7 @@ App.Views.Measure = Backbone.View.extend({
 		}	
 	},
 	
+	// select MeasureCategory 
 	appendMeasureCategory : function(measure_category){
 		var temp = _.template($('#single-measure-category').html());
 		var sel = "";
@@ -158,6 +162,7 @@ App.Views.Measure = Backbone.View.extend({
 		this.$el.find('#measureCategory').append(temp({selected:sel, id:measure_category.get("id"),name:measure_category.get('name')}));
 	},
 	
+	// select CqmDomain 
 	appendCqmDomain : function(cqmComain){
 		var temp = _.template($('#single-measure-domain').html());
 		var sel = "";
@@ -168,13 +173,17 @@ App.Views.Measure = Backbone.View.extend({
 		this.$el.find('#cqmDomain').append(temp({selected:sel, id:cqmComain.get("id"),name:cqmComain.get('name')}));		
 	},
 		
+	//set model attributes 
 	changeDr : function(e) {
 		this.model.attributes[e.target.id] = {id : e.target.value};
 	},
+	
+	//set model attributes 
 	changeVal : function(e) {
 		this.model.attributes[e.target.name] = $(e.target).val();
 	},
 	
+	//save a checkbox state
 	changeCh : function(e) {		
 		if (e.target.name == 'product' ) {
 			if ( e.target.checked ) {				
@@ -210,6 +219,7 @@ App.Views.Measure = Backbone.View.extend({
 		};		
 	},
 	
+	// save Measure
 	editMeasure : function(e) {
 		e.preventDefault();
 		this.model.attributes.help = $('.helpAreaMeasure').val();	
@@ -235,10 +245,12 @@ App.Views.Measure = Backbone.View.extend({
 	    });
 	},
 	
+	//redirect to the list of measures
 	returnOnMain: function () {		
 		Backbone.history.navigate("/measure", true);				
 	},
 	
+	//show help
 	showHelpDialog : function(){
 		if (! $('.helpAreaMeasure').data("wysihtml5") )
 			$('.helpAreaMeasure').wysihtml5();
@@ -248,25 +260,28 @@ App.Views.Measure = Backbone.View.extend({
 	}
 });	
 
-// Single Measure
-App.Views.SingleMeasure = Backbone.View
-		.extend({
+// render Single Measure in the table of Measures
+App.Views.SingleMeasure = Backbone.View.extend({
 			tagName : 'tr',
-			template: _.template($('#single-measure').html()),			
+			template: _.template($('#single-measure').html()),	
+			//listen for events
 			events : {
-				'click #edit' : 'goToEdit',
+				'click #edit'    : 'goToEdit',
 				'click #destroy' : 'destroy'
 			},
-
+			
+			//render a single row
 			render : function() {
 				this.$el.html(this.template(this.model.toJSON()));
 				return this;
 			},
 
+			//redirect to the Measure:Edit page
 			goToEdit : function() {				
 				Backbone.history.navigate("measure/"+this.model.get('id')+'/edit', true);
 			},
 			
+			//delete a Measure
 			destroy : function(e){				
 				e.preventDefault();
 				
@@ -292,4 +307,4 @@ App.Views.SingleMeasure = Backbone.View
 					}
 				});		
 			}
-		});
+});

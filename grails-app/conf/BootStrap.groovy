@@ -4,9 +4,9 @@ class BootStrap {
 
     def init = { servletContext ->
 		
-	/*			
+				
 		
-		def admin = new User(
+		/*def admin = new User(
 			login:"admin",
 			password: "admin",
 			role:"admin")
@@ -562,7 +562,7 @@ class BootStrap {
 		}
 
 		//---
-*/		
+		*/
 		
     }
     def destroy = {

@@ -1,13 +1,16 @@
 // List of ValuesTypes
 App.Views.ValuesTypes = Backbone.View.extend({
+	//template for the view
 	template : _.template($('#vtypes-list-template').html()),
 	
+	//listen for collections events
 	initialize : function() {		
 		this.collection.on('add', this.render, this);
 		this.collection.on('change', this.render, this);
 		this.collection.on('destroy', this.render, this);
 	},
 	
+	//render view for ValuesTypes
 	render : function() {		
 		this.$el.html(this.template());
 		
@@ -30,40 +33,39 @@ App.Views.ValuesTypes = Backbone.View.extend({
 		return this;
 	},
 	
+	//render single ValuesType in the table of ValuesTypes
 	appendValuesType : function(vtype) {
-		var view = new App.Views.SingleValuesType({
-			model : vtype
-		});
+		var view = new App.Views.SingleValuesType({model : vtype});
 		this.$el.find('#table_items tbody').append(view.render().el);
 	}
 });
 
 //New/Edit ValuesType
 App.Views.ValuesType = Backbone.View.extend({
+	//template for the view
 	template : _.template($('#vtype-edit').html()),
-
+	
+	//listen for events
 	events : {
-		'submit' : 'saveValuesType',
+		'submit' 					 : 'saveValuesType',
 		'change #name, #description' : 'changeVal'	
 	},
 	
+	//render view for ValuesType:New(Edit) form
 	render : function() {		
-		var state = (this.model.toJSON().id)? "Edit " : "Add New "; 
+		var state = (this.model.isNew())? "Add New ":"Edit "; 
 		this.$el.html(this.template(this.model.toJSON()));			
 		return this;
 	},
 	
+	//set model attributes 
 	changeVal : function(e) {		
 		this.model.attributes[e.target.name] = $(e.target).val();		
 	},
 		
-	
+	//save ValuesType
 	saveValuesType : function(e) {		
-		e.preventDefault();
-		
-		//this.model.set({name:this.$el.find('#name').val()});
-		//this.model.set({description:this.$el.find('#description').val()});
-		
+		e.preventDefault();			
 		//update view
 		App.valuesType  = new App.Models.ValuesType();								
 		var viewValuesTypeView = new App.Views.ValuesType({model:App.valuesType});
@@ -104,21 +106,23 @@ App.Views.ValuesType = Backbone.View.extend({
 	}	
 });
 
-//Single ValuesType
-App.Views.SingleValuesType = Backbone.View
-		.extend({
+//render a single row in the table of ValuesTypes  
+App.Views.SingleValuesType = Backbone.View.extend({
 			tagName : 'tr',
-			template: _.template($('#single-vtype').html()),		
+			template: _.template($('#single-vtype').html()),
+			//listen for events
 			events : {
 				'click #edit'    : 'goToEdit',
 				'click #destroy' : 'destroy'
 			},
 
+			//render a single row
 			render : function() {
 				this.$el.html(this.template(this.model.toJSON()));
 				return this;
 			},
 							
+			//render form for editing 
 			goToEdit : function() {				
 				App.valuesType  = this.model;	
 				
@@ -134,6 +138,7 @@ App.Views.SingleValuesType = Backbone.View
 				App.route.validateValuesTypeForm();		
 			},
 			
+			//delete a ValuesType from the table
 			destroy : function(e){				
 				e.preventDefault();
 				var el = this.$el;

@@ -110,7 +110,7 @@ class ProductController {
 
 	def delete(Long id) {
 		def product = Product.findById(params.id)
-		
+		//delete all depending links
 		def measuresDep = product.measures ? true : false
 		def hospitalsDep = HospitalProduct.findByProduct(product) ? true : false
 		

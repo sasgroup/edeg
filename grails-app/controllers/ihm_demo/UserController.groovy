@@ -4,7 +4,7 @@ import org.springframework.dao.DataIntegrityViolationException
 
 
 class UserController {
-
+	//need security part
     def scaffold = User
 	
 	def login = {}
