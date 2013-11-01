@@ -6,7 +6,7 @@ class BootStrap {
 		
 				
 		
-		def admin = new User(
+		/*def admin = new User(
 			login:"admin",
 			password: "admin",
 			role:"admin")
@@ -562,7 +562,7 @@ class BootStrap {
 		}
 
 		//---
-		
+		*/
 		
     }
     def destroy = {
