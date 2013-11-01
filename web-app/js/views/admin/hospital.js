@@ -175,13 +175,39 @@ App.Views.Hospital = Backbone.View.extend({
 		// set active tab
 		$('div#myTabContent div').first().addClass('active in');
 		$('ul#myTab li').first().addClass('active');
+			
 						
 		// create and fill in HospitalMeasures for all checked products 
-		this.appendHospitalMeasureTable();	
+		this.appendHospitalMeasureTable();
+		
+		var oTable = $(".hospitalMeasureTable:first").dataTable({
+			"bDestroy": true, 
+			"bPaginate": false,
+			"bSortClasses": false,
+			"bFilter": false,
+			"sScrollY": "292px",			
+			"bSort": true,
+			"bInfo": false,
+			"aaSorting": [[0, 'asc'], [1, 'asc'], [3, 'asc']],
+			"bAutoWidth": false,
+			"aoColumns": [
+				  			{ "sSortDataType": "dom-checkbox" },
+				  			null,
+				  			{"sWidth": "73px" },
+				  			{"sWidth": "336px" },
+				  			{ "sSortDataType": "dom-checkbox", "sWidth": "60px" },
+				  			{ "sSortDataType": "dom-checkbox", "sWidth": "60px" },
+				  			{ "sSortDataType": "dom-checkbox", "sWidth": "50px" },
+				  			{ "sSortDataType": "dom-checkbox", "sWidth": "50px" }
+				  		]						 
+		 });			
+		
+		new FixedColumns( oTable, {"sHeightMatch": "none"} );	
+				
 		$('#loading').hide();
 
 		//active p_id
-		if ($('ul#myTab li.active a').attr('href') != undefined) {
+		if ($('ul#myTab li.active a').prop('href') != undefined) {
 			var link = $('#myTab li.active a').prop("href");
 			var p_id = link.substr(link.indexOf('#')).replace('#t','');
 			var h_id = this.model.get('id');
