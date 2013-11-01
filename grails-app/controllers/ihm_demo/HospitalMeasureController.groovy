@@ -7,6 +7,7 @@ class HospitalMeasureController {
 	def sendMailService
 	
 	private HospitalMeasure saveInstance (HospitalMeasure instance, def param) {
+		// TODO: check here for possible changes to be reported via Email Notification
 		def oldQA = instance.qa
 		boolean odlCompleted = instance.completed
 		instance.properties = param
@@ -30,7 +31,6 @@ class HospitalMeasureController {
 
 	def show() {
 		if(!params?.hm){
-			//println "1"
 			if (params.id && Hospital.exists(params.id)) {
 				def  result = Hospital.get(params.id)
 				def hospitalProducts = HospitalProduct.findAllByHospital(result)
