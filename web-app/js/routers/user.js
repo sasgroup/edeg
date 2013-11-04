@@ -64,9 +64,12 @@ App.Routers.User = Backbone.Router.extend({
 			var availableHospitals = App.security.get('availableHospitals');
 			
 			if ( (hospital_id==-1) &&(_.size(availableHospitals)==1) ) {
-				hospital_id = Object.keys(availableHospitals)[0];
+				//hospital_id = Object.keys(availableHospitals)[0]; //IE7 doesn't understand
+				$.each(availableHospitals, function(key, value) {				      
+				      hospital_id = key;
+				});
 			}
-					
+						
 			if ( hospital_id!=-1) {
 				Backbone.history.navigate('/home/' + hospital_id , true);
 			}
