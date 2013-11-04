@@ -107,6 +107,7 @@ class HospitalElementController {
                                         xl.save(flush:true)
                                 }
                         }
+				//different notification for admin and internal notes		
                 if (session.user.role == "admin") { 
                         if (isNULL(instance.internalNotes, "") != param.internalNotes  ) {
                                 instance.internalNotes = param.internalNotes
@@ -129,11 +130,10 @@ class HospitalElementController {
         def show() {
                 if (params.id && HospitalMeasure.exists(params.id)) {
                         
-                        if (params.defaults){
+                        if (params.defaults){//view defaults hospitalmeasure
                                 def hMeasure = HospitalMeasure.get(params.id)
-                                
+                                //reset to default settings only required HospitalElement"
                                 if (params.he_id){
-                                        println "reset to default settings only required HospitalElement"
                                         def hElement = HospitalElement.get(params.he_id)
                                         if (hElement && hElement.sourceEHR){
                                                 def defSettings = DataElementDefaults.findByDataElementAndEhr(hElement.dataElement, hElement.hospital.ehr)
@@ -151,6 +151,7 @@ class HospitalElementController {
                                                                         if (hme.hospitalElement.id == hElement.id){
                                                                                 hospitalElement         id : hme.hospitalElement.id,
                                                                                                                         version : hme.hospitalElement.version,
+																														//display only for admin
                                                                                                                         internalNotes : isNULL(availableForUser(hme.hospitalElement.internalNotes), ""),
                                                                                                                         location : isNULL(hme.hospitalElement.location,""),
                                                                                                                         notes : isNULL(hme.hospitalElement.notes,""),
@@ -185,8 +186,7 @@ class HospitalElementController {
                                                 }
                                 }
                                 
-                                else{
-                                        println "reset all hospital element to default settings"
+                                else{//reset all hospital element to default settings
                                         if (hMeasure){
                                                 def hElementIds =  hMeasure.hospitalMeasureElements.collect{it.hospitalElement.id}
                                                 for (hElementId in hElementIds){
@@ -243,7 +243,7 @@ class HospitalElementController {
                                 
                                 
                         }
-                        else{
+                        else{//view not default HospitalMeasure
                                 def  result = HospitalMeasure.get(params.id)
                                 HospitalProduct hospitalProduct = HospitalProduct.findByHospitalAndProduct(Hospital.get(params.h_id), Product.get(params.p_id))
                                 HospitalProductMeasure hospitalProductMeasure         = HospitalProductMeasure.findByHospitalProductAndHospitalMeasure(hospitalProduct, result)

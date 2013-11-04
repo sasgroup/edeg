@@ -57,7 +57,7 @@ class HospitalController {
 					hospitalProduct = new HospitalProduct(hospital:hospital, product:product, qa:"", notifyAdmin : false, notifyUser : false).save(flush:true)
 					sendMailService.assignProductToHospital(hospital?.email, hospital?.name, product?.name, new Date())
 				}
-
+				//check what was changing
 				def idx = -1
 				def old_idx = -1
 				for (old_id in old_ids){
@@ -67,7 +67,7 @@ class HospitalController {
 				}
 				if (old_idx>=0)
 					old_ids.remove(old_idx)
-
+				//add hospitalMeasures	
 				for (measure in product?.measures) {
 					def hospitalMeasure 	= HospitalMeasure.findByHospitalAndMeasure(hospital, measure)
 					if (!hospitalMeasure)
@@ -78,6 +78,7 @@ class HospitalController {
 						hospitalProductMeasure 	= new HospitalProductMeasure(hospitalProduct:hospitalProduct, hospitalMeasure:hospitalMeasure, included:_included).save(flush:true)
 					}
 					//TODO ValyesType for HospitalElement
+					//add hospitalElements
 					for (de in measure.dataElements) {
 						def hospitalElement = HospitalElement.findByHospitalAndDataElement(hospital, de)
 						def isNew = false
@@ -96,7 +97,7 @@ class HospitalController {
 																	).save(flush:true)
 							isNew = true
 						}
-
+						//add value from DataElementDEfaults
 						def defaultSetting = DataElementDefaults.findByDataElementAndEhr(de, hospital.ehr)
 						if (defaultSetting) {
 							if (isNew){
@@ -125,7 +126,7 @@ class HospitalController {
 					}
 				}
 			}
-
+			
 			for (oldId in old_ids){
 				def p  = Product.get(oldId)
 				def hp = HospitalProduct.findByHospitalAndProduct(hospital, p)
@@ -172,7 +173,7 @@ class HospitalController {
 					for (msr in prod.measures){
 						def hospitalMeasure = HospitalMeasure.get(msr.id)
 						if (hospitalMeasure){
-							//check for changing
+							//check for changing for notification
 							boolean oldValueC = hospitalMeasure.completed
 							boolean oldValueA = hospitalMeasure.accepted
 							boolean oldValueV = hospitalMeasure.verified
