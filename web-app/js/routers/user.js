@@ -59,10 +59,17 @@ App.Routers.User = Backbone.Router.extend({
 	// initial route, redirect to the current hospital 
 	index : function(){
 		App.security = new App.Models.Security();		
-		App.security.fetch().then(function(){
-			//App.route.getListOfHospitals();
-			var hospital_id = App.security.get('curHospitalId');		
-			Backbone.history.navigate('/home/' + hospital_id , true);						
+		App.security.fetch().then(function(){			
+			var hospital_id = App.security.get('curHospitalId');
+			var availableHospitals = App.security.get('availableHospitals');
+			
+			if ( (hospital_id==-1) &&(_.size(availableHospitals)==1) ) {
+				hospital_id = Object.keys(availableHospitals)[0];
+			}
+					
+			if ( hospital_id!=-1) {
+				Backbone.history.navigate('/home/' + hospital_id , true);
+			}
 		});   
 	},
 		

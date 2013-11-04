@@ -20,8 +20,7 @@ environments {
 		}*/
 		
 		
-		
-
+	
 		dataSource {
 
 		   pooled = true
@@ -32,7 +31,7 @@ environments {
 		   url = 'jdbc:oracle:thin:@localhost:1521:IHM'
 		   dbCreate = 'validate' // 'create-drop' // 
 		   //logSql = true
-       }
+        }
        
 		
     }   
