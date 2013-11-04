@@ -24,7 +24,7 @@ App.Routers.User = Backbone.Router.extend({
 	},
 	
 	//get list of available Hospitals
-	getListOfHospitals : function(){
+	getListOfHospitals : function(h_id){
 		App.availableHospitals = App.security.get('availableHospitals');			
 		var output = new Array();
 
@@ -45,6 +45,9 @@ App.Routers.User = Backbone.Router.extend({
 				$('ul#hospital-list-dropdown').append('<li data-id='+ output[index].id +' class="hospital" id='+ output[index].id+'><a href="#home/' + output[index].id + '">' + output[index].name+ '</a></li>');	
 				$("a.btn.dropdown-toggle").removeAttr('disabled');
 			}
+			
+			$("#hospital-list-dropdown").find('li#'+ h_id).hide();
+			
 		} else {
 			//show hospital-name		
 			if (_.size(output) == 1) { 
@@ -54,6 +57,7 @@ App.Routers.User = Backbone.Router.extend({
 			$("a.btn.dropdown-toggle").attr('disabled','disabled');
 			$("#hospital-list-dropdown").hide();
 		}			
+		
 	},
 	
 	// initial route, redirect to the current hospital 
@@ -80,7 +84,7 @@ App.Routers.User = Backbone.Router.extend({
 	// render home page
 	home : function(h_id){		
 		 App.security.fetch().then(function(){						 
-			App.route.getListOfHospitals();	 				
+			App.route.getListOfHospitals(h_id);	 				
 			$('#breadcrumb-box').empty();
 			$('#app').empty();
 					
@@ -121,7 +125,7 @@ App.Routers.User = Backbone.Router.extend({
 		App.cur_hosp_product = new App.Models.HospitalProduct();
 		
 		App.security.fetch().then(function(){						 
-			App.route.getListOfHospitals();	 
+			App.route.getListOfHospitals(h_id);	 
 			App.ho.fetch({data:{id: h_id}}).then(function(){
 				App.cur_hosp_product.fetch({data:{p_id:p_id, h_id:h_id}}).then(function(){	
 			  
@@ -194,7 +198,7 @@ App.Routers.User = Backbone.Router.extend({
         App.h_id = h_id;
                              
         App.security.fetch().then(function(){						 
-			App.route.getListOfHospitals();	 
+			App.route.getListOfHospitals(h_id);	 
 			App.hpm.fetch({data:{h_id:h_id, p_id:p_id, m_id:m_id}}).then(function(){
 				App.cur_measure.fetch({data:{id: m_id,hm: true}}).then(function(){                        
 					App.valuesTypes.fetch().then(function(){              
