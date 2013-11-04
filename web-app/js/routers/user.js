@@ -61,13 +61,14 @@ App.Routers.User = Backbone.Router.extend({
 		App.security = new App.Models.Security();		
 		App.security.fetch().then(function(){			
 			var hospital_id = App.security.get('curHospitalId');
-			var availableHospitals = App.security.get('availableHospitals');
-			
-			if ( (hospital_id==-1) &&(_.size(availableHospitals)==1) ) {
-				//hospital_id = Object.keys(availableHospitals)[0]; //IE7 doesn't understand
-				$.each(availableHospitals, function(key, value) {				      
-				      hospital_id = key;
-				});
+			var availableHospitals = App.security.get('availableHospitals');			
+						
+			if ((hospital_id==-1) &&(_.size(availableHospitals)>=1) ) {
+				var hospitals = new Array();
+				$.each(availableHospitals, function(key, value) {
+					hospitals.push({id: key, name: value});
+				});				
+				hospital_id = hospitals[0].id;				
 			}
 						
 			if ( hospital_id!=-1) {
