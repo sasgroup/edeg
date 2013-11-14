@@ -35,7 +35,7 @@ auditLog {
 	actorClosure = { request, session ->
 		session.user?.login
 	}
-	TRUNCATE_LENGTH = 4000 //255     
+	TRUNCATE_LENGTH = 255     
   }
 // URL Mapping Cache Max Size, defaults to 5000
 //grails.urlmapping.cache.maxsize = 1000
@@ -43,18 +43,22 @@ auditLog {
 // What URL patterns should be processed by the resources plugin
 grails.resources.adhoc.patterns = ['/images/*', '/css/*', '/js/*', '/plugins/*']
 
+grails.mail.jndiName = "java:comp/env/mail/EDEG"
+/*
 grails {
 	mail {
-	  host = "mail.healthmetrics.org"
-	  port = 25
-	  //username = "ihm.edeg@gmail.com"
-	  //password = "swuzabra"
-	  props = ["mail.smtp.auth":"false" /*,
-			   "mail.smtp.socketFactory.port":"25",
+	  host = "smtp.gmail.com"
+	  port = 465
+	  username = "ihm.edeg@gmail.com"
+	  password = "swuzabra"
+	  props = ["mail.smtp.auth":"true",
+			   "mail.smtp.socketFactory.port":"465",
 			   "mail.smtp.socketFactory.class":"javax.net.ssl.SSLSocketFactory",
-			   "mail.smtp.socketFactory.fallback":"false"*/]
+			   "mail.smtp.socketFactory.fallback":"false"]
 	}
 }
+*/
+
 
 // The default codec used to encode data with ${}
 grails.views.default.codec = "none" // none, html, base64
@@ -94,28 +98,10 @@ environments {
 log4j = {
     // Example of changing the log pattern for the default console appender:
     //
-    //appender.stacktractLog = "org.apache.log4j.FileAppender"
-    //appender.'stacktraceLog.File'="/var/log/tomcat5/catalina.out"
+    //appenders {
+    //    console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
+    //}
 
-    appenders {
-		'null' name: "stdout"
-		
-        console name: "catalinaOut", 
-				layout: pattern(conversionPattern: "%-5p [%d] %c{2} %m%n")
-				
-		rollingFile name: "file", 
-				file: "logs/ihm.log",
-				maxFileSize: "50MB",
-                maxBackupIndex: 5,
-                layout: pattern(conversionPattern: "%-5p [%d] %c{2} %m%n"),
-                threshold: org.apache.log4j.Level.DEBUG
-	}
-
-	root {
-		info "catalinaOut", "file"
-        additivity = true
-	}
-	
     error  'org.codehaus.groovy.grails.web.servlet',        // controllers
            'org.codehaus.groovy.grails.web.pages',          // GSP
            'org.codehaus.groovy.grails.web.sitemesh',       // layouts
@@ -127,8 +113,6 @@ log4j = {
            'org.springframework',
            'org.hibernate',
            'net.sf.ehcache.hibernate'
-		   
-	debug  'ihm_demo'
 }
 
 

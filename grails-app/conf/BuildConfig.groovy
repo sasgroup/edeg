@@ -67,6 +67,7 @@ grails.project.dependency.resolution = {
 		
 		compile ":excel-export:0.1.7"
 		
+		compile ":external-config:2.0"
 		//compile ":audit-logging:0.5.4"
     }
 }
