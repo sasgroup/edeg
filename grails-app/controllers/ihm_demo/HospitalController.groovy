@@ -8,13 +8,12 @@ import org.codehaus.groovy.grails.web.servlet.mvc.GrailsParameterMap
 import org.springframework.dao.DataIntegrityViolationException
 
 class HospitalController {
-	
 	def sendMailService
 	def securityService
 	def fileUploadService
 	
 	def update(Long id, Long version) {
-		
+		log.info "update() called"
 		if (params.clone){
 			// TODO: clone action
 			def currHospital = Hospital.get(params.id)
@@ -25,24 +24,19 @@ class HospitalController {
 						resp = "ok"
 						message = "Cloned Successfully"
 					}
-				}
-				else{
+				} else{
 					render(contentType: "text/json") {
 						resp = "error"
 						message = "Clone Failed"
 					}
 				}
-			}
-			else{
+			} else{
 				render(contentType: "text/json") {
 					resp = "error"
 					message = "Please define valid Hospitals"
 				}
 			}
-		}
-		
-		
-		else if (params.apply){
+		} else if (params.apply) {
 			// update Hospital: set primary EHR
 			def hospital = Hospital.get(params.id)
 			hospital = saveHospital(hospital, params)
@@ -106,14 +100,12 @@ class HospitalController {
 								hospitalElement.location = defaultSetting.location
 								//hospitalElement.valueType = defaultSetting.valueType
 								hospitalElement.valuesType = deriveValuesType(defaultSetting)
-							}
-							else if (hospitalElement.sourceEHR){
+							} else if (hospitalElement.sourceEHR){
 								hospitalElement.sourceEHR = true
 								hospitalElement.source = hospital.ehr.code
 								//hospitalElement.valuesType = deriveValuesType(defaultSetting)
 							}
-						}
-						else if (hospitalElement.sourceEHR){
+						} else if (hospitalElement.sourceEHR){
 							// TODO need client verification
 							hospitalElement.sourceEHR = true
 							hospitalElement.source = hospital.ehr.code
@@ -146,9 +138,7 @@ class HospitalController {
 				resp = "ok"
 				message = "Hospital ${hospital.name} "
 			}
-		}
-		
-		else if (params.submit) { //if just save
+		} else if (params.submit) { //if just save
 			def hospitalInstance = Hospital.get(id)
 			if  (!hospitalInstance) {
 				render(contentType: "text/json") {
@@ -179,33 +169,34 @@ class HospitalController {
 							boolean oldValueV = hospitalMeasure.verified
 							boolean oldValueCo = hospitalMeasure.confirmed
 							
-							
 							hospitalMeasure.accepted = msr.accepted
 							hospitalMeasure.completed = msr.completed
 							hospitalMeasure.confirmed = msr.confirmed
 							hospitalMeasure.verified = msr.verified
 							hospitalMeasure.save(flush:true)
 							
-							if (oldValueC != hospitalMeasure.completed && hospitalMeasure.completed)
+							if (oldValueC != hospitalMeasure.completed && hospitalMeasure.completed) {
 								sendMailService.markMeasureAsComplete(hospitalInstance?.email, hospitalInstance?.name, product?.name, msr?.name, new Date(), session?.user.login)
-								
-							if (oldValueA != hospitalMeasure.accepted && hospitalMeasure.accepted)
+							}
+							if (oldValueA != hospitalMeasure.accepted && hospitalMeasure.accepted) {
 								sendMailService.asseptMeasureThatCompleted(hospitalInstance?.email, hospitalInstance?.name, product?.name, msr?.name, new Date(), session?.user.login)
-								
-							if (oldValueV != hospitalMeasure.verified && hospitalMeasure.verified)
-								sendMailService.verifieMeasure(hospitalInstance?.email, hospitalInstance?.name, product?.name, msr?.name, new Date(), session?.user.login)
-								
-							if (oldValueCo != hospitalMeasure.confirmed && hospitalMeasure.confirmed)
-								sendMailService.omissionUserIdentifie(hospitalInstance?.email, hospitalInstance?.name, product?.name, msr?.name)
-							
+							}
+							if (oldValueV != hospitalMeasure.verified && hospitalMeasure.verified) {
+								sendMailService.verifiedMeasure(hospitalInstance?.email, hospitalInstance?.name, product?.name, msr?.name, new Date(), session?.user.login)
+							}
+							if (oldValueCo != hospitalMeasure.confirmed && hospitalMeasure.confirmed) {
+								sendMailService.omissionUserIdentified(hospitalInstance?.email, hospitalInstance?.name, product?.name, msr?.name)
+							}
 						}
 						def hospitalProductMeasure 	= HospitalProductMeasure.findByHospitalProductAndHospitalMeasure(hospitalProduct, hospitalMeasure)
 						boolean oldIncluded = hospitalProductMeasure.included
-						if (hospitalProductMeasure)
+						if (hospitalProductMeasure) {
 							hospitalProductMeasure.included	= msr.included
+						}
 						hospitalProductMeasure.save(flush:true)
-						if (oldIncluded != hospitalProductMeasure.included && hospitalProductMeasure.included)
+						if (oldIncluded != hospitalProductMeasure.included && hospitalProductMeasure.included) {
 							sendMailService.includeMeasureIntoHospitalProduct(hospitalInstance?.email, hospitalInstance?.name, product?.name, msr?.name, new Date())
+						}
 					}
 				}
 			}
@@ -216,31 +207,28 @@ class HospitalController {
 				resp = "ok"
 				message = "Hospital ${hospitalInstance.name} has been successfully updated"
 			}
-		}
-		
-		
-		else {
+		} else {
 			render(status: 420, text: "SomeError")
 		}
-		
 	}
 
-	
 	private ValuesType deriveValuesType(DataElementDefaults defaultSetting){
+		log.info "deriveValuesType() called"
 		if (defaultSetting.ids){
 			String[] _ids = ((String)defaultSetting.ids).split(';') 
 			def valuesTypes = ValuesType.list()
 			for (vt in valuesTypes){
-				if (_ids.contains(vt.id.toString()))
+				if (_ids.contains(vt.id.toString())) {
 					return vt
+				}
 			}
-		}
-		else
+		} else {
 			return ValuesType.findByName("NotApplicable")
+		}
 	}
 	
-	
 	def unlinkProductAndMeasure(Long hp_id, Long hm_id){
+		log.info "unlinkProductAndMeasure() called"
 		def hp = HospitalProduct.findById(hp_id)
 		def hm = HospitalMeasure.findById(hm_id)
 		def hpm = HospitalProductMeasure.findByHospitalProductAndHospitalMeasure(hp, hm);
@@ -252,7 +240,7 @@ class HospitalController {
 		hpm.hospitalMeasure = null
 		hpm.delete(flush:true)
 
-		if (hsize==1){
+		if (hsize==1) {
 			def he_ids = hm.hospitalMeasureElements.collect{it.hospitalElement.id}
 			for (he_id in he_ids){
 				unlinkMeasureAndElement(hm_id, he_id)
@@ -263,6 +251,7 @@ class HospitalController {
 	}
 
 	def unlinkMeasureAndElement(Long hm_id, Long he_id){
+		log.info "unlinkMeasureAndElement() called"
 		def hm = HospitalMeasure.findById(hm_id)
 		def he = HospitalElement.findById(he_id)
 		def hme = HospitalMeasureElement.findByHospitalMeasureAndHospitalElement(hm, he);
@@ -274,7 +263,7 @@ class HospitalController {
 		hme.hospitalMeasure = null
 		hme.delete(flush:true)
 
-		if (hsize==1){
+		if (hsize==1) {
 			he = HospitalElement.findById(he_id)
 			HospitalValueSet.executeUpdate("delete HospitalValueSet hvs where hvs.hospitalElement=?", [he])
 			ElementExtraLocation.executeUpdate("delete ElementExtraLocation eel where eel.hospitalElement=?", [he])
@@ -285,6 +274,7 @@ class HospitalController {
 	
 	
 	def show() {
+		log.info "show() called"
 		if (params.id && Hospital.exists(params.id)) {
 			def  result = Hospital.get(params.id)
 
@@ -323,9 +313,7 @@ class HospitalController {
 					}
 				}
 			}
-		}
-		else {
-			
+		} else {
 			// IMPORTANT
 			// here we are expecting to get the whole list of Hospitals
 			// and if we detect any new hospital we just add it to our list
@@ -338,26 +326,22 @@ class HospitalController {
 			Map<String, String> allHospitals = securityService.getHospitalNameMap(request.getRemoteUser())
 			allHospitals.each { key, value  ->
 				def h = Hospital.findByIhmid(key)
-				if (!h){
+				if (!h) {
 					h = new Hospital(name:value, ehr:firstEHR, notes:"", populationMethod: "ED-ALL", externalEHRs:"", ihmid:key)
 					h.save(flush: true)
-				}
-				else if (h.name != value ){
+				} else if (h.name != value ){
 					h.name = value
 					h.save(flush: true)
 				}
 			}
 
-			// from this point forward we should get 'sync'ed list of available hospitals			
+			// from this point forward we should get 'sync'ed list of available hospitals
 			def results = Hospital.list([sort: 'name', order:'asc'])
 			render(contentType: "text/json") {
 				hospitals = array {
 					for (p in results) {
 						if (allHospitals[p.ihmid]){
-							hospital 	name: p.name, 
-										notes: isNULL(p.notes,""),
-										email: isNULL(p.email,""), 
-										id: p.id
+							hospital name: p.name, notes: isNULL(p.notes,""), email: isNULL(p.email,""), id: p.id
 						}
 					}
 				}
@@ -365,10 +349,8 @@ class HospitalController {
 		}
 	}
 	
-	
-	
-	
 	private Boolean cloneHospitalSettings(Hospital curr, Hospital srch){
+		log.info "cloneHospitalSettings() called"
 		
 		// STEP 1 : clean UP current hospital
 		def hProducts = HospitalProduct.findAllByHospital(curr)
@@ -379,7 +361,7 @@ class HospitalController {
 			ElementExtraLocation.executeUpdate("delete ElementExtraLocation eel where eel.hospitalElement=?", [he])
 			HospitalMeasureElement.executeUpdate("delete HospitalMeasureElement hme where hme.hospitalElement=?", [he])
 		}
-		for (hm in hMeasures){
+		for (hm in hMeasures) {
 			HospitalProductMeasure.executeUpdate("delete HospitalProductMeasure hpm where hpm.hospitalMeasure=?", [hm])
 		}
 		HospitalElement.executeUpdate("delete HospitalElement he where he.hospital=?", [curr])
@@ -481,39 +463,41 @@ class HospitalController {
 		}
 		
 		sendMailService.hospitalOptionsCloned(curr?.email, curr.name, srch.name, new Date(), session?.user.login)
-	
+		
 		render(contentType: "text/json") {
 			resp = "ok"
 			message = "Hospital options are stransferred from [ ${srch.name} ] to [ ${curr.name} ] "
 		}
 		
-		
 		return true
 	}
 	
-
 	private Hospital saveHospital (Hospital hospitalInstance, GrailsParameterMap params) {
+		log.info "saveHospital() called hospitalInstance=" + hospitalInstance
 		def modificationDetected = false
 		//save and checks for Notification
-		if (isNULL(hospitalInstance.email,"") != params?.email)				
-			modificationDetected = true 	
+		if (isNULL(hospitalInstance.email,"") != params?.email) {
+			modificationDetected = true
+		}
 		hospitalInstance.email = params?.email
 		
-		if (isNULL(hospitalInstance.externalEHRs,"") != params?.externalEHRs)
-			modificationDetected = true 	
+		if (isNULL(hospitalInstance.externalEHRs,"") != params?.externalEHRs) {
+			modificationDetected = true
+		}
 		hospitalInstance.externalEHRs = params?.externalEHRs
 		
-		if (isNULL(hospitalInstance.populationMethod,"") !=  params?.populationMethod)
-			modificationDetected = true 	
-		hospitalInstance.populationMethod 	= params?.populationMethod
+		if (isNULL(hospitalInstance.populationMethod,"") !=  params?.populationMethod) {
+			modificationDetected = true
+		}
+		hospitalInstance.populationMethod = params?.populationMethod
 		
-		if (params.apply){
+		if (params.apply) {
 			def ehrID = (params?.ehr_id) ? params?.ehr_id : params.ehr.id 
-			if (!hospitalInstance.ehr && ehrID != "" && hospitalInstance.ehr 	!= Ehr.get(ehrID))	
-				modificationDetected = true 	
+			if (!hospitalInstance.ehr && ehrID != "" && hospitalInstance.ehr != Ehr.get(ehrID)) {
+				modificationDetected = true
+			}
 			hospitalInstance.ehr = Ehr.get(ehrID)
 		}
-		
 		
 		if (modificationDetected) { 
 			hospitalInstance.notes = params?.notes
@@ -526,12 +510,11 @@ class HospitalController {
 			hospitalInstance.save(flush:true)
 			sendMailService.updateHospitalConfig("", hospitalInstance.name, new Date())
 		}
-			
+		
 		return hospitalInstance
 	}
 	
 	private String isNULL(String str, String dfl){
 		return (null!=str)?str:dfl
 	}
-	
 }

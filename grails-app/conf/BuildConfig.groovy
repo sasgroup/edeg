@@ -61,9 +61,9 @@ grails.project.dependency.resolution = {
 
         compile ':cache:1.0.1'
 		
-		compile ":mail:1.0.1"
+		build ":mail:1.0.1"
 		
-		compile ":asynchronous-mail:1.0-RC5"
+		build ":asynchronous-mail:1.0-RC5"
 		
 		compile ":excel-export:0.1.7"
 		

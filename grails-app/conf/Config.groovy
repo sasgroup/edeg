@@ -113,6 +113,19 @@ log4j = {
            'org.springframework',
            'org.hibernate',
            'net.sf.ehcache.hibernate'
+		   
+	debug 'ihm_demo'
+		   
+	root {
+		info()
+	}
+	
+	appenders {
+		file name: 'file', file:'edeg.log', append: false
+	}
+	root {
+		info 'stdout', 'file'
+	}
 }
 
 

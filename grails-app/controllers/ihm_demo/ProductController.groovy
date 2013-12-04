@@ -4,13 +4,13 @@ import grails.converters.JSON
 import org.springframework.dao.DataIntegrityViolationException
 
 class ProductController {
-	
 	private Product saveInstance (Product instance, def param) {
+		log.info "saveInstance() called"
 		instance.name = param.name
 		instance.code = param.code
 		instance.notes = isNULL(param?.notes,"")
 		instance.help = isNULL(param?.help,"")
-				
+		
 		if (instance.id) {
 			instance.measures.clear()
 		}
@@ -19,18 +19,18 @@ class ProductController {
 			instance.addToMeasures(Measure.get(measure.mid))
 		}
 		instance.save(flush :true)
-		
 		return instance
 	}
 	
 	def save() {
+		log.info "save() called"
 		def productInstance  = saveInstance(new Product(), params)
-		if (productInstance)
+		if (productInstance) {
 			render(contentType: "text/json") {
-						resp = "ok"
-						message = "Product ${productInstance.code} has been successfully created"
+				resp = "ok"
+				message = "Product ${productInstance.code} has been successfully created"
 			}
-		else{
+		} else {
 			render(contentType: "text/json") {
 				resp = "error"
 				message = "Validation Error ID filed should be Unique..."
@@ -39,6 +39,7 @@ class ProductController {
 	}
 
 	def show() {
+		log.info "show() called"
 		if (params.id && Product.exists(params.id)) {
 			def  pr = Product.get(params.id)
 
@@ -58,13 +59,11 @@ class ProductController {
 				}
 				hospitals = array {
 					for (h in HospitalProduct.findAllByProduct(pr)) {
-						hospital  	hname: h.hospital.name, 
-									hid: h.hospital.id
+						hospital  	hname: h.hospital.name, hid: h.hospital.id
 					}
 				}
 			}
-		} 
-		else {
+		} else {
 			def results = Product.list()
 	
 			render(contentType: "text/json") {
@@ -82,6 +81,7 @@ class ProductController {
 	}
 
 	def update(Long id, Long version) {
+		log.info "update() called"
 		def productInstance = Product.get(id)
 
 		if  (!productInstance) {
@@ -98,7 +98,7 @@ class ProductController {
 					message = "Another user edited this record and saved the changes before you attempted to save your changes. Re-edit the record ${productInstance.code}."					
 				}
 			} 
-		 }	
+		 }
 		
 		productInstance  = saveInstance(productInstance, params)
 		render(contentType: "text/json") {
@@ -109,6 +109,7 @@ class ProductController {
 	
 
 	def delete(Long id) {
+		log.info "delete() called"
 		def product = Product.findById(params.id)
 		//delete all depending links
 		def measuresDep = product.measures ? true : false
@@ -120,8 +121,7 @@ class ProductController {
 
 		if (measuresDep || hospitalsDep) {
 			render(status: 420, text: "Product ${code} cannot be deleted because of existing dependencies")
-		} 
-		else {
+		} else {
 			product?.delete(flush: true)
 			render(contentType: "text/json") {
 				resp = "success"
