@@ -43,7 +43,7 @@ auditLog {
 // What URL patterns should be processed by the resources plugin
 grails.resources.adhoc.patterns = ['/images/*', '/css/*', '/js/*', '/plugins/*']
 
-grails.mail.jndiName = "java:comp/env/mail/EDEG"
+/*grails.mail.jndiName = "java:comp/env/mail/EDEG"*/
 /*
 grails {
 	mail {
@@ -58,6 +58,16 @@ grails {
 	}
 }
 */
+grails {
+	mail {
+	  host = "192.168.100.200"
+	  port = "25"
+	  props = ["mail.smtp.auth":"false",
+			   "mail.smtp.socketFactory.port":"25",
+			   "mail.smtp.socketFactory.class":"javax.net.SocketFactory",
+			   "mail.smtp.socketFactory.fallback":"false"]
+	}
+}
 
 
 // The default codec used to encode data with ${}

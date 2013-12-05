@@ -26,6 +26,8 @@ class SendMailService {
 		
 		log.info "invoke the asyncMailService."
 		asyncMailService.sendMail {
+			replyTo "edeg@ihm-services.com"
+			from "edeg@ihm-services.com"
 		    to transferToList(recipients).toArray()
 		    subject "$subjectM"
 			html "$bodyM"
