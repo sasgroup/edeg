@@ -54,6 +54,11 @@ class SendMailService {
 		sendMail (sendTo, "Product Has Been Removed", "The <b>$productName</b> product has been removed from <b>$hospitalName</b> on <b>$updateDate</b>.")
 	}	
 	
+	def updateHospitalPrimaryEHR (String sendTo, String hospitalName, Date updateDate) {
+		log.info "updateHospitalConfig() called - sendTo=$sendTo, hospitalName=$hospitalName, updateDate=$updateDate"
+		sendMail(sendTo,"Hospital Configuration Has Been Updated","The hospital configuration for <b>$hospitalName</b> has been updated on <b>$updateDate</b> for changing primary EHR for a hospital.")
+	}
+	
 	def updateHospitalConfig (String sendTo, String hospitalName, Date updateDate) {
 		log.info "updateHospitalConfig() called - sendTo=$sendTo, hospitalName=$hospitalName, updateDate=$updateDate"
 		sendMail(sendTo,"Hospital Configuration Has Been Updated","The hospital configuration for <b>$hospitalName</b> has been updated on <b>$updateDate</b>")

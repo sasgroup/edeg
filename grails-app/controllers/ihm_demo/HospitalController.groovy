@@ -493,10 +493,12 @@ class HospitalController {
 		
 		if (params.apply) {
 			def ehrID = (params?.ehr_id) ? params?.ehr_id : params.ehr.id 
+			log.info "apply ehrID=" + ehrID  
 			if (!hospitalInstance.ehr && ehrID != "" && hospitalInstance.ehr != Ehr.get(ehrID)) {
 				modificationDetected = true
 			}
 			hospitalInstance.ehr = Ehr.get(ehrID)
+			sendMailService.updateHospitalPrimaryEHR("", hospitalInstance.name, new Date())
 		}
 		
 		if (modificationDetected) { 
