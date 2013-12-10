@@ -498,7 +498,7 @@ class HospitalController {
 				modificationDetected = true
 			}
 			hospitalInstance.ehr = Ehr.get(ehrID)
-			sendMailService.updateHospitalPrimaryEHR("", hospitalInstance.name, new Date())
+			sendMailService.updateHospitalPrimaryEHR(hospitalInstance?.email, hospitalInstance.name, new Date())
 		}
 		
 		if (modificationDetected) { 
